@@ -2,6 +2,10 @@
 
 Read [AGENTS.md](AGENTS.md) and the [code map](docs/code-map.md). Open an issue or draft PR describing the concrete problem and expected behavior. For a new backend or a schema/authority change, describe the contract before implementation.
 
+Install FFmpeg on your system before running the full suite; the video export
+tests use both `ffmpeg` and `ffprobe` from `PATH`. On Ubuntu, run
+`sudo apt-get install ffmpeg`. The Synthetic quickstart does not need FFmpeg.
+
 ```bash
 uv sync --all-extras --locked
 uv run --locked python -m pytest tests

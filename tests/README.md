@@ -1,5 +1,9 @@
 # Test system
 
+The full deterministic suite needs system `ffmpeg` and `ffprobe` executables
+for video export tests. Install FFmpeg (for example, `sudo apt-get install
+ffmpeg` on Ubuntu) before running it. GitHub CI installs the same dependency.
+
 `test_output_storage.py` checks host-local shared output selectors, explicit
 workspace overrides, logical run indexing, linked discovery and rejection of
 conflicting namespaces or escaped runs. These checks use temporary filesystems.

@@ -37,6 +37,11 @@ jobs:
       - name: Sync the locked environment
         run: uv sync --all-extras --locked
 
+      - name: Install video test dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y ffmpeg
+
       - name: Verify installation discovery
         run: uv run --locked ora doctor --json
 
