@@ -52,6 +52,8 @@ Look under `outputs/quickstart/runs/<run-id>/` for `plan.json`, `result.json`, `
 
 The viewer discovers the saved run. [Choose a robot environment](support.md) after this example works.
 
+Synthetic reserves 1 GiB of free workspace and 0.25 GiB of scratch by default; explicit host storage settings take precedence. No simulator disk reserve is required.
+
 ## Troubleshooting
 
 | Symptom | Check |

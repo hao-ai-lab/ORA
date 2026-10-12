@@ -71,7 +71,8 @@ def test_capacity_checks_pass_and_report_measured_values(host):
     assert workspace["detail"]["path"] == str(host.outputs / "exp-storage")
     assert workspace["detail"]["filesystem_probe"] == str(host.outputs)
     assert (workspace["detail"]["free_bytes"], workspace["detail"]["free_gib"]) == (120 * GIB, 120.0)
-    assert workspace["detail"]["minimum_free_gib"] == 20
+    assert workspace["detail"]["minimum_free_gib"] == 1
+    assert workspace["detail"]["floor_source"] == "synthetic_default"
     tmpdir = checks["runtime_tmpdir"]
     assert tmpdir["passed"] is True
     assert tmpdir["detail"]["tmp_base"] == str(host.scratch)
@@ -86,9 +87,9 @@ def test_capacity_checks_pass_and_report_measured_values(host):
 
 def test_the_floor_is_inclusive(host):
     host.free[str(host.outputs)] = 20.0
-    assert _checks(_plan())["evidence_workspace_capacity"]["passed"] is True
+    assert _checks(_plan(kind="robotwin"))["evidence_workspace_capacity"]["passed"] is True
     host.free[str(host.outputs)] = 20.0 - 1 / GIB
-    low = _checks(_plan())
+    low = _checks(_plan(kind="robotwin"))
     assert low["evidence_workspace_capacity"]["passed"] is False
     assert low["runtime_tmpdir"]["passed"] is True  # same filesystem, 2 GiB floor
 
@@ -429,3 +430,17 @@ def test_synthetic_does_not_need_a_unix_rpc_socket(host, monkeypatch):
     assert synthetic["detail"]["rpc_socket_required"] is False
     isolated = _checks(_plan(kind="robotwin"))["runtime_tmpdir"]
     assert isolated["passed"] is False
+
+
+def test_synthetic_storage_floors_are_small_but_explicit_host_settings_win(host, monkeypatch):
+    host.free[str(host.outputs)] = 1.0
+    checks = _checks(_plan())
+    assert checks["evidence_workspace_capacity"]["passed"] is True
+    assert checks["runtime_tmpdir"]["detail"]["minimum_free_gib"] == 0.25
+    host.free[str(host.outputs)] = 1.0 - 1 / GIB
+    assert _checks(_plan())["evidence_workspace_capacity"]["passed"] is False
+    host.free[str(host.outputs)] = 12.66
+    _profile(monkeypatch, {"minimum_workspace_free_gib": 20})
+    explicit = _checks(_plan(required_host="fixture"))["evidence_workspace_capacity"]
+    assert explicit["passed"] is False
+    assert explicit["detail"]["floor_source"] == "host_profile:fixture"

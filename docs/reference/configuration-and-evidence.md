@@ -63,3 +63,7 @@ Synthetic runs in process, so its scratch directory is checked for capacity and 
 ## Path-only asset references
 
 Composable policy assets name owned components by repository-relative path. `policy.lock` supplies their current bytes and content hashes; do not duplicate mutable owned-asset SHA literals inside a composable record. External source/model pins, reviewed evidence and generated compiled manifests retain their distinct identities. A reference escaping the tree, absent from the lock or using an inadmissible inline pin is refused. Regenerate compiled artifacts and the lock deliberately after changing their inputs.
+
+## Storage admission floors
+
+Synthetic defaults to 1 GiB free in the evidence workspace and 0.25 GiB in scratch. Isolated robot runtimes retain the 20 GiB workspace and 2 GiB scratch defaults. A host profile's explicit `runtime_storage` floors take precedence for either kind; capacity and writability are still probed. These are admission reserves, not predicted episode sizes.

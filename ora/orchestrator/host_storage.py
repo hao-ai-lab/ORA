@@ -61,6 +61,8 @@ _FLOOR_KEYS = {
     "minimum_tmp_free_gib": DEFAULT_MINIMUM_TMP_FREE_GIB,
     "minimum_system_free_gib": DEFAULT_MINIMUM_SYSTEM_FREE_GIB,
 }
+# In-process Synthetic writes bounded JSON/image evidence, without simulator caches.
+_SYNTHETIC_FLOORS = {"minimum_workspace_free_gib": 1.0, "minimum_tmp_free_gib": 0.25}
 Check = Callable[[str, bool, Any], dict[str, Any]]
 
 
@@ -123,10 +125,15 @@ def storage_config(plan: Mapping[str, Any]) -> dict[str, Any]:
     if unknown:
         raise StorageConfigError(f"{HOST_STORAGE_KEY} has unknown keys: {sorted(unknown)}")
     source = f"host_profile:{host}"
-    floors = {
-        name: (_floor(block[name], name), source) if name in block else (default, "default")
-        for name, default in _FLOOR_KEYS.items()
-    }
+    synthetic = plan.get("runtime", {}).get("kind") == "synthetic"
+    floors = {}
+    for name, default in _FLOOR_KEYS.items():
+        if name in block:
+            floors[name] = (_floor(block[name], name), source)
+        elif synthetic and name in _SYNTHETIC_FLOORS:
+            floors[name] = (_SYNTHETIC_FLOORS[name], "synthetic_default")
+        else:
+            floors[name] = (default, "default")
     tmp_root = block.get("tmp_root")
     if tmp_root is None:
         base, base_source = run_scratch.default_base(), "workspace_default"
