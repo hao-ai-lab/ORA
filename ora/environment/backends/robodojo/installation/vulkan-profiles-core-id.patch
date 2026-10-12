@@ -1,0 +1,12 @@
+--- a/scripts/gen_profiles_layer.py
++++ b/scripts/gen_profiles_layer.py
+@@ -5242,6 +5242,9 @@
+                 gen += 'PhysicalDeviceData::HasExtension(&pdd, '
+                 gen += registry.extensions[promotedTo].upperCaseName + '_EXTENSION_NAME'
+                 gen += ')'
++            if ext == 'VK_KHR_external_memory_capabilities':
++                # VkPhysicalDeviceIDProperties is core 1.1; this is an instance extension.
++                gen += ' || api_version_above_1_1'
+             gen += ') {\n'
+         else:
+             gen += '\n                if (api_version_above_' + str(version.major) + '_' + str(version.minor) + ') {\n'

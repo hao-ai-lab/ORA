@@ -1,0 +1,803 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "organize_table",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/organize_table-review-v3.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/organize_table-completion-v3.md",
+    "sha256": "474a73f69442a85e3636f0daff5502461b9eadbd4a8d791b0e099fa57b85b15f"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_0.json",
+    "layout_sha256": "e55e5cffef73b1967ad26dc0c7c8933ce05e68f329450ae0ac933abf386fa5ba"
+  },
+  "instruction": {
+    "text": "Place the mouse on the mouse pad, push the keyboard into the frame, put the figurine on the stand, place the alarm clock on the drawer, then open the drawer and put all remaining miscellaneous items inside.",
+    "origin": "task/RoboDojo/tasks/organize_table.py::gen_instruction"
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json"
+  },
+  "decision": "User decision 2026-10-01: EXP11A g012 adds a three-round session (K = 3 rounds) of organize_table with a new reviewed layout of eval_seed 0 per round. This appendix extends the organize_table review-v3 record from layout 0 to the reviewed pool 17, 14, 39 and the fallback 19 without changing its contract text, and binds each audited layout's object metadata.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/organize_table.py:100-104) returns one constant template, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
+    "Objects: every audited layout holds one each of the Rigid mouse, alarm (model 0), keyboard and garage (the figurine), and the Geometry drawer/0, cube_cushion/2 (the stand), monitor, mousemat/0, frame/0 and camera stand. The frame, the stand and the camera stand are JSON-equal to layout 0; the drawer's x, the mouse pad's position and the monitor's model and position change per layout (row fixtures). The monitor is a static scene object that neither run_reward nor the contract names. Room, Table, Ground and Background are equal.",
+    "Keyboard sentences: _keyboard_checks requires the keyboard footprint to cover a fixed world rectangle centred on the frame's middle. The frame sits at layout 0's pose and every audited keyboard model (aligned box 0.32-0.37 x 0.15-0.16 m) is larger than the frame (0.24 x 0.10 m) in both directions, so \"the keyboard is larger than its frame\" and \"covers the frame's central strip\" hold. The keyboard spawns with local +Y along world +Y and local +Z up, so its reset facing and up side satisfy the signed heading and up checks.",
+    "Mouse sentence: _mouse_checks aligns the mouse's local +Y with world +X by a signed angle. In every audited layout the reset heading is within 30 degrees (row reset_mouse_local_y_from_world_x_deg), so \"facing the same way as when the episode reset\" satisfies the check with margin; the 14 of 55 layouts that start the mouse 30-44 degrees off were not audited.",
+    "Alarm and figurine: both spawn upright. drawer/0 and alarm/0 put the alarm's rest height over the drawer root at 0.267 m, inside the evaluator's window, in every audited layout as in layout 0. The figurine is model 8 in every audited layout, so its rest height over the stand (0.091 m) and the evaluator's model-dependent xy tolerance (garage_lim_dis) are layout 0's. Clause 4 (the drawer step is not checked) and the return clause are layout-independent.",
+    "Evaluator assets: the record binds the metadata of every object instance of layout 0 (evaluator_dependencies). Each row binds the metadata of every object instance of its own layout (evaluator_asset_dependencies; the layout-0 row reproduces the record's set byte for byte), which RunSpec resolution discloses for the scheduled layouts and fresh preflight re-hashes with the record's own dependencies (fail closed).",
+    "Asset load: the keyboard has no physics mass in any layout, layout 0 included, and loads at the 0.5 kg default; no audited object is mass-clamped.",
+    "Not a reachability review: whether an arm reaches each object is decided by the catalog review (computed spawn distances) and the scene smoke (scheduled_object_reach); fixtures and placement targets are not reach-checked."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_0.json",
+      "layout_sha256": "e55e5cffef73b1967ad26dc0c7c8933ce05e68f329450ae0ac933abf386fa5ba",
+      "objects": {
+        "alarm": {
+          "label": "alarm",
+          "category_idx": 0
+        },
+        "garage": {
+          "label": "garage",
+          "category_idx": 8
+        },
+        "keyboard": {
+          "label": "keyboard",
+          "category_idx": 0
+        },
+        "mouse": {
+          "label": "mouse",
+          "category_idx": 4
+        }
+      },
+      "fixtures": {
+        "camera_stand": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0,
+            -0.47,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "cube_cushion": {
+          "category_idx": 2,
+          "default_pos": [
+            -0.15,
+            0.1,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "drawer": {
+          "category_idx": 0,
+          "default_pos": [
+            -0.4413,
+            0.0987,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "frame": {
+          "category_idx": 0,
+          "default_pos": [
+            0.1,
+            0.0,
+            0.7656
+          ],
+          "equal_reviewed_layout": true
+        },
+        "monitor": {
+          "category_idx": 0,
+          "default_pos": [
+            0.1163,
+            0.2472,
+            0.9877
+          ],
+          "equal_reviewed_layout": true
+        },
+        "mousemat": {
+          "category_idx": 0,
+          "default_pos": [
+            0.4978,
+            -0.0145,
+            0.7686
+          ],
+          "equal_reviewed_layout": true
+        }
+      },
+      "keyboard_aabb_xy_m": [
+        0.3198,
+        0.1529
+      ],
+      "frame_aabb_xy_m": [
+        0.24,
+        0.1
+      ],
+      "keyboard_larger_than_frame": true,
+      "reset_keyboard_local_y_from_world_y_deg": 0.0,
+      "reset_keyboard_tilt_deg": 0.0,
+      "reset_mouse_local_y_from_world_x_deg": 0.95,
+      "reset_alarm_tilt_deg": 0.0,
+      "reset_figurine_tilt_deg": 0.0,
+      "alarm_rest_height_over_drawer_m": 0.2672,
+      "figurine_rest_height_over_stand_m": 0.0907,
+      "figurine_xy_tolerance_m": 0.02,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [
+        "keyboard/0: no layout mass, loads at the 0.5 kg default"
+      ],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9c2816df664ad3064c1df76167aefb7d4fb514123c05aee337fb20d806b3c2c2"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/drawer/00000/metadata.json",
+          "root": "assets",
+          "sha256": "b184ba5d4ee020440b1a48c8fa6e21f2ae8c5dd0f30a18994cdc92ca2347d32d"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/frame/00000/metadata.json",
+          "root": "assets",
+          "sha256": "2ca33b0452068bd01787f484050ce1837b6a5c66fa96ef62a17767873c510840"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/monitor/00000/metadata.json",
+          "root": "assets",
+          "sha256": "fbbbef890324ea2585f3995a0f3291e118a4af65db8423ca69f9d4783b6690ce"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/mousemat/00000/metadata.json",
+          "root": "assets",
+          "sha256": "9f096ee8e83ae99d974bb52609948e648a7ac95b8303a7efa2d962b963f8e18e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/alarm/00000/metadata.json",
+          "root": "assets",
+          "sha256": "d4670ac239f1fb0342f4717a5ae118c2858e363b51ab1cb42f8ff3d456eeefd9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00008/metadata.json",
+          "root": "assets",
+          "sha256": "6997891009cc1c856d37a43d96427e381e829216f863cab1fb76b9879f45fb30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/keyboard/00000/metadata.json",
+          "root": "assets",
+          "sha256": "07aabcddd84ced704314f56a4eb305247e578529d1c59a9ae13c860a8db04a6b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/mouse/00004/metadata.json",
+          "root": "assets",
+          "sha256": "3c9699b2e1aa4e09e89dcccb39433b12e47ce7e68eca8a93f3ee8565101bb616"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 17,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_17.json",
+      "layout_sha256": "6841880168ca5dc34f98fa1068c9b6f65e3baa7ba517ff7f69a0f2e9cc953f3f",
+      "objects": {
+        "alarm": {
+          "label": "alarm",
+          "category_idx": 0
+        },
+        "garage": {
+          "label": "garage",
+          "category_idx": 8
+        },
+        "keyboard": {
+          "label": "keyboard",
+          "category_idx": 1
+        },
+        "mouse": {
+          "label": "mouse",
+          "category_idx": 6
+        }
+      },
+      "fixtures": {
+        "camera_stand": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0,
+            -0.47,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "cube_cushion": {
+          "category_idx": 2,
+          "default_pos": [
+            -0.15,
+            0.1,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "drawer": {
+          "category_idx": 0,
+          "default_pos": [
+            -0.4276,
+            0.0987,
+            0.765
+          ],
+          "equal_reviewed_layout": false
+        },
+        "frame": {
+          "category_idx": 0,
+          "default_pos": [
+            0.1,
+            0.0,
+            0.7656
+          ],
+          "equal_reviewed_layout": true
+        },
+        "monitor": {
+          "category_idx": 1,
+          "default_pos": [
+            0.1056,
+            0.2471,
+            0.9762
+          ],
+          "equal_reviewed_layout": false
+        },
+        "mousemat": {
+          "category_idx": 0,
+          "default_pos": [
+            0.4922,
+            0.0494,
+            0.7686
+          ],
+          "equal_reviewed_layout": false
+        }
+      },
+      "keyboard_aabb_xy_m": [
+        0.3272,
+        0.16
+      ],
+      "frame_aabb_xy_m": [
+        0.24,
+        0.1
+      ],
+      "keyboard_larger_than_frame": true,
+      "reset_keyboard_local_y_from_world_y_deg": 0.0,
+      "reset_keyboard_tilt_deg": 0.0,
+      "reset_mouse_local_y_from_world_x_deg": 1.0,
+      "reset_alarm_tilt_deg": 0.0,
+      "reset_figurine_tilt_deg": 0.0,
+      "alarm_rest_height_over_drawer_m": 0.2672,
+      "figurine_rest_height_over_stand_m": 0.0907,
+      "figurine_xy_tolerance_m": 0.02,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [
+        "keyboard/1: no layout mass, loads at the 0.5 kg default"
+      ],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9c2816df664ad3064c1df76167aefb7d4fb514123c05aee337fb20d806b3c2c2"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/drawer/00000/metadata.json",
+          "root": "assets",
+          "sha256": "b184ba5d4ee020440b1a48c8fa6e21f2ae8c5dd0f30a18994cdc92ca2347d32d"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/frame/00000/metadata.json",
+          "root": "assets",
+          "sha256": "2ca33b0452068bd01787f484050ce1837b6a5c66fa96ef62a17767873c510840"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/monitor/00001/metadata.json",
+          "root": "assets",
+          "sha256": "5602b898059332890ec73ba0b819cd7a65c601427516eed799bde95ab5cfd042"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/mousemat/00000/metadata.json",
+          "root": "assets",
+          "sha256": "9f096ee8e83ae99d974bb52609948e648a7ac95b8303a7efa2d962b963f8e18e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/alarm/00000/metadata.json",
+          "root": "assets",
+          "sha256": "d4670ac239f1fb0342f4717a5ae118c2858e363b51ab1cb42f8ff3d456eeefd9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00008/metadata.json",
+          "root": "assets",
+          "sha256": "6997891009cc1c856d37a43d96427e381e829216f863cab1fb76b9879f45fb30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/keyboard/00001/metadata.json",
+          "root": "assets",
+          "sha256": "f2f73cc60502639894d834de46a8b7ac909e3181b437794f8ba6b63b9a47c79d"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/mouse/00006/metadata.json",
+          "root": "assets",
+          "sha256": "fe12880e521f95541060cd5d5b27834a042a87b270f880b1d7ffdafe85b2ab89"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 14,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_14.json",
+      "layout_sha256": "ab614f8c58a8a134f5098ba70360b715c34e6543ead9e3b03b0ca9cf40bb95f1",
+      "objects": {
+        "alarm": {
+          "label": "alarm",
+          "category_idx": 0
+        },
+        "garage": {
+          "label": "garage",
+          "category_idx": 8
+        },
+        "keyboard": {
+          "label": "keyboard",
+          "category_idx": 1
+        },
+        "mouse": {
+          "label": "mouse",
+          "category_idx": 7
+        }
+      },
+      "fixtures": {
+        "camera_stand": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0,
+            -0.47,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "cube_cushion": {
+          "category_idx": 2,
+          "default_pos": [
+            -0.15,
+            0.1,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "drawer": {
+          "category_idx": 0,
+          "default_pos": [
+            -0.4573,
+            0.0987,
+            0.765
+          ],
+          "equal_reviewed_layout": false
+        },
+        "frame": {
+          "category_idx": 0,
+          "default_pos": [
+            0.1,
+            0.0,
+            0.7656
+          ],
+          "equal_reviewed_layout": true
+        },
+        "monitor": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0489,
+            0.2513,
+            0.9877
+          ],
+          "equal_reviewed_layout": false
+        },
+        "mousemat": {
+          "category_idx": 0,
+          "default_pos": [
+            0.4954,
+            -0.0119,
+            0.7686
+          ],
+          "equal_reviewed_layout": false
+        }
+      },
+      "keyboard_aabb_xy_m": [
+        0.3272,
+        0.16
+      ],
+      "frame_aabb_xy_m": [
+        0.24,
+        0.1
+      ],
+      "keyboard_larger_than_frame": true,
+      "reset_keyboard_local_y_from_world_y_deg": 0.0,
+      "reset_keyboard_tilt_deg": 0.0,
+      "reset_mouse_local_y_from_world_x_deg": 12.49,
+      "reset_alarm_tilt_deg": 0.0,
+      "reset_figurine_tilt_deg": 0.0,
+      "alarm_rest_height_over_drawer_m": 0.2672,
+      "figurine_rest_height_over_stand_m": 0.0907,
+      "figurine_xy_tolerance_m": 0.02,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [
+        "keyboard/1: no layout mass, loads at the 0.5 kg default"
+      ],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9c2816df664ad3064c1df76167aefb7d4fb514123c05aee337fb20d806b3c2c2"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/drawer/00000/metadata.json",
+          "root": "assets",
+          "sha256": "b184ba5d4ee020440b1a48c8fa6e21f2ae8c5dd0f30a18994cdc92ca2347d32d"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/frame/00000/metadata.json",
+          "root": "assets",
+          "sha256": "2ca33b0452068bd01787f484050ce1837b6a5c66fa96ef62a17767873c510840"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/monitor/00000/metadata.json",
+          "root": "assets",
+          "sha256": "fbbbef890324ea2585f3995a0f3291e118a4af65db8423ca69f9d4783b6690ce"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/mousemat/00000/metadata.json",
+          "root": "assets",
+          "sha256": "9f096ee8e83ae99d974bb52609948e648a7ac95b8303a7efa2d962b963f8e18e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/alarm/00000/metadata.json",
+          "root": "assets",
+          "sha256": "d4670ac239f1fb0342f4717a5ae118c2858e363b51ab1cb42f8ff3d456eeefd9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00008/metadata.json",
+          "root": "assets",
+          "sha256": "6997891009cc1c856d37a43d96427e381e829216f863cab1fb76b9879f45fb30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/keyboard/00001/metadata.json",
+          "root": "assets",
+          "sha256": "f2f73cc60502639894d834de46a8b7ac909e3181b437794f8ba6b63b9a47c79d"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/mouse/00007/metadata.json",
+          "root": "assets",
+          "sha256": "44b0bc23161081382d571d2e377f037e6acee6ea4649480155df73d7c311cafa"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 39,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_39.json",
+      "layout_sha256": "f344f80146452cc4a9e4def701ada89a73338025f9767d76da43f6158cef3744",
+      "objects": {
+        "alarm": {
+          "label": "alarm",
+          "category_idx": 0
+        },
+        "garage": {
+          "label": "garage",
+          "category_idx": 8
+        },
+        "keyboard": {
+          "label": "keyboard",
+          "category_idx": 2
+        },
+        "mouse": {
+          "label": "mouse",
+          "category_idx": 7
+        }
+      },
+      "fixtures": {
+        "camera_stand": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0,
+            -0.47,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "cube_cushion": {
+          "category_idx": 2,
+          "default_pos": [
+            -0.15,
+            0.1,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "drawer": {
+          "category_idx": 0,
+          "default_pos": [
+            -0.4507,
+            0.0987,
+            0.765
+          ],
+          "equal_reviewed_layout": false
+        },
+        "frame": {
+          "category_idx": 0,
+          "default_pos": [
+            0.1,
+            0.0,
+            0.7656
+          ],
+          "equal_reviewed_layout": true
+        },
+        "monitor": {
+          "category_idx": 1,
+          "default_pos": [
+            0.1061,
+            0.2615,
+            0.9762
+          ],
+          "equal_reviewed_layout": false
+        },
+        "mousemat": {
+          "category_idx": 0,
+          "default_pos": [
+            0.4952,
+            0.0465,
+            0.7686
+          ],
+          "equal_reviewed_layout": false
+        }
+      },
+      "keyboard_aabb_xy_m": [
+        0.3675,
+        0.1522
+      ],
+      "frame_aabb_xy_m": [
+        0.24,
+        0.1
+      ],
+      "keyboard_larger_than_frame": true,
+      "reset_keyboard_local_y_from_world_y_deg": 0.0,
+      "reset_keyboard_tilt_deg": 0.0,
+      "reset_mouse_local_y_from_world_x_deg": 11.1,
+      "reset_alarm_tilt_deg": 0.0,
+      "reset_figurine_tilt_deg": 0.0,
+      "alarm_rest_height_over_drawer_m": 0.2672,
+      "figurine_rest_height_over_stand_m": 0.0907,
+      "figurine_xy_tolerance_m": 0.02,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [
+        "keyboard/2: no layout mass, loads at the 0.5 kg default"
+      ],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9c2816df664ad3064c1df76167aefb7d4fb514123c05aee337fb20d806b3c2c2"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/drawer/00000/metadata.json",
+          "root": "assets",
+          "sha256": "b184ba5d4ee020440b1a48c8fa6e21f2ae8c5dd0f30a18994cdc92ca2347d32d"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/frame/00000/metadata.json",
+          "root": "assets",
+          "sha256": "2ca33b0452068bd01787f484050ce1837b6a5c66fa96ef62a17767873c510840"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/monitor/00001/metadata.json",
+          "root": "assets",
+          "sha256": "5602b898059332890ec73ba0b819cd7a65c601427516eed799bde95ab5cfd042"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/mousemat/00000/metadata.json",
+          "root": "assets",
+          "sha256": "9f096ee8e83ae99d974bb52609948e648a7ac95b8303a7efa2d962b963f8e18e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/alarm/00000/metadata.json",
+          "root": "assets",
+          "sha256": "d4670ac239f1fb0342f4717a5ae118c2858e363b51ab1cb42f8ff3d456eeefd9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00008/metadata.json",
+          "root": "assets",
+          "sha256": "6997891009cc1c856d37a43d96427e381e829216f863cab1fb76b9879f45fb30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/keyboard/00002/metadata.json",
+          "root": "assets",
+          "sha256": "5869132ae8736bdf8dd5252b84d45b437972f26c4d73148d5c269ee181820362"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/mouse/00007/metadata.json",
+          "root": "assets",
+          "sha256": "44b0bc23161081382d571d2e377f037e6acee6ea4649480155df73d7c311cafa"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 19,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_19.json",
+      "layout_sha256": "34eaa14fdc5b9a890658ad2bdd6356d0f71efdd695764a0644319d2da164454c",
+      "objects": {
+        "alarm": {
+          "label": "alarm",
+          "category_idx": 0
+        },
+        "garage": {
+          "label": "garage",
+          "category_idx": 8
+        },
+        "keyboard": {
+          "label": "keyboard",
+          "category_idx": 0
+        },
+        "mouse": {
+          "label": "mouse",
+          "category_idx": 6
+        }
+      },
+      "fixtures": {
+        "camera_stand": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0,
+            -0.47,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "cube_cushion": {
+          "category_idx": 2,
+          "default_pos": [
+            -0.15,
+            0.1,
+            0.765
+          ],
+          "equal_reviewed_layout": true
+        },
+        "drawer": {
+          "category_idx": 0,
+          "default_pos": [
+            -0.3866,
+            0.0987,
+            0.765
+          ],
+          "equal_reviewed_layout": false
+        },
+        "frame": {
+          "category_idx": 0,
+          "default_pos": [
+            0.1,
+            0.0,
+            0.7656
+          ],
+          "equal_reviewed_layout": true
+        },
+        "monitor": {
+          "category_idx": 0,
+          "default_pos": [
+            0.0922,
+            0.2449,
+            0.9877
+          ],
+          "equal_reviewed_layout": false
+        },
+        "mousemat": {
+          "category_idx": 0,
+          "default_pos": [
+            0.498,
+            -0.0372,
+            0.7686
+          ],
+          "equal_reviewed_layout": false
+        }
+      },
+      "keyboard_aabb_xy_m": [
+        0.3198,
+        0.1529
+      ],
+      "frame_aabb_xy_m": [
+        0.24,
+        0.1
+      ],
+      "keyboard_larger_than_frame": true,
+      "reset_keyboard_local_y_from_world_y_deg": 0.0,
+      "reset_keyboard_tilt_deg": 0.0,
+      "reset_mouse_local_y_from_world_x_deg": 17.32,
+      "reset_alarm_tilt_deg": 0.0,
+      "reset_figurine_tilt_deg": 0.0,
+      "alarm_rest_height_over_drawer_m": 0.2672,
+      "figurine_rest_height_over_stand_m": 0.0907,
+      "figurine_xy_tolerance_m": 0.02,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [
+        "keyboard/0: no layout mass, loads at the 0.5 kg default"
+      ],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9c2816df664ad3064c1df76167aefb7d4fb514123c05aee337fb20d806b3c2c2"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/drawer/00000/metadata.json",
+          "root": "assets",
+          "sha256": "b184ba5d4ee020440b1a48c8fa6e21f2ae8c5dd0f30a18994cdc92ca2347d32d"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/frame/00000/metadata.json",
+          "root": "assets",
+          "sha256": "2ca33b0452068bd01787f484050ce1837b6a5c66fa96ef62a17767873c510840"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/monitor/00000/metadata.json",
+          "root": "assets",
+          "sha256": "fbbbef890324ea2585f3995a0f3291e118a4af65db8423ca69f9d4783b6690ce"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/mousemat/00000/metadata.json",
+          "root": "assets",
+          "sha256": "9f096ee8e83ae99d974bb52609948e648a7ac95b8303a7efa2d962b963f8e18e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/alarm/00000/metadata.json",
+          "root": "assets",
+          "sha256": "d4670ac239f1fb0342f4717a5ae118c2858e363b51ab1cb42f8ff3d456eeefd9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00008/metadata.json",
+          "root": "assets",
+          "sha256": "6997891009cc1c856d37a43d96427e381e829216f863cab1fb76b9879f45fb30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/keyboard/00000/metadata.json",
+          "root": "assets",
+          "sha256": "07aabcddd84ced704314f56a4eb305247e578529d1c59a9ae13c860a8db04a6b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/mouse/00006/metadata.json",
+          "root": "assets",
+          "sha256": "fe12880e521f95541060cd5d5b27834a042a87b270f880b1d7ffdafe85b2ab89"
+        }
+      ],
+      "compatible": true
+    }
+  ]
+}

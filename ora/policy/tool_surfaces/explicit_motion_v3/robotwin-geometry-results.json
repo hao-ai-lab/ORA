@@ -1,0 +1,248 @@
+{
+  "geometry_query": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step",
+          "source_state_sha256",
+          "camera",
+          "calibration_sha256",
+          "world_points"
+        ],
+        "properties": {
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "source_state_sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "camera": {
+            "type": "string"
+          },
+          "calibration_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "world_points": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "world_xyz_m",
+                "camera_xyz_m",
+                "in_front",
+                "in_frame"
+              ],
+              "properties": {
+                "world_xyz_m": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "camera_xyz_m": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "in_front": {
+                  "type": "boolean"
+                },
+                "in_frame": {
+                  "type": "boolean"
+                },
+                "pixel_uv": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "pixel_uv_rounded": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "scene_depth_m": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "depth_residual_m": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step",
+          "source_state_sha256",
+          "camera",
+          "points"
+        ],
+        "properties": {
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "source_state_sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "camera": {
+            "type": "string"
+          },
+          "points": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pixel_uv",
+                "valid"
+              ],
+              "properties": {
+                "pixel_uv": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "valid": {
+                  "type": "boolean"
+                },
+                "depth_median_m": {
+                  "type": "number"
+                },
+                "valid_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "world_xyz_m": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step",
+          "source_state_sha256",
+          "camera",
+          "region_result"
+        ],
+        "properties": {
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "source_state_sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "camera": {
+            "type": "string"
+          },
+          "region_result": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "region",
+              "valid_count",
+              "valid_fraction"
+            ],
+            "properties": {
+              "region": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "valid_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "valid_fraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "depth_m": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "min",
+                  "median",
+                  "max"
+                ],
+                "properties": {
+                  "min": {
+                    "type": "number"
+                  },
+                  "median": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

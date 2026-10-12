@@ -1,0 +1,127 @@
+<section id="review-player" class="process-review" aria-label="Round video and recorded process">
+  <header class="process-toolbar">
+    <div class="process-mode" role="group" aria-label="Video content">
+      <button type="button" data-video-mode="execution" aria-pressed="true">Execution</button>
+      <button type="button" data-video-mode="process" aria-pressed="false">Full process</button>
+    </div>
+    <label class="process-round-label">Round <select id="process-round" aria-label="Round to review"><option value="all">All rounds</option></select></label>
+    <div class="process-options" id="process-options" hidden>
+      <label><input id="process-reasoning" type="checkbox">Reasoning excerpts</label>
+      <label><input id="process-context" type="checkbox">Context &amp; Memory</label>
+    </div>
+    <a id="process-download" class="process-download" hidden download>Export MP4 ↗</a>
+  </header>
+  <div class="process-player-grid">
+    <div class="process-screen">
+      <video id="process-video" controls preload="metadata" aria-label="Episode review video" hidden></video>
+      <div id="process-pending" class="process-pending" role="status" aria-live="polite">
+        <span class="process-eyebrow">Recorded evidence</span><h2 id="process-pending-title">Loading video chapters…</h2>
+        <p id="process-pending-note">The original observations, tool results and model responses are available below.</p>
+        <div id="process-compile" hidden><code id="process-command"></code><button id="process-copy-command" type="button">Copy compile command</button><button id="process-refresh" type="button">Check again</button></div>
+      </div>
+      <footer class="process-screen-footer"><span id="process-position">Round · Step · Phase</span><span id="process-fidelity">Source-bound review</span></footer>
+    </div>
+    <aside class="process-inspector" aria-label="Selected recorded event">
+      <header><span class="process-eyebrow" id="process-event-phase">Recorded process</span><h3 id="process-event-title">Recorded process</h3><p id="process-event-meta"></p></header>
+      <div id="process-event-images" class="process-event-images"></div>
+      <div id="process-event-body" class="process-event-body"><p>Select a chapter to inspect its source.</p></div>
+      <footer id="process-event-links"></footer>
+    </aside>
+  </div>
+  <details id="process-round-export" class="process-export-help" hidden><summary>Prepare a separate MP4 for this round</summary><code id="process-round-command"></code></details>
+  <div class="process-chapter-tools">
+    <label>Show <select id="process-phase" aria-label="Filter recorded process"><option value="all">All phases</option><option value="decision">Decisions</option><option value="perception">Perception</option><option value="planning">Planning</option><option value="execution">Execution</option><option value="outcome">Outcomes</option><option value="context">Context &amp; Memory</option></select></label>
+    <span id="process-coverage"></span><span id="process-event-count"></span>
+  </div>
+  <nav id="process-chapters" class="process-chapters" aria-label="Recorded process chapters"></nav>
+  <p class="process-boundary">Recorded model text and tool output stay distinct from official results. Reading cards use an edited timeline; execution media retains its source label.</p>
+</section>
+
+<script id="process-player-data" type="application/json"><!--PROCESS_PLAYER_DATA--></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const config=JSON.parse(document.getElementById('process-player-data').textContent);
+  const run=encodeURIComponent(config.run_id), $=id=>document.getElementById(id);
+  const video=$('process-video'), roundSelect=$('process-round'), phaseSelect=$('process-phase');
+  const notebook=JSON.parse(document.getElementById('trajectory-data').textContent);
+  const urlArgs=new URLSearchParams(location.search);
+  let mode=urlArgs.get('video_mode')==='process'?'process':'execution';
+  let process=null, manifest=null, selectedKey=null, selectedState=null, loading=0;
+  let eventByKey=new Map(), renderedButtons=new Map(), metadataHandler=null;
+  const el=(tag,text)=>{const value=document.createElement(tag);if(text!==undefined)value.textContent=text;return value;};
+  const phaseName=phase=>String(phase||'event').replaceAll('_',' ');
+  const artifact=path=>'/artifact/'+run+'/'+String(path).split('/').map(encodeURIComponent).join('/');
+  const selectedRound=()=>roundSelect.value==='all'?null:Number(roundSelect.value)-1;
+  function query(allRounds=false){const args=new URLSearchParams({video_mode:mode});if(roundSelect.value!=='all'&&!allRounds)args.set('round',roundSelect.value);if(mode==='process'){if($('process-reasoning').checked)args.set('reasoning','1');if($('process-context').checked)args.set('context','1');}return args.toString();}
+  function visibleEvents(){return (process?.events||[]).filter(event=>(selectedRound()===null||event.round_index===selectedRound())&&(phaseSelect.value==='all'||event.phase===phaseSelect.value));}
+  function renderChapters(){
+    const rail=$('process-chapters');rail.replaceChildren();renderedButtons=new Map();
+    const events=visibleEvents();$('process-event-count').textContent=events.length+' recorded chapters';
+    events.forEach(event=>{const button=el('button');button.type='button';button.dataset.eventKey=event.key;button.setAttribute('aria-current',String(event.key===selectedKey));const prefix=event.round_index===null?'Session':'R'+(event.round_index+1);button.append(el('small',prefix+' · '+phaseName(event.phase)),el('strong',event.title));if(event.state_step!==null&&event.state_step!==undefined)button.append(el('i','Step '+event.state_step));button.onclick=()=>selectEvent(event,true);rail.append(button);renderedButtons.set(event.key,button);});
+  }
+  function chapterFor(event){
+    if(!manifest)return null;
+    const chapters=manifest.chapters||[];
+    return chapters.find(c=>c.key===event.key)||(event.action_id?chapters.find(c=>c.action_id===event.action_id&&c.phase===event.phase):null)||chapters.find(c=>c.state_step===event.state_step&&c.round_index===event.round_index);
+  }
+  function highlightStep(step){document.querySelectorAll('.video-current').forEach(node=>node.classList.remove('video-current'));const index=notebook.steps.findIndex(value=>value.state_step===step);if(index>=0){$('step-'+index)?.classList.add('video-current');document.querySelector('.outline-item[data-index="'+index+'"]')?.classList.add('video-current');}}
+  function selectEvent(event,seek=false){
+    if(!event)return;selectedKey=event.key;selectedState=event.state_step;
+    $('process-event-phase').textContent=phaseName(event.phase);
+    $('process-event-title').textContent=event.title||phaseName(event.phase);
+    const ri=event.round_index===null?'Session':'Round '+(event.round_index+1);
+    $('process-event-meta').textContent=[ri,event.state_step==null?null:'Step '+event.state_step,event.model_call_id,event.latency_s==null?null:Number(event.latency_s).toFixed(2)+' s',event.order?.includes('unknown')?'partial ordering':null].filter(Boolean).join(' · ');
+    const images=$('process-event-images');images.replaceChildren();
+    (event.images||[]).forEach(image=>{const a=el('a');a.href=artifact(image.path);a.target='_blank';a.rel='noopener';const img=el('img');img.src=a.href;img.alt=[image.label,image.visibility].filter(Boolean).join(' · ');img.title=img.alt;a.append(img);images.append(a);});
+    const body=$('process-event-body');body.replaceChildren();body.append(el('p',event.text||'No public textual response recorded.'));
+    if(event.reasoning){const details=el('details');details.append(el('summary','API-visible reasoning · complete recorded text'),el('pre',event.reasoning));body.append(details);}
+    if(event.result_excerpt){const details=el('details');details.append(el('summary','Recorded tool result · excerpt'),el('pre',event.result_excerpt));body.append(details);}
+    if(event.issues?.length)body.append(el('p','Evidence gaps: '+event.issues.join(', ')));
+    const links=$('process-event-links');links.replaceChildren();
+    const source=(event.source_refs||[]).find(ref=>ref.stream&&Number.isInteger(ref.source_line));
+    if(source){const link=el('a','Original event ↗');link.href='/run/'+run+'/trajectory/raw#event='+encodeURIComponent(source.stream+':'+source.source_line);link.target='_blank';link.rel='noopener';links.append(link);}
+    if(event.state_step!=null){const index=notebook.steps.findIndex(step=>step.state_step===event.state_step);if(index>=0){const link=el('a','Open ActionStep ↓');link.href='#step-'+index;link.onclick=()=>{$('step-'+index).open=true;};links.append(link);}}
+    renderedButtons.forEach((button,key)=>button.setAttribute('aria-current',String(key===selectedKey)));
+    highlightStep(event.state_step);
+    if(seek){const chapter=chapterFor(event);if(chapter&&!video.hidden){if(video.readyState>=1)video.currentTime=chapter.start_s;else{if(metadataHandler)video.removeEventListener('loadedmetadata',metadataHandler);metadataHandler=()=>{video.currentTime=chapter.start_s;};video.addEventListener('loadedmetadata',metadataHandler,{once:true});}}}
+  }
+  function updateMode(){document.querySelectorAll('[data-video-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.videoMode===mode)));$('process-options').hidden=mode!=='process';}
+  async function loadVideo(preserve=true){
+    const generation=++loading, oldEvent=preserve?eventByKey.get(selectedKey):null;
+    manifest=null;video.pause();video.hidden=true;video.removeAttribute('src');video.load();$('process-download').hidden=true;$('process-pending').hidden=false;$('process-compile').hidden=true;$('process-round-export').hidden=true;$('process-pending-title').textContent='Loading video chapters…';
+    try{
+      let videoQuery=query(), response=await fetch('/api/run/'+run+'/presentation-video?'+videoQuery), payload=await response.json();if(generation!==loading)return;
+      if(response.status===503&&selectedRound()!==null){const roundHint=payload.compile_hint;const fallback=await fetch('/api/run/'+run+'/presentation-video?'+query(true));const full=await fallback.json();if(generation!==loading)return;if(fallback.ok){response=fallback;payload=full;videoQuery=query(true);$('process-round-export').hidden=!roundHint;$('process-round-command').textContent=roundHint||'';}}
+      if(!response.ok){$('process-pending-title').textContent=response.status===503?'Video is ready to compile.':'Video unavailable';$('process-pending-note').textContent=response.status===503?'Browse the recorded process below. Compile this optional video, then check again.':(payload.detail||'The source could not be verified.');$('process-command').textContent=payload.compile_hint||'';$('process-compile').hidden=!payload.compile_hint;return;}
+      manifest=payload;const src='/run/'+run+'/presentation.mp4?'+videoQuery;video.src=src;video.hidden=false;$('process-pending').hidden=true;$('process-download').href=src;$('process-download').textContent=selectedRound()!==null&&payload.options.round_index===null?'Export full MP4 ↗':'Export MP4 ↗';$('process-download').hidden=false;
+      $('process-fidelity').textContent=(payload.execution_source?.kind||'recorded observation cards').replaceAll('_',' ');
+      if(metadataHandler)video.removeEventListener('loadedmetadata',metadataHandler);
+      const event=oldEvent&&(selectedRound()===null||oldEvent.round_index===selectedRound())?oldEvent:visibleEvents()[0];
+      metadataHandler=()=>{if(event){const chapter=chapterFor(event);if(chapter)video.currentTime=chapter.start_s;selectEvent(event,false);}};video.addEventListener('loadedmetadata',metadataHandler,{once:true});
+    }catch(error){if(generation!==loading)return;$('process-pending-title').textContent='Video unavailable';$('process-pending-note').textContent='Could not load verified video metadata. '+error.message;}
+  }
+  video.addEventListener('timeupdate',()=>{
+    if(!manifest)return;
+    if(selectedRound()!==null){const members=(manifest.chapters||[]).filter(c=>c.round_index===selectedRound());if(members.length){const start=members[0].start_s,end=members[members.length-1].end_s;if(video.currentTime<start-0.1){video.currentTime=start;return;}if(video.currentTime>=end&&!video.paused){video.pause();video.currentTime=Math.max(start,end-0.02);return;}}}
+    const chapter=(manifest.chapters||[]).find(c=>c.start_s<=video.currentTime&&video.currentTime<c.end_s);if(!chapter)return;
+    $('process-position').textContent=[chapter.round_index==null?'Session':'Round '+(chapter.round_index+1),chapter.state_step==null?null:'Step '+chapter.state_step,phaseName(chapter.phase)].filter(Boolean).join(' · ');
+    const event=eventByKey.get(chapter.key)||(process.events||[]).find(e=>e.action_id&&e.action_id===chapter.action_id&&e.phase===chapter.phase)||(process.events||[]).find(e=>e.state_step===chapter.state_step&&e.phase==='observation');
+    if(event&&event.key!==selectedKey)selectEvent(event,false);
+  });
+  document.querySelectorAll('[data-video-mode]').forEach(button=>button.onclick=()=>{mode=button.dataset.videoMode;updateMode();loadVideo();});
+  roundSelect.onchange=()=>{renderChapters();selectEvent(visibleEvents()[0],false);loadVideo(false);};phaseSelect.onchange=renderChapters;
+  $('process-reasoning').onchange=()=>loadVideo();$('process-context').onchange=()=>loadVideo();$('process-refresh').onclick=()=>loadVideo();
+  $('process-copy-command').onclick=async()=>{try{await navigator.clipboard.writeText($('process-command').textContent);$('process-copy-command').textContent='Copied';}catch{$('process-copy-command').textContent='Select and copy the command above';}};
+  document.addEventListener('click',event=>{const card=event.target.closest('.round-card[data-round]');if(!card)return;const value=String(card.dataset.round);if([...roundSelect.options].some(o=>o.value===value)){event.preventDefault();roundSelect.value=value;roundSelect.onchange();$('review-player').scrollIntoView({block:'start'});}});
+  document.addEventListener('click',event=>{const link=event.target.closest('.outline-item[data-index]');if(!link)return;const step=notebook.steps[Number(link.dataset.index)];if(step)window.dispatchEvent(new CustomEvent('viewer-step-selected',{detail:{stateStep:step.state_step}}));});
+  window.addEventListener('viewer-step-selected',event=>{const item=process?.events.find(item=>item.state_step===event.detail.stateStep);if(item){if(selectedRound()!==null&&item.round_index!==selectedRound()){roundSelect.value=String(item.round_index+1);renderChapters();selectEvent(item,false);loadVideo();}else selectEvent(item,true);}});
+  try{
+    const response=await fetch('/api/run/'+run+'/process');if(!response.ok)throw new Error('Process metadata could not be loaded.');process=await response.json();eventByKey=new Map(process.events.map(event=>[event.key,event]));
+    process.round_ledger.rounds.forEach(row=>{const option=el('option','R'+row.round_ordinal+' · '+row.outcome.replaceAll('_',' '));option.value=String(row.round_ordinal);option.disabled=row.outcome==='not_run';roundSelect.append(option);});
+    const requested=urlArgs.get('round');if([...roundSelect.options].some(option=>option.value===requested&&!option.disabled))roundSelect.value=requested;
+    $('process-coverage').textContent=process.coverage.native_responses+' Native responses · '+process.coverage.tool_image_events+' tool images'+(process.unmapped_events.length?' · '+process.unmapped_events.length+' unplaced events':'');
+    $('process-reasoning').checked=urlArgs.get('reasoning')==='1';$('process-context').checked=urlArgs.get('context')==='1';
+    updateMode();renderChapters();selectEvent(visibleEvents()[0]);await loadVideo(false);
+  }catch(error){$('process-pending-title').textContent='Recorded process unavailable';$('process-pending-note').textContent=error.message+' The original Notebook remains below.';}
+});
+</script>

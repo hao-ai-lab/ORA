@@ -1,0 +1,428 @@
+{
+  "schema": "ora.embodiment-descriptor.v2",
+  "descriptor_id": "franka_panda_public_geometry_v8",
+  "embodiment_id": "franka_panda",
+  "display_name": "Franka Panda in LIBERO-Pro",
+  "status": "draft",
+  "identity": {
+    "manufacturer": "Franka Emika",
+    "model": "Panda",
+    "variant": "MountedPanda with RethinkMount and PandaGripper",
+    "base_mobility": "fixed"
+  },
+  "topology": {
+    "manipulators": [
+      {
+        "id": "right_arm",
+        "kind": "serial_arm",
+        "side": "right",
+        "joint_dof": 7
+      }
+    ],
+    "end_effectors": [
+      {
+        "id": "right_gripper",
+        "kind": "parallel_jaw_gripper",
+        "manipulator_id": "right_arm",
+        "command_dof": 1
+      }
+    ]
+  },
+  "control": {
+    "controlled_points": [
+      {
+        "id": "right_grip_site",
+        "manipulator_id": "right_arm",
+        "source_name": "grip_site",
+        "description": "grip_center",
+        "offset_from": "end_effector_root",
+        "offset_m": [
+          0,
+          0,
+          0.097
+        ],
+        "local_axes": {
+          "approach": [
+            0,
+            0,
+            1
+          ],
+          "closing": [
+            1,
+            0,
+            0
+          ]
+        }
+      }
+    ],
+    "action_abstraction": "cartesian_target",
+    "position_frame": "world",
+    "position_unit": "metre",
+    "orientation": {
+      "representation": "quaternion",
+      "order": "xyzw",
+      "angle_unit": "radian"
+    },
+    "controller_family": "operational_space_pose",
+    "internal_controller_policy": "tool_surface_owned"
+  },
+  "geometry": {
+    "grippers": [
+      {
+        "end_effector_id": "right_gripper",
+        "opening_mode": "symmetric",
+        "maximum_aperture_m": 0.08,
+        "aperture_semantics": "jaw_separation",
+        "contact_geometry": {
+          "controlled_point": "right_grip_site",
+          "unit": "metre",
+          "reference_finger_qpos_m": [
+            0,
+            0
+          ],
+          "fingers": [
+            {
+              "id": "finger_1",
+              "opening_direction_local": [
+                -1,
+                0,
+                0
+              ],
+              "collision_bounds_m": {
+                "minimum": [
+                  -0.0264033827,
+                  -0.0104794531,
+                  -0.0444683044
+                ],
+                "maximum": [
+                  0.0001326424,
+                  0.0104948191,
+                  0.0092490344
+                ]
+              },
+              "pad_bounds_m": {
+                "minimum": [
+                  -0.0075,
+                  -0.008,
+                  -0.0116
+                ],
+                "maximum": [
+                  0.0005,
+                  0.008,
+                  0.0044
+                ]
+              }
+            },
+            {
+              "id": "finger_2",
+              "opening_direction_local": [
+                1,
+                0,
+                0
+              ],
+              "collision_bounds_m": {
+                "minimum": [
+                  -0.0001326424,
+                  -0.0104948191,
+                  -0.0444683044
+                ],
+                "maximum": [
+                  0.0264033827,
+                  0.0104794531,
+                  0.0092490344
+                ]
+              },
+              "pad_bounds_m": {
+                "minimum": [
+                  -0.0005,
+                  -0.008,
+                  -0.0116
+                ],
+                "maximum": [
+                  0.0075,
+                  0.008,
+                  0.0044
+                ]
+              }
+            }
+          ],
+          "claim": "robot_geometry_not_contact_or_grasp_guarantee"
+        }
+      }
+    ],
+    "workspace_limits": {
+      "source": "tool_surface",
+      "projection": "tool_surface_enforced_bounds"
+    },
+    "collision_model": {
+      "source": "runtime",
+      "projection": "bounded_motion_execution_evidence"
+    }
+  },
+  "sensing": {
+    "cameras": [
+      {
+        "public_name": "agentview",
+        "source_name": "agentview",
+        "mounting": "fixed_world",
+        "attached_to": "world",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      },
+      {
+        "public_name": "wrist",
+        "source_name": "robot0_eye_in_hand",
+        "mounting": "end_effector",
+        "attached_to": "right_gripper",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      }
+    ],
+    "state_fields": [
+      {
+        "name": "eef_pose_xyz_xyzw",
+        "meaning": "controlled_point_pose",
+        "unit": "world_metre_xyzw",
+        "source": "observation"
+      },
+      {
+        "name": "aperture_mm",
+        "meaning": "jaw_separation",
+        "unit": "millimetre",
+        "source": "observation"
+      }
+    ]
+  },
+  "dynamic_facts": [
+    {
+      "name": "camera_calibration",
+      "owner": "observation",
+      "reason": "camera_calibration"
+    },
+    {
+      "name": "robot_base_pose",
+      "owner": "runtime",
+      "reason": "robot_base_pose"
+    },
+    {
+      "name": "workspace_bounds",
+      "owner": "tool_surface",
+      "reason": "workspace_bounds"
+    }
+  ],
+  "evidence_limits": [
+    "motion_completion_not_contact",
+    "gripper_closure_not_contact",
+    "gripper_closure_not_retention",
+    "geometry_not_collision_guarantee"
+  ],
+  "provenance": {
+    "runtime_truth": "compiled_model",
+    "sources": [
+      {
+        "source_id": "robosuite_panda_mjcf",
+        "kind": "robot_mjcf",
+        "uri": "https://github.com/ARISE-Initiative/robosuite/blob/v1.4.1/robosuite/models/assets/robots/panda/robot.xml",
+        "revision": "robosuite-v1.4.1",
+        "sha256": "263c0f9abacbc8686027ec5545bee144481cbcf5cc74aa421cbe3227030cd95e",
+        "supports": [
+          "topology.manipulator.right_arm",
+          "sensing.camera.wrist"
+        ]
+      },
+      {
+        "source_id": "robosuite_panda_gripper_mjcf",
+        "kind": "gripper_mjcf",
+        "uri": "https://github.com/ARISE-Initiative/robosuite/blob/v1.4.1/robosuite/models/assets/grippers/panda_gripper.xml",
+        "revision": "robosuite-v1.4.1",
+        "sha256": "d9d68123909d6910488310d0fae4e358ed4ac831c6d0957f3e30893a5412baac",
+        "supports": [
+          "topology.end_effector.right_gripper",
+          "embodiment_control.controlled_point.right_grip_site",
+          "geometry.gripper.right_gripper"
+        ]
+      },
+      {
+        "source_id": "robosuite_osc_pose_config",
+        "kind": "controller_config",
+        "uri": "https://github.com/ARISE-Initiative/robosuite/blob/v1.4.1/robosuite/controllers/config/osc_pose.json",
+        "revision": "robosuite-v1.4.1",
+        "sha256": "07f3a8b41d3eecc8a36700a85bd8207ee3fbc36eb73f6a2248340c96770d1e45",
+        "supports": [
+          "embodiment_control.action_abstraction",
+          "embodiment_control.internal_controller_policy"
+        ]
+      },
+      {
+        "source_id": "libero_pro_mounted_panda",
+        "kind": "environment_robot_binding",
+        "uri": "https://github.com/Zxy-MLlab/LIBERO-PRO/blob/eafdb809426b13153aa1e4c42d6601844217dfec/libero/libero/envs/robots/mounted_panda.py",
+        "revision": "eafdb809426b13153aa1e4c42d6601844217dfec",
+        "sha256": "c89ab36decca6d9fa242021971513960c3ce31aa42735009c73258f397be126c",
+        "supports": [
+          "identity.base_mobility",
+          "dynamic.robot_base_pose"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_observation",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/observation.py",
+        "local_path": "ora/environment/backends/libero_pro/observation.py",
+        "supports": [
+          "sensing.camera.agentview",
+          "sensing.camera.wrist",
+          "sensing.state.eef_pose_xyz_xyzw",
+          "dynamic.camera_calibration"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_worker_environment",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/worker_environment.py",
+        "local_path": "ora/environment/backends/libero_pro/worker_environment.py",
+        "supports": [
+          "sensing.camera.agentview",
+          "sensing.camera.wrist",
+          "sensing.state.eef_pose_xyz_xyzw",
+          "dynamic.camera_calibration"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_common",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/common.py",
+        "local_path": "ora/environment/backends/libero_pro/common.py",
+        "supports": [
+          "embodiment_control.orientation",
+          "sensing.camera.agentview",
+          "sensing.camera.wrist",
+          "dynamic.camera_calibration"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_local_motion",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/local_motion.py",
+        "local_path": "ora/environment/backends/libero_pro/local_motion.py",
+        "supports": [
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation",
+          "geometry.collision_model"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_local_motion_report",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/local_motion_report.py",
+        "local_path": "ora/environment/backends/libero_pro/local_motion_report.py",
+        "supports": [
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation",
+          "geometry.collision_model"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_planned_motion",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/planned_motion.py",
+        "local_path": "ora/environment/backends/libero_pro/planned_motion.py",
+        "supports": [
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation",
+          "geometry.collision_model"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_sparse_motion",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/sparse_motion.py",
+        "local_path": "ora/environment/backends/libero_pro/sparse_motion.py",
+        "supports": [
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_motion_probe",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/motion_probe.py",
+        "local_path": "ora/environment/backends/libero_pro/motion_probe.py",
+        "supports": [
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_motion_evidence",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/motion_evidence.py",
+        "local_path": "ora/environment/backends/libero_pro/motion_evidence.py",
+        "supports": [
+          "geometry.collision_model"
+        ]
+      },
+      {
+        "source_id": "placement_unified_v7_definitions",
+        "kind": "tool_surface_contract",
+        "uri": "repo://ora/policy/tool_surfaces/placement_unified_v7/libero-definitions-v7.json",
+        "local_path": "ora/policy/tool_surfaces/placement_unified_v7/libero-definitions-v7.json",
+        "supports": [
+          "geometry.workspace_limits",
+          "dynamic.workspace_bounds"
+        ]
+      },
+      {
+        "source_id": "public_robot_measurements",
+        "kind": "policy_runtime_adapter",
+        "uri": "repo://ora/agent/context/public_facts.py",
+        "local_path": "ora/agent/context/public_facts.py",
+        "supports": [
+          "sensing.state.aperture_mm"
+        ]
+      },
+      {
+        "source_id": "panda_collision_mesh",
+        "kind": "collision_mesh",
+        "uri": "robot-asset://robosuite-1.4.1/grippers/meshes/panda_gripper/finger.stl",
+        "revision": "robosuite-v1.4.1",
+        "sha256": "2d07a740392f3b9b0816f65d64fff9927d3d57c897870fc4b6ff9c56fff3a0c8",
+        "supports": [
+          "geometry.gripper.right_gripper"
+        ]
+      },
+      {
+        "source_id": "panda_compiled_gripper_verification",
+        "kind": "robot_asset_verification",
+        "uri": "robot-asset-verification://panda-gripper-v2.json",
+        "revision": "mujoco-3.8.1-gripper-only-no-step",
+        "sha256": "fd485d572ba60cd5eef310cc4c40f0ae9a2fdc326666195b4ff3d7d71d1a462f",
+        "supports": [
+          "geometry.gripper.right_gripper",
+          "embodiment_control.controlled_point.right_grip_site"
+        ]
+      },
+      {
+        "source_id": "ora_libero_pro_construction",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/libero_pro/construction.py",
+        "local_path": "ora/environment/backends/libero_pro/construction.py",
+        "supports": [
+          "sensing.camera.agentview",
+          "sensing.camera.wrist"
+        ]
+      }
+    ]
+  }
+}

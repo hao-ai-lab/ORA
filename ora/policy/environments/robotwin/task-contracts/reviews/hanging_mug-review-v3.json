@@ -1,0 +1,279 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "hanging_mug",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/hanging_mug.py",
+      "sha256": "8793ed6be6a80b18a10690767a1910c3c49a7a9e4887ecbdd48a191ca3e03034"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/hanging_mug.json",
+      "sha256": "e5bc861b815a35af4b278347de0ef1c0c3d3e0d1b3605e7fa9f7961dc4506c31"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data0.json",
+      "sha256": "c0057dfc51631a35d6b2bbac6b8719dde2830cfc64ca620ee92de59c60139e88"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data1.json",
+      "sha256": "d9475b48d210fb44cea8d2cb4beec94813b5bf963395cc97e131a4e213c2f0f6"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data10.json",
+      "sha256": "4d0ad312fa5bd7257fad69ff297ec3e7c8df478c8265d2bd1df886678d7dc812"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data11.json",
+      "sha256": "131160bfa00f2484c006ddc8a651eab1165884bcf3d40d029d500daaf7d42434"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data12.json",
+      "sha256": "7d755be45a9ff972afcd652da7baaa9f561da049129bb5bf33a5cd2a071bc467"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data2.json",
+      "sha256": "bf16aa8fcf0939c35769222e397ce80f2f3299e698f34d1a62f43022a15b922d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data3.json",
+      "sha256": "01f00a10422256bc228d520d354f6492146b6bc7c06f87080fb439444c8e7626"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data4.json",
+      "sha256": "40e8f3eb79fc309166d4b7349cfe59c377edea8e4c572dbf1229754514cbff74"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data5.json",
+      "sha256": "8e1e19ea0a92e41894035996474af35847b8929387ab17f1e143588304638ef7"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data6.json",
+      "sha256": "ad27c818c0abcd8b6ded3edff8a315e064cab676fff5ffd211451a3b7ab6fd80"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data7.json",
+      "sha256": "ff2fcf9b3de961d58c4528b96d55ef6ab45806da5632f9f3dcf7f7aa2dd88472"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data8.json",
+      "sha256": "aa71f7ce53f21b7002d698a34d914ba834e1fac41da94be6617c0232d4ab8946"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/model_data9.json",
+      "sha256": "937c6eea1499a0489387b6a66484f6f6d57f467e8f89bd7d4dc3294b0abd285b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/039_mug/points_info.json",
+      "sha256": "ffad5ed3e2fd31b506bb1eeeeb4345a87492afac9f2af2a86ed0577d91854a0a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/040_rack/model_data0.json",
+      "sha256": "7637b19547f253031cbb9cc3284951b5504c396e8d0af442699d5397073827c1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/040_rack/points_info.json",
+      "sha256": "3c97d7cc1f3e032aad06655b50acc39ad68948ea1139c781424b84d119c339cc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/039_mug/collision/base1.glb",
+      "sha256": "fee6e4406048ac3e5f24614db3361ff3ba3c52703ceece5033c65cec0f8cc98a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/039_mug/visual/base1.glb",
+      "sha256": "392ec804651d7d3c2d38f158de6e3863d75c63d9e59acb02fd7c3ae3cc694812"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/040_rack/collision/base0.glb",
+      "sha256": "f277f6e7bf71555497b93c56c8b4a89a6d6b93706daa5dd11e7972c83571b205"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/040_rack/visual/base0.glb",
+      "sha256": "e8becf94e0a51d3f70be5dc2587e486af1675e3b45a03309e04032510a9187c5"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/e565356e9fbc57865c9b6800f428b74434e0e1bb/seed-qualification/oracle-hanging_mug-s0-gpu6-20260909T114734Z/hanging_mug/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "8374516a6b2decdba825c3d35f2348862abfdb4982f70137e9ec15beb4bb90a2"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/e565356e9fbc57865c9b6800f428b74434e0e1bb/seed-qualification/oracle-hanging_mug-s0-gpu6-20260909T114734Z/hanging_mug/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "1ae84a33b9c7c9d4ea983859e23e11ffc97b4e3e3d257a67623dc850eb1304b7"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/e565356e9fbc57865c9b6800f428b74434e0e1bb/seed-qualification/oracle-hanging_mug-s0-gpu6-20260909T114734Z/hanging_mug/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "af14bb9d2d968b8413ee63bd53961caf84572768f9cb0f0df93eec32fc47a140"
+    }
+  ],
+  "public_clauses": [
+    "Hang the mug by its handle on the rack's horizontal hanging arm, with the handle seated along the arm rather than at its tip.",
+    "Leave the mug clear of the table with its handle raised on the rack, and open the right gripper."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: mug handle functional point xy near midpoint of rack origin and rack end functional point; hanging support comes from task intent.",
+      "interpretation": "Hang the mug by its handle on the rack's horizontal hanging arm, with the handle seated along the arm rather than at its tip.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: handle z > 0.86 AND right gripper open.",
+      "interpretation": "Leave the mug clear of the table with its handle raised on the rack, and open the right gripper.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/hanging_mug.py:check_success lines 81-88, helper and asset dependencies listed in this record.",
+      "interpretation": "Original instruction separately retains left-arm rotate/set-down/right-arm sequence. Evaluator does not inspect that history, mug orientation, contact with rack or left gripper.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. Original instruction separately retains left-arm rotate/set-down/right-arm sequence. Evaluator does not inspect that history, mug orientation, contact with rack or left gripper."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Mug FP0 is explicitly inside handle; rack FP0 is rod end. All mug metadata inspected; point-height describes handle, not mug base."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Mug FP0 is explicitly inside handle; rack FP0 is rod end. All mug metadata inspected; point-height describes handle, not mug base. Parsed 16 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Mug FP0 is explicitly inside handle; rack FP0 is rod end. All mug metadata inspected; point-height describes handle, not mug base."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows mug suspended by handle on rod; rack placement visible at upper right."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Balance the handle at the rack tip or keep the right gripper closed: excluded by layout/release. A hovering mug at matching marker position exposes missing support test. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. Original instruction separately retains left-arm rotate/set-down/right-arm sequence. Evaluator does not inspect that history, mug orientation, contact with rack or left gripper."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Balance the handle at the rack tip or keep the right gripper closed: excluded by layout/release. A hovering mug at matching marker position exposes missing support test.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "保留把手位置、离桌与右手打开；不将判定中的把手位置等同于已验证支撑接触。",
+  "witness_scope": {
+    "source_revision": "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "039_mug",
+        "model_id": 1
+      },
+      {
+        "model_name": "040_rack",
+        "model_id": 0
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows mug suspended by handle on rod; rack placement visible at upper right.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "Original instruction separately retains left-arm rotate/set-down/right-arm sequence. Evaluator does not inspect that history, mug orientation, contact with rack or left gripper. Head image shows mug suspended by handle on rod; rack placement visible at upper right. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

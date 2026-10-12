@@ -1,0 +1,5 @@
+{
+  "append": {
+    "grasp_plan": "Jaw symmetry: on this arm the same grasp turned 180 degrees about the approach axis differs only in joint6, the wrist roll (limit +/-3.14 rad). Both turns are checked, and pregrasp_pose and contact_pose are published in the reachable turn with more joint6 margin, then the one needing the smaller joint move, then the compiled one. ik_reachability.jaw_symmetry names the published turn (exact or jaw_flip), why, and each turn's joint6 margin; ik_reachability.joint_headroom gives its smallest joint-limit and joint6 margins at the pregrasp and contact solutions. Little joint6 margin leaves little wrist rotation after the grasp. Planning-time IK numbers, not a carry guarantee."
+  }
+}

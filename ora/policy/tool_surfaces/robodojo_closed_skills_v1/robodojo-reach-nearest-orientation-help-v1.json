@@ -1,0 +1,5 @@
+{
+  "append": {
+    "move_pose": "When the target does not solve, reach_along_request also carries nearest_reachable_orientation: the smallest turn of the requested orientation (15 to 75 degrees in 15-degree steps, about axes perpendicular to the approach axis) that solves with the nominal jaw centre held, as a pose with approach_world and tilt_from_straight_down_deg, or none_within_sweep; endpoint IK only."
+  }
+}

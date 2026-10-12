@@ -1,0 +1,35 @@
+{
+  "vision.ground": {
+    "type": "object",
+    "properties": {
+      "camera": {
+        "type": "string",
+        "enum": [
+          "head_camera",
+          "front_camera",
+          "left_camera",
+          "right_camera"
+        ],
+        "description": "Exact current native-resolution RGB-D source: head for central top-down geometry, front for visible frontal appearance, or a wrist when its current pose supplies useful detail."
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120,
+        "description": "Short visible object or part description, never a simulator identifier."
+      },
+      "max_candidates": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "default": 3,
+        "description": "Maximum ranked regions to return, 1 to 3; omit for three. Three is what the grounding service answers per call, so a larger number is refused before the request is sent rather than returned as an error you cannot act on. Close-up previews are capped at the first six across a step: the request window holds 24 images and refuses rather than dropping the oldest. Breadth is not free: three regions cost roughly 479 milliseconds against 244 for one, so raise it from one when you are choosing between instances and leave it otherwise."
+      }
+    },
+    "required": [
+      "camera",
+      "text"
+    ],
+    "additionalProperties": false
+  }
+}

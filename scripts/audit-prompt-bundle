@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# Create or statically audit one modular robot prompt bundle.
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ROOT"
+
+if [ -x "$ROOT/.venv/bin/python" ]; then
+  exec "$ROOT/.venv/bin/python" -c \
+    'from ora.agent.composition.prompt_bundle import main; raise SystemExit(main())' "$@"
+fi
+
+if command -v uv >/dev/null 2>&1; then
+  exec uv run --locked python -c \
+    'from ora.agent.composition.prompt_bundle import main; raise SystemExit(main())' "$@"
+fi
+
+PYTHON=${PYTHON:-python3}
+exec "$PYTHON" -c \
+  'from ora.agent.composition.prompt_bundle import main; raise SystemExit(main())' "$@"

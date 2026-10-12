@@ -1,0 +1,62 @@
+schema: ora.prompt-bundle-authoring.v1
+bundle_id: direct_v4_robodojo_native_api_v1
+status: draft
+runtime:
+  policy_kind: native_api
+  context_schema: ora.policy-context.v3
+  provider_scaffold: none
+layers:
+  planner:
+    sources:
+    - ora/policy/planners/native/policy-v5.md
+    delivery: system
+  core:
+    sources:
+    - ora/policy/core/evidence-action-loop-v8.md
+    delivery: project_instructions
+  environment:
+    source: ora/policy/environments/robodojo/boundary-v2.md
+    delivery: project_instructions
+  embodiment:
+    source: ora/policy/embodiments/arx-x5/manual-public-geometry-v5.md
+    format: prompt_bundle_embodiment_v1
+    descriptor: ora/policy/embodiments/arx-x5/descriptor-public-geometry-v5.json
+    control_profile: null
+    delivery: project_instructions
+  episode_task:
+    source: ora/policy/prompt_bundles/templates/episode-task-v2.md
+    placeholder: '{{TASK}}'
+    delivery: first_user_message
+  tool_manual:
+    sources:
+    - ora/policy/prompt_bundles/templates/tool-schema-delivery-v1.md
+    delivery: manifest_only
+    reader_tool: null
+  tool_surface:
+    profile: robodojo_placement_closed_skills_v2
+    delivery: provider_tools_field
+  dynamic_runtime:
+    owner: ora
+    delivery: current_user_tail
+bindings:
+  environment_prompt_profile:
+    profile_id: robodojo_public_explicit_v6
+    public_environment_context:
+      schema: ora.public-environment-context.v1
+      environment_id: robodojo
+      embodiment_id: arx_x5
+      robot_models:
+      - ARX_X5
+      - ARX_X5
+      controller: CUROBO_IK_JOINT_INTERPOLATION
+      public_cameras:
+      - head
+      - left_wrist
+      - right_wrist
+ownership:
+  environment_terms:
+  - RoboDojo
+  - Isaac Sim
+  embodiment_terms:
+  - ARX
+  - X5

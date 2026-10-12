@@ -1,0 +1,72 @@
+{
+  "compute": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "expressions"
+    ],
+    "properties": {
+      "expressions": {
+        "type": "string",
+        "maxLength": 4096,
+        "description": "One block of straight-line numeric Python. Every name you assign becomes a returned measurement; a trailing bare expression is returned as result. Statements are separated by newlines, at most 24 of them."
+      },
+      "bindings": {
+        "type": "array",
+        "maxItems": 16,
+        "description": "The numbers the block may use, each given a name. Omit when the block needs only literals. A name bound here cannot be np, Rotation or pi.",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "value"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The identifier the block refers to this value by. Each name appears at most once."
+            },
+            "value": {
+              "type": [
+                "number",
+                "boolean",
+                "array"
+              ],
+              "maxItems": 64,
+              "items": {
+                "type": [
+                  "number",
+                  "array"
+                ],
+                "maxItems": 64,
+                "items": {
+                  "type": "number",
+                  "description": "One finite component of a matrix row."
+                },
+                "description": "One finite component, or one row of a matrix."
+              },
+              "description": "A finite number, a boolean, a vector, or a matrix as a list of equal-length rows. At most 64 elements and at most 2 dimensions."
+            },
+            "from": {
+              "type": "string",
+              "maxLength": 120,
+              "description": "Where this number came from, recorded with the call so the result can be recomputed offline. Optional: a constant you chose yourself needs none."
+            }
+          }
+        }
+      },
+      "outputs": {
+        "type": "array",
+        "description": "Final variable names to return; use result for the final bare expression. Omit for automatic numeric results.",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1,
+        "maxItems": 12,
+        "uniqueItems": true
+      }
+    }
+  }
+}

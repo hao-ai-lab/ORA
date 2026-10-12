@@ -1,0 +1,5 @@
+{
+  "append": {
+    "grasp_execute": "With no calibrated jaw aperture here, closure_strength stays unavailable and the verify stage adds jaw_hold: likely (jaws still held apart at the close opening after the lift), unlikely (the close never left the open position, or the jaws closed to the floor or to the held drive target) or unknown (also when a reading it compares has the finger pair shifted more than 4 mm to one side), with the normalized readings, finger offsets and tolerance in verification.jaw_hold.evidence. It is not a grasp, contact or retention verdict."
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "append": {
+    "set_gripper": "Timing: the simulator advances in 20 Hz control ticks (50 ms each). One command runs until the jaws are within 0.03 of the commanded normalized opening, until they stop moving short of it, or for at most 80 control ticks (4 s). A full close in free air takes about 15 ticks (0.75 s). A close that stops on an object ends as soon as the jaws stop, typically within 0.7 s, and reports not_reached with failure_code gripper_stalled_before_target and gripper_outcome.measured_aperture_mm; that is the expected result of closing on an object, not a controller fault. A stalled close is consistent with a grasp but does not prove one: compare the measured aperture with the object's width, then lift and observe."
+  }
+}

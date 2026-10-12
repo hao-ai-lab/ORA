@@ -1,0 +1,30 @@
+{
+  "schema": "ora.primitive-tunables.v1",
+  "entries": [
+    {
+      "id": "lift.height_m",
+      "primitive": "move",
+      "type": "number",
+      "unit": "m",
+      "frame": "world +z, measured from the committed contact pose",
+      "description": "Height of the short precision lift after closing; the lift probe and the verify stage are measured against it.",
+      "defaults": {"*": 0.03},
+      "range": null,
+      "qualification": null,
+      "source": "ora/agent/tools/skill_retention.py LIFT_M"
+    },
+    {
+      "id": "probe.variant_policy",
+      "primitive": "check",
+      "type": "enum",
+      "enum": ["exact", "parallel_jaw_equivalents"],
+      "unit": null,
+      "frame": null,
+      "description": "Which equivalent jaw orientations the pre-commit motion probe may admit for a grasp target.",
+      "defaults": {"*": "parallel_jaw_equivalents"},
+      "range": null,
+      "qualification": null,
+      "source": "ora/agent/tools/grasp_feasibility.py VARIANT_POLICY"
+    }
+  ]
+}

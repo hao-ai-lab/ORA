@@ -1,0 +1,88 @@
+# Execution host profile template.
+#
+# Copy this file to ora/orchestrator/hosts/<host-id>.yaml (or into the
+# directory named by ORA_HOSTS_DIR), replace every placeholder and
+# rename `id` to the file's basename. On the host, export
+#   ORA_EXECUTION_HOST=<host-id>
+# A RunSpec binds the host with `runtime.required_host: <host-id>`; preflight
+# requires the marker to equal it and the profile to exist. Paths and
+# credentials are never committed here: each entry names the environment
+# variable that holds the value on the host.
+schema: ora.execution-host.v1
+id: example-host                    # must equal the file name without .yaml
+ssh_alias: null                     # optional ssh alias of the host
+execution_marker:
+  environment_variable: ORA_EXECUTION_HOST
+  required_value: example-host      # same as id
+project_root:
+  environment_variable: ORA_PROJECT_ROOT
+# RoboTwin (omit when the host does not run RoboTwin).
+robotwin_root:
+  environment_variable: ROBOTWIN_ROOT
+robotwin_python:
+  environment_variable: ROBOTWIN_PYTHON
+  purpose: Isolated RoboTwin worker interpreter with SAPIEN, Torch and CuRobo.
+# LIBERO / LIBERO-Pro (omit when the host does not run LIBERO).
+libero_pro:
+  python:
+    environment_variable: LIBERO_PRO_PYTHON
+    purpose: Isolated LIBERO-Pro worker interpreter with Torch, MuJoCo and robosuite.
+  simulator_root:
+    environment_variable: LIBERO_PRO_ROOT
+    purpose: Exact clean LIBERO-Pro simulator source and asset root.
+  dataset_root:
+    environment_variable: LIBERO_PRO_DATA_ROOT
+    purpose: Exact clean authoritative BDDL and init-state dataset snapshot.
+  simulator_config:
+    environment_variable: LIBERO_CONFIG_PATH
+    purpose: Host-local LIBERO path map; generated state and never policy-visible.
+# CuRobo motion planner used by the LIBERO motion tools (optional).
+motion_planner:
+  python:
+    environment_variable: CUROBO_PYTHON
+    purpose: CuRobo interpreter matching the pinned revision.
+  root:
+    environment_variable: CUROBO_ROOT
+    purpose: Exact clean CuRobo checkout matching the pinned revision.
+credentials:
+  mode: trusted_environment_only
+  committed_values: forbidden
+# Optional free-space floors checked before launch (GiB) and an optional
+# scratch root; omitted keys keep the defaults.
+# runtime_storage:
+#   minimum_workspace_free_gib: 20   # defaults: 20, 2 and 1
+#   minimum_tmp_free_gib: 2
+#   minimum_system_free_gib: 1
+#   tmp_root: /path/to/fast/scratch
+#
+# Execution resources: named simulator slots a RunSpec selects with
+# `runtime.resource_profile`. Every slot needs exactly these fields; a lease on
+# (resource_class, slot_id) keeps two workers off one slot. worker_environment
+# may set only CUDA_VISIBLE_DEVICES, MUJOCO_EGL_DEVICE_ID, MUJOCO_GL,
+# PYOPENGL_PLATFORM, __EGL_VENDOR_LIBRARY_FILENAMES, LIBGL_ALWAYS_SOFTWARE and
+# LP_NUM_THREADS. minimum_free_memory_mib is the free GPU memory required
+# before the worker starts. Without a resource_profile a run takes the whole
+# host exclusively.
+execution_resources:
+  robotwin-gpu0:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "0"
+    minimum_free_memory_mib: 20480
+  libero-gpu0:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "0"
+      MUJOCO_EGL_DEVICE_ID: "0"
+    minimum_free_memory_mib: 2048
+  robodojo-gpu1:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "1"
+    minimum_free_memory_mib: 20480

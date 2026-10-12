@@ -1,0 +1,5 @@
+{
+  "append": {
+    "move_pose": "Before submission the target gets read-only IK on its route. With empty jaws (last gripper command open), a free_space absolute orientation is also tried turned 180 degrees about the approach axis (on this arm only joint6 changes, limit +/-3.14 rad); if the requested turn fails or has under 0.785 rad joint6 margin, the reachable turn with more margin is sent. compiled_pose.targets.<arm>.jaw_symmetry names it. reach_along_request: if the target fails, the farthest solving fraction of the straight path from the current pose, and that pose. Planning-time IK only."
+  }
+}

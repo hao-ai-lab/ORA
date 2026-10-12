@@ -1,0 +1,65 @@
+{
+  "grasp_plan": {
+    "type": "object",
+    "properties": {
+      "arm": {
+        "type": "string",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "description": "Arm whose wrist RGB-D joins head_camera in scene fusion and whose source-bound ALOHA end-effector compiler is used."
+      },
+      "target_ref": {
+        "type": "string",
+        "pattern": "^target-[0-9a-f]{24}$",
+        "description": "Current observation-bound target from grounding or segmentation; target-mask points remain tied to its source camera."
+      },
+      "max_candidates": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "default": 3,
+        "description": "Maximum candidates returned, 1 to 3, default 3: the front of the IK-ordered pool described under IK selection; it does not select a grasp."
+      }
+    },
+    "required": [
+      "arm",
+      "target_ref"
+    ],
+    "additionalProperties": false
+  },
+  "vision_ground": {
+    "type": "object",
+    "properties": {
+      "camera": {
+        "type": "string",
+        "enum": [
+          "head_camera",
+          "front_camera",
+          "left_camera",
+          "right_camera"
+        ],
+        "description": "Exact current native-resolution RGB-D source: head for central top-down geometry, front for visible frontal appearance, or a wrist when its current pose supplies useful detail."
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120,
+        "description": "Short visible object or part description, never a simulator identifier."
+      },
+      "max_candidates": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "default": 3,
+        "description": "Maximum ranked regions to return, 1 to 3, default 3. Three is what the grounding service answers per call, so a larger number is refused before the request is sent rather than returned as an error you cannot act on. Every returned region gets its own close-up preview; nothing caps previews across a step, and no count of images already in the conversation refuses this call. Fewer regions answer faster: three cost roughly 479 milliseconds against 244 for one."
+      }
+    },
+    "required": [
+      "camera",
+      "text"
+    ],
+    "additionalProperties": false
+  }
+}

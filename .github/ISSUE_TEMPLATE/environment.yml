@@ -1,0 +1,16 @@
+name: New environment
+description: Request or propose an environment integration.
+body:
+  - type: textarea
+    attributes:
+      label: Upstream sources, license, robot and tasks
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Public observations, action interface and official verdict
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Simulator, assets, GPU requirements and proposed qualification

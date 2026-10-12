@@ -1,0 +1,264 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "place_bread_skillet",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/place_bread_skillet.py",
+      "sha256": "b1fa08d7f23d8bcd933ea7d64904fea17f67dbe58101c66e42c6addbfdbbcd73"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/place_bread_skillet.json",
+      "sha256": "d7adad5b48391d0b12edb59642dfa52f67eadf586515a88451f830fa4067a805"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data0.json",
+      "sha256": "fa7eb7146170b3f4be9b5a3a6153be1241aece8fe58613861ea9615d187c031b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data1.json",
+      "sha256": "9cedb65a1a72fbff1c68884a75c8bb7efa31b4d38c6cd389a8e6ef8e8868b880"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data2.json",
+      "sha256": "0d7815267f2f3de0e913207d642d734fdc846761d9ec96478be873bb08ced874"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data3.json",
+      "sha256": "e4311ce7d1a7ae6e84cb467e1c13012a69d73b2120fb45dbed63d38e7f7996d9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data4.json",
+      "sha256": "d069078b8d9930de156a4af8eaea3e3104a1eabdd3854b590d6a160677d51f07"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data5.json",
+      "sha256": "7a503298abf37d78017a9f962c46ec79b932db4eef24aaa04d803c07f4099bf3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data6.json",
+      "sha256": "9672242c4abd58cad8e3a5802fb15079f145e303ed78048ef541d4011e78acc9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/points_info.json",
+      "sha256": "a330c87eb70ce0994eda76a1f6e12a1748f00ed761179de4db3ecd4cb271d640"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/106_skillet/model_data0.json",
+      "sha256": "78785f28beb7b86f8612c3a6fe70602c905e8e6203353de76e49e83b979c67f8"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/106_skillet/model_data1.json",
+      "sha256": "db7945a9a31aee41e517cd35fb59e6e4f4d542f5401d05421c79075da8e3f341"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/106_skillet/model_data2.json",
+      "sha256": "34385363f25c373e84e495730b94535e8ae48c1706be5fdc4ae53045bb43be2d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/106_skillet/model_data3.json",
+      "sha256": "df455f6a72b11289ca13ff0722859d3dd276f8530b32c951818069044d66bde1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/106_skillet/points_info.json",
+      "sha256": "007b517d203c904773086facf0a587201b3675834c5c0c9d535cb6b53bdf2058"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/075_bread/collision/base5.glb",
+      "sha256": "b98c8c58dee3829e79b6d16ac248f817201f61eae52d188e8cb59daa76de4d1e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/075_bread/visual/base5.glb",
+      "sha256": "f90331953e5c165a772212a4253d2baa26a88e57d27c1b27acb984cdfea52579"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/106_skillet/collision/base0.glb",
+      "sha256": "6e643e924b69faf524ad0fa04b499267955199041754e08506762a36c3891fb7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/106_skillet/visual/base0.glb",
+      "sha256": "05e4b98a0e725ac3623e9c3e03e046df9303b98648404626f690d544cb6f184b"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/robotwin-random50-eval/qualification/20260910T132131Z-1789046491013636269/place_bread_skillet/place_bread_skillet/attempts/seed-100001-try-00/attempt.json",
+      "sha256": "c3f3221b42df321dded6d119556eb0a646caa6663e39f223569a0e147153ba51"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/robotwin-random50-eval/qualification/20260910T132131Z-1789046491013636269/place_bread_skillet/place_bread_skillet/attempts/seed-100001-try-00/verifier-telemetry.json",
+      "sha256": "cc0835f5f9aa73862c5a7f437a1dce965055a11ea4512f9ae5d380eba93a697e"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/robotwin-random50-eval/qualification/20260910T132131Z-1789046491013636269/place_bread_skillet/place_bread_skillet/attempts/seed-100001-try-00/head_camera-rgb.png",
+      "sha256": "fced9c8c368dd74f07ec78c16d3811b4ebc966728c4c61e61aab50ce174d4654"
+    }
+  ],
+  "public_clauses": [
+    "Place the bread in the middle of the skillet's cooking surface, supported by the skillet.",
+    "Keep both the bread and the skillet's cooking surface raised clear of the tabletop when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: bread root xy near skillet functional cooking-surface point; supported by skillet is original task intent, not a contact predicate.",
+      "interpretation": "Place the bread in the middle of the skillet's cooking surface, supported by the skillet.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: cooking-surface point z AND bread root z both > 0.76 + table_z_bias.",
+      "interpretation": "Keep both the bread and the skillet's cooking surface raised clear of the tabletop when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/place_bread_skillet.py:check_success lines 114-118, helper and asset dependencies listed in this record.",
+      "interpretation": "No gripper-state, actual support/contact or relative-z bound is tested. Qualitative clear-of-table instruction cannot encode exact private height margin.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No gripper-state, actual support/contact or relative-z bound is tested. Qualitative clear-of-table instruction cannot encode exact private height margin."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Skillet marker is in bowl, displaced from handle-root origin. Bread variants have different shapes; no thin-slice assumption. Random witness binds bread5/skillet0."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Skillet marker is in bowl, displaced from handle-root origin. Bread variants have different shapes; no thin-slice assumption. Random witness binds bread5/skillet0. Parsed 13 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Skillet marker is in bowl, displaced from handle-root origin. Bread variants have different shapes; no thin-slice assumption. Random witness binds bread5/skillet0."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows bread in pan while pan is held; both poses and cooking-surface transform corroborate elevation. No inference that both grippers must open."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Bread still on table while empty skillet is raised: fails alignment/height. Bread above pan without support exposes scoring gap, not valid placement. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No gripper-state, actual support/contact or relative-z bound is tested. Qualitative clear-of-table instruction cannot encode exact private height margin."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Bread still on table while empty skillet is raised: fails alignment/height. Bread above pan without support exposes scoring gap, not valid placement.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "用同时抬离桌面的条件取代夸大的“well above”；不加入松手或把锅放回桌面的要求。",
+  "witness_scope": {
+    "source_revision": "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "requested_seed": 100001,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "075_bread",
+        "model_id": 5
+      },
+      {
+        "model_name": "106_skillet",
+        "model_id": 0
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows bread in pan while pan is held; both poses and cooking-surface transform corroborate elevation. No inference that both grippers must open.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No gripper-state, actual support/contact or relative-z bound is tested. Qualitative clear-of-table instruction cannot encode exact private height margin. Head image shows bread in pan while pan is held; both poses and cooking-surface transform corroborate elevation. No inference that both grippers must open. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

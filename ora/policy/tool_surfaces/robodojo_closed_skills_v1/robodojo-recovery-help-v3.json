@@ -1,0 +1,5 @@
+{
+  "append": {
+    "recover_pose": "On this backend each arm stops at arrival or on the move_pose stall rule, and arms.<arm>.recovery_progress gives outcome (arrived, stalled or still_moving_at_window_end) with joint_distance_start_rad and joint_distance_end_rad. home first lifts link6 up to 0.10 m straight up, orientation held, then unwinds the joints in an order the SDK collision spheres keep clear of the arm itself and of the other arm, or refuses with recovery_self_collision_path or recovery_inter_arm_collision_path, before moving or at the step that would meet the other arm. Joints move about 0.2 rad per native action, so a wound arm can need a second call."
+  }
+}

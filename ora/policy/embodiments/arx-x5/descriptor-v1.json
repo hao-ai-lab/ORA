@@ -1,0 +1,217 @@
+{
+  "schema": "ora.embodiment-descriptor.v1",
+  "descriptor_id": "arx_x5_robodojo_v1",
+  "embodiment_id": "arx_x5",
+  "display_name": "Dual ARX X5 in RoboDojo",
+  "status": "draft",
+  "identity": {
+    "manufacturer": "ARX",
+    "model": "X5",
+    "variant": "two fixed-base X5 instances",
+    "base_mobility": "fixed"
+  },
+  "topology": {
+    "manipulators": [
+      {
+        "id": "left_arm",
+        "kind": "serial_arm",
+        "side": "left",
+        "joint_dof": 6
+      },
+      {
+        "id": "right_arm",
+        "kind": "serial_arm",
+        "side": "right",
+        "joint_dof": 6
+      }
+    ],
+    "end_effectors": [
+      {
+        "id": "left_gripper",
+        "kind": "parallel_jaw_gripper",
+        "manipulator_id": "left_arm",
+        "command_dof": 1
+      },
+      {
+        "id": "right_gripper",
+        "kind": "parallel_jaw_gripper",
+        "manipulator_id": "right_arm",
+        "command_dof": 1
+      }
+    ]
+  },
+  "control": {
+    "controlled_points": [
+      {
+        "id": "left_link6",
+        "manipulator_id": "left_arm",
+        "source_name": "link6",
+        "description": "tool_center"
+      },
+      {
+        "id": "right_link6",
+        "manipulator_id": "right_arm",
+        "source_name": "link6",
+        "description": "tool_center"
+      }
+    ],
+    "action_abstraction": "cartesian_target",
+    "position_frame": "world",
+    "position_unit": "metre",
+    "orientation": {
+      "representation": "quaternion",
+      "order": "xyzw",
+      "angle_unit": "radian"
+    },
+    "controller_family": "joint_position",
+    "internal_controller_policy": "tool_surface_owned"
+  },
+  "geometry": {
+    "grippers": [],
+    "workspace_limits": {
+      "source": "runtime",
+      "projection": "runtime_enforced_bounds"
+    },
+    "collision_model": {
+      "source": "runtime",
+      "projection": "bounded_motion_execution_evidence"
+    }
+  },
+  "sensing": {
+    "cameras": [
+      {
+        "public_name": "head",
+        "source_name": "cam_head",
+        "mounting": "fixed_world",
+        "attached_to": "world",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      },
+      {
+        "public_name": "left_wrist",
+        "source_name": "cam_left_wrist",
+        "mounting": "manipulator",
+        "attached_to": "left_arm",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      },
+      {
+        "public_name": "right_wrist",
+        "source_name": "cam_right_wrist",
+        "mounting": "manipulator",
+        "attached_to": "right_arm",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      }
+    ],
+    "state_fields": [
+      {
+        "name": "eef_pose_xyz_xyzw",
+        "meaning": "controlled_point_pose",
+        "unit": "world_metre_xyzw",
+        "source": "observation"
+      }
+    ]
+  },
+  "dynamic_facts": [
+    {
+      "name": "camera_calibration",
+      "owner": "observation",
+      "reason": "camera_calibration"
+    },
+    {
+      "name": "workspace_bounds",
+      "owner": "runtime",
+      "reason": "workspace_bounds"
+    }
+  ],
+  "evidence_limits": [
+    "motion_completion_not_contact",
+    "gripper_closure_not_contact",
+    "gripper_closure_not_retention",
+    "geometry_not_collision_guarantee"
+  ],
+  "provenance": {
+    "runtime_truth": "compiled_model",
+    "sources": [
+      {
+        "source_id": "robodojo_arx_control_contract",
+        "kind": "controller_config",
+        "uri": "repo://ora/environment/controllers/robodojo_arx.py",
+        "local_path": "ora/environment/controllers/robodojo_arx.py",
+        "supports": [
+          "identity.base_mobility",
+          "embodiment_control.action_abstraction",
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation",
+          "embodiment_control.internal_controller_policy",
+          "geometry.workspace_limits",
+          "geometry.collision_model",
+          "sensing.state.eef_pose_xyz_xyzw",
+          "dynamic.camera_calibration",
+          "dynamic.workspace_bounds",
+          "topology.manipulator.left_arm",
+          "topology.end_effector.left_gripper",
+          "embodiment_control.controlled_point.left_link6",
+          "topology.manipulator.right_arm",
+          "topology.end_effector.right_gripper",
+          "embodiment_control.controlled_point.right_link6",
+          "sensing.camera.head",
+          "sensing.camera.left_wrist",
+          "sensing.camera.right_wrist"
+        ]
+      },
+      {
+        "source_id": "robodojo_x5_robot_config",
+        "kind": "environment_robot_binding",
+        "uri": "https://huggingface.co/datasets/RoboDojo-Benchmark/RoboDojo/resolve/a14409d7fae673c00499e01fd88b4457df6351b1/Assets/Robots/x5/robot_config.yml",
+        "revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+        "sha256": "9de4f63b84c0f730623c09af7a2d530d84973981397280b6e4b626b50ba6f1c9",
+        "supports": [
+          "topology.manipulator.left_arm",
+          "topology.manipulator.right_arm",
+          "embodiment_control.controlled_point.left_link6",
+          "embodiment_control.controlled_point.right_link6"
+        ]
+      },
+      {
+        "source_id": "robodojo_arx_shared_contract",
+        "kind": "controller_config",
+        "uri": "repo://ora/contracts/robodojo_arx.py",
+        "local_path": "ora/contracts/robodojo_arx.py",
+        "supports": [
+          "identity.base_mobility",
+          "embodiment_control.action_abstraction",
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation",
+          "embodiment_control.internal_controller_policy",
+          "geometry.workspace_limits",
+          "geometry.collision_model",
+          "sensing.state.eef_pose_xyz_xyzw",
+          "dynamic.camera_calibration",
+          "dynamic.workspace_bounds",
+          "topology.manipulator.left_arm",
+          "topology.end_effector.left_gripper",
+          "embodiment_control.controlled_point.left_link6",
+          "topology.manipulator.right_arm",
+          "topology.end_effector.right_gripper",
+          "embodiment_control.controlled_point.right_link6",
+          "sensing.camera.head",
+          "sensing.camera.left_wrist",
+          "sensing.camera.right_wrist"
+        ]
+      }
+    ]
+  }
+}

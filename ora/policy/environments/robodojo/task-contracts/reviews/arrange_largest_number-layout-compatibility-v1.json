@@ -1,0 +1,618 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "arrange_largest_number",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/arrange_largest_number-review-v2.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/arrange_largest_number-completion-v2.md",
+    "sha256": "a744b85a1a9bfb85a56761a02bec92895fbd260c79fa9c0b7217e9cbf22a1668"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_0.json",
+    "layout_sha256": "8d45b23010c950c35d5618c8701c6b8203036abaaf20a228db067ec3b1e30617"
+  },
+  "instruction": {
+    "text": "Arrange the numbers from left to right to form the largest possible number, and place them on the pad.",
+    "origin": "task/RoboDojo/tasks/arrange_largest_number.py::gen_instruction"
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 30 files are numbered 0-29 without a gap, so ordinal n is <task>_<n>.json",
+    "excluded": "arrange_largest_number_random_<n>.json belongs to the separate arrange_largest_number_random task module and never matches <task>_\\d+\\.json"
+  },
+  "decision": "User decision 2026-10-01: EXP11A g012 adds a three-round session (K = 3 rounds) of arrange_largest_number with a new reviewed layout of eval_seed 0 per round. This appendix extends the arrange_largest_number review-v2 record from layout 0 to the reviewed pool 16, 10, 6 and the fallback 8 without changing its contract text, and binds each audited layout's object metadata.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/arrange_largest_number.py:110-114) returns the constant template \"Arrange the numbers from left to right to form the largest possible number, and place them on the pad.\" with no placeholder, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
+    "Objects: every audited layout holds four Rigid number pieces digit_0-digit_3 with distinct digits (instance_sample_mode unique), all of texture group 0 (number/0-9) like layout 0, lying flat (tilt below 2.3 degrees), and four pads mat_0-mat_3 (cube_cushion/1, linked_count: one pad per piece) on an x-symmetric line; the camera stand and the Room, Table, Ground and Background sections are JSON-equal to layout 0. The pads' line moves in y per layout (row pads).",
+    "Contract clause 1: run_reward sorts the pieces by digit, largest first, and checks the k-th on mat_k. In every audited layout mat_0 is furthest toward world -X and x increases with the pad index, so \"the most significant digit goes on the pad furthest toward world -X ... each piece must be centred on its own pad\" states that pairing, with one pad per piece.",
+    "Contract clause 2: the reading checks bind each model's local +Y to world +Y (and local +X to world +X except for 0 and 8). The audit admits only texture group 0, the group of the reviewed layout: every group-0 digit model has its place orientation within 2 degrees of identity and its numeral height (0.049-0.053 m) along local y, as the reviewed models 0, 2, 7 and 8 do. Groups 1 and 2 repeat the same per-digit geometry but are not audited. This is metadata evidence; no rendered success witness exists for these digits.",
+    "Evaluator assets: the record binds the metadata of every object instance of layout 0 (evaluator_dependencies). Each row binds the metadata of every object instance of its own layout (evaluator_asset_dependencies; the layout-0 row reproduces the record's set byte for byte), which RunSpec resolution discloses for the scheduled layouts and fresh preflight re-hashes with the record's own dependencies (fail closed).",
+    "Asset load: layout 1 specifies its group-2 pieces at 0.01 kg against 0.1 kg asset metadata; it is not audited, and no audited piece is mass-clamped.",
+    "Not a reachability review: whether an arm reaches each object is decided by the catalog review (computed spawn distances) and the scene smoke (scheduled_object_reach); fixtures and placement targets are not reach-checked. Five-piece layouts were not selected: their middle pad lies 0.47-0.50 m from both arm bases."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_0.json",
+      "layout_sha256": "8d45b23010c950c35d5618c8701c6b8203036abaaf20a228db067ec3b1e30617",
+      "pieces": [
+        {
+          "label": "digit_0",
+          "category_idx": 2,
+          "digit": 2,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 35.95,
+          "tilt_from_flat_deg": 0.281
+        },
+        {
+          "label": "digit_1",
+          "category_idx": 8,
+          "digit": 8,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 9.82,
+          "tilt_from_flat_deg": 0.511
+        },
+        {
+          "label": "digit_2",
+          "category_idx": 7,
+          "digit": 7,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 16.53,
+          "tilt_from_flat_deg": 0.584
+        },
+        {
+          "label": "digit_3",
+          "category_idx": 0,
+          "digit": 0,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 1.75,
+          "tilt_from_flat_deg": 0.213
+        }
+      ],
+      "digits_unique": true,
+      "pads": [
+        {
+          "label": "mat_0",
+          "category_idx": 1,
+          "default_pos": [
+            -0.1267,
+            -0.0591,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_1",
+          "category_idx": 1,
+          "default_pos": [
+            -0.0433,
+            -0.0579,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_2",
+          "category_idx": 1,
+          "default_pos": [
+            0.0432,
+            -0.0581,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_3",
+          "category_idx": 1,
+          "default_pos": [
+            0.1283,
+            -0.0582,
+            0.7675
+          ]
+        }
+      ],
+      "one_pad_per_piece": true,
+      "pads_ordered_from_minus_x": true,
+      "camera_stand_equal_reviewed_layout": true,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+          "root": "assets",
+          "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00000/metadata.json",
+          "root": "assets",
+          "sha256": "faf13e7ff15809eca972fe22383b65b7fc0e07d75f292c7b07cec5f693df3714"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9f809d066f04d40e0db8dd4f648f02c302de4714927d22b2fbb434b2fde74142"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00007/metadata.json",
+          "root": "assets",
+          "sha256": "23b8e3d5f55511f966b9f0a491cbbbf78b403b861094bc5f514910aad620c5f5"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00008/metadata.json",
+          "root": "assets",
+          "sha256": "3e1ff58dcfbff2b9e0e69fff28c6af4b947ab3e968bdbcc06fc67e02528038da"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 16,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_16.json",
+      "layout_sha256": "5aa229d25ae7c4ae50cda214fafa8e62520db1575abfa921fac8b5ef911d76eb",
+      "pieces": [
+        {
+          "label": "digit_0",
+          "category_idx": 2,
+          "digit": 2,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 40.9,
+          "tilt_from_flat_deg": 0.281
+        },
+        {
+          "label": "digit_1",
+          "category_idx": 8,
+          "digit": 8,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 22.2,
+          "tilt_from_flat_deg": 0.511
+        },
+        {
+          "label": "digit_2",
+          "category_idx": 6,
+          "digit": 6,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 7.79,
+          "tilt_from_flat_deg": 1.37
+        },
+        {
+          "label": "digit_3",
+          "category_idx": 1,
+          "digit": 1,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 6.19,
+          "tilt_from_flat_deg": 2.26
+        }
+      ],
+      "digits_unique": true,
+      "pads": [
+        {
+          "label": "mat_0",
+          "category_idx": 1,
+          "default_pos": [
+            -0.1279,
+            -0.0716,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_1",
+          "category_idx": 1,
+          "default_pos": [
+            -0.042,
+            -0.0712,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_2",
+          "category_idx": 1,
+          "default_pos": [
+            0.0417,
+            -0.0722,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_3",
+          "category_idx": 1,
+          "default_pos": [
+            0.1269,
+            -0.0715,
+            0.7675
+          ]
+        }
+      ],
+      "one_pad_per_piece": true,
+      "pads_ordered_from_minus_x": true,
+      "camera_stand_equal_reviewed_layout": true,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+          "root": "assets",
+          "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00001/metadata.json",
+          "root": "assets",
+          "sha256": "29f4f1b0cf37ec0758275ae01a4e88c8f5c0e291b23d5ef30f249f19a03e8249"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00002/metadata.json",
+          "root": "assets",
+          "sha256": "9f809d066f04d40e0db8dd4f648f02c302de4714927d22b2fbb434b2fde74142"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00006/metadata.json",
+          "root": "assets",
+          "sha256": "22c6b915179ed09d7d4c6a32f3b0bce4858cbb41cf50379399d18ea60dfcfe21"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00008/metadata.json",
+          "root": "assets",
+          "sha256": "3e1ff58dcfbff2b9e0e69fff28c6af4b947ab3e968bdbcc06fc67e02528038da"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 10,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_10.json",
+      "layout_sha256": "26840b97153bb21703516057464559334308957ede39af353c90a7a2628306ac",
+      "pieces": [
+        {
+          "label": "digit_0",
+          "category_idx": 3,
+          "digit": 3,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 35.83,
+          "tilt_from_flat_deg": 0.539
+        },
+        {
+          "label": "digit_1",
+          "category_idx": 5,
+          "digit": 5,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 32.41,
+          "tilt_from_flat_deg": 0.206
+        },
+        {
+          "label": "digit_2",
+          "category_idx": 8,
+          "digit": 8,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 28.84,
+          "tilt_from_flat_deg": 0.511
+        },
+        {
+          "label": "digit_3",
+          "category_idx": 0,
+          "digit": 0,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 13.93,
+          "tilt_from_flat_deg": 0.213
+        }
+      ],
+      "digits_unique": true,
+      "pads": [
+        {
+          "label": "mat_0",
+          "category_idx": 1,
+          "default_pos": [
+            -0.1269,
+            -0.0733,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_1",
+          "category_idx": 1,
+          "default_pos": [
+            -0.0417,
+            -0.0731,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_2",
+          "category_idx": 1,
+          "default_pos": [
+            0.0422,
+            -0.0721,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_3",
+          "category_idx": 1,
+          "default_pos": [
+            0.1274,
+            -0.0727,
+            0.7675
+          ]
+        }
+      ],
+      "one_pad_per_piece": true,
+      "pads_ordered_from_minus_x": true,
+      "camera_stand_equal_reviewed_layout": true,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+          "root": "assets",
+          "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00000/metadata.json",
+          "root": "assets",
+          "sha256": "faf13e7ff15809eca972fe22383b65b7fc0e07d75f292c7b07cec5f693df3714"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00003/metadata.json",
+          "root": "assets",
+          "sha256": "7311ece545dc9c98422ee8506887c8747560a46f951e5e8c68d4265343ad411d"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00005/metadata.json",
+          "root": "assets",
+          "sha256": "b5181f9e5a315e27bfdc7e7dd11b4ec20cff1cefe7504ff5d2097f8c1f3423f8"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00008/metadata.json",
+          "root": "assets",
+          "sha256": "3e1ff58dcfbff2b9e0e69fff28c6af4b947ab3e968bdbcc06fc67e02528038da"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 6,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_6.json",
+      "layout_sha256": "24af7076c9a327d38c21f9082c5c2dd3fce8ca34365ad9c33cf0698bf969fd2c",
+      "pieces": [
+        {
+          "label": "digit_0",
+          "category_idx": 0,
+          "digit": 0,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 38.07,
+          "tilt_from_flat_deg": 0.213
+        },
+        {
+          "label": "digit_1",
+          "category_idx": 1,
+          "digit": 1,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 34.49,
+          "tilt_from_flat_deg": 2.26
+        },
+        {
+          "label": "digit_2",
+          "category_idx": 8,
+          "digit": 8,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 36.22,
+          "tilt_from_flat_deg": 0.511
+        },
+        {
+          "label": "digit_3",
+          "category_idx": 5,
+          "digit": 5,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 7.93,
+          "tilt_from_flat_deg": 0.206
+        }
+      ],
+      "digits_unique": true,
+      "pads": [
+        {
+          "label": "mat_0",
+          "category_idx": 1,
+          "default_pos": [
+            -0.127,
+            -0.0815,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_1",
+          "category_idx": 1,
+          "default_pos": [
+            -0.0426,
+            -0.0811,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_2",
+          "category_idx": 1,
+          "default_pos": [
+            0.0417,
+            -0.0814,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_3",
+          "category_idx": 1,
+          "default_pos": [
+            0.1277,
+            -0.0809,
+            0.7675
+          ]
+        }
+      ],
+      "one_pad_per_piece": true,
+      "pads_ordered_from_minus_x": true,
+      "camera_stand_equal_reviewed_layout": true,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+          "root": "assets",
+          "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00000/metadata.json",
+          "root": "assets",
+          "sha256": "faf13e7ff15809eca972fe22383b65b7fc0e07d75f292c7b07cec5f693df3714"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00001/metadata.json",
+          "root": "assets",
+          "sha256": "29f4f1b0cf37ec0758275ae01a4e88c8f5c0e291b23d5ef30f249f19a03e8249"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00005/metadata.json",
+          "root": "assets",
+          "sha256": "b5181f9e5a315e27bfdc7e7dd11b4ec20cff1cefe7504ff5d2097f8c1f3423f8"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00008/metadata.json",
+          "root": "assets",
+          "sha256": "3e1ff58dcfbff2b9e0e69fff28c6af4b947ab3e968bdbcc06fc67e02528038da"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 8,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_8.json",
+      "layout_sha256": "2d2656dc24a7d49e29ca6feae62685f79367f964d752cecb61230400bd2d3d58",
+      "pieces": [
+        {
+          "label": "digit_0",
+          "category_idx": 1,
+          "digit": 1,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 2.65,
+          "tilt_from_flat_deg": 2.26
+        },
+        {
+          "label": "digit_1",
+          "category_idx": 0,
+          "digit": 0,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 26.64,
+          "tilt_from_flat_deg": 0.213
+        },
+        {
+          "label": "digit_2",
+          "category_idx": 9,
+          "digit": 9,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 38.35,
+          "tilt_from_flat_deg": 0.563
+        },
+        {
+          "label": "digit_3",
+          "category_idx": 7,
+          "digit": 7,
+          "texture_group": 0,
+          "local_y_heading_from_world_y_deg": 18.21,
+          "tilt_from_flat_deg": 0.584
+        }
+      ],
+      "digits_unique": true,
+      "pads": [
+        {
+          "label": "mat_0",
+          "category_idx": 1,
+          "default_pos": [
+            -0.1276,
+            -0.0624,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_1",
+          "category_idx": 1,
+          "default_pos": [
+            -0.043,
+            -0.0632,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_2",
+          "category_idx": 1,
+          "default_pos": [
+            0.042,
+            -0.0631,
+            0.7675
+          ]
+        },
+        {
+          "label": "mat_3",
+          "category_idx": 1,
+          "default_pos": [
+            0.127,
+            -0.0613,
+            0.7675
+          ]
+        }
+      ],
+      "one_pad_per_piece": true,
+      "pads_ordered_from_minus_x": true,
+      "camera_stand_equal_reviewed_layout": true,
+      "room_table_ground_background_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+          "root": "assets",
+          "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00000/metadata.json",
+          "root": "assets",
+          "sha256": "faf13e7ff15809eca972fe22383b65b7fc0e07d75f292c7b07cec5f693df3714"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00001/metadata.json",
+          "root": "assets",
+          "sha256": "29f4f1b0cf37ec0758275ae01a4e88c8f5c0e291b23d5ef30f249f19a03e8249"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00007/metadata.json",
+          "root": "assets",
+          "sha256": "23b8e3d5f55511f966b9f0a491cbbbf78b403b861094bc5f514910aad620c5f5"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/number/00009/metadata.json",
+          "root": "assets",
+          "sha256": "9f05c9198c07f8fdc94caf2fc583d8ebe5ea3bd6422ffd4fbf1793a346f229b8"
+        }
+      ],
+      "compatible": true
+    }
+  ]
+}

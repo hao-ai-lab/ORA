@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Operate the resident SAM3 / Contact-GraspNet services: start, status, stop, qualify.
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ROOT"
+exec uv run --locked python -m ora.orchestrator.model_services_cli "$@"

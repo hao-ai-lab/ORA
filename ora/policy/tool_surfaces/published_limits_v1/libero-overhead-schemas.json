@@ -1,0 +1,54 @@
+{
+  "grasp_plan": {
+    "additionalProperties": false,
+    "properties": {
+      "max_candidates": {
+        "default": 3,
+        "description": "Maximum alternatives to inspect from this one query, from one through three, default 3: the front of the IK-ordered pool described under IK selection. This truncates a call-local ranking and does not select a grasp or request repeated planning.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "target_ref": {
+        "description": "Exactly one target_ref returned by vision_ground or vision_segment for the current immutable observation; do not copy an older reference after the world or observation changes.",
+        "pattern": "^target-[0-9a-f]{24}$",
+        "type": "string"
+      }
+    },
+    "required": [
+      "target_ref"
+    ],
+    "type": "object"
+  },
+  "vision_ground": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "Exact current native-resolution RGB-D camera in which to ground the text.",
+        "enum": [
+          "agentview",
+          "wrist"
+        ],
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "Maximum ranked regions to return, 1 to 3, default 3. Three is what the grounding service answers per call, so a larger number is refused before the request is sent rather than returned as an error you cannot act on. Every returned region gets its own close-up preview; nothing caps previews across a step, and no count of images already in the conversation refuses this call. Fewer regions answer faster: three cost roughly 479 milliseconds against 244 for one.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "text": {
+        "description": "Short visible object or part description used to retrieve an inspectable candidate set; use task language or a concrete visual rephrasing, never a simulator identifier.",
+        "maxLength": 120,
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "camera",
+      "text"
+    ],
+    "type": "object"
+  }
+}

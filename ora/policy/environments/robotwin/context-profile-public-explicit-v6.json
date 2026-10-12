@@ -1,0 +1,29 @@
+{
+  "schema": "ora.environment-prompt-profile.v1",
+  "profile_id": "robotwin_public_explicit_v6",
+  "default": false,
+  "match": {
+    "environment_id": "robotwin",
+    "embodiment_id": "aloha_agilex",
+    "robot_models": [
+      "ALOHA-AgileX"
+    ],
+    "controller": "motion_action_v3",
+    "public_cameras": [
+      "head_camera",
+      "front_camera",
+      "left_camera",
+      "right_camera"
+    ]
+  },
+  "sources": {
+    "environment_policy": "ora/policy/environments/robotwin/boundary-v4.md",
+    "embodiment_policy": "ora/policy/embodiments/aloha-agilex/manual-public-geometry-v3.md"
+  },
+  "compiled_embodiment": {
+    "descriptor": "ora/policy/embodiments/aloha-agilex/descriptor-public-geometry-v5-session-split-v1.json",
+    "review": "ora/policy/embodiments/aloha-agilex/wording-review-public-geometry-v5-session-split-v1.json",
+    "card_sha256": "cb14ab0ca6c28d351b1ad60ad94068352681cfe51d90464c20afbc8b20a79631",
+    "runtime_verification": "loaded_robot_geometry_before_policy_v1"
+  }
+}

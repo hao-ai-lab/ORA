@@ -1,0 +1,20 @@
+{
+  "wait_ticks": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "wait_ticks"
+      }
+    },
+    "required": [
+      "status",
+      "action"
+    ]
+  }
+}

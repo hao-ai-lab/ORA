@@ -1,0 +1,301 @@
+# Test fixture execution host profile (test-arm); not a real host. Tests load it
+# through ORA_HOSTS_DIR (tests/conftest.py).
+schema: ora.execution-host.v1
+id: test-arm
+ssh_alias: null
+execution_marker:
+  environment_variable: ORA_EXECUTION_HOST
+  required_value: test-arm
+project_root:
+  environment_variable: ORA_PROJECT_ROOT
+libero_pro:
+  python:
+    environment_variable: LIBERO_PRO_PYTHON
+    purpose: Isolated aarch64 LIBERO-Pro worker interpreter with Torch, MuJoCo and robosuite.
+  rlinf_root:
+    environment_variable: RLINF_ROOT
+    purpose: Exact clean RLinf checkout used directly by the LIBERO adapter.
+  simulator_root:
+    environment_variable: LIBERO_PRO_ROOT
+    purpose: Exact clean LIBERO-Pro simulator source and asset root.
+  dataset_root:
+    environment_variable: LIBERO_PRO_DATA_ROOT
+    purpose: Exact clean authoritative BDDL and init-state dataset snapshot.
+  simulator_config:
+    environment_variable: LIBERO_CONFIG_PATH
+    purpose: Host-local LIBERO path map; generated state and never policy-visible.
+motion_planner:
+  python:
+    environment_variable: CUROBO_PYTHON
+    purpose: CuRobo interpreter matching the pinned revision.
+  root:
+    environment_variable: CUROBO_ROOT
+    purpose: Exact clean CuRobo checkout matching the pinned revision.
+graphics_runtime:
+  purpose: Offscreen EGL for MuJoCo from a user-space graphics runtime.
+  root: /opt/nvidia-gfx
+  environment_variables:
+  - LD_LIBRARY_PATH
+  - __EGL_VENDOR_LIBRARY_DIRS
+  - MUJOCO_GL
+  - PYOPENGL_PLATFORM
+credentials:
+  mode: trusted_environment_only
+  committed_values: forbidden
+execution_resources:
+  libero-gpu0:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 20480
+  libero-gpu0b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0f:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0f
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0g:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0g
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0h:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0h
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu1:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 20480
+  libero-gpu1b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1f:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1f
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1g:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1g
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1h:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1h
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu2:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 20480
+  libero-gpu2b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2f:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2f
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2g:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2g
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2h:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2h
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu3:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 20480
+  libero-gpu3b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3f:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3f
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3g:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3g
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3h:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3h
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048

@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ora-agent"
+version = "0.1.0"
+description = "Open Robot-Use Agents: language-model policies for simulated robots"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+dependencies = [
+  "flask>=3.0",
+  "httpx>=0.27,<1.0",
+  "numpy>=1.26,<2.0",
+  "opencv-python-headless>=4.10,<4.12",
+  "pillow>=10.0",
+  "pyyaml>=6.0",
+  "scipy>=1.12,<2.0",
+  "starlark-pyo3>=2026.1.2,<2027",
+]
+
+[project.urls]
+Repository = "https://github.com/hao-ai-lab/ora-agent"
+Documentation = "https://github.com/hao-ai-lab/ora-agent/blob/main/docs/README.md"
+Issues = "https://github.com/hao-ai-lab/ora-agent/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+live = ["imageio>=2.34", "imageio-ffmpeg>=0.5"]
+
+[project.scripts]
+ora = "ora.orchestrator.cli:main"
+ora-viewer = "viewer.app:main"
+robotwin-qualify = "ora.environment.backends.robotwin.qualification:main"
+
+[tool.setuptools]
+include-package-data = false
+license-files = ["LICENSE", "NOTICE", "third_party/*.txt"]
+
+# ora and viewer are discovered, so a new subpackage cannot be left out of the
+# wheel; experiments keeps only the Runtime qualification package.
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+  "ora",
+  "ora.*",
+  "viewer",
+  "viewer.*",
+  "experiments",
+  "experiments.runtime_v1",
+]
+
+[tool.setuptools.package-data]
+ora = [
+  "policy/**/*.md",
+  "policy/**/*.json",
+  "policy/**/*.yaml",
+  "policy/**/*.star",
+  "orchestrator/hosts/*.yaml",
+  "orchestrator/hosts/README.md",
+  "orchestrator/run_report_pricing.yaml",
+  "orchestrator/identity-registry.json",
+  "agent/providers/*.yaml",
+  "environment/benchmarks/*.json",
+  "environment/backends/robotwin/vendored/*",
+  "environment/backends/robodojo/installation/*",
+]
+experiments = ["**/*.yaml", "**/*.md", "**/*.json"]
+viewer = ["templates/*.html", "static/*.css", "provider-pricing.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]

@@ -1,0 +1,84 @@
+{
+  "grasp_execute": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "submitted",
+          "aborted"
+        ]
+      },
+      "skill": {
+        "type": "string",
+        "enum": [
+          "grasp_execute",
+          "place_execute"
+        ]
+      },
+      "candidate_id": {
+        "type": "string"
+      },
+      "committed_sequence": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "driving_stages": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "cost": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "robot_decisions": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "dispatched_stage_actions": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "robot_decisions",
+          "dispatched_stage_actions"
+        ]
+      },
+      "target_ref": {
+        "type": "string"
+      },
+      "transition": {
+        "type": "string"
+      },
+      "released": {
+        "type": "boolean"
+      },
+      "claim_boundary": {
+        "type": "string"
+      },
+      "precommit_motion_check": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Observation-bound exact selected-pregrasp planning summary; no physical success certificate."
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "skill",
+      "candidate_id",
+      "claim_boundary"
+    ]
+  }
+}

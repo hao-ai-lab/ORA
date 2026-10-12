@@ -1,0 +1,515 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "lift_pot",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/lift_pot.py",
+      "sha256": "347e06f3f9f82b1bc35882671bbbdea50b6e3c77fff0f7fb4449b024875402eb"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/lift_pot.json",
+      "sha256": "9b145355b15a87d72fa1561151d16d9a71faa242a3f287ffad546825c393f63b"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100015/mobility.urdf",
+      "sha256": "5e0ca1386e8314571f4596f10bebc38e777e3072d5d4fe74312f6028ce6282f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100015/model_data.json",
+      "sha256": "3da4990883dc8b0ed28059450424079058aa3e6dbf43658d7e941bb4a65af36c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100023/mobility.urdf",
+      "sha256": "ba11254aa997063d263a6d9bb87e628b1e796ab780d6e4f1fe5eb9a48c23a2fd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100023/model_data.json",
+      "sha256": "90416da9a5c7403012f543aa2cee6677fdea726d0d6a487add81519a43b9ca4c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100038/mobility.urdf",
+      "sha256": "264724c026fc12f9f52121d449418e90832b2e6ccf52ef9aa83da39cd3e3402b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100038/model_data.json",
+      "sha256": "5c1acb28b094fb835186eaeb91871bb07629a6667650780289b7e76f545fe881"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100051/mobility.urdf",
+      "sha256": "88c5d84764280cf47ed3a2d3ec9bf580fbccd72deef4ac681ab5915a3e02cf96"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100051/model_data.json",
+      "sha256": "b8aa977a2d193b2b79bd70a56460ff15c2a86a8ab94c91a55ded4059c22ce340"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100057/mobility.urdf",
+      "sha256": "033642cca45dca696dc34091274c776ce08cedfcd22647a0f9a748061fe0c48e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100057/model_data.json",
+      "sha256": "ab40fc2aeafe75691f63574d09e75151a699cb738909f339a0903f914fcd6013"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100058/mobility.urdf",
+      "sha256": "124b891b4201346186f6ca3a8ab75821f08805540d6a3a0ee19b51e39b91c297"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100058/model_data.json",
+      "sha256": "7ad7d2915600f22ffbf90632aa6b1465fdba909f0efe5aa1e46ebc8f3fed6d8e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100060/mobility.urdf",
+      "sha256": "b7324e80a9bd4194570534899b1e0b51840ad40a7fd77c0c1c9e7c426db38756"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/100060/model_data.json",
+      "sha256": "6e6f1c8350053d01d658e77a68210b2a28a5262df94d9fc226cdda9a58590812"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/060_kitchenpot/points_info.json",
+      "sha256": "3a02f31e1d966138c093c176c329aa142984a973edaa0ae44e382027d93b32a3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/bounding_box.json",
+      "sha256": "9c74f2eebac741cd861c18eafc4c3a16450416088710e5837e0ff2a9070436c6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/images/texture_0.png",
+      "sha256": "d241843e17be1c68d7415233d17b42b4405de7e77ff6db780ec2377a008c90e0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/images/texture_1.jpg",
+      "sha256": "2b19b29b6f232ad65054899e496eea559df2aff422f012d55e9c2e0d3dab6611"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/images/texture_2.jpg",
+      "sha256": "2b19b29b6f232ad65054899e496eea559df2aff422f012d55e9c2e0d3dab6611"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/meta.json",
+      "sha256": "19f939d8a7f2974d8ed007647e689803ec73474997dbafec717731279bfa5ba8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/mobility_v2.json",
+      "sha256": "e83d1694d045c0e22f399c8b32dcad5f388459f551fc79788b379a532994880a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/result.json",
+      "sha256": "f9401d285355da3a3d92aec5b79a52d8355680ed4b9ae691d98a938946b30895"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/result_original.json",
+      "sha256": "403fa23d8c2fb8c78bbd54de82bd538a5a9caac809a81cff21f7ed82605f7e8a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/semantics.txt",
+      "sha256": "bbacc0752d62daa3f5f1178a50eda18d5913f97cd98adfec2217f342c916148a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-1.mtl",
+      "sha256": "ee6af7b7240ac4a0330d2a6dca15d000abd0e811f5819cbdf982940baebdf1a8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-1.obj",
+      "sha256": "45e6b8b55f4cc36e7efd24b27ba99ff0f618ba59bf14c3e79477aa4ab5b1bf2e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-10.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-10.obj",
+      "sha256": "b71c0afc07bfd94ebc75048aa110bec9c397307cf0a6e9e01ccaf1cad799a9b6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-11.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-11.obj",
+      "sha256": "e1f0aa6f8f9c5bcfbbdaa2eb4ecda70db5b15a3dbc68cc35017e5ac171e1a609"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-13.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-13.obj",
+      "sha256": "c5c7a8f381446be8b9b95d60cba3f86f2808bc503440febf6e8a78814f296dd1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-14.mtl",
+      "sha256": "8181beb5d285cf6b4175b4d3aeb5eab6b4ac3f5fb6f1c9ffa33520ee3ce3c728"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-14.obj",
+      "sha256": "7b326ec7972dc346d59be29cf0d4dfdd3a1c6898520dde43669acef6b2e64a8a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-15.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-15.obj",
+      "sha256": "ba11d698682d67a115d10753ce30f0674587d8b48afa29a2d60e83c4c68e9f13"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-16.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-16.obj",
+      "sha256": "f03da7d23b00010bd95c048e7195a56d583475ddea3764f9d91ff3967b7d4221"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-17.mtl",
+      "sha256": "ea4fc5baf130f956284e74273e71fc8b84c005c9877ab5cd8ab6fe574cd3c4bd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-17.obj",
+      "sha256": "9f5941497ca943b8f5303d9fa6c522e82b24ac940edb080947bfd812bede7248"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-19.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-19.obj",
+      "sha256": "b88d50ef1872464f946ff497b8e8515029664a820b24f63c2665e0f2a48f58f0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-21.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-21.obj",
+      "sha256": "71eae5fce40511c771162cec027e56f0ee0686fb55072ee08159863b410a8afa"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-22.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-22.obj",
+      "sha256": "422da1637988243a6b6a69e6051a3fc2770ed0b7c6b6e6bc497a97246e42b309"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-23.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-23.obj",
+      "sha256": "56c7be2886b7d716d61e6cafd5fa9f0a986ad3b357d8cacae2b072bd9a5aa9fa"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-25.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-25.obj",
+      "sha256": "e48ff0f9108b60de7e9334a131b8c7ef4f99dced29d3645f451986a59bba0b47"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-26.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-26.obj",
+      "sha256": "a5a5743bd8303aabcc318d515d79b26d589c9984504fcf2dd43559720af79701"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-27.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-27.obj",
+      "sha256": "7a5fbb6fef88073c140d01a090f933d170ef8fe5b6ca64a7de52ffdc57841fa3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-29.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-29.obj",
+      "sha256": "642f38acc2ed75db3de947bd45c210133ee28a724ac8d9003012f318b9c0913e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-30.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-30.obj",
+      "sha256": "0403587c73ec1a6659d191d57096cc41bd872bbe22266b8a9adad208ad1dc91a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-31.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-31.obj",
+      "sha256": "9b09a4935356a42d796e77a340f822efda8097907d8fa611df95db4a5a9ff961"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-5.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-5.obj",
+      "sha256": "6c3054a7723b2f138b4fbec29a6be848dcf7a915ea1eb40d04a4a9a103fcbaae"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-6.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-6.obj",
+      "sha256": "0b537772883a79088bcc1950f57e5b9b80318ae81cc6ea78054d8321a8b22eb3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-7.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-7.obj",
+      "sha256": "f60815a0e4fd6106018f9dd14f91d9ac9cd42b2a75a035b89d4c2494f77bd407"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-8.mtl",
+      "sha256": "1dc9263b8587861a34ea42d759a49daabe2e6a6875ffb6cbf98d8b12e10d51a7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/060_kitchenpot/100015/textured_objs/original-8.obj",
+      "sha256": "71bce51ffb985f8805256cbc46bcebcd65a7e4026fa774a99771bc537c301789"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-lift_pot-from-s0-gpu2-20260830T073031Z/lift_pot/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "b8ed691a12816b258ae0a9cdfa0c6fe22fe4b886b084e2bed313608fadf247b2"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-lift_pot-from-s0-gpu2-20260830T073031Z/lift_pot/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "a71dadd9fc5627a9c0508cadaa47b2f46597d8ff4283ee944b94a302dc6fd0fd"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-lift_pot-from-s0-gpu2-20260830T073031Z/lift_pot/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "103401a6cdd720a597a32427029807bdb7060ee0f3d975a44ba1f88064c438d4"
+    }
+  ],
+  "public_clauses": [
+    "Lift the pot clear of the table and keep it upright.",
+    "Keep the left gripper at the left handle and the right gripper at the right handle while the pot is raised."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: pot root z > 0.82 AND get_face_prod(root.q, local Z, world Z) > 0.8.",
+      "interpretation": "Lift the pot clear of the table and keep it upright.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: each measured TCP lies near its corresponding pot contact marker, independently for both arms.",
+      "interpretation": "Keep the left gripper at the left handle and the right gripper at the right handle while the pot is raised.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/lift_pot.py:check_success lines 50-58, helper and asset dependencies listed in this record.",
+      "interpretation": "No closed-command or actual handle-contact test; TCP proximity does not prove gripping force. Lid joint is not a separate completion condition.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No closed-command or actual handle-contact test; TCP proximity does not prove gripping force. Lid joint is not a separate completion condition."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Articulated kitchen-pot models 0/1; body handles are contact points 0/1. URDF fixed transform and spawn rotation put them on robot left/right; root Z is upright axis."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Articulated kitchen-pot models 0/1; body handles are contact points 0/1. URDF fixed transform and spawn rotation put them on robot left/right; root Z is upright axis. Parsed 15 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Articulated kitchen-pot models 0/1; body handles are contact points 0/1. URDF fixed transform and spawn rotation put them on robot left/right; root Z is upright axis."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows pot upright between two grippers at opposite handles."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Raise pot with one arm while other gripper is away, or tip it strongly: relevant conjunct fails. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No closed-command or actual handle-contact test; TCP proximity does not prove gripping force. Lid joint is not a separate completion condition."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Raise pot with one arm while other gripper is away, or tip it strongly: relevant conjunct fails.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "补齐旧契约遗漏的双把手位置与锅保持正立。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "060_kitchenpot",
+        "model_id": 0
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows pot upright between two grippers at opposite handles.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No closed-command or actual handle-contact test; TCP proximity does not prove gripping force. Lid joint is not a separate completion condition. Head image shows pot upright between two grippers at opposite handles. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

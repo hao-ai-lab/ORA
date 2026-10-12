@@ -1,0 +1,757 @@
+{
+  "observe": {
+    "$defs": {
+      "camera": {
+        "additionalProperties": false,
+        "properties": {
+          "calibration": {
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "const": "unavailable",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "camera_axes": {
+                    "const": "x_right_y_down_z_forward",
+                    "type": "string"
+                  },
+                  "intrinsic_cv": {
+                    "items": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    },
+                    "maxItems": 3,
+                    "minItems": 3,
+                    "type": "array"
+                  },
+                  "pixel_basis": {
+                    "const": "native_rgb_before_sheet_translation",
+                    "type": "string"
+                  },
+                  "status": {
+                    "const": "reported",
+                    "type": "string"
+                  },
+                  "world_position_unit": {
+                    "const": "metre",
+                    "type": "string"
+                  },
+                  "world_to_camera_cv": {
+                    "items": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    },
+                    "maxItems": 4,
+                    "minItems": 4,
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "status",
+                  "intrinsic_cv",
+                  "world_to_camera_cv",
+                  "camera_axes",
+                  "world_position_unit",
+                  "pixel_basis"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "controlled_point_pixels": {
+            "additionalProperties": {
+              "additionalProperties": false,
+              "properties": {
+                "depth_m": {
+                  "description": "Distance along the camera's forward axis, metres.",
+                  "type": "number"
+                },
+                "in_front_of_camera": {
+                  "type": "boolean"
+                },
+                "inside_image": {
+                  "type": "boolean"
+                },
+                "pixel_xy": {
+                  "description": "Native OpenCV pixel [x, y]; null when the point is behind the camera.",
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": [
+                    "array",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "pixel_xy",
+                "inside_image",
+                "in_front_of_camera",
+                "depth_m"
+              ],
+              "type": "object"
+            },
+            "description": "Where each arm's public controlled point lands in this camera's native RGB image, computed from this observation's public calibration and measured controlled-point pose. On the ARX X5 the controlled point is the link6 wrist flange, which sits behind the arm's own wrist camera: expect in_front_of_camera false and a null pixel there.",
+            "type": "object"
+          },
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_view": {
+            "type": "string"
+          },
+          "jaw_center_pixels": {
+            "additionalProperties": {
+              "additionalProperties": false,
+              "properties": {
+                "depth_m": {
+                  "description": "Distance along the camera's forward axis, metres.",
+                  "type": "number"
+                },
+                "in_front_of_camera": {
+                  "type": "boolean"
+                },
+                "inside_image": {
+                  "type": "boolean"
+                },
+                "pixel_xy": {
+                  "description": "Native OpenCV pixel [x, y]; null when the point is behind the camera.",
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": [
+                    "array",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "pixel_xy",
+                "inside_image",
+                "in_front_of_camera",
+                "depth_m"
+              ],
+              "type": "object"
+            },
+            "description": "Where each arm's nominal jaw contact centre (the descriptor's contact_center_distance_m, 0.1501 m ahead of link6 along its approach axis) lands in this camera's native RGB image, from the same calibration and measured pose. Nominal source geometry: not a measured contact, grasp or object position; the pixel may lie outside the image.",
+            "type": "object"
+          },
+          "native_pixel_to_image_offset_xy": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "pixel_coordinates": {
+            "const": "opencv_top_left_xy",
+            "type": "string"
+          },
+          "resampling": {
+            "const": "none",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "width",
+          "height",
+          "pixel_coordinates",
+          "image_view",
+          "native_pixel_to_image_offset_xy",
+          "resampling",
+          "calibration"
+        ],
+        "type": "object"
+      },
+      "end_effector": {
+        "additionalProperties": false,
+        "properties": {
+          "axes": {
+            "additionalProperties": false,
+            "properties": {
+              "approach_world": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              "closing_world": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              }
+            },
+            "required": [
+              "approach_world",
+              "closing_world"
+            ],
+            "type": "object"
+          },
+          "controlled_frame": {
+            "enum": [
+              "panda_grip_site",
+              "arx_x5_link6"
+            ],
+            "type": "string"
+          },
+          "gripper": {
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "grasp_evidence": {
+                    "const": "not_established_by_joint_measurement",
+                    "type": "string"
+                  },
+                  "measured_aperture_mm": {
+                    "type": "number"
+                  },
+                  "measured_finger_displacements_m": {
+                    "items": {
+                      "type": "number"
+                    },
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                  },
+                  "measured_opening_normalized": {
+                    "type": "number"
+                  },
+                  "measurement_semantics": {
+                    "const": "two_prismatic_finger_displacements_not_command",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "measured_finger_displacements_m",
+                  "measured_aperture_mm",
+                  "measured_opening_normalized",
+                  "measurement_semantics",
+                  "grasp_evidence"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "command_target": {
+                    "enum": [
+                      "open",
+                      "close",
+                      "unknown"
+                    ],
+                    "type": "string"
+                  },
+                  "commanded_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "drive_target_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "grasp_evidence": {
+                    "const": "not_established_by_joint_measurement",
+                    "type": "string"
+                  },
+                  "measured_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "measured_primary_joint_position": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "opening_semantics": {
+                    "const": "normalized_closed_0_open_1_not_aperture_m",
+                    "type": "string"
+                  },
+                  "status": {
+                    "enum": [
+                      "reported",
+                      "unavailable"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "opening_semantics",
+                  "grasp_evidence",
+                  "command_target"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "description": "ARX X5 jaw evidence: two prismatic encoder readings and a normalized opening. The pad aperture is uncalibrated, so measured_aperture_mm is always null.",
+                "properties": {
+                  "command_target": {
+                    "enum": [
+                      "open",
+                      "close",
+                      "unknown",
+                      null
+                    ],
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "commanded_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "feedback": {
+                    "additionalProperties": false,
+                    "description": "Requested directive, SDK-resolved drive target and encoder measurement, kept distinct. On this backend measured_opening_normalized is the mean of both finger joints on the normalized command scale (two_finger_encoder_mean_v1), not a calibrated aperture; finger_lateral_offset_m is half of finger_1 minus finger_2 in metres, positive when the pair has shifted toward finger_1's opening direction and 0 when the fingers are symmetric.",
+                    "properties": {
+                      "arrival_check": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "comparison": {
+                            "enum": [
+                              "<",
+                              "<="
+                            ],
+                            "type": "string"
+                          },
+                          "residual_normalized": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "tolerance_normalized": {
+                            "type": "number"
+                          },
+                          "within_tolerance": {
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "comparison",
+                          "residual_normalized",
+                          "tolerance_normalized",
+                          "within_tolerance"
+                        ],
+                        "type": "object"
+                      },
+                      "drive_target_opening_normalized": {
+                        "type": "number"
+                      },
+                      "drive_target_source": {
+                        "enum": [
+                          "resolved_sdk_joint_position_target",
+                          "actuator_joint_position_target"
+                        ],
+                        "type": "string"
+                      },
+                      "effective_target_opening_normalized": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "finger_lateral_offset_m": {
+                        "type": "number"
+                      },
+                      "measured_opening_normalized": {
+                        "type": "number"
+                      },
+                      "measurement_source": {
+                        "enum": [
+                          "primary_finger_encoder",
+                          "normalized_measured_aperture",
+                          "two_finger_encoder_mean_v1"
+                        ],
+                        "type": "string"
+                      },
+                      "pose_hold_semantics": {
+                        "enum": [
+                          "preserve_last_applied_drive_target",
+                          "preserve_actuator_target"
+                        ],
+                        "type": "string"
+                      },
+                      "requested_command": {
+                        "enum": [
+                          "open",
+                          "close",
+                          "unknown"
+                        ],
+                        "type": "string"
+                      },
+                      "requested_opening_normalized": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "schema": {
+                        "enum": [
+                          "ora.gripper-feedback.v1",
+                          "ora.gripper-feedback.v2"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "schema",
+                      "requested_opening_normalized",
+                      "drive_target_opening_normalized",
+                      "measured_opening_normalized",
+                      "effective_target_opening_normalized",
+                      "requested_command",
+                      "arrival_check",
+                      "drive_target_source",
+                      "measurement_source",
+                      "pose_hold_semantics"
+                    ],
+                    "type": "object"
+                  },
+                  "grasp_evidence": {
+                    "const": "not_established_by_joint_measurement",
+                    "type": "string"
+                  },
+                  "measured_aperture_mm": {
+                    "type": "null"
+                  },
+                  "measured_finger_displacements_m": {
+                    "items": {
+                      "type": "number"
+                    },
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                  },
+                  "measured_opening_normalized": {
+                    "type": "number"
+                  },
+                  "measurement_semantics": {
+                    "const": "prismatic_encoders_nominal_geometry_not_calibrated_pad_aperture",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "measured_finger_displacements_m",
+                  "measured_opening_normalized",
+                  "commanded_opening_normalized",
+                  "command_target",
+                  "measured_aperture_mm",
+                  "measurement_semantics",
+                  "grasp_evidence"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "orientation_order": {
+            "const": "xyzw",
+            "type": "string"
+          },
+          "pose_xyz_xyzw": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "type": "array"
+          },
+          "position_frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "position_unit": {
+            "const": "metre",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pose_xyz_xyzw",
+          "position_frame",
+          "position_unit",
+          "orientation_order",
+          "controlled_frame",
+          "axes",
+          "gripper"
+        ],
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "image_mapping": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "camera": {
+              "description": "Saved source view identifier. Physical camera names identify sensor images; pointcloud_* names, where enabled, identify derived public RGB-D projections, never an additional camera.",
+              "enum": [
+                "head",
+                "left_wrist",
+                "right_wrist"
+              ],
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "image_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "role": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ],
+          "type": "object"
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "measurement_contract": {
+        "type": "string"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "observation_step": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "public_robot_facts": {
+        "additionalProperties": false,
+        "properties": {
+          "cameras": {
+            "additionalProperties": false,
+            "properties": {
+              "head": {
+                "$ref": "#/$defs/camera"
+              },
+              "left_wrist": {
+                "$ref": "#/$defs/camera"
+              },
+              "right_wrist": {
+                "$ref": "#/$defs/camera"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "controller_feedback": {
+            "additionalProperties": false,
+            "description": "The source-bound ARX controller contract this observation was measured under: arrival tolerances, the fixed native-action window per command and the SDK gripper drive limiter. Configuration evidence, not a measurement of this snapshot.",
+            "properties": {
+              "arrival_comparison": {
+                "enum": [
+                  "<",
+                  "<="
+                ],
+                "type": "string"
+              },
+              "gripper_drive_limit": {
+                "additionalProperties": false,
+                "properties": {
+                  "applies_to": {
+                    "const": "explicit_gripper_commands",
+                    "type": "string"
+                  },
+                  "coupling": {
+                    "const": "both_drive_targets_from_limited_primary_target",
+                    "type": "string"
+                  },
+                  "kind": {
+                    "const": "measured_primary_relative",
+                    "type": "string"
+                  },
+                  "maximum_normalized_offset": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 1,
+                    "type": "number"
+                  },
+                  "pose_hold": {
+                    "const": "preserve_last_applied_drive_target",
+                    "type": "string"
+                  },
+                  "reference": {
+                    "const": "current_primary_finger_encoder",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "reference",
+                  "coupling",
+                  "applies_to",
+                  "pose_hold",
+                  "maximum_normalized_offset"
+                ],
+                "type": "object"
+              },
+              "gripper_tolerance_normalized": {
+                "exclusiveMinimum": 0,
+                "type": "number"
+              },
+              "native_actions_per_command": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "orientation_tolerance_rad": {
+                "exclusiveMinimum": 0,
+                "type": "number"
+              },
+              "position_tolerance_m": {
+                "exclusiveMinimum": 0,
+                "type": "number"
+              },
+              "schema": {
+                "const": "ora.controller-feedback.v1",
+                "type": "string"
+              }
+            },
+            "required": [
+              "schema",
+              "position_tolerance_m",
+              "orientation_tolerance_rad",
+              "gripper_tolerance_normalized",
+              "arrival_comparison",
+              "native_actions_per_command",
+              "gripper_drive_limit"
+            ],
+            "type": "object"
+          },
+          "end_effectors": {
+            "additionalProperties": false,
+            "properties": {
+              "left": {
+                "$ref": "#/$defs/end_effector"
+              },
+              "right": {
+                "$ref": "#/$defs/end_effector"
+              }
+            },
+            "required": [
+              "right"
+            ],
+            "type": "object"
+          },
+          "observation_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "schema": {
+            "const": "ora.current-public-robot-facts.v1",
+            "type": "string"
+          },
+          "snapshot_role": {
+            "enum": [
+              "current",
+              "historical"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "schema",
+          "observation_id",
+          "snapshot_role",
+          "cameras",
+          "end_effectors"
+        ],
+        "type": "object"
+      },
+      "status": {
+        "const": "actual_historical_observation",
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "view_dimensions": {
+        "type": "object"
+      },
+      "views": {
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "type": "array"
+      }
+    },
+    "required": [
+      "success",
+      "observation_id",
+      "views",
+      "view_dimensions",
+      "public_robot_facts"
+    ],
+    "type": "object"
+  }
+}

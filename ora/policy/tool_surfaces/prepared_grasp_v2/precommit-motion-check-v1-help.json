@@ -1,0 +1,6 @@
+{
+  "append": {
+    "grasp_execute": "Before opening or committing, runs one read-only backend probe for the selected exact pregrasp from the current measured joints. A refusal submits no action and reports grasp_pregrasp_unreachable with a bounded planning summary; select another candidate or reposition. Passing covers only this current-state pregrasp under the backend's published collision coverage. The Supervisor revalidates execution after opening; contact, lift and retention remain unchecked by the probe. The acknowledgement and final receipt include precommit_motion_check (one query, zero robot decisions).",
+    "grasp_plan": "Candidates are geometry proposals, not reachability certificates. For grasp_execute, the selected pregrasp receives one backend check before opening. Manual pose submissions use normal backend admission."
+  }
+}

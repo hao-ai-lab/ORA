@@ -1,0 +1,205 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "click_alarmclock",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/click_alarmclock.py",
+      "sha256": "f69a1ad4f1b483ab0dd82d8bad872e12047ed8d898f1fa4058de9e382ddeef49"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/click_alarmclock.json",
+      "sha256": "46cc55f23d3224ff3bbdd5958b90d23fba6f2dbda0ac72471e0c5744697e0424"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/model_data0.json",
+      "sha256": "fac1b8ee9261159b5c6540676655b15b42ee6f7a72457aa2deb9cfa83d5a779e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/model_data1.json",
+      "sha256": "cf152244f1dbf34006fa69e13bc314f61d914526e98640bf110808f2c3c80c43"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/model_data2.json",
+      "sha256": "4f5f0f3d3bd991effaaf582e80180d8a27a89910008da85222bdc2b05b1d04f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/model_data3.json",
+      "sha256": "0bb0237b1afac96473207fb7018dc7d89266c0dc9d29d743aa739ccb248acff1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/model_data4.json",
+      "sha256": "952cda57971b0655cecd4121dbdbe86b84ceb596420b9f08f2f118c062f9525c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/model_data5.json",
+      "sha256": "cdcdae6850f99e5047b1f114f567a6232068097d4b55dc0b17e47e4eeb3787b2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/046_alarm-clock/points_info.json",
+      "sha256": "346267aaa517385e20ac72731a7691bb181cc41d8897c8f5eea9784427b0099e"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-click_alarmclock-s550-gpu6-20260829T150752Z/click_alarmclock/attempts/seed-000550-try-00/attempt.json",
+      "sha256": "8c15dbea6e1e8062a6d443e80dde4f3200f0c0d6bd113455839a9145fe730905"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-click_alarmclock-s550-gpu6-20260829T150752Z/click_alarmclock/attempts/seed-000550-try-00/verifier-telemetry.json",
+      "sha256": "9e80633da2fdf751345c688044c240e35dccaac7d8fc64ca70d25ad7c87f2aba"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-click_alarmclock-s550-gpu6-20260829T150752Z/click_alarmclock/attempts/seed-000550-try-00/head_camera-rgb.png",
+      "sha256": "585b6c31f7df7f3278c110b98e67278a2a7c6988be3fa6b1a2fa160e97466af8"
+    }
+  ],
+  "public_clauses": [
+    "Press the button on top of the alarm clock with a gripper, making physical contact.",
+    "Keep the gripper on the side where the alarm clock started set to close when that contact occurs."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: contact points from either gripper near 046_alarm-clock contact point 0; accepted event sets stage_success_tag.",
+      "interpretation": "Press the button on top of the alarm clock with a gripper, making physical contact.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "load_actors caches the left/right gripper-close function from initial actor x; check_success tests it before the contact loop.",
+      "interpretation": "Keep the gripper on the side where the alarm clock started set to close when that contact occurs.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/click_alarmclock.py:check_success lines 80-92, helper and asset dependencies listed in this record.",
+      "interpretation": "The contact collector is not arm-specific: do not claim the evaluator proves which arm touched. Clock witness model identity is unrecorded; both reset-eligible clock assets are source-reviewed without inventing its selected ID.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. The contact collector is not arm-specific: do not claim the evaluator proves which arm touched. Clock witness model identity is unrecorded; both reset-eligible clock assets are source-reviewed without inventing its selected ID."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Static rigid button object; contact marker is on the top pressing area. No articulated button travel, sound, or force sensor is checked."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Static rigid button object; contact marker is on the top pressing area. No articulated button travel, sound, or force sensor is checked. Parsed 7 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Static rigid button object; contact marker is on the top pressing area. No articulated button travel, sound, or force sensor is checked."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Post-event head image shows the gripper withdrawn above the button; latched true is not evidence of ongoing contact. Clock witness lacks a selected-model asset entry in its historical record."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Hover without contact, or contact while the initially same-side gripper is set open: no new successful event. Contact after latching is unnecessary. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. The contact collector is not arm-specific: do not claim the evaluator proves which arm touched. Clock witness model identity is unrecorded; both reset-eligible clock assets are source-reviewed without inventing its selected ID."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Hover without contact, or contact while the initially same-side gripper is set open: no new successful event. Contact after latching is unnecessary.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "明确接触发生时的初始侧别与闭合指令；事件锁存后无需保持压住。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 550,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Post-event head image shows the gripper withdrawn above the button; latched true is not evidence of ongoing contact. Clock witness lacks a selected-model asset entry in its historical record.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "The contact collector is not arm-specific: do not claim the evaluator proves which arm touched. Clock witness model identity is unrecorded; both reset-eligible clock assets are source-reviewed without inventing its selected ID. Post-event head image shows the gripper withdrawn above the button; latched true is not evidence of ongoing contact. Clock witness lacks a selected-model asset entry in its historical record. Source-derived negative cases were not physically executed. The historical clock witness omitted selected asset IDs; do not reconstruct or certify its exact selected variant from appearance."
+}

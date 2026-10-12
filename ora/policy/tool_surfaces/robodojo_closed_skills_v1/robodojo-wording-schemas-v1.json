@@ -1,0 +1,100 @@
+{
+  "observe": {
+    "additionalProperties": false,
+    "description": "With a historical step, request physical camera views only and omit history_point_ids; pointcloud views are current-only.",
+    "properties": {
+      "history_point_ids": {
+        "description": "Solved current-observation mark IDs to overlay; omit or pass null for none.",
+        "items": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": [
+          "array",
+          "null"
+        ]
+      },
+      "step": {
+        "description": "Saved public observation step in the current round; omit or null for current. Historical selection is read-only and does not rewind the world.",
+        "minimum": 0,
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "views": {
+        "description": "Selected public views; omit for every physical camera. All current RGB views and calibration are already delivered automatically; use observe for overlays or saved observations.",
+        "items": {
+          "enum": [
+            "head",
+            "left_wrist",
+            "right_wrist"
+          ],
+          "type": "string"
+        },
+        "minItems": 1,
+        "type": [
+          "array",
+          "null"
+        ],
+        "uniqueItems": true
+      }
+    },
+    "type": "object"
+  },
+  "grasp_verify_retention": {
+    "additionalProperties": false,
+    "properties": {
+      "additional_pairs": {
+        "description": "Optional complementary camera pairs. Observe and segment that same camera at the saved baseline step and current step. Cross-view semantic association is your responsibility.",
+        "items": {
+          "additionalProperties": false,
+          "description": "One additional same-camera temporal pair for the same Agent-selected object; both observations must equal the primary baseline/current steps.",
+          "properties": {
+            "before_target_ref": {
+              "description": "Target segmented in this camera at the primary before_target_ref's observation step.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "current_target_ref": {
+              "description": "The same selected object segmented in the same camera at the current step.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "before_target_ref",
+            "current_target_ref"
+          ],
+          "type": "object"
+        },
+        "maxItems": 2,
+        "type": "array"
+      },
+      "arm": {
+        "description": "Arm whose measured public link6 displacement, applied as a rigid motion, is compared with the target.",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "type": "string"
+      },
+      "before_target_ref": {
+        "description": "The same object's target_ref from an earlier observation in the same round, taken after this arm's gripper was commanded closed and before the motion being tested; a view from before the close is not a valid baseline.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "current_target_ref": {
+        "description": "Fresh target localized from the current observation after the small lift.",
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "arm",
+      "before_target_ref",
+      "current_target_ref"
+    ],
+    "type": "object"
+  }
+}

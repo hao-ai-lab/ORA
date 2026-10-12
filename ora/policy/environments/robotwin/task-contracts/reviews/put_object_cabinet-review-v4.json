@@ -1,0 +1,1848 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "put_object_cabinet",
+  "status": "reviewed",
+  "reviewer": "Claude (Opus 5.5) individual predicate, mesh/asset and simulator counterfactual review requested by operator; fifty-task audit of 2026-10-07 for the zero-shot delivery",
+  "reviewed_at": "2026-10-07",
+  "scope": "Fifty-task semantic generation v4: corrects public clauses that a literal reading fails (wrong reference point or direction), adds checked end-state conditions the v3 text omitted, and corrects private review facts. Vague tolerances are deliberately left qualitative (operator decision 2026-10-07: no tightening, no numbers). Same source revisions as v3; evaluator, helper and asset sources unchanged at cf4872cc90538fd4bca761c8db912d8f65e49f2b. Counterfactual probes evaluate the official predicate on the expert's final geometry with one actor teleported; they are predicate evidence, not physical qualification of every asset variant.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/put_object_cabinet.py",
+      "sha256": "1de25dd513b4ad29e158440eefb28fb050be95d557c7df1b87578168ff35a7b2"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/put_object_cabinet.json",
+      "sha256": "734f7c557b58a8a4588ebd4e431c6248aaebc7298cfa7e55ac74dc48d4ea1cb1"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/036_cabinet/46653/mobility.urdf",
+      "sha256": "3905eaebdce2c7bee60612ba30633d63a373f4cfbda33d27737c7abc9f2da209"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/036_cabinet/46653/model_data.json",
+      "sha256": "8581c9810986b50245bdeeee9a16b745984984a887c16fa0186a4bcccbad29a0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/036_cabinet/points_info.json",
+      "sha256": "3185f32a470372dc513ad579838b7c507c3b3f079a02d7618edee8830178f76c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/model_data0.json",
+      "sha256": "ec9826adaf1ab0a950607cca52ae1f84be4f8713b58697c2b5992e58756853dd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/model_data1.json",
+      "sha256": "0a4a14550626bd9f992c53d64938a5986d76a834163c1d76743d835659153360"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/model_data2.json",
+      "sha256": "b35034f1e20533d458123db0c6d417002d37e771544cc24ac0e648062d5da1ee"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/points_info.json",
+      "sha256": "f47125f605410a9109c64a800ecfdae6218d4f3971818ab400945bc32b081922"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data0.json",
+      "sha256": "57600c0933f3375aefd0e403585d04dfd3c59041f4371d88d30212051d67a4db"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data1.json",
+      "sha256": "f6268b73a678763fd7129b89d7fa6833da76520ac83d4cd6c8de7f0673aebf4e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data2.json",
+      "sha256": "6628636dc87fa391649c7930a9e74fa233c7ec5eaabea5346078db28c2fef0f0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data3.json",
+      "sha256": "120d9e605b40006dd27eccd87f8f75a8178bafd9c7b22f571e6f6d6f118601d0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data4.json",
+      "sha256": "d2a2d65fb346135984f43b4f799694a041b02e0dbbfbd9eac91a9837c2a06377"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data5.json",
+      "sha256": "b0702cb31e6d984e95978626c5bb83f9add38135221bdd888686817dcda9d3cd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data6.json",
+      "sha256": "e42346a8d275eeb21660005e8fc35e34468453a319b3891a1fa02eafdd5e5bd3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/points_info.json",
+      "sha256": "43e7e805354025a4a8bac53009be9c4f72d2165f31beefea3526c5e008339224"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data0.json",
+      "sha256": "64935f1c4536c66ac968405fc08fd7f355b5ba4354d6bf16a6ead2bda24b239f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data1.json",
+      "sha256": "bce1e4881531853492cba11c6920a1e2904f768e6891d6ac18dfc3cd25594e46"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data2.json",
+      "sha256": "8fe847158cf784d485df12b28e07517cfc9795747fce7ef4b2609da86f495cff"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data3.json",
+      "sha256": "33d6d54b049450c725dd6b348f6ad55fa0b79dfd8ab9d3e90d5f9605d35f4140"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data4.json",
+      "sha256": "09508ad5bfdd361f52e10f62ade3f7da7b2069f14f0907d9f5696f1b7da9cac6"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data5.json",
+      "sha256": "acbc1b198d982173cb956984b499188145b0aa13de763f352a3bd9c35b3985c1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/points_info.json",
+      "sha256": "0c340d7d32a9218b4acb06ac3f2d03b3973ce6e680ccb5fd036c8b3ba20b9ae8"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/model_data0.json",
+      "sha256": "3566a537710e2bc7362bb9464147e326e21d00644516ca59e23f922303a82c17"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/model_data1.json",
+      "sha256": "d0dcbda4beaa8079cd79d21c81433c6a2b38204f5c07f721b6d292f826df0ff1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/model_data2.json",
+      "sha256": "ddf0cb01f44e97450390f32b4f62e5792b0b2f4d03bcfc8d9ff14a226fc8dd55"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/points_info.json",
+      "sha256": "761a51b6ea9a7878d0647944dd4cfbfff6094768e8cb2e17bd5cf003a89dbe96"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data0.json",
+      "sha256": "fa7eb7146170b3f4be9b5a3a6153be1241aece8fe58613861ea9615d187c031b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data1.json",
+      "sha256": "9cedb65a1a72fbff1c68884a75c8bb7efa31b4d38c6cd389a8e6ef8e8868b880"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data2.json",
+      "sha256": "0d7815267f2f3de0e913207d642d734fdc846761d9ec96478be873bb08ced874"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data3.json",
+      "sha256": "e4311ce7d1a7ae6e84cb467e1c13012a69d73b2120fb45dbed63d38e7f7996d9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data4.json",
+      "sha256": "d069078b8d9930de156a4af8eaea3e3104a1eabdd3854b590d6a160677d51f07"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data5.json",
+      "sha256": "7a503298abf37d78017a9f962c46ec79b932db4eef24aaa04d803c07f4099bf3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data6.json",
+      "sha256": "9672242c4abd58cad8e3a5802fb15079f145e303ed78048ef541d4011e78acc9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/points_info.json",
+      "sha256": "a330c87eb70ce0994eda76a1f6e12a1748f00ed761179de4db3ecd4cb271d640"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data0.json",
+      "sha256": "dd1e9b5af53636a53dea72611fd638c183d83f9817d2d50239a46bd69d84bd46"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data1.json",
+      "sha256": "2d7fae4a0413c5b156959a3a5cfaabd60072bcc2dae7aad535dd0bd292b267ac"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data2.json",
+      "sha256": "14f2917bf417ebc8efa8ff631dc17fdd8697fcb181ea95e5660c96767ecb4139"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data3.json",
+      "sha256": "fea6aa40ff10e8fae40009ddd9da8b851156880fc78fbb7e671fedd14f9d07f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data4.json",
+      "sha256": "db17091e9b80082b5124c94a3b0070d1b056417a2849cf8bd659251f4c59e59d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/points_info.json",
+      "sha256": "4fc1962709490146955bbb31b02b0ef5612be80c3c465d093085fd2723d78e67"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/model_data0.json",
+      "sha256": "ae60e2c2377edb3ab94ded0ef9f8254f87f6f2eb92a81b77d186d83faee6905d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/model_data1.json",
+      "sha256": "1fad364b5a4af21b83e4a21b9d11c23d4965840a2835cbfaeac657c21e2cd114"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/model_data2.json",
+      "sha256": "471d179e93258b55e618b869eb62183c9c5565cb54e28229c54c20b55ad8d716"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/points_info.json",
+      "sha256": "a9608bdaf4ea6bfdb4d4b73fbb5904f5a0e1b568f5c220982d6c04f4d4e0e565"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data0.json",
+      "sha256": "b2bde12c1abec0b09e4c2264fa6e6241bb1410a1e24135ab42e6ad093a5c6472"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data1.json",
+      "sha256": "92e37dafa5aa693ad1e540fbb304d2c54d5b940afc9157a759c1650db36e5d27"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data2.json",
+      "sha256": "66dee15ed55cc82cc74f05ec6d7756f58bda4942b5e23ee35444832db9d8e009"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data3.json",
+      "sha256": "6412c26d45142dba3259485af54936647eb2b78933a2e86edd045a1b49ef216b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/points_info.json",
+      "sha256": "ae86d3997ab6a33c3568c07c9bcc11ea38712d6dfa4313cf6b68b8089d3791f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data0.json",
+      "sha256": "c1eaf4beef134c8089248a5e2a0ab5b44e7b20711d805740d1db51b1399504a2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data1.json",
+      "sha256": "a7ae1b6b120d58dbcc216ad7b200e00c045daed42e508409961daf2baf8ec14c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data2.json",
+      "sha256": "1d070bc9d2f97586a9669687a13710aa83fe4cc20e9afdd05b58bb40abbcdc3e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data3.json",
+      "sha256": "cbbe5378ae6f008650fedafc12ca443c0933563863782c3bb264d0c6e0db74d6"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data4.json",
+      "sha256": "7e6615c455d23189a5b6d2bdf5a4ab843aa43ac448db5509f76348fa3f16637d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data5.json",
+      "sha256": "7a7c9aa1879ab55dae5fac798551b78b4f846f6e0501b4ef7ee66b0d261cd821"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/points_info.json",
+      "sha256": "80408e357012bc7679908e63110557003df7008b715af991c9a79f935a755986"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data0.json",
+      "sha256": "86a986f83e031863e0e3ac15feb117792a451e6529b0a2b9e95646d4ae9126fd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data1.json",
+      "sha256": "4a4fc15c51b50df272ab51a053daf2dae2a9398fb6ac3b584a2defb3d2f2cf8a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data2.json",
+      "sha256": "032d2d9c123e9f07db61a8d940ca5c2d7f0881521a8c07747287a38693d0cecd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data3.json",
+      "sha256": "b5db725a6d42f1f453fc40a7c897f53cf4e059f0111e19a5caade8adbe79398b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data4.json",
+      "sha256": "270f6d6a7246ad880b8acc6af8c09d23ea8214ac543bd820dae86b2bfdda760c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data5.json",
+      "sha256": "8f2de516cb870fd2f8d26a456613648eeb5cd1f5baf9bb46d5549cff0a233f8a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data6.json",
+      "sha256": "bf8186519683037954f45ec8736270443c9e062a8adcb6b470cf1a58ee543f3c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/points_info.json",
+      "sha256": "96ea5a86cb6025eb743cc6e7b331cbf92a73174005596df666ee4fc30c4f5bd1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/bounding_box.json",
+      "sha256": "e74f6393038def457b44759c16295235148c2ebd0991bf8e06f8152c6d828838"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/images/texture_0.jpg",
+      "sha256": "85b2e5105eb91bce14f8cf0d1ee0bfcc52c0bea9498edd49d6d8a11e69f7775d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/meta.json",
+      "sha256": "362e97851a6e3f1853ba8b4c3b778657adf3bb3e71d8a3a74fc695159562be94"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/mobility_v2.json",
+      "sha256": "c947c3d84352211814470cd6431429a82a7543d1576578f3e70cc0cb4bf3c7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/0.png",
+      "sha256": "8d153bda9203f368b22c4ed54058a55d5e542ebbd050ae9f7df1f6ff5ff7f148"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/0.txt",
+      "sha256": "9d646629c516ab0022ea35e563de429d645ee036034e44becffbfed0038ba666"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/1.png",
+      "sha256": "8d153bda9203f368b22c4ed54058a55d5e542ebbd050ae9f7df1f6ff5ff7f148"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/1.txt",
+      "sha256": "904d2ef231a5a36cfd4fa7dbf5fdf7805dc6d4bdb18bd52cb07379032cc31f59"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/10.png",
+      "sha256": "1873e5a22fea43361937d2af812a6ec1caf54690bd48fc7e11fd023a01a0b4a4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/10.txt",
+      "sha256": "49b6a0cd593fbb5ce08b4cc3396e96631bc3a6486fea32dd54478f453390dc50"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/11.png",
+      "sha256": "3ac1702addda571f5818ef35bd86585b779d47ce6dbc5801a429f42a08c87b7c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/11.txt",
+      "sha256": "bb13d2d8478daa501abfe776b5cac0b5b60e81e6ed96f54d72804f52ccb20b17"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/12.png",
+      "sha256": "a08c6e8ff11a45ad56ed395988873e39de3422c664993738e4141c9997f6ed83"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/12.txt",
+      "sha256": "d5d7d6dce3499e4acc7357065a8ca279a47d05cbef95edd93e4de161f92c054c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/13.png",
+      "sha256": "309221644e8ea6147b2fe7c92a9e9e9454f7e7b40c8fcb331522f3dc16f5c689"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/13.txt",
+      "sha256": "e45f8015ecc96098ebf140eb429b0c419cdf0d1cf47df57849f73d29be03decf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/14.png",
+      "sha256": "7646cea863e5fc220a24380773504665bc30b9fa2390f451b420f04e5f95a0a9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/14.txt",
+      "sha256": "ac8863710eb11cfe29bc1b219663d62646c2bde6359e8f7847b31c300bd0f478"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/15.png",
+      "sha256": "cfade4e11f283cff858fc199704d446eb0417fbf1fab51e3032277dafb761441"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/15.txt",
+      "sha256": "c70a3735fd7e55484906ed2974b150106897bb18d4e4422e5d923c4840437b4e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/16.png",
+      "sha256": "f35a5e9dc42d27d26a4debde90cdaee37fcf764f3de653f31903f25cb2c5d77b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/16.txt",
+      "sha256": "92cf52108dc056b3d47eaaabbed3beae9c871ef376f4b6ce47da09b169f6d9a2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/17.png",
+      "sha256": "aaa44e634471fe2e03be2685f35730ee8288b3ff22f2c4de62a997be10d0e3fb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/17.txt",
+      "sha256": "3a749b70bbb8a77123cab0cf85678b3e8bbf3523b6a86dd38bd8a83b4d137259"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/18.png",
+      "sha256": "3829745a63074bcf0610f20032a45b127654928e9e36e2e516007c471e349c04"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/18.txt",
+      "sha256": "995f4b74d95de76ec0f05135277bdeb569d299eb37fd333e47ace2adb09e2614"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/19.png",
+      "sha256": "dbaecb5cd27ac94d96bf333d6cb1626bf3d5f75522e3f667775f050e62560162"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/19.txt",
+      "sha256": "b399413247b85243c9b638a1446458ed1098bf3a4219519ff2628ffbbc03bb6a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/2.png",
+      "sha256": "e7e0a2c38803ae22fe33e6d5bd309e01500407d85cd88cfe3b58b30c7ce276d2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/2.txt",
+      "sha256": "698f70e15ff5f06fd85f34d0ba565b8521fab8f50caeb1e827a8c00e51335942"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/20.png",
+      "sha256": "f7a361fcc6861cda33d7b0c8613af8ab94e5e74890829966a520f392d912080a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/20.txt",
+      "sha256": "9381b64c09d1de241f136feb552d7c4e46d7eac17a71964d8423579d6556aa0b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/21.png",
+      "sha256": "3b3ffe463209378924a7d52af444792f450e61908d6ea85a7295f50c8ca02527"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/21.txt",
+      "sha256": "ad14d4b48041cc2d413f25ebe6606db6b1063493b7d49a56ad0c3f2e1051990a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/22.png",
+      "sha256": "47a67b4ef1cf9337667777b72d694031eeb4fa08b2257826e045aac3d3ba17d5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/22.txt",
+      "sha256": "5916a335573a820394927bf42fcb5e742f847a6b6eea7f99f689a5aedd7acd39"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/23.png",
+      "sha256": "543522b0ccfbddf1e2182187f169a3c2bd5035c57fe2b29c329ea530d58d7ce4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/23.txt",
+      "sha256": "074609e67324d87609bc1db68124babe1f48f7e99a5f856b02f2100782df98ba"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/24.png",
+      "sha256": "9c9491c3602148ffbd7f7952123c741c7c23356b08eaca54ecf10aee51f0c9c3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/24.txt",
+      "sha256": "93b2d03755650b2afb86fd3255aba4cf630e61e4b77bb43d46f240d1b827c238"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/25.png",
+      "sha256": "195a92bfd6fda72cabcc5daa6505953efa9c7b5fa7ce1f7a045a48593f0497b2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/25.txt",
+      "sha256": "50622c3a138bd4dc653fdc91b90f4872894140292dfba6e557c50f9123692919"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/26.png",
+      "sha256": "85f0dc927f1e89553751f8ff2aa9eedd3fe8a971b727c499dd3c30d2b9ac2361"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/26.txt",
+      "sha256": "3086280f83cd4b81c8a45d93edef0b7ed4009818a777c1653206b30bb35a0d45"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/27.png",
+      "sha256": "f98cc5f7c8ee6fad4ae91d927b390793cdff0f16d90102786608afd565d68d85"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/27.txt",
+      "sha256": "facc01a0219593f24b9971e41d8a282d1271b897f4d4122dcfd3521ad3b48f3d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/28.png",
+      "sha256": "fe72fd1a8afbfc6edaa4331a84e9c7d01c6f7fef9b5750e18121518868bb00c6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/28.txt",
+      "sha256": "4b48dd006eba9abc6af291f649e8d8775ca0f9499a5d6b7db97f5f1483fa8ee6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/29.png",
+      "sha256": "750558138c3a486cae36ff1620ff6d7ec05231a9f1a15cf16154c6ee9b19b1e0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/29.txt",
+      "sha256": "7e29e1d782428269b0b6ba6718bfbdeb8ccf152dafe185639ec6cb3ce9424668"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/3.png",
+      "sha256": "b6712329945dbcceb3f03a020a4ade84060fedac67a7ab5866ad06df8d092bc8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/3.txt",
+      "sha256": "3d8d42d161f5dd00b4bba72d6d7fc625a9ce4d496043d442757f64fb42f40cf8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/30.png",
+      "sha256": "7da3e1feeea6e3d7a1bb1625ae3778bc877ecd4da9c3792530d7ce93f61459f1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/30.txt",
+      "sha256": "05f6749894b9b2b97470cb65a65590054c00cc4dd7ea80ddd8b8a5feb418496c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/31.png",
+      "sha256": "1625ce68168b7f2e799e6de098efbfecec58d82260d283d66339b7c79e095645"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/31.txt",
+      "sha256": "09c42d19b4d8a5b2452db49889849651ecd5ed99ba8e389c6fe281372da57994"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/32.png",
+      "sha256": "ec574d55b06d5f7a6bf2571ffbdeb07c15c82f524ce3b2f1092b81ed2e75eff3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/32.txt",
+      "sha256": "e5743ca914ac14774f7457900e3428b3464b0230390449d54389b101d2b7899d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/33.png",
+      "sha256": "a3b4a4183af589f00e11a9d0401b222af76aae78913bcb9789ca7db764722dd1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/33.txt",
+      "sha256": "23a130476eb3195f24d622016b4ee08a5861f28c27f6e96f54da4a1d4853952d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/34.png",
+      "sha256": "3929b5579a51e4186f87e9f64fd9af07cbe69a2584eaf91b5d36b5eea63ba057"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/34.txt",
+      "sha256": "438de272f9e94ce6682b07ad307561cc70f313af340fbce15255c5f37bab6207"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/35.png",
+      "sha256": "79f3bcb075176f846b045a36a2a8c7c373d6659920e9d3111492877d6ca08c11"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/35.txt",
+      "sha256": "f24b9817dba321cd5a55d59e2e7bfc122838c0795ddd20a37ba5bba6a73321bf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/36.png",
+      "sha256": "ef1ec7132983bedb8e270a57b25a9f64754c380fceafa58c1b4e456dde431b00"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/36.txt",
+      "sha256": "b00ab9c65ac1afd6ab83eac63d777362bf59dd00322caca13648612f6d17d0a3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/37.png",
+      "sha256": "cf7fbd266b01afffa2c406fb165df3d92e303fa78fe6cf333ad0901c33f30424"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/37.txt",
+      "sha256": "c3e9949aa756ae535b6d0e46e6439938475ce1b3f04a9a008be1a5b67cc8a7a7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/38.png",
+      "sha256": "9614151be8da2e6da146efadefce38127f1d3fcaa5bc8d83dbcbac3eef785a12"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/38.txt",
+      "sha256": "bd43ccd80419c8e3936e3b3759582a2f803cde781f32a2c94cea8b35ef1cd265"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/4.png",
+      "sha256": "6a94746f65a816b4a4a2c54cd2addaa4a728a17f66775eb1dd3780b76c4bd519"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/4.txt",
+      "sha256": "4b9cffeb75a74f77bb6612e759400810a91028d5447fb3898348862e738c6110"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/5.png",
+      "sha256": "a854652f55b2e353ed35bb8b18971c28187362f27d037bf0c7c32eaf3dbe5d07"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/5.txt",
+      "sha256": "db6110df01a3fe78dd37a694133c36a1fde402ccc3c3d7edfb2e36b03ae038f1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/6.png",
+      "sha256": "2425594eb56bcea6a5df9e0bf67f4ab4bde7548ccfb9c443ab4c12a1a8b22c3f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/6.txt",
+      "sha256": "8550ea9a4367b87ef6ec9ebc9948711239b4ea687e3311f6edb2b1fe8f245498"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/7.png",
+      "sha256": "de757935dbbe66dcb47ab18aff2ecc38a4195a1ab7bd08c18584c79338f37950"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/7.txt",
+      "sha256": "62ec68aa68a3fc6658396190ab0c7d6176238628063c2ad4ebf59f92805cef6b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/8.png",
+      "sha256": "fc3469a62b519e53e6b63228a763eaea1cabd9263266dd8526564a2d91072eb1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/8.txt",
+      "sha256": "255660636480a68ac4f36571bdda935b73e9a40ec3b6bd2e05c0bd5ea1f1c413"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/9.png",
+      "sha256": "5b5da720375ac8f5168c2b859c93e174035e2b439cb99976b47ac06c8d656564"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render/9.txt",
+      "sha256": "eeb3826ad4e2c5150bd41cd77040dce8c991b578d83cf4359fbcd82d5c14a297"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/0.png",
+      "sha256": "75fd240ce38fa35d3a95673117c1b96fe5281331838b674cac5f783c820aaca4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/0.txt",
+      "sha256": "147b2a996b94479ed815391f38e5ddca6015fa1f2680c7edd807b458a15166bf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/1.png",
+      "sha256": "75fd240ce38fa35d3a95673117c1b96fe5281331838b674cac5f783c820aaca4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/1.txt",
+      "sha256": "3d9cfc366730bd563e217511239d651a650ff033cd711fe2f1d009a31b1f0d44"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/10.png",
+      "sha256": "be9f8e120c32227deeb34256c2394011eba1278f80b16a6fac538f013a87e303"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/10.txt",
+      "sha256": "2d1eff35542ca97670b69facfd15a4fb274a9ba58f1203af569299982ca79f53"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/11.png",
+      "sha256": "ba04447135e072056cca1a5745d508bc5933587e14f084d2a6983d4d6b5307b7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/11.txt",
+      "sha256": "b3b3294e94037571c264bacc922e4a1d27255ba1323f364214339a918a15cac1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/12.png",
+      "sha256": "ceb3d821c7a87cd4c40588e63b66c7de7e62f8703c5903d8d7cca098b3e4c1d9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/12.txt",
+      "sha256": "e1547b43f41407a60c6765d2c53bd5c0a5af6216aae6d9059565b40ed74ed74f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/13.png",
+      "sha256": "fb49fc4e1eb9a9712535970e01e3937eab52c9414a2cf17b9b3d84c25a0d7624"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/13.txt",
+      "sha256": "e984ab9ee7de58c101cc1419ff8fd8d4f30ba10f4451a12b17ab88c959edb180"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/14.png",
+      "sha256": "e17d270b1a33c5dd21cdecd316751cfc8d7b14f025598b3b02e8d868a6f01f30"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/14.txt",
+      "sha256": "f51c80a7edbd6585e6b5d5e2a0711cece747c5cc69a43312645c61dbe2321cab"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/15.png",
+      "sha256": "a60853eab152a14dba95c85b7a5ca64f54f12fb811a63fe6c84d2ce4c2840a78"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/15.txt",
+      "sha256": "469ed7b84bcb7ee5b909d064f159929dbb4de2b223afd6492a20bd394886ea6f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/16.png",
+      "sha256": "cca1ef61b268ad7337b7f0a02b5c28ea90433a1ff90e902828f5286a24b404e9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/16.txt",
+      "sha256": "05e72db120940a5d083b7ec866579f59cffda2384cd9e8d4be62655336509ece"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/17.png",
+      "sha256": "cd759eea0b027a1f9c06058a9c17852805dd1b5d725dcab26e148780eda2fa19"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/17.txt",
+      "sha256": "0541b1a8932481fe2b0f710aeebb15c1e8d8faa588855c07eb048faf25a08d62"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/18.png",
+      "sha256": "4e4db21e9aae84c047cb25171c6397223ac514d3b936a556ae54e28d8cbd8112"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/18.txt",
+      "sha256": "4a186e1b83ff6890729d7c671edbe37d8c8ebd65668dde2976bc2795ba3509da"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/19.png",
+      "sha256": "eaef8694ad83151f2fb797c03dd11cee70b387893d53b5a0da34c8eaed6b5fbd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/19.txt",
+      "sha256": "8bd5e525f6383bb18af98744d3c92b39d51aed64db0bde065e85256b0321731a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/2.png",
+      "sha256": "c9e83d848ea2e568bc5f67c0a7779e68feb1137b23ef388b0a27bbce8530d383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/2.txt",
+      "sha256": "8695b40ed1acd2f2d9c487c51220a322c4a432d0568e2ecf424066c4c6c37d9e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/20.png",
+      "sha256": "6b675434dc71adda00ce472891d6798ac8508f8a935c5ee500515ddf1411373f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/20.txt",
+      "sha256": "24b57bfd70c1a7c9a2dc18451adb9fbf132fd90f2952029ee9a6ab1751bb83b6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/21.png",
+      "sha256": "45a911ad915e269c7b346eca553f25cb340cd0ef3a2c5b835f094cacf1042942"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/21.txt",
+      "sha256": "c72764aa6f6733f023d97f96c7bf2d6bcba9502839051a1803ad20e22db00e7e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/22.png",
+      "sha256": "bbe88755d16e0fa112d0d551a9220b807e24a29abc8ab3a978b8febde2722fdc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/22.txt",
+      "sha256": "accc07409e598e5230c51e98a62f259bec5d5ffb2dcc26ff89fb8cf843d5d360"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/23.png",
+      "sha256": "60d4ce2e3457c3368b8285f910ab5b56806ad2a1fe781252e33357099fb7b5fd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/23.txt",
+      "sha256": "cacb2892b094880416d3d4555e904fc9cda90974b2bd49c98e69c383b787fd1c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/24.png",
+      "sha256": "56a292f200ffe2163c1ecee54e6d466e97b0b70b40f6479ab6c644ec75cc057f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/24.txt",
+      "sha256": "5efde7fab4794eff3a38694fa3e498c8f2a90295d7d6357b77bcd9839007e0bf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/25.png",
+      "sha256": "14e195ddc6d292260260d396f4aa7917d1ec92dbd27fb9eaf6e9316e7adcb2d5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/25.txt",
+      "sha256": "0184fa140e54803c72ecb572388e777316ec738f4a24983b456fd2e0b10bacc9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/26.png",
+      "sha256": "79bdc566fa6acdbeb799ceb0e6f9c5445ecd3d0e8ba42c2978b709b0329b5b8a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/26.txt",
+      "sha256": "a719d18b3910c0df65ea9a052c527cbeff0e5ea941c054efa33f76d2cfe9a132"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/27.png",
+      "sha256": "b4fec16b9407a4bae1e1e8e3a68af7e12ba85285912e3287461fd5c17fcb0923"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/27.txt",
+      "sha256": "56a0354ff44a3822df4162dcb9a1e9aee43aeb8900a7edbbc3868dce4d1aaacc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/28.png",
+      "sha256": "4c1cab8b6a493bb221801cbcf58266954cc6fa7a985a7714331d64c773c069cd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/28.txt",
+      "sha256": "dfe677f24ddd4005710ce1dcf40619e5725b2adad379a329521d8d91f3719f85"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/29.png",
+      "sha256": "348b56313cccef4e60c343521ef441e6d655c415a1cc6304fd01165f5a33064a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/29.txt",
+      "sha256": "1c14e4c0429ba57fa2012817f38db30ba357d178d1a994397944bbde62789508"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/3.png",
+      "sha256": "be8b9937d6ebb3ed2281d3fa6c9b170df6369ab1a77fd9e0e577cab48bd5bea2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/3.txt",
+      "sha256": "fdb5ca54529b212a73fbf3318988e26559ca575152a59336cd58d955699ca170"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/30.png",
+      "sha256": "2bd3c556cd03592421f43d8f126d54532d08082bb2b8a742c6ea9b7ee79a36b2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/30.txt",
+      "sha256": "a2a333a7baaf3aa4fccbb12ef6d1f6a263d1ed9abae3ee141bdac8270e51ee69"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/31.png",
+      "sha256": "a6f18a600ade31457b94d39c2db7e5d9318e07675c602966ecbcc8bfd4e4a985"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/31.txt",
+      "sha256": "f687e7c37ece82ab53ed1e7e175dab7cfe6aef0104c66c3b48433e02e6f11c22"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/32.png",
+      "sha256": "1ee6fd261e83126b3e3ff9b6f328dbaf1f3c3088b99009035a799e0dc9cde9c5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/32.txt",
+      "sha256": "10e33f40292cd0ab1116bc979830b2df07b82cc956d099a30f06723611cccfb7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/33.png",
+      "sha256": "ac22333fff8e1c9854612724863d5e35c771ee1708f0c24224e3d390bddba1f9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/33.txt",
+      "sha256": "0fb460b25d92396bd70583b849fa2f07a0accdedfaa93e510257e4a49968ce4d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/4.png",
+      "sha256": "5e884e6e942e83f8697148b7bbee36eca889f8f03b4c05d8c7553875e9348aae"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/4.txt",
+      "sha256": "b747dc468176059af9f8572d042a427ed8f5c87e6fe4007db1997679e7589568"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/5.png",
+      "sha256": "16b18fcb14d3f7273cc105d69cb60c7aacad5488c07d0e83eff1c1e43863afc8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/5.txt",
+      "sha256": "21eb746f6d64130fea85a4a72bd5d3b8a722e01a68ce2e5a65249bdc75745a08"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/6.png",
+      "sha256": "b4cf22baf6ffd2f51edf83db19d40a457f314f7521742244f5386304127f3b0c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/6.txt",
+      "sha256": "e0fa111cf362077c74d5220c29660dc45b2f8c3fec640c47659e3480d005a67b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/7.png",
+      "sha256": "70b06405ba71fe58c4e8faf26cbd0bd87628bf3f43db40d1ed7b2aa3421d262b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/7.txt",
+      "sha256": "f1e4fe85b5fcf2c9e01ee847e611762dcc8e907bbab6463d7d2093a12770a81c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/8.png",
+      "sha256": "4d817416fa8e334b40b0f8f7c4d5c48448234b55b15b4fab50e6d514601bad46"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/8.txt",
+      "sha256": "c75a898aefc040a45a67ec15a97e07a6c87eb4c6d09fe323d146d31c31b07a77"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/9.png",
+      "sha256": "5984abb3912d88ecab8d05185ff0be60c70906f56ea7336ed90fdc868646e744"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/parts_render_after_merging/9.txt",
+      "sha256": "8f8312aba701db6340899867bdd6c920e42557739826cdb30412e178ab57aa4b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/label-10000.txt",
+      "sha256": "74529bc50dece6c531a3989df8d79323c02dce4a165c844ff695a5a773e356e2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/ply-10000.ply",
+      "sha256": "58cad83da49afb7d0eb13a0edd6796003809f4564ab5e7b2bf803eb1a847962c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/pts-10000.pts",
+      "sha256": "06e2bcbbdec1d4071a1823550e6eff3ecfa1db9de99372d2bffe4ecff16cc85b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/pts-10000.txt",
+      "sha256": "b2991bbaf61c50e40271d17ec669a14ef221ff57af7b987110d4b6da1d340768"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/sample-points-all-label-10000.txt",
+      "sha256": "75b487b248a4d5af978c451796e575bf6c903567d0c2ba19561c159fc536b5b3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/sample-points-all-pts-label-10000.ply",
+      "sha256": "ad98b925df0458a13f64746bbe63a5097c6c69c271c2a2862ea966ec34a654e1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/sample-points-all-pts-nor-rgba-10000.ply",
+      "sha256": "57a6b4a50fd12dde100a3844b23d976efd7eca54b88511f19a0a4d89a82f878e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/point_sample/sample-points-all-pts-nor-rgba-10000.txt",
+      "sha256": "010c6442e55fd40a7c44cd54dd731fb3869f7a889fe9b9ba7cf7ff4958bdc67d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/result.json",
+      "sha256": "44ee73abdf1c38082952d9fb0bc3ce433db59fe04bdd71e03941c7420a2da1d2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/result_after_merging.json",
+      "sha256": "918597324af584af3b57d1bce0f5e35ece7620cd9705048d1925575028075b5e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/semantics.txt",
+      "sha256": "c4ea7a6a2ab0e0e82db015aff87fe0539df8858c60769c04e983fb0c2fc73cf5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-10.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-10.obj",
+      "sha256": "68dce12e87cac10170526ca78f511064b66e9af27567c6eb9fd0d943a3a41ae2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-12.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-12.obj",
+      "sha256": "79b09e5e062e0c2b3312b5a68f2f2223b1a4382f970b350f4eeccf8bd99e8dab"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-13.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-13.obj",
+      "sha256": "a6c36e409a581a33f44188599291617afaef77a5235b689f92fb0917ba36d463"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-14.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-14.obj",
+      "sha256": "ea092c74121a34488ae6b7acb188a71ca3bbb5186aae551a255d7996d21fc783"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-15.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-15.obj",
+      "sha256": "a1d99d2b4efad61cbfaa6c29ead83a5028bdc28ad4e9bb5a5285fd31a17a0dad"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-16.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-16.obj",
+      "sha256": "0e9c9148afb91bf8c45046042effad5bb085a70f4abf6fd550db772b7c5e43fa"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-18.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-18.obj",
+      "sha256": "707f7e877e3cce2a6ae9cc2ed541d371000a11965fa0392ac1a55e39267ca2ef"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-21.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-21.obj",
+      "sha256": "42bbe8c65d44c9e298049e80d30c8cefa2262abec10450df50a9e669c2d14699"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-22.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-22.obj",
+      "sha256": "0d59695df11b9e216b90335397bee8a18d10a1b2f177ba20f0e3b40ca6d54f86"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-23.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-23.obj",
+      "sha256": "2107a3ec2530046d77dea0f2b87b118b32d1b50e2731c367c1e27ade0abc3901"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-24.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-24.obj",
+      "sha256": "85d73e462aa22b6f36aa34c624da8da034badb8d7c8c573a41775aff36ce6faf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-25.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-25.obj",
+      "sha256": "2714beabaa8037d2893366711f11e98a1d59e6b0056e3f8fa2e3adf18649c21f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-26.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-26.obj",
+      "sha256": "62cca5dddf8128a06f1765c150e44c38c3bd6be0b47294bd2151d5fb8c2ad6cf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-27.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-27.obj",
+      "sha256": "b6e74521f899e584f83675a731033819320cb3d655fd485788e06e9fb900486f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-28.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-28.obj",
+      "sha256": "f6869e6846d4708b94b764440295246b78b52fe11154f4ce037d3ae967937aa5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-3.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-3.obj",
+      "sha256": "acab24e2b6debcf158e05e37190f896fd24d071bbc218d09a1a11d567e4e0a05"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-30.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-30.obj",
+      "sha256": "ffeaff9e5f6a357c75cc9f68d9578278c602c1db3713924748c0060105326f91"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-31.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-31.obj",
+      "sha256": "116be400196f109a2919f7ca6860e5bc4f18f9e8ab0b155d825a67866c8d8308"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-32.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-32.obj",
+      "sha256": "6fb8f1fa0463b2e887b5dad51f1c0b061f89a1725e1bdc3d2ea19ff55c9ba3ad"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-34.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-34.obj",
+      "sha256": "c466c13307b03ed74674089818903ff062e570b85921964a70737315c3fd0bdd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-37.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-37.obj",
+      "sha256": "58d52948b366959a2ffe86cc441e1f8c094ff17d909bbc04bc5e747e728152af"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-38.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-38.obj",
+      "sha256": "093ff2ba125ae628cae5bd8a68c3d2486bc939ad75ac805631c76f8bcad1ee2e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-39.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-39.obj",
+      "sha256": "c259d553264ac2a2bef00eabc7ef1bb7388974aca77cd9258b53f9caba620456"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-4.mtl",
+      "sha256": "69208b1897c5f14d8bfbaeedd1adf4a244446b125d560fe33a590b54675e4223"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-4.obj",
+      "sha256": "28176b29d851e0a98dec9623103f2f66e7d6588ad54e4392d9c4faf1cd0df2ed"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-40.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-40.obj",
+      "sha256": "d491b734c10b8b2a411c98ef3119a2a9c26cb3962b70ab8904756d9026acbeca"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-41.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-41.obj",
+      "sha256": "e2e866efa82a58f3936db28a3b77be7715a135cc1572d1d42fec2b4853211053"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-42.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-42.obj",
+      "sha256": "c443a6177572fb9366e476e3086b25ff5a34b1dc398ee27691f1f008b6ad8bb1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-43.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-43.obj",
+      "sha256": "03d3195e41b0b4f36ce93627ce0fccaafdda6e170d5a5b41f5217ff326170182"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-44.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-44.obj",
+      "sha256": "7b0e860cd55cb34c63a2fabc1d627ac0cd2772214701b3cc60da83a83d4ecbad"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-46.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-46.obj",
+      "sha256": "f4540e83c5b843f0ba1999603c8e00f13884ce4f629fd0bd0165334c872f4536"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-47.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-47.obj",
+      "sha256": "023624550f2867c38c6739163bd3e77a9e9760f39d2257e6c4f45913f4ecee16"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-48.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-48.obj",
+      "sha256": "f6b220a741bab4c02c5f8b23cb91959c356e9497efb34535b82e3b7e44014be6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-50.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-50.obj",
+      "sha256": "7d43a19b21b08096d82dba8020eddb6d5ac71eec4409c2f669bbeb758f959660"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-53.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-53.obj",
+      "sha256": "867c96df866f01d072a3927d499d0385e4eef078a4e9e357677ca8071a7e5848"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-54.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-54.obj",
+      "sha256": "f01e5d3bbe4cb8f42ca2ff1587e75b9a3fefcdafa34c3ffc9ccf10f53498153c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-55.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-55.obj",
+      "sha256": "29f6d289aef82c7ebbdc66748d4baaf79b5e9d816a6a552e763860b2f50ed295"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-56.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-56.obj",
+      "sha256": "22d175e34f5233ef80912b84ea44e6447432ea58fb79c3c483103a36a5eb0ca1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-57.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-57.obj",
+      "sha256": "818122b13bc9e19bac6fe3680dd3bd4b0912824a731531917bc5c6c13ca988f9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-58.mtl",
+      "sha256": "5a0e0067eb977aa7e645a9b459860c3a138b55e664f9ae856eb639106899d616"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-58.obj",
+      "sha256": "502eb5fcce1d93bba4905c253aa98ebeb15d24d35d9f331ab5ecf205f8fd633e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-59.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-59.obj",
+      "sha256": "5dcb87bcb64ff724f7f77024c003393e4f031057692a81c844ac058f9fb8f718"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-6.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-6.obj",
+      "sha256": "b1a6b63988ab9140ba7922c760b16d68aa30bd6b76791a3e504a9ae53146bee9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-60.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-60.obj",
+      "sha256": "6ed63d7430abc1e87831e9b208e96a7390bfcaf88d51e2dbe71b7696d032ca9d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-62.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-62.obj",
+      "sha256": "3541927aa0f595ec0416712fb1eb05e0b14cb68296ace0b62422cc5549c3066e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-63.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-63.obj",
+      "sha256": "84c39aea3b7014bb263443a2581caa0e9ead5322605eabeec1ef13a045dce075"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-64.mtl",
+      "sha256": "7e1a34521d2356b960b744e8227d87043b6db56afdd79b407e3d2e693f3d66d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-64.obj",
+      "sha256": "75810dd9c1c57bc57f54fd86e63c802a4ae2783f6092e5131cbc13c1b1b6d54b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-7.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-7.obj",
+      "sha256": "af226926ee333ed7d28ebcb75df18cacba7fb4638a3aae6d7cb780c621ba37fe"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-9.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/textured_objs/original-9.obj",
+      "sha256": "aa50a5b6282a3471ed554dcb2124f58b028ebec5a1db22f94cf0df9a082f82cc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/tree_hier.html",
+      "sha256": "df624e42dc71d1ab255aa63c40f5dc2acfa9e8f463556df03626a734f6c4e1bd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/036_cabinet/46653/tree_hier_after_merging.html",
+      "sha256": "ec05956125af3fef1ac659c2cdcb264263500213fa97845ce836f38a17e4a7ad"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/113_coffee-box/collision/base1.glb",
+      "sha256": "f433897fbcce712b1d1a5ac5af0e4fa4b4b92d172b641dc8cc88fc5d54c2c09d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/113_coffee-box/visual/base1.glb",
+      "sha256": "1aabed836b3b92ca73235a774ae49f9ca3a6a0e53e6dbfd44f8cb276d80cc83b"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-put_object_cabinet-from-s0-gpu3c-20260830T095531Z/put_object_cabinet/attempts/seed-000009-try-00/attempt.json",
+      "sha256": "38dd449bce10caba247c63ff9db922df1cdadc631b703182d5f69a443bb7fd24"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-put_object_cabinet-from-s0-gpu3c-20260830T095531Z/put_object_cabinet/attempts/seed-000009-try-00/verifier-telemetry.json",
+      "sha256": "a513a7c7bb5d453a7be1558ffb1ffbe127d0f3007d60acf553b478bc3e491255"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-put_object_cabinet-from-s0-gpu3c-20260830T095531Z/put_object_cabinet/attempts/seed-000009-try-00/head_camera-rgb.png",
+      "sha256": "b9d0abf759047990b2bd63bda143776b7041a227020f620e01f2173dd54bff6e"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/put_object_cabinet-demo_clean-reset-s100003.json",
+      "sha256": "a21d5c0647dd9f0c6a3db90ee4784d50d6f004a9db301b36b3052d1731df3f47"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/put_object_cabinet-demo_clean-reset-s100009.json",
+      "sha256": "80dd8c4b744bfa707ca89d4d8d195f6fbc3b6469972a4f50abfffd6121dfec11"
+    }
+  ],
+  "public_clauses": [
+    "Open the cabinet drawer with one arm and place the object inside the drawer with the other arm.",
+    "Set the object down on the drawer floor, centred side to side, in the middle of the drawer or toward its front by the handle rather than toward the back, slightly above its original tabletop height.",
+    "Release the object and open the gripper on the side where the object started."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "Original task specifies drawer opening and other-arm placement; predicate uses drawer functional point in moving link frame.",
+      "interpretation": "Open the cabinet drawer with one arm and place the object inside the drawer with the other arm.",
+      "disposition": "task_intent_only",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: object root xy near drawer FP0 AND z-origin_z between .007 and .12; shared reset restoration binds origin_z. v4: Drawer functional point sits toward the drawer front (handle side) of the interior centre; simulator probe v4.",
+      "interpretation": "Set the object down on the drawer floor, centred side to side, in the middle of the drawer or toward its front by the handle rather than toward the back, slightly above its original tabletop height.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "source_basis": "check_success: initial-object-side arm_tag selects the open helper; restored at reset independently of expert motions.",
+      "interpretation": "Release the object and open the gripper on the side where the object started.",
+      "disposition": "included",
+      "public_clause_indices": [
+        2
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/put_object_cabinet.py:check_success lines 118-123, helper and asset dependencies listed in this record.",
+      "interpretation": "No drawer-opening threshold, drawer-final-open state, contact/support, other-gripper state or execution-order test. Do not force closing drawer afterward.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No drawer-opening threshold, drawer-final-open state, contact/support, other-gripper state or execution-order test. Do not force closing drawer afterward."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Cabinet46653 is articulated; functional point0 is attached to drawer link1, so target moves with drawer. Ten movable object families reviewed."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Cabinet46653 is articulated; functional point0 is attached to drawer link1, so target moves with drawer. Ten movable object families reviewed. Parsed 64 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Cabinet46653 is articulated; functional point0 is attached to drawer link1, so target moves with drawer. Ten movable object families reviewed."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows box inside open drawer, giving gripper open and other arm near handle."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Put object on top of cabinet or hold it high over drawer: not the intended result and may fail target/relative-height conditions. This is a source-derived counterexample review; it is not a newly executed simulator trial. v4: near-miss poses evaluated with the official predicate in the simulator (probe evidence)."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No drawer-opening threshold, drawer-final-open state, contact/support, other-gripper state or execution-order test. Do not force closing drawer afterward."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Put object on top of cabinet or hold it high over drawer: not the intended result and may fail target/relative-height conditions.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    },
+    {
+      "case": "Object moved along the opened drawer's depth from the reference: toward the handle and a little behind the reference pass; farther toward the back fails (reset-state probe with the drawer opened).",
+      "expected": "Official predicate evaluated in the simulator with the actor teleported (expert-final or reset-state geometry); see v4_counterfactual_probe evidence.",
+      "v4_probe_results": [
+        {
+          "seed": 100003,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "depth_+3cm_from_reference": true,
+            "depth_+0cm_from_reference": true,
+            "depth_-2cm_from_reference": true,
+            "depth_-4cm_from_reference": true,
+            "depth_-6cm_from_reference": false,
+            "depth_-8cm_from_reference": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100009,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "depth_+3cm_from_reference": true,
+            "depth_+0cm_from_reference": true,
+            "depth_-2cm_from_reference": true,
+            "depth_-4cm_from_reference": true,
+            "depth_-6cm_from_reference": false,
+            "depth_-8cm_from_reference": false
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "纠正参考点：抽屉参考点比内腔中心靠前（把手一侧），放后半部必失败；改为“中间或靠前，不靠后”。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 9,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "036_cabinet",
+        "model_id": 46653
+      },
+      {
+        "model_name": "113_coffee-box",
+        "model_id": 1
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows box inside open drawer, giving gripper open and other arm near handle.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No drawer-opening threshold, drawer-final-open state, contact/support, other-gripper state or execution-order test. Do not force closing drawer afterward. Head image shows box inside open drawer, giving gripper open and other arm near handle. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification. v4: counterfactual probes cover the listed demo_clean expert-accepted seeds and their selected assets; reset-state probes test the predicate on constructed geometry, not physical reachability; other asset variants rely on metadata and mesh review."
+}

@@ -1,0 +1,457 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "place_cans_plasticbox",
+  "status": "reviewed",
+  "reviewer": "Claude (Opus 5.5) individual predicate, mesh/asset and simulator counterfactual review requested by operator; fifty-task audit of 2026-10-07 for the zero-shot delivery",
+  "reviewed_at": "2026-10-07",
+  "scope": "Fifty-task semantic generation v4: corrects public clauses that a literal reading fails (wrong reference point or direction), adds checked end-state conditions the v3 text omitted, and corrects private review facts. Vague tolerances are deliberately left qualitative (operator decision 2026-10-07: no tightening, no numbers). Same source revisions as v3; evaluator, helper and asset sources unchanged at cf4872cc90538fd4bca761c8db912d8f65e49f2b. Counterfactual probes evaluate the official predicate on the expert's final geometry with one actor teleported; they are predicate evidence, not physical qualification of every asset variant.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/place_cans_plasticbox.py",
+      "sha256": "5d004110de53d95c7a6fc7721f9136d96b9792a61b97686f7b5489ff7ec48a5f"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/place_cans_plasticbox.json",
+      "sha256": "b7208838d80a71ddfd9f8457e5cece84848efe30354ad3f1a49e222bd01871c2"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data0.json",
+      "sha256": "0af4bd0c1acc84b6db18918abb34b033186b4535ca9acc18a8817ef8c9534abc"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data1.json",
+      "sha256": "46ac24bc37bc61ced2ebddc545016eb60eea2e837785fbe3776cd5be18343b96"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data10.json",
+      "sha256": "deca64a4ddc2067d901eb15a544d9b96c01468680d61e1f2854fbab93deab368"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data2.json",
+      "sha256": "e2712f8aa9f0e53a2a7f24a6ee815a488faf7f19abc82cb0697cdd9b4ce7dbbf"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data3.json",
+      "sha256": "a42959362e9a0c94e8aa1ad36e75c866455e951fb6ee90da706fe203b7620ad0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data4.json",
+      "sha256": "18e24f3581aa5d6860f0800ec8e5e037ff9be11c9f292dac28ec138b063ae927"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data5.json",
+      "sha256": "4ec18e398b102e977c06ccc0e2ae78326c0821521cbecfe2131ee0765827396d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data6.json",
+      "sha256": "66829f12c270189e455bb7250728b67e5b69350df4c6dea7ca89a2ff9879ad5a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data7.json",
+      "sha256": "9cdd40c5a86aa4eab108d595b1872d13bc3ed52a926cbfb39f1c83ffd98ab14c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data8.json",
+      "sha256": "906bf21b8a5d10634aa3d132bc6c3c89502ca87b4c844ec35556a6deb1a07665"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/model_data9.json",
+      "sha256": "5018225e84a864dc65b34bed8fb3a8185e43fa624472cd30768ed2bb463c7d00"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/062_plasticbox/points_info.json",
+      "sha256": "311da3db6aab9050927e7784a16d183e567ebd658496a9eab60b089f5e3c72be"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/model_data0.json",
+      "sha256": "78eb137b42da2d6fa0b9208717964838e01cf6c65c5c6b14ad7c988d6ff2acfb"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/model_data1.json",
+      "sha256": "59e048001cf71074931603dc6651eb01ba75d9e9bee17235f64c9c9364fc4c0a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/model_data2.json",
+      "sha256": "8c0d58099a2ef0597add5ea78ecbb7dcfd56923f857837eac69c1caf8bc999ef"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/model_data3.json",
+      "sha256": "2edaeda2a0aaf467d3788ad2e2b3baa3aa84772ac175728edae61f492f9b8eff"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/model_data5.json",
+      "sha256": "b15b9706a657eb08fd54f3d863e9d5a345bb4c1d76d8bd810927dd567fed2ad7"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/model_data6.json",
+      "sha256": "e178bc5e8400b04d99efd58951a6050f37aafad4810b1c4173e0a3c1ae497680"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/071_can/points_info.json",
+      "sha256": "88583ca73d92628cfa42316860149e6ed74c5517a611173f5ddc05e11733deac"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/062_plasticbox/collision/base5.glb",
+      "sha256": "cccf827752c19d2db8af7eee1e21c9a7c4a7c97960a4fa4aa21a3ae1980559a5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/062_plasticbox/visual/base5.glb",
+      "sha256": "6f19d34637350ced79693aac4cd6e671dda7b99e16746da6ec52a55173224362"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/071_can/collision/base1.glb",
+      "sha256": "9b235816dc3933284f25348e4e310bbc93d24b2ada6c1b51828d620a50b97558"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/071_can/visual/base1.glb",
+      "sha256": "ff5e1460f084d72f2a25d4f98d41a644cb63565f2a34b64b544bee315df6f49d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/071_can/collision/base2.glb",
+      "sha256": "68e8ddfdc4580a4f7e02ed4c6705ee4b173001b674df023658931b7d9d7d268f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/071_can/visual/base2.glb",
+      "sha256": "2d9df1024b777cac4862da03e0d8d67ccce188d0639a886dde15e3f4f3669cfb"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-place_cans_plasticbox-from-s0-gpu6-20260830T073048Z/place_cans_plasticbox/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "e34b57d5bde978f0d0d4e9f5efb5fa57761f1414d30414f9bb7816e2e9211812"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-place_cans_plasticbox-from-s0-gpu6-20260830T073048Z/place_cans_plasticbox/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "147d569ef833932e9ed2b43f4b16ce12585287730bf713e84ed0abe7a6e715bf"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-place_cans_plasticbox-from-s0-gpu6-20260830T073048Z/place_cans_plasticbox/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "56c6a891f6e2e03a038bfc23e2c9ce621300de634cbbd908f9d08de68eca69bf"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-s100000.json",
+      "sha256": "02c5e035947096825177cbb2846beb8e65915918473eabcdc21e5daea337b324"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-reset-s100000.json",
+      "sha256": "3903211f8a7d61397734a915acaec776f8ff4abe44113fec2083eca0299792ae"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-reset-s100001.json",
+      "sha256": "a2bf9586e97293049fa271e1074cafcd8085f4541e31f7478cb0dd70e77ec042"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-reset-s100002.json",
+      "sha256": "1fb198a5fb75a9d3388e7885346cfc97b3b257a85939c4ccbe0208ad08bc502f"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-reset-s100003.json",
+      "sha256": "4fcdee6400967136a3f7556de40705974613e811ccc72d1565d0560884f2f3fc"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-reset-s100004.json",
+      "sha256": "12be4150a7497bb672fc8d754379cfee701b389987b627beb8ec94ee2b92c64b"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_cans_plasticbox-demo_clean-reset-s100005.json",
+      "sha256": "3d10bd3acdb4260c8e2e218c7a769709fa2cd7ae5e177ea4d2df5e1f3da17c88"
+    }
+  ],
+  "public_clauses": [
+    "Place both cans inside the plastic box, one in the half of the box nearer the robot and the other in the half farther from the robot, each near the middle of its half rather than side by side or on the rim.",
+    "Leave both grippers open when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: each can independently near either of two box functional points in xy; no unique assignment or different-compartment condition. v4: Box functional points lie front and back of the box centre under the fixed spawn rotation; simulator probe v4.",
+      "interpretation": "Place both cans inside the plastic box, one in the half of the box nearer the robot and the other in the half farther from the robot, each near the middle of its half rather than side by side or on the rim.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: is_left_gripper_open AND is_right_gripper_open; wrappers delegate to cached normalized gripper command state.",
+      "interpretation": "Leave both grippers open when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/place_cans_plasticbox.py:check_success lines 127-135, helper and asset dependencies listed in this record.",
+      "interpretation": "No injective target assignment, z, orientation or contact test. The two reference points lie nearer and farther from the robot under the fixed box rotation; two cans cannot share the middle, so passing layouts put one nearer and one farther, and side by side fails (v4 probe). Use both arms remains original task intent.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No injective target assignment, z, orientation, contact or mandatory partition. Use both arms remains original task intent."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Eligible plastic boxes 3/5 have two interior reference points. Success image for model5 shows a continuous open box; metadata targets are not dividers."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Eligible plastic boxes 3/5 have two interior reference points. Success image for model5 shows a continuous open box; metadata targets are not dividers. Parsed 19 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Eligible plastic boxes 3/5 have two interior reference points. Success image for model5 shows a continuous open box; metadata targets are not dividers."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows two cans inside one continuous blue plastic box."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "One can inside and the other outside: false. Do not reject two cans in the same allowed region solely for sharing it. This is a source-derived counterexample review; it is not a newly executed simulator trial. v4: near-miss poses evaluated with the official predicate in the simulator (probe evidence)."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No injective target assignment, z, orientation, contact or mandatory partition. Use both arms remains original task intent."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "One can inside and the other outside: false. Do not reject two cans in the same allowed region solely for sharing it.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    },
+    {
+      "case": "Cans side by side left and right on the box centre line fail; one nearer and one farther from the robot pass, in either assignment.",
+      "expected": "Official predicate evaluated in the simulator with the actor teleported (expert-final or reset-state geometry); see v4_counterfactual_probe evidence.",
+      "v4_probe_results": [
+        {
+          "seed": 100000,
+          "method": "expert_final_counterfactual",
+          "expert_success": true,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": true
+          },
+          "error": null
+        },
+        {
+          "seed": 100000,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100001,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100002,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100003,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100004,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100005,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "side_by_side_left_right": false,
+            "side_by_side_3.5cm": false,
+            "one_behind_other_quarter_depth": true,
+            "one_behind_other_swapped": true,
+            "diagonal": false,
+            "both_at_centre_ignoring_overlap": true,
+            "restored_expert_pose": false
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "forbidden_public_claims": [
+    "compartment",
+    "divider"
+  ],
+  "change_summary": "纠正方向：箱子两个参考点在一前一后（靠近/远离机器人），不是左右；v3“放到中间”会引导左右并排而失败。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "062_plasticbox",
+        "model_id": 5
+      },
+      {
+        "model_name": "071_can",
+        "model_id": 1
+      },
+      {
+        "model_name": "071_can",
+        "model_id": 2
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows two cans inside one continuous blue plastic box.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No injective target assignment, z, orientation, contact or mandatory partition. Use both arms remains original task intent. Head image shows two cans inside one continuous blue plastic box. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification. v4: counterfactual probes cover the listed demo_clean expert-accepted seeds and their selected assets; reset-state probes test the predicate on constructed geometry, not physical reachability; other asset variants rely on metadata and mesh review."
+}

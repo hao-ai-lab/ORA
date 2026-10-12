@@ -1,0 +1,917 @@
+{
+  "candidate_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "contract_source": "experiments/exp08a_unified_native/qualification/task-contracts",
+  "note": "Generation v4: corrects nine public texts whose literal reading fails the official predicate (wrong reference point, direction or end state, or a checked end state left unstated) and one private review fact (handover_mic). Vague tolerances stay qualitative by operator decision. The other forty entries bind their v3 text and v3 review unchanged; on RoboTwin the registry generation and the text version are now independent axes, as on RoboDojo. Decision: docs/guides/robotwin-semantic-contracts-v4.md.",
+  "schema": "ora.robotwin-task-contract-registry.v1",
+  "verification_method": "Whole task and description files and whole helper files compared across revisions. Robot file differs on oldest revision only; all six directly used TCP/gripper methods compared byte-for-byte by AST source span. This is semantic dependency compatibility, never physical qualification transfer. IK-diagnostics install cf4872cc90538fd4bca761c8db912d8f65e49f2b was reconstructed and compared with c9f5288bf1cb7878c4e6bafa7657966698d1237f: only envs/robot/planner.py differs. All tracked task/evaluator/helper/robot source blobs are unchanged; 2,384 asset dependencies match recorded SHA-256 values.",
+  "tasks": {
+    "adjust_bottle": {
+      "path": "ora/policy/environments/robotwin/task-contracts/adjust_bottle-completion-v3.md",
+      "sha256": "b98b7028b1504b62cdbe251dde9cf0a951dd00d5774c96641894853bcc728e5e",
+      "clause_count": 2,
+      "check_success_sha256": "323084dba7e06e1995b380c667bb83aa3713552b9604b3f33bed4f74f3db2422",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/adjust_bottle-review-v3.json"
+    },
+    "beat_block_hammer": {
+      "path": "ora/policy/environments/robotwin/task-contracts/beat_block_hammer-completion-v3.md",
+      "sha256": "c46389c19a3090ce4b0bb4cc42dc38fdba6f3d8d983cf036fbc27e0ba7a936ec",
+      "clause_count": 1,
+      "check_success_sha256": "6465ad995185333d018fbdecb6be248556633f817eb610be071a766452fc6fbf",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/beat_block_hammer-review-v3.json"
+    },
+    "blocks_ranking_rgb": {
+      "path": "ora/policy/environments/robotwin/task-contracts/blocks_ranking_rgb-completion-v3.md",
+      "sha256": "6bf9f629a539ba45aa4672e09cf53035ec7b1d7c20cba5c59c18658d8b5810f1",
+      "clause_count": 3,
+      "check_success_sha256": "4bdcf65428be79b9f36881a3447bf399818a57e671da9a82fe9ef467b4a2431f",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/blocks_ranking_rgb-review-v3.json"
+    },
+    "blocks_ranking_size": {
+      "path": "ora/policy/environments/robotwin/task-contracts/blocks_ranking_size-completion-v3.md",
+      "sha256": "a4cecf0789793840b5fd34c47d9b8dc15b2d31cf415c0976bf5a2b83b905e800",
+      "clause_count": 3,
+      "check_success_sha256": "4bdcf65428be79b9f36881a3447bf399818a57e671da9a82fe9ef467b4a2431f",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/blocks_ranking_size-review-v3.json"
+    },
+    "click_alarmclock": {
+      "path": "ora/policy/environments/robotwin/task-contracts/click_alarmclock-completion-v3.md",
+      "sha256": "333b096b3a75edd7a888fac2e7e77dde36e4ecd6b3e72c035a57ac1f6355a32c",
+      "clause_count": 2,
+      "check_success_sha256": "5b1a8d69dbb51a21fdfeaa6d8a4b5446a3732ae4891e16ab4cc3d97fc7099db0",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/click_alarmclock-review-v3.json"
+    },
+    "click_bell": {
+      "path": "ora/policy/environments/robotwin/task-contracts/click_bell-completion-v3.md",
+      "sha256": "38e8448051ab3970ada167377ca5365389846da1b6dfa963d71e820f7553c2b2",
+      "clause_count": 2,
+      "check_success_sha256": "c671e4ec6c219c18f9e44c6fb725d1256832d74cc5741d37e66387b6b1f86dac",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/click_bell-review-v3.json"
+    },
+    "dump_bin_bigbin": {
+      "path": "ora/policy/environments/robotwin/task-contracts/dump_bin_bigbin-completion-v3.md",
+      "sha256": "ef3f26e4275836ac539ec9adcf137eb1c2512aecf7c510535be4b2c560eb7686",
+      "clause_count": 2,
+      "check_success_sha256": "6fbcdc1f61ea9e8282787bf12b2951820f48e0484a0d0bc8e641a9f0de415a3c",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/dump_bin_bigbin-review-v3.json"
+    },
+    "grab_roller": {
+      "path": "ora/policy/environments/robotwin/task-contracts/grab_roller-completion-v3.md",
+      "sha256": "29b3a9fa526848df8bbc0ef2ae54e59e0e9b717183cf876ae541763bf74c59a6",
+      "clause_count": 2,
+      "check_success_sha256": "9a7f8b10e6151d1842ab4bfae18086a813fe2413a7b3a39d98b36f17f39a07ca",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/grab_roller-review-v3.json"
+    },
+    "handover_block": {
+      "path": "ora/policy/environments/robotwin/task-contracts/handover_block-completion-v3.md",
+      "sha256": "3dc58657ab9b488a666106eca87fcbac4760c657fbe59bac469140a62bf07807",
+      "clause_count": 3,
+      "check_success_sha256": "f7b3c4fcda15d4105a26d10289bb6e40d9c7f26f9ef8a15a37fab177a058c74f",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/handover_block-review-v3.json"
+    },
+    "handover_mic": {
+      "path": "ora/policy/environments/robotwin/task-contracts/handover_mic-completion-v3.md",
+      "sha256": "00c88bf07203b052aa3e73c3c0e7d195686ac63b32c52025c784c1499aec6367",
+      "clause_count": 3,
+      "check_success_sha256": "afba9c090180560a3198c19d56939515ae822d98c0a7c9df1072b768360b60aa",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/handover_mic-review-v4.json"
+    },
+    "hanging_mug": {
+      "path": "ora/policy/environments/robotwin/task-contracts/hanging_mug-completion-v3.md",
+      "sha256": "add6b9b7634dda60da0f5884ac087db59c701abeaf8db34caa28466857977b42",
+      "clause_count": 2,
+      "check_success_sha256": "0c9ce76a00f7768b206f573bb26c9a2ace197eeca209335891cde49f48c544aa",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/hanging_mug-review-v3.json"
+    },
+    "lift_pot": {
+      "path": "ora/policy/environments/robotwin/task-contracts/lift_pot-completion-v3.md",
+      "sha256": "00c99927860c75c4866a2b2684e8124480cdc1520768bda9c56bf2d59953fe1a",
+      "clause_count": 2,
+      "check_success_sha256": "ba90c004abd5930c688bd2c33e0af88dc37b59b166819e711137fd8bbfc430cb",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/lift_pot-review-v3.json"
+    },
+    "move_can_pot": {
+      "path": "ora/policy/environments/robotwin/task-contracts/move_can_pot-completion-v3.md",
+      "sha256": "12cf228d7313d5cdb7ea1884ca1611090d6076b0e692812ca380a443c34f0dd4",
+      "clause_count": 3,
+      "check_success_sha256": "9e0cc50a7234a0a8d41494adc9bded54979bac6a3b84ec99a33385df2306239a",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/move_can_pot-review-v3.json"
+    },
+    "move_pillbottle_pad": {
+      "path": "ora/policy/environments/robotwin/task-contracts/move_pillbottle_pad-completion-v4.md",
+      "sha256": "84402b3501cac00c7d0a85a44bcce78c893499f5292594562b3aec12ea93694e",
+      "clause_count": 2,
+      "check_success_sha256": "5627ef8bb569c813666fb6011ad904640f9a61831fb7a08acb199fe8e20f06e0",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/move_pillbottle_pad-review-v4.json"
+    },
+    "move_playingcard_away": {
+      "path": "ora/policy/environments/robotwin/task-contracts/move_playingcard_away-completion-v3.md",
+      "sha256": "82e1cacd766b6b8c1c1370af54c2c5253673105eda88935712b6d3cff2a3a6f9",
+      "clause_count": 2,
+      "check_success_sha256": "dd9e7f3e8f6cd7e01b078807eeb62ede591adf5ee59ccc77c45eed9e10866f2f",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/move_playingcard_away-review-v3.json"
+    },
+    "move_stapler_pad": {
+      "path": "ora/policy/environments/robotwin/task-contracts/move_stapler_pad-completion-v3.md",
+      "sha256": "1150bb53a9b6f5a94f6f30a1f002c8f23b9f261eb5b48880c6d8aa4d36415401",
+      "clause_count": 3,
+      "check_success_sha256": "fe206822b7602d09a48436b24db8be4ff24bc91ddb82d973106c924aa825b103",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/move_stapler_pad-review-v3.json"
+    },
+    "open_laptop": {
+      "path": "ora/policy/environments/robotwin/task-contracts/open_laptop-completion-v3.md",
+      "sha256": "0d45cca66b59e1ff421b5540a9613dd5695a614c9e26c60841b2a70ff1a7427f",
+      "clause_count": 3,
+      "check_success_sha256": "16eb8e866d8a8a45a136fa1e13511221d881fd81d83043759f7aba7f2cdc6619",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/open_laptop-review-v3.json"
+    },
+    "open_microwave": {
+      "path": "ora/policy/environments/robotwin/task-contracts/open_microwave-completion-v3.md",
+      "sha256": "844989f6a803046ef27d06b0885a7ee66c41369072a71a5d1e1810e2e9d48607",
+      "clause_count": 1,
+      "check_success_sha256": "7bad4ace3c547d196df7537291e933a840f34f7310395d4dcafd54243ef3f07d",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/open_microwave-review-v3.json"
+    },
+    "pick_diverse_bottles": {
+      "path": "ora/policy/environments/robotwin/task-contracts/pick_diverse_bottles-completion-v4.md",
+      "sha256": "38b489ee887d4f919339b16573f85145d47ad25eb5fe2f828be024b3af6a1eba",
+      "clause_count": 2,
+      "check_success_sha256": "e3337d04ffb5bb87b5152e6630a051b8e371f132361c796bc3424e2e8f2a554b",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/pick_diverse_bottles-review-v4.json"
+    },
+    "pick_dual_bottles": {
+      "path": "ora/policy/environments/robotwin/task-contracts/pick_dual_bottles-completion-v4.md",
+      "sha256": "38b489ee887d4f919339b16573f85145d47ad25eb5fe2f828be024b3af6a1eba",
+      "clause_count": 2,
+      "check_success_sha256": "e3337d04ffb5bb87b5152e6630a051b8e371f132361c796bc3424e2e8f2a554b",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/pick_dual_bottles-review-v4.json"
+    },
+    "place_a2b_left": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_a2b_left-completion-v3.md",
+      "sha256": "681175abd62c11a0b658a6a26bd91d1484b0708b1e827c4a966fb673b7f23a6b",
+      "clause_count": 3,
+      "check_success_sha256": "391bbd487f722203a9e1ce9df110b8e3e8d21c294bd1c9e2783dc40b8dc6c8b6",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_a2b_left-review-v3.json"
+    },
+    "place_a2b_right": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_a2b_right-completion-v3.md",
+      "sha256": "3271736dd212e0610a35fc3a53da8dcb7bc23099329d62f8f3eaa318f94c1366",
+      "clause_count": 3,
+      "check_success_sha256": "05eb24e4197749366ac275d0d632fd8f818f3a1ccd7fda046fe23d3c8a64208d",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_a2b_right-review-v3.json"
+    },
+    "place_bread_basket": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_bread_basket-completion-v3.md",
+      "sha256": "6a503f1f7a2ca1c4f715320ac276a4b375193409a1db558b5afd69113e1ebc2c",
+      "clause_count": 2,
+      "check_success_sha256": "2c5082247eceb1e58d22c59a712d6b403752a383dd875274a966dd4a175e880f",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_bread_basket-review-v3.json"
+    },
+    "place_bread_skillet": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_bread_skillet-completion-v3.md",
+      "sha256": "8c1a7b9bee76a41924639b85d3de28e34b038ba4d1bdf49369eb718aba4009c1",
+      "clause_count": 2,
+      "check_success_sha256": "d021c0981d2dc80289bc206220b38225e09126af519542ea3ee9486250b16bb3",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_bread_skillet-review-v3.json"
+    },
+    "place_burger_fries": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_burger_fries-completion-v3.md",
+      "sha256": "e69f7e535bb0fe2cdb617972265f889a095e7fe2ce04c8ba4edc4df8eec5daf2",
+      "clause_count": 3,
+      "check_success_sha256": "47a9ff0fffc8d3980803bee290e942749771effe3e79b058e053945ff664b504",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_burger_fries-review-v3.json"
+    },
+    "place_can_basket": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_can_basket-completion-v3.md",
+      "sha256": "f9cf01431eb36ff8fb06129941ca59e3000804a4b39182470c537da64e704bcf",
+      "clause_count": 2,
+      "check_success_sha256": "aa0fafeb0b3084388b8d2670637a5b1e422652c461e09f4e1f776751109e76bf",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_can_basket-review-v3.json"
+    },
+    "place_cans_plasticbox": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_cans_plasticbox-completion-v4.md",
+      "sha256": "565a1bd206c4bcc2ab32b8264773616d7e9eeed5149856ca0b4e4242da50178f",
+      "clause_count": 2,
+      "check_success_sha256": "bb3597eb3f749b6f2735f05fd25378f02c89cee11677845aa0235ac18529d3e1",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_cans_plasticbox-review-v4.json"
+    },
+    "place_container_plate": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_container_plate-completion-v3.md",
+      "sha256": "26fa3196d9b4a0d4dd0af419d5eae4820b94c70f3a9efdedc9e84fed8b0d34f9",
+      "clause_count": 2,
+      "check_success_sha256": "56f96edd74ec089dd42d2ce8bd4573cc54469b5435c41ae13fb05f3f7f3cc9ca",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_container_plate-review-v3.json"
+    },
+    "place_dual_shoes": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_dual_shoes-completion-v3.md",
+      "sha256": "b9bb0e9b1113504b580c18825186c0798385b2347f6cedcbbf6f2bb3e276c8cf",
+      "clause_count": 3,
+      "check_success_sha256": "3a8f8e7e4b6d5a0b2915a676ac0cc94dfb3c2ec5e83ec7de209391257402ebf6",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_dual_shoes-review-v3.json"
+    },
+    "place_empty_cup": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_empty_cup-completion-v3.md",
+      "sha256": "e518d204e1e1fa1e199655da0c6a7464e5e96ba82f06075b3af768f1b24fe005",
+      "clause_count": 2,
+      "check_success_sha256": "006ac7527e011ed4e0c4cf5a4ca1c3a1d19dc81841f983c7163119867b5ccf01",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_empty_cup-review-v3.json"
+    },
+    "place_fan": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_fan-completion-v4.md",
+      "sha256": "202360ed395da16ca8d3e0f5269aae9138bd790d8a37e90726292318b5e5af68",
+      "clause_count": 3,
+      "check_success_sha256": "e31b84488e68913bed4e93c07df7ce629fa080282281b3e0009291ed04249aaa",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_fan-review-v4.json"
+    },
+    "place_mouse_pad": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_mouse_pad-completion-v3.md",
+      "sha256": "1d64ff87f1854445a448942e624ebe3d2ebd5056bc75b76a775f65979de75bd1",
+      "clause_count": 3,
+      "check_success_sha256": "5b9afb4efc657d6b24252d03d8dcd77ee74530984e48c9de85325260ab971f55",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_mouse_pad-review-v3.json"
+    },
+    "place_object_basket": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_object_basket-completion-v3.md",
+      "sha256": "9deb903621dc80071770bc2813618ae9cc11188ae7283f7e7809f980d71538f2",
+      "clause_count": 2,
+      "check_success_sha256": "e052c6e145755981e9ebd042932e6a498d1778716a66b00e0c196fe2505a2805",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_object_basket-review-v3.json"
+    },
+    "place_object_scale": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_object_scale-completion-v3.md",
+      "sha256": "d72b6d24a7b2e7b8fe04730692ccacbd0699271a8a1b150bd1df8541187d8305",
+      "clause_count": 2,
+      "check_success_sha256": "84e241deb78d1e5efd9ff0fb0cdd3b5d7ebad5bec59ad56e01f0931cb9535987",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_object_scale-review-v3.json"
+    },
+    "place_object_stand": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_object_stand-completion-v3.md",
+      "sha256": "757a4619826285466c58131ffa74ba96cb889c24baa2d26ca5e67692ca97b04d",
+      "clause_count": 2,
+      "check_success_sha256": "a7f92933140e506df48f5ad3072406049abb7d0fd8affe3b1ddf202717d66a27",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_object_stand-review-v3.json"
+    },
+    "place_phone_stand": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_phone_stand-completion-v4.md",
+      "sha256": "d3271d7c90b135817c72b4fe4f4dd63658d6436b3f4096e6fa52567b60b2d520",
+      "clause_count": 2,
+      "check_success_sha256": "1ed799597c1e37280faf04b9f8a4ed1d285bdb99f824b625afb553934d0d01d9",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_phone_stand-review-v4.json"
+    },
+    "place_shoe": {
+      "path": "ora/policy/environments/robotwin/task-contracts/place_shoe-completion-v3.md",
+      "sha256": "f600f2d3376a629eb51f45be3df21cd4b9a13fa86a61e8ef5358d7003d3a68ea",
+      "clause_count": 2,
+      "check_success_sha256": "6500a8383c6df3fd8f9da06250d65eff9c1612c22abfb82872bdf73b3d2e7687",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/place_shoe-review-v3.json"
+    },
+    "press_stapler": {
+      "path": "ora/policy/environments/robotwin/task-contracts/press_stapler-completion-v3.md",
+      "sha256": "fbf60f33eaa6748b40e4da8d75fcb9130d191c5d5b11e3f434f53be03338687d",
+      "clause_count": 1,
+      "check_success_sha256": "307ea04c47d58d92e0d05d7aa0b3d22e2529b7fbb17fe24c5d9f357f00a7a4f4",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/press_stapler-review-v3.json"
+    },
+    "put_bottles_dustbin": {
+      "path": "ora/policy/environments/robotwin/task-contracts/put_bottles_dustbin-completion-v3.md",
+      "sha256": "e3576d0f3910b5eb45d9d37a857d2f544be1f488e7ac1ca9c7c2811a1342fc67",
+      "clause_count": 2,
+      "check_success_sha256": "a0b7039514fe170eaf3131edd06c85d87f531e9569cf45f4dfce6f09963250a3",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/put_bottles_dustbin-review-v3.json"
+    },
+    "put_object_cabinet": {
+      "path": "ora/policy/environments/robotwin/task-contracts/put_object_cabinet-completion-v4.md",
+      "sha256": "209042380f6bc595b4b9f8e143934b4dde35d3ed841a0410cff96ec113bb4572",
+      "clause_count": 3,
+      "check_success_sha256": "b4beae9e0069708338919c05e77eb044051efc6c9c199280122401d396a590ee",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/put_object_cabinet-review-v4.json"
+    },
+    "rotate_qrcode": {
+      "path": "ora/policy/environments/robotwin/task-contracts/rotate_qrcode-completion-v3.md",
+      "sha256": "c0c94e8dbc15a5ac18863315a140b22c9e3180616aa50f0f8c10c80dc716d990",
+      "clause_count": 3,
+      "check_success_sha256": "243f00afae6422ff1dd3496e39ec48c3b8801ce6e2e2aa02324b7a22a67cabd8",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/rotate_qrcode-review-v3.json"
+    },
+    "scan_object": {
+      "path": "ora/policy/environments/robotwin/task-contracts/scan_object-completion-v4.md",
+      "sha256": "debef225d36b52f99679a8cb9f3da04cab8d44475c11ce1a8a1932ba5a928e21",
+      "clause_count": 2,
+      "check_success_sha256": "305564c64b3fdd0fde778aaa5d51a0b7fde92a56fd0e8150bf9ec70bc342549c",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/scan_object-review-v4.json"
+    },
+    "shake_bottle": {
+      "path": "ora/policy/environments/robotwin/task-contracts/shake_bottle-completion-v3.md",
+      "sha256": "0cb7c95cf3c373a56a8dbbe73b2cc751268aca50c0ed60bd5570b2f4a383e762",
+      "clause_count": 2,
+      "check_success_sha256": "cb694eda477e4af94f5181ae98ec6e207b0629154b9ca094c2ab6bb855a965f3",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/shake_bottle-review-v3.json"
+    },
+    "shake_bottle_horizontally": {
+      "path": "ora/policy/environments/robotwin/task-contracts/shake_bottle_horizontally-completion-v3.md",
+      "sha256": "7d9d0130c617a54174b73d792e5731d810f0f2f9c16a39d17c147fde9c0f5e61",
+      "clause_count": 2,
+      "check_success_sha256": "cb694eda477e4af94f5181ae98ec6e207b0629154b9ca094c2ab6bb855a965f3",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/shake_bottle_horizontally-review-v3.json"
+    },
+    "stack_blocks_three": {
+      "path": "ora/policy/environments/robotwin/task-contracts/stack_blocks_three-completion-v3.md",
+      "sha256": "d496bd2769d89b29fe6fdf0444a38b2f4e0db3b09f4f87ead48c47bae868c029",
+      "clause_count": 3,
+      "check_success_sha256": "e2d28a93fdb167dbcd9786af1063dc5269e0e805cf5458dd9c3daacb3ad7edc0",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/stack_blocks_three-review-v3.json"
+    },
+    "stack_blocks_two": {
+      "path": "ora/policy/environments/robotwin/task-contracts/stack_blocks_two-completion-v3.md",
+      "sha256": "c697eba76bbdaa4a225d7035bf868407f8b04151a1ee2188d05f107ac2ed9d27",
+      "clause_count": 2,
+      "check_success_sha256": "c3bfd327932c07dcc16cbea2289d307e7f23cefff4157a85f1e95ddbb89f3a7a",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/stack_blocks_two-review-v3.json"
+    },
+    "stack_bowls_three": {
+      "path": "ora/policy/environments/robotwin/task-contracts/stack_bowls_three-completion-v3.md",
+      "sha256": "fd703bc0af62cddd45a45d0a4d95989268e0f55f50af3d305c3b8598c9efbadd",
+      "clause_count": 2,
+      "check_success_sha256": "e13f9a0d19f1505a4f75ca9c9fe69d421330de526830469b0546203ad846d824",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/stack_bowls_three-review-v3.json"
+    },
+    "stack_bowls_two": {
+      "path": "ora/policy/environments/robotwin/task-contracts/stack_bowls_two-completion-v3.md",
+      "sha256": "3434d9334fad25d13f9799b13165df70e96158db15f9e2a03031020763b3ae72",
+      "clause_count": 2,
+      "check_success_sha256": "9418e94f87bf262cb9cea77abdfe0bec2bbe71378eb2c66eeabf0add2466816c",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/stack_bowls_two-review-v3.json"
+    },
+    "stamp_seal": {
+      "path": "ora/policy/environments/robotwin/task-contracts/stamp_seal-completion-v4.md",
+      "sha256": "e63410bdcb6b4ff940e04df9d4903a15bdbadf5ff2146bfb7d8bdcc00b5bc6fd",
+      "clause_count": 2,
+      "check_success_sha256": "fe898323cae9e6bc306c73b9de92d92f46e4e65d509dde4dab2cc4b4836344bc",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/stamp_seal-review-v4.json"
+    },
+    "turn_switch": {
+      "path": "ora/policy/environments/robotwin/task-contracts/turn_switch-completion-v3.md",
+      "sha256": "1c6a58d293fa256ecdb447f55972f17cda308dfe2d176d03ad13822b566be676",
+      "clause_count": 1,
+      "check_success_sha256": "35a4ad1e7cdae8ed259c24baa466205060828d7c20613f440bdb1164bf7d5fdc",
+      "check_success_sha256_method": "SHA256 of exact UTF-8 AST FunctionDef lineno..end_lineno span, preserving trailing newline.",
+      "verified_revisions": [
+        "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+        "57e0b6f571e55da83f8f16edd499565dd01599b2",
+        "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+        "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+        "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+        "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+        "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+      ],
+      "verdict": "reviewed_semantic_projection_with_explicit_scoring_gaps",
+      "semantic_review": "ora/policy/environments/robotwin/task-contracts/reviews/turn_switch-review-v3.json"
+    }
+  }
+}

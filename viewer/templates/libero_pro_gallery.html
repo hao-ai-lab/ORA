@@ -1,0 +1,157 @@
+<div class="libero-field-guide">
+  <nav class="nav">
+    <a href="/">← Runs</a><a href="/gallery/robotwin">RoboTwin tasks</a>
+    <a href="/api/libero/tasks">LIBERO 130 JSON</a>
+    <a href="#published-results">Published results</a>
+    <a href="/api/libero-pro/results">Results JSON</a>
+    <a href="/api/libero-pro/previews">Preview manifest</a>
+  </nav>
+  <header class="libero-mast">
+    <div class="libero-mast-main"><div>
+      <span class="libero-kicker">LIBERO / LIBERO-Pro</span>
+      <h1>LIBERO tasks</h1>
+      <p>130 个原始任务按官方层级展开：三个受控迁移套件，加上
+      LIBERO-100 的 90 个短程预训练任务和 10 个相对长程任务。只有其中
+      40 个标准 VLA 评测任务具有当前 source-paired LIBERO-Pro 扰动；页面会明确区分。</p>
+    </div></div>
+    <div class="libero-counts">
+      <div><span>Original LIBERO tasks</span><strong>130</strong></div>
+      <div><span>LIBERO-Pro anchors</span><strong>40</strong></div>
+      <div><span>Runnable core configs</span><strong>160</strong></div>
+      <div><span>Runnable robust configs</span><strong>280</strong></div>
+    </div>
+  </header>
+  <section class="libero-results" id="published-results">
+    <header class="libero-results-head"><div>
+      <span class="libero-kicker">Paper-reported results</span>
+      <h2>已发表结果</h2>
+      <p>百分比只有在 task cells、seed 数、适应阶段、记忆和执行预算一致时才能直接排序。这里保留论文原始 cohort；跨 cohort 只做描述，不宣布全局 SOTA。</p>
+    </div><div class="libero-review-stamp">Reviewed<br><strong>{{ published_results.reviewed_at }}</strong><span>not local run evidence</span></div></header>
+    <div class="libero-result-headlines">
+      <article><span>Highest 8-cell headline</span><strong>{{ result_by_key.harness_vla_cc.reported_overall }}%</strong><b>Harness VLA · Claude Code</b><p>8 cells × 10 seeds · few-shot Harness memory</p></article>
+      <article><span>50-seed held-out cohort</span><strong>{{ result_by_key.aspire.reported_overall }}%</strong><b>ASPIRE</b><p>6 cells × 50 seeds · learned program + skills</p></article>
+      <article><span>Single-turn repository</span><strong>{{ result_by_key.rho.reported_overall }}%</strong><b>RHO</b><p>6 cells × 50 trials · no online LLM edits</p></article>
+      <article><span>Play-learned cohort</span><strong>{{ result_by_key.rats.reported_overall }}%</strong><b>RATs</b><p>6 cells × 10 initializations · frozen play skills</p></article>
+      <article class="no-result"><span>OpenETA on LIBERO-Pro</span><strong>—</strong><b>No formal result</b><p>Paper explicitly keeps Pro outside formal scope</p></article>
+    </div>
+    <div class="libero-cohort-grid">
+    {% for cohort in result_cohorts %}<article class="libero-cohort">
+      <header><div><span>{{ cohort.badge }}</span><h3>{{ cohort.label }}</h3></div><b>{{ cohort.trials }}</b></header>
+      <p class="libero-cohort-scope">{{ cohort.scope }}</p>
+      <div class="libero-result-table-scroll"><table class="libero-result-table">
+        <thead><tr><th>Method / adaptation</th><th>Overall</th>{% for cell in published_results.cells %}<th>{{ cell }}</th>{% endfor %}</tr></thead>
+        <tbody>{% for result in cohort.methods %}<tr>
+          <td><strong>{{ result.method }}</strong><span>{{ result.method_kind }}</span><small>{{ result.adaptation }}</small></td>
+          <td class="libero-score"><strong>{{ result.reported_overall }}%</strong>{% if result.derived_overall != result.reported_overall %}<small>cell mean {{ result.derived_overall }}%</small>{% endif %}</td>
+          {% for score in result.scores %}<td class="libero-cell-score">{% if score.score is none %}<span>—</span>{% else %}{{ score.score|int }}{% endif %}</td>{% endfor %}
+        </tr>{% endfor %}</tbody>
+      </table></div>
+      <div class="libero-cohort-notes"><p><b>Protocol.</b> {{ cohort.protocol }}</p><p><b>Comparison boundary.</b> {{ cohort.comparison }}</p></div>
+      <div class="libero-source-links">{% for result in cohort.methods %}<a href="{{ result.source_url }}" target="_blank" rel="noreferrer">{{ result.source_label }} ↗</a>{% endfor %}</div>
+    </article>{% endfor %}
+    </div>
+    <aside class="libero-cross-paper-warning"><strong>为什么不能把 82.4、72、43.8 排成一条榜？</strong>
+      <p>Harness VLA 覆盖 8 个 cell、每任务 10 seeds，并从一个 reference seed 建立 task/global memory；ASPIRE 覆盖 6 个 cell、50 个 held-out seeds，先在 seeds 51–65 学程序和技能；RHO 是同样 3,000 个 CaP-Bench trial，但离线进化 repository、在线只跑 single-turn；RATs 则每项 10 次初始化，并先做 50 次 play。甚至 CaP-Agent0 在两个论文内分别是 18.0% 和 23.2%。这些差异不是误差条，而是 treatment 本身。</p>
+      <p><b>可以直接说：</b>Harness cohort 内 CC 82.4 &gt; Codex 72.1 &gt; direct pi_RLinf 50.0；ASPIRE cohort 内 ASPIRE 72 &gt; CaP-Agent0 18；RHO 在其 3,000-trial 评测面上 45.0 &gt; CaP-Agent0 18.17；RATs cohort 内 RATs 43.8 &gt; CaP-Agent0 23.2。<b>不能直接说：</b>Harness 82.4 严格击败 ASPIRE 72。</p>
+    </aside>
+    <aside class="libero-openeta-boundary"><div><span>Out of scope</span><strong>{{ openeta_boundary.method }}</strong><small>{{ openeta_boundary.label }}</small></div><p>{{ openeta_boundary.protocol }}</p><a href="{{ openeta_boundary.source_url }}" target="_blank" rel="noreferrer">{{ openeta_boundary.source_label }} ↗</a></aside>
+  </section>
+  <section class="libero-taxonomy">
+  {% for collection in collections %}<article class="libero-collection">
+    <header><span>{{ collection.label_en }}</span><strong>{{ collection.label_zh }}</strong>
+      <p>{{ collection.description }}</p></header>
+    <div class="libero-family-rail">
+    {% for family in collection.families %}<div class="libero-family-card{% if not family.pro_supported %} catalog-only{% endif %}">
+      <strong>{{ family.label_zh }}</strong>
+      <span>{{ family.label_en }} · {{ family.task_range }} · {{ family.count }}</span>
+      <span>{{ family.description }}</span>
+      <b>{% if family.pro_supported %}Base runtime + Pro source-paired{% else %}Base runtime · no Pro variants{% endif %}</b>
+    </div>{% endfor %}
+    </div>
+  </article>{% endfor %}
+  </section>
+  <section class="libero-boundary">
+    <div class="catalog-only"><b>Original LIBERO Runtime</b><p>五个 base suites、130 个任务均保留 benchmark order；每个 cell 仍需 source-bound preflight/qualification，seed 不产生新 task。</p></div>
+    <div class="registered"><b>Core Runtime</b><p>40 个标准 VLA anchor × position / language / object / task = 160 configs。</p></div>
+    <div class="registered"><b>Robustness Runtime</b><p>40 个 anchor × 7 个 BDDL case = 280 configs；不扩展到 LIBERO-90。</p></div>
+  </section>
+  <section class="libero-preview-state{% if preview_status.ready %} ready{% endif %}">
+    <span><strong>{{ preview_label }}</strong> · 130 original base + 160 core + 280 robustness</span>
+    <span>zero action · seed 0 · agentview · Viewer-derived, not trajectory evidence</span>
+  </section>
+  <div class="libero-workbench"><aside class="libero-index">
+    <form method="get" action="/gallery/libero">
+      <input name="q" value="{{ query }}" placeholder="Search all 130 instructions, scenes, or objects">
+      <select name="family"><option value="">All five suite handles · 130</option>
+      {% for family in families %}<option value="{{ family.id }}"{% if family.id == family_filter %} selected{% endif %}>{{ family.label_en }} · {{ family.count }}</option>{% endfor %}</select>
+      <input type="hidden" name="perturbation" value="{{ perturbation }}">
+      <button type="submit">Filter task atlas</button>
+    </form>
+    <div class="libero-index-head"><span>Official suite order</span><span>{{ task_cards|length }} shown</span></div>
+    <div class="libero-task-list">
+    {% for group in task_groups %}<section class="libero-task-group">
+      <h3>{{ group.family.label_en }} <span>{{ group.cards|length }}</span></h3>
+      {% for card in group.cards %}<a class="libero-task-link{% if card.task == selected %} active{% endif %}" href="{{ card.href }}">
+        <span class="libero-task-no">{{ "%02d"|format(card.task.task_id) }}</span>
+        {% if card.preview_url %}<figure class="libero-task-thumb"><img loading="lazy" width="72" height="72" src="{{ card.preview_url }}" alt="Seed-0 preview for {{ card.task.canonical_instruction }}"></figure>
+        {% else %}<figure class="libero-task-thumb placeholder">No image</figure>{% endif %}
+        <span><small>{{ card.family.label_zh }} · {{ card.task.key }}</small>
+        <strong>{{ card.task.canonical_instruction }}</strong>
+        <span>{{ card.task.scene or "tabletop scene" }}</span></span></a>
+      {% endfor %}
+    </section>{% else %}<p class="muted" style="padding:14px">No tasks match this filter.</p>{% endfor %}
+    </div>
+  </aside><article class="libero-specimen">
+    <header class="libero-task-mast"><div class="libero-hero-number">{{ "%02d"|format(selected.task_id) }}</div>
+      <div class="libero-task-copy"><span class="libero-kicker">{{ selected_family.label_en }} · {{ selected_family.role }}</span>
+      <h2>{{ selected.canonical_instruction }}</h2><code>{{ selected.name }}</code>
+      <span class="scene-label">{{ selected.scene or "tabletop scene" }}</span>
+      <span class="scene-label">{% if selected.pro_anchor %}Original LIBERO runtime · Pro anchor{% else %}Original LIBERO runtime · no Pro variants{% endif %}</span></div>
+    </header>
+    <section class="libero-lineage" aria-label="Task taxonomy">
+      <div><span>Benchmark</span><strong>LIBERO · 130</strong></div>
+      <div><span>Collection</span><strong>{{ selected.collection.replace('_', '-') }}</strong></div>
+      <div><span>Suite / subclass</span><strong>{{ selected.base_suite }}</strong></div>
+      <div><span>Family-local identity</span><strong>task-{{ "%02d"|format(selected.task_id) }}</strong></div>
+    </section>
+    <section class="libero-preview-hero">
+      {% if selected_preview_url %}<figure><img width="256" height="256" src="{{ selected_preview_url }}" alt="Seed-0 preview for {{ selected.base_suite }}">
+      <figcaption>{% if selected_variant %}{{ selected_variant.suite }}{% else %}{{ selected.base_suite }}{% endif %} · task-{{ "%02d"|format(selected.task_id) }} · seed 0 · agentview</figcaption></figure>
+      {% else %}<div class="libero-preview-placeholder">Run <code>./scripts/compile-libero-previews</code> to build previews</div>{% endif %}
+      <div class="libero-preview-hero-copy">
+      {% if selected_variant %}<span class="libero-kicker">{{ selected_perturbation.label_zh }} · Pro comparison plate</span>
+        <h3>{{ selected_variant.instruction }}</h3><p>这是该 LIBERO-Pro suite/task 的第 0 个初始状态。切换下面四个条件，可以比较位置、语言、物体外观和任务逻辑。</p>
+      {% else %}<span class="libero-kicker">Original LIBERO · {{ selected_family.label_en }}</span>
+        <h3>{{ selected.canonical_instruction }}</h3><p>这是 LIBERO-90 的原始 seed-0 动作前场景。当前固定 LIBERO-Pro 数据没有为这 90 个预训练任务提供 source-paired core 或 robustness BDDL，因此只展示原始任务，不制造不存在的增强。</p>
+      {% endif %}</div>
+    </section>
+    {% if selected.pro_anchor %}
+    <section class="libero-section"><div class="libero-section-head"><h3>同一个编号，四种核心条件</h3>
+      <p>高亮项是当前查看的 suite。Task 扰动会改变目标本身，所以 task_id 是对齐槽位，不是恒定语义。</p></div>
+      <div class="libero-variants">{% for item in variants %}<article class="libero-variant{% if item.id == perturbation %} active{% endif %}">
+        <a class="select-variant" href="{{ item.href }}"><header><h4>{{ item.presentation.label_zh }} / {{ item.presentation.label_en }}</h4><span class="status">Runtime</span></header></a>
+        {% if item.preview_url %}<div class="libero-variant-preview"><img loading="lazy" width="256" height="256" src="{{ item.preview_url }}" alt="Seed-0 {{ item.variant.suite }} preview"><span>seed 0 · zero action</span></div>
+        {% else %}<div class="libero-variant-preview libero-preview-placeholder">Preview unavailable</div>{% endif %}
+        <p class="libero-instruction">{{ item.variant.instruction }}</p><p class="libero-changes">{{ item.variant.changes }}</p>
+        <code class="libero-suite-id">{{ item.variant.suite }}</code><div class="libero-links"><a href="{{ item.variant.bddl_url }}" target="_blank" rel="noreferrer">BDDL ↗</a><a href="{{ item.variant.init_url }}" target="_blank" rel="noreferrer">Init ↗</a><a href="{{ item.runs_url }}">Local runs →</a></div>
+      </article>{% endfor %}</div>
+    </section>
+    {% else %}
+    <section class="libero-section libero-catalog-note"><div class="libero-section-head"><h3>这个任务属于哪里？</h3><p>LIBERO-90 是 LIBERO-100 的短程预训练 split，不是 Spatial / Object / Goal，也不是 LIBERO-Long。</p></div>
+      <div class="libero-base-facts"><article><span>Parent</span><strong>LIBERO-100</strong></article><article><span>Subclass</span><strong>LIBERO-90</strong></article><article><span>Role</span><strong>Pretraining pool</strong></article><article><span>Pro status</span><strong>Not source-paired</strong></article></div>
+    </section>
+    {% endif %}
+    <section class="libero-section"><div class="libero-section-head"><h3>Seed lens</h3><p>Seed 只选择所选 suite/task 的初始状态；不会改变 task identity、指令或所属子类。</p></div>
+      <div class="libero-seed-lens"><div><span>Init states / task</span><strong>50</strong></div><div><span>Runtime mapping</span><strong>seed mod 50</strong></div><div><span>Current cell</span><strong>{% if selected_variant %}{{ selected_variant.suite }}{% else %}{{ selected.base_suite }}{% endif %} / {{ selected.task_id }}</strong></div></div>
+    </section>
+    {% if selected.pro_anchor %}<section class="libero-section"><div class="libero-section-head"><h3>七类鲁棒性扩展</h3><p>每类覆盖同一批 40 个 Pro anchors，共 280 个 BDDL。运行中移动目标会在接近 0.09 m 或 sim step 160 时触发。</p></div>
+      <div class="libero-robustness">{% for item in robustness %}<article class="libero-case"><span class="libero-case-badge">Runtime · BDDL-driven</span><h4>{{ item.asset.label_zh }}</h4><code>{{ item.asset.experiment_config }}</code>
+        {% if item.preview_url %}<div class="libero-variant-preview"><img loading="lazy" width="256" height="256" src="{{ item.preview_url }}" alt="Seed-0 {{ item.asset.label_en }} preview"><span>seed 0 · pre-action</span></div>{% else %}<div class="libero-variant-preview libero-preview-placeholder">Preview unavailable</div>{% endif %}
+        <p>{{ item.asset.changes }}</p><div class="libero-links"><a href="{{ item.asset.bddl_url }}" target="_blank" rel="noreferrer">BDDL ↗</a><a href="{{ item.runs_url }}">Local runs →</a></div></article>{% endfor %}</div>
+    </section>{% endif %}
+    <section class="libero-section"><div class="libero-section-head"><h3>来源与证据边界</h3><p>可审计的任务目录，不是实验结果。</p></div>
+      <div class="libero-provenance"><article><h4>Pinned source</h4><p>Code <a href="{{ code_root }}" target="_blank" rel="noreferrer"><code>{{ code_revision }}</code></a><br>Pro data <a href="{{ data_root }}/README.md" target="_blank" rel="noreferrer"><code>{{ data_revision }}</code></a><br>Information architecture migrated from Agent-as-Policy <code>{{ migrated_from_commit }}</code>.</p></article>
+      <article><h4>What this is not</h4><p>没有把 demonstration 冒充成 policy rollout；没有读取 simulator ground truth；没有把 LIBERO-90 伪装成 Pro variants；没有从文件名重排官方 task ID。上游 Environment 维度保持 runtime-only / unregistered：{{ legacy_environment.changes }}</p></article></div>
+    </section>
+  </article></div>
+</div>

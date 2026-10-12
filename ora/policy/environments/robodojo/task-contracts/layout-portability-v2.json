@@ -1,0 +1,1702 @@
+{
+ "schema": "ora.robodojo-task-contract-layout-portability.v1",
+ "registry": "ora/policy/environments/robodojo/task-contracts/registry-v8.json",
+ "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+ "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+ "eval_seed": 0,
+ "decision": "EXP14A g002 (S3): a single RoboDojo episode may run on an official layout k of eval_seed 0 other than layout 0. A contract record reviews layout 0 only; for a one-round, unscheduled episode this table extends a task's record, unchanged, to the listed layouts when its completion layer states no layout-0-specific fact there. A task or layout not listed is refused on any layout but the record's own. Layout schedules of persistent sessions keep the reviewed pools and contract appendices (robodojo-layout-pools-v1.json) and never read this table. v2 (2026-10-10, EXP13A VLA-skill line): the table extends the same records to layouts 5-9, the development layouts of the practice loop on RoboDojo; layouts 0-4 stay the evaluation layouts compared with the EXP14A baseline table.",
+ "review": {
+  "date": "2026-10-10",
+  "by": "layouts 0-4: EXP14A S3 implementation audit (Claude), 2026-10-08; layouts 5-9: EXP13A VLA-skill line audit (Claude), 2026-10-10; human approval pending",
+  "method": "For each listed task: read its registry-v8 completion layer, its upstream gen_instruction at the pinned revision, and the label/category/pose of every Rigid, Dynamic, Articulation, Garment and Geometry instance in layouts 0-9; a layer is portable when every count, side, ordering and fixture it states holds in each listed layout. Layouts 5-9 were checked against each layout-0-4 basis: per-category counts, every instance whose record is identical in layouts 0-4 (identical again in 5-9), and the poses and orderings the basis states (pads and empty pad, cube and cup rows, upright-block sides, tile rows, number-pad row, xylophone yaw, basket and button poses).",
+  "not_reviewed": "Reachability of each layout's objects (the lane's scene smoke measures the scene, not task reach) and the evaluator metadata of objects that only layout k holds: the record's evaluator_dependencies hash layout 0's objects, and layout k's bytes are pinned by the asset revision preflight checks clean."
+ },
+ "instruction_sources": {
+  "fixed": "gen_instruction returns one constant template with no placeholder at the pinned revision, so every layout renders the record's instruction; the RunSpec binds it and the worker refuses another.",
+  "layout_readback": "the instruction is generated from the layout's objects, so it differs per layout. The RunSpec binds the instruction the lane's scene smoke read back from the official reset of that exact layout (task_instruction in the lane gate's revalidation certificate); the worker refuses a reset whose instruction differs, as for every task."
+ },
+ "tasks": {
+  "press_by_number": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/press_by_number-review-v1.json",
+   "contract_layer_sha256": "3653358e8c7b89771aa4667b7d23aa46c7a32b1f03f1d0ae4fd33c463fa88e59",
+   "instruction": "fixed",
+   "basis": "Buttons keep their poses in layouts 0-9 (red button0 at x -0.15, red button1 at x 0, blue button2 at x +0.15); only the number cards' values change, which the contract reads from the scene.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_0.json",
+     "layout_sha256": "a7dc98bf795083bbc14269ccdd9ffa982d91a725f62467c0c1f79bb778cb13c3"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_1.json",
+     "layout_sha256": "2821ab3cd9b9c5e78f40d807dc6ca48098eb3a2f69db9d48672a7a3229a2e5b1"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_2.json",
+     "layout_sha256": "30e7c2a3858a751b82f487341c7e522874c350ae1eade5b24f15681ff8024a3e"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_3.json",
+     "layout_sha256": "716c4ec11cacc45155f0f33df445bf1dec4938925e734d319a301e97ec30bd78"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_4.json",
+     "layout_sha256": "c800ae8d975ef765cd45972d42d92ef2449c9f5031cd724e40e332dcded2a956"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_5.json",
+     "layout_sha256": "2b65d717913e02bca2efe513ee275e4de2f6533af302b28a373002cbeb428894"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_6.json",
+     "layout_sha256": "3329b53270fd160871aa111c5feae2aee94139b62f5c261cf8b21f3aa5b0a66f"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_7.json",
+     "layout_sha256": "bd785c03505d106be66f08a08909f3922b1eaa6cdadd78fc965beee6074128d3"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_8.json",
+     "layout_sha256": "6a7c8decc297a213fab815a6e26ad6dc1ebc2dd71b5f2f09f0e1173a0bf0cfd1"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_9.json",
+     "layout_sha256": "fd0653b444a3ac74e39d788ba0224ff03cd64a6cc448e03a0a275b517d28a0de"
+    }
+   ]
+  },
+  "arrange_largest_number": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/arrange_largest_number-review-v2.json",
+   "contract_layer_sha256": "a744b85a1a9bfb85a56761a02bec92895fbd260c79fa9c0b7217e9cbf22a1668",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold four or five number pieces and as many pads in one row along world X; the contract names neither a count nor a digit.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_0.json",
+     "layout_sha256": "8d45b23010c950c35d5618c8701c6b8203036abaaf20a228db067ec3b1e30617"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_1.json",
+     "layout_sha256": "46bc75b456018bb220962d0c7d0403b9495aa05c5c0b947a72fbf1a6bd5b08fa"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_2.json",
+     "layout_sha256": "d9c569e557aee3c808a38a9e3461611b8119505dee3a56654752285a2af5c65f"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_3.json",
+     "layout_sha256": "f2433ce96856e0ae9dc65412c4642014e257d08eb01644bdcfd593044221d6e5"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_4.json",
+     "layout_sha256": "98706033d8a7fda99b589530145d83be0dadfdb90edab624ab41a295c7ffbe57"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_5.json",
+     "layout_sha256": "140ce7a447fc3256db5717eba17a4ff59b3060312827276e0bc84bb986081c42"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_6.json",
+     "layout_sha256": "24af7076c9a327d38c21f9082c5c2dd3fce8ca34365ad9c33cf0698bf969fd2c"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_7.json",
+     "layout_sha256": "6ab2572b4065da704240b8e8e8a63cbeb7481a15eae39144987b9ca8d2dc5e3f"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_8.json",
+     "layout_sha256": "2d2656dc24a7d49e29ca6feae62685f79367f964d752cecb61230400bd2d3d58"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_9.json",
+     "layout_sha256": "ed81c9e045684c925f0ed14d43e56774a17899d519967ef3d663479d4e8740cd"
+    }
+   ]
+  },
+  "push_T": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/push_T-review-v2.json",
+   "contract_layer_sha256": "1a245fdb17e916476ca9bd112a88294a3138b4499af3b1cb5594d9b498cdf11c",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold one T block and one gray T pad at different poses; the contract is relative to the pad and the reset pose.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_0.json",
+     "layout_sha256": "5d6c4c37b2715479cb6a16f6d1200c5de740f1fbbaa216640b3b8828295f0b07"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_1.json",
+     "layout_sha256": "afd62264a511058ff4243f898471642e66fb1bf8aab794a13ee33179a2a10ddb"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_2.json",
+     "layout_sha256": "19a6d0035ba3047bbc143f64eab7ba9fdfc9bb65add317d799a956df896e24c0"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_3.json",
+     "layout_sha256": "8c231073494d04972a82f704215898232b5a87d7f77a0f11f52fc0b2fa6f5f8b"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_4.json",
+     "layout_sha256": "22b19d652d1d4e834cbd8ac68070dcc0f14ea827c045ab0bd0921abc5b0c67e7"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_5.json",
+     "layout_sha256": "5d0587a9c8ad08295c2272fb51be604e589e25aaea77d541d5651eeee40f410b"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_6.json",
+     "layout_sha256": "8d9ec5222a1ea24aae4f196f1a8cd4fb47606e40eaecb9708ffa64943fe1809c"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_7.json",
+     "layout_sha256": "f3c6b07bb41ef08e796e2980f692e748e1d7ddcaa4922491bc76a544928548e6"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_8.json",
+     "layout_sha256": "070ca4687e3e5f3a593fd56ba7cd6363063bc290399dc9860a228622a16ebf76"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/push_T_9.json",
+     "layout_sha256": "617d6cda7408ee24947e5ad86c7df819c1f73124a59f3b7a9079e8999a415361"
+    }
+   ]
+  },
+  "classify_objects": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects-review-v2.json",
+   "contract_layer_sha256": "de46d878c12cc0b2f5bee9ae0c27ae997392c10ccd70e7b6225c3147ab3d0c7d",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 keep the three baskets at x -0.28, 0 and +0.28 and hold three category groups; the contract names no category.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_0.json",
+     "layout_sha256": "5ceb9e18e6d8490a7db85dd001462d63265c297ea6fad0d7438364deb2de3ece"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_1.json",
+     "layout_sha256": "013d7141ffc9865d7cccf650301f642e6b83b3eb59f78cf5b1d0caf47158e17a"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_2.json",
+     "layout_sha256": "6b3a30251bd92a465ffdc82436e14dde84879906eeab3b0e8944865b9eef38f7"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_3.json",
+     "layout_sha256": "d11ac5e14ab8fd9c8eee0c1cc827d7827b86b3cec4b97e496ef384470f171ff5"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_4.json",
+     "layout_sha256": "49c99299e632b60fde270fb69ce6421739d6e517971654ae5566ef213a754aa3"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_5.json",
+     "layout_sha256": "47f798976a13ed807c02ca4889c2ad3ca07fd6a0a1b38b1941c707e590a22473"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_6.json",
+     "layout_sha256": "7858cf068d1aa9d3daea6dd4ec88bdca2761664242b3e720be0d7f2e22c3d5bc"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_7.json",
+     "layout_sha256": "87f52d0ed50f7c34dd5b0404e94dc66605ab81e9480b28f6adb6bb339ae24faf"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_8.json",
+     "layout_sha256": "7d63e92c04b9bc8312149198bd8ca9538187ca99881247beeb3f34db8c344576"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_9.json",
+     "layout_sha256": "06475c68cdcc7bbe961d495937e97699e7835ba7a0a2f7c9038f5f2b5f05ea91"
+    }
+   ]
+  },
+  "align_blocks": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/align_blocks-review-v1.json",
+   "contract_layer_sha256": "d2fa804fa22a78480b6b163e14da7e0627f85b165f55bf6a7035b5e51d4ee872",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold three cubes and the set square at different poses; the contract names no pose.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_0.json",
+     "layout_sha256": "45caba46237c5c8070004e85b099f0122b9b97d2580e16886928e3ac7e4e6bd0"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_1.json",
+     "layout_sha256": "56d741c1067d0e1929fd42b36fdd6d6e8c676ba647a8abfc5b10a43cae301b0e"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_2.json",
+     "layout_sha256": "ed9769e2dc357bef45f679ca51b473919c0f2aeaabd1abd8cbfef20ebf368220"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_3.json",
+     "layout_sha256": "8c8031c7264934fc4247b70a0fcf7d57ab3f0f8b8d6eddccbac4e7ae9a912684"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_4.json",
+     "layout_sha256": "0217d2929379dd9999c6e9ba99b886e0d7975563eecb738e76fcf2bbf4808e68"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_5.json",
+     "layout_sha256": "7e69840eedd84313cf704c928d8d0c2e05da272de30d1f6b592e11d30f574846"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_6.json",
+     "layout_sha256": "707b00f6f2430e49b722265edcce7d6e869bd11dd0caab8b94880a69aa914bff"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_7.json",
+     "layout_sha256": "7832b91aa5cd11fb1c6426c8334b298ea5b433161afa4be32daa9e76ae23125e"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_8.json",
+     "layout_sha256": "9ffcf6c4c3a78c7a85d9b516d04c58bc6a5d0c903c1202071dd5030fa8fc012c"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_9.json",
+     "layout_sha256": "8c5276d89eaa67785618e24286bff91a94bd9df2535a110fb857a661670b54c2"
+    }
+   ]
+  },
+  "solve_equation": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/solve_equation-review-v1.json",
+   "contract_layer_sha256": "51e9d2fe0ef887be1d653fda60bb6d7602bdd512bb29ac921e92f73d8db8b0ff",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 lay an equation of five or six pads with one empty pad; the contract names no value, symbol or pad count.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_0.json",
+     "layout_sha256": "df2d8ee1b5e6b3d984174bd03555a2f512addb671a4bf830e9eecbd9e7f7d48b"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_1.json",
+     "layout_sha256": "0d6d15caf69a569749e58d7a2fbc2b113ebc3528d5833cf4ce2ec74b30ded24d"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_2.json",
+     "layout_sha256": "b95d28322c1cfa3da0ce95569f766c2150f7a408dda4c49e59e0814e95a3423f"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_3.json",
+     "layout_sha256": "96ff62088d332b94c37d16c08f1f093d59a7edd6916078e8850de1ca955d94e2"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_4.json",
+     "layout_sha256": "ac1a74d3025e5d60ced2b3cb52db92339aadd5d4b2fba1f273ba5dbdf3f5a710"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_5.json",
+     "layout_sha256": "ef427908d91c7e25d36e95c1cfcb146e069590190af9e9bf10131bc2be50fb42"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_6.json",
+     "layout_sha256": "0252f708e8e96fb9b0349ef21f14b42f5f2f66be1a8de106aa92a3cce53b23c9"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_7.json",
+     "layout_sha256": "043e739911c01e91d1a1962a03fb5743d502e05925bbb2b4356aa6a9d54ce78d"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_8.json",
+     "layout_sha256": "3eab8b5bc261484cd12daedace50b4896175b1a95b1c6344d74ce44cfb8a6acf"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/solve_equation_9.json",
+     "layout_sha256": "bd46a22a4785640eef775c97c1cf4eabd83861043f66eac05ed2c12c0ff9a488"
+    }
+   ]
+  },
+  "stack_blocks_by_language": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_blocks_by_language-review-v1.json",
+   "contract_layer_sha256": "825fd4a020cf7fe882a58eae740d27f35a041a660cd8d862dd17f167c87ca0de",
+   "instruction": "layout_readback",
+   "basis": "Layouts 0-9 hold three blocks whose colours give the instruction's order (gen_instruction reads block_0..2 categories), so the instruction differs per layout; the contract defers the order to the instruction.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_0.json",
+     "layout_sha256": "03aa18bd083b56acb34f383611255f50fd33aec3df07fef40c52f60f710f04a8"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_1.json",
+     "layout_sha256": "3e4d167c62222d3dd9a6f35d0228bee4e442f05b5ea48935439450b8c6dc514d"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_2.json",
+     "layout_sha256": "13dc63b3124308cf1c9574c79d66b0238b4727a5997ab981bdda5c33f087246e"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_3.json",
+     "layout_sha256": "7806872aaf9587fe140e6582b46ab5e0038722f6f1b4e403804c47c6aa2fa9d1"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_4.json",
+     "layout_sha256": "4a2fa32d93822d1ce4de84c726e3da0f3fed25d5158a8669fce3add78ba62a4c"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_5.json",
+     "layout_sha256": "53b8935cd3a1041bbc097fb9bf9cf76b6d80a2c0c9d873229bee4e28a82dcc8a"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_6.json",
+     "layout_sha256": "c4fab1ca453c3f98cdf2e44ab91518e51ceb0033623a45ad6b124a39a46dcf53"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_7.json",
+     "layout_sha256": "80a260a05bc59037f3f4aea82de9367d03712ab1a2cdce75d6fa5cf09caa1f56"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_8.json",
+     "layout_sha256": "b77f2c159ad47d25dc895a85e76b49d7ba3846b7e6c87577801d5bddb8165add"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_by_language_9.json",
+     "layout_sha256": "a307ab7e96afd8354ea7960f2c6f5af39c2131ec8679e4086c57f5c2efad2efe"
+    }
+   ]
+  },
+  "imitate_sorting_sequence": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/imitate_sorting_sequence-review-v3.json",
+   "contract_layer_sha256": "f24cfd98970f8fef9c80551cbe01ce65343b15d69e96dfc33807538292daa6e8",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 keep basket0 at (-0.40, -0.15) and basket1 at (+0.35, +0.25), which the contract's 'your basket' and 'the other basket' describe; the five objects differ.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_0.json",
+     "layout_sha256": "3f49325bc7198569671b2e6a478460d9ea3a323edb38a5da4da389c7a29b2f27"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_1.json",
+     "layout_sha256": "a9d1637fa0a50433be91e360bc1d25d7b95ce2b485ec055a04b4b01ed7f15038"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_2.json",
+     "layout_sha256": "1b0fc859dbc088411be7eee6ee1985f07384fdce11dd903ae59a5af1d0a3834a"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_3.json",
+     "layout_sha256": "6135752298d155b0f2cb591da3199bd98a5349c013196fd5ed2e714e87592171"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_4.json",
+     "layout_sha256": "822665f497405d86cd25fb43d18abb2d51a3335dc049339d1bd303d70546f4a1"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_5.json",
+     "layout_sha256": "3f8f849ceced13527bfd31c342ea3c88d036b40b16d04c32d53c683beb7b2e91"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_6.json",
+     "layout_sha256": "22ea65e3d1593af52a37e7f29f3e4670e2203cba80e7e3002ca70beed412d76c"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_7.json",
+     "layout_sha256": "88d9067e23c1b4e113ebd6dca3cfe003be8032b3f20b759146453e138e93f7c9"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_8.json",
+     "layout_sha256": "c614b6404236c254e2fc3ac6d695844c4c5b80773e806e439e436f21f24c6285"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_9.json",
+     "layout_sha256": "9e3532268576355f31dfd119a53c93df82aa204cb22ad837bab1077e14dceddf"
+    }
+   ]
+  },
+  "classify_objects_by_language": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects_by_language-review-v2.json",
+   "contract_layer_sha256": "da7785258ae8c9afb61cbe9326ce6619774d7f23e148e55843cd4dffc87efc54",
+   "instruction": "layout_readback",
+   "basis": "Layouts 0-9 keep the three baskets at x -0.28, 0 and +0.28; the instruction names each layout's cat0..cat2 categories and differs per layout; the contract defers category-to-basket to the instruction.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_0.json",
+     "layout_sha256": "eb7bc205a8e5f3acad8fdada3bf7a26b8e11fc39d7944f434aa4989356044eb2"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_1.json",
+     "layout_sha256": "a8dfaa02ceec29c527c2ef4d98beb5862c31cc8ffe01bc978ea63987f696500b"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_2.json",
+     "layout_sha256": "224acdad14e9087fe1c488537960aa4edc63d19167e2a41fef124e745fc1217c"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_3.json",
+     "layout_sha256": "c986ce753c840a80d83e706b3ddebd56f2fa7c5dd569eb015febacc9e4ce330c"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_4.json",
+     "layout_sha256": "14018986e7d50443a084a961998a11e3cc3415cec04447d4bab7d0b3fd872046"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_5.json",
+     "layout_sha256": "7913a7c2fd6f12dc09d24a5af9d6ead0849ce568125626d84b385c0c77efae9e"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_6.json",
+     "layout_sha256": "562c687368042c97c6f2a11216019504087c778135116dd5889d32b1fd07b021"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_7.json",
+     "layout_sha256": "9b72d61ef8fbbb7d45b4a4d778ca2b3bbafe1f01c59fed5c70e2a4435eaff233"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_8.json",
+     "layout_sha256": "7f388989c03e24817a2dc9040f37fae733689b334c9c5ae737c08b3f2e2143fc"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_9.json",
+     "layout_sha256": "77d4494ee260805afefe896cc470af226c77de70ee80719c653db3275b5f46a7"
+    }
+   ]
+  },
+  "play_Xylophone": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/play_Xylophone-review-v1.json",
+   "contract_layer_sha256": "d7db1437ad994984a1e27067a5060982891b229e6f4e14c0b54179f9004328cc",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold one mallet, its stand and one xylophone at different poses, the xylophone always at yaw 167-180 degrees; the contract's left-to-right order is world -X to +X.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_0.json",
+     "layout_sha256": "acb2c7dacf66afe330797215b2fe325b203f5745ffc31bae1406272975184265"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_1.json",
+     "layout_sha256": "b960458483372c14547f2848ffab1ff0ad63a1a4c0083517935304885d126bdb"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_2.json",
+     "layout_sha256": "040826d06f0ee9075c53c45aa7b2a69e9fbe4ec826883d537a6c5562e6d99338"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_3.json",
+     "layout_sha256": "65299a6164e4c4b4b49e2f68e8ed1835e67a1c3747e1d44c1c9e3079cd3f7783"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_4.json",
+     "layout_sha256": "6394087532ff92907dc035c66a4b022d170bfbe3e7c393fa8eeabf149cee8fd3"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_5.json",
+     "layout_sha256": "c5c3c59eefcfa446ebaf149d4db022616e41de27c01376dfb61b6f376fadf318"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_6.json",
+     "layout_sha256": "99dfe2c18db31c84db08eacc7f5f7ce1904eaf4dcd2627d4f9b2eed9c47c02a0"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_7.json",
+     "layout_sha256": "64b4966e24f165c631a22e79b26ffeefb24222079e10331dd4e7c9329e6c9672"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_8.json",
+     "layout_sha256": "d56ffc419bdf017bf59be9e3a9363a42d8c372bd7631dabe005cc9fa20017583"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_9.json",
+     "layout_sha256": "351fe4830e75d4eff130d96474a901e9169f4608872f1ccf2442585ebaf38240"
+    }
+   ]
+  },
+  "play_tic_tac_toe": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/play_tic_tac_toe-review-v1.json",
+   "contract_layer_sha256": "e76d278be0524b8df1a43765533d35b89c0260431fbc8f24fa3edfeb7630f15e",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 are identical in pieces and poses (five rings, four crosses, one board).",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_0.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_1.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_2.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_3.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_4.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_5.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_6.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_7.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_8.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_9.json",
+     "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb"
+    }
+   ]
+  },
+  "stack_blocks": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_blocks-review-v2.json",
+   "contract_layer_sha256": "7ccec1a5eb1d8857118cf1a0c6236550fa2953e6cffc3b767e3d0373cc3dd63d",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold three blocks of varying textures; the contract requires no texture order.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_0.json",
+     "layout_sha256": "9a6b1ba160b2fc5420fd4aa858400b1ee0346d7d7449bdd85aa99d9f65418191"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_1.json",
+     "layout_sha256": "a051b1e8b4914ee3a2db8f206a0554f8a24cc91cc720f3d641197fc25e06781b"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_2.json",
+     "layout_sha256": "59c8d191692f1a6a56dc1be83034c0edf001b29b7cb0bc415f9175ce25950c31"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_3.json",
+     "layout_sha256": "92c4fa2f28048f71574a619dd6453eec9cfe5bac8822dcb9b39f5591bd9eb401"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_4.json",
+     "layout_sha256": "406604ee5aca1defdf4ddcdf87e6e66886209538ca8168a27918c074359be479"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_5.json",
+     "layout_sha256": "b670a3bebae459f5403b8e6ec9b95d02c57051a584c03a529755f017465e0779"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_6.json",
+     "layout_sha256": "13c4383dfc1ec51846b4289cb43a9c880cdb3d6ca5c3424d38ae36275e1a5b18"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_7.json",
+     "layout_sha256": "1da456b800c92a77a6dc986403ec12a4c9b25b9f5b1685204234472c9a6f8e9d"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_8.json",
+     "layout_sha256": "518a266d07484f5d0db76c998198f42ea6a3941e68ef664787e3085a25d39287"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_9.json",
+     "layout_sha256": "06fddd93086a2fe9b6d591ac2086cdcfe52cf07955c2de1fc420b00311322bfb"
+    }
+   ]
+  },
+  "stack_bowls": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_bowls-review-v2.json",
+   "contract_layer_sha256": "cf060640de37436568fb2536539db8ed4323e98cc10a8d318f2e6f8934da68f0",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold three bowls of one model each; the contract names no model or pose.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_0.json",
+     "layout_sha256": "8ec7c160815f8955b5dd1af1a042673140cc2b6ac4b7536ee7fa9057e8a978f5"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_1.json",
+     "layout_sha256": "a128f6bb0abeac53fac7d203398d5518a8e043d708e6e93c9d8067b1b7e90828"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_2.json",
+     "layout_sha256": "99a2f67022ba504bbed5420d6e61b79ed95b80aa69076576e0fd5574d119001d"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_3.json",
+     "layout_sha256": "f55388c0f852a8d4f0c5ca34a0e3d9f2872b6fd4ae125d742ba62f626533248f"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_4.json",
+     "layout_sha256": "6b92f99b9c35d6ec0e0176df3ee0d574f98dae58a8dc7a8769c9011bba16720d"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_5.json",
+     "layout_sha256": "212e2745b47d0839e0d469a75d24b996a21bffaf6cb45f74a65d1d7dc3ff2823"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_6.json",
+     "layout_sha256": "cb2dea72a9a70f8bf2428481d287d11d26c5529d9afa879f79499ec80f159d66"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_7.json",
+     "layout_sha256": "62b0df224077e22279dfd3da5d2549dac03c3fd4a7f20d840541d314f47efec9"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_8.json",
+     "layout_sha256": "d0be23c650e7db6e5dc83ad513b1dc99c7dd31b8350a33189e89e33dc0909d3d"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_9.json",
+     "layout_sha256": "b262fcaafdcb9c515a62a7b75b94985d81d3b06590702d180add3f615e9eb2c1"
+    }
+   ]
+  },
+  "general_pickup": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/general_pickup-review-v1.json",
+   "contract_layer_sha256": "370a379d9214033d92673d6501ed7f92657db24d520d274d2208af5ea000c8af",
+   "instruction": "layout_readback",
+   "basis": "Layouts 0-9 each hold one labelled target among distractors; the instruction names the layout's target and differs per layout; the contract defers the object and distance to the instruction.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_0.json",
+     "layout_sha256": "7a3ecf189e248f99a75ef8f6fdbe7fca85795846d67e9fd7f2d74954c8e78dda"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_1.json",
+     "layout_sha256": "f760ad32138d4cbe8585663a820c1657067ac9a08a988d1384a155901e63948b"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_2.json",
+     "layout_sha256": "ecbe76c98ea395e158d30e344ed30b7a6ba2a13888234dd3da3a635ef2b9f48f"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_3.json",
+     "layout_sha256": "3e010e57a16974baa37d68f0b8cd0e9206433358bf12934323a272511a4af254"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_4.json",
+     "layout_sha256": "eac60582c050c3edbe4b6bfe4e8a972efd743f2ba901b6dcbc4617594d53027e"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_5.json",
+     "layout_sha256": "8913178bb31098aaece867c2622d36ad5296bf5125c5fa1f9d4567c52e5363a3"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_6.json",
+     "layout_sha256": "93041286fc255cacf9dd1bb1e6543a82bec1ff410d5bce28735babf8423907ed"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_7.json",
+     "layout_sha256": "15b963a9453a0c8c0c4a72702b38f296538f829dfcb57c737acd1212936fb365"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_8.json",
+     "layout_sha256": "f86fe1de025451ff2a8ddc85aa88d2fdfe546c45b9df38071cfa4dee5528c75f"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_9.json",
+     "layout_sha256": "3fff21886cd71ef3dc6dc43dd0ae8e8ec189a28f844a15d3fbbd7c6588ea8f64"
+    }
+   ]
+  },
+  "fold_clothes": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/fold_clothes-review-v2.json",
+   "contract_layer_sha256": "e0f5ed7c9ed82b8d467e536279708562fad1a68c8c2e4385fcac1bba1d65da5b",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold one long-sleeved top at different poses; the contract names no garment model.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_0.json",
+     "layout_sha256": "53de16e28978c71cfaa0620712633a0e07ed9d4bb79cdb63c5a953fa26f1b5ba"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_1.json",
+     "layout_sha256": "c43d694499bdb86c1ec3b8c6f2362893e0cfbbb5d00921378fc8c6fec2f79583"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_2.json",
+     "layout_sha256": "064e6a528a0f4042d2fc1ad76441cd2341eb9a5c0592ea776de28a950512138c"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_3.json",
+     "layout_sha256": "8812671940db961a1c4a43696b138d1656c84707b01337be701263851980c716"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_4.json",
+     "layout_sha256": "4b7bcf0f0fabcaec33d0352cf2f89971b2af73efa7fbc00149ae3fbe182369de"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_5.json",
+     "layout_sha256": "f2c7b6d8bb809b032a11bf6cb3d62180dab8e86f95710cbbf82460e5b01ae20d"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_6.json",
+     "layout_sha256": "db0fac19ae0b64a72c8770fba06c12b681ca560f060bc39003f062ea9e1567bc"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_7.json",
+     "layout_sha256": "cb602e5db949639f28d5dae862bf3469919526eb08713c4cebe41a32708ef4f3"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_8.json",
+     "layout_sha256": "02763256fc31272105b9f592e73cf14bfea2b236ab9a861efaa482721f9e122d"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_9.json",
+     "layout_sha256": "7abc98f33c9141d62f2d0b5e5c032363735563de2dbb38f62f422e20a43eeac7"
+    }
+   ]
+  },
+  "match_and_pick_from_conveyor": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/match_and_pick_from_conveyor-review-v1.json",
+   "contract_layer_sha256": "b7a728d61d99f20ad9f3036e4a2574942e6a582ba57a92b93d5b6deaba030910",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 keep the conveyor and hold a target pair among three distractors; the contract names no object.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_0.json",
+     "layout_sha256": "9c89a282516bae7323eda660e5584caf908c241976b0bcd1f8ae22793a1fd931"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_1.json",
+     "layout_sha256": "a412927cd126d34670a644fc179ab68636e55f9bc3599d12f27e700cb0169320"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_2.json",
+     "layout_sha256": "5b82089546801a12e7f99fae49b51e042a3c59dee092155e5260af2492cf66ce"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_3.json",
+     "layout_sha256": "8425b58824195468d2ea4c010838dfa29684c81fbc0d8e5f0ebd105a7c9724fe"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_4.json",
+     "layout_sha256": "236b2abc300656b4e0bb9f0017ea7cef640daf2aba209666c0525df21d77d6d8"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_5.json",
+     "layout_sha256": "d8bf35394a7eefeafd257eb5adb57d4a53ac1e266b485156e05f47afeb4d1566"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_6.json",
+     "layout_sha256": "b0e12429276f81122dca08345f7ea357d4152edc508fcea795efa13878cabdfa"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_7.json",
+     "layout_sha256": "27dba6cb52d897d77ce2cd609b0c5ca364c864748f4e51c44468645469094f29"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_8.json",
+     "layout_sha256": "c78a786b4795cdcf7a1582ae0f8ddaa3ae7309102ce7948e5f8128d45288a93e"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/match_and_pick_from_conveyor_9.json",
+     "layout_sha256": "599d7a58f7e0ec02166359899a46e88d7634ffe504538fa6ec197f5a7ca24c3c"
+    }
+   ]
+  },
+  "cover_blocks": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/cover_blocks-review-v1.json",
+   "contract_layer_sha256": "c05f4796220d58e5f5e62894309503a2f05870de023cefa10383261adb7d9f7e",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 keep the three cubes at x -0.2, 0, +0.2 and the cups in front; only which colour stands where changes, and the contract reads the left-to-right order at reset.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_0.json",
+     "layout_sha256": "10a84eed03be80f3ba31bca0cf07c96f34a7143b0670ba0262957add36a1161c"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_1.json",
+     "layout_sha256": "4d7f51a24edfa3c3bd7279f84c36b2151ef0c8528a96bc62ec3453b59c2c2382"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_2.json",
+     "layout_sha256": "928d04a3aca4af63c2ef66ecef79836a355579b8f06d2891af759e9de92e4e41"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_3.json",
+     "layout_sha256": "10a84eed03be80f3ba31bca0cf07c96f34a7143b0670ba0262957add36a1161c"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_4.json",
+     "layout_sha256": "928d04a3aca4af63c2ef66ecef79836a355579b8f06d2891af759e9de92e4e41"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_5.json",
+     "layout_sha256": "928d04a3aca4af63c2ef66ecef79836a355579b8f06d2891af759e9de92e4e41"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_6.json",
+     "layout_sha256": "928d04a3aca4af63c2ef66ecef79836a355579b8f06d2891af759e9de92e4e41"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_7.json",
+     "layout_sha256": "d0d9a4f120ab5be327851a068b1c0c9ddced4815da273fab04f7339546e54776"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_8.json",
+     "layout_sha256": "4d7f51a24edfa3c3bd7279f84c36b2151ef0c8528a96bc62ec3453b59c2c2382"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/cover_blocks_9.json",
+     "layout_sha256": "4d7f51a24edfa3c3bd7279f84c36b2151ef0c8528a96bc62ec3453b59c2c2382"
+    }
+   ]
+  },
+  "put_bottles_into_dustbin": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/put_bottles_into_dustbin-review-v2.json",
+   "contract_layer_sha256": "f36ada3ae4beb329eb25f61e09d3ffaf6c119c9327e1018e8e27f3ab05e219c1",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold four bottles and keep the dustbin at (-0.63, -0.10), matching the contract's 'all four bottles'.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_0.json",
+     "layout_sha256": "3c2168f460d48dde2d72d55429f1af7e850725b642dfcb8c8d5e31ed2ec25537"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_1.json",
+     "layout_sha256": "baf037612b844efdcf660d2f6f6ea064fb288e064a9d2d944c4c75ef0396968b"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_2.json",
+     "layout_sha256": "7110decf67ccb6d77942719bf2f79d567c5d1d080413d2c713d3b41e691c11fe"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_3.json",
+     "layout_sha256": "659a6fc1bffc692e8e61d07544d1c5145a3c17e8d8e75fc4af543b1a9fba41f5"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_4.json",
+     "layout_sha256": "79fdd9de9ace106330d3a338380beb9fde98ee37ad87e7ee76a0b08684f2c695"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_5.json",
+     "layout_sha256": "162b60992166837897e336103c93dec2d49936c305dc0d312a26c903d17dba11"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_6.json",
+     "layout_sha256": "47ee247d392ffec39c191f7db029242867f7b3cf7611c216469c91cd987c93a0"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_7.json",
+     "layout_sha256": "d6aeed72743326c0b2267391362094f8351d504c19dc079a6041bd49530ded76"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_8.json",
+     "layout_sha256": "c74eca9abeab775b24f25b7f664c79dd840b1bcab5af69ca35a51113c9403cef"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_9.json",
+     "layout_sha256": "cf1adb374c14b5c2d078d7304ed5096814ed3d1d287c918830ff4080974f7be1"
+    }
+   ]
+  },
+  "pour_liquid_into_cup": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/pour_liquid_into_cup-review-v1.json",
+   "contract_layer_sha256": "9805418fd12701e72c6c78a8839449807aeb2b43e37de6e9de0788f8817ff213",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold one bottle and one cup (a goblet in layouts 3, 5 and 8); the contract says 'the cup'.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_0.json",
+     "layout_sha256": "99d7b7cba10a7926e00eb2ad117a2e7ce812afd8876239f692acc6bea54bfc9c"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_1.json",
+     "layout_sha256": "3e23645e53661268fd26382d3ae6810d8b497543ed91481eba71e9ded1feeee0"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_2.json",
+     "layout_sha256": "c38d9351c0d27858a45232fe5dc497d3a649fa2aa957f65aae5f66c47158c3a3"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_3.json",
+     "layout_sha256": "424595e53077cb2ca4e3d332cf5e3b32f0be39761b742472f3a2a7059ff83887"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_4.json",
+     "layout_sha256": "c6bb2fa2042a311fbeb6f451be93bbc93e6d2a869421f3d77d10339a6213e529"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_5.json",
+     "layout_sha256": "ff5bfa82d7d29361f8edb54710b6351fb21a86427719e83e43f4033264985e1f"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_6.json",
+     "layout_sha256": "e469a2913bfc74e8c4b0f940417b76f86a04c612a7474cecdf068f059fac1bba"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_7.json",
+     "layout_sha256": "2684f0c7d2a2ed1c47893fd1a74501d2b3e41e0b153c9831468fb5c78ec24a14"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_8.json",
+     "layout_sha256": "55e1c92072b99381f5416dbbb78deffaec9880813285d16933984998d55bb4fb"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_liquid_into_cup_9.json",
+     "layout_sha256": "a65133fc56d4289e6acaaa3ec1a1142b342dc433b7b0989c3205883a4358feac"
+    }
+   ]
+  },
+  "build_tower": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/build_tower-review-v3.json",
+   "contract_layer_sha256": "c5a54567ff6c4f5e51b37da9bea97e3ca28471e5e885c40f93f927d0dcc2745f",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 keep two upright blocks on each side of world X (block1 and block5 at x < 0, block2 and block6 at x > 0: the contract's two pairs) and the longest board and roof at fixed poses; board sides vary but the contract names none.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_0.json",
+     "layout_sha256": "afcf896086392357a8826f84bebe4910dcb7a5f1b84e7be435e16e3d5c3607a4"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_1.json",
+     "layout_sha256": "c4c67f1c1c2abe8ae32d2686048e61eb6e4396c79025b30779091f14705db18c"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_2.json",
+     "layout_sha256": "8d6bff06259a8ae1dbaf982639c3febabccc9e681a34e18acc368647deced338"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_3.json",
+     "layout_sha256": "2baf81cf370a985354a616bc965938e8d3d685ebd11c1372e79a22276ac95db2"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_4.json",
+     "layout_sha256": "bd298ba59bcdc04051c63251c3b0fefda7eb5536a30a220bcd9a8c8dd8fa6b61"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_5.json",
+     "layout_sha256": "631664dbc10c2bf72e43559906e0488a75163ce40d6d87626f04ddc34ae8bf03"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_6.json",
+     "layout_sha256": "d339250cb8ec40a7e6e86880deb19b104dd0b6a4be82d7f5aa2cb8e1a4e951ff"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_7.json",
+     "layout_sha256": "20c73873246292e503473eb2a5f9e9c92c8fea7c4c58cb57877777590e9f0711"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_8.json",
+     "layout_sha256": "130e43acc7bff2840b4e22ed29864e87976f57c5e777d3e40a8e8e6235e61cd9"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_9.json",
+     "layout_sha256": "a7ee16207d09ff8647f00c96fc875a69283eca574ee7f0ad04a45f0c62ea1712"
+    }
+   ]
+  },
+  "pour_balls_into_vase": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/pour_balls_into_vase-review-v1.json",
+   "contract_layer_sha256": "d222bdcda7838ce7927bff17c0f25dadb4a9ada9863cee3b57b3661d99b34380",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold one cup with seven balls and one vase at different poses; the contract names no count.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_0.json",
+     "layout_sha256": "171eb88834b95edeb1e90a5786802400ad3c924f4c9e4ed412d318e98fd69000"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_1.json",
+     "layout_sha256": "4c39246a2904577b9f53b4f34cad2b3ffa44bb8cb4d3d0aa00da9af78673a41a"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_2.json",
+     "layout_sha256": "f8f8bf2d22c0a91c4e641635841c687518ca63c9d72c64c4fca80b14cb27cd19"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_3.json",
+     "layout_sha256": "41cf5d73d7247f11025088c1976e9c8a7f69bad431f8c493fe0f4c0f52f3ee7a"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_4.json",
+     "layout_sha256": "ac1d51f6bcc7e990fbdb9fbd253c7f6970f6338ac33cdb6c17db41841561d1fc"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_5.json",
+     "layout_sha256": "f1cd94e4714f0df6a2a424254e9d3f213302325f8ee7f28c64701589ac789e04"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_6.json",
+     "layout_sha256": "9b9653f119e2ee9138e1e13b3f2122163eb08d84c2deddca8fdea1e982d3bbd1"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_7.json",
+     "layout_sha256": "fb26a79c2cc0b2566aee15af500c93b573608b9ebeef94a53969251c77e31600"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_8.json",
+     "layout_sha256": "5940f17678b844dc027b33a04bbc47c07e7e397bd37ae0e714480a30d0f67ab6"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/pour_balls_into_vase_9.json",
+     "layout_sha256": "153af324f165687d83bb672fe95e1eeb79a9c038322bb662164fc625beba59a1"
+    }
+   ]
+  },
+  "make_kong": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/make_kong-review-v2.json",
+   "contract_layer_sha256": "2ba4d2fbd3f814b131fcb228a077b7a36f45e3c5c50529ae2d72843afd245b0d",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 keep the standing row at y -0.15 from x -0.33 to +0.27 and the draw stack at x -0.40 (the contract's left end, world -X); only tile faces change.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_0.json",
+     "layout_sha256": "4e13e55934b1b3bdab5f3697f7b997080e4f7652fa265f24a6b05cbb761a7228"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_1.json",
+     "layout_sha256": "e609adadc84a75aa78afc6893abb5fcc12c51d2c1d2f4535cda36544478edf12"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_2.json",
+     "layout_sha256": "09af2487241bf330bb495da875a0f812630db5de4ed2e8621aeefdf297a625cf"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_3.json",
+     "layout_sha256": "4e24a48c7ee599fc50c04c174f3d1e49802b1c3cd33f539ec4ff2878021ebc58"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_4.json",
+     "layout_sha256": "c0cbfe6e11a00ebb75a445d335c92607faa74d844e06a114a0f0c33b2f308ae7"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_5.json",
+     "layout_sha256": "7a7956b1a005acf78f0757bc7fe4caf043fdb600657099f4a92d58e5716f6816"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_6.json",
+     "layout_sha256": "b491a3a40bc125978a2e45dff2201709daa26209ed467acdc69c978dccee7c5b"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_7.json",
+     "layout_sha256": "b73e73a7b2638a0b2648d78822b0c21cad478f7600dedee6d7e44be8608ce2f7"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_8.json",
+     "layout_sha256": "262bd2169a1cb1160560ac64ed904aec22f77b2037517b96d699002c6965804e"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_9.json",
+     "layout_sha256": "fb0348b2501a925fb097b0695a8154e7fcd427d81b3253ae4cfc1ee7b2776185"
+    }
+   ]
+  },
+  "insert_tubes": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/insert_tubes-review-v2.json",
+   "contract_layer_sha256": "9c14bfce9c1d8968e3f60e958eba15e03046c46926ffe4d539fe0fa152db10cb",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold three tubes and one rack, matching 'all three tubes'.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_0.json",
+     "layout_sha256": "7a385171c850978ea45616e562eb0c6efd025e592be0542ac5f0298ee0f12557"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_1.json",
+     "layout_sha256": "243a1d042fb1956ddb9914b9d055f7174b8296740d7c5ff70c8b2f9fa655b206"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_2.json",
+     "layout_sha256": "94207e0808afb12a65f6d7fed607d3e5b60756ea67ec46b5f5f6266b60b8465b"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_3.json",
+     "layout_sha256": "de5e532999527998647a5afa83348c4b0fcb5ccb533d8896ac520a8c76b1bc70"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_4.json",
+     "layout_sha256": "a85ee909dff6bcdbaeb4d828014d9c7243317bbe009f7c6c1b98c37c86aac7c3"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_5.json",
+     "layout_sha256": "8ab4a8907d24f3f0e0060a403c2bed9387fa842259773c87b9a84a58f0bcb30a"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_6.json",
+     "layout_sha256": "40d0fdef712ec867ae7d740a07fe9c638939384d982f7e67be46b71c1fb07fd1"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_7.json",
+     "layout_sha256": "2fbdac619f5d93ffa0398e4b9b971d043ce994b990c6d6c49f96d2c6cdfeab40"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_8.json",
+     "layout_sha256": "bfa7ac94c9fc1c17fd428b854f7fb269beb283132691af2b1a48c022c2b05eff"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_9.json",
+     "layout_sha256": "f28016ec1d4a87371ba536f87a0d1ecd8fd4d84bdcf38bf1c0d4a1b97abcf7fd"
+    }
+   ]
+  },
+  "store_laptop_and_headphones": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/store_laptop_and_headphones-review-v1.json",
+   "contract_layer_sha256": "5e8615e6524973404fafb0511e5e3a4ae469a3458f062c6c670bc0e81e30492f",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold the same five objects (headset model varies) at nearby poses; the headphone orientation clause is relative to the reset pose.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_0.json",
+     "layout_sha256": "36c256352ba182181517141f659ba50513749d81bcf87f3297bafd0b320de214"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_1.json",
+     "layout_sha256": "1d3f1943b7f0ce8d3bc87a56a0211023858c728192ef8414d415fc7819764bde"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_2.json",
+     "layout_sha256": "46885154ba8559268cdf761b94b0f802c4a59fba4aea6ae9b44495f0c7a0a645"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_3.json",
+     "layout_sha256": "4a44731ae3d53ae6480f804474d1b714423d5fdce60ce0bc18952ddccb8f76f0"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_4.json",
+     "layout_sha256": "df8e13701cc432224fff84d498db3a3df7aeb3bfc1a94ea0d6c3f6d306cebff7"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_5.json",
+     "layout_sha256": "ac82cf6e6c08234992720d3cd90b0b703c975a23d708756a6c404b79965162a7"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_6.json",
+     "layout_sha256": "8e3b85ffec95c0f2f77a290aff1daaba8d6ffc7d621c70ce6bf650de68a93eb6"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_7.json",
+     "layout_sha256": "3d2728e68f254147f878c34a782a50c666e0e95e17eb91f747e64623e012994e"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_8.json",
+     "layout_sha256": "76a3151eeb2f08344d722d69c9f9683446e03a30269c71b96ba51304ba66c5d2"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_9.json",
+     "layout_sha256": "8166adffdbdc36501bd46b9dd13f1e4f25bb606151fbdba81fbc3223286490c6"
+    }
+   ]
+  },
+  "sort_nesting_dolls_by_size": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/sort_nesting_dolls_by_size-review-v1.json",
+   "contract_layer_sha256": "89e19ee0c0c3e5fb58ad1802df8f69d8b2fde06bfd119639d8e97d35e618daae",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold five dolls, matching the contract.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_0.json",
+     "layout_sha256": "a01c86062db05ce741bf9153c5c31ab57b85ee3b3dce9ad7c1be660eec00dfc1"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_1.json",
+     "layout_sha256": "df0c50c7a03686f31868ee2578189f4427868ebb625fe8c9810e6a6560e9fdd7"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_2.json",
+     "layout_sha256": "094ed65100d57f014d0a14d53284f48784005c107c1e834972304a24cf5d9118"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_3.json",
+     "layout_sha256": "ae4ea32787c236205d2c17608504575778891ace75c71977f722c9d91322b4d9"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_4.json",
+     "layout_sha256": "13bae7ecc1934e8ba3c5c5173def6927cab472c95fa12d7f09e871d6b5291aad"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_5.json",
+     "layout_sha256": "3a0c61312ffba29a7f4b9e0c29b5ca1092798be21a0e7e4654b70059dfa4a916"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_6.json",
+     "layout_sha256": "c08c2e4f628e1f7a3576b39cd97be071d238246224125c15f1404b053d98ff31"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_7.json",
+     "layout_sha256": "56d54263f038257454e200044ec6649cd1079599318d9d8149d4ac5a3e292716"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_8.json",
+     "layout_sha256": "53ff0b17529a094fe7e17eeef52a429ca4552e3f4550b1cf85d4d51fbedbe577"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sort_nesting_dolls_by_size_9.json",
+     "layout_sha256": "40e09f38208b519ad42be267d8b7c36c1c8772be607f63dd5b5812cb8888d065"
+    }
+   ]
+  },
+  "fill_pen_holder": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/fill_pen_holder-review-v1.json",
+   "contract_layer_sha256": "c7c86792379cf7318f1e3bc84dd6891dd1528d7c7f6c4211167cb79a8592a7fd",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold four pens (pen or oil_pen) and one holder, matching 'all four pens'.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_0.json",
+     "layout_sha256": "346dfc9c75c87c9509ae3bc5d7333092df5025535baf1e2f5116b57e78cd35bc"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_1.json",
+     "layout_sha256": "0161032a94076208c7aaf6ca044d4bfc0ac13553eda4d131dbd2f6ab3ff0815a"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_2.json",
+     "layout_sha256": "4a9d7a5060b24a480f9f60add116355c08c81832e7ce5db5f6c2d9d2c43bd65c"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_3.json",
+     "layout_sha256": "d814171cd392aa277426362ba3f52f5fb324d2e6d0a7ea24bb9480ac6fb53682"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_4.json",
+     "layout_sha256": "44e4a27da4251e4fa9ca1b8be9b9575e7a7e70df4f9e4371c8b36d46219da638"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_5.json",
+     "layout_sha256": "44571f644830ba86f79204f52b6845443384706a13bcce75698952c6138cb59c"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_6.json",
+     "layout_sha256": "f39f6e89ce4018122ecb3a123afd3772f01169746017892f02143f2d7f013619"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_7.json",
+     "layout_sha256": "ad1d7e609bf80668cc52ad1c43365193df0c68396ec9ea27476bf1d26961d180"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_8.json",
+     "layout_sha256": "4093f43678c842c9f41e3cb1264d349b0fefa16ec588f6bff691b1a73fb8356f"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_9.json",
+     "layout_sha256": "68c6b54194678245b7c68c46320b2ce921290211651ed5e19bc2bfd02b8f47b0"
+    }
+   ]
+  },
+  "deposit_coin": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/deposit_coin-review-v1.json",
+   "contract_layer_sha256": "8daa518a1aa0805d0f3cd5e449f307a0f05b6354772ac2475ab941a596f8a745",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold one coin on its stand and one coin bank at different poses.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_0.json",
+     "layout_sha256": "53bd0820af9e5a8156e3ad0689f6ebbf40c28189c04991fb31d1d57ab3037f5f"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_1.json",
+     "layout_sha256": "961bd18257ec84fee9d25172c5c715652500f474c725995b16aa6df687b92160"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_2.json",
+     "layout_sha256": "cead76f03f6c425eae5bb486a210a346d1d1e6f681774d78b363098393485b2e"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_3.json",
+     "layout_sha256": "d86c143d04dad41b4770be22527305df478e17838c7224c656b56677d75c7549"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_4.json",
+     "layout_sha256": "6b17a2d69fae69ccefc6ff40715bbb5f1953dc48d80ea5c0f25861107b4a480d"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_5.json",
+     "layout_sha256": "aced78fd3846f4a2a9b4e638377924e557b3447f812f4b2a8ae7f9be41948993"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_6.json",
+     "layout_sha256": "cfd19d77e23c6007e3682bcd549a6989e0a4c9b4e44a3893840755ed2d3efc16"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_7.json",
+     "layout_sha256": "bea6562aea1d2555e099867e78642d535b86a6e8c7e76c18b8eb193e58b12500"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_8.json",
+     "layout_sha256": "e00a5472119327bf2bdd053e373e87fb74e73bc4bed11c0c81a9be0975571edc"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_9.json",
+     "layout_sha256": "b0f8a0781ee047f693c362829d764191bd7a0782d64ee719724eda93fd0830fb"
+    }
+   ]
+  },
+  "organize_table": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/organize_table-review-v3.json",
+   "contract_layer_sha256": "474a73f69442a85e3636f0daff5502461b9eadbd4a8d791b0e099fa57b85b15f",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold the same object set (models vary); the alignment clauses are relative to the reset pose.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_0.json",
+     "layout_sha256": "e55e5cffef73b1967ad26dc0c7c8933ce05e68f329450ae0ac933abf386fa5ba"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_1.json",
+     "layout_sha256": "cc44fde5d0d4461123b2ec469d6bb02f47a621ee2f6b2bc81269213b82b2342d"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_2.json",
+     "layout_sha256": "2b995768c4dfada0ac4c313fa20e467e645f6ff700e81fe05ef513d61ed0e343"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_3.json",
+     "layout_sha256": "12e2492a1f688b800774543f2e9805bc1e4b7a0950c1037f59e7dfe073e43711"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_4.json",
+     "layout_sha256": "82764ab142f4748fe581b4993460743ae59ba08c7d6aea3770d4bf61844dc20a"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_5.json",
+     "layout_sha256": "d870df53b37e0f80f7ebfad3161d1cde2b0a87073dd5e89591602afe5c5e6752"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_6.json",
+     "layout_sha256": "3c94f857d1b67a69d4a7f467377cac0ac6b3567889becd5c58d70b55850b699b"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_7.json",
+     "layout_sha256": "225ddca62135c18eaa65fbd669da5caeb7644b3d4a56face98842eab718c64e8"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_8.json",
+     "layout_sha256": "9faa23938a7159998d6e769fceee96f2722fa225c7b348d5cda272ef690d7c81"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_9.json",
+     "layout_sha256": "debc08c895b77522c0ed211c79e632239585486e54c528fd9f68d195590ee74d"
+    }
+   ]
+  },
+  "make_toast": {
+   "record": "ora/policy/environments/robodojo/task-contracts/reviews/make_toast-review-v1.json",
+   "contract_layer_sha256": "665481091007abf424f42ea3d26150d5236d3f15f08ed278c2d75edffa84e1cd",
+   "instruction": "fixed",
+   "basis": "Layouts 0-9 hold four slices in the rack and one toaster, matching the contract.",
+   "layouts": [
+    {
+     "layout_id": 0,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_0.json",
+     "layout_sha256": "f78afb3f82b6d9ce2399b13a8ce8a1508134565e7e8cd97f8a8532854fbc0b28"
+    },
+    {
+     "layout_id": 1,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_1.json",
+     "layout_sha256": "0334a4db43ab6b3fdb87aa87433b2120b0d8c10a29ab8ff58230a8acd64c9ff1"
+    },
+    {
+     "layout_id": 2,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_2.json",
+     "layout_sha256": "1b02919e9a8bdb9a922aafbe345de66738e5519f1aec1c4b4d1955221cbb5698"
+    },
+    {
+     "layout_id": 3,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_3.json",
+     "layout_sha256": "6731208e8ec0320e4a8bd99eb00168ad63f4aa612fb0886eb50ccbd17377a20a"
+    },
+    {
+     "layout_id": 4,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_4.json",
+     "layout_sha256": "bd2b854068a6cab0ecde81d255c7ec6e9e5d4403046b275684713e2ed8bca7a2"
+    },
+    {
+     "layout_id": 5,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_5.json",
+     "layout_sha256": "bda8d42dad7841d219a6c43cc8d24668268ea5d25421ca800de17c81f2a51916"
+    },
+    {
+     "layout_id": 6,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_6.json",
+     "layout_sha256": "ea13d662cbc6b090253b2cbae171faadce7284beae40a14cf253cfa998390a6a"
+    },
+    {
+     "layout_id": 7,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_7.json",
+     "layout_sha256": "d4855297a08d4df393cd55a920df33742f390bc589889ec87f59f389db8a3624"
+    },
+    {
+     "layout_id": 8,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_8.json",
+     "layout_sha256": "7e63ec074f4b710377fdd2715b6e29d510e9ce8b1ed3a37bd1447df9c02a73b6"
+    },
+    {
+     "layout_id": 9,
+     "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_9.json",
+     "layout_sha256": "e61c9f7c17f88a845911f7801ddb0588b008e2a5f911856e7f97197d82bb734a"
+    }
+   ]
+  }
+ }
+}

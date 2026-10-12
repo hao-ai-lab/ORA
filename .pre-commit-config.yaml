@@ -1,0 +1,13 @@
+repos:
+  - repo: local
+    hooks:
+      - id: policy-lock
+        name: Check policy asset lock
+        entry: ./scripts/ora lock --check
+        language: system
+        pass_filenames: false
+      - id: whitespace
+        name: Check whitespace errors
+        entry: git diff --check --cached
+        language: system
+        pass_filenames: false

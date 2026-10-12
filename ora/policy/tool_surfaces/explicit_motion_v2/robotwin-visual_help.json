@@ -1,0 +1,5 @@
+{
+  "append": {
+    "observe": "All current physical camera RGB and calibration are delivered automatically before decisions. Depth stays query-based; precise pixel measurements use mark_point. Omitted views selects every physical camera; request a subset only for a specific overlay or historical comparison."
+  }
+}

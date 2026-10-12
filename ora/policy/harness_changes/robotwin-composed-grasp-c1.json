@@ -1,0 +1,13 @@
+{
+  "schema": "ora.harness-change.v1",
+  "id": "robotwin-composed-grasp-c1",
+  "baseline": "native_full_explicit_motion_direct_v4",
+  "parent": null,
+  "overlay": {
+    "robotwin": {
+      "tool_surface": "robotwin_toolchain_b2_closed_composed_v1"
+    }
+  },
+  "summary": "Serve RoboTwin grasp_execute from the composed library entry grasp_execute/c1, which the composed successor surface binds; layer-3 tests show it equal to the native prepared grasp on synthetic backends. The seed candidate of the first practice round and the behavior comparison the c1 default decision waits for.",
+  "sources": []
+}

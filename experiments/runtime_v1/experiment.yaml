@@ -1,0 +1,108 @@
+schema: ora.runtime-experiment.v1
+title: Runtime v1 qualification ladder
+purpose: Qualify the shared Harness Runtime from synthetic boundaries through RoboTwin behavioral acceptance.
+experiment: harness-runtime-v1
+config: thin-react-qualification
+output_workspace: outputs/harness-runtime-v1
+provider_profile: deepseek_flash_openai_low_16k_v1
+policy_context:
+  codex_project:
+    - ora/policy/planners/codex/workspace-v1.md
+  episode_prefix:
+    - ora/policy/core/thin-react-v1.md
+    - ora/policy/environments/robotwin/boundary-v1.md
+  tool_manual:
+    - ora/policy/embodiments/aloha-agilex/manual-v1.md
+runtime_defaults:
+  transport: local_rpc
+  root_env: ROBOTWIN_ROOT
+  python_env: ROBOTWIN_PYTHON
+  required_revision: cf4872cc90538fd4bca761c8db912d8f65e49f2b
+  task_config: demo_clean
+  require_gpu: true
+  startup_timeout_s: 600
+  request_timeout_s: 1800
+  workspace_bounds_m:
+    x: [-0.60, 0.60]
+    y: [-0.40, 0.40]
+    z: [0.70, 1.45]
+milestones:
+  M0:
+    task: synthetic_tool_boundary
+    instruction: Validate the current observation and submit one harmless synthetic motion.
+    evidence_tier: diagnostic
+    runtime: synthetic
+    seeds: [0]
+    prerequisite: null
+    qualification: null
+    scripted_action:
+      action: move_pose
+      arm: left
+      position_m: [0.0, 0.0, 1.0]
+      orientation_xyzw: [0.0, 0.0, 0.0, 1.0]
+    budgets: {max_robot_decisions: 1, max_model_calls: 4, max_sim_steps: 1, wall_time_s: 600}
+  M1:
+    task: click_alarmclock
+    instruction: Make one small safe upward motion with the left end effector; this is a transport diagnostic, not task scoring.
+    evidence_tier: infrastructure
+    runtime: robotwin
+    seeds: [100]
+    prerequisite: M0
+    qualification: null
+    scripted_action:
+      action: move_pose
+      arm: left
+      current_pose_offset_m: [0.0, 0.0, 0.02]
+    budgets: {max_robot_decisions: 1, max_model_calls: 4, max_sim_steps: 100, wall_time_s: 1800}
+  M2:
+    task: click_alarmclock
+    instruction: Use one arm to press the alarm clock button.
+    evidence_tier: diagnostic
+    runtime: robotwin
+    seeds: [100, 101, 102, 103, 104]
+    prerequisite: M1
+    qualification: local
+    scripted_action:
+      action: move_pose
+      arm: left
+      current_pose_offset_m: [0.0, 0.0, 0.02]
+    budgets: {max_robot_decisions: 20, max_model_calls: 100, max_sim_steps: 1000, wall_time_s: 7200}
+  M3:
+    task: open_laptop
+    instruction: Use one arm to open the laptop.
+    evidence_tier: behavioral
+    runtime: robotwin
+    seeds: [100, 101, 102, 103, 104]
+    prerequisite: M2
+    qualification: local
+    scripted_action:
+      action: move_pose
+      arm: left
+      current_pose_offset_m: [0.0, 0.0, 0.02]
+    budgets: {max_robot_decisions: 40, max_model_calls: 200, max_sim_steps: 1500, wall_time_s: 10800}
+  M4:
+    task: place_a2b_right
+    instruction: Use the right arm to move object A into target B.
+    evidence_tier: behavioral
+    runtime: robotwin
+    seeds: [100, 101, 102, 103, 104]
+    prerequisite: M3
+    qualification: local
+    scripted_action:
+      action: move_pose
+      arm: right
+      current_pose_offset_m: [0.0, 0.0, 0.02]
+    budgets: {max_robot_decisions: 60, max_model_calls: 300, max_sim_steps: 2000, wall_time_s: 14400}
+  M5:
+    task: open_microwave
+    instruction: Open the microwave door.
+    evidence_tier: behavioral
+    runtime: robotwin
+    seeds: [100, 101, 103, 106, 111]
+    prerequisite: M4
+    qualification: local
+    scripted_action:
+      action: move_pose
+      arm: left
+      current_pose_offset_m: [0.0, 0.0, 0.02]
+    budgets: {max_robot_decisions: 200, max_model_calls: 400, max_sim_steps: 1500, wall_time_s: 21600}

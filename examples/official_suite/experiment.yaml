@@ -1,0 +1,27 @@
+schema: ora.experiment.v1
+experiment: official-suite
+status: authorized
+live_launch_authorized: true
+# One episode per seed or initial state, as the official protocols evaluate.
+# No persistent session; every cell is a single-attempt admission.
+cohort_id: official-suite-g001
+arms:
+  libero_pro:
+    # Official LIBERO-Pro core evaluation: sixteen core suites x ten tasks x
+    # initial states 0-49 (ora.environment.benchmarks.libero_pro).
+    provider_profile: deepseek_flash_openai_low_16k_v1
+    budgets:
+      max_robot_decisions: 80
+      max_model_calls: 200
+      max_sim_steps: 10000
+      wall_time_s: 21600
+  robotwin:
+    # Official RoboTwin protocol: per task and scene configuration, the
+    # expert-accepted seeds a sealed seed manifest lists
+    # (robotwin_evaluation qualify); high effort.
+    provider_profile: deepseek_flash_openai_high_16k_v1
+    budgets:
+      max_robot_decisions: 80
+      max_model_calls: 200
+      max_sim_steps: 10000
+      wall_time_s: 21600

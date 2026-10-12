@@ -1,0 +1,562 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "place_a2b_left",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/place_a2b_left.py",
+      "sha256": "8603f48febcb5b5b534dc7d973ac4651264ebb9c6fb60f199d4d2adc9e14d7cd"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/place_a2b_left.json",
+      "sha256": "4b8a3c065fc3b37412efb393e54149f7ac35f24a275b87657383a2af727a34e9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/model_data0.json",
+      "sha256": "ec9826adaf1ab0a950607cca52ae1f84be4f8713b58697c2b5992e58756853dd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/model_data1.json",
+      "sha256": "0a4a14550626bd9f992c53d64938a5986d76a834163c1d76743d835659153360"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/model_data2.json",
+      "sha256": "b35034f1e20533d458123db0c6d417002d37e771544cc24ac0e648062d5da1ee"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/047_mouse/points_info.json",
+      "sha256": "f47125f605410a9109c64a800ecfdae6218d4f3971818ab400945bc32b081922"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data0.json",
+      "sha256": "57600c0933f3375aefd0e403585d04dfd3c59041f4371d88d30212051d67a4db"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data1.json",
+      "sha256": "f6268b73a678763fd7129b89d7fa6833da76520ac83d4cd6c8de7f0673aebf4e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data2.json",
+      "sha256": "6628636dc87fa391649c7930a9e74fa233c7ec5eaabea5346078db28c2fef0f0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data3.json",
+      "sha256": "120d9e605b40006dd27eccd87f8f75a8178bafd9c7b22f571e6f6d6f118601d0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data4.json",
+      "sha256": "d2a2d65fb346135984f43b4f799694a041b02e0dbbfbd9eac91a9837c2a06377"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data5.json",
+      "sha256": "b0702cb31e6d984e95978626c5bb83f9add38135221bdd888686817dcda9d3cd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/model_data6.json",
+      "sha256": "e42346a8d275eeb21660005e8fc35e34468453a319b3891a1fa02eafdd5e5bd3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/048_stapler/points_info.json",
+      "sha256": "43e7e805354025a4a8bac53009be9c4f72d2165f31beefea3526c5e008339224"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/050_bell/model_data0.json",
+      "sha256": "cee44b84c415189c45f415e92f8708cbfadd5e350b311e06fbf9087f25eaadcb"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/050_bell/model_data1.json",
+      "sha256": "7f41b440b9f49708b691994dc0e85d6c7ac70f51c16a4d88f3bae2a8d20bea93"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/050_bell/points_info.json",
+      "sha256": "ff6b142eb273c1159be99ef2c0ef16cd5e6475bf231361bac5fa21920341ed47"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data0.json",
+      "sha256": "64935f1c4536c66ac968405fc08fd7f355b5ba4354d6bf16a6ead2bda24b239f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data1.json",
+      "sha256": "bce1e4881531853492cba11c6920a1e2904f768e6891d6ac18dfc3cd25594e46"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data2.json",
+      "sha256": "8fe847158cf784d485df12b28e07517cfc9795747fce7ef4b2609da86f495cff"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data3.json",
+      "sha256": "33d6d54b049450c725dd6b348f6ad55fa0b79dfd8ab9d3e90d5f9605d35f4140"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data4.json",
+      "sha256": "09508ad5bfdd361f52e10f62ade3f7da7b2069f14f0907d9f5696f1b7da9cac6"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/model_data5.json",
+      "sha256": "acbc1b198d982173cb956984b499188145b0aa13de763f352a3bd9c35b3985c1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/057_toycar/points_info.json",
+      "sha256": "0c340d7d32a9218b4acb06ac3f2d03b3973ce6e680ccb5fd036c8b3ba20b9ae8"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/model_data0.json",
+      "sha256": "3566a537710e2bc7362bb9464147e326e21d00644516ca59e23f922303a82c17"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/model_data1.json",
+      "sha256": "d0dcbda4beaa8079cd79d21c81433c6a2b38204f5c07f721b6d292f826df0ff1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/model_data2.json",
+      "sha256": "ddf0cb01f44e97450390f32b4f62e5792b0b2f4d03bcfc8d9ff14a226fc8dd55"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/073_rubikscube/points_info.json",
+      "sha256": "761a51b6ea9a7878d0647944dd4cfbfff6094768e8cb2e17bd5cf003a89dbe96"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data0.json",
+      "sha256": "fa7eb7146170b3f4be9b5a3a6153be1241aece8fe58613861ea9615d187c031b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data1.json",
+      "sha256": "9cedb65a1a72fbff1c68884a75c8bb7efa31b4d38c6cd389a8e6ef8e8868b880"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data2.json",
+      "sha256": "0d7815267f2f3de0e913207d642d734fdc846761d9ec96478be873bb08ced874"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data3.json",
+      "sha256": "e4311ce7d1a7ae6e84cb467e1c13012a69d73b2120fb45dbed63d38e7f7996d9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data4.json",
+      "sha256": "d069078b8d9930de156a4af8eaea3e3104a1eabdd3854b590d6a160677d51f07"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data5.json",
+      "sha256": "7a503298abf37d78017a9f962c46ec79b932db4eef24aaa04d803c07f4099bf3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/model_data6.json",
+      "sha256": "9672242c4abd58cad8e3a5802fb15079f145e303ed78048ef541d4011e78acc9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/075_bread/points_info.json",
+      "sha256": "a330c87eb70ce0994eda76a1f6e12a1748f00ed761179de4db3ecd4cb271d640"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data0.json",
+      "sha256": "dd1e9b5af53636a53dea72611fd638c183d83f9817d2d50239a46bd69d84bd46"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data1.json",
+      "sha256": "2d7fae4a0413c5b156959a3a5cfaabd60072bcc2dae7aad535dd0bd292b267ac"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data2.json",
+      "sha256": "14f2917bf417ebc8efa8ff631dc17fdd8697fcb181ea95e5660c96767ecb4139"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data3.json",
+      "sha256": "fea6aa40ff10e8fae40009ddd9da8b851156880fc78fbb7e671fedd14f9d07f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data4.json",
+      "sha256": "db17091e9b80082b5124c94a3b0070d1b056417a2849cf8bd659251f4c59e59d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/points_info.json",
+      "sha256": "4fc1962709490146955bbb31b02b0ef5612be80c3c465d093085fd2723d78e67"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/model_data0.json",
+      "sha256": "ae60e2c2377edb3ab94ded0ef9f8254f87f6f2eb92a81b77d186d83faee6905d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/model_data1.json",
+      "sha256": "1fad364b5a4af21b83e4a21b9d11c23d4965840a2835cbfaeac657c21e2cd114"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/model_data2.json",
+      "sha256": "471d179e93258b55e618b869eb62183c9c5565cb54e28229c54c20b55ad8d716"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/081_playingcards/points_info.json",
+      "sha256": "a9608bdaf4ea6bfdb4d4b73fbb5904f5a0e1b568f5c220982d6c04f4d4e0e565"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/086_woodenblock/model_data0.json",
+      "sha256": "789a57fb2d1e2c1a3ed026ebcdf3f1c84905e86d5a7f23ef2392cdfc40f35c2f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/086_woodenblock/model_data1.json",
+      "sha256": "87a426ff27339494ab512c58b797559e2dfb594cef1db4b8ed3452271aca1c78"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/086_woodenblock/model_data2.json",
+      "sha256": "8e289847bfcf1c6a413ca04027470cc5095fd0b98abe0a0baf2e8fb3ca458984"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/086_woodenblock/model_data3.json",
+      "sha256": "be5fd841f35b3c640c1312fe56d96a92f798f86ce85ecad8ea303e34ef78eafe"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/086_woodenblock/model_data4.json",
+      "sha256": "4759a6cf870271e4c5c0586045f905d74c41f1359549a2f5d62eb6b0c2ea61d8"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/086_woodenblock/points_info.json",
+      "sha256": "d8ec41dfeb73f03a2039764c54da8f3065d3d1cafcdb9f94f6d14a500572477c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data0.json",
+      "sha256": "b2bde12c1abec0b09e4c2264fa6e6241bb1410a1e24135ab42e6ad093a5c6472"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data1.json",
+      "sha256": "92e37dafa5aa693ad1e540fbb304d2c54d5b940afc9157a759c1650db36e5d27"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data2.json",
+      "sha256": "66dee15ed55cc82cc74f05ec6d7756f58bda4942b5e23ee35444832db9d8e009"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/model_data3.json",
+      "sha256": "6412c26d45142dba3259485af54936647eb2b78933a2e86edd045a1b49ef216b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/107_soap/points_info.json",
+      "sha256": "ae86d3997ab6a33c3568c07c9bcc11ea38712d6dfa4313cf6b68b8089d3791f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data0.json",
+      "sha256": "c1eaf4beef134c8089248a5e2a0ab5b44e7b20711d805740d1db51b1399504a2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data1.json",
+      "sha256": "a7ae1b6b120d58dbcc216ad7b200e00c045daed42e508409961daf2baf8ec14c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data2.json",
+      "sha256": "1d070bc9d2f97586a9669687a13710aa83fe4cc20e9afdd05b58bb40abbcdc3e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data3.json",
+      "sha256": "cbbe5378ae6f008650fedafc12ca443c0933563863782c3bb264d0c6e0db74d6"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data4.json",
+      "sha256": "7e6615c455d23189a5b6d2bdf5a4ab843aa43ac448db5509f76348fa3f16637d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data5.json",
+      "sha256": "7a7c9aa1879ab55dae5fac798551b78b4f846f6e0501b4ef7ee66b0d261cd821"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/points_info.json",
+      "sha256": "80408e357012bc7679908e63110557003df7008b715af991c9a79f935a755986"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data0.json",
+      "sha256": "86a986f83e031863e0e3ac15feb117792a451e6529b0a2b9e95646d4ae9126fd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data1.json",
+      "sha256": "4a4fc15c51b50df272ab51a053daf2dae2a9398fb6ac3b584a2defb3d2f2cf8a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data2.json",
+      "sha256": "032d2d9c123e9f07db61a8d940ca5c2d7f0881521a8c07747287a38693d0cecd"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data3.json",
+      "sha256": "b5db725a6d42f1f453fc40a7c897f53cf4e059f0111e19a5caade8adbe79398b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data4.json",
+      "sha256": "270f6d6a7246ad880b8acc6af8c09d23ea8214ac543bd820dae86b2bfdda760c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data5.json",
+      "sha256": "8f2de516cb870fd2f8d26a456613648eeb5cd1f5baf9bb46d5549cff0a233f8a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/model_data6.json",
+      "sha256": "bf8186519683037954f45ec8736270443c9e062a8adcb6b470cf1a58ee543f3c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/113_coffee-box/points_info.json",
+      "sha256": "96ea5a86cb6025eb743cc6e7b331cbf92a73174005596df666ee4fc30c4f5bd1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/057_toycar/collision/base5.glb",
+      "sha256": "4dd76276767e54136a1e1c63a4d412d676f8ef3ac04e23abbaf975a0853c4fa1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/057_toycar/visual/base5.glb",
+      "sha256": "7f14248ba2b298cd7e22caaafdd43da58741a3ae35f3503d1c79f83b7192034f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/077_phone/collision/base4.glb",
+      "sha256": "ba289fbf275bccf43b477cc8d504a5baf17802d3131ee3a3b99dc971f7c2e29b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/077_phone/visual/base4.glb",
+      "sha256": "6a25a9ae794e739a20a3a830603c0c37bf323ab1c387fe091755bd40e1023759"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/deepseek-flash-backlog-k2/seed-search-successor/place_a2b_left-s3-20260910T140525Z/place_a2b_left/attempts/seed-000003-try-00/attempt.json",
+      "sha256": "579459c2d8271e07173c38a70337d01381ca43c4860f03e9516558815d643ecb"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/deepseek-flash-backlog-k2/seed-search-successor/place_a2b_left-s3-20260910T140525Z/place_a2b_left/attempts/seed-000003-try-00/verifier-telemetry.json",
+      "sha256": "d7c6e51eb48f6e50d87fadc3642f44be25886aed37892bd432a0d78e29f5ca32"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/deepseek-flash-backlog-k2/seed-search-successor/place_a2b_left-s3-20260910T140525Z/place_a2b_left/attempts/seed-000003-try-00/head_camera-rgb.png",
+      "sha256": "29bfc86795edb761efb97900f12e251d50b6f85ae896c3436168055e15b84079"
+    }
+  ],
+  "public_clauses": [
+    "Place the object named first to the robot's left of the object named second.",
+    "Arrange them beside one another at a similar depth, with their centres separated but still close together.",
+    "Leave both grippers open when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success compares object.x < target_object.x; object roles come from instruction binding.",
+      "interpretation": "Place the object named first to the robot's left of the object named second.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: planar center distance between 0.08 and 0.2 AND abs(delta_y) < 0.05; this is not surface clearance.",
+      "interpretation": "Arrange them beside one another at a similar depth, with their centres separated but still close together.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "source_basis": "check_success: is_left_gripper_open AND is_right_gripper_open; wrappers delegate to cached normalized gripper command state.",
+      "interpretation": "Leave both grippers open when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        2
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/place_a2b_left.py:check_success lines 147-153, helper and asset dependencies listed in this record.",
+      "interpretation": "No second-object immobility, no surface-contact prohibition, no object orientation or z condition. Generic A/B language must still be grounded by the episode instruction.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No second-object immobility, no surface-contact prohibition, no object orientation or z condition. Generic A/B language must still be grounded by the episode instruction."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Two different categories sampled from twelve families, all available model IDs eligible. Root distance is not physical surface gap; sizes and lengths vary."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Two different categories sampled from twelve families, all available model IDs eligible. Root distance is not physical surface gap; sizes and lengths vary. Parsed 70 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Two different categories sampled from twelve families, all available model IDs eligible. Root distance is not physical surface gap; sizes and lengths vary."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows two distinct objects in the correct left/right relation, with open placement gripper; object size makes root-gap versus surface-gap distinction visible."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Correct side but far away or at different depth: excluded. Incidental target motion and touching surfaces do not automatically violate the predicate. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No second-object immobility, no surface-contact prohibition, no object orientation or z condition. Generic A/B language must still be grounded by the episode instruction."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Correct side but far away or at different depth: excluded. Incidental target motion and touching surfaces do not automatically violate the predicate.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [
+    "must stay where",
+    "must not end up touching"
+  ],
+  "change_summary": "删除第二物体必须绝对不动、两物体表面必须留缝的无依据要求；保留角色、侧别和中心间距。",
+  "witness_scope": {
+    "source_revision": "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "requested_seed": 3,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "057_toycar",
+        "model_id": 5
+      },
+      {
+        "model_name": "077_phone",
+        "model_id": 4
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows two distinct objects in the correct left/right relation, with open placement gripper; object size makes root-gap versus surface-gap distinction visible.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No second-object immobility, no surface-contact prohibition, no object orientation or z condition. Generic A/B language must still be grounded by the episode instruction. Head image shows two distinct objects in the correct left/right relation, with open placement gripper; object size makes root-gap versus surface-gap distinction visible. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

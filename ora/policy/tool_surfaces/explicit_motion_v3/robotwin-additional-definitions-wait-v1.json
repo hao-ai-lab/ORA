@@ -1,0 +1,341 @@
+{
+  "tools": [
+    {
+      "name": "align_plan",
+      "description": "Answer, from inverse kinematics alone, which standoff poses facing one target from one named side an arm can actually hold.\nUse when: a target_ref from the current observation exists and you are choosing which side to approach from -- before the first move_pose of that approach, and again after the target or the observation changes. The positive test is \"can this arm get there at all from this side\": align_plan answers it for up to six poses without submitting an action, so a side the arm cannot serve is discarded before it costs a world mutation. Near miss: this is not grasp.plan. If your next question is \"where on this object do the fingers close\", call grasp.plan; it returns contact geometry and a pregrasp_pose for one specific grip, and align_plan returns neither. Run align_plan first to eliminate sides, then grasp.plan on a side that survived. If you already hold the pose you intend to command, do not re-ask it here: send it with move_pose and read the receipt. The five sides are world-frame directions toward the object and never toward an arm: top stands off above the target and travels down (world -Z), front stands off at -X travelling +X, back at +X travelling -X, left at +Y travelling -Y, and right at -Y travelling +Y. Choose the arm separately in arm; approach_side \"left\" does not mean the left arm. Two bounded numbers shape the request: standoff_m is the distance in metres from the target's visible-surface centroid to the candidate TCP position (default 0.10 m, permitted 0.02-0.30 m), and max_candidates is how many jaw rolls to sweep at that one position (default 3, at most 6).\nEffect: read-only. No action is submitted, no world state changes, no artifact is written, and no observation is produced or consumed. Every candidate is solved by inverse kinematics from this arm's current measured joint configuration against its joint limits, so motion_planner_called is false in every result and the same request can answer differently after the arm has moved.\nReturns: schema, the echoed target_ref, approach_side and requested_arm, motion_planner_called, and candidates. Each candidate carries source_index (which synthesised pose it came from, counting from 0), arm, align_pose = {position_m [x,y,z] in metres, orientation_xyzw [x,y,z,w] normalized} as a world-frame public TCP pose, reachable, position_error_m in metres and orientation_error_rad in radians at the best joint configuration the solver found, iterations (solver steps, at most 60), rejection_reason (null when reachable, otherwise joint_limit, singular or not_converged) and claim_boundary. All candidates share one standoff position and differ only by jaw roll about the approach axis. arm \"both\" returns one candidate per arm per pose, keyed by (arm, source_index). Unreachable candidates are returned rather than dropped, so a ruled-out side can be cited. Read position_error_m and orientation_error_rad rather than trusting the word reachable, then copy the align_pose of a chosen candidate directly into move_pose. There is no later receipt and no reference to resolve, because nothing was submitted.\nDoes not: prove that a collision-free path exists, plan or execute any motion, avoid the table, the other arm, the target or anything else in the scene, or promise that move_pose to a returned pose will arrive. A returned pose has not been tried: reachable means only that this model of this arm admits a joint configuration holding that pose. It is not a grasp, not a contact, not retention and not task success, and it makes no claim about the gripper, which is neither commanded nor read. The standoff is measured from the visible-surface centroid of the segmented mask, not from the object's true centre, so an occluded or one-sided view biases every candidate toward the camera. An unreachable verdict describes this arm from its present configuration; it is not proof that the approach is impossible. Measured against the RoboTwin backend's own 128-seed, collision-checked inverse kinematics on 7,860 poses this tool synthesised from 500 measured target-and-arm states across 114 runs: it refuses about 5% of the poses that solver admits (run-clustered 95% interval 5.0-9.4% before the acceptance bound was corrected) and calls reachable about 4% of the poses that solver refuses (2.9-5.0%). The disagreement is not spread evenly: from top and right it is under 1.5%, from back and front 14-16%, and from left the backend admitted none of the poses tried, so every left-side reachable this tool returned in that sample was wrong. None of the backend's 4,364 refusals was a joint limit, so the refusals this tool can miss are collision refusals it has no model of. Rank candidates by position_error_m rather than by the word reachable: among candidates this tool refused, one under 5 mm is still admitted by the backend about two times in three, against a base rate near one in eighteen.\nOn error: invalid_arguments naming standoff_m means the value left 0.02-0.30 m -- resubmit inside that range instead of retrying the same number. invalid_arguments naming approach_side means the string is not one of the five declared directions; re-read this tool's approach_side enum and select one of its values rather than inventing a synonym. invalid_arguments naming arm means the name is not an arm of this embodiment; this tool's arm enum is the complete list of what it has. target_ref_unavailable means no such segmented target exists and stale_observation means the reference predates the current observation: re-run vision.segment or vision.ground on the current view and use the new reference. target_geometry_unavailable is retryable and means the mask or its depth is too poor to locate a centroid, so obtain a clearer current view of that target first. When every candidate returns unreachable, change the request before changing the plan: try another approach_side, raise standoff_m toward 0.30 m, ask the other arm, or raise max_candidates to 6 to sweep more jaw rolls; if all of those still fail, move the arm to a different configuration with recover_pose or a free-space move_pose and ask again.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_ref",
+          "approach_side",
+          "arm"
+        ],
+        "properties": {
+          "target_ref": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Segmented target from the current observation, as returned by vision.segment or vision.ground. The standoff is measured from this target's visible-surface centroid in metres; a reference bound to an earlier observation is refused as stale."
+          },
+          "approach_side": {
+            "type": "string",
+            "enum": [
+              "top",
+              "left",
+              "right",
+              "front",
+              "back"
+            ],
+            "description": "World-frame direction toward the object, never toward an arm: top stands off above the target and travels down (world -Z), front stands off at -X travelling +X, back at +X travelling -X, left at +Y travelling -Y, right at -Y travelling +Y."
+          },
+          "arm": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right",
+              "both"
+            ],
+            "description": "Which arm is asked. This is independent of approach_side. \"both\" asks the identical poses of each arm in one read-only call and returns one candidate per arm per pose."
+          },
+          "standoff_m": {
+            "type": "number",
+            "minimum": 0.02,
+            "maximum": 0.3,
+            "default": 0.1,
+            "description": "Distance in metres from the target's visible-surface centroid to the candidate TCP position, along approach_side. Omitted means 0.10 m. Values outside 0.02-0.30 m are refused."
+          },
+          "max_candidates": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 6,
+            "default": 3,
+            "description": "How many poses to synthesise at that one standoff position, differing only by jaw roll about the approach axis. Omitted means 3. With arm \"both\" the result holds twice this many candidates."
+          }
+        }
+      }
+    },
+    {
+      "name": "geometry_query",
+      "description": "Compute metric geometry from one policy-visible camera's published RGB-D and calibration: project world points to pixels, back-project pixels to world points, or summarise the valid depth of a rectangle.\nUse when: a geometric quantity must be derived from calibration rather than estimated from the picture. The clearest case is world_points_m, which is the only way to ask where a world coordinate you already hold falls in an image -- for locating the commanded TCP target, a planned waypoint or a proposal's pregrasp point in the view you are looking at, and for reading whether it is in front of the camera and inside the frame. region answers \"how deep is this patch\" over a rectangle without naming a pixel. Near miss against mark_point: if you want a pixel measured, kept under a name and re-checked against a complementary view, call mark_point -- it verifies a repeated name across views, refuses a disagreement beyond 25 mm, reports depth-support counts and draws the overlay. This tool's points is the same back-projection without the mark, the name, the cross-view check or the image; prefer it when you want the number now and nothing retained, or when the pixel belongs to a saved step rather than the current observation.\nEffect: read-only. It does not move the robot, change the scene, consume a robot decision, return any image, or persist a mark or reference; it reads the already-published observation artifacts and their calibration and returns numbers. Every result names the step and the source state it was computed from, and world_points_m additionally names the calibration hash it used.\nReturns: exactly one of world_points, points or region_result, alongside step, source_state_sha256 and camera. world_points gives, per requested point, its camera-frame coordinates, in_front, in_frame, and -- when it is in front of the camera -- exact and rounded pixel_uv plus the scene depth already at that pixel and the residual between the two. points gives, per requested pixel, valid plus the median depth, the supporting sample count and world_xyz_m when depth was usable. region_result gives the rectangle, its valid sample count and fraction, and min/median/max depth when any sample was valid.\nDoes not: identify or segment an object, decide visibility or occlusion, or prove reachability, collision clearance, contact, retention or task success. A positive depth_residual_m means the scene surface at that pixel is nearer than your point, which is evidence of occlusion and not a verdict on it; in_frame is image bounds, not line of sight. A single-view depth reading measures a visible surface, never an object centre or its hidden extent, and no returned number is simulator ground truth.\nOn error: send exactly one of points, region or world_points_m -- none or two is refused and the message names all three. Use the named view's own top-left OpenCV pixel frame, keep every pixel and the whole rectangle inside that image, and order the rectangle [x0,y0,x1,y1] with x0<x1 and y0<y1. Missing or invalid depth fails explicitly rather than being inferred: move the pixel farther inside the intended surface, widen window_px, or read a complementary view. The camera list is fixed: head_camera, front_camera, left_camera, right_camera. The left_camera and right_camera move with their arms, so their calibration is valid only at the pose they were captured at -- after any motion, query the fresh observation instead of reusing an earlier pixel from it.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "camera"
+        ],
+        "properties": {
+          "camera": {
+            "type": "string",
+            "enum": [
+              "head_camera",
+              "front_camera",
+              "left_camera",
+              "right_camera"
+            ],
+            "description": "The policy-visible RGB-D camera whose published depth and calibration bind this query. Pixels and rectangles are in this camera's own top-left OpenCV frame at its published resolution; world coordinates are metres in the world frame."
+          },
+          "world_points_m": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "description": "One to sixteen world-frame points to project into this camera's image. Send this to find out where a coordinate you already hold appears in the view. Exactly one of world_points_m, points or region may be sent; window_px does not apply to this operation.",
+            "items": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "One world-frame point as [x,y,z] in metres.",
+              "items": {
+                "type": "number",
+                "description": "Finite world-frame coordinate in metres."
+              }
+            }
+          },
+          "points": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "description": "One to sixteen source pixels to back-project to world points, without persisting a mark or returning an image. Exactly one of world_points_m, points or region may be sent.",
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "description": "One pixel as [u,v] in integer pixels of this camera's image, top-left OpenCV origin: u from the left edge, v from the top.",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Non-negative pixel coordinate inside this camera's published width and height."
+              }
+            }
+          },
+          "region": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "description": "One source-image rectangle [x0,y0,x1,y1] in integer pixels, top-left OpenCV origin, with x0<x1 and y0<y1 and the whole rectangle inside the image, summarised over its valid depth. Exactly one of world_points_m, points or region may be sent; window_px does not apply to this operation.",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Rectangle edge in pixels of this camera's image."
+            }
+          },
+          "window_px": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 15,
+            "default": 3,
+            "description": "Half-width in pixels of the square depth window whose median is taken when back-projecting each entry of points; 0 reads the single pixel. Omit for 3. Ignored by world_points_m and region."
+          },
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Saved policy-state step to read. Omit or send null for the current observation; a saved step answers from the artifacts published at that step, not from the world as it is now."
+          }
+        }
+      }
+    },
+    {
+      "name": "set_gripper",
+      "description": "Set one or both grippers to a named directive in a single call.\nUse when: you are opening to release or approach, or closing to grasp, and you already know which directive each gripper should hold. On a two-armed embodiment this is how the two are coordinated: naming both in one call is the only way to state that they change together. Near miss: this is not grasp_execute. If you have chosen a grasp candidate, call that instead -- it approaches, closes and measures as one committed sequence, and a bare close here does none of that.\nEffect: submits one gripper directive per named gripper through the Supervisor and consumes one robot decision. **An omitted gripper holds its current directive; it is not re-sent and not re-actuated.** The end-effector pose target is held unchanged. Measured state may still move under contact, and that is evidence rather than a fault.\nReturns: a submitted acknowledgement, then a measured receipt and a fresh observation on the next turn. When closing, an intent block echoes the target_ref you supplied and labels it agent_annotation_only.\nDoes not: prove anything was grasped, held, released or moved; report jaw separation; verify what the jaws closed on; or make target_ref evidence -- it is your annotation of what you believe you are closing on, never a measurement. A closed jaw is not a grasp.\nOn error: invalid_motion_arguments names the field that was wrong -- re-read this schema rather than resubmitting the same shape. invalid_arguments naming target_ref means a blank string was sent; send a non-empty reference or omit it entirely.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "targets"
+        ],
+        "properties": {
+          "targets": {
+            "type": "object",
+            "additionalProperties": false,
+            "minProperties": 1,
+            "description": "Which grippers change and to what. Name only the grippers you intend to change; an omitted one holds its current directive. Dimensionless named directives, not apertures.",
+            "properties": {
+              "left": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "close"
+                ],
+                "description": "Directive for the left gripper. Omit to hold."
+              },
+              "right": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "close"
+                ],
+                "description": "Directive for the right gripper. Omit to hold."
+              }
+            }
+          },
+          "target_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Optional annotation naming the target you believe you are closing on, from the current observation. Dimensionless reference; recorded and echoed, never treated as evidence that anything was grasped. Meaningless when only opening."
+          }
+        }
+      }
+    },
+    {
+      "name": "compute",
+      "description": "Evaluate one short block of numeric Python over numbers this episode has already delivered, and return the measurements it binds.\nUse when: a step needs several derived quantities at once -- a distance, a residual, a point offset along a direction, a quaternion unpacked into an axis -- and you would otherwise derive them by hand in your reply. Put every quantity that step needs in one call, and prefer one call over a derivation in your reply whenever a number is going to be computed at all: the reply keeps the answer and loses the arithmetic, and this episode is read afterwards by something that has only what the tools recorded. One episode wrote out 278 explicit derivations and called this tool zero times. The round trip is cheap -- the prefix is cached and re-read at about 94 percent hit rate -- and it is cheaper than the derivation it replaces once that derivation runs to a few lines. Near miss against geometry_query: anything that needs calibration, an image, a pixel or a camera frame belongs there, not here -- this tool never reads an observation. Near miss against place.plan and grasp.plan: those decide, this one only arithmetic you have already decided to do.\nEffect: read-only and pure. It does not move the robot, read the scene, consume a robot decision, return an image, or keep anything between calls; two identical calls return identical numbers. Each call runs in a fresh empty namespace with no filesystem, network or environment.\nReturns: outputs, one entry per name your block bound to a numeric value, each carrying name, value and kind (boolean, scalar, vector3, vector4, vector, matrix3x3 or matrix). A name you bound to something that is not numeric -- a Rotation object, for instance -- is listed by name in intermediates_not_returned rather than dropped silently. The trailing expression of the block, if any, is returned under the name result.\nDoes not: supply any quantity the Harness owns. Frames, calibration, controlled-point poses, canonical target geometry, reachability, contact, retention and task success come from the tools that measure them; a number you compute here is only as good as the numbers you bound into it, and computing one does not make it observed. It reads nothing, so it cannot tell you that a binding is stale.\nOn error: every refusal is yours to fix and names the field. The block is at most 4096 bytes and 24 statements, binds at most 12 returned measurements, and each value holds at most 64 elements in at most 2 dimensions. Only straight-line arithmetic is admitted: no import, def, lambda, class, loop, comprehension, try, with, f-string or walrus, and an exponent must be a literal at most 8. Unpacking binds names too, so `x, y, z, w = q` is admitted. Name your working values freely: past the twelve-measurement ceiling the names a later line reads step aside into intermediates_not_returned, and only as many as the ceiling requires, so a matrix written element by element is answered rather than refused. Available names are np (including np.linalg), Rotation, pi, float and int; they cannot be rebound, by the block or by a binding. np carries column_stack, vstack, hstack and transpose beside the element-wise and linear-algebra entries, so a rotation can be built from its columns without an import. A block that binds no numeric measurement is refused and told which of its names were intermediates.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expressions"
+        ],
+        "properties": {
+          "expressions": {
+            "type": "string",
+            "maxLength": 4096,
+            "description": "One block of straight-line numeric Python. Every name you assign becomes a returned measurement; a trailing bare expression is returned as result. Statements are separated by newlines, at most 24 of them."
+          },
+          "bindings": {
+            "type": "array",
+            "maxItems": 16,
+            "description": "The numbers the block may use, each given a name. Omit when the block needs only literals. A name bound here cannot be np, Rotation or pi.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "value"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The identifier the block refers to this value by. Each name appears at most once."
+                },
+                "value": {
+                  "type": [
+                    "number",
+                    "boolean",
+                    "array"
+                  ],
+                  "maxItems": 64,
+                  "items": {
+                    "type": [
+                      "number",
+                      "array"
+                    ],
+                    "maxItems": 64,
+                    "items": {
+                      "type": "number",
+                      "description": "One finite component of a matrix row."
+                    },
+                    "description": "One finite component, or one row of a matrix."
+                  },
+                  "description": "A finite number, a boolean, a vector, or a matrix as a list of equal-length rows. At most 64 elements and at most 2 dimensions."
+                },
+                "from": {
+                  "type": "string",
+                  "maxLength": 120,
+                  "description": "Where this number came from, recorded with the call so the result can be recomputed offline. Optional: a constant you chose yourself needs none."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "grasp_execute",
+      "description": "Execute the grasp you chose: approach, close and verify run as one committed sequence.\nUse when: grasp.plan has returned candidates on the current view and you have decided which one to take. The decision this tool serves is the candidate choice, and it happens before the call.\nEffect: submits one action the Supervisor drives through approach, close and verify with no turn in between. It costs one robot decision from your budget and dispatches two stage actions, so the simulator advances twice. It also records the committed stage targets, which the stages replay unchanged.\nReturns: immediately, only that the sequence was submitted, with the committed stage list and both cost numbers. The staged receipt -- each stage's status, reason and measurements, and the measured jaw separation beside the target's measured extents -- and the fresh observation arrive on your next turn.\nDoes not: stop halfway. There is no mid-sequence decision point, and asking for one is refused rather than ignored. A completed sequence is not a grasp: arrival at a commanded pose and a jaw separation are evidence, not contact, attachment, retention or task success.\nOn error: a candidate compiled from an earlier observation is refused as stale -- call grasp.plan again on the current view and choose from that call. If the approach does not arrive, the sequence stops before closing and the receipt names the stage; re-plan rather than reissuing the same candidate.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The candidate_id of one candidate from a grasp.plan call on the current observation. A candidate produced from an earlier observation is refused as stale rather than executed against geometry the robot has moved through."
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "One short sentence saying why this candidate was chosen over the others, at most 200 characters. It is echoed into the receipt and is the only record of the reason: the trajectory keeps the call and its result, never the reasoning behind them."
+          }
+        },
+        "required": [
+          "candidate_id",
+          "rationale"
+        ]
+      }
+    },
+    {
+      "name": "place_execute",
+      "description": "Execute the placement you chose: transport, descend, release, settle and verify run as one committed sequence, with one optional stop.\nUse when: place.plan has returned candidates for the lowering phase on the current view and you have decided which patch to place on. Request the stop when a close view at the instant before release could still change the outcome.\nEffect: submits one action the Supervisor drives through the committed stages. It costs one robot decision from your budget and dispatches four stage actions, so the simulator advances four times. Transport and settle are the place pose at the surface's standoff height; settle withdraws after the jaws open, because the release is not the end of the motion.\nReturns: immediately, only that the sequence was submitted, with the committed stage list and both cost numbers. The staged receipt and the fresh observation arrive on your next turn. With stop_before_commit the sequence stops after descending and before releasing; that turn's observation is the close view, and place_resume continues it.\nDoes not: decide that the placement succeeded. Reaching the commanded poses and opening the jaws are evidence, not stable support, correct placement or task success. It also does not re-open the candidate choice at the stop.\nOn error: a candidate assessed from an earlier observation is refused as stale, and a candidate_id published by two current assessments is refused as ambiguous -- call place.plan once and execute from that call's candidates. A stage that does not arrive stops the sequence before the next one and the receipt names it.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The candidate_id of one candidate from a place.plan call on the current observation. place.plan numbers candidates per call, so execute from one call's candidates: an id two current assessments both publish is refused as ambiguous."
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "One short sentence saying why this candidate was chosen over the others, at most 200 characters. It is echoed into the receipt and is the only record of the reason: the trajectory keeps the call and its result, never the reasoning behind them."
+          },
+          "stop_before_commit": {
+            "type": "boolean",
+            "description": "When true, stop after descending and before opening the jaws and wait to be resumed, so a close view can still change the outcome. Omitted or false runs the sequence through without consulting you."
+          }
+        },
+        "required": [
+          "candidate_id",
+          "rationale"
+        ]
+      }
+    },
+    {
+      "name": "place_resume",
+      "description": "Continue or abandon a placement that stopped for its pre-release view.\nUse when: a place_execute with stop_before_commit reported status stopped and you have looked at the observation that arrived with it.\nEffect: continue submits one action that drives the remaining stages -- release, settle and verify -- and costs one further robot decision with three dispatched stage actions. Abandon ends the skill without executing anything and changes nothing in the world; the gripper stays closed at the descended pose.\nReturns: for continue, that the remaining sequence was submitted, with its stage list and cost, followed by the staged receipt and fresh observation on your next turn. For abandon, the released status immediately and no later receipt.\nDoes not: take a different candidate, pose or stage list. The stop returned a view, not the candidate choice; changing your mind about the placement means abandoning and calling place.plan again.\nOn error: if no sequence is waiting at a pre-release stop the call is refused and nothing is submitted. If the committed targets are no longer available, abandon and plan again rather than retrying.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "type": "string",
+            "enum": [
+              "continue",
+              "abandon"
+            ],
+            "description": "continue drives the remaining committed stages unchanged; abandon ends the skill without executing them."
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      }
+    },
+    {
+      "name": "wait_ticks",
+      "description": "Hold every current command and let simulated time pass.\nUse when: the scene has to change without a robot command -- a scripted demonstration or task animation is running, a released object is still settling, or the task says to wait. It is not a correction: a pose residual needs move_pose, a stalled jaw needs set_gripper.\nEffect: world mutation by elapsed time only. Every applied drive target and gripper directive is held unchanged; nothing is planned, re-ramped or re-limited. ticks control ticks elapse, one tick being 10 physics steps (40 ms of simulated time), at most 20 per call. One call is one robot decision.\nReturns: status=submitted immediately. The next receipt reports wait.ticks_used, wait.physics_steps and each arm's inactive_arm_drift while held; the fresh observation shows what changed.\nDoes not: move toward any target, open or close a gripper, restore a drifted pose, or establish that the scene changed or that a demonstration finished.\nOn error: invalid_arguments names the ticks bound. For more time call wait_ticks again; act once a fresh observation shows the scene you need.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ticks": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "description": "Control ticks to hold every current command. One tick is 10 physics steps (40 ms of simulated time); 20 ticks is 0.8 s. Required."
+          }
+        },
+        "required": [
+          "ticks"
+        ]
+      }
+    }
+  ]
+}

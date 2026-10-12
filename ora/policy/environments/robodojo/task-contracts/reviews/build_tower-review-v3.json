@@ -1,0 +1,192 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "build_tower",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/build_tower.py",
+    "file_sha256": "814cf6ffb459871e5cf49f4e127903dbfbc30926f33db71de0b84a71ab235d6e",
+    "run_reward_lines": [
+      126,
+      127
+    ],
+    "run_reward_sha256": "0c5acb5309fc98fa5a52a1b92a9c45b7c04290fdd3556f2d06aa835fe2b78dba"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_0.json",
+    "layout_sha256": "afcf896086392357a8826f84bebe4910dcb7a5f1b84e7be435e16e3d5c3607a4",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Build a tower using the wooden blocks and wooden boards."
+  },
+  "native_action_limit": 1050,
+  "semantic_contract": [
+    "The four upright blocks start as two pairs, one pair on each side of the table (world -X and world +X). The longest board must rest across one block from each pair, and the second-longest board must rest across the remaining block of each pair, those two blocks standing on the longest board.",
+    "The second-longest board must sit centred over the middle of the longest board, not merely somewhere on its two blocks.",
+    "Centre the smallest board above the second-longest board and the roof-shaped piece above that; align their long edges and keep the roof upright.",
+    "Keep the blocks upright and the boards level.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/build_tower-completion-v3.md",
+    "sha256": "c5a54567ff6c4f5e51b37da9bea97e3ca28471e5e885c40f93f927d0dcc2745f"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/build_tower.yml",
+      "sha256": "e1bab8756bbc5664e3171e2389c060a79a3fbbf92a6af4ef555dcaf59fce275c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/block/00000/metadata.json",
+      "sha256": "7aaee6a3f407543f6ce6232f643b242ec0be86e44f9623491eedb3bda5e64b39"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/block/00002/metadata.json",
+      "sha256": "b5ebf53ce713dde2182bcb7c2c7e6d22f27ff9116ae7f2a0f252cddc35c16fa4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/block/00001/metadata.json",
+      "sha256": "7016602ec35c489a31c6282abc3b822ddee010776077c5436c751fb9bbb368e9"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/block/00003/metadata.json",
+      "sha256": "d8c177ed390b74d253e0f940ecf18323a485bfb18fe19e67c795aeff25cbfb93"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/block/00004/metadata.json",
+      "sha256": "3ccef21becea07906c7a39b975714de01513b2b9988d0e418f332084d088df9a"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "clause-1",
+      "semantic": "The four upright blocks start as two pairs, one pair on each side of the table (world -X and world +X). The longest board must rest across one block from each pair, and the second-longest board must rest across the remaining block of each pair, those two blocks standing on the longest board."
+    },
+    {
+      "id": "clause-2",
+      "semantic": "The second-longest board must sit centred over the middle of the longest board, not merely somewhere on its two blocks."
+    },
+    {
+      "id": "clause-3",
+      "semantic": "Centre the smallest board above the second-longest board and the roof-shaped piece above that; align their long edges and keep the roof upright."
+    },
+    {
+      "id": "clause-4",
+      "semantic": "Keep the blocks upright and the boards level."
+    },
+    {
+      "id": "clause-5",
+      "semantic": "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    }
+  ],
+  "review_notes": [
+    "Reviewed all helper branches: four interchangeable support-block pairings, upright axes, relative heights, support circles and two top x-axis alignments accepting either sign. block0/7 are lower/upper boards, block3 the smaller slab, block4 the roof with local-y up. Metadata dimensions/place/support axes were inspected. Height predicates alone do not prove contact support; natural tower intent retained.",
+    "v3 (EXP11A U6, 2026-09-30): _middle_structure_checks also holds the second-longest board's position inside a support circle around the longest board's middle; registry-v4 omitted that clause. v3 adds it without the radius."
+  ],
+  "review": {
+    "scope": "source/layout-bound qualitative contract review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "_axis_up_check",
+      "_axis_up_checks",
+      "_axis_aligned_either",
+      "_a_up_b",
+      "_a_up_any_b",
+      "_any_a_up_b",
+      "_support_circle_check",
+      "_base_structure_checks",
+      "_middle_structure_checks",
+      "_top_structure_checks",
+      "_tower_alignment_checks",
+      "_tower_completion_checks",
+      "_score_stage_checks",
+      "run_reward",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in wrong destination or wrong arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object IDs, numeric thresholds or evaluator code is delivered."
+  },
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The four upright blocks start as two pairs, one pair on each side of the table (world -X and world +X). The longest board must rest across one block from each pair, and the second-longest board must rest across the remaining block of each pair, those two blocks standing on the longest board.",
+      "The second-longest board must sit centred over the middle of the longest board, not merely somewhere on its two blocks.",
+      "Centre the smallest board above the second-longest board and the roof-shaped piece above that; align their long edges and keep the roof upright.",
+      "Keep the blocks upright and the boards level.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": []
+  },
+  "supersedes": {
+    "record": "ora/policy/environments/robodojo/task-contracts/reviews/build_tower-review-v2.json",
+    "record_sha256": "7e80d8360d6d5d64780ee236e832699a655582241c853ee26ab4e26da58c8049",
+    "layer": "ora/policy/environments/robodojo/task-contracts/build_tower-completion-v2.md",
+    "layer_sha256": "fb59a1210ab186f474303079eee05c9a55f513000ae2a031ef2995b07b2bc84f"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "date": "2026-09-30",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward, _middle_structure_checks and _support_circle_check at the pinned revision",
+      "is_A_in_B_support_circle in the pinned func_parser and the block/0 support entry of the longest board's asset metadata",
+      "the pinned layout file (which block asset each block label selects)",
+      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item b"
+    ],
+    "changes": [
+      "Adds the omitted support-centre clause: _middle_structure_checks requires the second-longest board (block7) to stand inside a support circle around the longest board's (block0) central support point, so the second-longest board must be centred over the middle of the longest board. Registry-v4 said only that it rests across the remaining block of each pair. The circle radius stays private.",
+      "Naming: the audit request called block7 the roof board. Per the pinned layout and asset metadata block7 is the second-longest board and block4 the roof-shaped piece, so the clause names the boards by length as registry-v4 does."
+    ],
+    "carried_forward": "Every registry-v4 clause is carried forward verbatim.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

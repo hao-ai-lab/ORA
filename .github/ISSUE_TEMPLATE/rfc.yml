@@ -1,0 +1,13 @@
+name: Design RFC
+description: Discuss a schema, authority or architecture change before implementation.
+body:
+  - type: textarea
+    attributes:
+      label: Problem, design and alternatives
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Compatibility, trust boundaries and validation
+    validations:
+      required: true

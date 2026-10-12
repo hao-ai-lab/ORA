@@ -1,0 +1,47 @@
+{
+  "activation_ready": false,
+  "activation_record_bound": false,
+  "activation_record_schema": "ora.embodiment-activation-record.v1",
+  "card_bytes": 1853,
+  "card_sha256": "3cd442f40b294afb2e81e71a9881fbc3e19cc33df2d8a8fb6f648993743a59f2",
+  "descriptor_id": "arx_x5_robodojo_v1",
+  "descriptor_schema": "ora.embodiment-descriptor.v1",
+  "descriptor_sha256": "dc945e3b6e6b954d63cee56efae53933ce5e4f302459ba5400d1c75b016942e1",
+  "descriptor_status": "draft",
+  "embodiment_id": "arx_x5",
+  "free_form_descriptor_text_model_visible": false,
+  "harness_token_estimate": 464,
+  "projected_facts_sha256": "97f3be251ad1f9a843ad4c2cfaeb4f16e0703473f4134bdec6daca92179e1788",
+  "provenance_model_visible": false,
+  "review_token_limit": 700,
+  "schema": "ora.compiled-embodiment-card.v1",
+  "source_audit": {
+    "checks": [
+      {
+        "kind": "controller_config",
+        "local_path": "ora/environment/controllers/robodojo_arx.py",
+        "source_id": "robodojo_arx_control_contract",
+        "status": "repository_source"
+      },
+      {
+        "expected_sha256": "9de4f63b84c0f730623c09af7a2d530d84973981397280b6e4b626b50ba6f1c9",
+        "kind": "environment_robot_binding",
+        "observed_sha256": null,
+        "source_id": "robodojo_x5_robot_config",
+        "status": "content_addressed_external"
+      },
+      {
+        "kind": "controller_config",
+        "local_path": "ora/contracts/robodojo_arx.py",
+        "source_id": "robodojo_arx_shared_contract",
+        "status": "repository_source"
+      }
+    ],
+    "descriptor_sha256": "dc945e3b6e6b954d63cee56efae53933ce5e4f302459ba5400d1c75b016942e1",
+    "fact_count": 20,
+    "passed": true,
+    "projected_facts_sha256": "97f3be251ad1f9a843ad4c2cfaeb4f16e0703473f4134bdec6daca92179e1788",
+    "schema": "ora.embodiment-source-audit.v1"
+  },
+  "source_file_sha256": "be7a75b709d61c702a962f48778450391d66dadb334786e816f51cf151b8c4a3"
+}

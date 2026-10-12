@@ -1,0 +1,371 @@
+{
+  "schema": "embodiment-control-profile.v10",
+  "profile_id": "robotwin_aloha_contact_recovery_dual_arm_v10",
+  "embodiment_id": "aloha_agilex",
+  "arms": {
+    "left": {
+      "public_id": "left",
+      "controlled_point": "end_effector",
+      "controlled_point_semantics": "parallel_jaw_grip_center_tcp",
+      "public_pose_route": "robot.get_left_tcp_pose",
+      "planner_route": "robot.left_plan_path",
+      "planner_joint_route": "robot.left_plan_joint_path",
+      "planner_input_point": "link6",
+      "public_to_planner_translation_local_m": [
+        -0.12,
+        0,
+        0
+      ],
+      "measured_joint_route": "robot.get_left_arm_real_jointState",
+      "recovery_home_route": "source_homestate_joint_configuration",
+      "planner_joint_names": [
+        "fl_joint1",
+        "fl_joint2",
+        "fl_joint3",
+        "fl_joint4",
+        "fl_joint5",
+        "fl_joint6"
+      ],
+      "pinocchio_link_name": "fl_link6",
+      "pinocchio_chain_links": [
+        "fl_link1",
+        "fl_link2",
+        "fl_link3",
+        "fl_link4",
+        "fl_link5",
+        "fl_link6"
+      ],
+      "public_tcp_translation_local_m": [
+        0.12,
+        0,
+        0
+      ],
+      "pinocchio_to_sapien_link_post_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "public_tcp_post_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "right": {
+      "public_id": "right",
+      "controlled_point": "end_effector",
+      "controlled_point_semantics": "parallel_jaw_grip_center_tcp",
+      "public_pose_route": "robot.get_right_tcp_pose",
+      "planner_route": "robot.right_plan_path",
+      "planner_joint_route": "robot.right_plan_joint_path",
+      "planner_input_point": "link6",
+      "public_to_planner_translation_local_m": [
+        -0.12,
+        0,
+        0
+      ],
+      "measured_joint_route": "robot.get_right_arm_real_jointState",
+      "recovery_home_route": "source_homestate_joint_configuration",
+      "planner_joint_names": [
+        "fr_joint1",
+        "fr_joint2",
+        "fr_joint3",
+        "fr_joint4",
+        "fr_joint5",
+        "fr_joint6"
+      ],
+      "pinocchio_link_name": "fr_link6",
+      "pinocchio_chain_links": [
+        "fr_link1",
+        "fr_link2",
+        "fr_link3",
+        "fr_link4",
+        "fr_link5",
+        "fr_link6"
+      ],
+      "public_tcp_translation_local_m": [
+        0.12,
+        0,
+        0
+      ],
+      "pinocchio_to_sapien_link_post_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "public_tcp_post_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ]
+    }
+  },
+  "control_groups": [
+    {
+      "group_id": "aloha_dual_arm",
+      "members": [
+        "left",
+        "right"
+      ],
+      "synchronous_pose_execution": true,
+      "plan_from_common_snapshot": true,
+      "all_planners_must_succeed": true
+    }
+  ],
+  "hold_semantics": {
+    "unspecified_arm": "no_planner_and_no_new_drive_target",
+    "pose_action_gripper": "no_new_actuator_target",
+    "gripper_action_pose": "no_new_drive_target"
+  },
+  "arrival_check": {
+    "measured_point": "parallel_jaw_grip_center_tcp",
+    "position_tolerance_m": 0.005,
+    "orientation_tolerance_rad": 0.05,
+    "maximum_settle_steps": 32
+  },
+  "controller_tracking": {
+    "sample_semantics": "after_every_actual_physics_step",
+    "joint_error_metric": "maximum_absolute_radian_error_to_current_target",
+    "warmup_steps": 8,
+    "maximum_joint_error_rad": 0.35,
+    "maximum_consecutive_error_steps": 8,
+    "maximum_tcp_step_m": 0.08,
+    "workspace_margin_m": 0.1,
+    "abort_semantics": "stop_remaining_targets_and_report_execution_fault"
+  },
+  "plan_validation": {
+    "maximum_waypoints": 5000,
+    "maximum_start_joint_error_rad": 0.02,
+    "joint_limit_epsilon_rad": 1e-06,
+    "maximum_public_tcp_start_error_m": 0.005,
+    "maximum_public_tcp_start_orientation_error_rad": 0.05,
+    "workspace_margin_m": 0.1,
+    "maximum_tcp_step_m": 0.08,
+    "maximum_endpoint_error_m": 0.005,
+    "maximum_endpoint_orientation_error_rad": 0.05
+  },
+  "waypoint_execution": {
+    "joint_convergence_tolerance_rad": 0.03,
+    "maximum_physics_steps_per_waypoint": 64,
+    "retry_velocity_target": "zero",
+    "dual_arm_timeline": "normalized_shared_stage",
+    "timeout_status": "not_reached"
+  },
+  "local_cartesian": {
+    "maximum_translation_m": 0.05,
+    "maximum_rotation_rad": 0.2617993877991494,
+    "maximum_translation_step_m": 0.005,
+    "maximum_rotation_step_rad": 0.03490658503988659,
+    "maximum_joint_step_rad": 0.04,
+    "maximum_iterations": 40,
+    "velocity_target_horizon_s": 0.15,
+    "maximum_velocity_target_rad_s": 0.2,
+    "position_tolerance_m": 0.003,
+    "orientation_tolerance_rad": 0.03,
+    "stall_window": 8,
+    "jacobian_backend": "sapien_pinocchio_spatial_root_to_public_tcp",
+    "sapien_jacobian_frame": "articulation_root_spatial_about_root_origin",
+    "sapien_spatial_row_order": "linear_angular",
+    "base_damping": 0.02,
+    "singular_value_threshold": 0.05,
+    "maximum_damping": 0.3,
+    "joint_limit_margin_rad": 0.2,
+    "minimum_joint_mobility": 0.1,
+    "maximum_line_search_halvings": 5,
+    "minimum_predicted_progress": 0.0001,
+    "numerical_crosscheck_epsilon_rad": 0.0001,
+    "maximum_numerical_crosscheck_relative_error": 0.02,
+    "global_planner_fallback": false
+  },
+  "goalset_planning": {
+    "maximum_variants": 72,
+    "parallel_jaw_symmetry_deg": 180,
+    "orientation_slack_deg": [
+      -10,
+      10
+    ],
+    "selection_order": [
+      "validator_pass",
+      "shortest_duration",
+      "minimum_endpoint_error",
+      "candidate_variant_index"
+    ],
+    "exact_mode_preserves_orientation": true
+  },
+  "ik_topk_planning": {
+    "ik_seed_count": 128,
+    "deduplication_threshold_rad": 0.05,
+    "nearest_candidate_limit": 8,
+    "diverse_candidate_limit": 8,
+    "maximum_joint_goals": 16,
+    "graph_fallback_per_goal": true,
+    "validated_exact_ik_joint_segment": {
+      "nearby_distance_rad": 0.6,
+      "maximum_distance_rad": 3.0,
+      "validation_joint_step_rad": 0.005,
+      "execution_joint_step_rad": 0.025,
+      "constraint_backend": "curobo_motion_gen_check_constraints"
+    },
+    "selection_order": [
+      "validator_pass",
+      "shortest_execution_time",
+      "minimum_endpoint_fk_residual",
+      "ik_candidate_index"
+    ]
+  },
+  "plan_references": {
+    "schema": "ora.motion-plan-reference.v1",
+    "invalidate_on": "any_world_mutation",
+    "direct_targets_remain_supported": true
+  },
+  "dual_arm_collision_check": {
+    "method": "source_bound_link_spheres",
+    "link_radius_m": 0.045,
+    "minimum_surface_clearance_m": 0.005,
+    "check_static_other_arm": true,
+    "check_synchronized_pair": true,
+    "execution_minimum_surface_clearance_m": 0,
+    "escape_maximum_inward_deviation_m": 0.001
+  },
+  "motion_transaction": {
+    "schema": "ora.motion-transaction.v1",
+    "adapter_schema": "ora.motion-backend-adapter.v1",
+    "plan_artifact_schema": "ora.motion-plan-artifact.v1",
+    "statuses": [
+      "planner_failed",
+      "plan_rejected",
+      "not_reached",
+      "execution_fault",
+      "reached"
+    ],
+    "global_convergence": {
+      "joint_convergence_tolerance_rad": 0.03,
+      "maximum_physics_steps_per_waypoint": 64,
+      "maximum_total_physics_steps": 20000,
+      "maximum_tcp_step_m": 0.08,
+      "workspace_margin_m": 0.1
+    },
+    "local_convergence": {
+      "joint_convergence_tolerance_rad": 0.015,
+      "maximum_physics_steps_per_waypoint": 64,
+      "maximum_total_physics_steps": 1280,
+      "maximum_tcp_step_m": 0.08,
+      "workspace_margin_m": 0.1
+    },
+    "qualification_sweep": {
+      "global_maximum_physics_steps": [
+        64
+      ],
+      "local_maximum_physics_steps": [
+        64
+      ],
+      "minimum_consecutive_passes": 3
+    },
+    "capx_reference": {
+      "commit": "53e9966",
+      "license": "MIT",
+      "runtime_dependency": false
+    },
+    "metadata_extensions": {
+      "candidate": "opaque_optional",
+      "attachment": "opaque_optional"
+    }
+  },
+  "strategy_router": {
+    "schema": "ora.motion-strategy-router.v2",
+    "direct_local_translation_m": 0.01,
+    "direct_local_rotation_rad": 0.08726646259971647,
+    "comparison_epsilon_m": 1e-05,
+    "comparison_epsilon_rad": 1e-05,
+    "precontact_arrival_reserve_m": 0.007,
+    "precontact_arrival_reserve_rad": 0.05,
+    "free_space_strategy": "global",
+    "precision_strategy": "global_then_local_settle",
+    "contact_approach_strategy": "bounded_local_or_global_precontact_then_local",
+    "pure_rotation_local": {
+      "enabled": true,
+      "maximum_translation_m": 0.005,
+      "maximum_rotation_rad": 0.2617993877991494
+    },
+    "endpoint_settle": {
+      "enabled": true,
+      "maximum_translation_m": 0.01,
+      "maximum_rotation_rad": 0.08726646259971647,
+      "only_after_converged_global_execution": true,
+      "never_on_contact_approach": true
+    }
+  },
+  "gripper_actuator_mapping": {
+    "public_directives": [
+      "open",
+      "close"
+    ],
+    "private_targets": {
+      "open": 1,
+      "close": 0
+    },
+    "measurement_claim": "command_target_only"
+  },
+  "source_binding": {
+    "robotwin_revision": "cf4872cc90538fd4bca761c8db912d8f65e49f2b",
+    "base_task_sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101",
+    "robot_adapter_sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d",
+    "planner_adapter_sha256": "8b1b9c6bb94d05aaae4432bf2b8b06b00413b44aab53c19a5141326095008136",
+    "planner_attribution_sha256": "183d64838775cc89fdbb33b71a13638dda54f87dfb225b5d0533e9cd33c65ba4",
+    "aloha_config_sha256": "a4f043d2d4b44cca5ec47fb498a3194da3f87ff9530dcbfdcee1539a44423d57",
+    "aloha_urdf_sha256": "097c59fb19a7b482249c6097df8319586ea7cfd268c015516f103b289a7e761a"
+  },
+  "blocked_motion_recovery": {
+    "consecutive_frozen_physics_steps": 16,
+    "maximum_frozen_joint_step_rad": 0.001,
+    "retreat_distance_m": 0.02
+  }
+}

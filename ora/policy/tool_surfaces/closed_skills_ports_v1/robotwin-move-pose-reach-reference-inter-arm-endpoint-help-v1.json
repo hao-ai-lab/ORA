@@ -1,0 +1,8 @@
+{
+  "append": {
+    "move_pose": "Before submission each target gets a read-only reach pre-check, compiled_pose.targets.<arm>.reach_along_request. On this backend it is approximate and is not what move_pose runs: one damped-least-squares IK descent from the measured joints with joint limits, after which the configuration it reaches is screened against the other arm held at its measured joints with move_pose's own link-sphere clearance, and a target that comes too close is unreachable with reason inter_arm_collision_endpoint. Only that end configuration is screened, not the path to it, and there is no other collision or route model (ik_model robotwin_single_seed_damped_least_squares_inter_arm_endpoint_v1, matches_move_pose_admission false), while move_pose admits through a 128-seed collision-checked CuRobo IK, which may reach the target in another configuration. How often this screened pre-check disagrees with move_pose's admission has not been measured, so measured_disagreement is null. If the target does not solve, it also reports the farthest solving fraction of the straight path from the current pose, and that pose. It never blocks or changes the move.",
+    "move_to": "Its compiled_pose targets carry reach_along_request, the same approximate pre-check as move_pose's.",
+    "rotate_wrist": "Its compiled_pose targets carry reach_along_request, the same approximate pre-check as move_pose's.",
+    "rotate_pitch": "Its compiled_pose targets carry reach_along_request, the same approximate pre-check as move_pose's."
+  }
+}

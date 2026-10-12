@@ -1,0 +1,22 @@
+# Direct official Kimi Coding endpoint (operator ruling 2026-08-27): the
+# Harness rotates host-local credentials itself, so no loopback gateway,
+# reverse tunnel or proxy process sits on a live run's critical path.
+# Credentials stay in the operator environment and never enter Git.
+schema: ora.native-provider-catalog.v1
+profiles:
+  kimi_direct_k3_anthropic_high_v1:
+    protocol: anthropic_messages
+    endpoint: https://api.kimi.com/coding
+    endpoint_transport: https_v1
+    model: k3
+    model_env: NATIVE_MODEL_ID
+    base_url_env: NATIVE_MODEL_BASE_URL
+    api_key_env: NATIVE_MODEL_API_KEY
+    proxy_env: [NO_PROXY, no_proxy]
+    reasoning_effort: high
+    context_window_tokens: 262144
+    max_output_tokens: 8192
+    stream: true
+    supports_images: true
+    qualification_schema: ora.native-provider-probe.v1
+    qualification_version: 1

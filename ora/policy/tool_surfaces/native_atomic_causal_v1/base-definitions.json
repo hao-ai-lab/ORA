@@ -1,0 +1,101 @@
+{
+  "tools": [
+    {
+      "name": "observe",
+      "description": "Return current actual agentview, wrist, or derived point-cloud views.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "views": {"type": ["array", "null"], "items": {"type": "string"}},
+          "history_point_ids": {"type": ["array", "null"], "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mark_point",
+      "description": "Measure one visible or complementary-view point in world coordinates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "point_id": {"type": "string", "minLength": 1},
+          "view": {"type": "string", "minLength": 1},
+          "x": {"type": "integer"},
+          "y": {"type": "integer"}
+        },
+        "required": ["point_id", "view", "x", "y"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "preview_move",
+      "description": "Render one candidate grip-site pose without changing the world.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "xyz_m": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "delta_mm": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "delta_frame": {"type": "string", "enum": ["world", "grip_site"], "default": "world"},
+          "approach_world": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "jaw_world": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "move_pose",
+      "description": "Move only the grip-site pose; measured gripper state is preserved.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "xyz_m": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "delta_mm": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "delta_frame": {"type": "string", "enum": ["world", "grip_site"], "default": "world"},
+          "approach_world": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "jaw_world": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+          "preview_id": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "close_gripper",
+      "description": "Close only the current single gripper; current grip-site pose is preserved.",
+      "inputSchema": {"type": "object", "properties": {}, "additionalProperties": false}
+    },
+    {
+      "name": "open_gripper",
+      "description": "Open only the current single gripper; current grip-site pose is preserved.",
+      "inputSchema": {"type": "object", "properties": {}, "additionalProperties": false}
+    },
+    {
+      "name": "report_issue",
+      "description": "Record concise tool or context feedback without ending the episode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {"message": {"type": "string", "minLength": 1}},
+        "required": ["message"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "check_task",
+      "description": "Read the faithful LIBERO task checker exposed by this experimental surface.",
+      "inputSchema": {"type": "object", "properties": {}, "additionalProperties": false}
+    },
+    {
+      "name": "finish_episode",
+      "description": "End the policy lifecycle. Success requires a prior check_task=true result.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "outcome": {"type": "string", "enum": ["success", "failure", "abort"]},
+          "reason": {"type": "string", "default": ""},
+          "attempts": {"type": ["array", "null"], "items": {"type": "string"}}
+        },
+        "required": ["outcome"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

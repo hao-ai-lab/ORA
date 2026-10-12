@@ -1,0 +1,217 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "make_kong",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/make_kong.py",
+    "file_sha256": "b9266689d65f9213b05219ad952344f9fd63be8892097ec0103af99791b245d5",
+    "run_reward_lines": [
+      169,
+      223
+    ],
+    "run_reward_sha256": "95a7fd44e307dd942c24a00eface7c766d2e96b1e7103487594c53710ce5cb86"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/make_kong_0.json",
+    "layout_sha256": "4e13e55934b1b3bdab5f3697f7b997080e4f7652fa265f24a6b05cbb761a7228",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Wait for the opponent to discard a tile, then declare a kong with the matching tiles."
+  },
+  "native_action_limit": 600,
+  "semantic_contract": [
+    "The opponent's discard, one of the opponent's standing tiles across the table being knocked over, advances only while robot commands are consuming native actions; while no robot command executes, the opponent does not move.",
+    "If either robot arm is away from its reset pose while the opponent's arm is away from its own resting pose, the episode ends at once as a permanent failure; moving the arm back afterwards does not undo it.",
+    "Lay the three tiles in your standing row that match the discarded tile down flat, face up, and keep every other tile in that row standing.",
+    "The draw tile is the face-down tile on top of the stack nearer the robot at the left end of the table (world -X). The official check first requires the matching tiles to lie face up while the draw tile still lies face down as it started; after that, the draw tile must stand upright in the next place at the open right end of your row (world +X), in line with the row, with both grippers open and the other tiles unchanged.",
+    "This task does not require the arms to end at their reset poses."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/make_kong-completion-v2.md",
+    "sha256": "2ba4d2fbd3f814b131fcb228a077b7a36f45e3c5c50529ae2d72843afd245b0d"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/make_kong.yml",
+      "sha256": "8a33c9e57b6e6c719c4800911c37272ba055ad0f4cda2f1de9d531ee2910351a"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00035/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00004/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00019/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00007/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00020/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00040/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00009/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mahjong/00024/metadata.json",
+      "sha256": "ead4ee995212ef24e100c2897d168d5008f803e9f8c008c385e7ac5616b04a14"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/make_kong/0.pkl",
+      "sha256": "a2b66eb5b5d4b5a3b4cf51c0a5b44358aa701433331caf9aa3763f636a1f6cb2"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/make_kong/1.pkl",
+      "sha256": "c7f171a586b56fd2cd78b26a58a87e0ed4bc9b49d6b5605c7b17263fd30a4e90"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/make_kong/2.pkl",
+      "sha256": "16b40a4c9d646e403a25a40d4d4840a6d534dd86fb6f4c7048c5b6a4fbefd683"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/make_kong/3.pkl",
+      "sha256": "4a8561ea07549f6f105b21acab991e3c90bb4f60f1cd05c30bfb87e4a5cbb30c"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "clause-1",
+      "semantic": "The opponent's discard, one of the opponent's standing tiles across the table being knocked over, advances only while robot commands are consuming native actions; while no robot command executes, the opponent does not move."
+    },
+    {
+      "id": "clause-2",
+      "semantic": "If either robot arm is away from its reset pose while the opponent's arm is away from its own resting pose, the episode ends at once as a permanent failure; moving the arm back afterwards does not undo it."
+    },
+    {
+      "id": "clause-3",
+      "semantic": "Lay the three tiles in your standing row that match the discarded tile down flat, face up, and keep every other tile in that row standing."
+    },
+    {
+      "id": "clause-4",
+      "semantic": "The draw tile is the face-down tile on top of the stack nearer the robot at the left end of the table (world -X). The official check first requires the matching tiles to lie face up while the draw tile still lies face down as it started; after that, the draw tile must stand upright in the next place at the open right end of your row (world +X), in line with the row, with both grippers open and the other tiles unchanged."
+    },
+    {
+      "id": "clause-5",
+      "semantic": "This task does not require the arms to end at their reset poses."
+    }
+  ],
+  "review_notes": [
+    "Common checks expose only the selected three tiles (local-z up) and preserve nine unrelated tiles (local-y up). Two latched stages first require the draw tile down, then upright at the fixed right-end location with open grippers. Its initial position is on the left stack, NOT the final right-end location. No blanket return-home success condition; query forbids acting while support arm is away. The discarded identity and fixed numeric destination remain private."
+  ],
+  "review": {
+    "scope": "source/layout-bound qualitative contract review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "process_execution_order",
+      "load_support_arm_traj",
+      "query_support_arm_traj",
+      "check_support_arm_stable",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in wrong destination or wrong arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object IDs, numeric thresholds or evaluator code is delivered."
+  },
+  "universal_return_to_origin": false,
+  "disclosure": {
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The opponent's discard, one of the opponent's standing tiles across the table being knocked over, advances only while robot commands are consuming native actions; while no robot command executes, the opponent does not move.",
+      "If either robot arm is away from its reset pose while the opponent's arm is away from its own resting pose, the episode ends at once as a permanent failure; moving the arm back afterwards does not undo it.",
+      "Lay the three tiles in your standing row that match the discarded tile down flat, face up, and keep every other tile in that row standing.",
+      "The draw tile is the face-down tile on top of the stack nearer the robot at the left end of the table (world -X). The official check first requires the matching tiles to lie face up while the draw tile still lies face down as it started; after that, the draw tile must stand upright in the next place at the open right end of your row (world +X), in line with the row, with both grippers open and the other tiles unchanged.",
+      "This task does not require the arms to end at their reset poses."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": []
+  },
+  "supersedes": {
+    "record": "ora/policy/environments/robodojo/task-contracts/reviews/make_kong-review-v1.json",
+    "record_sha256": "63478a66e209a8cdb364d43e8e64f2934901cd808d7a9734b907efa0bd74b35e",
+    "layer": "ora/policy/environments/robodojo/task-contracts/make_kong-completion-v1.md",
+    "layer_sha256": "99bd3a2f5cb18cfc8790216be384684053dc9b6cf72b45a14adfcb53777e0d01"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for EXP11A g004; no simulator, provider or physical run",
+    "date": "2026-09-29",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and the reward-manager helpers it calls at the pinned revision",
+      "the pinned layout file",
+      "boundary-v2 applies the arm-return requirement only where the task contract states it"
+    ],
+    "changes": [
+      "Adds that the opponent's demonstration advances only as native actions are consumed (bridge.native_tick pops the support-arm queue only while executing a native action).",
+      "Rephrases the support-arm query (make_kong.py 208-223) as an episode-ending permanent failure instead of an instruction to wait.",
+      "Identifies the draw tile publicly (top of the near stack at world -X; layout label mahjong9_0 stays private) and places the right end at world +X.",
+      "States that this task has no arm-return requirement: its checks (make_kong.py 192-207) never call all_robot_back_to_origin."
+    ],
+    "carried_forward": "Clauses not named in changes restate the predecessor's reviewed semantics.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

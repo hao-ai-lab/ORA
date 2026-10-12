@@ -1,0 +1,193 @@
+{
+ "schema": "ora.description-edit-review.v1",
+ "unit": "EXP12B/placement-centre (2026-10-09): integration 0059 N1/N2 edits regenerated for libero_placement_direct_overhead_v1",
+ "status": "Registered as the last two description and schema slots of libero_placement_direct_overhead_v1, each component pinned by its generated sha256. The edits are libero-review.json's (direct_v2); they apply to the candidate's own text composed before these two layers and before any capability binder (edits_apply_to). Regenerate with `python -m ora.agent.composition.description_edits <this file>` whenever that text changes.",
+ "base_profile": "libero_placement_explicit_motion_direct_v2",
+ "successor_profile": "libero_placement_direct_overhead_v1",
+ "edits_apply_to": "successor_before_layers",
+ "slots": {
+  "description": "published_limits_help",
+  "schemas": "published_limits_schemas"
+ },
+ "layers": {
+  "description": "libero-overhead-help.json",
+  "schemas": "libero-overhead-schemas.json"
+ },
+ "presupposes_capabilities": [],
+ "refusals_owned_elsewhere": {
+  "finish_episode": "policy_finish_outcomes_v2 (finish_outcomes_schema.description) writes finish_episode's whole description and input schema after every layer, so its Refused: sentence is generated there, with the codes agent/tools/finish_outcomes.py and finish_task_check.py raise; a layer edit would be overwritten."
+ },
+ "public_text_zh_reference": {
+  "note": "中文对照，仅供审阅；英文为权威文本，也是唯一投递给 Policy 的文本。每条 zh 只翻译该编辑新增或改动的文字，保留下来的锚定原句不重复翻译。"
+ },
+ "edits": [
+  {
+   "tool": "observe",
+   "field": "description",
+   "before": "On error: choose a saved step in the current round.",
+   "after": "On error: Refused: an empty or repeated views list or a view outside this tool's enum; history_point_ids naming a mark that is not solved; a step outside the current round's saved steps (invalid_arguments, naming that range); with step, history_point_ids or a point-cloud view. Choose a saved step in the current round.",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：views 为空、重复或含本工具枚举之外的视角；history_point_ids 指向未求解的标记；step 不在当前回合已保存的步之内（invalid_arguments，并给出该范围）；带 step 时给出 history_point_ids 或点云视角。"
+  },
+  {
+   "tool": "mark_point",
+   "field": "description",
+   "before": "On error: a malformed call — unequal lengths, a repeated name, more than eight entries, or a view that cannot be marked — is refused whole and names the field, while a pixel that cannot be measured fails only its own entry and leaves the rest solved.",
+   "after": "On error: Refused: a call with more than eight entries, point_ids and points_uv of unequal lengths, a repeated or empty name, a name longer than 64 characters, a negative pixel coordinate, or a view that cannot be marked; the whole call is refused and the refusal names the field. A pixel that cannot be measured fails only its own entry and leaves the rest solved.",
+   "why": "N2: list every whole-call refusal of mark_point_batch.py, including the 64-character name bound (mark_point_schema._MAX_POINT_ID_CHARS) that was stated only in the schema",
+   "zh": "拒绝：超过八个条目、point_ids 与 points_uv 长度不等、名字重复或为空、名字超过 64 个字符、像素坐标为负，或视角不可标记；整个调用被拒绝，拒绝信息会指明字段。无法测量的像素只让它自己的条目失败，其余条目照常求解。"
+  },
+  {
+   "tool": "geometry_query",
+   "field": "description",
+   "before": "On error: send exactly one of points, region or world_points_m -- none or two is refused and the message names all three.",
+   "after": "On error: Refused: none or two of points, region and world_points_m, with a message naming all three; a camera outside the fixed list; a step that names no saved observation (invalid_arguments, naming the saved range); more than sixteen points or world points, or a non-finite world coordinate; window_px outside 0 to 15; a pixel outside the image, which refuses the whole call rather than its entry; a rectangle that leaves the image or does not have x0<x1 and y0<y1.",
+   "why": "N2: the whole-call refusals of RobotToolRuntime._geometry, including window_px 0-15 and the one out-of-image pixel that refuses the whole call",
+   "zh": "拒绝：points、region、world_points_m 一个都没给或给了两个（信息会列出这三者）；相机不在固定列表中；step 不对应任何已保存的观测（invalid_arguments，并给出已保存的范围）；点或世界点超过十六个，或世界坐标不是有限值；window_px 不在 0 到 15 之间；任一像素在图像之外——这会拒绝整个调用，而不只是该条目；矩形超出图像，或不满足 x0<x1 且 y0<y1。"
+  },
+  {
+   "tool": "compute",
+   "field": "description",
+   "before": "On error: read field, received and constraints, then change that input.",
+   "after": "On error: Refused: a block beyond the Limits below; a construct outside the evaluator grammar; an unknown, reserved or underscore-prefixed name; a string literal longer than 32 characters; a binding whose from is blank or longer than 120 characters; an output name the block never assigned; a non-finite result, or no numeric result at all. Each refusal is invalid_arguments; read its field, received and constraints, then change that input.",
+   "why": "N2: the evaluator's refusals, including the 32-character string literal bound (compute.py) and the 120-character from bound (compute_arguments.MAX_ORIGIN_CHARACTERS) the help did not state",
+   "zh": "拒绝：超出下文 Limits 的代码块；求值器语法之外的结构；未知、保留或以下划线开头的名字；超过 32 个字符的字符串字面量；from 为空或超过 120 个字符的绑定；代码块从未赋值的输出名；非有限的结果，或根本没有数值结果。每种拒绝都是 invalid_arguments；读取其 field、received 与 constraints，然后修改该输入。"
+  },
+  {
+   "tool": "vision_segment",
+   "field": "description",
+   "before": "On error: correct the named input or source.",
+   "after": "On error: Refused: no point or more than eight; a point outside the source image, which refuses the whole call; max_candidates outside 1 to 3; a camera outside this tool's enum; a step outside the current round's saved steps (invalid_arguments, naming that range); a request the segmentation service rejects (invalid_arguments, with the service's detail). Correct the named input or source.",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：没有点或超过八个点；任一点在源图像之外——这会拒绝整个调用；max_candidates 不在 1 到 3 之间；相机不在本工具枚举中；step 不在当前回合已保存的步之内（invalid_arguments，并给出该范围）；分割服务拒绝的请求（invalid_arguments，附服务给出的说明）。"
+  },
+  {
+   "tool": "vision_ground",
+   "field": "description",
+   "before": "On error: rephrase the visible description to obtain a better candidate set,",
+   "after": "On error: Refused: max_candidates outside 1 to 3, before any request is sent; text that is empty after trimming or longer than 120 characters; a camera outside this tool's enum; no grounding service (grounding_unavailable); a request the grounding service rejects (invalid_arguments, with the service's detail). Rephrase the visible description to obtain a better candidate set,",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：max_candidates 不在 1 到 3 之间（在发出任何请求之前）；去除首尾空白后为空、或超过 120 个字符的 text；相机不在本工具枚举中；没有可用的 grounding 服务（grounding_unavailable）；grounding 服务拒绝的请求（invalid_arguments，附服务给出的说明）。"
+  },
+  {
+   "tool": "vision_ground",
+   "field": "/properties/max_candidates/description",
+   "before": "Close-up previews are capped at the first six across a step: the request window holds 24 images and refuses rather than dropping the oldest.",
+   "after": "Every returned region gets its own close-up preview; nothing caps previews across a step, and no count of images already in the conversation refuses this call.",
+   "why": "N1 mismatch (1): no per-step preview cap exists (GROUNDING_PREVIEW_RENDER_LIMIT is per call and never binds at three regions) and nothing refuses at 24 images (trigger_inline_images is a soft trigger)",
+   "zh": "每个返回的区域都有自己的特写预览；同一步内的预览没有上限，对话中已有图像的数量也不会让本调用被拒绝。"
+  },
+  {
+   "tool": "grasp_plan",
+   "field": "description",
+   "before": "On error: obtain a better current view or select another target or candidate.",
+   "after": "On error: Refused: a target_ref unknown in this round (target_ref_unavailable) or bound to an earlier observation (stale_observation); max_candidates outside 1 to 3; unusable primary RGB-D or a transient backend failure (grasp_proposal_failed); a request the grasp-proposal service rejects (invalid_arguments, with the service's detail). Not refused but moved to diagnostics.rejected: a candidate whose predicted opening exceeds the 80 mm nominal ceiling, or whose controlled point or pregrasp lies outside the action workspace; with none left the result is status no_candidate. Obtain a better current view or select another target or candidate.",
+   "why": "N2: grasp_plan's refusals and its ex-ante planning rejection rule (opening ceiling and workspace)",
+   "zh": "拒绝：本回合未知的 target_ref（target_ref_unavailable），或绑定在较早观测上的 target_ref（stale_observation）；max_candidates 不在 1 到 3 之间；主 RGB-D 不可用或后端暂时失败（grasp_proposal_failed）；抓取候选服务拒绝的请求（invalid_arguments，附服务给出的说明）。不会拒绝、而是移入 diagnostics.rejected 的：预测开口超过 80 mm 标称上限的候选，或其受控点或预抓取位姿位于动作工作空间之外的候选；若没有候选剩下，结果为 status no_candidate。"
+  },
+  {
+   "tool": "grasp_plan",
+   "field": "/properties/max_candidates/description",
+   "before": "Maximum alternatives to inspect from this one query, from one through three, default 3.",
+   "after": "Maximum alternatives to inspect from this one query, from one through three, default 3: the front of the IK-ordered pool described under IK selection.",
+   "why": "A0 with M2: the LIBERO v2 surface declares grasp_plan_ik_reachability_annotation_v1, so the returned candidates are the front of the IK-ordered pool (the RoboTwin and RoboDojo wording).",
+   "zh": "从这一次查询中查看的候选数上限，1 到 3，默认 3：即 IK selection 中所述按 IK 排序后的候选池的前几个。"
+  },
+  {
+   "tool": "set_gripper",
+   "field": "description",
+   "before": "On error: invalid_motion_arguments names the field that was wrong -- re-read this schema rather than resubmitting the same shape.",
+   "after": "On error: Refused: an action other than open and close; a target_ref that is blank or not a string (invalid_arguments, naming target_ref); the episode's terminal boundary (episode_terminal). A schema refusal is invalid_arguments naming the field; an invalid_motion_arguments refusal names none -- re-read this schema rather than resubmitting the same shape.",
+   "why": "N2: set_gripper's refusals; 'invalid_motion_arguments names the field' was false",
+   "zh": "拒绝：action 不是 open 或 close；target_ref 为空白或不是字符串（invalid_arguments，指明 target_ref）；回合已到终止边界（episode_terminal）。schema 拒绝是指明字段的 invalid_arguments；invalid_motion_arguments 拒绝不指明字段——请重读本 schema，而不是重复提交同样的结构。"
+  },
+  {
+   "tool": "move_to",
+   "field": "description",
+   "before": "so the qualified global CuRobo route executes it.",
+   "after": "so the qualified global CuRobo route executes it, followed by one bounded local OSC settle when the measured endpoint misses by more than 5 mm or 0.05 rad and by no more than 50 mm and 15 degrees.",
+   "why": "N2 described-but-different: LIBERO free_space runs global_then_local_settle (libero_pro/session.py, motion_settle.settle_refusal)",
+   "zh": "因此由合格的全局 CuRobo 路线执行；若测得的终点偏差超过 5 mm 或 0.05 rad、且不超过 50 mm 与 15 度，之后再做一次有界的本地 OSC 微调。"
+  },
+  {
+   "tool": "move_to",
+   "field": "description",
+   "before": "On error: inspect the named failure stage and residual,",
+   "after": "On error: Refused: a field other than position_m; a non-finite position; a target equal to the measured position; a target outside the bound action workspace (workspace_bounds) unless the grip site is already outside it and the target only reduces the violation; the episode's terminal boundary (episode_terminal). Inspect the named failure stage and residual,",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：position_m 之外的字段；非有限的位置；与测得位置相同的目标；在绑定的动作工作空间之外的目标（workspace_bounds）——除非抓取点已在其外且目标只减小越界量；回合已到终止边界（episode_terminal）。"
+  },
+  {
+   "tool": "move_pose",
+   "field": "description",
+   "before": "free_space uses global CuRobo. precision within 50 mm and 15 degrees uses bounded OSC; larger precision uses global CuRobo.",
+   "after": "free_space uses global CuRobo, then one bounded local OSC settle when the measured endpoint misses by more than 5 mm or 0.05 rad and by no more than 50 mm and 15 degrees. precision within 50 mm and 15 degrees uses bounded OSC; larger precision uses global CuRobo and the same settle.",
+   "why": "N2 described-but-different: free_space and larger precision run global_then_local_settle on LIBERO",
+   "zh": "free_space 使用全局 CuRobo；若测得的终点偏差超过 5 mm 或 0.05 rad、且不超过 50 mm 与 15 度，之后再做一次有界的本地 OSC 微调。50 mm 与 15 度以内的 precision 使用有界 OSC；更大的 precision 使用全局 CuRobo 加同样的微调。"
+  },
+  {
+   "tool": "move_pose",
+   "field": "description",
+   "before": "On error: an argument refusal names the field and the bound it violated, never a branch index.",
+   "after": "On error: Refused: an unknown field, a mode without its companion fields or a field of another mode, each naming the field; hold_current for both halves, a target equal to the measured pose, a rotation_angle_deg outside [-180, 180] or an orientation_xyzw whose norm lies outside [0.98, 1.02], each as invalid_motion_arguments without a field; a target outside the bound action workspace (workspace_bounds) unless the grip site is already outside it and the target only reduces the violation; the episode's terminal boundary (episode_terminal).",
+   "why": "N2: move_pose's refusals; 'an argument refusal names the field' was false for the compiler refusals",
+   "zh": "拒绝：未知字段、缺少配套字段的模式，或属于另一模式的字段——均会指明字段；两半都为 hold_current、与测得位姿相同的目标、rotation_angle_deg 不在 [-180, 180] 内，或 orientation_xyzw 的模长不在 [0.98, 1.02] 内——均为不指明字段的 invalid_motion_arguments；在绑定的动作工作空间之外的目标（workspace_bounds）——除非抓取点已在其外且目标只减小越界量；回合已到终止边界（episode_terminal）。"
+  },
+  {
+   "tool": "rotate_wrist",
+   "field": "description",
+   "before": "Small rotations execute through the bounded OSC servo; larger rotations execute through global CuRobo.",
+   "after": "Rotations of at most 15 degrees execute through the bounded OSC servo; larger rotations execute through global CuRobo and the bounded local settle move_pose describes.",
+   "why": "N2 described-but-different: the local threshold is SERVO_MAX_ROTATION_RAD and larger rotations settle",
+   "zh": "不超过 15 度的旋转通过有界 OSC servo 执行；更大的旋转通过全局 CuRobo 执行，并带 move_pose 所述的有界本地微调。"
+  },
+  {
+   "tool": "rotate_wrist",
+   "field": "description",
+   "before": "On error: check the current grip-site axes and correct the sign or magnitude; after a substantial",
+   "after": "On error: Refused: an angle outside [-180, 180] degrees or not a finite number; an angle of 0; a target outside the bound action workspace (workspace_bounds), which includes any rotation while the grip site is already outside it; the episode's terminal boundary (episode_terminal). Check the current grip-site axes and correct the sign or magnitude; after a substantial",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：角度不在 [-180, 180] 度内或不是有限数；角度为 0；目标在绑定的动作工作空间之外（workspace_bounds）——grip site 已在其外时的任何旋转也包括在内；回合已到终止边界（episode_terminal）。"
+  },
+  {
+   "tool": "rotate_pitch",
+   "field": "description",
+   "before": "small rotations execute through the bounded OSC servo, larger ones through global CuRobo.",
+   "after": "rotations of at most 15 degrees execute through the bounded OSC servo, larger ones through global CuRobo and the bounded local settle move_pose describes.",
+   "why": "N2 described-but-different: the local threshold is SERVO_MAX_ROTATION_RAD and larger rotations settle",
+   "zh": "不超过 15 度的旋转通过有界 OSC servo 执行，更大的旋转通过全局 CuRobo 执行，并带 move_pose 所述的有界本地微调。"
+  },
+  {
+   "tool": "rotate_pitch",
+   "field": "description",
+   "before": "On error: check the current grip-site axes and correct the sign or magnitude; use move_pose",
+   "after": "On error: Refused: an angle outside [-180, 180] degrees or not a finite number; an angle of 0; a target outside the bound action workspace (workspace_bounds), which includes any rotation while the grip site is already outside it; the episode's terminal boundary (episode_terminal). Check the current grip-site axes and correct the sign or magnitude; use move_pose",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：角度不在 [-180, 180] 度内或不是有限数；角度为 0；目标在绑定的动作工作空间之外（workspace_bounds）——grip site 已在其外时的任何旋转也包括在内；回合已到终止边界（episode_terminal）。"
+  },
+  {
+   "tool": "recover_pose",
+   "field": "description",
+   "before": "On error: if the recovery state is unavailable the call is refused;",
+   "after": "On error: Refused: a strategy other than previous and home; an unknown field; the episode's terminal boundary (episode_terminal). An unavailable recovery state is not a refusal: the receipt reports planner_failed with recovery_state_unavailable;",
+   "why": "N2: recover_pose's refusals; an unavailable recovery state arrives as a planner_failed receipt (libero_pro/session.py), not a refused call",
+   "zh": "拒绝：策略不是 previous 或 home；未知字段；回合已到终止边界（episode_terminal）。恢复状态不可用不是拒绝：回执会报告 planner_failed 与 recovery_state_unavailable；"
+  },
+  {
+   "tool": "report_issue",
+   "field": "description",
+   "before": "On error: shorten the message to one concrete symptom",
+   "after": "On error: Refused: any field other than message, or a message that is empty or only whitespace (invalid_arguments). Shorten the message to one concrete symptom",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：message 之外的任何字段，或为空或只有空白的 message（invalid_arguments）。"
+  },
+  {
+   "tool": "check_task",
+   "field": "description",
+   "before": "On error: wait for the Runtime to expose the checker and retry;",
+   "after": "On error: Refused: any argument (invalid_arguments). Wait for the Runtime to expose the checker and retry;",
+   "why": "N2: the ex-ante refusals this tool's handler enforces",
+   "zh": "拒绝：任何参数（invalid_arguments）。"
+  }
+ ]
+}

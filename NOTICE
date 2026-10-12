@@ -1,0 +1,23 @@
+ORA: Open Robot-Use Agents
+Copyright 2026 ORA contributors
+
+Original ORA code is distributed under Apache License 2.0.
+
+The vendored RoboTwin planner/robot adapters derive from RoboTwin at
+c3ddfa8b97d5519efa828b075999bd0006778e5e (MIT). The full upstream notice is
+in third_party/ROBOTWIN_LICENSE.txt.
+
+Parts of the planner chain derive from CaP-X (MIT), Copyright (c) 2026 Max Fu.
+The full notice is retained in
+ora/environment/backends/robotwin/vendored/CAPX_MIT_ATTRIBUTION.md.
+
+The RoboDojo installer carries a patch against Vulkan-Profiles. Its upstream
+license notice is retained in third_party/VULKAN_PROFILES_LICENSE.txt.
+Patched script: scripts/gen_profiles_layer.py, upstream commit
+a400d0b10059b2cc3cd285475593eee79975a5c4. Copyright (c) 2021-2025
+LunarG, Inc.; Copyright (c) 2023-2024 RasterGrid Kft. (Apache-2.0).
+ORA changes its generated condition for VK_KHR_external_memory_capabilities.
+
+Simulator SDKs, model weights, benchmark assets and external dependencies
+are installed separately and retain their upstream licenses. No grant to
+those separately downloaded materials is implied by ORA's license.

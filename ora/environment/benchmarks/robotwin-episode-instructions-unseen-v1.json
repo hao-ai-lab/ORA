@@ -1,0 +1,2718 @@
+{
+ "schema": "ora.robotwin-episode-instructions.v1",
+ "task_config": "demo_randomized",
+ "instruction_type": "unseen",
+ "source": {
+  "robotwin_revision": "cf4872cc90538fd4bca761c8db912d8f65e49f2b",
+  "generator": {
+   "path": "description/utils/generate_episode_instructions.py",
+   "sha256": "ef428fa9066c3025d41e2fabcbf894d1d4313bd12bee0a300d19d3d7d1158f24"
+  },
+  "official_rule": "script/eval_policy.py: episode values from the expert's play_once(); np.random.choice(generate_episode_descriptions(task, [info], 100)[0]['unseen']); every official policy config sets instruction_type: unseen",
+  "episode_values": "play_once() with the robot path planners stubbed to success and no motion executed, so the task script fills self.info without planning",
+  "draw": "python random and numpy seeded with int(sha256('<task>:<seed>')[:8], 16) before the generator and the choice",
+  "witness": {
+   "path": "RPent robots/robotwin/eval/demo_randomized.json",
+   "sha256": "c7c6ee4847d8b39838af281be6de3517d039c76451bb78bb454f52f81470b306",
+   "check": "RPent's seen sentence for the same seed is a member of the seen pool generated from these episode values (exhaustive template x description enumeration)",
+   "result": "consistent for most episodes; scene_differs where RPent's runtime (rlinf-robotwin-runtime 0.1.1) spawns different object models for the same seed: the sentence here names the objects of this RoboTwin revision's scene"
+  }
+ },
+ "episodes": {
+  "adjust_bottle:s100000": {
+   "instruction": "Pick up the plastic soda bottle using the correct arm",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{a}": "left"
+   },
+   "rng_seed": 3918270881,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "adjust_bottle:s100002": {
+   "instruction": "Pick up the green bottle carefully using the left arm",
+   "episode_info": {
+    "{A}": "001_bottle/base16",
+    "{a}": "left"
+   },
+   "rng_seed": 2007176538,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "adjust_bottle:s100003": {
+   "instruction": "Pick up the green bottle using the correct arm",
+   "episode_info": {
+    "{A}": "001_bottle/base16",
+    "{a}": "left"
+   },
+   "rng_seed": 4184409132,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "adjust_bottle:s100004": {
+   "instruction": "Use the right arm to grab the bottle the green plastic bottle with ridged bottom",
+   "episode_info": {
+    "{A}": "001_bottle/base16",
+    "{a}": "right"
+   },
+   "rng_seed": 3060790879,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "adjust_bottle:s100005": {
+   "instruction": "Use the left arm to grab the brown bottle head-up.",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{a}": "left"
+   },
+   "rng_seed": 1246651784,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "beat_block_hammer:s100000": {
+   "instruction": "Grab the hammer with black handle and hit the block",
+   "episode_info": {
+    "{A}": "020_hammer/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 3368756626,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "beat_block_hammer:s100001": {
+   "instruction": "Grab the hammer with claw and smooth head and beat the block.",
+   "episode_info": {
+    "{A}": "020_hammer/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 3343219480,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "beat_block_hammer:s100003": {
+   "instruction": "Grab the hammer with claw and smooth head and hit the block.",
+   "episode_info": {
+    "{A}": "020_hammer/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 2117620725,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "beat_block_hammer:s100004": {
+   "instruction": "Grab the hammer with claw and smooth head and hit the block",
+   "episode_info": {
+    "{A}": "020_hammer/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 1709093718,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "beat_block_hammer:s100005": {
+   "instruction": "Grab the hammer with black handle and beat the block",
+   "episode_info": {
+    "{A}": "020_hammer/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 2331794015,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_rgb:s100000": {
+   "instruction": "Pick up red block, set it on the left. Then grab green block, position it next to red block. Finally, place blue block to the right of green block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "left",
+    "{b}": "right",
+    "{c}": "left"
+   },
+   "rng_seed": 1940739228,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_rgb:s100001": {
+   "instruction": "Set red block on the left, then green block in the center, and finally blue block on the right.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "left",
+    "{b}": "left",
+    "{c}": "right"
+   },
+   "rng_seed": 715076207,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_rgb:s100002": {
+   "instruction": "Pick up red block, set it on the left. Then grab green block, position it next to red block. Finally, place blue block to the right of green block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "right"
+   },
+   "rng_seed": 2077534529,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_rgb:s100003": {
+   "instruction": "Arrange red block, green block, and blue block side by side, starting with red block on the left.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "left"
+   },
+   "rng_seed": 2781022265,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_rgb:s100004": {
+   "instruction": "Place red block, green block, and blue block sequentially in a row, starting with red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "right"
+   },
+   "rng_seed": 2819884802,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_size:s100000": {
+   "instruction": "Move large block, medium block, and small block to the table center.",
+   "episode_info": {
+    "{A}": "large block",
+    "{B}": "medium block",
+    "{C}": "small block",
+    "{a}": "left",
+    "{b}": "right",
+    "{c}": "left"
+   },
+   "rng_seed": 2502106296,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_size:s100001": {
+   "instruction": "Move large block, medium block, and small block to the center, arrange left to right.",
+   "episode_info": {
+    "{A}": "large block",
+    "{B}": "medium block",
+    "{C}": "small block",
+    "{a}": "left",
+    "{b}": "left",
+    "{c}": "right"
+   },
+   "rng_seed": 1505971998,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_size:s100002": {
+   "instruction": "Place large block, medium block, and small block in order at the center.",
+   "episode_info": {
+    "{A}": "large block",
+    "{B}": "medium block",
+    "{C}": "small block",
+    "{a}": "left",
+    "{b}": "right",
+    "{c}": "left"
+   },
+   "rng_seed": 1108629999,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_size:s100003": {
+   "instruction": "Move large block, medium block, and small block to the center, arrange left to right.",
+   "episode_info": {
+    "{A}": "large block",
+    "{B}": "medium block",
+    "{C}": "small block",
+    "{a}": "left",
+    "{b}": "right",
+    "{c}": "left"
+   },
+   "rng_seed": 4101575636,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "blocks_ranking_size:s100004": {
+   "instruction": "Arrange large block, medium block, and small block from largest to smallest.",
+   "episode_info": {
+    "{A}": "large block",
+    "{B}": "medium block",
+    "{C}": "small block",
+    "{a}": "left",
+    "{b}": "right",
+    "{c}": "right"
+   },
+   "rng_seed": 4105401220,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_alarmclock:s100000": {
+   "instruction": "Press the alarm-clock with beige screen's top center button.",
+   "episode_info": {
+    "{A}": "046_alarm-clock/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 1660574779,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_alarmclock:s100001": {
+   "instruction": "Click the top button of the blue alarm clock",
+   "episode_info": {
+    "{A}": "046_alarm-clock/base3",
+    "{a}": "left"
+   },
+   "rng_seed": 655394895,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_alarmclock:s100003": {
+   "instruction": "Press the compact alarm clock's center top button",
+   "episode_info": {
+    "{A}": "046_alarm-clock/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 4293285536,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_alarmclock:s100004": {
+   "instruction": "Tap the center top button of the alarm clock with smooth finish",
+   "episode_info": {
+    "{A}": "046_alarm-clock/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 3918840340,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_alarmclock:s100005": {
+   "instruction": "Click the top button of the alarm-clock with beige screen",
+   "episode_info": {
+    "{A}": "046_alarm-clock/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 3542116364,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_bell:s100000": {
+   "instruction": "Click the top center of the medium-sized bell.",
+   "episode_info": {
+    "{A}": "050_bell/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 2008402501,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_bell:s100001": {
+   "instruction": "Use the left arm to press the lightweight bell with smooth surface's top center.",
+   "episode_info": {
+    "{A}": "050_bell/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 1381179001,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_bell:s100002": {
+   "instruction": "Use the right arm to press the lightweight bell with smooth surface's top center.",
+   "episode_info": {
+    "{A}": "050_bell/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 329207647,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_bell:s100003": {
+   "instruction": "Use the right arm to press the medium-sized bell's top center.",
+   "episode_info": {
+    "{A}": "050_bell/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 393968740,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "click_bell:s100004": {
+   "instruction": "Use the right arm to press the blue bell with glossy finish's top center.",
+   "episode_info": {
+    "{A}": "050_bell/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 1212683317,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "dump_bin_bigbin:s100003": {
+   "instruction": "Pick up the tabletrashbin for tabletop use, pour balls into the bin.",
+   "episode_info": {
+    "{A}": "063_tabletrashbin/base8"
+   },
+   "rng_seed": 179239151,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "dump_bin_bigbin:s100007": {
+   "instruction": "Pick up the plastic tiny trashbin for tables, pour balls into the bin.",
+   "episode_info": {
+    "{A}": "063_tabletrashbin/base9"
+   },
+   "rng_seed": 2765580205,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "dump_bin_bigbin:s100020": {
+   "instruction": "Take the lightweight round tabletop trashbin and empty into big bin",
+   "episode_info": {
+    "{A}": "063_tabletrashbin/base9"
+   },
+   "rng_seed": 3668262766,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "dump_bin_bigbin:s100023": {
+   "instruction": "Pick up the small bin for table waste and pour it.",
+   "episode_info": {
+    "{A}": "063_tabletrashbin/base9"
+   },
+   "rng_seed": 1686238803,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "dump_bin_bigbin:s100027": {
+   "instruction": "Pick up the compact tabletop trashbin, pour balls into the bin.",
+   "episode_info": {
+    "{A}": "063_tabletrashbin/base10"
+   },
+   "rng_seed": 3831095104,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "grab_roller:s100000": {
+   "instruction": "Grab the light brown cylindrical roller with both arms.",
+   "episode_info": {
+    "{A}": "102_roller/base0"
+   },
+   "rng_seed": 10946885,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "grab_roller:s100001": {
+   "instruction": "Use both arms to grab the light brown cylindrical roller.",
+   "episode_info": {
+    "{A}": "102_roller/base0"
+   },
+   "rng_seed": 2686508639,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "grab_roller:s100002": {
+   "instruction": "Grab the smooth wooden roller on the table using arms",
+   "episode_info": {
+    "{A}": "102_roller/base0"
+   },
+   "rng_seed": 2873155821,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "grab_roller:s100004": {
+   "instruction": "Use both arms to grab the light brown wooden roller.",
+   "episode_info": {
+    "{A}": "102_roller/base2"
+   },
+   "rng_seed": 1287580777,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "grab_roller:s100006": {
+   "instruction": "Grab the light brown wooden roller on the table using arms",
+   "episode_info": {
+    "{A}": "102_roller/base2"
+   },
+   "rng_seed": 157240567,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_block:s100001": {
+   "instruction": "Use the left arm to grab the red block, transfer it to the right hand, and set it onto the blue pad.",
+   "episode_info": {},
+   "rng_seed": 2243512666,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_block:s100002": {
+   "instruction": "Pick up the red block with the left arm, transfer it to the right, and place it on the blue pad.",
+   "episode_info": {},
+   "rng_seed": 721067912,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_block:s100003": {
+   "instruction": "Grab the red block using the left arm.",
+   "episode_info": {},
+   "rng_seed": 2954347385,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_block:s100004": {
+   "instruction": "Use the left arm to grab the red block, transfer it to the right hand, and set it onto the blue pad.",
+   "episode_info": {},
+   "rng_seed": 235903439,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_block:s100005": {
+   "instruction": "Grab the red block with the left arm, switch to the right arm, and set it on the blue pad.",
+   "episode_info": {},
+   "rng_seed": 679842197,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_mic:s100000": {
+   "instruction": "Grab the lightweight handheld microphone and pass it to the other arm.",
+   "episode_info": {
+    "{A}": "018_microphone/base5",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 1214378410,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_mic:s100001": {
+   "instruction": "Grab the long teal microphone with white grooves and pass it to the other arm.",
+   "episode_info": {
+    "{A}": "018_microphone/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 4174522742,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_mic:s100002": {
+   "instruction": "Grab the teal microphone with white bottom from the table and pass it across.",
+   "episode_info": {
+    "{A}": "018_microphone/base0",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 1298158226,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_mic:s100003": {
+   "instruction": "Pick up the microphone used for audio input and hand it over",
+   "episode_info": {
+    "{A}": "018_microphone/base5",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 375973908,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "handover_mic:s100004": {
+   "instruction": "Grab the compact microphone with two parts from the table and pass it across.",
+   "episode_info": {
+    "{A}": "018_microphone/base4",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 2484821393,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "hanging_mug:s100002": {
+   "instruction": "Pick the mug beige smooth cylinder shape with the left arm, rotate, place it, then hang it on the medium-sized rack.",
+   "episode_info": {
+    "{A}": "039_mug/base6",
+    "{B}": "040_rack/base0"
+   },
+   "rng_seed": 3262147476,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "hanging_mug:s100004": {
+   "instruction": "Grab the smooth shiny blue mug on the table, rotate it, set it down in the middle, then hang it onto the dark gray rack with flat back.",
+   "episode_info": {
+    "{A}": "039_mug/base5",
+    "{B}": "040_rack/base0"
+   },
+   "rng_seed": 2118016071,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "hanging_mug:s100005": {
+   "instruction": "Grab the medium-sized white mug, turn it, set it on the table, then hang it on the medium-sized rack.",
+   "episode_info": {
+    "{A}": "039_mug/base4",
+    "{B}": "040_rack/base0"
+   },
+   "rng_seed": 2854532528,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "hanging_mug:s100006": {
+   "instruction": "Grab the medium black mug on the table, rotate it, set it down in the middle, then hang it onto the dark gray rack with flat back.",
+   "episode_info": {
+    "{A}": "039_mug/base1",
+    "{B}": "040_rack/base0"
+   },
+   "rng_seed": 1916362626,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "hanging_mug:s100009": {
+   "instruction": "Lift the ceramic mug from the table, spin it, set it down, and hang it on the rack with straight and slanted rods.",
+   "episode_info": {
+    "{A}": "039_mug/base7",
+    "{B}": "040_rack/base0"
+   },
+   "rng_seed": 3127076684,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "lift_pot:s100001": {
+   "instruction": "Lift the kitchenpot with two side handles with both arms",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base0"
+   },
+   "rng_seed": 3553515034,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "lift_pot:s100002": {
+   "instruction": "Use both arms for the gray kitchenpot with rounded edges",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base0"
+   },
+   "rng_seed": 2382313222,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "lift_pot:s100007": {
+   "instruction": "Lift the gray kitchenpot with rounded edges with both arms",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base0"
+   },
+   "rng_seed": 1489157904,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "lift_pot:s100009": {
+   "instruction": "Lift the kitchenpot with two side handles upward using arms.",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base0"
+   },
+   "rng_seed": 4108899785,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "lift_pot:s100017": {
+   "instruction": "Lift the dark gray cooking kitchenpot using both arms",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base0"
+   },
+   "rng_seed": 3454584638,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_can_pot:s100000": {
+   "instruction": "Pick up the medium sauce can and move it near the medium kitchenpot",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base6",
+    "{B}": "105_sauce-can/base5",
+    "{a}": "left"
+   },
+   "rng_seed": 416243631,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_can_pot:s100001": {
+   "instruction": "Pick up the red can with white text and set it beside the medium kitchenpot",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base6",
+    "{B}": "105_sauce-can/base6",
+    "{a}": "right"
+   },
+   "rng_seed": 3384820023,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_can_pot:s100004": {
+   "instruction": "Use the right arm to pick up the brown sauce can with top lid and move it beside the metal pot with curved handles",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base5",
+    "{B}": "105_sauce-can/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 2623195605,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_can_pot:s100005": {
+   "instruction": "Pick up the sauce can with red lid and set it beside the medium black kitchenpot with lid",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base4",
+    "{B}": "105_sauce-can/base5",
+    "{a}": "left"
+   },
+   "rng_seed": 3325232826,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_can_pot:s100006": {
+   "instruction": "Grab the sauce can with round ridged lid and set it beside the kitchenpot with smooth matte body",
+   "episode_info": {
+    "{A}": "060_kitchenpot/base1",
+    "{B}": "105_sauce-can/base6",
+    "{a}": "left"
+   },
+   "rng_seed": 3830116011,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_pillbottle_pad:s100000": {
+   "instruction": "Pick the bottle with printed white label and set it on the pad",
+   "episode_info": {
+    "{A}": "080_pillbottle/base3",
+    "{a}": "left"
+   },
+   "rng_seed": 1255492213,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_pillbottle_pad:s100001": {
+   "instruction": "Pick the hand-sized orange capped bottle and set it onto the pad.",
+   "episode_info": {
+    "{A}": "080_pillbottle/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 3812267558,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_pillbottle_pad:s100002": {
+   "instruction": "Use the right arm to pick the orange capped bottle and place it.",
+   "episode_info": {
+    "{A}": "080_pillbottle/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 1017913379,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_pillbottle_pad:s100003": {
+   "instruction": "Use the right arm to move the plastic orange bottle with white lid onto the pad",
+   "episode_info": {
+    "{A}": "080_pillbottle/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 473238723,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_pillbottle_pad:s100004": {
+   "instruction": "Use the right arm to pick the bottle capped with textured white lid and place it.",
+   "episode_info": {
+    "{A}": "080_pillbottle/base4",
+    "{a}": "right"
+   },
+   "rng_seed": 3745295753,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_playingcard_away:s100000": {
+   "instruction": "Grab the gold text on playing cards box and move it outward.",
+   "episode_info": {
+    "{A}": "081_playingcards/base2",
+    "{a}": "right"
+   },
+   "rng_seed": 1231814316,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_playingcard_away:s100001": {
+   "instruction": "Lift the small box for playingcards from the table and shift it.",
+   "episode_info": {
+    "{A}": "081_playingcards/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2178919307,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_playingcard_away:s100002": {
+   "instruction": "Pick up the hard black box for card deck and shift it outward.",
+   "episode_info": {
+    "{A}": "081_playingcards/base2",
+    "{a}": "right"
+   },
+   "rng_seed": 3014740897,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_playingcard_away:s100003": {
+   "instruction": "Use the right arm to grab the black box with smooth surface and relocate it.",
+   "episode_info": {
+    "{A}": "081_playingcards/base2",
+    "{a}": "right"
+   },
+   "rng_seed": 3695641802,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_playingcard_away:s100004": {
+   "instruction": "Lift the rectangular red playingcards holder from the table and shift it.",
+   "episode_info": {
+    "{A}": "081_playingcards/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 3951032302,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_stapler_pad:s100000": {
+   "instruction": "Move the stapler with white loading section to the Yellow colored mat",
+   "episode_info": {
+    "{A}": "048_stapler/base2",
+    "{B}": "Yellow",
+    "{a}": "left"
+   },
+   "rng_seed": 1917877141,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_stapler_pad:s100002": {
+   "instruction": "Grab the white stapler and set it on Green mat",
+   "episode_info": {
+    "{A}": "048_stapler/base3",
+    "{B}": "Green",
+    "{a}": "right"
+   },
+   "rng_seed": 201725542,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_stapler_pad:s100003": {
+   "instruction": "Move the white stapler to the Yellow mat.",
+   "episode_info": {
+    "{A}": "048_stapler/base3",
+    "{B}": "Yellow",
+    "{a}": "right"
+   },
+   "rng_seed": 262955985,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_stapler_pad:s100004": {
+   "instruction": "Use the right arm to move the stapler with smooth plastic body to the Gray mat",
+   "episode_info": {
+    "{A}": "048_stapler/base5",
+    "{B}": "Gray",
+    "{a}": "right"
+   },
+   "rng_seed": 3122129596,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "move_stapler_pad:s100005": {
+   "instruction": "Move the small stapler with simple design to the Magenta mat",
+   "episode_info": {
+    "{A}": "048_stapler/base0",
+    "{B}": "Magenta",
+    "{a}": "left"
+   },
+   "rng_seed": 1744394613,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_laptop:s100000": {
+   "instruction": "Lift the laptop with smooth surfaces's lid fully.",
+   "episode_info": {
+    "{A}": "015_laptop/base6",
+    "{a}": "left"
+   },
+   "rng_seed": 4253017110,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_laptop:s100004": {
+   "instruction": "Open the laptop with colorful screen with one motion.",
+   "episode_info": {
+    "{A}": "015_laptop/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 2760251869,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_laptop:s100006": {
+   "instruction": "Open the foldable laptop with care",
+   "episode_info": {
+    "{A}": "015_laptop/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 1921477990,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_laptop:s100007": {
+   "instruction": "Open the compact silver laptop carefully using the left arm.",
+   "episode_info": {
+    "{A}": "015_laptop/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 1325583927,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_laptop:s100008": {
+   "instruction": "Lift the foldable laptop's lid gently.",
+   "episode_info": {
+    "{A}": "015_laptop/base10",
+    "{a}": "right"
+   },
+   "rng_seed": 2088649778,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_microwave:s100000": {
+   "instruction": "Locate the gray and yellow rectangular microwave and open it using the left arm.",
+   "episode_info": {
+    "{A}": "044_microwave/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 569457647,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_microwave:s100001": {
+   "instruction": "Locate the medium-sized rectangular microwave with textured top and open it using the left arm.",
+   "episode_info": {
+    "{A}": "044_microwave/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 63744406,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_microwave:s100002": {
+   "instruction": "Grab the medium gray microwave with top vents's handle and pull to open it.",
+   "episode_info": {
+    "{A}": "044_microwave/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 2619376399,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_microwave:s100003": {
+   "instruction": "Locate the medium gray microwave with top vents and open it using the left arm.",
+   "episode_info": {
+    "{A}": "044_microwave/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 868026791,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "open_microwave:s100004": {
+   "instruction": "Locate the dark gray microwave and open it using the left arm.",
+   "episode_info": {
+    "{A}": "044_microwave/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 1203651100,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_diverse_bottles:s100001": {
+   "instruction": "Pick up both the bottle with ridged neck and the yellow bottle for liquid storage together.",
+   "episode_info": {
+    "{A}": "001_bottle/base14",
+    "{B}": "001_bottle/base11"
+   },
+   "rng_seed": 3161273328,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_diverse_bottles:s100005": {
+   "instruction": "Pick up the bottle with white cap with one arm, grab the brown bottle with glossy swirls with the other.",
+   "episode_info": {
+    "{A}": "001_bottle/base4",
+    "{B}": "001_bottle/base8"
+   },
+   "rng_seed": 2643732876,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_diverse_bottles:s100007": {
+   "instruction": "Grab the bottle with ridges near base and the bottle with yellow sticker label at the same time.",
+   "episode_info": {
+    "{A}": "001_bottle/base2",
+    "{B}": "001_bottle/base5"
+   },
+   "rng_seed": 3728715572,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_diverse_bottles:s100009": {
+   "instruction": "Use each arm to lift a bottle: the medium plastic bottle, then the brown cylindrical bottle with label.",
+   "episode_info": {
+    "{A}": "001_bottle/base7",
+    "{B}": "001_bottle/base15"
+   },
+   "rng_seed": 3277704839,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_diverse_bottles:s100013": {
+   "instruction": "Use each arm to lift a bottle: the plastic orange bottle with rounded base, then the medium-sized plastic bottle with capped top.",
+   "episode_info": {
+    "{A}": "001_bottle/base7",
+    "{B}": "001_bottle/base10"
+   },
+   "rng_seed": 788646410,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_dual_bottles:s100000": {
+   "instruction": "Take hold of the bottle with red screw cap and the green bottle with white label at once.",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{B}": "001_bottle/base16"
+   },
+   "rng_seed": 1758204726,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_dual_bottles:s100002": {
+   "instruction": "Hold the bottle with red screw cap in one hand, the green plastic bottle with ridged bottom in the other.",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{B}": "001_bottle/base16"
+   },
+   "rng_seed": 3717347900,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_dual_bottles:s100003": {
+   "instruction": "Pick the brown bottle, then pick the green plastic bottle with ridged bottom.",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{B}": "001_bottle/base16"
+   },
+   "rng_seed": 2902584547,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_dual_bottles:s100005": {
+   "instruction": "Use one arm to grab the bottle with red screw cap, the other for the green bottle with white label.",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{B}": "001_bottle/base16"
+   },
+   "rng_seed": 3292710103,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "pick_dual_bottles:s100006": {
+   "instruction": "Take hold of the plastic soda bottle and the green plastic bottle with ridged bottom at once.",
+   "episode_info": {
+    "{A}": "001_bottle/base13",
+    "{B}": "001_bottle/base16"
+   },
+   "rng_seed": 2947726259,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_a2b_left:s100004": {
+   "instruction": "Place the cardboard box for storing coffee to the left of the smooth metal bell using the right arm",
+   "episode_info": {
+    "{A}": "113_coffee-box/base1",
+    "{B}": "050_bell/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 1911149858,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Use the right arm to put the rectangular coffee box left of the bell with protruding knob"
+  },
+  "place_a2b_left:s100005": {
+   "instruction": "Set the hand-sized wireless mouse down to the left of the black box with smooth surface",
+   "episode_info": {
+    "{A}": "047_mouse/base1",
+    "{B}": "081_playingcards/base2",
+    "{a}": "right"
+   },
+   "rng_seed": 9018372,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Grab the mouse with sleek design with the right arm and shift it left of the palm-sized playingcards carton."
+  },
+  "place_a2b_left:s100006": {
+   "instruction": "Set the flat-bottomed mouse to the left of the hand-sized rubikscube with colored squares",
+   "episode_info": {
+    "{A}": "047_mouse/base1",
+    "{B}": "073_rubikscube/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 834005184,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_a2b_left:s100007": {
+   "instruction": "Set the dark phone with shiny finish to the left of the hard black box for card deck",
+   "episode_info": {
+    "{A}": "077_phone/base3",
+    "{B}": "081_playingcards/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 3067117992,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Set the phone with digital display on the left side of the box of playingcards."
+  },
+  "place_a2b_left:s100008": {
+   "instruction": "Grab the phone with shiny black back and place left of the coffee-box with orange circle",
+   "episode_info": {
+    "{A}": "077_phone/base4",
+    "{B}": "113_coffee-box/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 1528833166,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Grab the flat phone using the left arm and place it left of the rectangular red coffee-box."
+  },
+  "place_a2b_right:s100000": {
+   "instruction": "Put the bell with raised round top to the right of the brown soap.",
+   "episode_info": {
+    "{A}": "050_bell/base1",
+    "{B}": "107_soap/base3",
+    "{a}": "left"
+   },
+   "rng_seed": 1363029473,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Move the bell shaped like half-circle dome and place it carefully to the solid soap in light yellow's right."
+  },
+  "place_a2b_right:s100001": {
+   "instruction": "Put the compact toycar with shiny black tires to the right of the rectangular playingcards pack.",
+   "episode_info": {
+    "{A}": "057_toycar/base2",
+    "{B}": "081_playingcards/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 585599770,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Position the green toycar at the right side of the small black box with cards"
+  },
+  "place_a2b_right:s100002": {
+   "instruction": "Place the hand-sized black-gray mouse on the medium-sized bell's right side.",
+   "episode_info": {
+    "{A}": "047_mouse/base2",
+    "{B}": "050_bell/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 3454256746,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Place the dark gray mouse precisely to the right of the round bell."
+  },
+  "place_a2b_right:s100004": {
+   "instruction": "Grab the small box for playingcards and place it right of the solid gray rectangular cleaning soap.",
+   "episode_info": {
+    "{A}": "081_playingcards/base1",
+    "{B}": "107_soap/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 585837528,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Stick the rectangular playingcards case on the soap with tan specks's right side"
+  },
+  "place_a2b_right:s100005": {
+   "instruction": "Put the tea-box with smooth glossy finish to the right of the coffee box with slanted sides.",
+   "episode_info": {
+    "{A}": "112_tea-box/base4",
+    "{B}": "113_coffee-box/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 2382423450,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Position the gold-decorated beige tea box to the right of the coffee-box with cup image on top."
+  },
+  "place_bread_basket:s100000": {
+   "instruction": "Use one arm to grab the square bread with light spots and the bread with golden crust, drop in the medium-sized breadbasket.",
+   "episode_info": {
+    "{A}": "076_breadbasket/base2",
+    "{B}": "075_bread/base5",
+    "{a}": "left",
+    "{C}": "075_bread/base1"
+   },
+   "rng_seed": 3631985445,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_basket:s100001": {
+   "instruction": "Pick the braided top round bread and the round braided loaf and place them in the white basket with beige bottom.",
+   "episode_info": {
+    "{A}": "076_breadbasket/base1",
+    "{B}": "075_bread/base0",
+    "{a}": "dual",
+    "{C}": "075_bread/base0"
+   },
+   "rng_seed": 986407999,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_basket:s100003": {
+   "instruction": "Use the right arm to pick the soft bread with golden edges and place in the rectangular light brown breadbasket.",
+   "episode_info": {
+    "{A}": "076_breadbasket/base3",
+    "{B}": "075_bread/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 1131500157,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Use the left arm to grab the soft square bread and drop it inside the medium-sized rectangular breadbasket."
+  },
+  "place_bread_basket:s100005": {
+   "instruction": "Use the right arm to pick up the bread with golden crust, then place it in the breadbasket with woven pattern.",
+   "episode_info": {
+    "{A}": "076_breadbasket/base0",
+    "{B}": "075_bread/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 3397197337,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Grab the bread loaf with uneven edges with the left arm and drop it in the plastic breadbasket with mesh sides."
+  },
+  "place_bread_basket:s100006": {
+   "instruction": "Grab the bread loaf medium-sized and the bread loaf with soft surface and drop them into the breadbasket with smooth bottom grid sides.",
+   "episode_info": {
+    "{A}": "076_breadbasket/base1",
+    "{B}": "075_bread/base6",
+    "{a}": "left",
+    "{C}": "075_bread/base1"
+   },
+   "rng_seed": 2482025513,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_skillet:s100001": {
+   "instruction": "Use the left arm to move the square bread with light spots to the dark skillet with shiny finish.",
+   "episode_info": {
+    "{A}": "106_skillet/base0",
+    "{B}": "075_bread/base5",
+    "{a}": "left"
+   },
+   "rng_seed": 3752332040,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_skillet:s100006": {
+   "instruction": "Pick up the rectangular bread loaf and drop it into the pan-shaped skillet with hole in handle",
+   "episode_info": {
+    "{A}": "106_skillet/base0",
+    "{B}": "075_bread/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 3740007208,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_skillet:s100008": {
+   "instruction": "Grab the soft bread with golden edges and drop it into the pan-shaped skillet with hole in handle.",
+   "episode_info": {
+    "{A}": "106_skillet/base0",
+    "{B}": "075_bread/base5",
+    "{a}": "left"
+   },
+   "rng_seed": 146774370,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_skillet:s100011": {
+   "instruction": "Grab the rectangular bread loaf and place it in the smooth interior skillet",
+   "episode_info": {
+    "{A}": "106_skillet/base2",
+    "{B}": "075_bread/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2408176014,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_bread_skillet:s100013": {
+   "instruction": "Use the right arm to grab the rounded oval bread and set it in the pan-shaped skillet with hole in handle",
+   "episode_info": {
+    "{A}": "106_skillet/base0",
+    "{B}": "075_bread/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 3859538862,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_burger_fries:s100000": {
+   "instruction": "Grab the hamburg with white sides and the Golden fries in red carton box together, setting them on the smooth green tray.",
+   "episode_info": {
+    "{A}": "006_hamburg/base0",
+    "{B}": "008_tray/base2",
+    "{C}": "005_french-fries/base1"
+   },
+   "rng_seed": 2547120637,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_burger_fries:s100001": {
+   "instruction": "Pick up the rounded rectangular hamburg wrap and the golden fries in red holder together, then drop on the rectangular tray with rounded edges",
+   "episode_info": {
+    "{A}": "006_hamburg/base2",
+    "{B}": "008_tray/base1",
+    "{C}": "005_french-fries/base0"
+   },
+   "rng_seed": 1386094158,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_burger_fries:s100003": {
+   "instruction": "Pick the stackable hamburg box and the golden crispy fries inside red box, then place them on the medium flat tray.",
+   "episode_info": {
+    "{A}": "006_hamburg/base5",
+    "{B}": "008_tray/base3",
+    "{C}": "005_french-fries/base0"
+   },
+   "rng_seed": 3906132015,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_burger_fries:s100004": {
+   "instruction": "Pick up the hamburg with white and orange and the Golden fries in red carton box together, then drop on the rectangular tray with rounded edges",
+   "episode_info": {
+    "{A}": "006_hamburg/base1",
+    "{B}": "008_tray/base1",
+    "{C}": "005_french-fries/base1"
+   },
+   "rng_seed": 248449859,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_burger_fries:s100005": {
+   "instruction": "Pick the hamburg with curved surfaces and the golden crispy fries inside red box, then place them on the beige tray with soft edges.",
+   "episode_info": {
+    "{A}": "006_hamburg/base1",
+    "{B}": "008_tray/base0",
+    "{C}": "005_french-fries/base0"
+   },
+   "rng_seed": 3559910396,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_can_basket:s100001": {
+   "instruction": "Use the left arm to pick up the palm-sized red metal Coca-Cola can, put it into the yellow basket with open slots, the other arm lifts the yellow basket with open slots.",
+   "episode_info": {
+    "{A}": "071_can/base3",
+    "{B}": "110_basket/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2482384239,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_can_basket:s100002": {
+   "instruction": "Pick the cylindrical brown drink can with white markings, put it in the yellow basket with open slots, then lift the yellow basket with open slots.",
+   "episode_info": {
+    "{A}": "071_can/base5",
+    "{B}": "110_basket/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 4263990737,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_can_basket:s100003": {
+   "instruction": "Grab the small aluminum can, drop it into the medium-sized basket with perforated texture, lift the medium-sized basket with perforated texture with another arm.",
+   "episode_info": {
+    "{A}": "071_can/base1",
+    "{B}": "110_basket/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 547343388,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_can_basket:s100004": {
+   "instruction": "Use the right arm to pick up the gold and red soda can, put it into the yellow rectangular basket with dual grips, the other arm lifts the yellow rectangular basket with dual grips.",
+   "episode_info": {
+    "{A}": "071_can/base1",
+    "{B}": "110_basket/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 2306564126,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_can_basket:s100005": {
+   "instruction": "Grab the lightweight cylindrical metal can, drop it into the medium basket with smooth texture, lift the medium basket with smooth texture with another arm.",
+   "episode_info": {
+    "{A}": "071_can/base0",
+    "{B}": "110_basket/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 1504866760,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_cans_plasticbox:s100000": {
+   "instruction": "Move the lightweight cylindrical metal can into the medium-sized smooth plasticbox, then move the red can into the medium-sized smooth plasticbox.",
+   "episode_info": {
+    "{A}": "071_can/base0",
+    "{B}": "062_plasticbox/base3",
+    "{C}": "071_can/base3"
+   },
+   "rng_seed": 987540302,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_cans_plasticbox:s100002": {
+   "instruction": "Grab the cylindrical can with smooth surface and the cylindrical can with smooth surface and place them in the medium-sized smooth plasticbox",
+   "episode_info": {
+    "{A}": "071_can/base2",
+    "{B}": "062_plasticbox/base3",
+    "{C}": "071_can/base2"
+   },
+   "rng_seed": 688434873,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_cans_plasticbox:s100003": {
+   "instruction": "Grab the can with red body, drop it into the smooth exterior blue plasticbox. Repeat for the hand-sized can with metallic finish.",
+   "episode_info": {
+    "{A}": "071_can/base6",
+    "{B}": "062_plasticbox/base5",
+    "{C}": "071_can/base2"
+   },
+   "rng_seed": 3686139984,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_cans_plasticbox:s100004": {
+   "instruction": "Pick the can with gold logo design, set it in the rectangular plasticbox, then repeat with the cylindrical brown drink can with white markings.",
+   "episode_info": {
+    "{A}": "071_can/base1",
+    "{B}": "062_plasticbox/base5",
+    "{C}": "071_can/base5"
+   },
+   "rng_seed": 1947107745,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_cans_plasticbox:s100005": {
+   "instruction": "Grab the gold and red soda can, drop it in the rectangular plasticbox with locking clips, and do the same for the cylindrical can with bright colors.",
+   "episode_info": {
+    "{A}": "071_can/base1",
+    "{B}": "062_plasticbox/base3",
+    "{C}": "071_can/base2"
+   },
+   "rng_seed": 3644217425,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_container_plate:s100000": {
+   "instruction": "Grab container with the bowl for holding items, place it on the gray plate for dining.",
+   "episode_info": {
+    "{A}": "003_plate/base0",
+    "{B}": "002_bowl/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 713395157,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_container_plate:s100001": {
+   "instruction": "Place the container onto the gray plate with the palm-sized glossy bowl",
+   "episode_info": {
+    "{A}": "003_plate/base0",
+    "{B}": "002_bowl/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2877272287,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_container_plate:s100002": {
+   "instruction": "Move the palm-sized glossy bowl to set the container on the smooth round plate for serving",
+   "episode_info": {
+    "{A}": "003_plate/base0",
+    "{B}": "002_bowl/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 3857079360,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_container_plate:s100003": {
+   "instruction": "Set the container on the smooth round plate for serving with the smooth bowl with glossy finish.",
+   "episode_info": {
+    "{A}": "003_plate/base0",
+    "{B}": "002_bowl/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 1374947427,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_container_plate:s100005": {
+   "instruction": "Move the small smooth brown-rimmed bowl to set the container on the gray plate",
+   "episode_info": {
+    "{A}": "003_plate/base0",
+    "{B}": "002_bowl/base3",
+    "{a}": "left"
+   },
+   "rng_seed": 228745176,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_dual_shoes:s100000": {
+   "instruction": "Pick up two the shoe with adjustable laces, tips left, into the rectangular Nike box for shoes.",
+   "episode_info": {
+    "{A}": "041_shoe/base6",
+    "{B}": "007_shoe-box/base0"
+   },
+   "rng_seed": 3858214013,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_dual_shoes:s100001": {
+   "instruction": "Use both arms to move two the brown footwear with smooth texture to the orange box for keeping shoes, tips pointing left.",
+   "episode_info": {
+    "{A}": "041_shoe/base5",
+    "{B}": "007_shoe-box/base0"
+   },
+   "rng_seed": 4061445413,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_dual_shoes:s100002": {
+   "instruction": "Grab two the shoe with adjustable laces, point tips left, place in the medium cardboard shoe-box.",
+   "episode_info": {
+    "{A}": "041_shoe/base6",
+    "{B}": "007_shoe-box/base0"
+   },
+   "rng_seed": 4171836853,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_dual_shoes:s100003": {
+   "instruction": "Lift two the white shoe with tongue logo, tips pointing left, into the orange box for keeping shoes.",
+   "episode_info": {
+    "{A}": "041_shoe/base6",
+    "{B}": "007_shoe-box/base0"
+   },
+   "rng_seed": 1147536915,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_dual_shoes:s100004": {
+   "instruction": "Pick up two the brown shoe with sturdy sole, tips left, into the rectangular Nike box for shoes.",
+   "episode_info": {
+    "{A}": "041_shoe/base5",
+    "{B}": "007_shoe-box/base0"
+   },
+   "rng_seed": 249240262,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_empty_cup:s100000": {
+   "instruction": "Place the blue cup onto the disc-shaped light gray coaster.",
+   "episode_info": {
+    "{A}": "021_cup/base0",
+    "{B}": "019_coaster/base0"
+   },
+   "rng_seed": 3419655515,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_empty_cup:s100001": {
+   "instruction": "Set the small smooth cup on top of the disc-shaped light gray coaster.",
+   "episode_info": {
+    "{A}": "021_cup/base0",
+    "{B}": "019_coaster/base0"
+   },
+   "rng_seed": 4245680079,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_empty_cup:s100002": {
+   "instruction": "Place the blue cup onto the light gray coaster",
+   "episode_info": {
+    "{A}": "021_cup/base0",
+    "{B}": "019_coaster/base0"
+   },
+   "rng_seed": 897921201,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_empty_cup:s100003": {
+   "instruction": "Set the blue cup on top of the small drink-protecting wooden coaster.",
+   "episode_info": {
+    "{A}": "021_cup/base0",
+    "{B}": "019_coaster/base0"
+   },
+   "rng_seed": 781692921,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_empty_cup:s100004": {
+   "instruction": "Set the blue cup on top of the disc-shaped light gray coaster.",
+   "episode_info": {
+    "{A}": "021_cup/base0",
+    "{B}": "019_coaster/base0"
+   },
+   "rng_seed": 41506812,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_fan:s100002": {
+   "instruction": "Grab the plastic fan and set it on the Maroon mat.",
+   "episode_info": {
+    "{A}": "099_fan/base4",
+    "{B}": "Maroon",
+    "{a}": "right"
+   },
+   "rng_seed": 678943022,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_fan:s100003": {
+   "instruction": "Pick up the portable curved handle fan and set it on the Pink mat facing the robot.",
+   "episode_info": {
+    "{A}": "099_fan/base5",
+    "{B}": "Pink",
+    "{a}": "right"
+   },
+   "rng_seed": 506053960,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_fan:s100005": {
+   "instruction": "Place the white desk fan onto the Lime colored mat facing the robot.",
+   "episode_info": {
+    "{A}": "099_fan/base4",
+    "{B}": "Lime",
+    "{a}": "left"
+   },
+   "rng_seed": 1662205983,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_fan:s100006": {
+   "instruction": "Place the off-white fan with beige accents onto the Purple colored mat facing the robot.",
+   "episode_info": {
+    "{A}": "099_fan/base5",
+    "{B}": "Purple",
+    "{a}": "right"
+   },
+   "rng_seed": 736258617,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_fan:s100009": {
+   "instruction": "Pick the white desk fan and set it on the Olive mat facing the robot.",
+   "episode_info": {
+    "{A}": "099_fan/base4",
+    "{B}": "Olive",
+    "{a}": "left"
+   },
+   "rng_seed": 2931726767,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_mouse_pad:s100000": {
+   "instruction": "Grab the wireless mouse with left and right buttons and set it on Yellow mat.",
+   "episode_info": {
+    "{A}": "047_mouse/base2",
+    "{B}": "Yellow",
+    "{a}": "left"
+   },
+   "rng_seed": 3342600254,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_mouse_pad:s100001": {
+   "instruction": "Pick the hand-sized wireless mouse and position it on the Green colored mat.",
+   "episode_info": {
+    "{A}": "047_mouse/base1",
+    "{B}": "Green",
+    "{a}": "left"
+   },
+   "rng_seed": 4273234717,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_mouse_pad:s100002": {
+   "instruction": "Grab the dark gray wireless mouse and set it on the Blue mat.",
+   "episode_info": {
+    "{A}": "047_mouse/base2",
+    "{B}": "Blue",
+    "{a}": "right"
+   },
+   "rng_seed": 656378419,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_mouse_pad:s100003": {
+   "instruction": "Grab the hand-sized black-gray mouse and set it on the Gray mat.",
+   "episode_info": {
+    "{A}": "047_mouse/base2",
+    "{B}": "Gray",
+    "{a}": "right"
+   },
+   "rng_seed": 384876868,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_mouse_pad:s100004": {
+   "instruction": "Grab the flat-bottomed mouse and set it on Gray mat.",
+   "episode_info": {
+    "{A}": "047_mouse/base1",
+    "{B}": "Gray",
+    "{a}": "right"
+   },
+   "rng_seed": 309984240,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_basket:s100000": {
+   "instruction": "Grab the gray base toycar and put it into the basket with rounded edges.",
+   "episode_info": {
+    "{A}": "057_toycar/base1",
+    "{B}": "110_basket/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 3201852767,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_basket:s100002": {
+   "instruction": "Place the black box with smooth surface in the medium-sized basket with perforated texture and move it.",
+   "episode_info": {
+    "{A}": "081_playingcards/base2",
+    "{B}": "110_basket/base1",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 3429825030,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_basket:s100003": {
+   "instruction": "Pick up the pink toycar with white bumper, place it in the yellow basket with open slots, move the yellow basket with open slots.",
+   "episode_info": {
+    "{A}": "057_toycar/base2",
+    "{B}": "110_basket/base1",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 1322494970,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_basket:s100007": {
+   "instruction": "Pick up the tiny pink car with four wheels, place it in the yellow rectangular basket with dual grips, move the yellow rectangular basket with dual grips.",
+   "episode_info": {
+    "{A}": "057_toycar/base2",
+    "{B}": "110_basket/base1",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 3142657517,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_basket:s100008": {
+   "instruction": "Use one arm to grab the black box with smooth surface, place it in the medium basket with smooth texture.",
+   "episode_info": {
+    "{A}": "081_playingcards/base2",
+    "{B}": "110_basket/base0",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 1401077864,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_scale:s100000": {
+   "instruction": "Use one arm to pick the lightweight bell with smooth surface for the electronicscale flat base and stand",
+   "episode_info": {
+    "{A}": "072_electronicscale/base0",
+    "{B}": "050_bell/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 2665492598,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Pick up the blue bell and drop it on the white electronicscale with red buttons"
+  },
+  "place_object_scale:s100001": {
+   "instruction": "Pick up the metal and plastic stapler and set it on the electronicscale",
+   "episode_info": {
+    "{A}": "072_electronicscale/base5",
+    "{B}": "048_stapler/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 614976957,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Move the plastic stapler with metallic interior to the electronicscale with a glass display and leave it there."
+  },
+  "place_object_scale:s100002": {
+   "instruction": "Use the right arm to put the lightweight bell with smooth surface on the electronicscale with gold round platform.",
+   "episode_info": {
+    "{A}": "072_electronicscale/base6",
+    "{B}": "050_bell/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 3446828299,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Move the compact bell with round base to the position on the lightweight electronicscale"
+  },
+  "place_object_scale:s100004": {
+   "instruction": "Pick up the stapler with silver metal top and set it on the gold circular platform electronicscale",
+   "episode_info": {
+    "{A}": "072_electronicscale/base6",
+    "{B}": "048_stapler/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 651835979,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Use the right arm to lift the stapler with curved blue top onto the electronicscale with digital screen"
+  },
+  "place_object_scale:s100005": {
+   "instruction": "Grab the flat-bottomed mouse and put it on the gold circular platform electronicscale",
+   "episode_info": {
+    "{A}": "072_electronicscale/base6",
+    "{B}": "047_mouse/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 133303159,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_object_stand:s100001": {
+   "instruction": "Grab the metal and plastic stapler using the left arm and place on the displaystand with angled sides.",
+   "episode_info": {
+    "{A}": "048_stapler/base1",
+    "{B}": "074_displaystand/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 947917968,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Grab the blue stapler using the left arm and place it on the hollow black plastic displaystand"
+  },
+  "place_object_stand:s100002": {
+   "instruction": "Use the right arm to grab the blue bell with glossy finish and place it on the rectangular displaystand",
+   "episode_info": {
+    "{A}": "050_bell/base1",
+    "{B}": "074_displaystand/base4",
+    "{a}": "right"
+   },
+   "rng_seed": 608955219,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Move the compact tabletop bell to the medium black angled displaystand and set it there."
+  },
+  "place_object_stand:s100003": {
+   "instruction": "Grab the handheld rubikscube using the right arm and place on the tabletop-sized displaystand.",
+   "episode_info": {
+    "{A}": "073_rubikscube/base0",
+    "{B}": "074_displaystand/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 246873798,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Pick the multicolored puzzle cube up and place on the rectangular plastic displaystand"
+  },
+  "place_object_stand:s100004": {
+   "instruction": "Place the remotecontrol for controlling devices on the compact black hollow displaystand with the right arm.",
+   "episode_info": {
+    "{A}": "079_remotecontrol/base6",
+    "{B}": "074_displaystand/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 3777521907,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Put the black button remotecontrol on the black displaystand for holding items after picking it"
+  },
+  "place_object_stand:s100006": {
+   "instruction": "Grab the red stapler with silver chamber using the right arm and place on the medium-sized displaystand.",
+   "episode_info": {
+    "{A}": "048_stapler/base4",
+    "{B}": "074_displaystand/base4",
+    "{a}": "right"
+   },
+   "rng_seed": 3321998468,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_phone_stand:s100000": {
+   "instruction": "Set the rectangular phone with curved edges on the L-shaped smooth brown phonestand.",
+   "episode_info": {
+    "{A}": "077_phone/base2",
+    "{B}": "078_phonestand/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 1895318996,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_phone_stand:s100009": {
+   "instruction": "Set the palm-sized phone with glossy finish on the angled brown phonestand.",
+   "episode_info": {
+    "{A}": "077_phone/base4",
+    "{B}": "078_phonestand/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 2115025483,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_phone_stand:s100010": {
+   "instruction": "Set the palm-sized phone with glossy finish on the adjustable phone holder.",
+   "episode_info": {
+    "{A}": "077_phone/base4",
+    "{B}": "078_phonestand/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 3816625041,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_phone_stand:s100012": {
+   "instruction": "Set the phone with rounded edges on the brown angled plastic phonestand.",
+   "episode_info": {
+    "{A}": "077_phone/base0",
+    "{B}": "078_phonestand/base2",
+    "{a}": "right"
+   },
+   "rng_seed": 1433033410,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_phone_stand:s100013": {
+   "instruction": "Set the phone with rounded edges on the brown angled plastic phonestand.",
+   "episode_info": {
+    "{A}": "077_phone/base4",
+    "{B}": "078_phonestand/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 3876140135,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_shoe:s100001": {
+   "instruction": "Pick up the medium adult shoe from the table and set it down on the mat",
+   "episode_info": {
+    "{A}": "041_shoe/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2665409360,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_shoe:s100002": {
+   "instruction": "Grab the shoe with black stripe design and set it on the mat",
+   "episode_info": {
+    "{A}": "041_shoe/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 2886015627,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_shoe:s100003": {
+   "instruction": "Grab the shoe with black stripe design off the table and drop it on the mat",
+   "episode_info": {
+    "{A}": "041_shoe/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 2963831403,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_shoe:s100004": {
+   "instruction": "Pick up the brown footwear with smooth texture from the table and set it down on the mat",
+   "episode_info": {
+    "{A}": "041_shoe/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 88211070,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "place_shoe:s100005": {
+   "instruction": "Pick up the shoe with padded collar and tongue from the table and set it down on the mat",
+   "episode_info": {
+    "{A}": "041_shoe/base0",
+    "{a}": "left"
+   },
+   "rng_seed": 2872048130,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "press_stapler:s100000": {
+   "instruction": "Press down on the blue stapler with smooth finish firmly using the left arm.",
+   "episode_info": {
+    "{A}": "048_stapler/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 1885885533,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "press_stapler:s100001": {
+   "instruction": "Press the metal and plastic stapler firmly using your arm.",
+   "episode_info": {
+    "{A}": "048_stapler/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 4145835027,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "press_stapler:s100002": {
+   "instruction": "Push the small stapler with simple design down with one arm the right arm.",
+   "episode_info": {
+    "{A}": "048_stapler/base0",
+    "{a}": "right"
+   },
+   "rng_seed": 3358382077,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "press_stapler:s100003": {
+   "instruction": "Use the right arm to press the white stapler with metal tray.",
+   "episode_info": {
+    "{A}": "048_stapler/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 2251478806,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "press_stapler:s100004": {
+   "instruction": "Use the right arm to press the shiny red plastic stapler.",
+   "episode_info": {
+    "{A}": "048_stapler/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 585239590,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_bottles_dustbin:s100005": {
+   "instruction": "Pick up the yellow bottle with elongated cylinder body, drop it into the curved rectangular trash can, then repeat for the bottle with ridges and the plastic bottle with ridges near bottom.",
+   "episode_info": {
+    "{A}": "114_bottle/base1",
+    "{B}": "114_bottle/base2",
+    "{C}": "114_bottle/base3",
+    "{D}": "011_dustbin/base0"
+   },
+   "rng_seed": 2244661836,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_bottles_dustbin:s100015": {
+   "instruction": "Pick up the yellow bottle with elongated cylinder body and drop it into the smooth surface dustbin, do the same for the plastic bottle and the medium black bottle.",
+   "episode_info": {
+    "{A}": "114_bottle/base1",
+    "{B}": "114_bottle/base2",
+    "{C}": "114_bottle/base3",
+    "{D}": "011_dustbin/base0"
+   },
+   "rng_seed": 811915965,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_bottles_dustbin:s100016": {
+   "instruction": "Use arms to grab the plastic bottle with two distinct parts, the bottle with ridges, and the medium black bottle, placing each into the simple black garbage bin.",
+   "episode_info": {
+    "{A}": "114_bottle/base1",
+    "{B}": "114_bottle/base2",
+    "{C}": "114_bottle/base3",
+    "{D}": "011_dustbin/base0"
+   },
+   "rng_seed": 1510989654,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_bottles_dustbin:s100021": {
+   "instruction": "Take each bottle the yellow plastic bottle, the bottle with blue highlights, the bottle with red screw cap one by one and place them in the curved rectangular trash can.",
+   "episode_info": {
+    "{A}": "114_bottle/base1",
+    "{B}": "114_bottle/base2",
+    "{C}": "114_bottle/base3",
+    "{D}": "011_dustbin/base0"
+   },
+   "rng_seed": 1003894522,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_bottles_dustbin:s100022": {
+   "instruction": "Take each bottle the yellow bottle with elongated cylinder body, the bottle with blue highlights, the bottle with red screw cap one by one and place them in the curved rectangular trash can.",
+   "episode_info": {
+    "{A}": "114_bottle/base1",
+    "{B}": "114_bottle/base2",
+    "{C}": "114_bottle/base3",
+    "{D}": "011_dustbin/base0"
+   },
+   "rng_seed": 1337001658,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_object_cabinet:s100032": {
+   "instruction": "Pull out the drawer of the cabinet with smooth finish and set the blue stapler for holding papers into it.",
+   "episode_info": {
+    "{A}": "048_stapler/base0",
+    "{B}": "036_cabinet/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 1395885577,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Pull open the wooden cabinet's drawer and place the small office stapler inside it."
+  },
+  "put_object_cabinet:s100049": {
+   "instruction": "Pull out the drawer of the cabinet with light wood panels and set the oval bread into it.",
+   "episode_info": {
+    "{A}": "075_bread/base3",
+    "{B}": "036_cabinet/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 1407317297,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Pull open the drawer of the cabinet with metal reinforcements and place the light golden brown bread inside."
+  },
+  "put_object_cabinet:s100060": {
+   "instruction": "Open the slanted wooden cabinet's drawer and set the rectangular red playingcards holder inside with the other arm.",
+   "episode_info": {
+    "{A}": "081_playingcards/base1",
+    "{B}": "036_cabinet/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 4279808106,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_object_cabinet:s100115": {
+   "instruction": "Pull out the drawer of the cabinet with light wood panels and set the hand-sized rubikscube with colored squares into it.",
+   "episode_info": {
+    "{A}": "073_rubikscube/base1",
+    "{B}": "036_cabinet/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 3965956229,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "put_object_cabinet:s100173": {
+   "instruction": "Pull out the drawer of the slanted wooden cabinet and set the box with coffee mug design into it.",
+   "episode_info": {
+    "{A}": "113_coffee-box/base6",
+    "{B}": "036_cabinet/base0",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 2085952077,
+   "unseen_pool_size": 100,
+   "rpent_witness": "scene_differs",
+   "rpent_seen_sentence": "Place the Nescafe coffee-box with shiny surface into the drawer of the storage cabinet after sliding it open."
+  },
+  "rotate_qrcode:s100000": {
+   "instruction": "Pick the black triangular stand up from the table and rotate it.",
+   "episode_info": {
+    "{A}": "070_paymentsign/base2",
+    "{a}": "left"
+   },
+   "rng_seed": 3919795907,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "rotate_qrcode:s100001": {
+   "instruction": "Catch the paymentsign with black metal stand on the table and pick it up.",
+   "episode_info": {
+    "{A}": "070_paymentsign/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 701812036,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "rotate_qrcode:s100002": {
+   "instruction": "Pick up the medium paymentsign with QR section and rotate it facing you.",
+   "episode_info": {
+    "{A}": "070_paymentsign/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 868840881,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "rotate_qrcode:s100003": {
+   "instruction": "Grab the paymentsign with smooth base stand, lift it, and rotate to see the qrcode.",
+   "episode_info": {
+    "{A}": "070_paymentsign/base3",
+    "{a}": "right"
+   },
+   "rng_seed": 3745041493,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "rotate_qrcode:s100004": {
+   "instruction": "Grab the paymentsign with angled support bars, lift it, and turn it to face you",
+   "episode_info": {
+    "{A}": "070_paymentsign/base1",
+    "{a}": "right"
+   },
+   "rng_seed": 2147968843,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "scan_object:s100007": {
+   "instruction": "Grab the handheld scanner with blue activation trigger, take the cube tea box with shiny embossed patterns, and scan the cube tea box with shiny embossed patterns using the handheld scanner with blue activation trigger.",
+   "episode_info": {
+    "{A}": "112_tea-box/base5",
+    "{B}": "024_scanner/base2",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 4193977598,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "scan_object:s100009": {
+   "instruction": "Grab the scanner for barcode scanning with one arm, take the decorative golden tea box with the other, then scan the decorative golden tea box using the scanner for barcode scanning",
+   "episode_info": {
+    "{A}": "112_tea-box/base3",
+    "{B}": "024_scanner/base1",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 315593298,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "scan_object:s100013": {
+   "instruction": "Grab the handheld scanner with blue activation trigger, take the tea-box with small handle, and scan the tea-box with small handle using the handheld scanner with blue activation trigger.",
+   "episode_info": {
+    "{A}": "112_tea-box/base4",
+    "{B}": "024_scanner/base2",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 3485015231,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "scan_object:s100015": {
+   "instruction": "Pick the black scanner with ergonomic handle, grab the compact tea box, and scan the compact tea box with the black scanner with ergonomic handle.",
+   "episode_info": {
+    "{A}": "112_tea-box/base0",
+    "{B}": "024_scanner/base2",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 2403654066,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "scan_object:s100024": {
+   "instruction": "Pick the handheld scanner with blue activation trigger, grab the beige box with golden decoration, and scan it with the handheld scanner with blue activation trigger.",
+   "episode_info": {
+    "{A}": "112_tea-box/base5",
+    "{B}": "024_scanner/base2",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 2196282592,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle:s100001": {
+   "instruction": "Grab the yellow bottle with white cap and give it a shake.",
+   "episode_info": {
+    "{A}": "001_bottle/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 1078692163,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle:s100002": {
+   "instruction": "Pick and shake the the medium-sized plastic bottle with capped top with the right arm.",
+   "episode_info": {
+    "{A}": "001_bottle/base10",
+    "{a}": "right"
+   },
+   "rng_seed": 30849480,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle:s100004": {
+   "instruction": "Grab the bottle with curved body and shake it.",
+   "episode_info": {
+    "{A}": "001_bottle/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 1251103321,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle:s100007": {
+   "instruction": "Use the left arm to grab the medium-sized plastic bottle with capped top and shake.",
+   "episode_info": {
+    "{A}": "001_bottle/base10",
+    "{a}": "left"
+   },
+   "rng_seed": 287644478,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle:s100008": {
+   "instruction": "Use the right arm to grab the lightweight plastic brown bottle and shake.",
+   "episode_info": {
+    "{A}": "001_bottle/base15",
+    "{a}": "right"
+   },
+   "rng_seed": 3425503912,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle_horizontally:s100001": {
+   "instruction": "Grab the smooth bottle with blue text with the left arm, shake horizontally.",
+   "episode_info": {
+    "{A}": "001_bottle/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2016767929,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle_horizontally:s100002": {
+   "instruction": "Grip the liquid container dark brown plastic and shake it horizontally.",
+   "episode_info": {
+    "{A}": "001_bottle/base10",
+    "{a}": "right"
+   },
+   "rng_seed": 3451362101,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle_horizontally:s100004": {
+   "instruction": "Shake the curvy orange bottle with white section horizontally after grabbing.",
+   "episode_info": {
+    "{A}": "001_bottle/base5",
+    "{a}": "right"
+   },
+   "rng_seed": 1533693222,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle_horizontally:s100007": {
+   "instruction": "Grab the liquid container dark brown plastic with the left arm and shake horizontally.",
+   "episode_info": {
+    "{A}": "001_bottle/base10",
+    "{a}": "left"
+   },
+   "rng_seed": 1839401538,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "shake_bottle_horizontally:s100008": {
+   "instruction": "Shake the brown bottle horizontally after grabbing.",
+   "episode_info": {
+    "{A}": "001_bottle/base15",
+    "{a}": "right"
+   },
+   "rng_seed": 3892673155,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_three:s100000": {
+   "instruction": "Move red block, green block, and blue block to the table's center and stack them.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "left"
+   },
+   "rng_seed": 1759117648,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_three:s100001": {
+   "instruction": "Move red block, green block, and blue block to the center, then stack blue block on green block and green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "left",
+    "{b}": "right",
+    "{c}": "left"
+   },
+   "rng_seed": 2762702641,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_three:s100002": {
+   "instruction": "Move red block, green block, and blue block to the center, then stack blue block on green block and green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "left"
+   },
+   "rng_seed": 1351691849,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_three:s100003": {
+   "instruction": "Bring red block, green block, blue block to the table's center and stack them: blue block on green block, green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "left"
+   },
+   "rng_seed": 826794809,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_three:s100004": {
+   "instruction": "Move red block, green block, and blue block to the center, then stack blue block on green block and green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{C}": "blue block",
+    "{a}": "right",
+    "{b}": "left",
+    "{c}": "right"
+   },
+   "rng_seed": 1644958231,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_two:s100000": {
+   "instruction": "Move red block and green block to the table's center, then stack green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 3303294797,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_two:s100001": {
+   "instruction": "Move red block and green block to the center, then stack green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{a}": "left",
+    "{b}": "right"
+   },
+   "rng_seed": 2377713177,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_two:s100002": {
+   "instruction": "Place red block in the center, then stack green block on it.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 455282112,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_two:s100003": {
+   "instruction": "Place red block in the center, then stack green block on it.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 3033225593,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_blocks_two:s100004": {
+   "instruction": "Grab red block, place it at the center, then stack green block on red block.",
+   "episode_info": {
+    "{A}": "red block",
+    "{B}": "green block",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 467655574,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_three:s100000": {
+   "instruction": "Grab the first the light blue bowl with darkened rim and stack the others on top.",
+   "episode_info": {
+    "{A}": "002_bowl/base3"
+   },
+   "rng_seed": 472391649,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_three:s100001": {
+   "instruction": "Stack the three the light blue bowl with darkened rim one above the other.",
+   "episode_info": {
+    "{A}": "002_bowl/base3"
+   },
+   "rng_seed": 1506320968,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_three:s100002": {
+   "instruction": "Stack the small smooth brown-rimmed bowl by placing smallest on top.",
+   "episode_info": {
+    "{A}": "002_bowl/base3"
+   },
+   "rng_seed": 3370858291,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_three:s100006": {
+   "instruction": "Pick up the first the light blue bowl with darkened rim and layer the rest above it.",
+   "episode_info": {
+    "{A}": "002_bowl/base3"
+   },
+   "rng_seed": 857614866,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_three:s100007": {
+   "instruction": "Stack the first the small smooth brown-rimmed bowl, then the second, then the third.",
+   "episode_info": {
+    "{A}": "002_bowl/base3"
+   },
+   "rng_seed": 3278955212,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_two:s100000": {
+   "instruction": "Grab the light blue bowl with darkened rim and stack the smooth bowl with glossy finish on it.",
+   "episode_info": {
+    "{A}": "002_bowl/base3",
+    "{B}": "002_bowl/base3",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 2434305545,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_two:s100001": {
+   "instruction": "Take the smooth bowl with glossy finish, set it down, and stack the light blue bowl with darkened rim on top.",
+   "episode_info": {
+    "{A}": "002_bowl/base3",
+    "{B}": "002_bowl/base3",
+    "{a}": "left",
+    "{b}": "left"
+   },
+   "rng_seed": 3654863935,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_two:s100002": {
+   "instruction": "Take the small smooth brown-rimmed bowl, set it down, and stack the small smooth brown-rimmed bowl on top.",
+   "episode_info": {
+    "{A}": "002_bowl/base3",
+    "{B}": "002_bowl/base3",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 3129544281,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_two:s100004": {
+   "instruction": "Place the light blue bowl with darkened rim down, then put the light blue bowl with darkened rim on top.",
+   "episode_info": {
+    "{A}": "002_bowl/base3",
+    "{B}": "002_bowl/base3",
+    "{a}": "right",
+    "{b}": "right"
+   },
+   "rng_seed": 3195511030,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stack_bowls_two:s100006": {
+   "instruction": "Place the light blue bowl with darkened rim onto the smooth bowl with glossy finish to form a stack.",
+   "episode_info": {
+    "{A}": "002_bowl/base3",
+    "{B}": "002_bowl/base3",
+    "{a}": "right",
+    "{b}": "left"
+   },
+   "rng_seed": 856650275,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stamp_seal:s100003": {
+   "instruction": "Use the right arm to grab the solid brown seal, stamp Blue.",
+   "episode_info": {
+    "{A}": "100_seal/base3",
+    "{B}": "Blue",
+    "{a}": "right"
+   },
+   "rng_seed": 3065222642,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stamp_seal:s100004": {
+   "instruction": "Grab the small rectangular seal for stamping and stamp Yellow",
+   "episode_info": {
+    "{A}": "100_seal/base4",
+    "{B}": "Yellow",
+    "{a}": "right"
+   },
+   "rng_seed": 2841730985,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stamp_seal:s100005": {
+   "instruction": "Stamp Maroon using the reddish rectangular seal",
+   "episode_info": {
+    "{A}": "100_seal/base2",
+    "{B}": "Maroon",
+    "{a}": "left"
+   },
+   "rng_seed": 411213393,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stamp_seal:s100006": {
+   "instruction": "Pick the block-shaped seal with angled edges and stamp on Magenta",
+   "episode_info": {
+    "{A}": "100_seal/base3",
+    "{B}": "Magenta",
+    "{a}": "right"
+   },
+   "rng_seed": 934423770,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "stamp_seal:s100007": {
+   "instruction": "Pick the solid brown seal to stamp Orange",
+   "episode_info": {
+    "{A}": "100_seal/base3",
+    "{B}": "Orange",
+    "{a}": "left"
+   },
+   "rng_seed": 1441060234,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "turn_switch:s100001": {
+   "instruction": "Click the hand-sized square electrical switch with the left arm",
+   "episode_info": {
+    "{A}": "056_switch/base6",
+    "{a}": "left"
+   },
+   "rng_seed": 2214902055,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "turn_switch:s100003": {
+   "instruction": "Use the right arm to press the smooth gray base switch",
+   "episode_info": {
+    "{A}": "056_switch/base6",
+    "{a}": "right"
+   },
+   "rng_seed": 737537245,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "turn_switch:s100005": {
+   "instruction": "Direct the right arm to click the curved toggle switch",
+   "episode_info": {
+    "{A}": "056_switch/base4",
+    "{a}": "right"
+   },
+   "rng_seed": 2328248384,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "turn_switch:s100006": {
+   "instruction": "Click the small beige switch with angular sides with the left arm.",
+   "episode_info": {
+    "{A}": "056_switch/base1",
+    "{a}": "left"
+   },
+   "rng_seed": 2493351886,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  },
+  "turn_switch:s100008": {
+   "instruction": "Use the left arm to press the matte black plastic switch",
+   "episode_info": {
+    "{A}": "056_switch/base3",
+    "{a}": "left"
+   },
+   "rng_seed": 1985591785,
+   "unseen_pool_size": 100,
+   "rpent_witness": "consistent"
+  }
+ }
+}

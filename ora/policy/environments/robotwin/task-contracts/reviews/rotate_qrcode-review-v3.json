@@ -1,0 +1,242 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "rotate_qrcode",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/rotate_qrcode.py",
+      "sha256": "382165e22a2a52a73958ff69c662e57a4d1f0bc8cb7cecf3e9dd1f5ba11defa9"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/rotate_qrcode.json",
+      "sha256": "a48d6c4bdebc043ea0e5745e909b7200f37fdce5c040202de87048c7db74a791"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/070_paymentsign/model_data0.json",
+      "sha256": "e6c9a5a8b7ed0cf24418eae3760ce4c3d2d34f09f60b8320ebe3c749ba2e6e37"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/070_paymentsign/model_data1.json",
+      "sha256": "be2e13b2e847ea454a92373f94133b5b0511acbf7bd879332a8dc49f99d4f9c5"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/070_paymentsign/model_data2.json",
+      "sha256": "a31bbebd737087785cfd2d773e07edf2a986353382a6602d2d7897e1d53197f0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/070_paymentsign/model_data3.json",
+      "sha256": "5e691ae692af30198b27f6bad22cc14f82e97132810562a5ea648bff36d7d0b5"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/070_paymentsign/points_info.json",
+      "sha256": "22d453e495908a0ef030fa09f7b6936dd5f01ac99452bef33e44f1294f1ffdb5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/070_paymentsign/collision/base2.glb",
+      "sha256": "815eb002e3d97c0d4a12a277cafe727da5013f84e9663eb940464fa10cc8273f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/070_paymentsign/visual/base2.glb",
+      "sha256": "84405ad0674c70fe31662a1dea790e3d99566f1d5853610afa618e9d72cb231a"
+    },
+    {
+      "role": "reset_display_geometry",
+      "path": "assets/objects/070_paymentsign/visual/base0.glb",
+      "sha256": "af0bcb8d6ba0ad22585cc7c9512e539df9b0c183c855a4c035eb9ed6b4cc1a6e"
+    },
+    {
+      "role": "reset_display_geometry",
+      "path": "assets/objects/070_paymentsign/visual/base1.glb",
+      "sha256": "c83a7f553626397bfdd0f1d130bff535f3a8c10d7f3bfc164bb4e6180a7b30db"
+    },
+    {
+      "role": "reset_display_geometry",
+      "path": "assets/objects/070_paymentsign/visual/base3.glb",
+      "sha256": "f7662859ae065ff1bcba4588525afe5cdb2497a061c32456e07123dcce9ab003"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/robotwin-random50-eval/qualification/20260910T132131Z-1789046491013636269/rotate_qrcode/rotate_qrcode/attempts/seed-100000-try-00/attempt.json",
+      "sha256": "483d9117e50a1669c3fb434c8ed9d99a69a3dd2969af69bc69388c3eee56ebf5"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/robotwin-random50-eval/qualification/20260910T132131Z-1789046491013636269/rotate_qrcode/rotate_qrcode/attempts/seed-100000-try-00/verifier-telemetry.json",
+      "sha256": "767d5a3105c9c10ceb9c4a0e53e9946cef1684ee62abc6d13f3af6d727754bd1"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/robotwin-random50-eval/qualification/20260910T132131Z-1789046491013636269/rotate_qrcode/rotate_qrcode/attempts/seed-100000-try-00/head_camera-rgb.png",
+      "sha256": "e1982d55e861ea15c3f1fb7a4c7b20cb83526ea938c28127e4226c51c9464bd1"
+    }
+  ],
+  "public_clauses": [
+    "Set the QR-code sign back on the table on its base, with the printed display standing and facing the robot directly.",
+    "Align the sign squarely with the table. Judge its final facing direction from the current view; the required turn depends on its starting orientation.",
+    "Leave both grippers open when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: sign-normalized WXYZ near [.707,.707,0,0] AND root z < .75 + table_z_bias; standing interpretation verified on asset and success image.",
+      "interpretation": "Set the QR-code sign back on the table on its base, with the printed display standing and facing the robot directly.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "load_actors randomizes initial rotation while check_success uses a fixed absolute orientation; no relative-turn condition.",
+      "interpretation": "Align the sign squarely with the table. Judge its final facing direction from the current view; the required turn depends on its starting orientation.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "source_basis": "check_success: is_left_gripper_open AND is_right_gripper_open; wrappers delegate to cached normalized gripper command state.",
+      "interpretation": "Leave both grippers open when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        2
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/rotate_qrcode.py:check_success lines 70-78, helper and asset dependencies listed in this record.",
+      "interpretation": "No x/y target, exact original-location, fixed relative yaw, joint/folding or gripper holding-nothing test.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No x/y target, exact original-location, fixed relative yaw, joint/folding or gripper holding-nothing test."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. All four paymentsign metadata and visual meshes bound; loaded as one dynamic rigid actor, with no hinge. Model2 RGB witness has standing printed panel on base."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "All four paymentsign metadata and visual meshes bound; loaded as one dynamic rigid actor, with no hinge. Model2 RGB witness has standing printed panel on base. Parsed 5 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. All four paymentsign metadata and visual meshes bound; loaded as one dynamic rigid actor, with no hinge. Model2 RGB witness has standing printed panel on base."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Random seed100000 model2 head image shows upright robot-facing QR panel and base; telemetry and hold support the same state."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "A fixed half-turn from a diagonal initial pose remains misaligned. Laying the printed display flat contradicts the supported successful pose. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No x/y target, exact original-location, fixed relative yaw, joint/folding or gripper holding-nothing test."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "A fixed half-turn from a diagonal initial pose remains misaligned. Laying the printed display flat contradicts the supported successful pose.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [
+    "lying flat",
+    "code side up",
+    "half turn",
+    "turned in place",
+    "hinge",
+    "unfold"
+  ],
+  "change_summary": "沿用已确认的正立修复；删除平躺、码面朝上、原地固定半圈与可折叠的暗示。",
+  "witness_scope": {
+    "source_revision": "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "requested_seed": 100000,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "070_paymentsign",
+        "model_id": 2
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Random seed100000 model2 head image shows upright robot-facing QR panel and base; telemetry and hold support the same state.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No x/y target, exact original-location, fixed relative yaw, joint/folding or gripper holding-nothing test. Random seed100000 model2 head image shows upright robot-facing QR panel and base; telemetry and hold support the same state. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

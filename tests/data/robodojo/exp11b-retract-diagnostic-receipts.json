@@ -1,0 +1,825 @@
+{
+ "receipts": {
+  "action-0375d9a8ef21b00b": {
+   "action": "recover_motion",
+   "action_id": "action-0375d9a8ef21b00b",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995288372039795,
+      -0.35245901346206665,
+      0.923222541809082,
+      0.0010794512927532196,
+      -0.0010791259119287133,
+      0.7072119116783142,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "arguments": {
+    "targets": {
+     "left": "home"
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": null,
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 6,
+       "returned": 32,
+       "valid_endpoint": 12
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision and against the other arm at its measured joints (finger links are not in the sphere model); no scene, table, payload or task-success proof.",
+      "outcome": "admitted",
+      "phase": "ik_candidate_validation",
+      "recovery": [],
+      "rejection_counts": {
+       "joint_jump": 6,
+       "pitch_joint_wrap": 4,
+       "sdk_not_feasible_or_converged": 16
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 0.0030526676539592897,
+      "translation_m": 0.0017298507582335723
+     },
+     "recovery_progress": {
+      "fallback_strategy": "retract_then_unwind",
+      "outcome": "arrived",
+      "retract": {
+       "lift_m": 0.10000000000000009,
+       "outcome": "arrived",
+       "pose": [
+        -0.2803170382976532,
+        0.005433220416307449,
+        1.0592318534851075,
+        0.002502765040844679,
+        0.6905684471130371,
+        0.35229530930519104,
+        0.6316620111465454
+       ],
+       "status": "planned"
+      },
+      "route": "retract_then_unwind",
+      "stopped": null
+     },
+     "targeted": true
+    },
+    "right": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2803170382976532,
+      0.005433220416307449,
+      0.9592318534851074,
+      0.002502765040844679,
+      0.6905684471130371,
+      0.35229530930519104,
+      0.6316620111465454
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_ik_joint_interpolation",
+    "robodojo_sdk_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "ik_attempts": [
+    {
+     "arm": "left",
+     "ik_status": "Success",
+     "segment": "retract"
+    }
+   ],
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "left"
+   ],
+   "terminal_after_action": false
+  },
+  "action-597e9a02045cd4d2": {
+   "action": "recover_motion",
+   "action_id": "action-597e9a02045cd4d2",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995290756225586,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709780216217,
+      -0.351642370223999,
+      0.9256258010864258,
+      -0.0036803444381803274,
+      0.0037012198008596897,
+      0.7072030305862427,
+      0.7069911956787109
+     ]
+    }
+   },
+   "arguments": {
+    "targets": {
+     "right": "home"
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    },
+    "right": {
+     "interaction": null,
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 0,
+       "returned": 32,
+       "valid_endpoint": 0
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision and against the other arm at its measured joints (finger links are not in the sphere model); no scene, table, payload or task-success proof.",
+      "outcome": "no_valid_endpoint",
+      "phase": "ik_candidate_validation",
+      "recovery": [
+       "No valid endpoint in this bounded solve; inspect candidate pose and try an alternative. This is not proof that the target is unreachable."
+      ],
+      "rejection_counts": {
+       "sdk_not_feasible_or_converged": 32
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 0.010439222177538445,
+      "translation_m": 0.0041778361684226524
+     },
+     "recovery_progress": {
+      "fallback_strategy": "retract_then_unwind",
+      "outcome": "arrived",
+      "retract": {
+       "lift_m": 0.10000000000000009,
+       "reason": "ik_failed",
+       "status": "skipped"
+      },
+      "route": "retract_then_unwind",
+      "stopped": null
+     },
+     "targeted": true
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995290756225586,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      -0.1200776919722557,
+      -0.20012621581554413,
+      0.9549786448478699,
+      -0.2412850260734558,
+      0.6647340655326843,
+      0.24085558950901031,
+      0.6647545099258423
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "ik_attempts": [
+    {
+     "arm": "right",
+     "ik_status": "Fail",
+     "segment": "retract"
+    }
+   ],
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "right"
+   ],
+   "terminal_after_action": false
+  },
+  "action-720050a0e440a199": {
+   "action": "recover_motion",
+   "action_id": "action-720050a0e440a199",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995287775993347,
+      -0.3528577387332916,
+      0.9247333407402039,
+      0.003467664122581482,
+      -0.0034666764549911022,
+      0.7072044610977173,
+      0.7069920897483826
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "arguments": {
+    "targets": {
+     "left": "home"
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": null,
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 0,
+       "returned": 32,
+       "valid_endpoint": 1
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision and against the other arm at its measured joints (finger links are not in the sphere model); no scene, table, payload or task-success proof.",
+      "outcome": "joint_jump",
+      "phase": "ik_candidate_validation",
+      "recovery": [
+       "No continuous solution in this bounded solve; consider a different exact pose or intermediate pose. A smaller step is not guaranteed to succeed."
+      ],
+      "rejection_counts": {
+       "joint_jump": 1,
+       "sdk_not_feasible_or_converged": 31
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 0.009806654354777443,
+      "translation_m": 0.0032810875088972935
+     },
+     "recovery_progress": {
+      "fallback_strategy": "retract_then_unwind",
+      "outcome": "arrived",
+      "retract": {
+       "joint_delta_rad": 3.140578642487526,
+       "lift_m": 0.10000000000000009,
+       "reason": "ik_branch_jump",
+       "status": "skipped"
+      },
+      "route": "retract_then_unwind",
+      "stopped": null
+     },
+     "targeted": true
+    },
+    "right": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      0.1839587390422821,
+      -0.5752662420272827,
+      1.0269747972488403,
+      0.963070809841156,
+      -0.08255476504564285,
+      -0.23932747542858124,
+      -0.09166055917739868
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.30045971274375916,
+      -0.35233640670776367,
+      0.9215235114097595,
+      0.0002305970701854676,
+      -0.00023046806745696813,
+      0.70725417137146,
+      0.7069592475891113
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "ik_attempts": [
+    {
+     "arm": "left",
+     "ik_status": "Success",
+     "segment": "retract"
+    }
+   ],
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "left"
+   ],
+   "terminal_after_action": false
+  },
+  "action-98471ac0e2820cc4": {
+   "action": "recover_motion",
+   "action_id": "action-98471ac0e2820cc4",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.299529105424881,
+      -0.3522995710372925,
+      0.9215083122253418,
+      -7.919191489236255e-07,
+      8.03984164576832e-07,
+      0.7072135806083679,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004711866378784,
+      -0.35361403226852417,
+      0.9291319847106934,
+      0.007607398089021444,
+      -0.007605230435729027,
+      0.707173228263855,
+      0.7069584131240845
+     ]
+    }
+   },
+   "arguments": {
+    "targets": {
+     "left": "home",
+     "right": "home"
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": null,
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 2,
+       "returned": 32,
+       "valid_endpoint": 2
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision; no scene, table, payload or task-success proof.",
+      "outcome": "admitted",
+      "phase": "ik_candidate_validation",
+      "recovery": [],
+      "rejection_counts": {
+       "pitch_joint_wrap": 4,
+       "sdk_not_feasible_or_converged": 26
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 2.2879955432021952e-06,
+      "translation_m": 8.290457587400963e-06
+     },
+     "recovery_progress": {
+      "fallback_strategy": "retract_then_unwind",
+      "outcome": "arrived",
+      "retract": {
+       "lift_m": 0.10000000000000009,
+       "outcome": "arrived",
+       "pose": [
+        -0.050145238637924194,
+        0.030075091868638992,
+        1.0800021052360536,
+        2.3114455416362034e-06,
+        -7.9673907293909e-07,
+        0.00015086271741893142,
+        0.9999999403953552
+       ],
+       "status": "planned"
+      },
+      "route": "retract_then_unwind",
+      "stopped": null
+     },
+     "targeted": true
+    },
+    "right": {
+     "interaction": null,
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 0,
+       "returned": 32,
+       "valid_endpoint": 0
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision; no scene, table, payload or task-success proof.",
+      "outcome": "no_valid_endpoint",
+      "phase": "ik_candidate_validation",
+      "recovery": [
+       "No valid endpoint in this bounded solve; inspect candidate pose and try an alternative. This is not proof that the target is unreachable."
+      ],
+      "rejection_counts": {
+       "sdk_not_feasible_or_converged": 32
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 0.021514298395550243,
+      "translation_m": 0.007744275353364964
+     },
+     "recovery_progress": {
+      "fallback_strategy": "retract_then_unwind",
+      "outcome": "arrived",
+      "retract": {
+       "lift_m": 0.10000000000000009,
+       "reason": "ik_failed",
+       "status": "skipped"
+      },
+      "route": "retract_then_unwind",
+      "stopped": null
+     },
+     "targeted": true
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.050145238637924194,
+      0.030075091868638992,
+      0.9800021052360535,
+      2.3114455416362034e-06,
+      -7.9673907293909e-07,
+      0.00015086271741893142,
+      0.9999999403953552
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.20349028706550598,
+      -0.061160434037446976,
+      1.1284164190292358,
+      -0.31062617897987366,
+      0.6135786771774292,
+      0.39586296677589417,
+      0.6085432767868042
+     ]
+    }
+   },
+   "execution_status": "reached",
+   "executor": [
+    "robodojo_sdk_ik_joint_interpolation",
+    "robodojo_sdk_joint_interpolation"
+   ],
+   "failure_code": null,
+   "failure_stage": null,
+   "ik_attempts": [
+    {
+     "arm": "left",
+     "ik_status": "Success",
+     "segment": "retract"
+    },
+    {
+     "arm": "right",
+     "ik_status": "Fail",
+     "segment": "retract"
+    }
+   ],
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "dual_arm_common_native_tick",
+    "requested": true
+   },
+   "target_arms": [
+    "left",
+    "right"
+   ],
+   "terminal_after_action": false
+  },
+  "action-ea1927b02c860e75": {
+   "action": "move_pose",
+   "action_id": "action-ea1927b02c860e75",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2631377577781677,
+      -0.12561465799808502,
+      1.0697139501571655,
+      -0.18184392154216766,
+      0.683779239654541,
+      0.1804439127445221,
+      0.6832413077354431
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "arguments": {
+    "interactions": {
+     "left": "free_space"
+    },
+    "targets": {
+     "left": {
+      "orientation_xyzw": [
+       -0.18184392603100544,
+       0.6837792565350205,
+       0.18044391719900538,
+       0.6832413246020205
+      ],
+      "position_m": [
+       -0.310399000495,
+       0.075458903275,
+       1.08
+      ]
+     }
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": "free_space",
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 0,
+       "returned": 32,
+       "valid_endpoint": 0
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision and against the other arm at its measured joints (finger links are not in the sphere model); no scene, table, payload or task-success proof.",
+      "outcome": "no_valid_endpoint",
+      "phase": "ik_candidate_validation",
+      "recovery": [
+       "No valid endpoint in this bounded solve; inspect candidate pose and try an alternative. This is not proof that the target is unreachable."
+      ],
+      "rejection_counts": {
+       "sdk_not_feasible_or_converged": 32
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 0.0,
+      "translation_m": 0.20680910262256272
+     },
+     "targeted": true
+    },
+    "right": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2631377577781677,
+      -0.12561465799808502,
+      1.0697139501571655,
+      -0.18184392154216766,
+      0.683779239654541,
+      0.1804439127445221,
+      0.6832413077354431
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004709482192993,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    }
+   },
+   "execution_status": "planner_failed",
+   "executor": null,
+   "failure_code": "ik_failed:move",
+   "failure_stage": "planner",
+   "ik_attempts": [
+    {
+     "arm": "left",
+     "ik_status": "Fail",
+     "segment": "move"
+    }
+   ],
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": false,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "left"
+   ],
+   "terminal_after_action": false
+  },
+  "action-ee3f26dfdb8da8c4": {
+   "action": "recover_motion",
+   "action_id": "action-ee3f26dfdb8da8c4",
+   "after": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995290756225586,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      0.3004169464111328,
+      -0.2069733440876007,
+      1.056976079940796,
+      -0.1015034094452858,
+      0.10146918147802353,
+      0.6999062895774841,
+      0.6996657848358154
+     ]
+    }
+   },
+   "arguments": {
+    "targets": {
+     "right": "home"
+    }
+   },
+   "arms": {
+    "left": {
+     "interaction": null,
+     "pose_error": null,
+     "targeted": false
+    },
+    "right": {
+     "interaction": null,
+     "planning_diagnostics": {
+      "candidate_counts": {
+       "continuous": 0,
+       "returned": 32,
+       "valid_endpoint": 0
+      },
+      "details_available": true,
+      "evidence_scope": "One bounded SDK IK solve, endpoint FK checks and the SDK collision spheres sampled along the straight joint interpolation for self-collision and against the other arm at its measured joints (finger links are not in the sphere model); no scene, table, payload or task-success proof.",
+      "outcome": "no_valid_endpoint",
+      "phase": "ik_candidate_validation",
+      "recovery": [
+       "No valid endpoint in this bounded solve; inspect candidate pose and try an alternative. This is not proof that the target is unreachable."
+      ],
+      "rejection_counts": {
+       "sdk_not_feasible_or_converged": 32
+      },
+      "schema": "ora.planning-diagnostics.v1"
+     },
+     "pose_error": {
+      "orientation_rad": 0.2880413514292215,
+      "translation_m": 0.19867954763543508
+     },
+     "recovery_progress": {
+      "fallback_strategy": "retract_then_unwind",
+      "outcome": "still_moving_at_window_end",
+      "retract": {
+       "lift_m": 0.10000000000000009,
+       "reason": "ik_failed",
+       "status": "skipped"
+      },
+      "route": "retract_then_unwind",
+      "stopped": null
+     },
+     "targeted": true
+    }
+   },
+   "before": {
+    "left": {
+     "pose_xyz_xyzw": [
+      -0.2995290756225586,
+      -0.35229986906051636,
+      0.921500027179718,
+      -4.327419134142474e-08,
+      -6.000607299938565e-08,
+      0.7072135210037231,
+      0.7069999575614929
+     ]
+    },
+    "right": {
+     "pose_xyz_xyzw": [
+      -0.03795057535171509,
+      -0.037972770631313324,
+      0.9379419684410095,
+      -0.275248646736145,
+      0.27085787057876587,
+      0.6516515016555786,
+      0.6528586745262146
+     ]
+    }
+   },
+   "execution_status": "not_reached",
+   "executor": [
+    "robodojo_sdk_joint_interpolation"
+   ],
+   "failure_code": "episode_terminal_during_execution",
+   "failure_stage": "execution",
+   "ik_attempts": [
+    {
+     "arm": "right",
+     "ik_status": "Fail",
+     "segment": "retract"
+    }
+   ],
+   "motion_strategy": "global",
+   "schema": "ora.robodojo-sparse-motion-receipt.v1",
+   "synchronization": {
+    "executed": true,
+    "mode": "single_arm",
+    "requested": false
+   },
+   "target_arms": [
+    "right"
+   ],
+   "terminal_after_action": true
+  }
+ },
+ "source": {
+  "action-0375d9a8ef21b00b": "run exp11b-robodojo-exp11b-robodojo-15291112198c--20261002T223319Z: single-arm home recovery reached; the retract was planned (admitted)",
+  "action-597e9a02045cd4d2": "run exp11b-robodojo-exp11b-robodojo-15291112198c--20261002T223319Z: single-arm home recovery reached; the optional retract was skipped (ik_failed) and the arm carries its no_valid_endpoint diagnostic",
+  "action-720050a0e440a199": "run exp11b-robodojo-exp11b-robodojo-50916ef7d5ad--20261003T045952Z: single-arm home recovery reached; the retract was skipped (ik_branch_jump) with a joint_jump diagnostic",
+  "action-98471ac0e2820cc4": "run exp11b-robodojo-exp11b-robodojo-2867ee819a7c--20261003T012521Z: both-arm home recovery reached; left retract planned, right retract skipped (ik_failed)",
+  "action-ea1927b02c860e75": "run exp11b-robodojo-exp11b-robodojo-15291112198c--20261002T223319Z: move_pose refused by the planner: no_valid_endpoint on the required move segment",
+  "action-ee3f26dfdb8da8c4": "run exp11b-robodojo-exp11b-robodojo-15291112198c--20261002T223319Z: single-arm home recovery not_reached; the retract was skipped (ik_failed)"
+ },
+ "trimmed_to": "the fields the unified sparse projector reads for these assertions: before/after keep only pose_xyz_xyzw; ik_attempts keep arm, segment and ik_status; arms keep targeted, interaction, pose_error, planning_diagnostics and recovery_progress (outcome, route, retract, fallback_strategy, stopped)"
+}

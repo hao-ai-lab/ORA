@@ -1,0 +1,5 @@
+{
+  "append": {
+    "wait_ticks": "On this backend one tick is one native action, the unit the task's native-action limit counts. A scripted demonstrator or support arm in the scene advances only while native actions are consumed, so wait_ticks is how it runs without moving the robot."
+  }
+}

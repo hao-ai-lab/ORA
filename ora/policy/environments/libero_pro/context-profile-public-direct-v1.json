@@ -1,0 +1,27 @@
+{
+  "schema": "ora.environment-prompt-profile.v1",
+  "profile_id": "libero_pro_public_direct_v1",
+  "default": false,
+  "match": {
+    "environment_id": "libero_pro",
+    "embodiment_id": "franka_panda",
+    "robot_models": [
+      "Panda"
+    ],
+    "controller": "CUROBO_JOINT_POSITION+OSC_POSE",
+    "public_cameras": [
+      "agentview",
+      "wrist"
+    ]
+  },
+  "sources": {
+    "environment_policy": "ora/policy/environments/libero_pro/boundary-v2.md",
+    "embodiment_policy": "ora/policy/embodiments/franka-panda/manual-public-geometry-v3.md"
+  },
+  "compiled_embodiment": {
+    "descriptor": "ora/policy/embodiments/franka-panda/descriptor-public-geometry-direct-v1-controller-feedback-v1-session-split-v1.json",
+    "review": "ora/policy/embodiments/franka-panda/wording-review-public-geometry-direct-v1-controller-feedback-v1-session-split-v1.json",
+    "card_sha256": "79044a12f177a5413358ab6fa86cba9c44fedcaa9bb233553e482cb06bdf5e9b",
+    "runtime_verification": "loaded_robot_geometry_before_policy_v1"
+  }
+}

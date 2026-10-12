@@ -1,0 +1,191 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "imitate_sorting_sequence",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/imitate_sorting_sequence.py",
+    "file_sha256": "18400cb3c5f5103492819df2dcdf05a77916106e8a503cb62b4ee6cdbaa9305b",
+    "run_reward_lines": [
+      120,
+      194
+    ],
+    "run_reward_sha256": "359d6d01435a142d2f59cb7ce86ea6c3c58a72bf61d985c918ab31823ecae37a"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/imitate_sorting_sequence_0.json",
+    "layout_sha256": "3f49325bc7198569671b2e6a478460d9ea3a323edb38a5da4da389c7a29b2f27",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Observe the object placement order, remember it, then place the corresponding objects into the basket in the same order."
+  },
+  "native_action_limit": 1600,
+  "semantic_contract": [
+    "Your basket is the one on the left-arm side of the table, toward world -X, and the nearer of the two to the robot. The other basket, on the right-arm side toward world +X and farther from the robot, is the one the demonstrating arm fills.",
+    "Keep both robot arms at their initial poses while the other arm demonstrates the placement sequence.",
+    "Place the corresponding objects into your basket in the observed order, leaving later objects outside until their turn.",
+    "Keep the demonstrated objects in the other basket. Do not release and leave a later object in your basket ahead of its predecessors.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/imitate_sorting_sequence-completion-v3.md",
+    "sha256": "f24cfd98970f8fef9c80551cbe01ce65343b15d69e96dfc33807538292daa6e8"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/imitate_sorting_sequence.yml",
+      "sha256": "d9e194d8c742288601c641ccb75052a67da46e536c0b06c7fb7311d9e2c61a42"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/watch/00002/metadata.json",
+      "sha256": "e0834452ff65a3626178918b21c81e3b21fec1c669cd5aca84fbddfe8a0c8e27"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/action_camera/00001/metadata.json",
+      "sha256": "a906a3d644bc38161c3cd368c4b0922a5b5b76b8859a3c3d96d5dcff91bd7aac"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/toy_car/00000/metadata.json",
+      "sha256": "44868628d7ef0df14d0bfea236e6e7e831b043b7e23c9f3821e60b7b9bff16ad"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/phone/00000/metadata.json",
+      "sha256": "e8954ce80677901ab54a46ccdfbe77b48e2f5d913bc85143b180c27c699cffe1"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/garage/00015/metadata.json",
+      "sha256": "1a369d72cd6a5290dbe0a37fd070efad75f6220eff146f69700b3e88b88bba1f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/basket/00005/metadata.json",
+      "sha256": "7c6f9d30eb574feea3727b36c4585679c00059ea20e9dc81f8ed59fabd3923f2"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Traj/RoboDojo/imitate_sorting_sequence/0/0.pkl",
+      "sha256": "e87b1a5d7d76eb39c165f904a3f382929dae846488d30fd95cc505fb9f66711b"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "clause-1",
+      "semantic": "Your basket is the one on the left-arm side of the table, toward world -X, and the nearer of the two to the robot. The other basket, on the right-arm side toward world +X and farther from the robot, is the one the demonstrating arm fills."
+    },
+    {
+      "id": "clause-2",
+      "semantic": "Keep both robot arms at their initial poses while the other arm demonstrates the placement sequence."
+    },
+    {
+      "id": "clause-3",
+      "semantic": "Place the corresponding objects into your basket in the observed order, leaving later objects outside until their turn."
+    },
+    {
+      "id": "clause-4",
+      "semantic": "Keep the demonstrated objects in the other basket. Do not release and leave a later object in your basket ahead of its predecessors."
+    },
+    {
+      "id": "clause-5",
+      "semantic": "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    }
+  ],
+  "review_notes": [
+    "Five separate check groups are latched by RewardManager.step; all must have been achieved. query(0) rejects overlapping target-arm and support-arm departures and certain released/stationary out-of-order insertions. The demonstration order is never copied from the trajectory into the contract. The support demonstration is an environment-owned execution asset, not a policy/expert tool.",
+    "v2 (EXP11A g004) makes two changes. The fourth clause states the return requirement in registry-v4's shared sentence: boundary-v2 applies it only where the task contract states it, and the final run_reward stage (stage 4) conjoins all_robot_back_to_origin with every placement check, so the arms must be back at the same instant as the complete arrangement; the v1 'after completing the arrangement' wording is gone. One execution note follows the clause bullets: query_support_arm_traj advances the support-arm demonstration once per native tick, so it progresses only while native actions are consumed and the policy waits while it runs. The note names no tool, so it holds on every Dojo surface, and carries no numeric value. The other three clauses, the evaluator dependencies and every threshold are unchanged.",
+    "v3 (EXP11A U6, 2026-09-30): the policy's basket is basket0 (left-arm side, world -X, nearer the robot in the pinned layout) and the demonstrated basket is basket1 (right-arm side, world +X, farther away); v3 says so by position without naming either."
+  ],
+  "review": {
+    "scope": "source/layout-bound qualitative contract review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "load_support_arm_traj",
+      "query_support_arm_traj",
+      "check_support_arm_stable",
+      "run_reward",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in wrong destination or wrong arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object IDs, numeric thresholds or evaluator code is delivered."
+  },
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Your basket is the one on the left-arm side of the table, toward world -X, and the nearer of the two to the robot. The other basket, on the right-arm side toward world +X and farther from the robot, is the one the demonstrating arm fills.",
+      "Keep both robot arms at their initial poses while the other arm demonstrates the placement sequence.",
+      "Place the corresponding objects into your basket in the observed order, leaving later objects outside until their turn.",
+      "Keep the demonstrated objects in the other basket. Do not release and leave a later object in your basket ahead of its predecessors.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": []
+  },
+  "supersedes": {
+    "record": "ora/policy/environments/robodojo/task-contracts/reviews/imitate_sorting_sequence-review-v2.json",
+    "record_sha256": "4d8d9b8496c55536616e3cf5d3a207136d9542de21c1230d169dad9d52a954bc",
+    "layer": "ora/policy/environments/robodojo/task-contracts/imitate_sorting_sequence-completion-v2.md",
+    "layer_sha256": "4441e16a241c3d731947a4facbcf492375c97d776f5cbce3425599af838c6d07"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "date": "2026-09-30",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and check_support_arm_stable at the pinned revision",
+      "the basket poses in the pinned layout file",
+      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item d"
+    ],
+    "changes": [
+      "Adds a first clause identifying the baskets by position. run_reward scores the policy's placements in basket0 and requires every demonstrated object to stay in basket1, and check_support_arm_stable confirms the demonstrating arm fills basket1. The pinned layout puts basket0 on the left-arm side (world -X) and nearer the robot, basket1 on the right-arm side (world +X) and farther from the robot. Registry-v4 said 'your basket' and 'the other basket' without identifying either."
+    ],
+    "carried_forward": "The four registry-v4 clauses and the execution note are carried forward verbatim.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

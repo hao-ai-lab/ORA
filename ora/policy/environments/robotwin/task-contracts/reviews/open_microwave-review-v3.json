@@ -1,0 +1,700 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "open_microwave",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/open_microwave.py",
+      "sha256": "ad679b7753fc50487ba8034570e3b94aa7bfc84756048b94580fa3d2516a1bd0"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/open_microwave.json",
+      "sha256": "8a353e548865196cd5103aab644cd76eed4a50e139e4ded65545a86d489cfca5"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/044_microwave/7167/mobility.urdf",
+      "sha256": "99a142371cbcfe78e9ba6442fb1be560e84973e94868786ceae88101cd424d31"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/044_microwave/7167/model_data.json",
+      "sha256": "ce0d260e91f7d6400b2abd6edb4a92f24510870aa99adc3e3e8fced86b61c798"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/044_microwave/7310/mobility.urdf",
+      "sha256": "662ee506eb1e25f125841246d93e76b07f2b2cdbf62bddf3eae63cdfefebcd37"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/044_microwave/7310/model_data.json",
+      "sha256": "f4a74be583cf1a5d51fe7de68a2c308e5ff64cf05e7d085ddafa66eca26d4dd3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/044_microwave/points_info.json",
+      "sha256": "df586f8e0bc19eb320279f520fbadcfdf77a71b4be38e71b48bb7e74ee86354d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/bounding_box.json",
+      "sha256": "a95b37a8f0706a9d9b2fced4f0279980e25442998c91be046f48bfe924f4dee7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/images/texture_0.jpg",
+      "sha256": "af2263c82eba2f77bbd44bae236509f7dd0ddd8868f3d00c72554a415927e7c1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/images/texture_1.jpg",
+      "sha256": "81358c15c1949810f729b0c6a08aa501aedf232f4fdd4fd3097dc400b100e32b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/meta.json",
+      "sha256": "f39a60ebe23d19d05d5db49d83dc0b57e504613e592cbaad12af8c360c83694e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/mobility_v2.json",
+      "sha256": "125307034e356651f218575a24e3d0feb24e06e726b5d1c5c54761c0efc78fc7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/0.png",
+      "sha256": "1187469016b75f45518b1013acabcc84a9fb668a054824d829fe3643987fd5d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/0.txt",
+      "sha256": "c19d12acc198020572358ebc84832074eb7bc96e2afb8cc7a6680b34556622c5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/1.png",
+      "sha256": "1187469016b75f45518b1013acabcc84a9fb668a054824d829fe3643987fd5d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/1.txt",
+      "sha256": "0fa9028d110a8293ca08a71460c43c70985c766d09647e13f609bc590d083c88"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/10.png",
+      "sha256": "1917fbc7ff687a0018cf9918f6d8badb0c91a8a0f0cd80948267cc80ba5baf7e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/10.txt",
+      "sha256": "d87f4f37c4bca251e760d2f37a4c041a2577ba976c3e99441fe17ade6f6d5d89"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/11.png",
+      "sha256": "7887050b6dc47b55d755df7439fa28ccac79f242382755b59df7fb5439f9b880"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/11.txt",
+      "sha256": "66092c48dc4382dbfc15610981526573ae204414ededf078c6c7beab43beec90"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/12.png",
+      "sha256": "a19ee644e9f62928db4eeedb6f7368e1a139fbbd05754d1749150368a05cb651"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/12.txt",
+      "sha256": "f13d88bb6f91c9952fa296ac77fbd0f0d7729ff0b105c1d7f8508e3e2007360f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/13.png",
+      "sha256": "99a8b418f4814bdbd8de1b165b9277b9f84dafa1a1578239ef3c65de384b1960"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/13.txt",
+      "sha256": "ba97a395e5567dc9cf25f2718b2095bd348108d255d5083df96721dca4a060ab"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/14.png",
+      "sha256": "aeb91a29badf1e9290a85e0ae91367615b32deef66b48359b0d79d069924d1f9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/14.txt",
+      "sha256": "e34874bf1a1034bf3146b8929adf0982291137f840fab666abd16861d76151e3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/15.png",
+      "sha256": "66d581aff5ffac7e79ed10cb58d3e935d894144d159f1f57a7cc600bb1478bf4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/15.txt",
+      "sha256": "c70a3735fd7e55484906ed2974b150106897bb18d4e4422e5d923c4840437b4e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/16.png",
+      "sha256": "8e0b1bd7686e733db29e1cf6405011a18d1983dd6ca8d6e9dc16e5d4fc3631c3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/16.txt",
+      "sha256": "6e44ab29365186e6ee5d47a38b6f7488f46f24521dbf585c49b9001d529fc659"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/17.png",
+      "sha256": "8e0b1bd7686e733db29e1cf6405011a18d1983dd6ca8d6e9dc16e5d4fc3631c3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/17.txt",
+      "sha256": "43b267221bc609616f8529f4ce0a952b4691c100ccf3b3fa589170da5b552e97"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/18.png",
+      "sha256": "97b6a1b290c0f48f99b2b99ea02ab6fd6d69cb67012948083f514bdb1b60d295"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/18.txt",
+      "sha256": "e0269d061ee56038b9c2bb996ace5d75eb53c50c9063307cd1c679a5988c6417"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/19.png",
+      "sha256": "353f5ae5c1fcef39b3bb631848f20bd2559f18789ed8f291a1d78e4dcb78c64e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/19.txt",
+      "sha256": "e7624f070ff81ff26b2e4a77e5e4151dedfca4eb12af2b2e0a0573ae87810f52"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/20.png",
+      "sha256": "dea6c4053c82a1f00e20d03d23a863f765d3564f05a3b1e0e93d7f2a97d1db26"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/20.txt",
+      "sha256": "026107b58b37edbde6e955aa3ba05676a73fdd16f6dc005788f787b5e6ad1a03"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/21.png",
+      "sha256": "6358e603636f0bcde2ba400f3a214d5171a081c9b4e9035bf2e5009cbabeec48"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/21.txt",
+      "sha256": "83be0720c85593e2ed91e40b23d2665c6eb3edc5daa2bb99f2b456655bc34e9e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/8.png",
+      "sha256": "d7eb4b93ae63ffce33128f8cfb187797094869450a189bf82d72ecc23a715308"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/8.txt",
+      "sha256": "7aa3793c159b4280d50f0e64dad2fcc86ed822d7bc0c4f2925e8f4d1901452e1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/9.png",
+      "sha256": "9fd7cc4587ba883a9fa35b05fafc52bdc255afaf03d6d61e021b41b3b62c68e1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render/9.txt",
+      "sha256": "13cd38366e854ded78ec80d1824e3657730e8dd98e444843972dc13357c88188"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/0.png",
+      "sha256": "d637d15ccfe9d1ecfa8fd1e9c31ac69a17e87fe6f798298ac5f6ac8e54bf7581"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/0.txt",
+      "sha256": "19e2e085cdc7de20f7bdb68b402d6b33a296455182ea117234bd1eec4892403e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/1.png",
+      "sha256": "d637d15ccfe9d1ecfa8fd1e9c31ac69a17e87fe6f798298ac5f6ac8e54bf7581"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/1.txt",
+      "sha256": "b328a4844da7c238a531304ddabe9dbe86c98936fd7b7449715683d46ef8f1ba"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/10.png",
+      "sha256": "670e2d6229eac8b24e03d07a13e4da80e929ffa28db0b9042a25d04259bf4a6e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/10.txt",
+      "sha256": "371a34f827fe005d2edb86cfaff9c3bfc54f1345a030d12256c5b1f439471c7f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/11.png",
+      "sha256": "13d53a89c0dad2a467ff011041321aacd61f02795224389a115ed6fdb9da29ba"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/11.txt",
+      "sha256": "3c581b7d9d748d2ebcf9d94e9984aa2f8c2028a2d28c0c44632108154e684ab6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/12.png",
+      "sha256": "5a337a2ff7c62797f8963f559df9d7fde1730332bf3c52e4e47a398d3c9abd79"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/12.txt",
+      "sha256": "8add034a74ffb6483161643f8de834b02988232c810ed5ce7a9f2f438c9b6be0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/2.png",
+      "sha256": "4a6bef380a1287b3399555dd59e2b3ea7f6ee7ff574274ba8a78cdb7b97a93f9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/2.txt",
+      "sha256": "7f642b2d1c3a4d936f329bc0dcb4ccea7b5a01b9a657f173e4d27c698fc01766"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/3.png",
+      "sha256": "2866f954621a237c7e29b9fb5ebedce94f2e5f3722fb80713ec8018887174c0c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/3.txt",
+      "sha256": "283a7479119ccc28f92ccb0bdbaaf8ddb1e27e33a7abae196fca7a4b628736ca"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/4.png",
+      "sha256": "d3e6d113d633691b218857561add22168d88d8d89489c015c7cc31b8184e4b14"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/4.txt",
+      "sha256": "e341d08c2101edd55e5a67add625fd858cdc295fd9baffb8fbf656be0048b343"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/5.png",
+      "sha256": "b1baff31079964b8401c0395a778d8c16a8474bac9e0769d724e66874badbcf4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/5.txt",
+      "sha256": "2d01acbb182c1f27c3c49642479e0d052f97925cf80e45ded4615b531eacb72c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/6.png",
+      "sha256": "baf94ec86e77f82bf4bd1b13088bb8045795380a3a02c7ba4aa5b0cd5f47be76"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/6.txt",
+      "sha256": "1090462e3c691b818d748476acc3b08026462256b6d349a7ec5abb45b20aa320"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/7.png",
+      "sha256": "bab4676fea8b8b22f364bfbf1373112028a5a17174867cfee656613ce37f4d17"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/7.txt",
+      "sha256": "bf7a70fee6e3ae27e24124bf451d2b339878b9b1531ebf25ea4c6521d0b12d4d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/8.png",
+      "sha256": "bab4676fea8b8b22f364bfbf1373112028a5a17174867cfee656613ce37f4d17"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/8.txt",
+      "sha256": "4a04daf76070b14545ab6579b3af1fddf8225b79c5b623459dfa55e21b333c87"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/9.png",
+      "sha256": "c5863eb09ec568e99a48e745a8b54215a6809229d3ce79f15497e26b7dcdaf57"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/parts_render_after_merging/9.txt",
+      "sha256": "7fc257dd41d0e84372e6f45b5987888cbb888d8e740e1dc0c9b958788add413c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/label-10000.txt",
+      "sha256": "c85bdda646b34ab394da5d95579f1bc07fdb82eb7baaffb3931e494c88815b71"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/ply-10000.ply",
+      "sha256": "8f3821dc4768af9ef4210a53e1c893ee2a33d7eee644eb6558992ef66c11997f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/pts-10000.pts",
+      "sha256": "c3950b9334c8016a4f726fa2db716a15cfe487ecabfc5bf9844a3eea8ba36792"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/pts-10000.txt",
+      "sha256": "2b6ffbbee06335d72bfe256a2ae64a1397544f9c02377932027dd18562a1cd08"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/sample-points-all-label-10000.txt",
+      "sha256": "e7b1929b1d366863042b2a008c198de22606fedfff525bc0c85976bdf64e6885"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/sample-points-all-pts-label-10000.ply",
+      "sha256": "92babb07a5ac3705f72e8ffbcf371e1d062d98ac3e5c10d122e9d7f1858099e9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/sample-points-all-pts-nor-rgba-10000.ply",
+      "sha256": "92e239a57cac9e6a3ce2636ad8b8aa82e3293e05b53aba2bdde50d8dc68d90e1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/point_sample/sample-points-all-pts-nor-rgba-10000.txt",
+      "sha256": "752c3450fa92e9537e5bd451bd5363a329e9ed803e2eff392c5b7007f0631415"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/result.json",
+      "sha256": "c37aecad17b0dbe8434210917c6f3dab443dede075d77aace6d188eaa9cd6ae8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/result_after_merging.json",
+      "sha256": "13bd453209bac54e30ab84e693de5181d22fb68326e7eb60eb42afbe31501df3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/semantics.txt",
+      "sha256": "ff8aa95e8b56c81936d94628645c950fc602da4e4e75600286f2a7b0831469ac"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-0.mtl",
+      "sha256": "c0b7e8dc2a7164629834c05fbdb0af3c67a6f721cd181909a0f319c313301718"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-0.obj",
+      "sha256": "462d920c7005089801dfc166c9aad86b8fede70ce76770bb1f25bbf152dadaaa"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-1.mtl",
+      "sha256": "c0b7e8dc2a7164629834c05fbdb0af3c67a6f721cd181909a0f319c313301718"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-1.obj",
+      "sha256": "30864d3eec056a5f3a72d0236fd9b9159bc9c3e8da30642ac9b18885052f9da1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-2.mtl",
+      "sha256": "c0b7e8dc2a7164629834c05fbdb0af3c67a6f721cd181909a0f319c313301718"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-2.obj",
+      "sha256": "36f6f4617999ef095c46a6bb09f20780976f5e46f42b2412b4fcf0a55741b339"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-3.mtl",
+      "sha256": "c0b7e8dc2a7164629834c05fbdb0af3c67a6f721cd181909a0f319c313301718"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-3.obj",
+      "sha256": "07f4fc6f3f26156d2368a006f52d3866b2a8c0b94d25c641508eaa1ee5093c16"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-4.mtl",
+      "sha256": "c0b7e8dc2a7164629834c05fbdb0af3c67a6f721cd181909a0f319c313301718"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/new-4.obj",
+      "sha256": "bc85606af57029b8a301a0691e30214d1a1a706afe8f7f2669ec568b5c81cc1f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-10.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-10.obj",
+      "sha256": "d354356d0b035ffbf7a850934f14c6841df019c59149042e821c4e3ca1b9a2ba"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-11.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-11.obj",
+      "sha256": "6cd61ced95b0b96767c9ab9dac86ba95fac688b7522520a82624c95245eea1b5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-12.mtl",
+      "sha256": "13bc75b87a7d1b5c0c90ef5ba8363a66cadda62c38eff47ddf21f62f878031fd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-12.obj",
+      "sha256": "52c2f7eab07d0078ee7d67b0005b85f1a2554943764e121a850e6e1ccace1893"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-3.mtl",
+      "sha256": "bbd6a3b373bf7b4492a4f5550a0dc430dbdec0cf3c95727655a804d7b6e6ef8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-3.obj",
+      "sha256": "5bf7fe2a59a789983217c2488be96c9045776a83069d4954efbc2e32a62ca6d2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-4.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-4.obj",
+      "sha256": "bd4c34eccc712e45cb525936f5efca69d3f139d4b8e82f224ce0b9a191f42909"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-5.mtl",
+      "sha256": "a39a25387a30eabdb6ec9515d7cb289edf4194dd062b91b736d22dc4ee5f077c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-5.obj",
+      "sha256": "9fdf6548e715bf588795de1ee72b8e9221c5b3055598b5dc1af49ade7ea33d1b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-7.mtl",
+      "sha256": "1e1e5fe2f264af0863d453ab3ffb39fbb09906b74294c43700248d64993e1626"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-7.obj",
+      "sha256": "5b1d1ac9d43be95897618360e156a9deda88bbc44429dde5d20d30e0ed0ae7bc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-9.mtl",
+      "sha256": "dc87873a03c1f1ad58c7f3c82a2c207a97e248caaadebdad6dc7aae0c1e07ab1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/textured_objs/original-9.obj",
+      "sha256": "0354f38294ec22f318f8f8d15169a65aa3e0c8ffde003c356912671beacf9d3d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/tree_hier.html",
+      "sha256": "5fc9917c331e079eba0c554a57d61f6cba93a10ea744862b920fe37d418d981a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/044_microwave/7167/tree_hier_after_merging.html",
+      "sha256": "a147ee3bb3ffc921a8380921c29aa9135ed4a8dca5803516d57a2739d77a9314"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-open_microwave-from-s0-gpu4-20260830T073039Z/open_microwave/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "ee58fd7730900625b2760409a93e3e5a8fc88469ee0e1796a6baaf13583c3f37"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-open_microwave-from-s0-gpu4-20260830T073039Z/open_microwave/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "0ee03a5f50fce72b98b74121fd911f9dadcc827164239a44117d61f673d118c2"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-open_microwave-from-s0-gpu4-20260830T073039Z/open_microwave/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "ab9c05d088beadb89640bfcc692a3ee14e76ae02b2a256adc5ddae4e6cc72844"
+    }
+  ],
+  "public_clauses": [
+    "Swing the microwave door wide open, beyond a small crack."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: hinge q >= 0.6*upper limit; asset joint is the door hinge.",
+      "interpretation": "Swing the microwave door wide open, beyond a small crack.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/open_microwave.py:check_success lines 102-105, helper and asset dependencies listed in this record.",
+      "interpretation": "No hand, contact, grip or duration condition. Exact angle is asset-dependent and private.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No hand, contact, grip or duration condition. Exact angle is asset-dependent and private."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Two fixed-root articulated microwave assets, joint limits and contact points reviewed."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Two fixed-root articulated microwave assets, joint limits and contact points reviewed. Parsed 5 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Two fixed-root articulated microwave assets, joint limits and contact points reviewed."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows door opened outward with gripper at handle."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Move gripper to handle without moving door, or leave it barely ajar: not enough. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No hand, contact, grip or duration condition. Exact angle is asset-dependent and private."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Move gripper to handle without moving door, or leave it barely ajar: not enough.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "保留门明显打开；不添加松手、保持接触或固定开门角度。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "044_microwave",
+        "model_id": 0
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows door opened outward with gripper at handle.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No hand, contact, grip or duration condition. Exact angle is asset-dependent and private. Head image shows door opened outward with gripper at handle. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

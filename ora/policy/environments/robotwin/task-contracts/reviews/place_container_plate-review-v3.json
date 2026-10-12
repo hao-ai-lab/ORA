@@ -1,0 +1,319 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "place_container_plate",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/place_container_plate.py",
+      "sha256": "7a288f27f61e96fe905d5cfb80eb0a4fd8e490c829f2f02149951266012a3aee"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/place_container_plate.json",
+      "sha256": "77af29299c38e4604398f52930ed0be76d8f82e00fffe2d0926146abcb3d227c"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data1.json",
+      "sha256": "b725e5708f1f9bc2ed8c75043a37d4630f6ece1a1827186f83cccb8ca6a786bc"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data2.json",
+      "sha256": "61b0bb0ad50c33bfbc7f71e4e1a54d63ca724d9fcfcaaef5871d237bb0ee25e0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data3.json",
+      "sha256": "ee29eeaff742b3595be18e9d21752a988f6c11b5cc0e9d9e262969d98745f28b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data4.json",
+      "sha256": "f0acba51ba1c4ce1aa2e20c0c0732a5ec90c3120fc2b6c1f2435b0082466f65c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data5.json",
+      "sha256": "ab9fe901db4d10295908a46e9c8a9143ab1b6fba9dc10ca08b848f32244cf917"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data6.json",
+      "sha256": "e0ef134bea521255acf8dff36652a66eb8d56e0c061c14cf3718d94fb6408d86"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/model_data7.json",
+      "sha256": "b0695b782e682e49de1acd64b247acb4135a6594b81311f13c2c7762bb8a3735"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/002_bowl/points_info.json",
+      "sha256": "2e120669ac36293aa00012fa88de4c0c4e978d13b6574244ec69231f74c3306a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/003_plate/model_data0.json",
+      "sha256": "0361bfd713327f782e3b026c3e0be5526a2a6e436dea075bf052a45137f50c87"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/003_plate/points_info.json",
+      "sha256": "819f6545ce7ec53eb10685aacb6efe8cfb20065595e275a860adffa540dcd186"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data0.json",
+      "sha256": "6d9818a8cbd16380ca5ec4b0d9bc259273753a65101dfc61bbd2d8591fbff651"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data1.json",
+      "sha256": "9f0e4b27a59a7214ef6cd5ac1a0be18100b9c851209c581bb03073c37d4057d8"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data10.json",
+      "sha256": "c48620f10f9689de6eaa0fcbf3ac69a5b4fc40b6d299d3004ad6eb110f5f8a00"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data11.json",
+      "sha256": "54724ea4a55bc28687d8f17391a03e5250e093e488cf31971dc094447cf093e3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data12.json",
+      "sha256": "54724ea4a55bc28687d8f17391a03e5250e093e488cf31971dc094447cf093e3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data2.json",
+      "sha256": "4ff300ef21201a9272c7b211fae705579168f65555a60e0a0067f59f28d2a177"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data3.json",
+      "sha256": "109f40fade73bb991d62db8e7305e86ecab31f465b867917ea823ba8a44a2656"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data4.json",
+      "sha256": "870ff65aab722be5b4dd13ad7f4ef3725ba33dde9b45d70f6c7382d28b2da203"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data5.json",
+      "sha256": "22ca9bda542f9fb42cfd73e06a7ad5c780a22354ed626990c7bebcb65333b8d9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data6.json",
+      "sha256": "695e16de6cdf5c6e191c37873674369eaa9b6f008dc8d57efac4e7e95c9fef00"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data7.json",
+      "sha256": "beb6321e4f5b497ae4557c1334bb8d9075e993c3c1e7fdc9a795b6dcb606849b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data8.json",
+      "sha256": "035e24be83becaf71a720953e47209602b7f3a52744440d7408f8a35868ff232"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/model_data9.json",
+      "sha256": "15d11005cdef728309fee956404a75b200168dabd45445e681a429270e12de49"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/021_cup/points_info.json",
+      "sha256": "d95ff30afcb563ea1c3dd551292c683f0e6e7662c4824137f83f1e190f14650d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/021_cup/collision/base5.glb",
+      "sha256": "5a9fe9467519d48e73cec1d7de561686d877646817db771dd8db13b0da889265"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/021_cup/visual/base5.glb",
+      "sha256": "80673c941bf7e8ce059a639a05715d30a55d2972f2ee15f6021f9bb9103b7abd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/003_plate/collision/base0.glb",
+      "sha256": "2d2682b1294d70ebd997bb174e7cef34e8f86f2da496621445eefd4aab621266"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/003_plate/visual/base0.glb",
+      "sha256": "557429b6d585ff8b511428cb5726332a45bfc54f50537c9b5fa6ba60b08a39e0"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-place_container_plate-s544-gpu7-20260829T151939Z/place_container_plate/attempts/seed-000544-try-00/attempt.json",
+      "sha256": "6ce78ebdf6d40eb0ee1d9067e446c65c00e6c661fc32b91a8265a17e1285e384"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-place_container_plate-s544-gpu7-20260829T151939Z/place_container_plate/attempts/seed-000544-try-00/verifier-telemetry.json",
+      "sha256": "d32db56aabe1937c3d2f4e127f2036848b131854cb0910e47babdda63ede6b9e"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-place_container_plate-s544-gpu7-20260829T151939Z/place_container_plate/attempts/seed-000544-try-00/head_camera-rgb.png",
+      "sha256": "04f669cb6e25d9aeab0e4e73bf815482b2161945dde02013388cce769812733e"
+    }
+  ],
+  "public_clauses": [
+    "Set the container down on the plate, centred on it and resting at plate level.",
+    "Leave both grippers open when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: container root xyz near plate root with axis-specific bounds; support comes from task intent.",
+      "interpretation": "Set the container down on the plate, centred on it and resting at plate level.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: is_left_gripper_open AND is_right_gripper_open; wrappers delegate to cached normalized gripper command state.",
+      "interpretation": "Leave both grippers open when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/place_container_plate.py:check_success lines 93-98, helper and asset dependencies listed in this record.",
+      "interpretation": "No explicit orientation or contact check. Word resting is intended result, not a telemetry guarantee.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No explicit orientation or contact check. Word resting is intended result, not a telemetry guarantee."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Container is sampled bowl or cup; default plate0 fixed. Root origins are near bases; variant heights are not universal center heights."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Container is sampled bowl or cup; default plate0 fixed. Root origins are near bases; variant heights are not universal center heights. Parsed 24 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Container is sampled bowl or cup; default plate0 fixed. Root origins are near bases; variant heights are not universal center heights."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows a metal cup on the plate with gripper above."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Hold container high over plate or leave its base beside plate: fails positional conditions. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No explicit orientation or contact check. Word resting is intended result, not a telemetry guarantee."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Hold container high over plate or leave its base beside plate: fails positional conditions.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "保留居中、落下、双手打开；不增加杯碗统一朝向。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 544,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "021_cup",
+        "model_id": 5
+      },
+      {
+        "model_name": "003_plate",
+        "model_id": 0
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows a metal cup on the plate with gripper above.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No explicit orientation or contact check. Word resting is intended result, not a telemetry guarantee. Head image shows a metal cup on the plate with gripper above. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

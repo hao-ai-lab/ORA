@@ -1,0 +1,441 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "put_bottles_into_dustbin",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/put_bottles_into_dustbin-review-v2.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/put_bottles_into_dustbin-completion-v2.md",
+    "sha256": "f36ada3ae4beb329eb25f61e09d3ffaf6c119c9327e1018e8e27f3ab05e219c1"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_0.json",
+    "layout_sha256": "3c2168f460d48dde2d72d55429f1af7e850725b642dfcb8c8d5e31ed2ec25537"
+  },
+  "instruction": {
+    "text": "Pick up the bottles and throw them into the dustbin, using handover when needed."
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json"
+  },
+  "decision": "User decision 2026-10-01 (operator-approved survey): EXP11A g008 second cell, a three-round session (K = 3 rounds) with a new layout per round. This appendix extends the put_bottles_into_dustbin review-v2 record from layout 0 to the reviewed pool 17, 2, 25 and the fallback 21 without changing its contract text, and binds the bottle-model metadata the evaluator reads in each. Layout 28, first scheduled third, was dropped after the 2026-10-01 scene smoke found its standing bottle/50 unreachable.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/put_bottles_into_dustbin.py) returns the constant template \"Pick up the bottles and throw them into the dustbin, using handover when needed.\" with no label placeholder, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
+    "Objects: every audited layout has exactly the four Rigid instances bottle0-bottle3 that run_reward names and no other Rigid category; the dustbin (Geometry category 0) stands at (-0.63, -0.10, 0.40) with identity orientation and every fixture section (Geometry, Room, Table, Ground, Background) is JSON-equal to the reviewed layout 0.",
+    "Contract text: review-v2 states nothing about bottle positions, poses or models, so its sentences state the same requirements for every audited layout; standing bottles spawn upright and lying ones on their side (tilt within 1 degree of 0 or 90).",
+    "Evaluator assets: is_A_on_B_bottom reads each bottle's metadata oriented bounding box. The record binds the layout-0 models (41, 60, 25, 22); each row binds the metadata bytes of its own four models in evaluator_asset_dependencies, which RunSpec resolution discloses and fresh preflight re-hashes (fail closed).",
+    "Comparability: layout 0 holds bottle/22, whose layout physics mass 22 is clamped to 0.5 kg at load (asset metadata 0.22 kg); no audited pool layout contains bottle/22, so earlier put_bottles results on layout 0 are not same-condition comparable with these rounds.",
+    "Spawn note: in layout 25 the standing bottle/0 (aligned box 0.245 m tall, centre z 0.88) starts about 7.5 mm into the table top at z 0.765; the contract text is unaffected.",
+    "Not a reachability review: arm reach and the right-table-edge knock-off risk are decided by the catalog review and the scene smoke."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_0.json",
+      "layout_sha256": "3c2168f460d48dde2d72d55429f1af7e850725b642dfcb8c8d5e31ed2ec25537",
+      "bottle_labels": [
+        "bottle0",
+        "bottle1",
+        "bottle2",
+        "bottle3"
+      ],
+      "bottles": [
+        {
+          "label": "bottle0",
+          "category_idx": 41,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle1",
+          "category_idx": 60,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle2",
+          "category_idx": 25,
+          "pose": "lying",
+          "tilt_from_upright_deg": 90.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle3",
+          "category_idx": 22,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 22
+        }
+      ],
+      "other_rigid_categories": [],
+      "dustbin": {
+        "category_idx": 0,
+        "default_pos": [
+          -0.63,
+          -0.1,
+          0.39999999999999997
+        ],
+        "default_ori": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "contains_bottle_22": true,
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00022/metadata.json",
+          "root": "assets",
+          "sha256": "421aba4cfe465eec17c9fa6064d9b099afa841b6a10f5fab9f6c10a777b496ef"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00025/metadata.json",
+          "root": "assets",
+          "sha256": "7a9ab0555f8f30caba6e97d147540e6cf0f48027b934724f996e1bcffe0173dd"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00041/metadata.json",
+          "root": "assets",
+          "sha256": "9ad91a5a25c7e8ce0746e68f1e1849cbb656a819bee06f2c20e7c1e08ff40972"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00060/metadata.json",
+          "root": "assets",
+          "sha256": "d3a59a806e9aff26327ec96f73013cce13b21f116fda23a265d38f16af0d7fd5"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 17,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_17.json",
+      "layout_sha256": "588d5bf25aa013bf9f630cefbc7830990f32a73b15f40ecd717ea8862e3215ba",
+      "bottle_labels": [
+        "bottle0",
+        "bottle1",
+        "bottle2",
+        "bottle3"
+      ],
+      "bottles": [
+        {
+          "label": "bottle0",
+          "category_idx": 41,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle1",
+          "category_idx": 5,
+          "pose": "lying",
+          "tilt_from_upright_deg": 89.982,
+          "layout_mass_kg": 0.2
+        },
+        {
+          "label": "bottle2",
+          "category_idx": 25,
+          "pose": "lying",
+          "tilt_from_upright_deg": 90.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle3",
+          "category_idx": 50,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        }
+      ],
+      "other_rigid_categories": [],
+      "dustbin": {
+        "category_idx": 0,
+        "default_pos": [
+          -0.63,
+          -0.1,
+          0.39999999999999997
+        ],
+        "default_ori": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "contains_bottle_22": false,
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00005/metadata.json",
+          "root": "assets",
+          "sha256": "04add3df2e5f5359b034ddaf27098ab974dcab577657fd220fe74b9923b5e6e0"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00025/metadata.json",
+          "root": "assets",
+          "sha256": "7a9ab0555f8f30caba6e97d147540e6cf0f48027b934724f996e1bcffe0173dd"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00041/metadata.json",
+          "root": "assets",
+          "sha256": "9ad91a5a25c7e8ce0746e68f1e1849cbb656a819bee06f2c20e7c1e08ff40972"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00050/metadata.json",
+          "root": "assets",
+          "sha256": "9e9144fa52a31c225770da306cf76a1a196cccb3469ce5a79a336d54c0f5dd2e"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 2,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_2.json",
+      "layout_sha256": "7110decf67ccb6d77942719bf2f79d567c5d1d080413d2c713d3b41e691c11fe",
+      "bottle_labels": [
+        "bottle0",
+        "bottle1",
+        "bottle2",
+        "bottle3"
+      ],
+      "bottles": [
+        {
+          "label": "bottle0",
+          "category_idx": 50,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle1",
+          "category_idx": 25,
+          "pose": "lying",
+          "tilt_from_upright_deg": 90.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle2",
+          "category_idx": 2,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.016,
+          "layout_mass_kg": 0.2
+        },
+        {
+          "label": "bottle3",
+          "category_idx": 5,
+          "pose": "lying",
+          "tilt_from_upright_deg": 89.982,
+          "layout_mass_kg": 0.2
+        }
+      ],
+      "other_rigid_categories": [],
+      "dustbin": {
+        "category_idx": 0,
+        "default_pos": [
+          -0.63,
+          -0.1,
+          0.39999999999999997
+        ],
+        "default_ori": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "contains_bottle_22": false,
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00002/metadata.json",
+          "root": "assets",
+          "sha256": "4330cd08f46bdf328c3bffa94e217a3185a57506664358787613515c69f7c9cc"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00005/metadata.json",
+          "root": "assets",
+          "sha256": "04add3df2e5f5359b034ddaf27098ab974dcab577657fd220fe74b9923b5e6e0"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00025/metadata.json",
+          "root": "assets",
+          "sha256": "7a9ab0555f8f30caba6e97d147540e6cf0f48027b934724f996e1bcffe0173dd"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00050/metadata.json",
+          "root": "assets",
+          "sha256": "9e9144fa52a31c225770da306cf76a1a196cccb3469ce5a79a336d54c0f5dd2e"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 25,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_25.json",
+      "layout_sha256": "c187edcfafb78f62a1b8522ad6a3d7afed4921f6278eb847b37f6c5e91efec9c",
+      "bottle_labels": [
+        "bottle0",
+        "bottle1",
+        "bottle2",
+        "bottle3"
+      ],
+      "bottles": [
+        {
+          "label": "bottle0",
+          "category_idx": 0,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.026,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle1",
+          "category_idx": 50,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle2",
+          "category_idx": 25,
+          "pose": "lying",
+          "tilt_from_upright_deg": 89.652,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle3",
+          "category_idx": 59,
+          "pose": "lying",
+          "tilt_from_upright_deg": 89.744,
+          "layout_mass_kg": 0.15
+        }
+      ],
+      "other_rigid_categories": [],
+      "dustbin": {
+        "category_idx": 0,
+        "default_pos": [
+          -0.63,
+          -0.1,
+          0.39999999999999997
+        ],
+        "default_ori": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "contains_bottle_22": false,
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00000/metadata.json",
+          "root": "assets",
+          "sha256": "97aa47eadb3d1251bb5841c0eb0c467be48d9ac287bdbb58fbbcdbd0948f584c"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00025/metadata.json",
+          "root": "assets",
+          "sha256": "7a9ab0555f8f30caba6e97d147540e6cf0f48027b934724f996e1bcffe0173dd"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00050/metadata.json",
+          "root": "assets",
+          "sha256": "9e9144fa52a31c225770da306cf76a1a196cccb3469ce5a79a336d54c0f5dd2e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00059/metadata.json",
+          "root": "assets",
+          "sha256": "eb0df723799dd005896e6522af6006fa37b9f25a8fc08d18bcffbf59f970b8e0"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 21,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_21.json",
+      "layout_sha256": "dd699d65c014e8da6cc60c4385757f0faac8c6e5343e887c3a9f32e99238ca49",
+      "bottle_labels": [
+        "bottle0",
+        "bottle1",
+        "bottle2",
+        "bottle3"
+      ],
+      "bottles": [
+        {
+          "label": "bottle0",
+          "category_idx": 0,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.026,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle1",
+          "category_idx": 60,
+          "pose": "lying",
+          "tilt_from_upright_deg": 89.457,
+          "layout_mass_kg": 0.15
+        },
+        {
+          "label": "bottle2",
+          "category_idx": 5,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.468,
+          "layout_mass_kg": 0.2
+        },
+        {
+          "label": "bottle3",
+          "category_idx": 50,
+          "pose": "standing",
+          "tilt_from_upright_deg": 0.0,
+          "layout_mass_kg": 0.15
+        }
+      ],
+      "other_rigid_categories": [],
+      "dustbin": {
+        "category_idx": 0,
+        "default_pos": [
+          -0.63,
+          -0.1,
+          0.39999999999999997
+        ],
+        "default_ori": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "contains_bottle_22": false,
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00000/metadata.json",
+          "root": "assets",
+          "sha256": "97aa47eadb3d1251bb5841c0eb0c467be48d9ac287bdbb58fbbcdbd0948f584c"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00005/metadata.json",
+          "root": "assets",
+          "sha256": "04add3df2e5f5359b034ddaf27098ab974dcab577657fd220fe74b9923b5e6e0"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00050/metadata.json",
+          "root": "assets",
+          "sha256": "9e9144fa52a31c225770da306cf76a1a196cccb3469ce5a79a336d54c0f5dd2e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/bottle/00060/metadata.json",
+          "root": "assets",
+          "sha256": "d3a59a806e9aff26327ec96f73013cce13b21f116fda23a265d38f16af0d7fd5"
+        }
+      ],
+      "compatible": true
+    }
+  ]
+}

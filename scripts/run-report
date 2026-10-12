@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# Read-only stop-reason and cost report over run directories or a namespace's cohorts.
+# Selects the locked project interpreter when available; paths stay relative to the caller.
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ -x "$ROOT/.venv/bin/python" ]; then
+  PYTHON="$ROOT/.venv/bin/python"
+else
+  PYTHON=${PYTHON:-python3}
+fi
+PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}" exec "$PYTHON" -m ora.orchestrator.run_report "$@"

@@ -1,0 +1,274 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "put_bottles_dustbin",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/put_bottles_dustbin.py",
+      "sha256": "1c03a4b227daa7d285fa366944f1f75773e32dc6a7b73ab693217a13fcd42795"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/put_bottles_dustbin.json",
+      "sha256": "c0321d06f242eea50447fe9c9e5647b9c8399eef6b61b43243ca920e3eed55e1"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/011_dustbin/model_data0.json",
+      "sha256": "32cde12d868cfb1824e50b1ab44c94b681097891f4c21cb110d91ace93c7345f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/011_dustbin/points_info.json",
+      "sha256": "df586f8e0bc19eb320279f520fbadcfdf77a71b4be38e71b48bb7e74ee86354d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/114_bottle/model_data1.json",
+      "sha256": "e2e440497bb38cc0167c501896719ba114765bd2f7f65b20d155d695416a21c4"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/114_bottle/model_data2.json",
+      "sha256": "67e15152fb67c499bce718aadeb07a0f057fe7a68aa795530ea130e40ab4e48a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/114_bottle/model_data3.json",
+      "sha256": "e6936ee653911ae1b9e1edab46bf3bd6abd4f55f652f2b64424ae6fec82e9460"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/114_bottle/model_data4.json",
+      "sha256": "7cb5f872c270df27135d879b3a65f04b83e45ba7be8b8c14c74f39d2680e75e7"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/114_bottle/points_info.json",
+      "sha256": "f9e920169054d21e997e56a585638d56b5b3c4e02b85ac99103688391bcdc3af"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/114_bottle/collision/base1.glb",
+      "sha256": "dfeb25c45ec1645f986da460d12c9cd4cbcc7290d58884842e12a29d94fe3b7c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/114_bottle/visual/base1.glb",
+      "sha256": "cfd8b601cad70675e17af8c595e1caa4470d45e885d4d7789d2df3935e65555a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/114_bottle/collision/base2.glb",
+      "sha256": "5b760af9418f6d1272693e3539e84ab8cbfc8e161d41be9702414bc571e99d02"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/114_bottle/visual/base2.glb",
+      "sha256": "bc9156f6eda496b591c03cfbc5088d9a1a42dc3f8ac25c120b7c97f54b0c8c9e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/114_bottle/collision/base3.glb",
+      "sha256": "3e661138f5dfbcda201766d181525c8e6e2cce26400df95829eb2772fed1a9e8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/114_bottle/visual/base3.glb",
+      "sha256": "bcf7da24d20a2d2b4b79ca6b7bf9de175ea649d53461dc820d857437df116cb7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/011_dustbin/collision/base0.glb",
+      "sha256": "78119e648f6d70bab0e36769e6ebf2720489dd21ea2b0dcb136a15b3982e3aeb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/011_dustbin/visual/base0.glb",
+      "sha256": "36a94f463a16c33a9f5cc2c232e129e0ea9385ee728ff6baddfd3a1aa79b0263"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-put_bottles_dustbin-s0-gpu7b-20260908T171007Z/put_bottles_dustbin/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "4f29afadaeb28246ee3265cf350ba21d08949415d109d500c80e4bf62620bcb4"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-put_bottles_dustbin-s0-gpu7b-20260908T171007Z/put_bottles_dustbin/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "be724eb9c3dbc7b566c5ea9858cdbf52997f69f36ea715968caa83006392a2ce"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-put_bottles_dustbin-s0-gpu7b-20260908T171007Z/put_bottles_dustbin/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "4e944b07a5a5066b0c501b31c9179ab8e8534a56995622ed37b0bafe19dacf2a"
+    },
+    {
+      "role": "reviewed_post_hold_image:left_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-put_bottles_dustbin-s0-gpu7b-20260908T171007Z/put_bottles_dustbin/attempts/seed-000000-try-00/left_camera-rgb.png",
+      "sha256": "a663647d6c30f957a50110260cd84cf8faa7c1b861990700270c74595bf9e2df"
+    },
+    {
+      "role": "reviewed_post_hold_image:right_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-put_bottles_dustbin-s0-gpu7b-20260908T171007Z/put_bottles_dustbin/attempts/seed-000000-try-00/right_camera-rgb.png",
+      "sha256": "26c026a7ba1c6809e31f97511a37f5c7285358d9ddc117c56f4a9a39090c2c9c"
+    }
+  ],
+  "public_clauses": [
+    "Put all three bottles into the dustbin to the robot's left, leaving them down inside it rather than on its rim or outside it.",
+    "All three bottles must be inside together."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success loops all three bottle roots inside fixed bin x/y region and z between .2 and .7; intended containment comes from instruction.",
+      "interpretation": "Put all three bottles into the dustbin to the robot's left, leaving them down inside it rather than on its rim or outside it.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "All objects must pass in the same predicate call; no per-bottle latch.",
+      "interpretation": "All three bottles must be inside together.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/put_bottles_dustbin.py:check_success lines 145-153, helper and asset dependencies listed in this record.",
+      "interpretation": "No exact support/contact, final orientation, gripper state or dwell condition. Do not substitute bounding-box membership for physical containment in public intent.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No exact support/contact, final orientation, gripper state or dwell condition. Do not substitute bounding-box membership for physical containment in public intent."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Three fixed bottle models1/2/3 and floor-bin0; bin-region test is an axis-aligned volume, not mesh containment."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Three fixed bottle models1/2/3 and floor-bin0; bin-region test is an axis-aligned volume, not mesh containment. Parsed 7 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Three fixed bottle models1/2/3 and floor-bin0; bin-region test is an axis-aligned volume, not mesh containment."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head misses bin interior; left wrist shows one bottle inside bin. Full three-bottle condition comes from recorded poses/predicate, not a claim all bottles are visible."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Two bottles in bin and one still on table, or bottle balanced at rim height: excluded. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No exact support/contact, final orientation, gripper state or dwell condition. Do not substitute bounding-box membership for physical containment in public intent."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Two bottles in bin and one still on table, or bottle balanced at rim height: excluded.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "保留三瓶同时落入左侧垃圾桶；不额外规定朝向、双手打开或等待时长。",
+  "witness_scope": {
+    "source_revision": "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "114_bottle",
+        "model_id": 1
+      },
+      {
+        "model_name": "114_bottle",
+        "model_id": 2
+      },
+      {
+        "model_name": "114_bottle",
+        "model_id": 3
+      },
+      {
+        "model_name": "011_dustbin",
+        "model_id": 0
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera",
+      "left_camera",
+      "right_camera"
+    ],
+    "visual_interpretation": "Head misses bin interior; left wrist shows one bottle inside bin. Full three-bottle condition comes from recorded poses/predicate, not a claim all bottles are visible.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No exact support/contact, final orientation, gripper state or dwell condition. Do not substitute bounding-box membership for physical containment in public intent. Head misses bin interior; left wrist shows one bottle inside bin. Full three-bottle condition comes from recorded poses/predicate, not a claim all bottles are visible. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

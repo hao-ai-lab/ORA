@@ -1,0 +1,4607 @@
+{
+  "grasp.plan": {
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "approach_delta": {
+            "additionalProperties": false,
+            "properties": {
+              "interaction": {
+                "const": "contact_approach",
+                "type": "string"
+              },
+              "orientation": {
+                "additionalProperties": false,
+                "properties": {
+                  "mode": {
+                    "const": "hold_current",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mode"
+                ],
+                "type": "object"
+              },
+              "position": {
+                "additionalProperties": false,
+                "properties": {
+                  "frame": {
+                    "const": "end_effector",
+                    "type": "string"
+                  },
+                  "mode": {
+                    "const": "delta",
+                    "type": "string"
+                  },
+                  "translation_m": {
+                    "$ref": "#/$defs/vector3"
+                  }
+                },
+                "required": [
+                  "mode",
+                  "translation_m",
+                  "frame"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "position",
+              "orientation",
+              "interaction"
+            ],
+            "type": "object"
+          },
+          "backend_score": {
+            "type": "number"
+          },
+          "candidate_id": {
+            "type": "string"
+          },
+          "compiler_checks": {
+            "additionalProperties": false,
+            "properties": {
+              "aperture": {
+                "const": "passed",
+                "type": "string"
+              },
+              "bounded_local_approach": {
+                "const": "passed",
+                "type": "string"
+              },
+              "contact_baseline_reconstruction": {
+                "const": "passed",
+                "type": "string"
+              },
+              "embodiment_mapping": {
+                "type": "string"
+              },
+              "finite_geometry": {
+                "const": "passed",
+                "type": "string"
+              },
+              "reachability": {
+                "type": "string",
+                "const": "delegated_to_move_pose"
+              },
+              "right_handed_grip_site_axes": {
+                "const": "passed",
+                "type": "string"
+              },
+              "source_origin_to_grip_site": {
+                "const": "passed",
+                "type": "string"
+              },
+              "workspace": {
+                "const": "passed",
+                "type": "string"
+              }
+            },
+            "required": [
+              "finite_geometry",
+              "right_handed_grip_site_axes",
+              "bounded_local_approach",
+              "source_origin_to_grip_site",
+              "contact_baseline_reconstruction",
+              "embodiment_mapping",
+              "workspace",
+              "aperture",
+              "reachability"
+            ],
+            "type": "object"
+          },
+          "contact_pose": {
+            "additionalProperties": false,
+            "properties": {
+              "orientation_xyzw": {
+                "$ref": "#/$defs/quaternion"
+              },
+              "position_m": {
+                "$ref": "#/$defs/vector3"
+              }
+            },
+            "required": [
+              "position_m",
+              "orientation_xyzw"
+            ],
+            "type": "object"
+          },
+          "gripper_opening_m": {
+            "exclusiveMinimum": 0,
+            "maximum": 0.08,
+            "type": "number"
+          },
+          "pregrasp_pose": {
+            "additionalProperties": false,
+            "properties": {
+              "orientation_xyzw": {
+                "$ref": "#/$defs/quaternion"
+              },
+              "position_m": {
+                "$ref": "#/$defs/vector3"
+              }
+            },
+            "required": [
+              "position_m",
+              "orientation_xyzw"
+            ],
+            "type": "object"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "rank",
+          "pregrasp_pose",
+          "contact_pose",
+          "approach_delta",
+          "gripper_opening_m",
+          "backend_score",
+          "compiler_checks"
+        ],
+        "type": "object"
+      },
+      "compiler": {
+        "additionalProperties": false,
+        "properties": {
+          "axis_mapping": {
+            "additionalProperties": false,
+            "properties": {
+              "model_approach_z": {
+                "type": "string"
+              },
+              "model_jaw_x": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "model_jaw_x",
+              "model_approach_z"
+            ],
+            "type": "object"
+          },
+          "contact_graspnet_gripper_depth_m": {
+            "type": "number"
+          },
+          "controlled_point": {
+            "const": "robosuite_grip_site",
+            "type": "string"
+          },
+          "controlled_point_semantics": {
+            "const": "grip_center",
+            "type": "string"
+          },
+          "controlled_point_to_contact_baseline_m": {
+            "type": "number"
+          },
+          "embodiment_descriptor_id": {
+            "type": "string"
+          },
+          "embodiment_descriptor_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "source_origin_to_controlled_point_m": {
+            "type": "number"
+          },
+          "source_pose_convention": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "embodiment_descriptor_id",
+          "embodiment_descriptor_sha256",
+          "source_pose_convention",
+          "controlled_point",
+          "controlled_point_semantics",
+          "contact_graspnet_gripper_depth_m",
+          "source_origin_to_controlled_point_m",
+          "controlled_point_to_contact_baseline_m",
+          "axis_mapping"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "compiled_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "compiler_rejected": {
+            "items": {
+              "$ref": "#/$defs/rejected_compiler_candidate"
+            },
+            "type": "array"
+          },
+          "compiler_returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inference_seed": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "raw_candidate_limit": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rejected": {
+            "items": {
+              "$ref": "#/$defs/rejected_backend_candidate"
+            },
+            "type": "array"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "scene_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "seed_identity_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "seed_policy": {
+            "type": "string"
+          },
+          "target_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "warning": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "rejected",
+          "compiler_rejected",
+          "compiler_returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_string": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height"
+        ],
+        "type": "object"
+      },
+      "quaternion": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 4,
+        "minItems": 4,
+        "type": "array"
+      },
+      "rejected_backend_candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "reasons"
+        ],
+        "type": "object"
+      },
+      "rejected_compiler_candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "vector3": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "backend": {
+        "$ref": "#/$defs/backend"
+      },
+      "camera": {
+        "enum": [
+          "agentview",
+          "wrist"
+        ],
+        "type": "string"
+      },
+      "candidates": {
+        "items": {
+          "$ref": "#/$defs/candidate"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "compiler": {
+        "$ref": "#/$defs/compiler"
+      },
+      "diagnostics": {
+        "$ref": "#/$defs/diagnostics"
+      },
+      "grasp_query_ref": {
+        "pattern": "^grasp-query-[0-9a-f]{24}$",
+        "type": "string"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "overlay": {
+        "$ref": "#/$defs/overlay"
+      },
+      "status": {
+        "enum": [
+          "candidates",
+          "no_candidate"
+        ],
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "target_ref": {
+        "pattern": "^target-[0-9a-f]{24}$",
+        "type": "string"
+      },
+      "review_evidence": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "primary_camera": {
+            "type": "string"
+          },
+          "requested_cameras": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "available_cameras": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unavailable_cameras": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "primary_input_required": {
+            "type": "boolean",
+            "const": true
+          },
+          "claim_boundary": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "primary_camera",
+          "requested_cameras",
+          "available_cameras",
+          "unavailable_cameras",
+          "primary_input_required",
+          "claim_boundary"
+        ],
+        "additionalProperties": false
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "scene_review": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "scope"
+        ]
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "observation_id",
+      "target_ref",
+      "camera",
+      "grasp_query_ref",
+      "backend",
+      "compiler",
+      "candidates",
+      "diagnostics",
+      "overlay",
+      "review_evidence"
+    ],
+    "type": "object"
+  },
+  "move_pose": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "move_pose"
+      },
+      "compiled_pose": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "action",
+      "compiled_pose"
+    ],
+    "additionalProperties": false
+  },
+  "move_to": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "move_to"
+      },
+      "compiled_pose": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "action",
+      "compiled_pose"
+    ],
+    "additionalProperties": false
+  },
+  "rotate_wrist": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "rotate_wrist"
+      },
+      "compiled_pose": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "action",
+      "compiled_pose"
+    ],
+    "additionalProperties": false
+  },
+  "rotate_pitch": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "rotate_pitch"
+      },
+      "compiled_pose": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "action",
+      "compiled_pose"
+    ],
+    "additionalProperties": false
+  },
+  "recover_pose": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "recover_pose"
+      },
+      "compiled_pose": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "action",
+      "compiled_pose"
+    ],
+    "additionalProperties": false
+  },
+  "grasp.verify_retention": {
+    "additionalProperties": false,
+    "properties": {
+      "arm": {
+        "enum": [
+          "left",
+          "right"
+        ],
+        "type": "string"
+      },
+      "baseline": {
+        "additionalProperties": false,
+        "properties": {
+          "before_state_step": {
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "close_action_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "closed_interval_verified": {
+            "type": "boolean"
+          },
+          "current_state_step": {
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "before_state_step",
+          "current_state_step",
+          "close_action_id",
+          "closed_interval_verified"
+        ],
+        "type": "object"
+      },
+      "before_observation_id": {
+        "type": "string"
+      },
+      "before_target_ref": {
+        "type": "string"
+      },
+      "claim_boundary": {
+        "const": "public_visible_surface_motion_consistency_only;semantic_identity_unverified;centroids_not_material_points;not_attachment_contact_support_or_official_success",
+        "type": "string"
+      },
+      "comparison_eligible": {
+        "type": "boolean"
+      },
+      "current_observation_id": {
+        "type": "string"
+      },
+      "current_target_ref": {
+        "type": "string"
+      },
+      "geometry": {
+        "additionalProperties": false,
+        "properties": {
+          "centroid_motion_direction_cosine": {
+            "maximum": 1,
+            "minimum": -1,
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "expected_target_delta_world_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          },
+          "expected_target_motion_m": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "observed_target_delta_world_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          },
+          "observed_target_motion_m": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "predicted_target_world_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          },
+          "rigid_centroid_residual_m": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "target_to_tcp_before_local_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          },
+          "target_to_tcp_current_local_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        "required": [
+          "target_to_tcp_before_local_m",
+          "target_to_tcp_current_local_m",
+          "predicted_target_world_m",
+          "expected_target_delta_world_m",
+          "observed_target_delta_world_m",
+          "expected_target_motion_m",
+          "observed_target_motion_m",
+          "rigid_centroid_residual_m",
+          "centroid_motion_direction_cosine"
+        ],
+        "type": "object"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "schema": {
+        "const": "ora.grasp-retention-advisory.v1",
+        "type": "string"
+      },
+      "source_cameras": {
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "string"
+          },
+          "current": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "before",
+          "current"
+        ],
+        "type": "object"
+      },
+      "status": {
+        "enum": [
+          "consistent",
+          "inconsistent",
+          "unknown"
+        ],
+        "type": "string"
+      },
+      "surface_comparison": {
+        "additionalProperties": false,
+        "properties": {
+          "before_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "before_query_count": {
+            "maximum": 512,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "centered_shape_p90_error_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "centroid_is_material_point": {
+            "const": false,
+            "type": "boolean"
+          },
+          "current_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "current_query_count": {
+            "maximum": 512,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maximum_reference_points": {
+            "const": 65536,
+            "type": "integer"
+          },
+          "method": {
+            "const": "fixed_se3_vs_stationary_full_reference_v2",
+            "type": "string"
+          },
+          "model_separation_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "rigid_overlap_before": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "rigid_overlap_current": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "rigid_p90_error_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "stationary_p90_error_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "view_direction_change_rad": {
+            "minimum": 0,
+            "type": "number"
+          }
+        },
+        "required": [
+          "method",
+          "before_point_count",
+          "current_point_count",
+          "rigid_p90_error_m",
+          "stationary_p90_error_m",
+          "centered_shape_p90_error_m",
+          "model_separation_m",
+          "rigid_overlap_before",
+          "rigid_overlap_current",
+          "view_direction_change_rad",
+          "centroid_is_material_point",
+          "before_query_count",
+          "current_query_count",
+          "maximum_reference_points"
+        ],
+        "type": "object"
+      },
+      "thresholds": {
+        "additionalProperties": false,
+        "properties": {
+          "inconsistent_centroid_residual_to_motion_ratio": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "maximum_negative_view_direction_change_rad": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "minimum_expected_target_motion_m": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "minimum_model_separation_m": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "minimum_rigid_overlap_fraction": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "minimum_visible_points": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "surface_noise_radius_m": {
+            "minimum": 0,
+            "type": "number"
+          }
+        },
+        "required": [
+          "minimum_expected_target_motion_m",
+          "surface_noise_radius_m",
+          "minimum_model_separation_m",
+          "minimum_rigid_overlap_fraction",
+          "maximum_negative_view_direction_change_rad",
+          "inconsistent_centroid_residual_to_motion_ratio",
+          "minimum_visible_points"
+        ],
+        "type": "object"
+      },
+      "quality_flags": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "before_image_border",
+            "current_image_border"
+          ]
+        },
+        "uniqueItems": true,
+        "maxItems": 2
+      },
+      "evidence_class": {
+        "type": "string",
+        "enum": [
+          "supports_holding",
+          "contradicts_holding",
+          "invalid_source_interval",
+          "insufficient_motion",
+          "visibility_insufficient",
+          "motion_ambiguous",
+          "conflicting_views"
+        ]
+      },
+      "anchor_before_target_ref": {
+        "type": "string",
+        "minLength": 1
+      },
+      "view_association": {
+        "type": "string",
+        "const": "agent_selected_same_object_not_authenticated"
+      },
+      "comparisons": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 3,
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "arm": {
+              "enum": [
+                "left",
+                "right"
+              ],
+              "type": "string"
+            },
+            "baseline": {
+              "additionalProperties": false,
+              "properties": {
+                "before_state_step": {
+                  "minimum": 0,
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "close_action_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "closed_interval_verified": {
+                  "type": "boolean"
+                },
+                "current_state_step": {
+                  "minimum": 0,
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "before_state_step",
+                "current_state_step",
+                "close_action_id",
+                "closed_interval_verified"
+              ],
+              "type": "object"
+            },
+            "before_observation_id": {
+              "type": "string"
+            },
+            "before_target_ref": {
+              "type": "string"
+            },
+            "claim_boundary": {
+              "const": "public_visible_surface_motion_consistency_only;semantic_identity_unverified;centroids_not_material_points;not_attachment_contact_support_or_official_success",
+              "type": "string"
+            },
+            "comparison_eligible": {
+              "type": "boolean"
+            },
+            "current_observation_id": {
+              "type": "string"
+            },
+            "current_target_ref": {
+              "type": "string"
+            },
+            "geometry": {
+              "additionalProperties": false,
+              "properties": {
+                "centroid_motion_direction_cosine": {
+                  "maximum": 1,
+                  "minimum": -1,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "expected_target_delta_world_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                },
+                "expected_target_motion_m": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "observed_target_delta_world_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                },
+                "observed_target_motion_m": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "predicted_target_world_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                },
+                "rigid_centroid_residual_m": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "target_to_tcp_before_local_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                },
+                "target_to_tcp_current_local_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "target_to_tcp_before_local_m",
+                "target_to_tcp_current_local_m",
+                "predicted_target_world_m",
+                "expected_target_delta_world_m",
+                "observed_target_delta_world_m",
+                "expected_target_motion_m",
+                "observed_target_motion_m",
+                "rigid_centroid_residual_m",
+                "centroid_motion_direction_cosine"
+              ],
+              "type": "object"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "schema": {
+              "const": "ora.grasp-retention-verification.v4",
+              "type": "string"
+            },
+            "source_cameras": {
+              "additionalProperties": false,
+              "properties": {
+                "before": {
+                  "type": "string"
+                },
+                "current": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "before",
+                "current"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "enum": [
+                "consistent",
+                "inconsistent",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            "surface_comparison": {
+              "additionalProperties": false,
+              "properties": {
+                "before_point_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "before_query_count": {
+                  "maximum": 512,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "centered_shape_p90_error_m": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "centroid_is_material_point": {
+                  "const": false,
+                  "type": "boolean"
+                },
+                "current_point_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "current_query_count": {
+                  "maximum": 512,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "maximum_reference_points": {
+                  "const": 65536,
+                  "type": "integer"
+                },
+                "method": {
+                  "const": "fixed_se3_vs_stationary_full_reference_v2",
+                  "type": "string"
+                },
+                "model_separation_m": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "rigid_overlap_before": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "rigid_overlap_current": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "rigid_p90_error_m": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "stationary_p90_error_m": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "view_direction_change_rad": {
+                  "minimum": 0,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "method",
+                "before_point_count",
+                "current_point_count",
+                "rigid_p90_error_m",
+                "stationary_p90_error_m",
+                "centered_shape_p90_error_m",
+                "model_separation_m",
+                "rigid_overlap_before",
+                "rigid_overlap_current",
+                "view_direction_change_rad",
+                "centroid_is_material_point",
+                "before_query_count",
+                "current_query_count",
+                "maximum_reference_points"
+              ],
+              "type": "object"
+            },
+            "thresholds": {
+              "additionalProperties": false,
+              "properties": {
+                "inconsistent_centroid_residual_to_motion_ratio": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "maximum_negative_view_direction_change_rad": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "minimum_expected_target_motion_m": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "minimum_model_separation_m": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "minimum_rigid_overlap_fraction": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "minimum_visible_points": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "surface_noise_radius_m": {
+                  "minimum": 0,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "minimum_expected_target_motion_m",
+                "surface_noise_radius_m",
+                "minimum_model_separation_m",
+                "minimum_rigid_overlap_fraction",
+                "maximum_negative_view_direction_change_rad",
+                "inconsistent_centroid_residual_to_motion_ratio",
+                "minimum_visible_points"
+              ],
+              "type": "object"
+            },
+            "quality_flags": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "before_image_border",
+                  "current_image_border"
+                ]
+              },
+              "uniqueItems": true,
+              "maxItems": 2
+            },
+            "evidence_class": {
+              "type": "string",
+              "enum": [
+                "supports_holding",
+                "contradicts_holding",
+                "invalid_source_interval",
+                "insufficient_motion",
+                "visibility_insufficient",
+                "motion_ambiguous",
+                "conflicting_views"
+              ]
+            }
+          },
+          "required": [
+            "schema",
+            "status",
+            "reason",
+            "arm",
+            "before_target_ref",
+            "current_target_ref",
+            "before_observation_id",
+            "current_observation_id",
+            "source_cameras",
+            "comparison_eligible",
+            "baseline",
+            "geometry",
+            "surface_comparison",
+            "thresholds",
+            "claim_boundary",
+            "quality_flags",
+            "evidence_class"
+          ],
+          "type": "object"
+        }
+      },
+      "assessment_role": {
+        "const": "advisory_only"
+      },
+      "pair_feedback": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pair_id": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "consistent",
+                "inconsistent",
+                "unknown"
+              ]
+            },
+            "reason": {
+              "type": "string"
+            },
+            "before_target_ref": {
+              "type": "string"
+            },
+            "current_target_ref": {
+              "type": "string"
+            },
+            "before_camera": {
+              "type": "string"
+            },
+            "current_camera": {
+              "type": "string"
+            },
+            "threshold_gaps": {
+              "type": "array",
+              "maxItems": 6,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "measured": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "threshold": {
+                    "type": "number"
+                  },
+                  "criterion": {
+                    "enum": [
+                      "minimum",
+                      "maximum"
+                    ]
+                  },
+                  "unit": {
+                    "enum": [
+                      "m",
+                      "rad",
+                      "fraction"
+                    ]
+                  },
+                  "acceptance_margin": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "name",
+                  "measured",
+                  "threshold",
+                  "criterion",
+                  "unit",
+                  "acceptance_margin"
+                ]
+              }
+            },
+            "image_status": {
+              "enum": [
+                "available",
+                "unavailable"
+              ]
+            }
+          },
+          "required": [
+            "pair_id",
+            "status",
+            "reason",
+            "before_target_ref",
+            "current_target_ref",
+            "before_camera",
+            "current_camera",
+            "threshold_gaps",
+            "image_status"
+          ]
+        }
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "reason",
+      "arm",
+      "before_target_ref",
+      "current_target_ref",
+      "before_observation_id",
+      "current_observation_id",
+      "source_cameras",
+      "comparison_eligible",
+      "baseline",
+      "geometry",
+      "surface_comparison",
+      "thresholds",
+      "claim_boundary",
+      "quality_flags",
+      "evidence_class",
+      "anchor_before_target_ref",
+      "view_association",
+      "comparisons",
+      "assessment_role"
+    ],
+    "type": "object"
+  },
+  "vision.offset": {
+    "additionalProperties": false,
+    "properties": {
+      "axis_degenerate": {
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "boolean"
+          },
+          "b": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "type": "object"
+      },
+      "camera": {
+        "type": "string"
+      },
+      "centroid_a_world_m": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      },
+      "centroid_b_world_m": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      },
+      "claim_boundary": {
+        "type": "string"
+      },
+      "distance_m": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "offset_a_to_b_world_m": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      },
+      "planar_distance_m": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "principal_axis_a_world_xy_deg": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "principal_axis_b_world_xy_deg": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "principal_axis_relative_deg": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "ref_a": {
+        "type": "string"
+      },
+      "ref_b": {
+        "type": "string"
+      },
+      "schema": {
+        "const": "ora.observation-bound-target-offset.v1",
+        "type": "string"
+      },
+      "status": {
+        "const": "measured",
+        "type": "string"
+      },
+      "vertical_offset_m": {
+        "type": "number"
+      },
+      "visible_point_counts": {
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "b": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "type": "object"
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "measurement_contract": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "observation_id",
+      "camera",
+      "ref_a",
+      "ref_b",
+      "centroid_a_world_m",
+      "centroid_b_world_m",
+      "offset_a_to_b_world_m",
+      "distance_m",
+      "planar_distance_m",
+      "vertical_offset_m",
+      "principal_axis_a_world_xy_deg",
+      "principal_axis_b_world_xy_deg",
+      "principal_axis_relative_deg",
+      "axis_degenerate",
+      "visible_point_counts",
+      "claim_boundary"
+    ],
+    "type": "object"
+  },
+  "close_gripper": {
+    "additionalProperties": false,
+    "properties": {
+      "action": {
+        "const": "close_gripper",
+        "type": "string"
+      },
+      "status": {
+        "const": "submitted",
+        "type": "string"
+      },
+      "intent": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "target_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "role": {
+            "const": "agent_annotation_only"
+          }
+        },
+        "required": [
+          "target_ref",
+          "role"
+        ]
+      }
+    },
+    "required": [
+      "status",
+      "action"
+    ],
+    "type": "object"
+  },
+  "open_gripper": {
+    "additionalProperties": false,
+    "properties": {
+      "action": {
+        "const": "open_gripper",
+        "type": "string"
+      },
+      "status": {
+        "const": "submitted",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "action"
+    ],
+    "type": "object"
+  },
+  "check_task": {
+    "oneOf": [
+      {
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "const": true,
+            "type": "boolean"
+          },
+          "task_success": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "task_success"
+        ],
+        "type": "object"
+      },
+      {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "const": "task_checker_unavailable",
+            "type": "string"
+          },
+          "retryable": {
+            "const": true,
+            "type": "boolean"
+          },
+          "success": {
+            "const": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "reason",
+          "retryable"
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  "finish_episode": {
+    "additionalProperties": false,
+    "properties": {
+      "outcome": {
+        "enum": [
+          "success",
+          "failure",
+          "abort"
+        ],
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "success",
+      "outcome"
+    ],
+    "type": "object"
+  },
+  "mark_point": {
+    "additionalProperties": false,
+    "properties": {
+      "action_workspace": {
+        "type": "object"
+      },
+      "next_views": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "point_id": {
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "solved",
+          "verified"
+        ],
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "views": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "xyz_m": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "measurement_contract": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "point_id"
+    ],
+    "type": "object"
+  },
+  "observe": {
+    "additionalProperties": false,
+    "properties": {
+      "aperture_limits_mm": {
+        "additionalProperties": false,
+        "properties": {
+          "near_closed": {
+            "type": "number"
+          },
+          "open": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "near_closed",
+          "open"
+        ],
+        "type": "object"
+      },
+      "aperture_mm": {
+        "type": "number"
+      },
+      "grip_xyz_m": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "view_dimensions": {
+        "type": "object"
+      },
+      "views": {
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "type": "array"
+      },
+      "status": {
+        "type": "string",
+        "const": "actual_historical_observation"
+      },
+      "observation_step": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "measurement_contract": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "success",
+      "observation_id",
+      "views",
+      "grip_xyz_m",
+      "aperture_mm",
+      "aperture_limits_mm",
+      "view_dimensions"
+    ],
+    "type": "object"
+  },
+  "report_issue": {
+    "additionalProperties": false,
+    "properties": {
+      "success": {
+        "const": true,
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "success"
+    ],
+    "type": "object"
+  },
+  "vision.ground": {
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "backend_score": {
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "localization": {
+            "$ref": "#/$defs/localization"
+          },
+          "mask_summary": {
+            "$ref": "#/$defs/mask_summary"
+          },
+          "overlay_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          },
+          "candidate_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rank",
+          "target_ref",
+          "backend_score",
+          "bbox_xyxy",
+          "mask_summary",
+          "localization",
+          "overlay_sha256",
+          "candidate_id"
+        ],
+        "type": "object"
+      },
+      "candidate_preview": {
+        "additionalProperties": false,
+        "properties": {
+          "crop_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "image_index": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "render_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "resampling": {
+            "const": "bicubic_visual_enlargement_no_new_source_detail",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "source_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_index",
+          "rank",
+          "target_ref",
+          "sha256",
+          "source_dimensions",
+          "source_bbox_xyxy",
+          "crop_xyxy",
+          "render_dimensions",
+          "resampling"
+        ],
+        "type": "object"
+      },
+      "depth_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "median": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "min",
+          "median",
+          "max"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "request_id",
+          "returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "localization": {
+        "additionalProperties": false,
+        "properties": {
+          "aabb_max_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "aabb_min_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "center_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "depth_inlier_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "extent_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "inlier_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "largest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "largest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mask_pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "middle_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "middle_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "primary_component_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "principal_axes_world": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "type": "array"
+            }
+          },
+          "principal_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "principal_extents_m": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "scope": {
+            "const": "visible_mask_depth",
+            "type": "string"
+          },
+          "smallest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "smallest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "localized",
+              "insufficient_depth"
+            ],
+            "type": "string"
+          },
+          "valid_depth_component_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "valid_depth_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "method",
+          "frame",
+          "scope",
+          "mask_pixel_count",
+          "valid_depth_point_count",
+          "valid_depth_component_count",
+          "inlier_point_count",
+          "depth_valid_fraction",
+          "primary_component_fraction",
+          "depth_inlier_fraction",
+          "center_xyz_m",
+          "aabb_min_xyz_m",
+          "aabb_max_xyz_m",
+          "extent_xyz_m",
+          "principal_axis_world"
+        ],
+        "type": "object"
+      },
+      "mask_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "area_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "centroid_uv": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "depth_m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/depth_summary"
+              }
+            ]
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pixel_count",
+          "area_fraction",
+          "bbox_xyxy",
+          "centroid_uv",
+          "depth_valid_fraction",
+          "depth_m"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_vector3": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_index": {
+            "const": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height",
+          "image_index"
+        ],
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "backend": {
+        "$ref": "#/$defs/backend"
+      },
+      "camera": {
+        "enum": [
+          "agentview",
+          "wrist"
+        ],
+        "type": "string"
+      },
+      "candidate_previews": {
+        "items": {
+          "$ref": "#/$defs/candidate_preview"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "candidates": {
+        "items": {
+          "$ref": "#/$defs/candidate"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "diagnostics": {
+        "$ref": "#/$defs/diagnostics"
+      },
+      "grounding_ref": {
+        "pattern": "^grounding-query-[0-9a-f]{24}$",
+        "type": "string"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "overlay": {
+        "$ref": "#/$defs/overlay"
+      },
+      "status": {
+        "enum": [
+          "candidates",
+          "no_candidate"
+        ],
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "text": {
+        "type": "string"
+      },
+      "perception_evidence": {
+        "type": "object",
+        "properties": {
+          "schema": {
+            "type": "string",
+            "const": "ora.perception-selection-evidence.v1"
+          },
+          "prompt_kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "point"
+            ]
+          },
+          "source_image_size": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "point_uv": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "point_inside_returned_mask": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "semantic_identity_verified": {
+            "type": "boolean",
+            "const": false
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "target_ref": {
+                  "type": "string"
+                },
+                "mask_touches_image_boundary": {
+                  "type": "boolean"
+                },
+                "mask_pixel_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "depth_valid_fraction": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "depth_inlier_fraction": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "primary_component_fraction": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "visible_extent_xyz_m": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              },
+              "required": [
+                "target_ref",
+                "mask_touches_image_boundary",
+                "mask_pixel_count",
+                "depth_valid_fraction",
+                "depth_inlier_fraction",
+                "primary_component_fraction",
+                "visible_extent_xyz_m"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "schema",
+          "prompt_kind",
+          "source_image_size",
+          "point_uv",
+          "point_inside_returned_mask",
+          "semantic_identity_verified",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "observation_id",
+      "camera",
+      "text",
+      "grounding_ref",
+      "backend",
+      "candidates",
+      "diagnostics",
+      "candidate_previews",
+      "overlay",
+      "perception_evidence"
+    ],
+    "type": "object"
+  },
+  "vision.segment": {
+    "type": "object",
+    "properties": {
+      "schema": {
+        "type": "string",
+        "const": "ora.point-segmentation-batch.v1"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "candidates",
+          "no_candidate"
+        ]
+      },
+      "query_ref": {
+        "type": "string"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "camera": {
+        "type": "string"
+      },
+      "points_uv": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "maxItems": 8
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "backend_score": {
+              "type": "number"
+            },
+            "bbox_xyxy": {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array"
+            },
+            "localization": {
+              "$ref": "#/$defs/localization"
+            },
+            "mask_summary": {
+              "$ref": "#/$defs/mask_summary"
+            },
+            "overlay_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "rank": {
+              "maximum": 2,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "target_ref": {
+              "pattern": "^target-[0-9a-f]{24}$",
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "source_queries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "query_index": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "source_index": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "query_index",
+                  "source_index"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 24
+            },
+            "representative_point_uv": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "normalization": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "const": "positive_prompt_8_connected_component_v1"
+                },
+                "raw_component_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "raw_pixel_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "prompt_component_pixel_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "retained_fraction": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "method",
+                "raw_component_count",
+                "raw_pixel_count",
+                "prompt_component_pixel_count",
+                "retained_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "mask_touches_image_boundary": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "rank",
+            "target_ref",
+            "backend_score",
+            "bbox_xyxy",
+            "mask_summary",
+            "localization",
+            "overlay_sha256",
+            "candidate_id",
+            "source_queries",
+            "representative_point_uv",
+            "normalization",
+            "mask_touches_image_boundary"
+          ],
+          "type": "object"
+        },
+        "maxItems": 3
+      },
+      "query_results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "query_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "point_uv": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "raw_candidate_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "completed",
+                "failed"
+              ]
+            },
+            "error_code": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "returned_candidate_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "query_index",
+            "point_uv",
+            "raw_candidate_count",
+            "status",
+            "error_code",
+            "returned_candidate_ids"
+          ],
+          "additionalProperties": false
+        },
+        "maxItems": 8
+      },
+      "selection": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string",
+            "const": "stable_score_then_mask_iou_nms_v1"
+          },
+          "mask_iou_threshold": {
+            "type": "number"
+          },
+          "max_candidates": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "raw_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "usable_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "distinct_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "duplicate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "returned_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "truncated_distinct_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "rejected_candidates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "query_index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "source_index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query_index",
+                "source_index",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 24
+          },
+          "semantic_selection": {
+            "type": "string",
+            "const": "agent"
+          }
+        },
+        "required": [
+          "method",
+          "mask_iou_threshold",
+          "max_candidates",
+          "raw_candidate_count",
+          "usable_candidate_count",
+          "distinct_candidate_count",
+          "duplicate_count",
+          "returned_count",
+          "truncated_distinct_count",
+          "rejected_candidates",
+          "semantic_selection"
+        ],
+        "additionalProperties": false
+      },
+      "candidate_previews": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rank": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "source_dimensions": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "maxItems": 2
+            },
+            "source_bbox_xyxy": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "maxItems": 4
+            },
+            "crop_xyxy": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "maxItems": 4
+            },
+            "render_dimensions": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "maxItems": 2
+            },
+            "resampling": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "rank",
+            "target_ref",
+            "source_dimensions",
+            "source_bbox_xyxy",
+            "crop_xyxy",
+            "render_dimensions",
+            "resampling"
+          ],
+          "additionalProperties": false
+        },
+        "maxItems": 3
+      },
+      "image_order": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "maxItems": 4
+      },
+      "cache_reused": {
+        "type": "boolean"
+      },
+      "semantic_identity_verified": {
+        "type": "boolean",
+        "const": false
+      },
+      "claim_boundary": {
+        "type": "string"
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "query_ref",
+      "observation_id",
+      "camera",
+      "points_uv",
+      "candidates",
+      "query_results",
+      "selection",
+      "candidate_previews",
+      "image_order",
+      "cache_reused",
+      "semantic_identity_verified",
+      "claim_boundary"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "backend_score": {
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "localization": {
+            "$ref": "#/$defs/localization"
+          },
+          "mask_summary": {
+            "$ref": "#/$defs/mask_summary"
+          },
+          "overlay_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rank",
+          "target_ref",
+          "backend_score",
+          "bbox_xyxy",
+          "mask_summary",
+          "localization",
+          "overlay_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate_preview": {
+        "additionalProperties": false,
+        "properties": {
+          "crop_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "image_index": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "render_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "resampling": {
+            "const": "bicubic_visual_enlargement_no_new_source_detail",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "source_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_index",
+          "rank",
+          "target_ref",
+          "sha256",
+          "source_dimensions",
+          "source_bbox_xyxy",
+          "crop_xyxy",
+          "render_dimensions",
+          "resampling"
+        ],
+        "type": "object"
+      },
+      "depth_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "median": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "min",
+          "median",
+          "max"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "request_id",
+          "returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "localization": {
+        "additionalProperties": false,
+        "properties": {
+          "aabb_max_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "aabb_min_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "center_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "depth_inlier_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "extent_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "inlier_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "largest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "largest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mask_pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "middle_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "middle_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "primary_component_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "principal_axes_world": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "type": "array"
+            }
+          },
+          "principal_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "principal_extents_m": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "scope": {
+            "const": "visible_mask_depth",
+            "type": "string"
+          },
+          "smallest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "smallest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "localized",
+              "insufficient_depth"
+            ],
+            "type": "string"
+          },
+          "valid_depth_component_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "valid_depth_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "method",
+          "frame",
+          "scope",
+          "mask_pixel_count",
+          "valid_depth_point_count",
+          "valid_depth_component_count",
+          "inlier_point_count",
+          "depth_valid_fraction",
+          "primary_component_fraction",
+          "depth_inlier_fraction",
+          "center_xyz_m",
+          "aabb_min_xyz_m",
+          "aabb_max_xyz_m",
+          "extent_xyz_m",
+          "principal_axis_world"
+        ],
+        "type": "object"
+      },
+      "mask_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "area_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "centroid_uv": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "depth_m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/depth_summary"
+              }
+            ]
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pixel_count",
+          "area_fraction",
+          "bbox_xyxy",
+          "centroid_uv",
+          "depth_valid_fraction",
+          "depth_m"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_vector3": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_index": {
+            "const": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height",
+          "image_index"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "place.plan": {
+    "type": "object",
+    "description": "Read-only next-step placement proposal.",
+    "properties": {
+      "schema": {
+        "type": "string",
+        "description": "Versioned public placement result schema.",
+        "const": "ora.place-plan.v1"
+      },
+      "status": {
+        "type": "string",
+        "description": "Qualified summary of the requested visible geometric assessment; not task success.",
+        "enum": [
+          "candidates",
+          "no_candidate",
+          "unknown"
+        ]
+      },
+      "reason": {
+        "type": "string",
+        "description": "Why this result is candidates, consistent, contradicted, no_candidate or unknown."
+      },
+      "observation_id": {
+        "type": "string",
+        "description": "Exact current observation identifier used by this assessment."
+      },
+      "observation_sha256": {
+        "type": "string",
+        "description": "SHA-256 of the assessment's immutable observation source.",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "assessment_ref": {
+        "type": "string",
+        "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+        "pattern": "^place-check-[0-9a-f]{32}$"
+      },
+      "selected_regions": {
+        "type": "array",
+        "description": "All selected public regions used by the assessment.",
+        "items": {
+          "type": "object",
+          "description": "One selected visible region and its source image/depth/calibration provenance.",
+          "properties": {
+            "role": {
+              "type": "string",
+              "description": "Role assigned to this region in the assessment."
+            },
+            "target_ref": {
+              "type": "string",
+              "description": "Exact selected target reference."
+            },
+            "camera": {
+              "type": "string",
+              "description": "Public RGB-D source camera.",
+              "enum": [
+                "agentview",
+                "wrist"
+              ]
+            },
+            "rgb_sha256": {
+              "type": "string",
+              "description": "SHA-256 of the bound RGB source.",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "depth_sha256": {
+              "type": "string",
+              "description": "SHA-256 of the bound public depth source.",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "calibration_sha256": {
+              "type": "string",
+              "description": "SHA-256 of the bound public camera calibration.",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "role",
+            "target_ref",
+            "camera",
+            "rgb_sha256",
+            "depth_sha256",
+            "calibration_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0,
+        "maxItems": 16
+      },
+      "stage_evidence": {
+        "type": "object",
+        "description": "Action-receipt facts that qualify the requested stage, not physical release or support proof.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Whether public receipt history confirms the requested stage.",
+            "enum": [
+              "confirmed",
+              "unknown",
+              "contradicted"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Explanation of the receipt-stage join."
+          },
+          "latest_gripper_action_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Latest gripper action identifier in the same episode, or null when unavailable."
+          },
+          "latest_gripper_directive": {
+            "type": "string",
+            "description": "Latest accepted gripper directive, not a physical contact or attachment label.",
+            "enum": [
+              "open",
+              "close",
+              "unknown"
+            ]
+          },
+          "post_open_pose_actions": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of actual pose actions after the most recent open, used only for stage evidence."
+          },
+          "last_pose_execution_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Last public pose receipt execution status, or null when unavailable."
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "latest_gripper_action_id",
+          "latest_gripper_directive",
+          "post_open_pose_actions",
+          "last_pose_execution_status"
+        ],
+        "additionalProperties": false
+      },
+      "checks": {
+        "type": "object",
+        "description": "Independent public evidence checks; no release_allowed or stability oracle.",
+        "properties": {
+          "region": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified region evidence."
+          },
+          "support": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified support evidence."
+          },
+          "orientation": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified orientation evidence."
+          },
+          "protected_objects": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified protected objects evidence."
+          }
+        },
+        "required": [
+          "region",
+          "support",
+          "orientation",
+          "protected_objects"
+        ],
+        "additionalProperties": false
+      },
+      "geometry_measurements": {
+        "type": "array",
+        "description": "Additional public geometric measurements and limits.",
+        "items": {
+          "$ref": "#/$defs/measurement",
+          "description": "One named public-evidence measurement."
+        }
+      },
+      "evidence": {
+        "type": "object",
+        "description": "Durable hashed assessment and visual overlay artifacts.",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Assessment JSON evidence path."
+          },
+          "sha256": {
+            "type": "string",
+            "description": "SHA-256 of assessment JSON evidence.",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "overlay_path": {
+            "type": "string",
+            "description": "Public-evidence overlay artifact path."
+          },
+          "overlay_sha256": {
+            "type": "string",
+            "description": "SHA-256 of the overlay artifact.",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "overlay_path",
+          "overlay_sha256"
+        ],
+        "additionalProperties": false
+      },
+      "claim_boundary": {
+        "type": "string",
+        "description": "Explicit limits: public selected-region geometry and receipt stage only; no identity, contact, physical release, stable support, collision-free trajectory or official-success proof."
+      },
+      "phase": {
+        "type": "string",
+        "description": "Requested placement phase.",
+        "enum": [
+          "preplace",
+          "lower",
+          "exit"
+        ]
+      },
+      "candidates": {
+        "type": "array",
+        "description": "Zero to three observation-bound numeric next-step candidates.",
+        "items": {
+          "type": "object",
+          "description": "One numeric candidate, not a stored executable motion plan or execution authorization.",
+          "properties": {
+            "candidate_id": {
+              "type": "string",
+              "description": "Identifier local to this assessment."
+            },
+            "move_pose": {
+              "type": "object",
+              "description": "Numeric arguments for an independently chosen atomic move_pose, subject to unchanged runtime admission.",
+              "properties": {
+                "position_m": {
+                  "type": "array",
+                  "description": "Absolute right TCP position in the public workspace frame, in metres.",
+                  "items": {
+                    "type": "number",
+                    "description": "Finite numeric coordinate."
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "orientation_xyzw": {
+                  "type": "array",
+                  "description": "Right TCP quaternion in xyzw convention.",
+                  "items": {
+                    "type": "number",
+                    "description": "Finite numeric coordinate."
+                  },
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                "interaction": {
+                  "type": "string",
+                  "description": "Existing move_pose interaction intent.",
+                  "enum": [
+                    "free_space",
+                    "precision",
+                    "contact_approach"
+                  ]
+                }
+              },
+              "required": [
+                "position_m",
+                "orientation_xyzw",
+                "interaction"
+              ],
+              "additionalProperties": false
+            },
+            "measurements": {
+              "type": "array",
+              "description": "Measurements and margins supporting this candidate.",
+              "items": {
+                "$ref": "#/$defs/measurement",
+                "description": "One named public-evidence measurement."
+              }
+            },
+            "claim_boundary": {
+              "type": "string",
+              "description": "Candidate limitations; endpoint geometry does not certify a scene/payload collision-free path."
+            }
+          },
+          "required": [
+            "candidate_id",
+            "move_pose",
+            "measurements",
+            "claim_boundary"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0,
+        "maxItems": 3
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "candidate_prerequisites": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "geometry_status": {
+        "enum": [
+          "consistent",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "uncertainty_reasons": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "reason",
+      "observation_id",
+      "observation_sha256",
+      "assessment_ref",
+      "selected_regions",
+      "stage_evidence",
+      "checks",
+      "geometry_measurements",
+      "evidence",
+      "claim_boundary",
+      "phase",
+      "candidates"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+      "measurement": {
+        "type": "object",
+        "description": "One explicit geometric or provenance measurement; unused value forms are null.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Stable measurement name."
+          },
+          "scalar": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Finite scalar measurement, or null."
+          },
+          "vector": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Finite vector measurement, or null.",
+            "items": {
+              "type": "number",
+              "description": "Finite vector component."
+            }
+          },
+          "text": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Textual measurement or qualification, or null."
+          }
+        },
+        "required": [
+          "name",
+          "scalar",
+          "vector",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "check": {
+        "type": "object",
+        "description": "One independently qualified visible-evidence check.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Public-evidence compatibility, not physical contact, stable attachment, identity or official success.",
+            "enum": [
+              "consistent",
+              "contradicted",
+              "unknown"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Explanation of the measured evidence and its limitations."
+          },
+          "measurements": {
+            "type": "array",
+            "description": "Measurements supporting this check.",
+            "items": {
+              "$ref": "#/$defs/measurement",
+              "description": "One named public-evidence measurement."
+            }
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "measurements"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "place.verify": {
+    "type": "object",
+    "description": "Read-only staged visible placement verification.",
+    "properties": {
+      "schema": {
+        "type": "string",
+        "description": "Versioned public placement result schema.",
+        "const": "ora.place-verification.v1"
+      },
+      "status": {
+        "type": "string",
+        "description": "Qualified summary of the requested visible geometric assessment; not task success.",
+        "enum": [
+          "consistent",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "reason": {
+        "type": "string",
+        "description": "Why this result is candidates, consistent, contradicted, no_candidate or unknown."
+      },
+      "observation_id": {
+        "type": "string",
+        "description": "Exact current observation identifier used by this assessment."
+      },
+      "observation_sha256": {
+        "type": "string",
+        "description": "SHA-256 of the assessment's immutable observation source.",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "assessment_ref": {
+        "type": "string",
+        "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+        "pattern": "^place-check-[0-9a-f]{32}$"
+      },
+      "selected_regions": {
+        "type": "array",
+        "description": "All selected public regions used by the assessment.",
+        "items": {
+          "type": "object",
+          "description": "One selected visible region and its source image/depth/calibration provenance.",
+          "properties": {
+            "role": {
+              "type": "string",
+              "description": "Role assigned to this region in the assessment."
+            },
+            "target_ref": {
+              "type": "string",
+              "description": "Exact selected target reference."
+            },
+            "camera": {
+              "type": "string",
+              "description": "Public RGB-D source camera.",
+              "enum": [
+                "agentview",
+                "wrist"
+              ]
+            },
+            "rgb_sha256": {
+              "type": "string",
+              "description": "SHA-256 of the bound RGB source.",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "depth_sha256": {
+              "type": "string",
+              "description": "SHA-256 of the bound public depth source.",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "calibration_sha256": {
+              "type": "string",
+              "description": "SHA-256 of the bound public camera calibration.",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "role",
+            "target_ref",
+            "camera",
+            "rgb_sha256",
+            "depth_sha256",
+            "calibration_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0,
+        "maxItems": 16
+      },
+      "stage_evidence": {
+        "type": "object",
+        "description": "Action-receipt facts that qualify the requested stage, not physical release or support proof.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Whether public receipt history confirms the requested stage.",
+            "enum": [
+              "confirmed",
+              "unknown",
+              "contradicted"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Explanation of the receipt-stage join."
+          },
+          "latest_gripper_action_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Latest gripper action identifier in the same episode, or null when unavailable."
+          },
+          "latest_gripper_directive": {
+            "type": "string",
+            "description": "Latest accepted gripper directive, not a physical contact or attachment label.",
+            "enum": [
+              "open",
+              "close",
+              "unknown"
+            ]
+          },
+          "post_open_pose_actions": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of actual pose actions after the most recent open, used only for stage evidence."
+          },
+          "last_pose_execution_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Last public pose receipt execution status, or null when unavailable."
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "latest_gripper_action_id",
+          "latest_gripper_directive",
+          "post_open_pose_actions",
+          "last_pose_execution_status"
+        ],
+        "additionalProperties": false
+      },
+      "checks": {
+        "type": "object",
+        "description": "Independent public evidence checks; no release_allowed or stability oracle.",
+        "properties": {
+          "region": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified region evidence."
+          },
+          "support": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified support evidence."
+          },
+          "orientation": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified orientation evidence."
+          },
+          "protected_objects": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified protected objects evidence."
+          }
+        },
+        "required": [
+          "region",
+          "support",
+          "orientation",
+          "protected_objects"
+        ],
+        "additionalProperties": false
+      },
+      "geometry_measurements": {
+        "type": "array",
+        "description": "Additional public geometric measurements and limits.",
+        "items": {
+          "$ref": "#/$defs/measurement",
+          "description": "One named public-evidence measurement."
+        }
+      },
+      "evidence": {
+        "type": "object",
+        "description": "Durable hashed assessment and visual overlay artifacts.",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Assessment JSON evidence path."
+          },
+          "sha256": {
+            "type": "string",
+            "description": "SHA-256 of assessment JSON evidence.",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "overlay_path": {
+            "type": "string",
+            "description": "Public-evidence overlay artifact path."
+          },
+          "overlay_sha256": {
+            "type": "string",
+            "description": "SHA-256 of the overlay artifact.",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "overlay_path",
+          "overlay_sha256"
+        ],
+        "additionalProperties": false
+      },
+      "claim_boundary": {
+        "type": "string",
+        "description": "Explicit limits: public selected-region geometry and receipt stage only; no identity, contact, physical release, stable support, collision-free trajectory or official-success proof."
+      },
+      "stage": {
+        "type": "string",
+        "description": "Requested verification stage.",
+        "enum": [
+          "pre_release",
+          "post_release",
+          "post_exit"
+        ]
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "geometry_status": {
+        "enum": [
+          "consistent",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "uncertainty_reasons": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "reason",
+      "observation_id",
+      "observation_sha256",
+      "assessment_ref",
+      "selected_regions",
+      "stage_evidence",
+      "checks",
+      "geometry_measurements",
+      "evidence",
+      "claim_boundary",
+      "stage"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+      "measurement": {
+        "type": "object",
+        "description": "One explicit geometric or provenance measurement; unused value forms are null.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Stable measurement name."
+          },
+          "scalar": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Finite scalar measurement, or null."
+          },
+          "vector": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Finite vector measurement, or null.",
+            "items": {
+              "type": "number",
+              "description": "Finite vector component."
+            }
+          },
+          "text": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Textual measurement or qualification, or null."
+          }
+        },
+        "required": [
+          "name",
+          "scalar",
+          "vector",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "check": {
+        "type": "object",
+        "description": "One independently qualified visible-evidence check.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Public-evidence compatibility, not physical contact, stable attachment, identity or official success.",
+            "enum": [
+              "consistent",
+              "contradicted",
+              "unknown"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Explanation of the measured evidence and its limitations."
+          },
+          "measurements": {
+            "type": "array",
+            "description": "Measurements supporting this check.",
+            "items": {
+              "$ref": "#/$defs/measurement",
+              "description": "One named public-evidence measurement."
+            }
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "measurements"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "servo": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "submitted"
+        ]
+      },
+      "action": {
+        "type": "string",
+        "enum": [
+          "servo"
+        ]
+      }
+    },
+    "required": [
+      "status",
+      "action"
+    ]
+  }
+}

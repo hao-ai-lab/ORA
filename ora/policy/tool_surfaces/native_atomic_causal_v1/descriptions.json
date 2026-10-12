@@ -1,0 +1,13 @@
+{
+  "replace": {
+    "observe": "Obtain current actual scene evidence from named policy-visible views. This is read-only. Returned images describe the world now; derived point-cloud views contain no hidden state.",
+    "mark_point": "Measure one point from an exact returned view and pixel. Reuse point_id across complementary views when requested. This is read-only; solved XYZ is geometry, not object identity, contact, or a grasp verdict.",
+    "preview_move": "Render a candidate grip-site pose without acting. Supply absolute xyz_m or delta_mm plus optional orientation axes. The returned preview_id is bound to the current actual observation. Candidate images are not actual world state.",
+    "move_pose": "Execute one pose-only mutation, either from direct pose inputs or preview_id alone. It cannot open or close the gripper. Submission is not proof that the pose was reached; the next automatic actual observation reports the physical result.",
+    "close_gripper": "Execute one gripper-close mutation with no arguments. It cannot move the grip site. The next automatic actual observation reports measured aperture; closure alone is not contact or retention evidence.",
+    "open_gripper": "Execute one gripper-open mutation with no arguments. It cannot move the grip site. The next automatic actual observation reports measured aperture.",
+    "report_issue": "Record concise tool or context feedback without changing the world or ending the episode.",
+    "check_task": "Read the faithful LIBERO task result. This is read-only and is the only policy-visible task checker on this experimental surface.",
+    "finish_episode": "End the policy lifecycle. Success requires a prior check_task=true result; failure requires a reason and exhausted attempts."
+  }
+}

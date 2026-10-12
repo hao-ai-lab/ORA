@@ -1,0 +1,1192 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "stack_bowls",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_bowls-review-v2.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/stack_bowls-completion-v2.md",
+    "sha256": "cf060640de37436568fb2536539db8ed4323e98cc10a8d318f2e6f8934da68f0"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_0.json",
+    "layout_sha256": "8ec7c160815f8955b5dd1af1a042673140cc2b6ac4b7536ee7fa9057e8a978f5"
+  },
+  "instruction": {
+    "text": "Stack the three bowls together.",
+    "origin": "task/RoboDojo/tasks/stack_bowls.py::gen_instruction"
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json",
+    "excluded": "stack_bowls_random_<n>.json belongs to the separate stack_bowls_random task module and never matches <task>_\\d+\\.json"
+  },
+  "decision": "User decision 2026-10-01: every round of a RoboDojo persistent session starts on a new layout by default. This appendix extends the stack_bowls review-v2 record from layout 0 to every eval_seed 0 layout without changing its contract text.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/stack_bowls.py:93-95) returns the constant template \"Stack the three bowls together.\" and ignores env_idx; the per-environment seed (equal to the layout ordinal) only reseeds the choice among one template, so every layout delivers the reviewed instruction. The worker refuses a round whose upstream instruction differs from round 0.",
+    "Objects: every layout contains exactly the three Rigid instances bowl0, bowl1 and bowl2 named by run_reward, all of one bowl category (one asset per layout), and no other Rigid category: no clutter. The camera_stand under Geometry and the Room, Table, Ground and Background sections are JSON-equal to the reviewed layout 0.",
+    "Upright start: every bowl spawns within max_bowl_tilt_deg of upright (largest 0.272 degrees over all 55 layouts), so c1 (45 degrees) and c2 (7 degrees, latent) hold at reset in every layout and only a policy action can break them, as the record states for layout 0.",
+    "Contract text: c1-c4 and the four semantic_contract sentences name no position, size, model or count beyond the three bowls, so they state the same requirements for every layout. The layout-0 specifics in the record notes (bowl model 10, 0.12 m rim, spawn coordinates) are evidence for layout 0 only and are never delivered to the policy.",
+    "Evaluator assets: run_reward reads only bowl instance poses (is_axis_up, select_label_by_zmin and is_stacked in env/reward_manager/func_parser.py read get_instance_pose, never model metadata), so no row binds evaluator asset dependencies. bowl_metadata records the hash of each layout's bowl-model metadata as audit evidence of the model, not as an evaluator input.",
+    "Not a reachability review: whether an arm can reach and stack a layout is decided by the catalog review and the scene smoke, not by this appendix."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_0.json",
+      "layout_sha256": "8ec7c160815f8955b5dd1af1a042673140cc2b6ac4b7536ee7fa9057e8a978f5",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 1,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_1.json",
+      "layout_sha256": "a128f6bb0abeac53fac7d203398d5518a8e043d708e6e93c9d8067b1b7e90828",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 2,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_2.json",
+      "layout_sha256": "99a2f67022ba504bbed5420d6e61b79ed95b80aa69076576e0fd5574d119001d",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 3,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_3.json",
+      "layout_sha256": "f55388c0f852a8d4f0c5ca34a0e3d9f2872b6fd4ae125d742ba62f626533248f",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 3,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.041,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00003/metadata.json",
+        "sha256": "60523a5f610be39311c3903894a11fa9408fc4221745699bd632d1f24e2b5fb8"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 4,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_4.json",
+      "layout_sha256": "6b92f99b9c35d6ec0e0176df3ee0d574f98dae58a8dc7a8769c9011bba16720d",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 5,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_5.json",
+      "layout_sha256": "212e2745b47d0839e0d469a75d24b996a21bffaf6cb45f74a65d1d7dc3ff2823",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 6,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_6.json",
+      "layout_sha256": "cb2dea72a9a70f8bf2428481d287d11d26c5529d9afa879f79499ec80f159d66",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 1,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00001/metadata.json",
+        "sha256": "2c77406500e880e856f6600254dbf0233d234698646eef5ca0e2bd0de444f52b"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 7,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_7.json",
+      "layout_sha256": "62b0df224077e22279dfd3da5d2549dac03c3fd4a7f20d840541d314f47efec9",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 8,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_8.json",
+      "layout_sha256": "d0be23c650e7db6e5dc83ad513b1dc99c7dd31b8350a33189e89e33dc0909d3d",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 2,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00002/metadata.json",
+        "sha256": "ab9defaace74b8699827995a0f8779de2f3c6ad9517597eaf2b5604af4f4e01a"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 9,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_9.json",
+      "layout_sha256": "b262fcaafdcb9c515a62a7b75b94985d81d3b06590702d180add3f615e9eb2c1",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 3,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.041,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00003/metadata.json",
+        "sha256": "60523a5f610be39311c3903894a11fa9408fc4221745699bd632d1f24e2b5fb8"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 10,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_10.json",
+      "layout_sha256": "a8aa936a79c1797d2e21123cd68f4df42ae7b3109924204133d31ea0cdc980c1",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 2,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00002/metadata.json",
+        "sha256": "ab9defaace74b8699827995a0f8779de2f3c6ad9517597eaf2b5604af4f4e01a"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 11,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_11.json",
+      "layout_sha256": "bdf5664e36a29355d17df28bfeebdb121952da836b546b063c0e1ed21310dbc9",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 2,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00002/metadata.json",
+        "sha256": "ab9defaace74b8699827995a0f8779de2f3c6ad9517597eaf2b5604af4f4e01a"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 12,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_12.json",
+      "layout_sha256": "86bec296b6c02bf7f1ddbfccfb10d5bb19a1c527ae531f23658db516d8eff06e",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 2,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00002/metadata.json",
+        "sha256": "ab9defaace74b8699827995a0f8779de2f3c6ad9517597eaf2b5604af4f4e01a"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 13,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_13.json",
+      "layout_sha256": "aa129f5f41e7b963b63040f67153bed85a835c2cad91d568b85d1353e785d551",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 5,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00005/metadata.json",
+        "sha256": "4388b895fac62bbe16a63b83ca06df8fd37316238034db496f8361ec5c7c8642"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 14,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_14.json",
+      "layout_sha256": "58be020604c8ed4ded1ebc6f231fbe59ead475f62b131182564ff124f6d9f586",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 5,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00005/metadata.json",
+        "sha256": "4388b895fac62bbe16a63b83ca06df8fd37316238034db496f8361ec5c7c8642"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 15,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_15.json",
+      "layout_sha256": "2741234e4785c3148e977270c59574c8bcc3d208c1d88fbaee90bd184ed7b621",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 16,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_16.json",
+      "layout_sha256": "c7c2a2f8f7194cdf397d376090800ff19876245d8bcf763a7a97ab6d8bebd83c",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 17,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_17.json",
+      "layout_sha256": "14fde29d2b48e53a5e520c85805c0f8311a71a88399284a4026bd4bd81d63385",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 5,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00005/metadata.json",
+        "sha256": "4388b895fac62bbe16a63b83ca06df8fd37316238034db496f8361ec5c7c8642"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 18,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_18.json",
+      "layout_sha256": "7a4629bcc5d32d367db2d585c20b6eb63c8dd0e6b614a0e6df54c12640b00f26",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 3,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.041,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00003/metadata.json",
+        "sha256": "60523a5f610be39311c3903894a11fa9408fc4221745699bd632d1f24e2b5fb8"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 19,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_19.json",
+      "layout_sha256": "29387b3f022efe277553030b7ed2c8496da3d7485559338a588ad2bf7c395764",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 2,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00002/metadata.json",
+        "sha256": "ab9defaace74b8699827995a0f8779de2f3c6ad9517597eaf2b5604af4f4e01a"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 20,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_20.json",
+      "layout_sha256": "b46af01f7cc027cf7e30122da9d1fb527c3f86c7d4a20b6945158f109bd98054",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 21,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_21.json",
+      "layout_sha256": "19f00f56baad64449af6aa1058057422cf67aa764936d29168facb88acda74e9",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 22,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_22.json",
+      "layout_sha256": "92a56963d37dec71dc31da9f50459b42781b00b3fb1651e23ee2e66d8a574349",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 1,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00001/metadata.json",
+        "sha256": "2c77406500e880e856f6600254dbf0233d234698646eef5ca0e2bd0de444f52b"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 23,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_23.json",
+      "layout_sha256": "383d71cffc5e4c08e73d7aa68d341a107bdc16ce11974349b9248c7537d0c65e",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 24,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_24.json",
+      "layout_sha256": "0db8865f27125674825b4ff41472e827c849caa58d87d501e0b2f9e6d763eee4",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 1,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00001/metadata.json",
+        "sha256": "2c77406500e880e856f6600254dbf0233d234698646eef5ca0e2bd0de444f52b"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 25,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_25.json",
+      "layout_sha256": "b9bc3ef29a126a2072aa65cc9296c38c8e6af0b281c60eab4eb14dcc80c677a0",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 26,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_26.json",
+      "layout_sha256": "ed592b6e83ffd22e808e04f4e0d9d164ad9edbfb06e44b8b1b7566d061ac945c",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 27,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_27.json",
+      "layout_sha256": "775132347e9535fa5ce74d97f5a2e208053c4d7f53c359b5a38b1d435646b5d1",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 28,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_28.json",
+      "layout_sha256": "1976af0731c6926283b3c15c3b3c8aa78d4b5316b00b9d9ba35ea1a16a8ea19d",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 29,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_29.json",
+      "layout_sha256": "7ef168784a2be4318dcb7ec2bc5ceda33e53291df4c2b3902be7b33eb710956f",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 30,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_30.json",
+      "layout_sha256": "e4d41945d4de3e55200f9e824e50f59ecca5eeca29c8bb336493b2179c22173e",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 31,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_31.json",
+      "layout_sha256": "a590d49ab38de1a205fb8a04ba020b861f167a3940fadfcac40b7b85e69c8094",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 32,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_32.json",
+      "layout_sha256": "25e69b6243c385f0409865a5bee319dad612defa25b1e33ff427e04a03728026",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 5,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00005/metadata.json",
+        "sha256": "4388b895fac62bbe16a63b83ca06df8fd37316238034db496f8361ec5c7c8642"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 33,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_33.json",
+      "layout_sha256": "72685e9820c78e923497846b38c95d68a4ba48eb926eef67bf6cbdca8a795143",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 34,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_34.json",
+      "layout_sha256": "f08cc4af009f983ef7da518794f85b59e5a8421d364a0880fcedc4bff9abc57b",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 35,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_35.json",
+      "layout_sha256": "deb69331fb7b5131f5dedc2be3df4f9701b47c797b7d8c9197cfaed8c6f96a8f",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 5,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00005/metadata.json",
+        "sha256": "4388b895fac62bbe16a63b83ca06df8fd37316238034db496f8361ec5c7c8642"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 36,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_36.json",
+      "layout_sha256": "94a3da6501b18d74e9c9075e70279b89291c07e7f8503f30c3b2fb4c5048e93c",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 37,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_37.json",
+      "layout_sha256": "d57e33334ced606fcbf578a6c121f0f6b251a501721805e5fd5f2c34159aff36",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 38,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_38.json",
+      "layout_sha256": "56d485fe4d1418f74f69be9ef2335edcd33b62c0c5f6946c398fe87650a93b85",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 39,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_39.json",
+      "layout_sha256": "84e6fd5b1289bdab917388ecb8d01b00d5cdb8a1d59c70e412a297e3da7c7248",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 40,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_40.json",
+      "layout_sha256": "f49d4cf51f31fa7b7a947353eeb73f5a6b37743ab5f8a9e3d6efa63915233acb",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 1,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00001/metadata.json",
+        "sha256": "2c77406500e880e856f6600254dbf0233d234698646eef5ca0e2bd0de444f52b"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 41,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_41.json",
+      "layout_sha256": "79b7a451f6853fe5dc6b374b3c102ae18615f878af2b01f4aa339e6b931bd386",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 42,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_42.json",
+      "layout_sha256": "10ebfcc03b15a51b26b51f277116a92f2742f3938b65022ecbd62d48ac1ee971",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 43,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_43.json",
+      "layout_sha256": "d8bdac05d4dcf9014535ee015c17692f25d73ae8165e9c00257df042cd4b2c5b",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 8,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.272,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00008/metadata.json",
+        "sha256": "1053f1a3936816629dde4598a3feeee42c1e133f8c98e1ac76bbdee58585ad03"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 44,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_44.json",
+      "layout_sha256": "1beec15727cf910c37369984193ad6f26a8649f70947c4c92a8541171ca5ea84",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 9,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00009/metadata.json",
+        "sha256": "785aa052e8aae48bba0636c92bb6503a0ac0153cae956bf177539ceafef043fb"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 45,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_45.json",
+      "layout_sha256": "af0a0427385eb7fc472dc693faee15ae906eb42d19af25097f9453bb4f43da89",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 3,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.041,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00003/metadata.json",
+        "sha256": "60523a5f610be39311c3903894a11fa9408fc4221745699bd632d1f24e2b5fb8"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 46,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_46.json",
+      "layout_sha256": "51292c4c46f7d5764134c2c9bad85dda604aa202b6cffa02a847f3d10ced18aa",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 47,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_47.json",
+      "layout_sha256": "162e2a6d65686e25c201094bf94ecd59e43fb77e8af8bf64476563abda452b28",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 3,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.041,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00003/metadata.json",
+        "sha256": "60523a5f610be39311c3903894a11fa9408fc4221745699bd632d1f24e2b5fb8"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 48,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_48.json",
+      "layout_sha256": "dc58ecbf78c5ab0ec81ec255db157547f492edabaa12995f206a2a6aeb9db37f",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 1,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00001/metadata.json",
+        "sha256": "2c77406500e880e856f6600254dbf0233d234698646eef5ca0e2bd0de444f52b"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 49,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_49.json",
+      "layout_sha256": "19bca4334e8e7f017641eef2cda170efd0e601a5806fa88ce15d4da231c44db9",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 5,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00005/metadata.json",
+        "sha256": "4388b895fac62bbe16a63b83ca06df8fd37316238034db496f8361ec5c7c8642"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 50,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_50.json",
+      "layout_sha256": "e6cff0e42a91c578924d7698fe34767a7650a3ce4c47a82759331bfc6007bd10",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 2,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00002/metadata.json",
+        "sha256": "ab9defaace74b8699827995a0f8779de2f3c6ad9517597eaf2b5604af4f4e01a"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 51,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_51.json",
+      "layout_sha256": "f7503864569bcb1c3a367260090e14e6236c094e148920a28f643b5ccd3ae3a4",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 10,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00010/metadata.json",
+        "sha256": "e6c6fd201b871a8c57661c027b5ad5d50f71a9b62543515b9bb26ee1513493a5"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 52,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_52.json",
+      "layout_sha256": "8b6e293c417e5ab2004483a1b9bfbe7bc2eb10d405e401d599fa5d18197ee8be",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 7,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.108,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00007/metadata.json",
+        "sha256": "488962705e39a4cb216bd5103678f14b28c1a10a1ff71e4b0d7691ed0e4a4480"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 53,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_53.json",
+      "layout_sha256": "5068d00b2aa1cf1df7e80915078561585d7a3f6fd34f3c9bd5719075d59f182a",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 9,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.0,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00009/metadata.json",
+        "sha256": "785aa052e8aae48bba0636c92bb6503a0ac0153cae956bf177539ceafef043fb"
+      },
+      "compatible": true
+    },
+    {
+      "ordinal": 54,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_54.json",
+      "layout_sha256": "3e87c082cc4b6b83367c337461f4a8e61ffb15d0be255ce6e134e205ae30a97e",
+      "bowl_labels": [
+        "bowl0",
+        "bowl1",
+        "bowl2"
+      ],
+      "bowl_category_idx": 3,
+      "other_rigid_categories": [],
+      "other_object_sections": [],
+      "max_bowl_tilt_deg": 0.041,
+      "fixtures_equal_reviewed_layout": true,
+      "bowl_metadata": {
+        "root": "assets",
+        "path": "Object/RoboDojo/Rigid/bowl/00003/metadata.json",
+        "sha256": "60523a5f610be39311c3903894a11fa9408fc4221745699bd632d1f24e2b5fb8"
+      },
+      "compatible": true
+    }
+  ]
+}

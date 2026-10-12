@@ -1,0 +1,9 @@
+{
+  "replace": {
+    "observation.dump_state": "Recover one current or historical policy-state snapshot by numbered step.",
+    "vision.inspect": "Inspect one current or saved policy-visible camera image or deterministic crop.",
+    "geometry.query": "Back-project pixels, project world points, or summarize region depth from policy-visible RGB-D calibration.",
+    "robot.read_manual": "Read one named section from the embodiment manual.",
+    "robot.submit_action": "Submit one observation-bound robot target for trusted execution."
+  }
+}

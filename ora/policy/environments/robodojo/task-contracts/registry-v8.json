@@ -1,0 +1,173 @@
+{
+  "schema": "ora.robodojo-task-contract-registry.v1",
+  "tasks": {
+    "hang_mugs": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/hang_mugs-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/hang_mugs-completion-v2.md"
+    },
+    "insert_tubes": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/insert_tubes-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/insert_tubes-completion-v2.md"
+    },
+    "push_T": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/push_T-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/push_T-completion-v2.md"
+    },
+    "stack_bowls": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_bowls-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/stack_bowls-completion-v2.md"
+    },
+    "stack_blocks": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_blocks-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/stack_blocks-completion-v3.md"
+    },
+    "pack_objects_into_box": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/pack_objects_into_box-review-v3.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/pack_objects_into_box-completion-v4.md"
+    },
+    "fold_clothes": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/fold_clothes-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/fold_clothes-completion-v2.md"
+    },
+    "organize_table": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/organize_table-review-v3.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/organize_table-completion-v3.md"
+    },
+    "classify_objects_by_language": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects_by_language-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/classify_objects_by_language-completion-v2.md"
+    },
+    "imitate_sorting_sequence": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/imitate_sorting_sequence-review-v3.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/imitate_sorting_sequence-completion-v3.md"
+    },
+    "arrange_largest_number": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/arrange_largest_number-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/arrange_largest_number-completion-v2.md"
+    },
+    "classify_objects": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/classify_objects-completion-v2.md"
+    },
+    "build_tower": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/build_tower-review-v3.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/build_tower-completion-v3.md"
+    },
+    "make_kong": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/make_kong-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/make_kong-completion-v2.md"
+    },
+    "put_bottles_into_dustbin": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/put_bottles_into_dustbin-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/put_bottles_into_dustbin-completion-v2.md"
+    },
+    "align_blocks": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/align_blocks-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/align_blocks-completion-v1.md"
+    },
+    "cover_blocks": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/cover_blocks-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/cover_blocks-completion-v1.md"
+    },
+    "deposit_coin": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/deposit_coin-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/deposit_coin-completion-v1.md"
+    },
+    "fasten_screws": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/fasten_screws-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/fasten_screws-completion-v1.md"
+    },
+    "fill_egg_holder": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/fill_egg_holder-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/fill_egg_holder-completion-v1.md"
+    },
+    "fill_pen_holder": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/fill_pen_holder-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/fill_pen_holder-completion-v1.md"
+    },
+    "general_pickup": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/general_pickup-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/general_pickup-completion-v1.md"
+    },
+    "insert_key": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/insert_key-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/insert_key-completion-v1.md"
+    },
+    "make_toast": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/make_toast-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/make_toast-completion-v1.md"
+    },
+    "match_and_pick_from_conveyor": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/match_and_pick_from_conveyor-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/match_and_pick_from_conveyor-completion-v1.md"
+    },
+    "pick_from_conveyor_by_image": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/pick_from_conveyor_by_image-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/pick_from_conveyor_by_image-completion-v1.md"
+    },
+    "play_stacking_toy": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/play_stacking_toy-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/play_stacking_toy-completion-v1.md"
+    },
+    "play_tic_tac_toe": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/play_tic_tac_toe-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/play_tic_tac_toe-completion-v1.md"
+    },
+    "play_Xylophone": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/play_Xylophone-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/play_Xylophone-completion-v1.md"
+    },
+    "plug_in_charger": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/plug_in_charger-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/plug_in_charger-completion-v1.md"
+    },
+    "pour_balls_into_vase": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/pour_balls_into_vase-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/pour_balls_into_vase-completion-v1.md"
+    },
+    "press_by_number": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/press_by_number-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/press_by_number-completion-v1.md"
+    },
+    "solve_equation": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/solve_equation-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/solve_equation-completion-v1.md"
+    },
+    "sort_nesting_dolls_by_size": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/sort_nesting_dolls_by_size-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/sort_nesting_dolls_by_size-completion-v1.md"
+    },
+    "stack_blocks_by_language": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/stack_blocks_by_language-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/stack_blocks_by_language-completion-v1.md"
+    },
+    "store_laptop_and_headphones": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/store_laptop_and_headphones-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/store_laptop_and_headphones-completion-v1.md"
+    },
+    "store_tools_in_toolbox": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/store_tools_in_toolbox-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/store_tools_in_toolbox-completion-v1.md"
+    },
+    "swap_blocks": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/swap_blocks-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/swap_blocks-completion-v1.md"
+    },
+    "swap_T": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/swap_T-review-v2.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/swap_T-completion-v1.md"
+    },
+    "sweep_blocks": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/sweep_blocks-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/sweep_blocks-completion-v1.md"
+    },
+    "pour_liquid_into_cup": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/pour_liquid_into_cup-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/pour_liquid_into_cup-completion-v1.md"
+    },
+    "pour_by_language": {
+      "record": "ora/policy/environments/robodojo/task-contracts/reviews/pour_by_language-review-v1.json",
+      "layer": "ora/policy/environments/robodojo/task-contracts/pour_by_language-completion-v1.md"
+    }
+  }
+}

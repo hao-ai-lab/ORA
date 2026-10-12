@@ -1,0 +1,362 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "pick_diverse_bottles",
+  "status": "reviewed",
+  "reviewer": "Claude (Opus 5.5) individual predicate, mesh/asset and simulator counterfactual review requested by operator; fifty-task audit of 2026-10-07 for the zero-shot delivery",
+  "reviewed_at": "2026-10-07",
+  "scope": "Fifty-task semantic generation v4: corrects public clauses that a literal reading fails (wrong reference point or direction), adds checked end-state conditions the v3 text omitted, and corrects private review facts. Vague tolerances are deliberately left qualitative (operator decision 2026-10-07: no tightening, no numbers). Same source revisions as v3; evaluator, helper and asset sources unchanged at cf4872cc90538fd4bca761c8db912d8f65e49f2b. Counterfactual probes evaluate the official predicate on the expert's final geometry with one actor teleported; they are predicate evidence, not physical qualification of every asset variant.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/pick_diverse_bottles.py",
+      "sha256": "95ebb80fa96eafd0b7ff5518251c2a7aa42f22ef9b7cfdda4e80eac511f06151"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/pick_diverse_bottles.json",
+      "sha256": "aa337dd698baa257a2baa1ed97b85b92269e40b24382ba3adac1fd6fd3371ce0"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data0.json",
+      "sha256": "2f05daec3b7d8c054b4ad714a6c4511c42b247ab5ef21e53c9770a23d08a04bf"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data1.json",
+      "sha256": "da2b2bd9a9b7ff69b803da6492a3dd351af98e08c4d6f56a80cff0a4533cce3e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data10.json",
+      "sha256": "5f232c30a86170d9a83a6c16916dc20fea4a560cd87f4a94968939788847e03b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data11.json",
+      "sha256": "b4a4299a3f30d097d8f72a25d1bc94d14bbcac1036e6bed45beeb20483f945bc"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data12.json",
+      "sha256": "06ba4e9889f5f1326eb1787338508d542354b2bf2b3a243a9ddec4b4c5afa8a5"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data13.json",
+      "sha256": "a0b94d276bf41e03a7b0c2fa7f8352c8c45b7bcaa8db2925328955fc8e18ef1f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data14.json",
+      "sha256": "a99c00ec27ee6da3b226e8208ae8f87ca95fb63c1cd7f4b03b6d86581f1ca0c3"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data15.json",
+      "sha256": "8971efc1a88ff6799f02ff576d2dafc0ddea1634dd77b0fbc274724cb0562f30"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data16.json",
+      "sha256": "1c7fa677c6879c2ff3b31b0bb1e433330a9ca427a32dca5e20e6bd44680885c4"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data17.json",
+      "sha256": "43caf955c795134f51ddc404c347deb17dc1844347ab0c31ec1d1f1e37f03361"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data18.json",
+      "sha256": "10066f1057a7bf3d6c86c8cdac588f1920145765bd35538e29c5c0ce72772e9f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data19.json",
+      "sha256": "90d397cff7f96baf90b52e9149107e7d39d14b4313fccde8595aea25bdaa8e38"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data2.json",
+      "sha256": "e29264c6464c3f38452738b0364bbcfe8aa93de906df032d0a07be3d32f28902"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data20.json",
+      "sha256": "c08e3a14faedd48ca5896515254287ca8137bab334e59a56f4c391ace50dfa73"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data21.json",
+      "sha256": "49863746dfd5b6b36b268e8f8f41052d1dd65c5716c144b29151f8ccd9faa949"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data22.json",
+      "sha256": "5267f3fe585e6c0f4f2e80aaaa258963b618968633f72921433ea802553efe75"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data3.json",
+      "sha256": "33091961e3be6ff1d760053d72a30e73b7b5d4622fd54de4d830e02bd391e4cc"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data4.json",
+      "sha256": "1bd52b232b290364b1100d5e9d22197e008a51d8254ed750a7bf73f3e2faad98"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data5.json",
+      "sha256": "b534e410ac10cce52b3ebda1a2bb961716f0e36f2416f2dbcbe4f5dad380267f"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data6.json",
+      "sha256": "b5ac80374b7d149bf27de7133f2960b0c479c8a08cbecba1d2e5eea193c149fe"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data7.json",
+      "sha256": "f94d37f56a8efd24f715948d2f484e0a955ce9805b260a8e687ccbba287cb226"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data8.json",
+      "sha256": "9ca6b61e8c8cb907d421520f85c8ccb43caecb9b56b60d130692d560d73e10d9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/model_data9.json",
+      "sha256": "74dc63b38bb224df847f56cc1ab685fb0799e07643f84ae34111865945f26150"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/001_bottle/points_info.json",
+      "sha256": "028dd9f34f655ce16c9c72887a6a350e4c932f8e3b5295b5a9ea72415669e2d5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/001_bottle/collision/base10.glb",
+      "sha256": "1e9c8c794e016d0eb1333a165414367446aafd41cbebb479d13943215e4fe28a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/001_bottle/visual/base10.glb",
+      "sha256": "258d6dd757c9abc699ea9d04d551b55fecb8734ce01675937df6df909be8a744"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/001_bottle/collision/base14.glb",
+      "sha256": "e079194a20b1a451ac31253cb0a6a41a71cdab1e5446eac97da2428d50349bac"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/001_bottle/visual/base14.glb",
+      "sha256": "7981d6df482aed4ed4a48189f8add641b52c9d1dd66b0a45e170c5ae0675ad8e"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/67683b0ebd4889f8c031549b81330d963e00adca/seed-qualification/oracle-pick_diverse_bottles-s1-gpu7c-20260909T141619Z/pick_diverse_bottles/attempts/seed-000001-try-00/attempt.json",
+      "sha256": "0ff28aab181369ee67910abcf35f7d67b6e413b912f960999b2bf76506a35be4"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/67683b0ebd4889f8c031549b81330d963e00adca/seed-qualification/oracle-pick_diverse_bottles-s1-gpu7c-20260909T141619Z/pick_diverse_bottles/attempts/seed-000001-try-00/verifier-telemetry.json",
+      "sha256": "4790aac30f010c23783576bf7d311b6d8bc4489dc089e363abc033d367d24f87"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/67683b0ebd4889f8c031549b81330d963e00adca/seed-qualification/oracle-pick_diverse_bottles-s1-gpu7c-20260909T141619Z/pick_diverse_bottles/attempts/seed-000001-try-00/head_camera-rgb.png",
+      "sha256": "db002a79d0feb39d2d482ac50ba135f20e7225ce15ab83fe5e6aa343c510ae7e"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/pick_diverse_bottles-demo_clean-reset-s100000.json",
+      "sha256": "42f6bb7b0706e0c29acc799c51d2841d50958da696a7f25b5099e7c358fffb9b"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/pick_diverse_bottles-demo_clean-reset-s100002.json",
+      "sha256": "608a3b00e75e7e459a32e65241f617cd061607f8bfc55597561879da516272a9"
+    }
+  ],
+  "public_clauses": [
+    "Pick up both bottles, one with each arm, and hold them raised well clear of the table at the same time.",
+    "While holding them up, bring the left-starting bottle to just left of the robot's centre line and the right-starting bottle to just right of it, close together side by side on the robot's half of the table, nearer the table's middle than its near edge."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: each bottle functional body point z > 0.89; simultaneous holding by separate arms comes from original task.",
+      "interpretation": "Pick up both bottles, one with each arm, and hold them raised well clear of the table at the same time.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: each body point xy near separate left/right target regions at shared negative y; preserve named role targets qualitatively. v4: Each bottle's body point must end inside its role region in front of the robot's centre line; simulator probe v4.",
+      "interpretation": "While holding them up, bring the left-starting bottle to just left of the robot's centre line and the right-starting bottle to just right of it, close together side by side on the robot's half of the table, nearer the table's middle than its near edge.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/pick_diverse_bottles.py:check_success lines 94-104, helper and asset dependencies listed in this record.",
+      "interpretation": "No grip/contact, orientation, or strict left-before-right comparison; overlapping target bands allow small role-order overlap. Wording states preferred qualitative role regions, not a new mathematical ordering test.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No grip/contact, orientation, or strict left-before-right comparison; overlapping target bands allow small role-order overlap. Wording states preferred qualitative role regions, not a new mathematical ordering test."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. All twenty bottle metadata inspected: functional point 0 is a body reference, with variant-dependent offset. Fixed dual task uses models 13/16. No quaternion is read."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "All twenty bottle metadata inspected: functional point 0 is a body reference, with variant-dependent offset. Fixed dual task uses models 13/16. No quaternion is read. Parsed 24 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. All twenty bottle metadata inspected: functional point 0 is a body reference, with variant-dependent offset. Fixed dual task uses models 13/16. No quaternion is read."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows both bottles held near one another in front of robot."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Only one bottle raised, or both lifted at their distant initial locations: fails z or target-region condition. Raised tilted bottles are not excluded merely for tilt. This is a source-derived counterexample review; it is not a newly executed simulator trial. v4: near-miss poses evaluated with the official predicate in the simulator (probe evidence)."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No grip/contact, orientation, or strict left-before-right comparison; overlapping target bands allow small role-order overlap. Wording states preferred qualitative role regions, not a new mathematical ordering test."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Only one bottle raised, or both lifted at their distant initial locations: fails z or target-region condition. Raised tilted bottles are not excluded merely for tilt.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    },
+    {
+      "case": "Bottles raised at their start positions or moved halfway fail; raised near or at the end region pass (reset-state probe).",
+      "expected": "Official predicate evaluated in the simulator with the actor teleported (expert-final or reset-state geometry); see v4_counterfactual_probe evidence.",
+      "v4_probe_results": [
+        {
+          "seed": 100000,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "raised_at_start_xy": false,
+            "raised_halfway": false,
+            "raised_three_quarters": true,
+            "raised_at_target": true
+          },
+          "error": null
+        },
+        {
+          "seed": 100002,
+          "method": "reset_state_counterfactual",
+          "expert_success": null,
+          "probes": {
+            "raised_at_start_xy": false,
+            "raised_halfway": false,
+            "raised_three_quarters": true,
+            "raised_at_target": true
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "forbidden_public_claims": [
+    "measured at the top",
+    "must be upright"
+  ],
+  "change_summary": "纠正为终点描述：同 pick_dual_bottles，判据要求到达中线两侧区域，不是只朝那个方向移动。",
+  "witness_scope": {
+    "source_revision": "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "requested_seed": 1,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "001_bottle",
+        "model_id": 10
+      },
+      {
+        "model_name": "001_bottle",
+        "model_id": 14
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows both bottles held near one another in front of robot.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No grip/contact, orientation, or strict left-before-right comparison; overlapping target bands allow small role-order overlap. Wording states preferred qualitative role regions, not a new mathematical ordering test. Head image shows both bottles held near one another in front of robot. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification. v4: counterfactual probes cover the listed demo_clean expert-accepted seeds and their selected assets; reset-state probes test the predicate on constructed geometry, not physical reachability; other asset variants rely on metadata and mesh review."
+}

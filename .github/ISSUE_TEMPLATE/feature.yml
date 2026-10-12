@@ -1,0 +1,11 @@
+name: Feature request
+description: Propose a behavior change.
+body:
+  - type: textarea
+    attributes:
+      label: Concrete problem and proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Affected API, defaults, context or evidence contracts

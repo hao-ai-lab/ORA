@@ -1,0 +1,377 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "classify_objects_by_language",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects_by_language-review-v2.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/classify_objects_by_language-completion-v2.md",
+    "sha256": "da7785258ae8c9afb61cbe9326ce6619774d7f23e148e55843cd4dffc87efc54"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_0.json",
+    "layout_sha256": "eb7bc205a8e5f3acad8fdada3bf7a26b8e11fc39d7944f434aa4989356044eb2"
+  },
+  "instruction": {
+    "text": "Put car objects into the left basket, watch objects into the middle basket, and wooden_toy objects into the right basket, then reset the robot arm.",
+    "origin": "task/RoboDojo/tasks/classify_objects_by_language.py::gen_instruction"
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json",
+    "instruction_survey": "Of the 55 eval_seed-0 layouts, only 0, 7 and 41 render the reviewed instruction."
+  },
+  "decision": "User decision 2026-10-01: EXP11A g012 runs classify_objects_by_language as a three-round session (K = 3 rounds) on layouts 7 -> 41 -> 0 of eval_seed 0, the only layouts that render the reviewed instruction; round 3 replays the reviewed layout 0 by an accepted exception for this task only. This appendix extends the classify_objects_by_language review-v2 record to layouts 7 and 41 without changing its contract text, and binds each audited layout's object metadata.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/classify_objects_by_language.py:104-120) names the category of each label group cat0, cat1 and cat2. RunSpec binds the record's layout-0 instruction as the policy task language and the worker refuses a round whose upstream instruction differs from it or from round 0, so a layout is schedulable only when it renders exactly the reviewed instruction. Of the 55 eval_seed-0 layouts only 0, 7 and 41 do (cat0 car, cat1 watch, cat2 wooden_toy); every audited row records the rendered text.",
+    "Objects: every audited layout holds exactly the three Rigid groups cat0-cat2 that run_reward reads by label prefix, each of one category with two or three instances, and no other Rigid instance. The baskets basket0-basket2 (basket/2, /3, /4 at x = -0.28, 0 and 0.28) and the camera stand, and the Room, Table, Ground and Background sections, are JSON-equal to the reviewed layout 0.",
+    "Contract text: clause 1 assigns each named category the basket the instruction names and defines left, middle and right in the world frame; it holds because every audited layout renders the same instruction and keeps the baskets at layout 0's poses (basket0 toward -X, basket1 between, basket2 toward +X), which is run_reward's cat_i-to-basket_i pairing. Clauses 2 and 3 are layout-independent. The text is unchanged.",
+    "Evaluator assets: the record binds the metadata of every object instance of layout 0 (evaluator_dependencies). Each row binds the metadata of every object instance of its own layout (evaluator_asset_dependencies; the layout-0 row reproduces the record's set byte for byte), which RunSpec resolution discloses for the scheduled layouts and fresh preflight re-hashes with the record's own dependencies (fail closed).",
+    "Asset load: no audited object has a missing, clamped or mismatched layout mass.",
+    "Schedule exception (user decision 2026-10-01): the third round replays the reviewed layout 0, because only layouts 0, 7 and 41 render the reviewed instruction; for this task only, a scheduled round need not differ from layout 0. The schedule still holds three distinct layouts, so no layout repeats within the session.",
+    "Not a reachability review: whether an arm reaches each object is decided by the catalog review (computed spawn distances) and the scene smoke (scheduled_object_reach); fixtures and placement targets are not reach-checked."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_0.json",
+      "layout_sha256": "eb7bc205a8e5f3acad8fdada3bf7a26b8e11fc39d7944f434aa4989356044eb2",
+      "object_groups": {
+        "cat0": {
+          "category": "car",
+          "labels": [
+            "cat0_0",
+            "cat0_1"
+          ],
+          "models": [
+            14,
+            12
+          ]
+        },
+        "cat1": {
+          "category": "watch",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            4,
+            5
+          ]
+        },
+        "cat2": {
+          "category": "wooden_toy",
+          "labels": [
+            "cat2_0",
+            "cat2_1"
+          ],
+          "models": [
+            1,
+            1
+          ]
+        }
+      },
+      "object_count": 6,
+      "three_distinct_categories": true,
+      "rendered_instruction": "Put car objects into the left basket, watch objects into the middle basket, and wooden_toy objects into the right basket, then reset the robot arm.",
+      "instruction_equals_reviewed": true,
+      "baskets": {
+        "basket0": {
+          "category_idx": 2,
+          "x": -0.28
+        },
+        "basket1": {
+          "category_idx": 3,
+          "x": 0.0
+        },
+        "basket2": {
+          "category_idx": 4,
+          "x": 0.28
+        }
+      },
+      "baskets_left_middle_right": true,
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/car/00012/metadata.json",
+          "root": "assets",
+          "sha256": "ec86ed095ff3491d033f26dd3280eb95e4e1e3d750de2a642b0171afc94cfadf"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/car/00014/metadata.json",
+          "root": "assets",
+          "sha256": "656caf60475935e3258dc21e1f2fada5be45e8d20950366d9d6781a789d04a0e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00004/metadata.json",
+          "root": "assets",
+          "sha256": "337a2255d881d7814c61091b2d4f073417abcfaefd9fc11fea5a53ce1e1bbd4b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00005/metadata.json",
+          "root": "assets",
+          "sha256": "cf7237eed99bd37bd00964ad34078924be3a2e97f7bc91a34d1691361cc82982"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/wooden_toy/00001/metadata.json",
+          "root": "assets",
+          "sha256": "62c9a6a35ab9c2f81ca5dceacfe155a32f087207e362b3ab50c61cc0116ebdc5"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 7,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_7.json",
+      "layout_sha256": "9b72d61ef8fbbb7d45b4a4d778ca2b3bbafe1f01c59fed5c70e2a4435eaff233",
+      "object_groups": {
+        "cat0": {
+          "category": "car",
+          "labels": [
+            "cat0_0",
+            "cat0_1"
+          ],
+          "models": [
+            11,
+            13
+          ]
+        },
+        "cat1": {
+          "category": "watch",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            7,
+            4
+          ]
+        },
+        "cat2": {
+          "category": "wooden_toy",
+          "labels": [
+            "cat2_0",
+            "cat2_1"
+          ],
+          "models": [
+            2,
+            3
+          ]
+        }
+      },
+      "object_count": 6,
+      "three_distinct_categories": true,
+      "rendered_instruction": "Put car objects into the left basket, watch objects into the middle basket, and wooden_toy objects into the right basket, then reset the robot arm.",
+      "instruction_equals_reviewed": true,
+      "baskets": {
+        "basket0": {
+          "category_idx": 2,
+          "x": -0.28
+        },
+        "basket1": {
+          "category_idx": 3,
+          "x": 0.0
+        },
+        "basket2": {
+          "category_idx": 4,
+          "x": 0.28
+        }
+      },
+      "baskets_left_middle_right": true,
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/car/00011/metadata.json",
+          "root": "assets",
+          "sha256": "43def526c4f9703ddb8b88e26df90478a0f43e3eed94979c97721651ecc197df"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/car/00013/metadata.json",
+          "root": "assets",
+          "sha256": "5a0d7b738f169bd96760dbb38b6dc57f3c5825ce1d28ba30dd0fb8b89b8efe54"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00004/metadata.json",
+          "root": "assets",
+          "sha256": "337a2255d881d7814c61091b2d4f073417abcfaefd9fc11fea5a53ce1e1bbd4b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00007/metadata.json",
+          "root": "assets",
+          "sha256": "977b5f8e61c8cf0dde6e9247ab28240e8f28f4d29d97d67434470c08038af37e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/wooden_toy/00002/metadata.json",
+          "root": "assets",
+          "sha256": "c606703fe72dc20c016418dfe3e8b0ba44c28272f83f532744c38ad2eb5459c8"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/wooden_toy/00003/metadata.json",
+          "root": "assets",
+          "sha256": "25e2b9e8055055f02a6b2616980a57a244bd856904caa550d15431d79a9f6547"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 41,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_41.json",
+      "layout_sha256": "8c45ac04a983357374bd24aa9bb73c0a1258096968ef999a21278b7923bd287d",
+      "object_groups": {
+        "cat0": {
+          "category": "car",
+          "labels": [
+            "cat0_0",
+            "cat0_1",
+            "cat0_2"
+          ],
+          "models": [
+            10,
+            13,
+            10
+          ]
+        },
+        "cat1": {
+          "category": "watch",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            4,
+            6
+          ]
+        },
+        "cat2": {
+          "category": "wooden_toy",
+          "labels": [
+            "cat2_0",
+            "cat2_1"
+          ],
+          "models": [
+            3,
+            2
+          ]
+        }
+      },
+      "object_count": 7,
+      "three_distinct_categories": true,
+      "rendered_instruction": "Put car objects into the left basket, watch objects into the middle basket, and wooden_toy objects into the right basket, then reset the robot arm.",
+      "instruction_equals_reviewed": true,
+      "baskets": {
+        "basket0": {
+          "category_idx": 2,
+          "x": -0.28
+        },
+        "basket1": {
+          "category_idx": 3,
+          "x": 0.0
+        },
+        "basket2": {
+          "category_idx": 4,
+          "x": 0.28
+        }
+      },
+      "baskets_left_middle_right": true,
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/car/00010/metadata.json",
+          "root": "assets",
+          "sha256": "359a2d455dd88b27a7834c94b8e970b11e95878dbf700706b33b2458f9a9e3a9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/car/00013/metadata.json",
+          "root": "assets",
+          "sha256": "5a0d7b738f169bd96760dbb38b6dc57f3c5825ce1d28ba30dd0fb8b89b8efe54"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00004/metadata.json",
+          "root": "assets",
+          "sha256": "337a2255d881d7814c61091b2d4f073417abcfaefd9fc11fea5a53ce1e1bbd4b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00006/metadata.json",
+          "root": "assets",
+          "sha256": "4a37b4f9e4d2a33629a285f6189578120ee4ef936538eadc353efc1c2c38374a"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/wooden_toy/00002/metadata.json",
+          "root": "assets",
+          "sha256": "c606703fe72dc20c016418dfe3e8b0ba44c28272f83f532744c38ad2eb5459c8"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/wooden_toy/00003/metadata.json",
+          "root": "assets",
+          "sha256": "25e2b9e8055055f02a6b2616980a57a244bd856904caa550d15431d79a9f6547"
+        }
+      ],
+      "compatible": true
+    }
+  ]
+}

@@ -1,0 +1,1255 @@
+{
+  "schema": "ora.backend-parity.v1",
+  "note": "Integration 0059 unit A0 (parity audit 2026-10-04). One row per capability and tool any maintained default declares; the maintained defaults are the default baseline's instances. tests/test_backend_parity.py checks that generic names are on every backend or excepted with a reason, that exceptions expire when the name is declared or the missing hook exists, that backend-specific names stay where they apply, and that a default swap keeps a superset of the default it replaced minus recorded retirements.",
+  "classes": {
+    "generic": "a Harness behaviour that applies on every backend; the agent code is backend-neutral",
+    "generic_needs_backend_code": "generic, but a backend may lack the implementation hook; an exception names the hook",
+    "backend_specific": "backend or embodiment identity, compiler, arm-count contract, backend-only mechanism or a tool shape another default legitimately lacks"
+  },
+  "capabilities": {
+    "actuator_target_pose_hold_v2": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "label of the dual-arm joint-trajectory hold lineage; LIBERO's hold semantics come from motion_action_v3 (contracts/action.py)"
+    },
+    "analytic_tcp_local_cartesian_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "RoboTwin public-TCP Jacobian local route (robotwin/motion_adapter.public_tcp_jacobian); LIBERO's local step is OSC"
+    },
+    "atomic_gripper_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/runtime/core.py",
+      "label_only": false
+    },
+    "automatic_current_auxiliary_contact_sheet_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/tool_surface.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "auxiliary contact sheet over the dual-arm camera sets; inert on every default (full_rgb_v1 delivers every camera)"
+    },
+    "batch_parallel_jaw_goalset_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "label of the dual-arm motion.probe goalset lineage; LIBERO answers parallel_jaw_equivalents without it"
+    },
+    "canonical_grasp_backend_output_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "libero_pro"
+      ],
+      "reason": "LIBERO grasp-backend output lineage label; the dual-arm surfaces carry their compiler labels"
+    },
+    "canonical_tool_names_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/canonical_names.py",
+      "label_only": false
+    },
+    "canonical_tool_order_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/tool_surface_resolution.py",
+      "label_only": false
+    },
+    "causal_observation_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "closed_manipulation_skills_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/skill_driver.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "tool shape grasp_execute; the LIBERO default stays the direct surface (2026-09-29 decision)"
+    },
+    "compute_grammar_from_evaluator_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/compute_grammar_schema.py",
+      "label_only": false
+    },
+    "contact_graspnet_panda_grip_site_compiler_v2": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "libero_pro"
+      ],
+      "reason": "Panda grip-site compiler identity"
+    },
+    "contact_graspnet_robodojo_x5_link6_compiler_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/dual_arm_surface.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "ARX X5 link6 compiler identity"
+    },
+    "contact_graspnet_robotwin_aloha_grip_center_compiler_v3": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/dual_arm_surface.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "ALOHA grip-centre compiler identity"
+    },
+    "contact_motion_feedback_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/native/receipt_projection.py",
+      "label_only": false
+    },
+    "copyable_grasp_approach_target_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/runtime/grasp.py",
+      "label_only": false
+    },
+    "current_public_robot_facts_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/public_parameters.py",
+      "label_only": false
+    },
+    "direct_pose_submission_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/motion_refusals.py",
+      "label_only": false
+    },
+    "dual_arm_grasp_plan_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/dual_arm_surface.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "arm-count contract"
+    },
+    "dual_arm_sparse_targets_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/native/actual_snapshot.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "arm-count contract; LIBERO declares single_arm_flat_targets_v1"
+    },
+    "enhanced_move_pose_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/move_pose_reach_schema.py",
+      "label_only": false
+    },
+    "faithful_check_task": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/finish_task_check.py",
+      "label_only": false
+    },
+    "flat_motion_arguments_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/world_axes_schema.py",
+      "label_only": false
+    },
+    "full_current_visual_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "fused_backend_grasp_input_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/runtime/grasp.py",
+      "label_only": false
+    },
+    "grasp_opening_rejection_feedback_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/grasp_rejection_schema.py",
+      "label_only": false
+    },
+    "grasp_plan_ik_reachability_annotation_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/grasp_ik_reachability_schema.py",
+      "label_only": false
+    },
+    "grasp_plan_jaw_symmetry_headroom_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/grasp_jaw_symmetry_schema.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "ARX X5 joint6 stop (binder refuses another controlled frame)"
+    },
+    "grasp_precommit_motion_check_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/grasp_feasibility.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "a grasp_execute stage; see closed_manipulation_skills_v1"
+    },
+    "gripper_command_target_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "dual-arm effector field; LIBERO delivers the commanded target through view_config gripper_command_delivery"
+    },
+    "gripper_stall_hold_evidence_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/jaw_hold.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "ARX normalized-encoder rules, the substitute for the uncalibrated X5 pad aperture"
+    },
+    "grounding_candidate_depth_profile_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/grounding_preview.py",
+      "label_only": false
+    },
+    "grounding_candidate_inspection_v2": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "joint_trajectory_execution_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "motion-stack label (dual-arm joint-trajectory executors)"
+    },
+    "last_action_summary_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/native/action_summary.py",
+      "label_only": false
+    },
+    "libero_pro_rgbd_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/grasp_ik_reachability_libero_schema.py",
+      "label_only": false,
+      "applies_to": [
+        "libero_pro"
+      ],
+      "reason": "backend identity; selects LIBERO's reach reason set for the grasp IK selection (0059 M2)"
+    },
+    "mark_point_batch_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/mark_point_schema.py",
+      "label_only": false
+    },
+    "mask_depth_localization_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "measured_jaw_separation_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/native/actual_snapshot.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "ALOHA metric jaw separation; RoboDojo's ARX aperture is uncalibrated and LIBERO publishes aperture_mm"
+    },
+    "motion_action_v3": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/runtime/core.py",
+      "label_only": false
+    },
+    "motion_intent_router_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/pose_primitive_reach_schema.py",
+      "label_only": false
+    },
+    "motion_intent_router_v2": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/runtime/grasp.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "dual-arm variant of the router; LIBERO declares v1 with single_arm_flat_targets_v1"
+    },
+    "motion_mode_companion_help_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/world_axes_schema.py",
+      "label_only": false
+    },
+    "motion_probe_ik_candidate_feedback_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/tools/motion_probe_feedback.py",
+      "label_only": false,
+      "required_with_tools": {
+        "tools": [
+          "grasp_execute",
+          "motion.probe"
+        ],
+        "reason": "the v2 probe request is sent only by grasp_execute's pregrasp check and motion.probe; LIBERO v2 declares neither, so it has no sender there (its backend answers the request since M2)"
+      }
+    },
+    "motion_transaction_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "motion-stack label (dual-arm motion transactions)"
+    },
+    "move_pose_jaw_symmetry_headroom_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/move_pose_reach_schema.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "ARX X5 joint6 stop (binder refuses another controlled frame)"
+    },
+    "move_pose_reach_along_request_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/move_pose_reach_schema.py",
+      "label_only": false
+    },
+    "move_pose_reach_along_request_v2": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/reach_reference_schema.py",
+      "label_only": false
+    },
+    "observation_bound_grasp_plan_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "observation_bound_target_ref_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "observation_delivery_trim_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/context/delivery_trim.py",
+      "label_only": false
+    },
+    "observation_delivery_trim_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/context/delivery_trim.py",
+      "label_only": false
+    },
+    "observed_clearance_reference_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/observed_clearance_v2_schema.py",
+      "label_only": false
+    },
+    "observed_extent_scene_review_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/scene_extent_review.py",
+      "label_only": false
+    },
+    "optional_argument_null_as_omitted_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/null_optional_arguments.py",
+      "label_only": false
+    },
+    "overhead_footprint_localization_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/overhead_view.py",
+      "label_only": false
+    },
+    "panda_grip_site_axes_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/runtime/grasp.py",
+      "label_only": false,
+      "applies_to": [
+        "libero_pro"
+      ],
+      "reason": "Panda embodiment identity"
+    },
+    "per_arm_realized_translation_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/native/contact_detail.py",
+      "label_only": false
+    },
+    "policy_abort_infrastructure_round_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/finish_outcomes_schema.py",
+      "label_only": false
+    },
+    "policy_angles_degrees_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/context/policy_units.py",
+      "label_only": false
+    },
+    "policy_finish_outcomes_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/finish_outcomes_schema.py",
+      "label_only": false
+    },
+    "policy_restricted_geometry_compute_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/compute_grammar_schema.py",
+      "label_only": false
+    },
+    "policy_tool_help_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/tool_surface.py",
+      "label_only": false
+    },
+    "pose_orientation_from_world_axes_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/world_axes_schema.py",
+      "label_only": false
+    },
+    "pose_primitive_reach_along_request_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/pose_primitive_reach_schema.py",
+      "label_only": false
+    },
+    "pose_primitive_reach_along_request_v2": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/reach_reference_schema.py",
+      "label_only": false
+    },
+    "prepared_grasp_execution_v2": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/native/session.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "a grasp_execute stage; see closed_manipulation_skills_v1"
+    },
+    "public_grasp_contact_pose_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/evidence/trajectory.py",
+      "label_only": false
+    },
+    "public_motion_effect_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/native/receipt_projection.py",
+      "label_only": false
+    },
+    "public_motion_error_classification_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "public_rgbd_batch_point_segmentation_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/segmentation_batch.py",
+      "label_only": false
+    },
+    "public_rgbd_grasp_retention_recovery_v5": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/retention_recovery.py",
+      "label_only": false
+    },
+    "public_rgbd_perception_evidence_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/runtime/grasp.py",
+      "label_only": false
+    },
+    "public_rgbd_perception_feedback_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/perception_feedback.py",
+      "label_only": false
+    },
+    "public_rgbd_retention_advisory_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/retention.py",
+      "label_only": false
+    },
+    "public_target_geometry_depth_inliers_v2": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/grasp.py",
+      "label_only": false
+    },
+    "public_tool_error_recovery_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "reach_nearest_orientation_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/reach_orientation_schema.py",
+      "label_only": false
+    },
+    "reach_nearest_orientation_v2": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/composition/reach_reference_schema.py",
+      "label_only": false
+    },
+    "read_only_ik_reachability_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "resident_contact_graspnet_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "resident_sam3_point_segmentation_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "resident_sam3_text_grounding_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "rgbd": {
+      "class": "generic",
+      "evidence": "ora/environment/backends/robotwin/sparse_settlement.py",
+      "label_only": false
+    },
+    "robodojo_controller_feedback_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/controller_feedback.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "ARX controller contract compiled into help"
+    },
+    "robodojo_retract_then_unwind_recovery_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/environment/backends/robodojo/recovery.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "RoboDojo recovery route (robodojo/recovery.py)"
+    },
+    "robodojo_rgbd_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/grasp_ik_reachability_schema.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "backend identity"
+    },
+    "robodojo_sdk_ik_joint_interpolation_v1_non_parity": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "RoboDojo route disclosure"
+    },
+    "robodojo_staged_contact_approach_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/environment/backends/robodojo/staged_contact.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "RoboDojo staged contact route (robodojo/staged_contact.py), the way RoboTwin and LIBERO already stage contact_approach"
+    },
+    "robodojo_x5_public_rgbd_topdown_grasp_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/dual_arm_surface.py",
+      "label_only": false,
+      "applies_to": [
+        "robodojo"
+      ],
+      "reason": "X5 top-down grasp family"
+    },
+    "robotwin_aloha_public_rgbd_topdown_grasp_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/runtime/core.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "ALOHA top-down grasp family"
+    },
+    "robotwin_reach_check_inter_arm_screen_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/reach_reference_schema.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "RoboTwin's read-only reach check is a single-seed IK with no collision model; the screen applies its admission's other-arm test (0059 M6). RoboDojo's reach check is move_pose's own SDK admission, LIBERO is single-arm"
+    },
+    "robotwin_rgbd_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/composition/grasp_ik_reachability_schema.py",
+      "label_only": false,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "backend identity"
+    },
+    "semantic_pose_primitives_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/composition/pose_primitive_reach_schema.py",
+      "label_only": false
+    },
+    "sensor_equivalent_feedback_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "shared_hold_wait_action_v1": {
+      "class": "generic_needs_backend_code",
+      "evidence": "ora/agent/tools/wait_tool.py",
+      "label_only": false
+    },
+    "shared_policy_view_config_v1": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "single_arm_flat_targets_v1": {
+      "class": "backend_specific",
+      "evidence": "ora/agent/tools/gripper_intent.py",
+      "label_only": false,
+      "applies_to": [
+        "libero_pro"
+      ],
+      "reason": "arm-count contract"
+    },
+    "staged_contact_approach_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "motion-stack label; LIBERO move_pose stages contact_approach without it"
+    },
+    "standard_tcp_pose_handoff_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "ALOHA grip-centre TCP convention"
+    },
+    "target_local_grasp_contact_sheet_v2": {
+      "class": "generic",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true
+    },
+    "target_principal_frame_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/grasp.py",
+      "label_only": false
+    },
+    "target_support_height_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/tools/grounding_preview.py",
+      "label_only": false
+    },
+    "tcp_endpoint_verification_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "motion-stack label (dual-arm endpoint verification); LIBERO reports controller feedback"
+    },
+    "topk_ik_joint_planning_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin"
+      ],
+      "reason": "RoboTwin vendored 128-seed CuRobo planner"
+    },
+    "two_view_pointcloud_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "libero_pro"
+      ],
+      "reason": "LIBERO two-camera cloud identity"
+    },
+    "validated_controller_execution_v1": {
+      "class": "backend_specific",
+      "evidence": "label: declared by manifests, read by no ora module",
+      "label_only": true,
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "motion-stack label"
+    },
+    "within_payload_deduplication_v1": {
+      "class": "generic",
+      "evidence": "ora/agent/context/payload_dedup.py",
+      "label_only": false
+    }
+  },
+  "tools": {
+    "align_plan": {
+      "class": "generic_needs_backend_code",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "check_task": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "compute": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "finish_episode": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "geometry_query": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "grasp_execute": {
+      "class": "backend_specific",
+      "evidence": "tool_order of the closed-skill manifests",
+      "applies_to": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "closed-skill tool shape; the LIBERO default stays direct (see closed_manipulation_skills_v1)"
+    },
+    "grasp_plan": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "mark_point": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "move_pose": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "move_to": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "observe": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "recover_pose": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "report_issue": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "rotate_pitch": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "rotate_wrist": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "set_gripper": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "vision_ground": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "vision_segment": {
+      "class": "generic",
+      "evidence": "resolved ToolSurface definitions"
+    },
+    "wait_ticks": {
+      "class": "generic_needs_backend_code",
+      "evidence": "resolved ToolSurface definitions"
+    }
+  },
+  "supersedes": {
+    "policy_failure_exit_withheld_v1": "policy_finish_outcomes_v2",
+    "policy_abort_requires_infrastructure_evidence_v1": "policy_abort_infrastructure_round_v2",
+    "observed_clearance_reference_v1": "observed_clearance_reference_v2",
+    "move_pose_reach_along_request_v1": "move_pose_reach_along_request_v2",
+    "pose_primitive_reach_along_request_v1": "pose_primitive_reach_along_request_v2",
+    "reach_nearest_orientation_v1": "reach_nearest_orientation_v2",
+    "observation_delivery_trim_v1": "observation_delivery_trim_v2"
+  },
+  "exceptions": [
+    {
+      "id": "P0059-L08",
+      "name": "read_only_ik_reachability_v1",
+      "kind_of_name": "capabilities",
+      "kind": "backend_missing",
+      "backends": [
+        "libero_pro"
+      ],
+      "missing_hook": {
+        "glob": "ora/environment/backends/libero_pro/*.py",
+        "mentions": "plan_alignment"
+      },
+      "follow_up": "follow-up unit after integration 0059 (user decision 2026-10-04: \"登记例外，0059 后单列补\"): a LIBERO plan_alignment route on the CuRobo IK path plus the Panda approach-axis fix in the policy-side approach synthesis",
+      "reason": "LIBERO answers no alignment request (no plan_alignment route), and the policy-side approach synthesis puts approach on local +X, the Panda closing axis; declaring it would publish an align_plan LIBERO cannot answer (coordinator, 2026-10-04: do not declare on LIBERO).",
+      "approved": "2026-10-04"
+    },
+    {
+      "id": "P0059-L09",
+      "name": "align_plan",
+      "kind_of_name": "tools",
+      "kind": "backend_missing",
+      "backends": [
+        "libero_pro"
+      ],
+      "missing_hook": {
+        "glob": "ora/environment/backends/libero_pro/*.py",
+        "mentions": "plan_alignment"
+      },
+      "follow_up": "the same follow-up unit as P0059-L08",
+      "reason": "the tool of read_only_ik_reachability_v1 (P0059-L08).",
+      "approved": "2026-10-04"
+    },
+    {
+      "id": "P0059-D01",
+      "name": "move_pose_reach_along_request_v2",
+      "kind_of_name": "capabilities",
+      "kind": "version_split",
+      "backends": [
+        "robodojo"
+      ],
+      "reason": "RoboDojo keeps v1: its reach check is move_pose's own SDK admission (matches_move_pose_admission true), so v1's route claim is true there; v2 would add ik_model, matches true and a null disagreement. Unifying is a RoboDojo help revision for a later generation. Approved by the user 2026-10-04 (\"接受保持 v1\").",
+      "approved": "2026-10-04"
+    },
+    {
+      "id": "P0059-D02",
+      "name": "pose_primitive_reach_along_request_v2",
+      "kind_of_name": "capabilities",
+      "kind": "version_split",
+      "backends": [
+        "robodojo"
+      ],
+      "reason": "as P0059-D01. Approved by the user 2026-10-04 (\"接受保持 v1\").",
+      "approved": "2026-10-04"
+    },
+    {
+      "id": "P0059-D03",
+      "name": "reach_nearest_orientation_v2",
+      "kind_of_name": "capabilities",
+      "kind": "version_split",
+      "backends": [
+        "robodojo"
+      ],
+      "reason": "as P0059-D01; the X5 sweep holds the descriptor contact centre, which v1 already does. Approved by the user 2026-10-04 (\"接受保持 v1\").",
+      "approved": "2026-10-04"
+    },
+    {
+      "id": "P0084-D01",
+      "name": "overhead_footprint_localization_v1",
+      "kind_of_name": "capabilities",
+      "kind": "deferred",
+      "backends": [
+        "robotwin",
+        "robodojo"
+      ],
+      "reason": "The user made the overhead footprint localization the LIBERO and LIBERO-Pro default (2026-10-11: \"placement-centre 设为默认\") on the evidence of a LIBERO-only paired screen (EXP12B/placement-centre/g001); RoboTwin keeps the default its EXP12B/zeroshot/g004 results were measured on. The footprint centre is backend-neutral, but overhead_view_pose reads the single camera named wrist, so a dual-arm backend needs a per-arm camera choice and its own screen first.",
+      "approved": "2026-10-11"
+    }
+  ],
+  "previous_defaults": {
+    "robotwin": {
+      "profile_id": "robotwin_toolchain_b2_closed_noservo_v1",
+      "replaced_by": "robotwin_toolchain_b2_closed_noservo_v2",
+      "capabilities": [
+        "actuator_target_pose_hold_v2",
+        "analytic_tcp_local_cartesian_v1",
+        "atomic_gripper_v1",
+        "automatic_current_auxiliary_contact_sheet_v1",
+        "batch_parallel_jaw_goalset_v1",
+        "canonical_tool_names_v1",
+        "canonical_tool_order_v1",
+        "causal_observation_v1",
+        "closed_manipulation_skills_v1",
+        "compute_grammar_from_evaluator_v1",
+        "contact_graspnet_robotwin_aloha_grip_center_compiler_v3",
+        "contact_motion_feedback_v1",
+        "copyable_grasp_approach_target_v1",
+        "current_public_robot_facts_v1",
+        "direct_pose_submission_v1",
+        "dual_arm_grasp_plan_v1",
+        "dual_arm_sparse_targets_v1",
+        "enhanced_move_pose_v1",
+        "faithful_check_task",
+        "flat_motion_arguments_v1",
+        "flat_placement_arguments_v1",
+        "full_current_visual_v1",
+        "fused_backend_grasp_input_v1",
+        "grasp_opening_rejection_feedback_v1",
+        "grasp_precommit_motion_check_v1",
+        "gripper_command_target_v1",
+        "grounding_candidate_inspection_v2",
+        "held_object_offset_v1",
+        "joint_trajectory_execution_v1",
+        "mark_point_batch_v1",
+        "mask_depth_localization_v1",
+        "measured_jaw_separation_v1",
+        "motion_action_v3",
+        "motion_intent_router_v1",
+        "motion_intent_router_v2",
+        "motion_mode_companion_help_v1",
+        "motion_transaction_v1",
+        "observation_bound_grasp_plan_v1",
+        "observation_bound_target_ref_v1",
+        "optional_argument_null_as_omitted_v1",
+        "policy_restricted_geometry_compute_v1",
+        "policy_tool_help_v1",
+        "prepared_grasp_execution_v2",
+        "public_grasp_contact_pose_v1",
+        "public_motion_effect_v1",
+        "public_motion_error_classification_v1",
+        "public_rgbd_batch_point_segmentation_v2",
+        "public_rgbd_dual_arm_placement_support_v1",
+        "public_rgbd_grasp_retention_recovery_v5",
+        "public_rgbd_grasp_retention_verification_v4",
+        "public_rgbd_perception_evidence_v1",
+        "public_rgbd_perception_feedback_v2",
+        "public_rgbd_placement_depth_edges_v1",
+        "public_rgbd_placement_support_v1",
+        "public_rgbd_retention_advisory_v1",
+        "public_target_geometry_depth_inliers_v2",
+        "public_tool_error_recovery_v1",
+        "read_only_ik_reachability_v1",
+        "resident_contact_graspnet_v1",
+        "resident_sam3_point_segmentation_v1",
+        "resident_sam3_text_grounding_v1",
+        "rgbd",
+        "robotwin_aloha_public_rgbd_topdown_grasp_v1",
+        "robotwin_rgbd_v1",
+        "semantic_pose_primitives_v1",
+        "sensor_equivalent_feedback_v1",
+        "shared_policy_view_config_v1",
+        "staged_contact_approach_v1",
+        "standard_tcp_pose_handoff_v1",
+        "target_local_grasp_contact_sheet_v2",
+        "target_principal_frame_v1",
+        "target_support_height_v1",
+        "tcp_endpoint_verification_v1",
+        "topk_ik_joint_planning_v1",
+        "validated_controller_execution_v1"
+      ],
+      "tools": [
+        "align_plan",
+        "check_task",
+        "compute",
+        "finish_episode",
+        "geometry_query",
+        "grasp_execute",
+        "grasp_plan",
+        "grasp_verify_retention",
+        "mark_point",
+        "move_pose",
+        "move_to",
+        "observe",
+        "place_execute",
+        "place_plan",
+        "place_resume",
+        "recover_pose",
+        "report_issue",
+        "rotate_pitch",
+        "rotate_wrist",
+        "set_gripper",
+        "vision_ground",
+        "vision_segment"
+      ],
+      "retirements": [
+        {
+          "name": "flat_placement_arguments_v1",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "grasp_verify_retention",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "held_object_offset_v1",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "place_execute",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "place_plan",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "place_resume",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "public_rgbd_dual_arm_placement_support_v1",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "public_rgbd_grasp_retention_verification_v4",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "public_rgbd_placement_depth_edges_v1",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        },
+        {
+          "name": "public_rgbd_placement_support_v1",
+          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+        }
+      ]
+    },
+    "libero_pro": {
+      "profile_id": "libero_placement_explicit_motion_direct_v2",
+      "replaced_by": "libero_placement_direct_overhead_v1",
+      "capabilities": [
+        "atomic_gripper_v1",
+        "canonical_grasp_backend_output_v1",
+        "canonical_tool_names_v1",
+        "canonical_tool_order_v1",
+        "causal_observation_v1",
+        "compute_grammar_from_evaluator_v1",
+        "contact_graspnet_panda_grip_site_compiler_v2",
+        "contact_motion_feedback_v1",
+        "copyable_grasp_approach_target_v1",
+        "current_public_robot_facts_v1",
+        "direct_pose_submission_v1",
+        "enhanced_move_pose_v1",
+        "faithful_check_task",
+        "flat_motion_arguments_v1",
+        "full_current_visual_v1",
+        "fused_backend_grasp_input_v1",
+        "grasp_opening_rejection_feedback_v1",
+        "grasp_plan_ik_reachability_annotation_v1",
+        "grounding_candidate_depth_profile_v1",
+        "grounding_candidate_inspection_v2",
+        "last_action_summary_v1",
+        "libero_pro_rgbd_v1",
+        "mark_point_batch_v1",
+        "mask_depth_localization_v1",
+        "motion_action_v3",
+        "motion_intent_router_v1",
+        "motion_mode_companion_help_v1",
+        "move_pose_reach_along_request_v2",
+        "observation_bound_grasp_plan_v1",
+        "observation_bound_target_ref_v1",
+        "observation_delivery_trim_v2",
+        "observed_clearance_reference_v2",
+        "observed_extent_scene_review_v1",
+        "optional_argument_null_as_omitted_v1",
+        "panda_grip_site_axes_v1",
+        "per_arm_realized_translation_v1",
+        "policy_abort_infrastructure_round_v2",
+        "policy_angles_degrees_v1",
+        "policy_finish_outcomes_v2",
+        "policy_restricted_geometry_compute_v1",
+        "policy_tool_help_v1",
+        "pose_orientation_from_world_axes_v1",
+        "pose_primitive_reach_along_request_v2",
+        "public_grasp_contact_pose_v1",
+        "public_motion_effect_v1",
+        "public_motion_error_classification_v1",
+        "public_rgbd_batch_point_segmentation_v2",
+        "public_rgbd_grasp_retention_recovery_v5",
+        "public_rgbd_perception_evidence_v1",
+        "public_rgbd_perception_feedback_v2",
+        "public_rgbd_retention_advisory_v1",
+        "public_target_geometry_depth_inliers_v2",
+        "public_tool_error_recovery_v1",
+        "reach_nearest_orientation_v2",
+        "resident_contact_graspnet_v1",
+        "resident_sam3_point_segmentation_v1",
+        "resident_sam3_text_grounding_v1",
+        "rgbd",
+        "semantic_pose_primitives_v1",
+        "sensor_equivalent_feedback_v1",
+        "shared_hold_wait_action_v1",
+        "shared_policy_view_config_v1",
+        "single_arm_flat_targets_v1",
+        "target_local_grasp_contact_sheet_v2",
+        "target_principal_frame_v1",
+        "target_support_height_v1",
+        "two_view_pointcloud_v1",
+        "within_payload_deduplication_v1"
+      ],
+      "tools": [
+        "check_task",
+        "compute",
+        "finish_episode",
+        "geometry_query",
+        "grasp_plan",
+        "mark_point",
+        "move_pose",
+        "move_to",
+        "observe",
+        "recover_pose",
+        "report_issue",
+        "rotate_pitch",
+        "rotate_wrist",
+        "set_gripper",
+        "vision_ground",
+        "vision_segment",
+        "wait_ticks"
+      ],
+      "retirements": []
+    },
+    "robodojo": {
+      "profile_id": "robodojo_placement_closed_skills_v1",
+      "replaced_by": "robodojo_placement_closed_skills_v2",
+      "capabilities": [
+        "actuator_target_pose_hold_v2",
+        "atomic_gripper_v1",
+        "automatic_current_auxiliary_contact_sheet_v1",
+        "batch_parallel_jaw_goalset_v1",
+        "canonical_tool_names_v1",
+        "canonical_tool_order_v1",
+        "causal_observation_v1",
+        "closed_manipulation_skills_v1",
+        "compute_grammar_from_evaluator_v1",
+        "contact_graspnet_robodojo_x5_link6_compiler_v1",
+        "contact_motion_feedback_v1",
+        "copyable_grasp_approach_target_v1",
+        "current_public_robot_facts_v1",
+        "direct_pose_submission_v1",
+        "dual_arm_grasp_plan_v1",
+        "dual_arm_sparse_targets_v1",
+        "enhanced_move_pose_v1",
+        "faithful_check_task",
+        "flat_motion_arguments_v1",
+        "full_current_visual_v1",
+        "fused_backend_grasp_input_v1",
+        "grasp_opening_rejection_feedback_v1",
+        "grasp_plan_ik_reachability_annotation_v1",
+        "grasp_plan_jaw_symmetry_headroom_v1",
+        "grasp_precommit_motion_check_v1",
+        "gripper_command_target_v1",
+        "gripper_stall_hold_evidence_v1",
+        "grounding_candidate_depth_profile_v1",
+        "grounding_candidate_inspection_v2",
+        "joint_trajectory_execution_v1",
+        "mark_point_batch_v1",
+        "mask_depth_localization_v1",
+        "motion_action_v3",
+        "motion_intent_router_v1",
+        "motion_intent_router_v2",
+        "motion_mode_companion_help_v1",
+        "motion_probe_ik_candidate_feedback_v1",
+        "motion_transaction_v1",
+        "move_pose_jaw_symmetry_headroom_v1",
+        "move_pose_reach_along_request_v1",
+        "observation_bound_grasp_plan_v1",
+        "observation_bound_target_ref_v1",
+        "observed_clearance_reference_v1",
+        "observed_extent_scene_review_v1",
+        "optional_argument_null_as_omitted_v1",
+        "policy_abort_requires_infrastructure_evidence_v1",
+        "policy_failure_exit_withheld_v1",
+        "policy_restricted_geometry_compute_v1",
+        "policy_tool_help_v1",
+        "pose_orientation_from_world_axes_v1",
+        "pose_primitive_reach_along_request_v1",
+        "prepared_grasp_execution_v2",
+        "public_grasp_contact_pose_v1",
+        "public_motion_effect_v1",
+        "public_motion_error_classification_v1",
+        "public_rgbd_batch_point_segmentation_v2",
+        "public_rgbd_grasp_retention_recovery_v5",
+        "public_rgbd_perception_evidence_v1",
+        "public_rgbd_perception_feedback_v2",
+        "public_rgbd_retention_advisory_v1",
+        "public_target_geometry_depth_inliers_v2",
+        "public_tool_error_recovery_v1",
+        "reach_nearest_orientation_v1",
+        "read_only_ik_reachability_v1",
+        "resident_contact_graspnet_v1",
+        "resident_sam3_point_segmentation_v1",
+        "resident_sam3_text_grounding_v1",
+        "rgbd",
+        "robodojo_controller_feedback_v1",
+        "robodojo_retract_then_unwind_recovery_v1",
+        "robodojo_rgbd_v1",
+        "robodojo_sdk_ik_joint_interpolation_v1_non_parity",
+        "robodojo_staged_contact_approach_v1",
+        "robodojo_x5_public_rgbd_topdown_grasp_v1",
+        "semantic_pose_primitives_v1",
+        "sensor_equivalent_feedback_v1",
+        "shared_hold_wait_action_v1",
+        "shared_policy_view_config_v1",
+        "staged_contact_approach_v1",
+        "target_local_grasp_contact_sheet_v2",
+        "target_principal_frame_v1",
+        "target_support_height_v1",
+        "tcp_endpoint_verification_v1",
+        "validated_controller_execution_v1"
+      ],
+      "tools": [
+        "align_plan",
+        "check_task",
+        "compute",
+        "finish_episode",
+        "geometry_query",
+        "grasp_execute",
+        "grasp_plan",
+        "mark_point",
+        "move_pose",
+        "move_to",
+        "observe",
+        "recover_pose",
+        "report_issue",
+        "rotate_pitch",
+        "rotate_wrist",
+        "set_gripper",
+        "vision_ground",
+        "vision_segment",
+        "wait_ticks"
+      ],
+      "retirements": []
+    }
+  }
+}

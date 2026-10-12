@@ -1,0 +1,46 @@
+{
+  "observe": {
+    "type": "object",
+    "properties": {
+      "views": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string",
+          "enum": [
+            "head_camera",
+            "front_camera",
+            "left_camera",
+            "right_camera"
+          ]
+        },
+        "minItems": 1,
+        "uniqueItems": true,
+        "description": "Selected public views; omit for every physical camera. All current RGB views and calibration are already delivered automatically; use observe for overlays or saved observations."
+      },
+      "history_point_ids": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": "Solved current-observation mark IDs to overlay; omit or pass null for none."
+      },
+      "step": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0,
+        "description": "Saved public observation step in the current round; omit or null for current. Historical selection is read-only and does not rewind the world. Use recovery.baseline_step when inspecting a retention baseline."
+      }
+    },
+    "additionalProperties": false,
+    "description": "With a historical step, request physical camera views only and omit history_point_ids; pointcloud views are current-only."
+  }
+}

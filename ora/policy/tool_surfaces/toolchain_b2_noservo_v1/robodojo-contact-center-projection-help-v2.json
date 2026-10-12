@@ -1,0 +1,5 @@
+{
+  "append": {
+    "observe": "Each calibrated camera also carries controlled_point_pixels and jaw_center_pixels per arm: the native OpenCV pixel [x, y], inside_image, in_front_of_camera and depth_m, computed from that camera's calibration and the measured pose of the same observation (automatic current delivery carries the same fields). The controlled point is the link6 wrist flange, which sits behind the arm's own wrist camera, so its wrist pixel is null. The jaw contact centre is the nominal pad contact centre 0.1501 m ahead of link6 along the approach axis; in the arm's own wrist camera it projects near the horizontal centre, below the image centre, not at it. Centring an object in a wrist view therefore does not put it between the jaws; compare the object with jaw_center_pixels instead. It is nominal source geometry, not a measured contact or grasp."
+  }
+}

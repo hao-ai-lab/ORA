@@ -1,0 +1,220 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "handover_mic",
+  "status": "reviewed",
+  "reviewer": "Claude (Opus 5.5) individual predicate, mesh/asset and simulator counterfactual review requested by operator; fifty-task audit of 2026-10-07 for the zero-shot delivery",
+  "reviewed_at": "2026-10-07",
+  "scope": "Fifty-task semantic generation v4: corrects public clauses that a literal reading fails (wrong reference point or direction), adds checked end-state conditions the v3 text omitted, and corrects private review facts. Vague tolerances are deliberately left qualitative (operator decision 2026-10-07: no tightening, no numbers). Same source revisions as v3; evaluator, helper and asset sources unchanged at cf4872cc90538fd4bca761c8db912d8f65e49f2b. Counterfactual probes evaluate the official predicate on the expert's final geometry with one actor teleported; they are predicate evidence, not physical qualification of every asset variant.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/handover_mic.py",
+      "sha256": "41ed0f2561cc8f1ae2449ba405decd4f5d7e3b80243b60921598657551891b17"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/handover_mic.json",
+      "sha256": "99452881cf54850a3054ec4636327fadc5ac082562a1f1983d5383eec21e01dd"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/018_microphone/model_data0.json",
+      "sha256": "29c6f3ebefd7a74706c43ebadef621b23e1460b8b1d754e8e078375fb547476a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/018_microphone/model_data1.json",
+      "sha256": "7ceac8d7e874f504a5fe2410714c09e188a4c41475fcfa5b0e359f91a1c9c6c1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/018_microphone/model_data4.json",
+      "sha256": "248b3e27f7c04dcc0ce92520f75ad59e297d9a3e11dd8fdf97e37dab056998c5"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/018_microphone/model_data5.json",
+      "sha256": "161488d5284492e5987a0ff1cb821925ba8f596f0198fc392cc6ca474efc1080"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/018_microphone/points_info.json",
+      "sha256": "288e77088b2b075dbd38435b7bb9180375feb9a6ed19c0b727e46baf2eb48998"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/018_microphone/collision/base5.glb",
+      "sha256": "36b914469099259550b34e6d1505d79c6e9da6ab662745ccab442f2c7be57272"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/018_microphone/visual/base5.glb",
+      "sha256": "c0ed3411cb7886b3eaa074c28d4518b74a89d1db1f0c537e5945e140350f0741"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-handover_mic-from-s0-gpu2b-20260830T095504Z/handover_mic/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "a67edab910e171e1ecdcb1d94a2af39f912a15ad8595a471684d736a62d18cb5"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-handover_mic-from-s0-gpu2b-20260830T095504Z/handover_mic/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "b393380a19ee53868ef3539174d67694886bf241c566205cf9dd36d2295551c4"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-handover_mic-from-s0-gpu2b-20260830T095504Z/handover_mic/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "091721a8b8c3a0e8eb033e58e7f47e55cae9d95928ba8dee48526dc44a78d8b0"
+    }
+  ],
+  "public_clauses": [
+    "Pick up the microphone with the arm on the side where it starts, then pass it to the other arm.",
+    "Hold the microphone well above the table on the receiving arm's side of the workspace.",
+    "Keep the receiving gripper set to close on the microphone and open the giving gripper; maintain gripper contact with the microphone."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "load_actors fixes grasp_arm_tag from initial microphone x and handover_arm_tag as opposite; transfer is original task intent.",
+      "interpretation": "Pick up the microphone with the arm on the side where it starts, then pass it to the other arm.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: microphone functional point z > 0.92 and x sign matches receiving arm. v4 correction: Functional point 0 is the narrow handle-tail end of the microphone, not its head (mesh: wide at -Z, point at about +Z); the public clause is unaffected.",
+      "interpretation": "Hold the microphone well above the table on the receiving arm's side of the workspace.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "source_basis": "check_success: any microphone/gripper contact, receiver close AND giver open. Collector does not identify which arm supplies contact.",
+      "interpretation": "Keep the receiving gripper set to close on the microphone and open the giving gripper; maintain gripper contact with the microphone.",
+      "disposition": "included",
+      "public_clause_indices": [
+        2
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/handover_mic.py:check_success lines 99-107, helper and asset dependencies listed in this record.",
+      "interpretation": "No formal two-stage handover history, receiver-specific contact, orientation or retention duration test.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No formal two-stage handover history, receiver-specific contact, orientation or retention duration test."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Rigid microphone variants 0/4/5; functional marker is near microphone head/body end, not a generic object center. No final upright orientation tested."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Rigid microphone variants 0/4/5; functional marker is near microphone head/body end, not a generic object center. No final upright orientation tested. Parsed 5 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant. v4 correction: Functional point 0 is the narrow handle-tail end of the microphone, not its head (mesh: wide at -Z, point at about +Z); the public clause is unaffected."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Rigid microphone variants 0/4/5; functional marker is near microphone head/body end, not a generic object center. No final upright orientation tested."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows microphone across to left receiving gripper and opposite gripper withdrawn."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Receiver closed but giver still closed, or microphone kept on giving side: fails the corresponding state conjunct. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No formal two-stage handover history, receiver-specific contact, orientation or retention duration test."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Receiver closed but giver still closed, or microphone kept on giving side: fails the corresponding state conjunct.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "仅更正私有审核事实：功能点0在话筒较细的尾端（网格核对），不是头部；公开文字不变。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "018_microphone",
+        "model_id": 5
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows microphone across to left receiving gripper and opposite gripper withdrawn.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No formal two-stage handover history, receiver-specific contact, orientation or retention duration test. Head image shows microphone across to left receiving gripper and opposite gripper withdrawn. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification. v4: counterfactual probes cover the listed demo_clean expert-accepted seeds and their selected assets; reset-state probes test the predicate on constructed geometry, not physical reachability; other asset variants rely on metadata and mesh review."
+}

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/base.css?v={{ style_version }}">
+  <link rel="stylesheet" href="/static/viewer.css?v={{ style_version }}">
+</head>
+<body>
+  <main class="ui-page{% if wide %} wide-main{% endif %}">{{ body }}</main>
+</body>
+</html>

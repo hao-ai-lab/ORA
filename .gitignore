@@ -1,0 +1,74 @@
+# Python bytecode, test and analysis caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.pyre/
+.pytype/
+.ruff_cache/
+.hypothesis/
+.benchmarks/
+.tox/
+.nox/
+.dmypy.json
+dmypy.json
+pytestdebug.log
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+.cache/
+.uv-cache/
+*.egg-info/
+dist/
+build/
+
+# Frontend/package-manager caches
+node_modules/
+.npm/
+.yarn/cache/
+.vite/
+.parcel-cache/
+.turbo/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+.openaikey
+
+# Ephemeral repo-local control state. Job artifacts live under outputs/.
+.harness-runtime/
+# Per-run TMPDIR scratch; a sibling of the outputs root, so it lands here
+# when outputs/ is the repository's own directory.
+/.runtime-tmp/
+
+# Generated experiment workspaces. Keep only the empty root in Git.
+outputs/*
+!outputs/.gitkeep
+
+# External simulator checkouts belong outside this repository. If a temporary
+# in-repo checkout is unavoidable, keep it under external/ so it cannot collide
+# with the tracked environment backend packages or source ownership.
+external/RoboTwin/
+*.pid
+*.log
+*.tmp

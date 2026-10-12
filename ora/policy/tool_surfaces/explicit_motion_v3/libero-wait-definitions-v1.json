@@ -1,0 +1,23 @@
+{
+  "tools": [
+    {
+      "name": "wait_ticks",
+      "description": "Hold the current command and let simulated time pass.\nUse when: the scene has to change without a robot command -- a released object is still settling, or the task says to wait. It is not a correction: a pose residual needs move_pose, a stalled jaw needs set_gripper.\nEffect: world mutation by elapsed time only. Each tick sends the zero-delta OSC_POSE command, whose goal is the pose measured at that tick's start, and leaves the gripper directive as it is; nothing is planned, clipped or re-limited, and drift is measured, not corrected. ticks control ticks elapse, one tick being one LIBERO control step (50 ms of simulated time, 20 Hz), at most 20 per call. One call is one robot decision.\nReturns: status=submitted immediately. The next receipt reports wait.ticks_used, wait.physics_steps and the arm's inactive_arm_drift while held; the fresh observation shows what changed.\nDoes not: move toward any target, open or close the gripper, restore a drifted pose, or establish that the scene changed.\nOn error: Refused: any field other than ticks, or ticks that is not an integer from 1 to 20 (invalid_arguments, naming the ticks bound); the episode's terminal boundary (episode_terminal). For more time call wait_ticks again; act once a fresh observation shows the scene you need.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ticks": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "description": "Control ticks to hold the current command. One tick is one LIBERO control step (50 ms of simulated time); 20 ticks is 1.0 s. Required."
+          }
+        },
+        "required": [
+          "ticks"
+        ]
+      }
+    }
+  ]
+}

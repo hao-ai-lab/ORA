@@ -1,0 +1,5 @@
+{
+  "append": {
+    "move_pose": "compiled_pose.targets.<arm>.observed_clearance (also on move_to, rotate_wrist and rotate_pitch): the jaw footprint's lowest point at the target (fingers, plus the held object's localized extent when the jaws hold a named target) minus the highest surface the current depth images show beneath it or within radius_m; negative means that surface is higher; occluded surfaces are unknown; not a collision check. The jaws count as holding when the last gripper command was close and the measured jaw separation exceeds 3 mm, which does not confirm a grasp."
+  }
+}

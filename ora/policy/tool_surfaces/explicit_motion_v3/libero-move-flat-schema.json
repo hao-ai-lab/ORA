@@ -1,0 +1,99 @@
+{
+  "move_pose": {
+    "type": "object",
+    "additionalProperties": false,
+    "description": "This surface drives one right arm, so the arguments are that arm's target with no targets wrapper and no arm choice.",
+    "required": [
+      "position_mode",
+      "orientation_mode"
+    ],
+    "properties": {
+      "position_mode": {
+        "type": "string",
+        "enum": [
+          "hold_current",
+          "absolute",
+          "delta"
+        ],
+        "description": "How the position is stated. hold_current keeps the measured position and takes no other position field. absolute also needs position_m. delta also needs translation_m and position_frame."
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "description": "One finite metre component."
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "World position of the public TCP, in metres. Send with position_mode absolute. This is the field a pose copied from another tool fills."
+      },
+      "translation_m": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "description": "One finite metre component."
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Translation to add, in metres, resolved once against the measured action-start pose. Send with position_mode delta."
+      },
+      "position_frame": {
+        "type": "string",
+        "enum": [
+          "world",
+          "end_effector"
+        ],
+        "description": "Frame the translation is expressed in. Send with position_mode delta. end_effector freezes the measured TCP frame once at action start."
+      },
+      "orientation_mode": {
+        "type": "string",
+        "enum": [
+          "hold_current",
+          "absolute_quaternion",
+          "axis_angle_delta"
+        ],
+        "description": "How the orientation is stated. hold_current keeps the measured orientation and takes no other orientation field. absolute_quaternion also needs orientation_xyzw. axis_angle_delta also needs rotation_axis, rotation_angle_deg and orientation_frame."
+      },
+      "orientation_xyzw": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "description": "One finite quaternion component."
+        },
+        "minItems": 4,
+        "maxItems": 4,
+        "description": "World orientation of the public TCP as a quaternion in xyzw order. Send with orientation_mode absolute_quaternion."
+      },
+      "rotation_axis": {
+        "type": "string",
+        "enum": [
+          "x",
+          "y",
+          "z"
+        ],
+        "description": "Axis of one in-place rotation. Send with orientation_mode axis_angle_delta."
+      },
+      "rotation_angle_deg": {
+        "type": "number",
+        "description": "Rotation about rotation_axis, in DEGREES. Send with orientation_mode axis_angle_delta. Do not convert to radians: this field is degrees and the receipt reports measured rotation separately."
+      },
+      "orientation_frame": {
+        "type": "string",
+        "enum": [
+          "world",
+          "end_effector"
+        ],
+        "description": "Frame the rotation is applied in. Send with orientation_mode axis_angle_delta."
+      },
+      "interaction": {
+        "type": "string",
+        "enum": [
+          "free_space",
+          "precision",
+          "contact_approach"
+        ],
+        "description": "Physical intent, never a controller name. Omitted means free_space."
+      }
+    }
+  }
+}

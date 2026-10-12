@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ora.embodiment-activation-record.v1",
+  "title": "Robot Harness embodiment activation record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "descriptor_sha256",
+    "card_sha256",
+    "review",
+    "runtime_verification"
+  ],
+  "properties": {
+    "schema": {"const": "ora.embodiment-activation-record.v1"},
+    "descriptor_sha256": {"$ref": "#/$defs/sha256"},
+    "card_sha256": {"$ref": "#/$defs/sha256"},
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "card_sha256", "record_sha256"],
+      "properties": {
+        "decision": {"const": "accepted"},
+        "card_sha256": {"$ref": "#/$defs/sha256"},
+        "record_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "runtime_verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "descriptor_sha256",
+        "projected_facts_sha256",
+        "evidence_sha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "ora.embodiment-runtime-verification.v1"
+        },
+        "descriptor_sha256": {"$ref": "#/$defs/sha256"},
+        "projected_facts_sha256": {"$ref": "#/$defs/sha256"},
+        "evidence_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

@@ -1,0 +1,3109 @@
+{
+  "vision_segment": {
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "backend_score": {
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "localization": {
+            "$ref": "#/$defs/localization"
+          },
+          "mask_summary": {
+            "$ref": "#/$defs/mask_summary"
+          },
+          "overlay_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rank",
+          "target_ref",
+          "backend_score",
+          "bbox_xyxy",
+          "mask_summary",
+          "localization",
+          "overlay_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate_preview": {
+        "additionalProperties": false,
+        "properties": {
+          "crop_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "image_index": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "render_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "resampling": {
+            "const": "bicubic_visual_enlargement_no_new_source_detail",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "source_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_index",
+          "rank",
+          "target_ref",
+          "sha256",
+          "source_dimensions",
+          "source_bbox_xyxy",
+          "crop_xyxy",
+          "render_dimensions",
+          "resampling"
+        ],
+        "type": "object"
+      },
+      "depth_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "median": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "min",
+          "median",
+          "max"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "request_id",
+          "returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "localization": {
+        "additionalProperties": false,
+        "properties": {
+          "aabb_max_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "aabb_min_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "center_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "depth_inlier_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "extent_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "inlier_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "largest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "largest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mask_pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "middle_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "middle_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "primary_component_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "principal_axes_world": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "principal_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "principal_extents_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "scope": {
+            "const": "visible_mask_depth",
+            "type": "string"
+          },
+          "smallest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "smallest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "localized",
+              "insufficient_depth"
+            ],
+            "type": "string"
+          },
+          "valid_depth_component_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "valid_depth_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "method",
+          "frame",
+          "scope",
+          "mask_pixel_count",
+          "valid_depth_point_count",
+          "valid_depth_component_count",
+          "inlier_point_count",
+          "depth_valid_fraction",
+          "primary_component_fraction",
+          "depth_inlier_fraction",
+          "center_xyz_m",
+          "aabb_min_xyz_m",
+          "aabb_max_xyz_m",
+          "extent_xyz_m",
+          "principal_axis_world"
+        ],
+        "type": "object"
+      },
+      "mask_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "area_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "centroid_uv": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "depth_m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/depth_summary"
+              }
+            ]
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pixel_count",
+          "area_fraction",
+          "bbox_xyxy",
+          "centroid_uv",
+          "depth_valid_fraction",
+          "depth_m"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_vector3": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_index": {
+            "const": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height",
+          "image_index"
+        ],
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "cache_reused": {
+        "type": "boolean"
+      },
+      "camera": {
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "type": "string"
+      },
+      "candidate_previews": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "crop_xyxy": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "type": "array"
+            },
+            "image_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "position": {
+              "maximum": 11,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "render_dimensions": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "type": "array"
+            },
+            "resampling": {
+              "type": "string"
+            },
+            "source_bbox_xyxy": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "type": "array"
+            },
+            "source_dimensions": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "type": "array"
+            },
+            "target_ref": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "target_ref",
+            "source_dimensions",
+            "source_bbox_xyxy",
+            "crop_xyxy",
+            "render_dimensions",
+            "resampling",
+            "position"
+          ],
+          "type": "object"
+        },
+        "maxItems": 5,
+        "type": "array"
+      },
+      "candidates": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "backend_score": {
+              "type": "number"
+            },
+            "bbox_xyxy": {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "localization": {
+              "$ref": "#/$defs/localization"
+            },
+            "mask_summary": {
+              "$ref": "#/$defs/mask_summary"
+            },
+            "mask_touches_image_boundary": {
+              "type": "boolean"
+            },
+            "normalization": {
+              "additionalProperties": false,
+              "properties": {
+                "method": {
+                  "const": "positive_prompt_8_connected_component_v1",
+                  "type": "string"
+                },
+                "prompt_component_pixel_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "raw_component_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "raw_pixel_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "retained_fraction": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "method",
+                "raw_component_count",
+                "raw_pixel_count",
+                "prompt_component_pixel_count",
+                "retained_fraction"
+              ],
+              "type": "object"
+            },
+            "overlay_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "position": {
+              "maximum": 11,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "representative_point_uv": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "shared_with_source_indexes": {
+              "items": {
+                "maximum": 7,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 8,
+              "type": "array"
+            },
+            "source_queries": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "query_index": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "source_index": {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "query_index",
+                  "source_index"
+                ],
+                "type": "object"
+              },
+              "maxItems": 24,
+              "type": "array"
+            },
+            "target_ref": {
+              "pattern": "^target-[0-9a-f]{24}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_ref",
+            "backend_score",
+            "bbox_xyxy",
+            "mask_summary",
+            "localization",
+            "overlay_sha256",
+            "candidate_id",
+            "source_queries",
+            "representative_point_uv",
+            "normalization",
+            "mask_touches_image_boundary",
+            "position",
+            "shared_with_source_indexes"
+          ],
+          "type": "object"
+        },
+        "maxItems": 12,
+        "type": "array"
+      },
+      "claim_boundary": {
+        "type": "string"
+      },
+      "image_mapping": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "camera": {
+              "enum": [
+                "head",
+                "left_wrist",
+                "right_wrist"
+              ],
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "image_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "role": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ],
+          "type": "object"
+        },
+        "maxItems": 6,
+        "type": "array"
+      },
+      "image_order": {
+        "items": {
+          "type": "string"
+        },
+        "maxItems": 6,
+        "type": "array"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "points_uv": {
+        "items": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "queries": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "candidate_count": {
+              "maximum": 3,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "candidate_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 3,
+              "type": "array"
+            },
+            "error_code": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "omitted_over_call_cap": {
+              "maximum": 3,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "omitted_over_point_limit": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "point_uv": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "preview_image_index": {
+              "maximum": 5,
+              "minimum": 1,
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "previews_omitted": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "query_index": {
+              "maximum": 7,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "raw_candidate_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "status": {
+              "enum": [
+                "candidates",
+                "no_candidate",
+                "failed"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "query_index",
+            "point_uv",
+            "status",
+            "error_code",
+            "raw_candidate_count",
+            "candidate_count",
+            "candidate_ids",
+            "omitted_over_point_limit",
+            "omitted_over_call_cap",
+            "preview_image_index",
+            "previews_omitted"
+          ],
+          "type": "object"
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "query_count": {
+        "maximum": 8,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "query_ref": {
+        "type": "string"
+      },
+      "schema": {
+        "const": "ora.point-segmentation-batch.v2",
+        "type": "string"
+      },
+      "selection": {
+        "additionalProperties": false,
+        "properties": {
+          "distinct_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "duplicate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "mask_iou_threshold": {
+            "type": "number"
+          },
+          "max_candidates_per_point": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "max_returned_candidates": {
+            "maximum": 12,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "const": "per_point_reserved_then_rank_major_v1",
+            "type": "string"
+          },
+          "omitted_over_call_cap_total": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "omitted_over_point_limit_total": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "raw_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "rejected_candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "query_index": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "source_index": {
+                  "minimum": 0,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "query_index",
+                "source_index",
+                "reason"
+              ],
+              "type": "object"
+            },
+            "maxItems": 24,
+            "type": "array"
+          },
+          "returned_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "semantic_selection": {
+            "const": "agent",
+            "type": "string"
+          },
+          "usable_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "method",
+          "mask_iou_threshold",
+          "max_candidates_per_point",
+          "max_returned_candidates",
+          "raw_candidate_count",
+          "usable_candidate_count",
+          "distinct_candidate_count",
+          "duplicate_count",
+          "returned_count",
+          "omitted_over_point_limit_total",
+          "omitted_over_call_cap_total",
+          "rejected_candidates",
+          "semantic_selection"
+        ],
+        "type": "object"
+      },
+      "semantic_identity_verified": {
+        "const": false,
+        "type": "boolean"
+      },
+      "status": {
+        "enum": [
+          "candidates",
+          "partial",
+          "no_candidate"
+        ],
+        "type": "string"
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "query_ref",
+      "observation_id",
+      "camera",
+      "points_uv",
+      "candidates",
+      "queries",
+      "selection",
+      "candidate_previews",
+      "image_order",
+      "cache_reused",
+      "semantic_identity_verified",
+      "claim_boundary",
+      "query_count"
+    ],
+    "type": "object"
+  },
+  "vision_ground": {
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "backend_score": {
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "candidate_id": {
+            "type": "string"
+          },
+          "localization": {
+            "$ref": "#/$defs/localization"
+          },
+          "mask_summary": {
+            "$ref": "#/$defs/mask_summary"
+          },
+          "overlay_sha256": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "integer"
+          },
+          "target_ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rank",
+          "target_ref",
+          "backend_score",
+          "bbox_xyxy",
+          "mask_summary",
+          "localization",
+          "overlay_sha256",
+          "candidate_id"
+        ],
+        "type": "object"
+      },
+      "candidate_preview": {
+        "additionalProperties": false,
+        "properties": {
+          "crop_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "image_index": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "render_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "resampling": {
+            "const": "bicubic_visual_enlargement_no_new_source_detail",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "source_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_index",
+          "rank",
+          "target_ref",
+          "sha256",
+          "source_dimensions",
+          "source_bbox_xyxy",
+          "crop_xyxy",
+          "render_dimensions",
+          "resampling"
+        ],
+        "type": "object"
+      },
+      "depth_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "median": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "min",
+          "median",
+          "max"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "request_id",
+          "returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "localization": {
+        "additionalProperties": false,
+        "properties": {
+          "aabb_max_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "aabb_min_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "center_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "depth_inlier_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "extent_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "inlier_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "largest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "largest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mask_pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "middle_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "middle_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "primary_component_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "principal_axes_world": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "principal_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "principal_extents_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "scope": {
+            "const": "visible_mask_depth",
+            "type": "string"
+          },
+          "smallest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "smallest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "localized",
+              "insufficient_depth"
+            ],
+            "type": "string"
+          },
+          "valid_depth_component_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "valid_depth_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "method",
+          "frame",
+          "scope",
+          "mask_pixel_count",
+          "valid_depth_point_count",
+          "valid_depth_component_count",
+          "inlier_point_count",
+          "depth_valid_fraction",
+          "primary_component_fraction",
+          "depth_inlier_fraction",
+          "center_xyz_m",
+          "aabb_min_xyz_m",
+          "aabb_max_xyz_m",
+          "extent_xyz_m",
+          "principal_axis_world"
+        ],
+        "type": "object"
+      },
+      "mask_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "area_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "centroid_uv": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "depth_m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/depth_summary"
+              }
+            ]
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pixel_count",
+          "area_fraction",
+          "bbox_xyxy",
+          "centroid_uv",
+          "depth_valid_fraction",
+          "depth_m"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_vector3": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_index": {
+            "const": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height",
+          "image_index"
+        ],
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "backend": {
+        "$ref": "#/$defs/backend"
+      },
+      "camera": {
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "type": "string"
+      },
+      "candidate_previews": {
+        "items": {
+          "$ref": "#/$defs/candidate_preview"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "candidates": {
+        "items": {
+          "$ref": "#/$defs/candidate"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "diagnostics": {
+        "$ref": "#/$defs/diagnostics"
+      },
+      "grounding_ref": {
+        "type": "string"
+      },
+      "image_mapping": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "camera": {
+              "enum": [
+                "head",
+                "left_wrist",
+                "right_wrist"
+              ],
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "image_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "role": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ],
+          "type": "object"
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "overlay": {
+        "$ref": "#/$defs/overlay"
+      },
+      "perception_evidence": {
+        "additionalProperties": false,
+        "properties": {
+          "point_inside_returned_mask": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "point_uv": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "prompt_kind": {
+            "enum": [
+              "text",
+              "point"
+            ],
+            "type": "string"
+          },
+          "schema": {
+            "const": "ora.perception-selection-evidence.v1",
+            "type": "string"
+          },
+          "semantic_identity_verified": {
+            "const": false,
+            "type": "boolean"
+          },
+          "source_image_size": {
+            "items": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "targets": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "depth_inlier_fraction": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "depth_valid_fraction": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "mask_pixel_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "mask_touches_image_boundary": {
+                  "type": "boolean"
+                },
+                "primary_component_fraction": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "target_ref": {
+                  "type": "string"
+                },
+                "visible_extent_xyz_m": {
+                  "items": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": [
+                    "array",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "target_ref",
+                "mask_touches_image_boundary",
+                "mask_pixel_count",
+                "depth_valid_fraction",
+                "depth_inlier_fraction",
+                "primary_component_fraction",
+                "visible_extent_xyz_m"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "schema",
+          "prompt_kind",
+          "source_image_size",
+          "point_uv",
+          "point_inside_returned_mask",
+          "semantic_identity_verified",
+          "targets"
+        ],
+        "type": "object"
+      },
+      "status": {
+        "enum": [
+          "candidates",
+          "no_candidate"
+        ],
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "text": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "observation_id",
+      "camera",
+      "text",
+      "grounding_ref",
+      "backend",
+      "candidates",
+      "diagnostics",
+      "overlay",
+      "candidate_previews",
+      "perception_evidence"
+    ],
+    "type": "object"
+  },
+  "place_plan": {
+    "$defs": {
+      "check": {
+        "additionalProperties": false,
+        "description": "One independently qualified visible-evidence check.",
+        "properties": {
+          "measurements": {
+            "description": "Measurements supporting this check.",
+            "items": {
+              "$ref": "#/$defs/measurement",
+              "description": "One named public-evidence measurement."
+            },
+            "type": "array"
+          },
+          "reason": {
+            "description": "Explanation of the measured evidence and its limitations.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Public-evidence compatibility, not physical contact, stable attachment, identity or official success.",
+            "enum": [
+              "consistent",
+              "contradicted",
+              "unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "measurements"
+        ],
+        "type": "object"
+      },
+      "measurement": {
+        "additionalProperties": false,
+        "description": "One explicit geometric or provenance measurement; unused value forms are null.",
+        "properties": {
+          "name": {
+            "description": "Stable measurement name.",
+            "type": "string"
+          },
+          "scalar": {
+            "description": "Finite scalar measurement, or null.",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "text": {
+            "description": "Textual measurement or qualification, or null.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vector": {
+            "description": "Finite vector measurement, or null.",
+            "items": {
+              "description": "Finite vector component.",
+              "type": "number"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "scalar",
+          "vector",
+          "text"
+        ],
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "description": "Read-only next-step placement proposal.",
+    "properties": {
+      "arm": {
+        "description": "Required selected RoboDojo arm; uses this arm's measured public link6 pose and command history. The other arm is not moved or granted holding permission.",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "type": "string"
+      },
+      "assessment_ref": {
+        "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+        "pattern": "^place-check-[0-9a-f]{32}$",
+        "type": "string"
+      },
+      "candidate_prerequisites": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "candidates": {
+        "description": "Zero to three observation-bound numeric next-step candidates.",
+        "items": {
+          "additionalProperties": false,
+          "description": "One numeric candidate, not a stored executable motion plan or execution authorization.",
+          "properties": {
+            "candidate_id": {
+              "description": "Identifier local to this assessment.",
+              "type": "string"
+            },
+            "claim_boundary": {
+              "description": "Candidate limitations; endpoint geometry does not certify a scene/payload collision-free path.",
+              "type": "string"
+            },
+            "measurements": {
+              "description": "Measurements and margins supporting this candidate.",
+              "items": {
+                "$ref": "#/$defs/measurement",
+                "description": "One named public-evidence measurement."
+              },
+              "type": "array"
+            },
+            "move_pose": {
+              "additionalProperties": false,
+              "description": "Complete numeric move_pose arguments for the selected arm; copy unchanged only at this observation. Absent on a surface that declares the closed manipulation sequences, where the candidate is executed by candidate_id and a pasted pose would be a second way to do one thing.",
+              "properties": {
+                "targets": {
+                  "additionalProperties": false,
+                  "description": "Exactly one selected arm's numeric target.",
+                  "maxProperties": 1,
+                  "minProperties": 1,
+                  "properties": {
+                    "left": {
+                      "additionalProperties": false,
+                      "description": "Complete numeric move_pose arguments for the selected arm; copy unchanged only at this observation.",
+                      "properties": {
+                        "interaction": {
+                          "description": "Physical intent for this placement phase.",
+                          "enum": [
+                            "free_space",
+                            "precision",
+                            "contact_approach"
+                          ],
+                          "type": "string"
+                        },
+                        "orientation_mode": {
+                          "const": "absolute_quaternion",
+                          "description": "The candidate states an absolute world orientation.",
+                          "type": "string"
+                        },
+                        "orientation_xyzw": {
+                          "description": "World orientation of the public link6 controlled point, xyzw order.",
+                          "items": {
+                            "description": "One finite quaternion component.",
+                            "type": "number"
+                          },
+                          "maxItems": 4,
+                          "minItems": 4,
+                          "type": "array"
+                        },
+                        "position_m": {
+                          "description": "World position of the public link6 controlled point, in metres.",
+                          "items": {
+                            "description": "One finite metre component.",
+                            "type": "number"
+                          },
+                          "maxItems": 3,
+                          "minItems": 3,
+                          "type": "array"
+                        },
+                        "position_mode": {
+                          "const": "absolute",
+                          "description": "The candidate states an absolute world position.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "position_mode",
+                        "position_m",
+                        "orientation_mode",
+                        "orientation_xyzw",
+                        "interaction"
+                      ],
+                      "type": "object"
+                    },
+                    "right": {
+                      "additionalProperties": false,
+                      "description": "Complete numeric move_pose arguments for the selected arm; copy unchanged only at this observation.",
+                      "properties": {
+                        "interaction": {
+                          "description": "Physical intent for this placement phase.",
+                          "enum": [
+                            "free_space",
+                            "precision",
+                            "contact_approach"
+                          ],
+                          "type": "string"
+                        },
+                        "orientation_mode": {
+                          "const": "absolute_quaternion",
+                          "description": "The candidate states an absolute world orientation.",
+                          "type": "string"
+                        },
+                        "orientation_xyzw": {
+                          "description": "World orientation of the public link6 controlled point, xyzw order.",
+                          "items": {
+                            "description": "One finite quaternion component.",
+                            "type": "number"
+                          },
+                          "maxItems": 4,
+                          "minItems": 4,
+                          "type": "array"
+                        },
+                        "position_m": {
+                          "description": "World position of the public link6 controlled point, in metres.",
+                          "items": {
+                            "description": "One finite metre component.",
+                            "type": "number"
+                          },
+                          "maxItems": 3,
+                          "minItems": 3,
+                          "type": "array"
+                        },
+                        "position_mode": {
+                          "const": "absolute",
+                          "description": "The candidate states an absolute world position.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "position_mode",
+                        "position_m",
+                        "orientation_mode",
+                        "orientation_xyzw",
+                        "interaction"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "targets"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "candidate_id",
+            "measurements",
+            "claim_boundary"
+          ],
+          "type": "object"
+        },
+        "maxItems": 3,
+        "minItems": 0,
+        "type": "array"
+      },
+      "checks": {
+        "additionalProperties": false,
+        "description": "Independent public evidence checks; no release_allowed or stability oracle.",
+        "properties": {
+          "orientation": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified orientation evidence."
+          },
+          "protected_objects": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified protected objects evidence."
+          },
+          "region": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified region evidence."
+          },
+          "support": {
+            "$ref": "#/$defs/check",
+            "description": "Qualified support evidence."
+          }
+        },
+        "required": [
+          "region",
+          "support",
+          "orientation",
+          "protected_objects"
+        ],
+        "type": "object"
+      },
+      "claim_boundary": {
+        "description": "Explicit limits: public selected-region geometry and receipt stage only; no identity, contact, physical release, stable support, collision-free trajectory or official-success proof.",
+        "type": "string"
+      },
+      "evidence": {
+        "additionalProperties": false,
+        "description": "Durable hashed assessment and visual overlay artifacts.",
+        "properties": {
+          "overlay_path": {
+            "description": "Public-evidence overlay artifact path.",
+            "type": "string"
+          },
+          "overlay_sha256": {
+            "description": "SHA-256 of the overlay artifact.",
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "path": {
+            "description": "Assessment JSON evidence path.",
+            "type": "string"
+          },
+          "sha256": {
+            "description": "SHA-256 of assessment JSON evidence.",
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "overlay_path",
+          "overlay_sha256"
+        ],
+        "type": "object"
+      },
+      "geometry_measurements": {
+        "description": "Additional public geometric measurements and limits.",
+        "items": {
+          "$ref": "#/$defs/measurement",
+          "description": "One named public-evidence measurement."
+        },
+        "type": "array"
+      },
+      "geometry_status": {
+        "enum": [
+          "consistent",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "image_mapping": {
+        "items": {
+          "description": "A physical source view names its camera. A derived public RGB-D geometry render or paired contact sheet has camera=\"\" and an explicit review role; it is not an additional sensor or a new capture. Source camera provenance stays in the source-bound evidence fields.",
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "camera": {
+                  "enum": [
+                    "head",
+                    "left_wrist",
+                    "right_wrist"
+                  ],
+                  "type": "string"
+                },
+                "candidate_id": {
+                  "type": "string"
+                },
+                "image_index": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "observation_step": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "role": {
+                  "type": "string"
+                },
+                "target_ref": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "image_index",
+                "role",
+                "camera",
+                "candidate_id",
+                "target_ref",
+                "observation_step"
+              ],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "camera": {
+                  "const": "",
+                  "type": "string"
+                },
+                "candidate_id": {
+                  "type": "string"
+                },
+                "image_index": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "observation_step": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "role": {
+                  "enum": [
+                    "public_geometry_review"
+                  ],
+                  "type": "string"
+                },
+                "target_ref": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "image_index",
+                "role",
+                "camera",
+                "candidate_id",
+                "target_ref",
+                "observation_step"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "observation_id": {
+        "description": "Exact current observation identifier used by this assessment.",
+        "type": "string"
+      },
+      "observation_sha256": {
+        "description": "SHA-256 of the assessment's immutable observation source.",
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "phase": {
+        "description": "Requested placement phase.",
+        "enum": [
+          "preplace",
+          "lower",
+          "exit"
+        ],
+        "type": "string"
+      },
+      "reason": {
+        "description": "Why this result is candidates, consistent, contradicted, no_candidate or unknown.",
+        "type": "string"
+      },
+      "schema": {
+        "const": "ora.robotwin-place-plan.v1",
+        "description": "Versioned public placement result schema.",
+        "type": "string"
+      },
+      "selected_regions": {
+        "description": "All selected public regions used by the assessment.",
+        "items": {
+          "additionalProperties": false,
+          "description": "One selected visible region and its source image/depth/calibration provenance.",
+          "properties": {
+            "calibration_sha256": {
+              "description": "SHA-256 of the bound public camera calibration.",
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "camera": {
+              "description": "Public RGB-D source camera.",
+              "enum": [
+                "head",
+                "left_wrist",
+                "right_wrist"
+              ],
+              "type": "string"
+            },
+            "depth_sha256": {
+              "description": "SHA-256 of the bound public depth source.",
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "rgb_sha256": {
+              "description": "SHA-256 of the bound RGB source.",
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "role": {
+              "description": "Role assigned to this region in the assessment.",
+              "type": "string"
+            },
+            "target_ref": {
+              "description": "Exact selected target reference.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "role",
+            "target_ref",
+            "camera",
+            "rgb_sha256",
+            "depth_sha256",
+            "calibration_sha256"
+          ],
+          "type": "object"
+        },
+        "maxItems": 16,
+        "minItems": 0,
+        "type": "array"
+      },
+      "stage_evidence": {
+        "additionalProperties": false,
+        "description": "Action-receipt facts that qualify the requested stage, not physical release or support proof.",
+        "properties": {
+          "last_pose_execution_status": {
+            "description": "Last public pose receipt execution status, or null when unavailable.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest_gripper_action_id": {
+            "description": "Latest gripper action identifier in the same episode, or null when unavailable.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest_gripper_directive": {
+            "description": "Latest accepted gripper directive, not a physical contact or attachment label.",
+            "enum": [
+              "open",
+              "close",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "post_open_pose_actions": {
+            "description": "Number of actual pose actions after the most recent open, used only for stage evidence.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "reason": {
+            "description": "Explanation of the receipt-stage join.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Whether public receipt history confirms the requested stage.",
+            "enum": [
+              "confirmed",
+              "unknown",
+              "contradicted"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "latest_gripper_action_id",
+          "latest_gripper_directive",
+          "post_open_pose_actions",
+          "last_pose_execution_status"
+        ],
+        "type": "object"
+      },
+      "status": {
+        "description": "Qualified summary of the requested visible geometric assessment; not task success.",
+        "enum": [
+          "candidates",
+          "no_candidate",
+          "unknown"
+        ],
+        "type": "string"
+      },
+      "uncertainty_reasons": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "reason",
+      "observation_id",
+      "observation_sha256",
+      "assessment_ref",
+      "selected_regions",
+      "stage_evidence",
+      "checks",
+      "geometry_measurements",
+      "evidence",
+      "claim_boundary",
+      "phase",
+      "candidates",
+      "arm"
+    ],
+    "type": "object"
+  },
+  "grasp_plan": {
+    "$defs": {
+      "approach_target": {
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "position_mode",
+          "translation_m",
+          "position_frame",
+          "orientation_mode",
+          "interaction"
+        ],
+        "properties": {
+          "position_mode": {
+            "const": "delta",
+            "type": "string"
+          },
+          "translation_m": {
+            "$ref": "#/$defs/vector3"
+          },
+          "position_frame": {
+            "const": "end_effector",
+            "type": "string"
+          },
+          "orientation_mode": {
+            "const": "hold_current",
+            "type": "string"
+          },
+          "interaction": {
+            "const": "contact_approach",
+            "type": "string"
+          }
+        }
+      },
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "approach_delta": {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "position_mode",
+              "translation_m",
+              "position_frame",
+              "orientation_mode",
+              "interaction"
+            ],
+            "properties": {
+              "position_mode": {
+                "const": "delta",
+                "type": "string"
+              },
+              "translation_m": {
+                "$ref": "#/$defs/vector3"
+              },
+              "position_frame": {
+                "const": "end_effector",
+                "type": "string"
+              },
+              "orientation_mode": {
+                "const": "hold_current",
+                "type": "string"
+              },
+              "interaction": {
+                "const": "contact_approach",
+                "type": "string"
+              }
+            }
+          },
+          "backend_score": {
+            "type": "number"
+          },
+          "candidate_id": {
+            "type": "string"
+          },
+          "compiler_checks": {
+            "additionalProperties": false,
+            "properties": {
+              "aperture": {
+                "type": "string"
+              },
+              "bounded_local_approach": {
+                "const": "passed",
+                "type": "string"
+              },
+              "embodiment_mapping": {
+                "type": "string"
+              },
+              "finite_geometry": {
+                "const": "passed",
+                "type": "string"
+              },
+              "reachability": {
+                "type": "string",
+                "const": "delegated_to_move_pose"
+              },
+              "right_handed_controlled_point_axes": {
+                "const": "passed",
+                "type": "string"
+              },
+              "source_origin_to_controlled_point": {
+                "const": "passed",
+                "type": "string"
+              },
+              "workspace": {
+                "type": "string"
+              },
+              "aperture_calibration": {
+                "type": "string",
+                "description": "Source-bound ARX jaw-aperture calibration caveat; proposal width is not measured pad clearance."
+              }
+            },
+            "required": [
+              "finite_geometry",
+              "right_handed_controlled_point_axes",
+              "bounded_local_approach",
+              "source_origin_to_controlled_point",
+              "embodiment_mapping",
+              "workspace",
+              "aperture",
+              "reachability",
+              "aperture_calibration"
+            ],
+            "type": "object"
+          },
+          "contact_pose": {
+            "additionalProperties": false,
+            "properties": {
+              "orientation_xyzw": {
+                "$ref": "#/$defs/quaternion"
+              },
+              "position_m": {
+                "$ref": "#/$defs/vector3"
+              }
+            },
+            "required": [
+              "position_m",
+              "orientation_xyzw"
+            ],
+            "type": "object"
+          },
+          "gripper_opening_m": {
+            "exclusiveMinimum": 0,
+            "maximum": 0.08,
+            "type": "number"
+          },
+          "pregrasp_pose": {
+            "additionalProperties": false,
+            "properties": {
+              "orientation_xyzw": {
+                "$ref": "#/$defs/quaternion"
+              },
+              "position_m": {
+                "$ref": "#/$defs/vector3"
+              }
+            },
+            "required": [
+              "position_m",
+              "orientation_xyzw"
+            ],
+            "type": "object"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "rank",
+          "pregrasp_pose",
+          "contact_pose",
+          "approach_delta",
+          "gripper_opening_m",
+          "backend_score",
+          "compiler_checks"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_family_counts": {
+            "additionalProperties": false,
+            "properties": {
+              "learned_available": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "public_rgbd_topdown_available": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "selected": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "learned_available",
+              "public_rgbd_topdown_available",
+              "selected"
+            ],
+            "type": "object"
+          },
+          "compiled_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "compiler_rejected": {
+            "items": {
+              "$ref": "#/$defs/rejected_compiler_candidate"
+            },
+            "type": "array"
+          },
+          "compiler_returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inference_seed": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "learned": {
+            "$ref": "#/$defs/family_diagnostics"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "public_rgbd_topdown": {
+            "$ref": "#/$defs/family_diagnostics"
+          },
+          "raw_candidate_limit": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rejected": {
+            "items": {
+              "$ref": "#/$defs/rejected_backend_candidate"
+            },
+            "type": "array"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "scene_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "seed_identity_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "seed_policy": {
+            "type": "string"
+          },
+          "target_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "warning": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "rejected",
+          "compiler_rejected",
+          "compiler_returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_string": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height"
+        ],
+        "type": "object"
+      },
+      "quaternion": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 4,
+        "minItems": 4,
+        "type": "array"
+      },
+      "rejected_backend_candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "predicted_opening_m": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Raw predicted opening in metres; a finite invalid prediction may be negative, and unavailable is null."
+          },
+          "required_opening_m": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "PCA-derived required opening in metres, or null when unavailable; not measured jaw aperture."
+          },
+          "maximum_opening_m": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Positive compiler admission ceiling in metres; not measured physical aperture."
+          },
+          "limit_semantics": {
+            "type": "string",
+            "enum": [
+              "compiler_admission_not_measured_physical_aperture"
+            ]
+          }
+        },
+        "required": [
+          "candidate_id",
+          "reasons"
+        ],
+        "type": "object"
+      },
+      "rejected_compiler_candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "vector3": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      },
+      "family_diagnostics": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "model": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "source_commit": {
+                "type": "string"
+              },
+              "checkpoint_sha256": {
+                "type": "string"
+              },
+              "config_sha256": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "family",
+              "source_commit",
+              "checkpoint_sha256"
+            ]
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "scene_point_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "target_point_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "filtered_point_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "raw_candidate_limit": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "returned_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "compiled_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "inference_seed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "seed_policy": {
+            "type": "string"
+          },
+          "seed_identity_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "warning": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "arm": {
+        "enum": [
+          "left",
+          "right"
+        ],
+        "type": "string"
+      },
+      "backend": {
+        "$ref": "#/$defs/backend"
+      },
+      "camera": {
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "type": "string"
+      },
+      "candidates": {
+        "items": {
+          "$ref": "#/$defs/candidate"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "compiler": {
+        "additionalProperties": false,
+        "properties": {
+          "aperture_caveat": {
+            "type": "string"
+          },
+          "arm": {
+            "enum": [
+              "left",
+              "right"
+            ],
+            "type": "string"
+          },
+          "controlled_point": {
+            "const": "end_effector",
+            "type": "string"
+          },
+          "controlled_point_semantics": {
+            "const": "robodojo_link6_pose",
+            "type": "string"
+          },
+          "embodiment_descriptor_id": {
+            "const": "arx_x5_robodojo_v1",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "maximum_opening_source": {
+            "type": "string"
+          },
+          "physical_jaw_aperture_calibrated": {
+            "type": "boolean"
+          },
+          "predicted_opening_source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "embodiment_descriptor_id",
+          "controlled_point",
+          "controlled_point_semantics",
+          "arm",
+          "physical_jaw_aperture_calibrated",
+          "maximum_opening_source",
+          "predicted_opening_source",
+          "aperture_caveat"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "$ref": "#/$defs/diagnostics"
+      },
+      "grasp_query_ref": {
+        "type": "string"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "overlay": {
+        "$ref": "#/$defs/overlay"
+      },
+      "status": {
+        "enum": [
+          "candidates",
+          "no_candidate"
+        ],
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "target_ref": {
+        "type": "string"
+      },
+      "review_evidence": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "primary_camera": {
+            "type": "string"
+          },
+          "requested_cameras": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "available_cameras": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unavailable_cameras": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "primary_input_required": {
+            "type": "boolean",
+            "const": true
+          },
+          "claim_boundary": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "primary_camera",
+          "requested_cameras",
+          "available_cameras",
+          "unavailable_cameras",
+          "primary_input_required",
+          "claim_boundary"
+        ],
+        "additionalProperties": false
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "description": "A physical source view names its camera. A derived public RGB-D geometry render or paired contact sheet has camera=\"\" and an explicit review role; it is not an additional sensor or a new capture. Source camera provenance stays in the source-bound evidence fields.",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "image_index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "role": {
+                  "type": "string"
+                },
+                "camera": {
+                  "type": "string",
+                  "enum": [
+                    "head",
+                    "left_wrist",
+                    "right_wrist"
+                  ]
+                },
+                "candidate_id": {
+                  "type": "string"
+                },
+                "target_ref": {
+                  "type": "string"
+                },
+                "observation_step": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "image_index",
+                "role",
+                "camera",
+                "candidate_id",
+                "target_ref",
+                "observation_step"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "image_index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "local_contact_candidates",
+                    "global_public_scene_candidates"
+                  ]
+                },
+                "camera": {
+                  "type": "string",
+                  "const": ""
+                },
+                "candidate_id": {
+                  "type": "string"
+                },
+                "target_ref": {
+                  "type": "string"
+                },
+                "observation_step": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "image_index",
+                "role",
+                "camera",
+                "candidate_id",
+                "target_ref",
+                "observation_step"
+              ]
+            }
+          ]
+        }
+      },
+      "scene_review": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "reason",
+          "scope"
+        ]
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "observation_id",
+      "target_ref",
+      "camera",
+      "arm",
+      "grasp_query_ref",
+      "backend",
+      "compiler",
+      "candidates",
+      "diagnostics",
+      "overlay",
+      "review_evidence"
+    ],
+    "type": "object"
+  }
+}

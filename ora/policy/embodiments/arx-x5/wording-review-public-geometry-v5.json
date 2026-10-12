@@ -1,0 +1,7 @@
+{
+  "schema": "ora.embodiment-wording-review.v1",
+  "decision": "accepted",
+  "reviewer": "codex_source_review",
+  "card_sha256": "bd340210dc99e96e6a32f38e722c4c41ef95b9bf2ed0182f4a2f4fc69697029a",
+  "scope": "public_robot_geometry_wording_not_runtime_or_behavior_qualification"
+}

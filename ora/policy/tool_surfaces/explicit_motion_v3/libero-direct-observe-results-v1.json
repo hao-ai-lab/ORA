@@ -1,0 +1,492 @@
+{
+  "observe": {
+    "additionalProperties": false,
+    "properties": {
+      "observation_id": {
+        "type": "string"
+      },
+      "success": {
+        "const": true,
+        "type": "boolean"
+      },
+      "view_dimensions": {
+        "type": "object"
+      },
+      "views": {
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "type": "array"
+      },
+      "status": {
+        "type": "string",
+        "const": "actual_historical_observation"
+      },
+      "observation_step": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      },
+      "measurement_contract": {
+        "type": "string"
+      },
+      "public_robot_facts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "schema": {
+            "type": "string",
+            "const": "ora.current-public-robot-facts.v1"
+          },
+          "observation_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "snapshot_role": {
+            "type": "string",
+            "enum": [
+              "current",
+              "historical"
+            ]
+          },
+          "cameras": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "agentview": {
+                "$ref": "#/$defs/camera"
+              },
+              "wrist": {
+                "$ref": "#/$defs/camera"
+              },
+              "observer_camera": {
+                "$ref": "#/$defs/camera"
+              },
+              "head_camera": {
+                "$ref": "#/$defs/camera"
+              },
+              "front_camera": {
+                "$ref": "#/$defs/camera"
+              },
+              "left_camera": {
+                "$ref": "#/$defs/camera"
+              },
+              "right_camera": {
+                "$ref": "#/$defs/camera"
+              }
+            },
+            "required": []
+          },
+          "end_effectors": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "left": {
+                "$ref": "#/$defs/end_effector"
+              },
+              "right": {
+                "$ref": "#/$defs/end_effector"
+              }
+            },
+            "required": [
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "schema",
+          "observation_id",
+          "snapshot_role",
+          "cameras",
+          "end_effectors"
+        ]
+      }
+    },
+    "required": [
+      "success",
+      "observation_id",
+      "views",
+      "view_dimensions",
+      "public_robot_facts"
+    ],
+    "type": "object",
+    "$defs": {
+      "camera": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "width": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pixel_coordinates": {
+            "type": "string",
+            "const": "opencv_top_left_xy"
+          },
+          "image_view": {
+            "type": "string"
+          },
+          "native_pixel_to_image_offset_xy": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "resampling": {
+            "type": "string",
+            "const": "none"
+          },
+          "calibration": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "const": "unavailable"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "const": "reported"
+                  },
+                  "intrinsic_cv": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "world_to_camera_cv": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 4,
+                      "maxItems": 4
+                    },
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "camera_axes": {
+                    "type": "string",
+                    "const": "x_right_y_down_z_forward"
+                  },
+                  "world_position_unit": {
+                    "type": "string",
+                    "const": "metre"
+                  },
+                  "pixel_basis": {
+                    "type": "string",
+                    "const": "native_rgb_before_sheet_translation"
+                  }
+                },
+                "required": [
+                  "status",
+                  "intrinsic_cv",
+                  "world_to_camera_cv",
+                  "camera_axes",
+                  "world_position_unit",
+                  "pixel_basis"
+                ]
+              }
+            ]
+          },
+          "controlled_point_pixels": {
+            "type": "object",
+            "description": "Where each arm's public controlled point (TCP) lands in this camera's native RGB image, computed from this observation's public calibration and TCP pose. A wrist camera does not look at its own grasp point: the pixel may be off-centre or outside the image.",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pixel_xy": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "description": "Native OpenCV pixel [x, y]; null when the point is behind the camera."
+                },
+                "inside_image": {
+                  "type": "boolean"
+                },
+                "in_front_of_camera": {
+                  "type": "boolean"
+                },
+                "depth_m": {
+                  "type": "number",
+                  "description": "Distance along the camera's forward axis, metres."
+                }
+              },
+              "required": [
+                "pixel_xy",
+                "inside_image",
+                "in_front_of_camera",
+                "depth_m"
+              ]
+            }
+          }
+        },
+        "required": [
+          "width",
+          "height",
+          "pixel_coordinates",
+          "image_view",
+          "native_pixel_to_image_offset_xy",
+          "resampling",
+          "calibration"
+        ]
+      },
+      "end_effector": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pose_xyz_xyzw": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 7,
+            "maxItems": 7
+          },
+          "position_frame": {
+            "type": "string",
+            "const": "world"
+          },
+          "position_unit": {
+            "type": "string",
+            "const": "metre"
+          },
+          "orientation_order": {
+            "type": "string",
+            "const": "xyzw"
+          },
+          "controlled_frame": {
+            "type": "string",
+            "enum": [
+              "panda_grip_site",
+              "aloha_grip_center_tcp"
+            ]
+          },
+          "axes": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "approach_world": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "closing_world": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "approach_world",
+              "closing_world"
+            ]
+          },
+          "gripper": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "measured_finger_displacements_m": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "measured_aperture_mm": {
+                    "type": "number"
+                  },
+                  "measured_opening_normalized": {
+                    "type": "number"
+                  },
+                  "measurement_semantics": {
+                    "type": "string",
+                    "const": "two_prismatic_finger_displacements_not_command"
+                  },
+                  "grasp_evidence": {
+                    "type": "string",
+                    "const": "not_established_by_joint_measurement"
+                  },
+                  "commanded_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "description": "Normalized opening the controller is being told to hold (1 open, 0 closed); null when not published."
+                  },
+                  "command_target": {
+                    "type": "string",
+                    "enum": [
+                      "open",
+                      "close",
+                      "unknown"
+                    ],
+                    "description": "Last accepted set_gripper target; unknown until one is accepted."
+                  }
+                },
+                "required": [
+                  "measured_finger_displacements_m",
+                  "measured_aperture_mm",
+                  "measured_opening_normalized",
+                  "measurement_semantics",
+                  "grasp_evidence"
+                ]
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "reported",
+                      "unavailable"
+                    ]
+                  },
+                  "opening_semantics": {
+                    "type": "string",
+                    "const": "normalized_closed_0_open_1_not_aperture_m"
+                  },
+                  "grasp_evidence": {
+                    "type": "string",
+                    "const": "not_established_by_joint_measurement"
+                  },
+                  "command_target": {
+                    "type": "string",
+                    "enum": [
+                      "open",
+                      "close",
+                      "unknown"
+                    ]
+                  },
+                  "commanded_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "drive_target_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "measured_opening_normalized": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "measured_primary_joint_position": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "opening_semantics",
+                  "grasp_evidence",
+                  "command_target"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "pose_xyz_xyzw",
+          "position_frame",
+          "position_unit",
+          "orientation_order",
+          "controlled_frame",
+          "axes",
+          "gripper"
+        ]
+      }
+    }
+  }
+}

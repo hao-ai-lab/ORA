@@ -1,0 +1,53 @@
+{
+  "mark_point": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "view",
+      "point_ids",
+      "points_uv"
+    ],
+    "properties": {
+      "view": {
+        "type": "string",
+        "enum": [
+          "head_camera",
+          "front_camera",
+          "left_camera",
+          "right_camera"
+        ],
+        "description": "Exact returned current RGB view containing every pixel in this call. All [u,v] pairs are in this view's top-left OpenCV pixel frame at the resolution that view was returned at, and every resulting coordinate is in metres in the world frame. A wrist view is valid calibration only at its current post-motion pose: pixels read from a wrist view before it moved are not current geometry."
+      },
+      "point_ids": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 8,
+        "uniqueItems": true,
+        "description": "One to eight stable names, index-aligned with points_uv: point_ids[i] names the geometric point measured at points_uv[i]. Must have the same length as points_uv or the whole call is rejected. Names must be distinct within one call: reusing a name already solved in this round from another view verifies it against the stored measurement, which is meaningless against a second pixel of the same image.",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "One short stable name for this geometric point, at most 64 characters, for example \"mug_rim_left\". Dimensionless identifier, not a coordinate."
+        }
+      },
+      "points_uv": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "One to eight pixels to measure, index-aligned with point_ids and measured in array order. Must have the same length as point_ids or the whole call is rejected. Each pixel is measured independently: one pixel outside the image or without usable depth fails only its own entry and leaves the rest solved.",
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "One pixel as [u,v] in integer pixels of the exact returned view, top-left OpenCV origin: u from the left edge, v from the top edge.",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Non-negative pixel coordinate in the exact returned view's own resolution."
+          }
+        }
+      }
+    }
+  }
+}

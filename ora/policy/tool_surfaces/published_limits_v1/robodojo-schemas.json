@@ -1,0 +1,34 @@
+{
+  "vision_ground": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "Exact current native-resolution RGB-D source: head for central top-down geometry or a wrist when its current pose supplies useful detail.",
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "Maximum ranked regions to return, 1 to 3, default 3. Three is what the grounding service answers per call, so a larger number is refused before the request is sent rather than returned as an error you cannot act on. Every returned region gets its own close-up preview; nothing caps previews across a step, and no count of images already in the conversation refuses this call. Fewer regions answer faster: three cost roughly 479 milliseconds against 244 for one.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "text": {
+        "description": "Short visible object or part description, never a simulator identifier.",
+        "maxLength": 120,
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "camera",
+      "text"
+    ],
+    "type": "object"
+  }
+}

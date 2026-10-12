@@ -1,0 +1,20 @@
+{
+  "schema": "ora.tool-surface-profile.v1",
+  "profile_id": "robot_runtime_v1",
+  "revision": 1,
+  "runtime_id": "robot_runtime",
+  "tool_order": [
+    "observation.dump_state",
+    "vision.inspect",
+    "geometry.query",
+    "robot.read_manual",
+    "robot.submit_action"
+  ],
+  "components": {},
+  "description_order": [],
+  "schema_order": [],
+  "result_order": [],
+  "mutation_tools": ["robot.submit_action"],
+  "lifecycle_tools": [],
+  "capabilities": ["policy_state", "rgbd", "manual", "action_v3"]
+}

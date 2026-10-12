@@ -1,0 +1,51 @@
+{
+  "vision.segment": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "Public RGB-D camera name; all points refer to this one view.",
+        "type": "string",
+        "enum": [
+          "agentview",
+          "wrist"
+        ]
+      },
+      "points_uv": {
+        "description": "Independent positive point queries on one image. Prefer 3–5 separated interior points; these points are not a joint prompt for one mask.",
+        "items": {
+          "description": "One independent positive point [u,v], in integer source-image pixels; OpenCV top-left coordinates.",
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "maxItems": 8,
+        "minItems": 1,
+        "type": "array"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "Per-point mask budget: at most this many distinct masks for each queried point separately, an integer 1-3; omitted means 3. It is not a total across the call. Every point's leading mask is admitted before any point's second, so this bounds how many alternatives one point may keep, never which points get an answer. A call delivers at most 12 distinct masks and 5 enlarged crops overall, and each point reports what it lost to its own budget and to that shared cap separately.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "step": {
+        "description": "Optional saved observation step in the current round. Omit or null for the current image; historical targets remain historical.",
+        "minimum": 0,
+        "type": [
+          "integer",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "camera",
+      "points_uv"
+    ],
+    "type": "object"
+  }
+}

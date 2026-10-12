@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+# Start the local read-only Viewer and open its selected page in the browser.
+# Use --page libero for the complete LIBERO 130 / LIBERO-Pro atlas.
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ROOT"
+
+if [ -x "$ROOT/.venv/bin/python" ]; then
+  exec "$ROOT/.venv/bin/python" -m viewer.app --open-browser "$@"
+fi
+
+if command -v uv >/dev/null 2>&1; then
+  exec uv run --locked python -m viewer.app --open-browser "$@"
+fi
+
+PYTHON=${PYTHON:-python3}
+exec "$PYTHON" -m viewer.app --open-browser "$@"

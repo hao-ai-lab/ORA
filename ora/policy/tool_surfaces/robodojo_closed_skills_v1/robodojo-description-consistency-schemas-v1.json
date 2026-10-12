@@ -1,0 +1,242 @@
+{
+  "geometry_query": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "The policy-visible RGB-D camera whose published depth and calibration bind this query. Pixels and rectangles are in this camera's own top-left OpenCV frame at its published resolution; world coordinates are metres in the world frame.",
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "type": "string"
+      },
+      "points": {
+        "description": "One to sixteen source pixels to back-project to world points, without persisting a mark or returning an image. Exactly one of world_points_m, points or region may be sent.",
+        "items": {
+          "description": "One pixel as [u,v] in integer pixels of this camera's image, top-left OpenCV origin: u from the left edge, v from the top.",
+          "items": {
+            "description": "Non-negative pixel coordinate inside this camera's published width and height.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "maxItems": 16,
+        "minItems": 1,
+        "type": "array"
+      },
+      "region": {
+        "description": "One source-image rectangle [x0,y0,x1,y1] in integer pixels, top-left OpenCV origin, with x0<x1 and y0<y1 and the whole rectangle inside the image, summarised over its valid depth. Exactly one of world_points_m, points or region may be sent; window_px does not apply to this operation.",
+        "items": {
+          "description": "Rectangle edge in pixels of this camera's image.",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "maxItems": 4,
+        "minItems": 4,
+        "type": "array"
+      },
+      "step": {
+        "description": "Saved policy-state step to read. Omit or send null for the current observation; a saved step answers from the artifacts published at that step, not from the world as it is now.",
+        "minimum": 0,
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "window_px": {
+        "default": 3,
+        "description": "Half-width in pixels of the square depth window whose median is taken when back-projecting each entry of points; 0 reads the single pixel. Default 3. Ignored by world_points_m and region.",
+        "maximum": 15,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "world_points_m": {
+        "description": "One to sixteen world-frame points to project into this camera's image. Send this to find out where a coordinate you already hold appears in the view. Exactly one of world_points_m, points or region may be sent; window_px does not apply to this operation.",
+        "items": {
+          "description": "One world-frame point as [x,y,z] in metres.",
+          "items": {
+            "description": "Finite world-frame coordinate in metres.",
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "maxItems": 16,
+        "minItems": 1,
+        "type": "array"
+      }
+    },
+    "required": [
+      "camera"
+    ],
+    "type": "object"
+  },
+  "vision_segment": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "Public RGB-D camera name; all points refer to this one view.",
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "minLength": 1,
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "Per-point mask budget: at most this many distinct masks for each queried point separately, an integer 1-3, default 3. It is not a total across the call. Every point's leading mask is admitted before any point's second, so this bounds how many alternatives one point may keep, never which points get an answer. A call delivers at most 12 distinct masks and 5 enlarged crops overall, and each point reports what it lost to its own budget and to that shared cap separately.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "points_uv": {
+        "description": "Independent positive point queries on one image. Prefer 3–5 separated interior points; these points are not a joint prompt for one mask.",
+        "items": {
+          "description": "One independent positive point [u,v], in integer source-image pixels; OpenCV top-left coordinates.",
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "maxItems": 8,
+        "minItems": 1,
+        "type": "array"
+      },
+      "step": {
+        "description": "Optional saved observation step in the current round. Omit or null for the current image; historical targets remain historical.",
+        "minimum": 0,
+        "type": [
+          "integer",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "camera",
+      "points_uv"
+    ],
+    "type": "object"
+  },
+  "vision_ground": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "Exact current native-resolution RGB-D source: head for central top-down geometry or a wrist when its current pose supplies useful detail.",
+        "enum": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "Maximum ranked regions to return, 1 to 3, default 3. Three is what the grounding service answers per call, so a larger number is refused before the request is sent rather than returned as an error you cannot act on. Close-up previews are capped at the first six across a step: the request window holds 24 images and refuses rather than dropping the oldest. Fewer regions answer faster: three cost roughly 479 milliseconds against 244 for one.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "text": {
+        "description": "Short visible object or part description, never a simulator identifier.",
+        "maxLength": 120,
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "camera",
+      "text"
+    ],
+    "type": "object"
+  },
+  "grasp_plan": {
+    "additionalProperties": false,
+    "properties": {
+      "arm": {
+        "description": "Arm whose wrist RGB-D joins head in scene fusion and whose source-bound ARX X5 end-effector compiler is used.",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "How many candidates to return, 1 to 3, default 3: the front of the IK-ordered pool described under IK selection.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "target_ref": {
+        "description": "Current observation-bound target from grounding or segmentation; target-mask points remain tied to its source camera.",
+        "pattern": "^target-[0-9a-f]{24}$",
+        "type": "string"
+      }
+    },
+    "required": [
+      "arm",
+      "target_ref"
+    ],
+    "type": "object"
+  },
+  "align_plan": {
+    "additionalProperties": false,
+    "properties": {
+      "approach_side": {
+        "description": "World-frame direction toward the object, never toward an arm: top stands off above the target and travels down (world -Z), front stands off at -X travelling +X, back at +X travelling -X, left at +Y travelling -Y, right at -Y travelling +Y.",
+        "enum": [
+          "top",
+          "left",
+          "right",
+          "front",
+          "back"
+        ],
+        "type": "string"
+      },
+      "arm": {
+        "description": "Which arm is asked. This is independent of approach_side. \"both\" asks the identical poses of each arm in one read-only call and returns one candidate per arm per pose.",
+        "enum": [
+          "left",
+          "right",
+          "both"
+        ],
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "How many poses to synthesise at that one standoff position, differing only by jaw roll about the approach axis: 1 to 6, default 3. With arm \"both\" the result holds twice this many candidates.",
+        "maximum": 6,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "standoff_m": {
+        "default": 0.1,
+        "description": "Distance in metres from the target's visible-surface centroid to the candidate link6 position, along approach_side. Default 0.10 m. Values outside 0.02-0.30 m are refused.",
+        "maximum": 0.3,
+        "minimum": 0.02,
+        "type": "number"
+      },
+      "target_ref": {
+        "description": "Segmented target from the current observation, as returned by vision_segment or vision_ground. The standoff is measured from this target's visible-surface centroid in metres; a reference bound to an earlier observation is refused as stale.",
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "target_ref",
+      "approach_side",
+      "arm"
+    ],
+    "type": "object"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "append": {
+    "move_pose": "world_axes compiles approach_world (link6 local +X) and jaw_line_world (local +Y) into orientation_xyzw. compiled_pose.targets.<arm>.target_axes_world, on move_pose, move_to, rotate_wrist and rotate_pitch, gives the submitted orientation's world approach and jaw-line directions."
+  }
+}

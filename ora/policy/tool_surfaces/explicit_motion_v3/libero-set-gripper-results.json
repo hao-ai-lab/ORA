@@ -1,0 +1,43 @@
+{
+  "set_gripper": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "status",
+      "action"
+    ],
+    "properties": {
+      "status": {
+        "type": "string",
+        "const": "submitted"
+      },
+      "action": {
+        "type": "string",
+        "const": "set_gripper"
+      },
+      "intent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_ref",
+          "role"
+        ],
+        "description": "Present only when a gripper was closed. Echoes the annotation you supplied and labels what it is.",
+        "properties": {
+          "target_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The reference you supplied, or null if you supplied none."
+          },
+          "role": {
+            "type": "string",
+            "const": "agent_annotation_only",
+            "description": "States that this reference is your annotation and not a measurement that anything was grasped."
+          }
+        }
+      }
+    }
+  }
+}

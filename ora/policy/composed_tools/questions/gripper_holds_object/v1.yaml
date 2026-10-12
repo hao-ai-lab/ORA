@@ -1,0 +1,20 @@
+schema: ora.composed-question.v1
+id: gripper_holds_object
+version: v1
+prompt: >-
+  {wrist} shows the gripper's jaws after a close and a short lift. Is an object held between the jaws?
+  Answer held if an object is visibly between and in contact with both jaws, empty if the jaws are
+  visibly empty, and unclear otherwise. Give a reason of at most 200 characters naming what you saw.
+images:
+  wrist: 1
+values: {}
+answer:
+  type: enum
+  values: [held, empty, unclear]
+  reason_max_chars: 200
+claim_boundary: >-
+  a model's reading of one wrist image; not a holding guarantee, attachment, stable transport or task success
+eval:
+  set: null
+  accuracy: null
+  threshold: 0.9

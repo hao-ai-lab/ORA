@@ -1,0 +1,249 @@
+{
+  "schema": "ora.description-edit-review.v1",
+  "unit": "integration 0059, N1 phase 1 and N2 (2026-10-04)",
+  "status": "Registered by integration 0059 unit A0 as the last two description and schema slots of the successor manifest, each component pinned by its generated sha256. The edits apply to the successor's own text composed before these two layers and before any capability binder (edits_apply_to), so every layer the successor adds before them (ports, IK selection, wait, the M6 screen) survives. Regenerate with `python -m ora.agent.composition.description_edits <this file>` whenever that text changes, then re-pin the manifest.",
+  "base_profile": "robotwin_toolchain_b2_closed_noservo_v1",
+  "successor_profile": "robotwin_toolchain_b2_closed_noservo_v2",
+  "edits_apply_to": "successor_before_layers",
+  "slots": {
+    "description": "published_limits_help",
+    "schemas": "published_limits_schemas"
+  },
+  "layers": {
+    "description": "robotwin-help.json",
+    "schemas": "robotwin-schemas.json"
+  },
+  "presupposes_capabilities": [],
+  "refusals_owned_elsewhere": {
+    "finish_episode": "policy_finish_outcomes_v2 (finish_outcomes_schema.description) writes finish_episode's whole description and input schema after every layer, so its Refused: sentence is generated there, with the codes agent/tools/finish_outcomes.py and finish_task_check.py raise; a layer edit would be overwritten."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文为权威文本，也是唯一投递给 Policy 的文本。每条 zh 只翻译该编辑新增或改动的文字，保留下来的锚定原句不重复翻译。"
+  },
+  "edits": [
+    {
+      "tool": "observe",
+      "field": "description",
+      "before": "On error: choose a saved step in the current round.",
+      "after": "On error: Refused: an empty or repeated views list or a view outside this tool's enum; history_point_ids naming a mark that is not solved; a step outside the current round's saved steps (invalid_arguments, naming that range); history_point_ids together with step. Choose a saved step in the current round.",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：views 为空、重复或含本工具枚举之外的视角；history_point_ids 指向未求解的标记；step 不在当前回合已保存的步之内（invalid_arguments，并给出该范围）；history_point_ids 与 step 同时给出。"
+    },
+    {
+      "tool": "mark_point",
+      "field": "description",
+      "before": "On error: a malformed call — unequal lengths, a repeated name, more than eight entries, or a view that cannot be marked — is refused whole and names the field, while a pixel that cannot be measured fails only its own entry and leaves the rest solved.",
+      "after": "On error: Refused: a call with more than eight entries, point_ids and points_uv of unequal lengths, a repeated or empty name, a name longer than 64 characters, a negative pixel coordinate, or a view that cannot be marked; the whole call is refused and the refusal names the field. A pixel that cannot be measured fails only its own entry and leaves the rest solved.",
+      "why": "N2: list every whole-call refusal of mark_point_batch.py, including the 64-character name bound (mark_point_schema._MAX_POINT_ID_CHARS) that was stated only in the schema",
+      "zh": "拒绝：超过八个条目、point_ids 与 points_uv 长度不等、名字重复或为空、名字超过 64 个字符、像素坐标为负，或视角不可标记；整个调用被拒绝，拒绝信息会指明字段。无法测量的像素只让它自己的条目失败，其余条目照常求解。"
+    },
+    {
+      "tool": "geometry_query",
+      "field": "description",
+      "before": "On error: send exactly one of points, region or world_points_m -- none or two is refused and the message names all three.",
+      "after": "On error: Refused: none or two of points, region and world_points_m, with a message naming all three; a camera outside the fixed list; a step that names no saved observation (invalid_arguments, naming the saved range); more than sixteen points or world points, or a non-finite world coordinate; window_px outside 0 to 15; a pixel outside the image, which refuses the whole call rather than its entry; a rectangle that leaves the image or does not have x0<x1 and y0<y1.",
+      "why": "N2: the whole-call refusals of RobotToolRuntime._geometry, including window_px 0-15 and the one out-of-image pixel that refuses the whole call",
+      "zh": "拒绝：points、region、world_points_m 一个都没给或给了两个（信息会列出这三者）；相机不在固定列表中；step 不对应任何已保存的观测（invalid_arguments，并给出已保存的范围）；点或世界点超过十六个，或世界坐标不是有限值；window_px 不在 0 到 15 之间；任一像素在图像之外——这会拒绝整个调用，而不只是该条目；矩形超出图像，或不满足 x0<x1 且 y0<y1。"
+    },
+    {
+      "tool": "compute",
+      "field": "description",
+      "before": "On error: read field, received and constraints, then change that input.",
+      "after": "On error: Refused: a block beyond the Limits below; a construct outside the evaluator grammar; an unknown, reserved or underscore-prefixed name; a string literal longer than 32 characters; a binding whose from is blank or longer than 120 characters; an output name the block never assigned; a non-finite result, or no numeric result at all. Each refusal is invalid_arguments; read its field, received and constraints, then change that input.",
+      "why": "N2: the evaluator's refusals, including the 32-character string literal bound (compute.py) and the 120-character from bound (compute_arguments.MAX_ORIGIN_CHARACTERS) the help did not state",
+      "zh": "拒绝：超出下文 Limits 的代码块；求值器语法之外的结构；未知、保留或以下划线开头的名字；超过 32 个字符的字符串字面量；from 为空或超过 120 个字符的绑定；代码块从未赋值的输出名；非有限的结果，或根本没有数值结果。每种拒绝都是 invalid_arguments；读取其 field、received 与 constraints，然后修改该输入。"
+    },
+    {
+      "tool": "vision_segment",
+      "field": "description",
+      "before": "On error: correct the named input or source.",
+      "after": "On error: Refused: no point or more than eight; a point outside the source image, which refuses the whole call; max_candidates outside 1 to 3; a camera outside this tool's enum; a step outside the current round's saved steps (invalid_arguments, naming that range); a request the segmentation service rejects (invalid_arguments, with the service's detail). Correct the named input or source.",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：没有点或超过八个点；任一点在源图像之外——这会拒绝整个调用；max_candidates 不在 1 到 3 之间；相机不在本工具枚举中；step 不在当前回合已保存的步之内（invalid_arguments，并给出该范围）；分割服务拒绝的请求（invalid_arguments，附服务给出的说明）。"
+    },
+    {
+      "tool": "vision_ground",
+      "field": "description",
+      "before": "On error: reject a candidate whose overlay or mask is dominated by table,",
+      "after": "On error: Refused: max_candidates outside 1 to 3, before any request is sent; text that is empty after trimming or longer than 120 characters; a camera outside this tool's enum; no grounding service (grounding_unavailable); a request the grounding service rejects (invalid_arguments, with the service's detail). Reject a candidate whose overlay or mask is dominated by table,",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：max_candidates 不在 1 到 3 之间（在发出任何请求之前）；去除首尾空白后为空、或超过 120 个字符的 text；相机不在本工具枚举中；没有可用的 grounding 服务（grounding_unavailable）；grounding 服务拒绝的请求（invalid_arguments，附服务给出的说明）。"
+    },
+    {
+      "tool": "vision_ground",
+      "field": "/properties/max_candidates/description",
+      "before": "Close-up previews are capped at the first six across a step: the request window holds 24 images and refuses rather than dropping the oldest.",
+      "after": "Every returned region gets its own close-up preview; nothing caps previews across a step, and no count of images already in the conversation refuses this call.",
+      "why": "N1 mismatch (1): no per-step preview cap exists (GROUNDING_PREVIEW_RENDER_LIMIT is per call and never binds at three regions) and nothing refuses at 24 images (trigger_inline_images is a soft trigger)",
+      "zh": "每个返回的区域都有自己的特写预览；同一步内的预览没有上限，对话中已有图像的数量也不会让本调用被拒绝。"
+    },
+    {
+      "tool": "grasp_plan",
+      "field": "description",
+      "before": "On error: obtain a better current view or select another target or candidate.",
+      "after": "On error: Refused: a target_ref unknown in this round (target_ref_unavailable) or bound to an earlier observation (stale_observation); max_candidates outside 1 to 3; an arm outside this tool's enum; unusable primary RGB-D or a transient backend failure (grasp_proposal_failed); a request the grasp-proposal service rejects (invalid_arguments, with the service's detail). Not refused but moved to diagnostics.rejected: a candidate whose predicted opening exceeds the 94.9 mm nominal ceiling, or whose controlled point or pregrasp lies outside the action workspace; with none left the result is status no_candidate. Obtain a better current view or select another target or candidate.",
+      "why": "N2: grasp_plan's refusals and its ex-ante planning rejection rule (opening ceiling and workspace)",
+      "zh": "拒绝：本回合未知的 target_ref（target_ref_unavailable），或绑定在较早观测上的 target_ref（stale_observation）；max_candidates 不在 1 到 3 之间；arm 不在本工具枚举中；主 RGB-D 不可用或后端暂时失败（grasp_proposal_failed）；抓取候选服务拒绝的请求（invalid_arguments，附服务给出的说明）。不会拒绝、而是移入 diagnostics.rejected 的：预测开口超过 94.9 mm 标称上限的候选，或其受控点或预抓取位姿位于动作工作空间之外的候选；若没有候选剩下，结果为 status no_candidate。"
+    },
+    {
+      "tool": "grasp_plan",
+      "field": "description",
+      "before": "For grasp_execute, the selected pregrasp receives one backend check before opening.",
+      "after": "For grasp_execute, the selected pregrasp and contact poses receive one backend check before opening.",
+      "why": "N2 described-but-different: the precommit check probes pregrasp and approach (grasp_feasibility.PROBED_STAGES)",
+      "zh": "对 grasp_execute，所选的预抓取位姿与接触位姿在张开夹爪前接受一次后端检查。"
+    },
+    {
+      "tool": "grasp_execute",
+      "field": "description",
+      "before": "On error: stale candidates require grasp_plan on the current observation. Missing geometry is refused before submission.",
+      "after": "On error: Refused: a candidate from an earlier observation (stale_candidate_observation) or not published by grasp_plan (candidate_unavailable); a pregrasp or contact pose that is missing, non-finite or more than 0.001 from a unit quaternion, a pregrasp whose orientation differs from the contact orientation or that does not stand off from it, or a pregrasp, contact or 3 cm lift pose outside the action workspace (candidate_geometry_unavailable); either probed pose unreachable, or the two reachable only under different equivalents (grasp_pregrasp_unreachable); another committed sequence in flight (skill_sequence_active); a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). Stale candidates require grasp_plan on the current observation.",
+      "why": "N2: grasp_execute's refusals (skill_driver.py, skill_candidates.py, skill_geometry.py, grasp_feasibility.py)",
+      "zh": "拒绝：来自较早观测的候选（stale_candidate_observation）或 grasp_plan 未发布的候选（candidate_unavailable）；预抓取或接触位姿缺失、非有限，或四元数偏离单位长度超过 0.001；预抓取朝向与接触朝向不同，或预抓取与接触位姿没有拉开距离；预抓取、接触或上抬 3 cm 后的位姿在动作工作空间之外（candidate_geometry_unavailable）；任一被探测的位姿不可达，或两者只能在不同的等价位姿下可达（grasp_pregrasp_unreachable）；已有另一个提交的序列在执行（skill_sequence_active）；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。过期的候选需要在当前观测上重新调用 grasp_plan。"
+    },
+    {
+      "tool": "grasp_execute",
+      "field": "description",
+      "before": "Before opening or committing, runs one read-only backend probe for the selected exact pregrasp from the current measured joints.",
+      "after": "Before opening or committing, runs one read-only backend probe of the selected pregrasp and contact poses, each from the current measured joints, over their parallel-jaw equivalents: rolls of 0 and +/-10 degrees about the approach axis, and the same about the 180-degree jaw flip. When the compiled poses are not both admitted but one equivalent admits both, that equivalent is committed and reported as pose_selection adopted_equivalent.",
+      "why": "N2 described-but-different: grasp_feasibility.py probes pregrasp and approach over parallel_jaw_equivalents (robotwin/probe.py rolls 0, -10, 10, 180, 170, 190 degrees)",
+      "zh": "在张开夹爪或提交之前，对所选的预抓取位姿与接触位姿各做一次只读后端探测，均从当前测得的关节出发，并覆盖它们的平行夹爪等价位姿：绕接近轴滚转 0 与 +/-10 度，以及在 180 度夹爪翻转基础上的同样滚转。若编译出的位姿未能同时被接受、但某个等价位姿能同时被接受，则提交该等价位姿，并报告为 pose_selection adopted_equivalent。"
+    },
+    {
+      "tool": "grasp_execute",
+      "field": "description",
+      "before": "Passing covers only this current-state pregrasp under the backend's published collision coverage.",
+      "after": "Passing covers only these current-state poses under the backend's published collision coverage.",
+      "why": "N2 described-but-different: the probe covers pregrasp and contact poses",
+      "zh": "通过检查只覆盖这些当前状态下的位姿，且只在后端公布的碰撞覆盖范围内成立。"
+    },
+    {
+      "tool": "align_plan",
+      "field": "description",
+      "before": "On error: invalid_arguments naming standoff_m means",
+      "after": "On error: Refused: standoff_m outside 0.02-0.30 m or max_candidates outside 1 to 6; an approach_side or arm outside this tool's enums; a target_ref unknown in this round (target_ref_unavailable) or bound to an earlier observation (stale_observation); a target whose mask or depth cannot locate a centroid (target_geometry_unavailable). invalid_arguments naming standoff_m means",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：standoff_m 不在 0.02-0.30 m 内，或 max_candidates 不在 1 到 6 之间；approach_side 或 arm 不在本工具枚举中；本回合未知的 target_ref（target_ref_unavailable），或绑定在较早观测上的 target_ref（stale_observation）；掩码或深度无法定出质心的目标（target_geometry_unavailable）。"
+    },
+    {
+      "tool": "set_gripper",
+      "field": "description",
+      "before": "On error: invalid_motion_arguments names the field that was wrong -- re-read this schema rather than resubmitting the same shape.",
+      "after": "On error: Refused: an empty targets map or an arm outside left and right, or a directive other than open and close; a target_ref that is blank or not a string (invalid_arguments, naming target_ref); a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). A schema refusal is invalid_arguments naming the field; an invalid_motion_arguments refusal names none -- re-read this schema rather than resubmitting the same shape.",
+      "why": "N2: set_gripper's refusals; 'invalid_motion_arguments names the field' was false (runtime/motion.py raises it without a field)",
+      "zh": "拒绝：targets 为空或含 left、right 之外的手臂，或指令不是 open 或 close；target_ref 为空白或不是字符串（invalid_arguments，指明 target_ref）；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。schema 拒绝是指明字段的 invalid_arguments；invalid_motion_arguments 拒绝不指明字段——请重读本 schema，而不是重复提交同样的结构。"
+    },
+    {
+      "tool": "move_to",
+      "field": "description",
+      "before": "so the Runtime selects a collision-aware route and may apply a bounded endpoint refinement only after the main execution converges.",
+      "after": "so the Runtime selects a collision-aware global route; free_space applies no local endpoint settle.",
+      "why": "N2 described-but-different: free_space routes global and never settles (motion_transaction.py: settle only for global_then_local_settle)",
+      "zh": "因此 Runtime 选择一条考虑碰撞的全局路线；free_space 不做局部末端微调。"
+    },
+    {
+      "tool": "move_to",
+      "field": "description",
+      "before": "On error: inspect the named failure stage and current residual,",
+      "after": "On error: Refused: an empty targets map, an arm outside left and right or a field other than position_m; a non-finite position; a target equal to the measured position; a target outside the bound action workspace (workspace_bounds) unless the TCP is already outside it and the target only reduces the violation, while the backend rejects any target outside it as plan_rejected; a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). Inspect the named failure stage and current residual,",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：targets 为空、含 left、right 之外的手臂，或含 position_m 之外的字段；非有限的位置；与测得位置相同的目标；在绑定的动作工作空间之外的目标（workspace_bounds）——除非 TCP 已在其外且目标只减小越界量，而后端仍会把任何在其外的目标以 plan_rejected 拒绝；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。"
+    },
+    {
+      "tool": "move_pose",
+      "field": "description",
+      "before": "locally executes only the final 10 mm/5 degrees. Small in-place rotations may be local.",
+      "after": "locally executes only the final 3 mm/2.1 degrees. A precision change that rotates by at most 15 degrees while moving at most 5 mm is local.",
+      "why": "N1 mismatch (2): the pre-contact pose leaves direct_local minus the arrival reserve (3 mm, 2.1 degrees); the pure-rotation local route is bounded by strategy_router.pure_rotation_local (5 mm, 15 degrees)",
+      "zh": "在本地只执行最后 3 mm/2.1 度。旋转不超过 15 度、同时平移不超过 5 mm 的 precision 变化走本地路线。"
+    },
+    {
+      "tool": "move_pose",
+      "field": "description",
+      "before": "On error: an argument refusal names the field and the bound it violated, never a branch index.",
+      "after": "On error: Refused: an empty targets map or an arm outside left and right; an unknown field, a mode without its companion fields or a field of another mode, each naming the field; hold_current for both halves of one arm, a target equal to the measured pose, a rotation_angle_deg outside [-180, 180] or an orientation_xyzw whose norm lies outside [0.98, 1.02], each as invalid_motion_arguments without a field; a target outside the bound action workspace (workspace_bounds) unless the TCP is already outside it and the target only reduces the violation; a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). Rejected before any controller write, as plan_rejected: two arms labelled with different interactions; any target outside the bound action workspace, with no exception; every admitted Top-K plan failing validation, which includes a planned TCP step above 80 mm, a planned path leaving the action workspace by more than 0.1 m, and the two arms' 45 mm link spheres coming within 5 mm of each other -- or, when they start closer, closing in by more than 1 mm -- with the other arm checked even when it does not move.",
+      "why": "N2: move_pose's refusals (contracts/motion.py, contracts/pose.py, motion_arguments.py, runtime/motion_submit.py) and the backend's pre-write rejections (motion_transaction.py, sparse_admission.py, plan_validation.py, control-profile-v10.json); 'an argument refusal names the field' was false for the compiler refusals",
+      "zh": "拒绝：targets 为空或含 left、right 之外的手臂；未知字段、缺少配套字段的模式，或属于另一模式的字段——均会指明字段；同一手臂的两半都为 hold_current、与测得位姿相同的目标、rotation_angle_deg 不在 [-180, 180] 内，或 orientation_xyzw 的模长不在 [0.98, 1.02] 内——均为不指明字段的 invalid_motion_arguments；在绑定的动作工作空间之外的目标（workspace_bounds）——除非 TCP 已在其外且目标只减小越界量；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。在任何控制器写入之前以 plan_rejected 拒绝的：两只手臂标注了不同的 interaction；任何在绑定的动作工作空间之外的目标，没有例外；所有被接受的 Top-K 规划都未通过验证——包括规划中单步 TCP 位移超过 80 mm、规划路径离开动作工作空间超过 0.1 m，以及两臂 45 mm 的连杆球体彼此接近到 5 mm 以内（若起始时已更近，则继续接近超过 1 mm）；即使另一只手臂不动也会检查它。"
+    },
+    {
+      "tool": "rotate_wrist",
+      "field": "description",
+      "before": "Qualified small rotations use measured local Cartesian control; larger rotations use global CuRobo with at most one bounded endpoint settle.",
+      "after": "Rotations of at most 15 degrees use measured local Cartesian control; larger rotations use global CuRobo with at most one local endpoint settle, run only when the remaining error is within 10 mm and 5 degrees.",
+      "why": "N2 described-but-different: rotate primitives compile to precision; strategy_router.pure_rotation_local and endpoint_settle bound the routes",
+      "zh": "不超过 15 度的旋转使用测量闭环的本地笛卡尔控制；更大的旋转使用全局 CuRobo，至多加一次本地末端微调，且仅在剩余误差在 10 mm 与 5 度以内时进行。"
+    },
+    {
+      "tool": "rotate_wrist",
+      "field": "description",
+      "before": "On error: inspect the current TCP axes and residual;",
+      "after": "On error: Refused: an empty targets map or an arm outside left and right; an angle outside [-180, 180] degrees or not a finite number; an angle of 0; a target outside the bound action workspace (workspace_bounds), which includes any rotation while the TCP is already outside it; a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). Inspect the current TCP axes and residual;",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：targets 为空或含 left、right 之外的手臂；角度不在 [-180, 180] 度内或不是有限数；角度为 0；目标在绑定的动作工作空间之外（workspace_bounds）——TCP 已在其外时的任何旋转也包括在内；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。"
+    },
+    {
+      "tool": "rotate_pitch",
+      "field": "description",
+      "before": "Qualified small rotations use measured local Cartesian control; larger rotations use global CuRobo with at most one bounded endpoint settle.",
+      "after": "Rotations of at most 15 degrees use measured local Cartesian control; larger rotations use global CuRobo with at most one local endpoint settle, run only when the remaining error is within 10 mm and 5 degrees.",
+      "why": "N2 described-but-different: rotate primitives compile to precision; strategy_router.pure_rotation_local and endpoint_settle bound the routes",
+      "zh": "不超过 15 度的旋转使用测量闭环的本地笛卡尔控制；更大的旋转使用全局 CuRobo，至多加一次本地末端微调，且仅在剩余误差在 10 mm 与 5 度以内时进行。"
+    },
+    {
+      "tool": "rotate_pitch",
+      "field": "description",
+      "before": "On error: inspect realized axes and residuals,",
+      "after": "On error: Refused: an empty targets map or an arm outside left and right; an angle outside [-180, 180] degrees or not a finite number; an angle of 0; a target outside the bound action workspace (workspace_bounds), which includes any rotation while the TCP is already outside it; a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). Inspect realized axes and residuals,",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：targets 为空或含 left、right 之外的手臂；角度不在 [-180, 180] 度内或不是有限数；角度为 0；目标在绑定的动作工作空间之外（workspace_bounds）——TCP 已在其外时的任何旋转也包括在内；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。"
+    },
+    {
+      "tool": "recover_pose",
+      "field": "description",
+      "before": "On error: inspect each arm result and scene state,",
+      "after": "On error: Refused: an empty targets map, an arm outside left and right or a strategy other than previous and home; a placement waiting at its pre-release stop (skill_sequence_paused); the episode's terminal boundary (episode_terminal). Rejected before any controller write, as plan_rejected: after a blocked failure, which first retreats 20 mm opposite the recorded approach direction, a missing or non-unit direction or a retreat point outside the action workspace. Inspect each arm result and scene state,",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：targets 为空、含 left、right 之外的手臂，或策略不是 previous 或 home；有放置序列停在释放前的停顿点（skill_sequence_paused）；回合已到终止边界（episode_terminal）。在任何控制器写入之前以 plan_rejected 拒绝的：在 blocked 失败之后（此时会先沿记录的接近方向反向后退 20 mm），该方向缺失或不是单位向量，或后退点在动作工作空间之外。"
+    },
+    {
+      "tool": "wait_ticks",
+      "field": "description",
+      "before": "On error: invalid_arguments names the ticks bound.",
+      "after": "On error: Refused: any field other than ticks, or ticks that is not an integer from 1 to 20 (invalid_arguments, naming the ticks bound); the episode's terminal boundary (episode_terminal).",
+      "why": "A0: the shared wait_ticks action is declared on RoboTwin v2 (D02 reversal); the same ex-ante refusals as on RoboDojo (contracts/wait.validate_wait_arguments).",
+      "zh": "拒绝：ticks 之外的任何字段，或 ticks 不是 1 到 20 之间的整数（invalid_arguments，指明 ticks 的界限）；回合已到终止边界（episode_terminal）。"
+    },
+    {
+      "tool": "report_issue",
+      "field": "description",
+      "before": "On error: reduce the message to one reproducible symptom and retry once;",
+      "after": "On error: Refused: any field other than message, or a message that is empty or only whitespace (invalid_arguments). Reduce the message to one reproducible symptom and retry once;",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：message 之外的任何字段，或为空或只有空白的 message（invalid_arguments）。"
+    },
+    {
+      "tool": "check_task",
+      "field": "description",
+      "before": "On error: wait for a valid state boundary and retry;",
+      "after": "On error: Refused: any argument (invalid_arguments). Wait for a valid state boundary and retry;",
+      "why": "N2: the ex-ante refusals this tool's handler enforces",
+      "zh": "拒绝：任何参数（invalid_arguments）。"
+    },
+    {
+      "tool": "grasp_plan",
+      "field": "description",
+      "before": "Reachability is delegated to move_pose or grasp_execute; this call does not run a motion probe or return a plan_ref.",
+      "after": "Reachability here is the planning-time IK reference described under IK selection below; no plan_ref is returned.",
+      "why": "A0 D02 reversal: this surface declares grasp_plan_ik_reachability_annotation_v1, so grasp_plan runs a read-only IK check of its pool; the delegated-reachability sentence is false here (tool-surface authoring guide, 'Capability-gated behaviour gates its wording'; the RoboDojo revision-20 replacement).",
+      "zh": "此处的可达性是下文 IK selection 中描述的规划期 IK 参考；不返回 plan_ref。"
+    },
+    {
+      "tool": "grasp_plan",
+      "field": "/properties/max_candidates/description",
+      "before": "Maximum candidates returned, 1 to 3, default 3; it truncates this call's own ranking and does not select a grasp.",
+      "after": "Maximum candidates returned, 1 to 3, default 3: the front of the IK-ordered pool described under IK selection; it does not select a grasp.",
+      "why": "A0 D02 reversal: with the IK annotation the returned candidates are the front of the IK-ordered pool (RoboDojo revision-20 wording).",
+      "zh": "返回的候选数上限，1 到 3，默认 3：即 IK selection 中所述按 IK 排序后的候选池的前几个；它不选定抓取。"
+    }
+  ]
+}

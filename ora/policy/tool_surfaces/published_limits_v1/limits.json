@@ -1,0 +1,4987 @@
+{
+  "schema": "ora.published-limits.v1",
+  "note": "Integration 0059 unit N1 phase 1, registered by unit A0: one row per enforced number that policy-visible tool help states, with the owner the handler or backend enforces. tests/test_published_limits.py composes every surface below and checks each statement against its owner; a statement that disagrees on a frozen surface (the RoboTwin v1 default direct_v3 bound, the one frozen v1 surface still registered) is a strict expected failure with its reason, and the current defaults carry the correction through their published-limits layers. Units: m, cm, mm, rad, deg, s, ms and Hz convert; any other unit must match exactly. Owner kinds: python (module:NAME plus path), json (file plus pointer), source (file plus a one-group pattern that must match once), count_excluding, schema_keyword, schema_array_depth, derive (difference, product, reciprocal or negative, in base units), and unenforced or external for a number no repository code enforces. A row with requires_capability or absent_capability holds only where the surface declares (or its review presupposes) that capability, or does not. Statement surfaces are fnmatch patterns over the keys below; literal_index picks the n-th occurrence of the literal in its text. Phase 2 generates the successor sentences from these owners. Generations: frozen (a v1 surface direct_v3 bound), current (the default instances), retained (a former default that still binds its generated layers and stays selectable by an explicit tool_surface) and candidate (an experiment surface no default selects); the texts of every generation but frozen are checked as the current ones. Only surfaces registered in the profile catalog are listed.",
+  "surfaces": {
+    "robotwin": {
+      "backend": "robotwin",
+      "generation": "frozen",
+      "profile": "robotwin_toolchain_b2_closed_noservo_v1"
+    },
+    "robotwin_v2": {
+      "backend": "robotwin",
+      "generation": "current",
+      "profile": "robotwin_toolchain_b2_closed_noservo_v2",
+      "review": "robotwin-review.json"
+    },
+    "robodojo_v2": {
+      "backend": "robodojo",
+      "generation": "current",
+      "profile": "robodojo_placement_closed_skills_v2",
+      "review": "robodojo-review.json"
+    },
+    "libero_overhead": {
+      "backend": "libero_pro",
+      "generation": "current",
+      "profile": "libero_placement_direct_overhead_v1",
+      "review": "libero-overhead-review.json"
+    }
+  },
+  "not_covered": {},
+  "limits": [
+    {
+      "key": "overhead.max_tilt",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.overhead_view:OVERHEAD_MAX_TILT_DEG"
+      },
+      "unit": "deg",
+      "enforced_by": "ora/agent/tools/overhead_view.footprint classifies footprint_view",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "overhead (at most 20 degrees)",
+          "literal": "20",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "vision_segment",
+          "text": "overhead (at most 20 degrees)",
+          "literal": "20",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "overhead.view_height",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.overhead_view:VIEW_HEIGHT_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/overhead_view.view_pose places the wrist camera this far above the footprint centre",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "puts the wrist camera 30 cm above the footprint centre",
+          "literal": "30",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "cm"
+        },
+        {
+          "tool": "vision_segment",
+          "text": "puts the wrist camera 30 cm above the footprint centre",
+          "literal": "30",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "cm"
+        }
+      ]
+    },
+    {
+      "key": "mark_point.batch_entries",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.mark_point_schema:MARK_POINT_MAX_BATCH"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/mark_point_batch.py refuses a longer list as invalid_arguments",
+      "statements": [
+        {
+          "tool": "mark_point",
+          "text": "Measure up to eight visible pixels",
+          "literal": "eight",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "mark_point",
+          "text": "eight measured pixels are not a shape",
+          "literal": "eight",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "mark_point",
+          "text": "more than eight entries",
+          "literal": "eight",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "mark_point",
+          "text": "One to eight stable names",
+          "literal": "eight",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "mark_point",
+          "text": "One to eight pixels to measure",
+          "literal": "eight",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "mark_point",
+          "pointer": "/properties/point_ids/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "mark_point",
+          "pointer": "/properties/points_uv/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "mark_point.verify_tolerance",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.mark_point_schema:MARK_POINT_VERIFY_TOLERANCE_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/mark_point_batch.py fails the entry with inconsistent_mark",
+      "statements": [
+        {
+          "tool": "mark_point",
+          "text": "a disagreement beyond 25 mm fails only that entry",
+          "literal": "25",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "geometry_query",
+          "text": "(a disagreement beyond 25 mm fails that entry)",
+          "literal": "25",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "mark_point.point_id_characters",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.mark_point_schema:_MAX_POINT_ID_CHARS"
+      },
+      "unit": "characters",
+      "enforced_by": "ora/agent/tools/mark_point_batch.py refuses a longer name as invalid_arguments",
+      "statements": [
+        {
+          "tool": "mark_point",
+          "text": "at most 64 characters",
+          "literal": "64",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "mark_point",
+          "text": "a name longer than 64 characters",
+          "literal": "64",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "mark_point",
+          "pointer": "/properties/point_ids/items/maxLength",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "geometry_query.pixels",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/robot.py",
+        "pattern": "not 1 <= len\\(points\\) <= (\\d+)"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/robot.py RobotToolRuntime._geometry",
+      "statements": [
+        {
+          "tool": "geometry_query",
+          "text": "One to sixteen source pixels",
+          "literal": "sixteen",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "geometry_query",
+          "text": "more than sixteen points or world points",
+          "literal": "sixteen",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "geometry_query",
+          "pointer": "/properties/points/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "geometry_query.world_points",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/robot.py",
+        "pattern": "not 1 <= len\\(world_points\\) <= (\\d+)"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/robot.py RobotToolRuntime._geometry",
+      "statements": [
+        {
+          "tool": "geometry_query",
+          "text": "One to sixteen world-frame points",
+          "literal": "sixteen",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "geometry_query",
+          "text": "more than sixteen points or world points",
+          "literal": "sixteen",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "geometry_query",
+          "pointer": "/properties/world_points_m/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "geometry_query.window_default",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/agent/tools/robot.py",
+        "pattern": "arguments\\.get\\(\"window_px\", (\\d+)\\)"
+      },
+      "unit": "px",
+      "enforced_by": "ora/agent/tools/robot.py RobotToolRuntime._geometry",
+      "statements": [
+        {
+          "tool": "geometry_query",
+          "text": "Default 3. Ignored by world_points_m and region.",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "geometry_query",
+          "pointer": "/properties/window_px/default",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "geometry_query.window_single_pixel",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/agent/tools/robot.py",
+        "pattern": "window_px must be in \\[(\\d+),\\d+\\]"
+      },
+      "unit": "px",
+      "enforced_by": "ora/agent/tools/robot.py RobotToolRuntime._geometry",
+      "statements": [
+        {
+          "tool": "geometry_query",
+          "text": "0 reads the single pixel",
+          "literal": "0",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "geometry_query",
+          "text": "window_px outside 0 to 15",
+          "literal": "0",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "geometry_query",
+          "pointer": "/properties/window_px/minimum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.source_bytes",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_grammar:MAX_SOURCE_BYTES"
+      },
+      "unit": "bytes",
+      "enforced_by": "ora/agent/tools/compute.py refuses a longer block as invalid_arguments",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "Limits: 4096 UTF-8 source bytes",
+          "literal": "4096",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "compute",
+          "pointer": "/properties/expressions/maxLength",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.statements",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_grammar:MAX_STATEMENTS"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/compute.py refuses a longer block as invalid_arguments",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "4096 UTF-8 source bytes, 24 statements",
+          "literal": "24",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "compute",
+          "text": "at most 24 of them",
+          "literal": "24",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.bindings",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_grammar:MAX_BINDINGS"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/compute_arguments.py refuses more bindings as invalid_arguments",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "24 statements, 16 bindings",
+          "literal": "16",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "compute",
+          "pointer": "/properties/bindings/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.outputs",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_grammar:MAX_OUTPUTS"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/compute.py refuses more selected outputs as invalid_arguments",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "at most 12 selected outputs",
+          "literal": "12",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "compute",
+          "pointer": "/properties/outputs/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.value_elements",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_grammar:MAX_VALUE_ELEMENTS"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/compute.py (returned values) and compute_arguments.py (bindings) refuse larger values",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "64 elements per returned value",
+          "literal": "64",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "compute",
+          "text": "At most 64 elements and at most 2 dimensions.",
+          "literal": "64",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "compute",
+          "pointer": "/properties/bindings/items/properties/value/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.returned_dimensions",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/compute.py",
+        "pattern": "maximum_dimensions=(\\d+)"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/compute.py refuses a returned value of more dimensions",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "in at most 2 dimensions",
+          "literal": "2",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.binding_dimensions",
+      "kind": "enforced",
+      "owner": {
+        "schema_array_depth": {
+          "tool": "compute",
+          "pointer": "/properties/bindings/items/properties/value"
+        }
+      },
+      "unit": "count",
+      "enforced_by": "the compute input schema nests a binding value at most two arrays deep",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "At most 64 elements and at most 2 dimensions.",
+          "literal": "2",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.exponent",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_grammar:MAX_POW_EXPONENT"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/compute_grammar.py refuses a larger literal exponent",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "** literal exponent magnitude <=8",
+          "literal": "8",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "compute",
+          "text": "of magnitude at most 8.",
+          "literal": "8",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ],
+          "generated": true
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.points",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.segmentation_batch:MAX_POINTS"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/segmentation_batch.validate_points refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "give 1–8 source-pixel points",
+          "literal": "8",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_segment",
+          "text": "no point or more than eight",
+          "literal": "eight",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_segment",
+          "pointer": "/properties/points_uv/maxItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.minimum_points",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/segmentation_batch.py",
+        "pattern": "not (\\d+) <= len\\(points\\) <= MAX_POINTS"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/segmentation_batch.validate_points",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "give 1–8 source-pixel points",
+          "literal": "1",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_segment",
+          "pointer": "/properties/points_uv/minItems",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.masks_per_point",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.segmentation_batch:MAX_CANDIDATES"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/perception.py refuses a larger max_candidates as invalid_arguments",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "(default 3, maximum 3)",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ],
+          "literal_index": 1
+        },
+        {
+          "tool": "vision_segment",
+          "text": "an integer 1-3, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_segment",
+          "text": "max_candidates outside 1 to 3; a camera outside",
+          "literal": "3",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_segment",
+          "pointer": "/properties/max_candidates/maximum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.masks_per_point_default",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/agent/tools/runtime/perception.py",
+        "pattern": "arguments\\[\"points_uv\"\\], arguments\\.get\\(\"max_candidates\", (\\d+)\\)"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/perception.py",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "(default 3, maximum 3)",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_segment",
+          "text": "an integer 1-3, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ],
+          "literal_index": 1
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_segment",
+          "pointer": "/properties/max_candidates/default",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.masks_per_point_minimum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/perception_arguments.py",
+        "pattern": "not (\\d+) <= max_candidates <= max_per_point:"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/perception.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "an integer 1-3, default 3",
+          "literal": "1",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_segment",
+          "text": "max_candidates outside 1 to 3; a camera outside",
+          "literal": "1",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_segment",
+          "pointer": "/properties/max_candidates/minimum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.masks_per_call",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.segmentation_batch:MAX_RETURNED_CANDIDATES"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/segmentation_batch.py truncates and reports omitted_over_call_cap",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "At most 12 distinct masks and 5 enlarged crops are delivered",
+          "literal": "12",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_segment",
+          "text": "A call delivers at most 12 distinct masks and 5 enlarged crops overall",
+          "literal": "12",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_segment.crops_per_call",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.segmentation_batch:MAX_PREVIEW_IMAGES"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/segmentation_batch.py renders at most this many enlarged crops",
+      "statements": [
+        {
+          "tool": "vision_segment",
+          "text": "At most 12 distinct masks and 5 enlarged crops are delivered",
+          "literal": "5",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_segment",
+          "text": "A call delivers at most 12 distinct masks and 5 enlarged crops overall",
+          "literal": "5",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.regions",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.grasp:GROUNDING_REQUEST_MAX_CANDIDATES"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/perception.py refuses a larger max_candidates before the request (invalid_arguments)",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "Retrieve up to three inspectable text-grounded target proposals",
+          "literal": "three",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_ground",
+          "text": "Retrieve and present up to three inspectable candidate regions",
+          "literal": "three",
+          "surfaces": [
+            "libero*"
+          ]
+        },
+        {
+          "tool": "vision_ground",
+          "text": "zero to three ranked candidates",
+          "literal": "three",
+          "surfaces": [
+            "libero*"
+          ]
+        },
+        {
+          "tool": "vision_ground",
+          "text": "Maximum ranked regions to return, 1 to 3, default 3.",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_ground",
+          "text": "Three is what the grounding service answers per call",
+          "literal": "Three",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_ground",
+          "text": "max_candidates outside 1 to 3, before any request is sent",
+          "literal": "3",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_ground",
+          "pointer": "/properties/max_candidates/maximum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.regions_default",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/agent/tools/runtime/perception.py",
+        "pattern": "max_candidates = arguments\\.get\\(\"max_candidates\", (\\d+)\\)"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/perception.py",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "Maximum ranked regions to return, 1 to 3, default 3.",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ],
+          "literal_index": 1
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_ground",
+          "pointer": "/properties/max_candidates/default",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.regions_minimum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/runtime/perception.py",
+        "pattern": "or not (\\d+) <= max_candidates <= ceiling"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/perception.py",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "Maximum ranked regions to return, 1 to 3, default 3.",
+          "literal": "1",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "vision_ground",
+          "text": "max_candidates outside 1 to 3, before any request is sent",
+          "literal": "1",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_ground",
+          "pointer": "/properties/max_candidates/minimum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.preview_cap_per_step",
+      "kind": "enforced",
+      "owner": {
+        "unenforced": "No per-step preview cap exists. GROUNDING_PREVIEW_RENDER_LIMIT (6) bounds the close-ups of one call (grounding_palette.py, applied at grasp.py `rendered_candidates[:...]`), and vision_ground returns at most GROUNDING_REQUEST_MAX_CANDIDATES (3) regions, so that cap never binds either."
+      },
+      "unit": "count",
+      "enforced_by": "nothing: the sentence states a cap no code applies",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "Close-up previews are capped at the first six across a step",
+          "literal": "six",
+          "surfaces": [
+            "robotwin"
+          ],
+          "expected_failure": {
+            "surfaces": [
+              "robotwin"
+            ],
+            "reason": "N1 mismatch (1a): No per-step preview cap exists. GROUNDING_PREVIEW_RENDER_LIMIT (6) bounds the close-ups of one call (grounding_palette.py, applied at grasp.py `rendered_candidates[:...]`), and vision_ground returns at most GROUNDING_REQUEST_MAX_CANDIDATES (3) regions, so that cap never binds either."
+          }
+        }
+      ]
+    },
+    {
+      "key": "context.request_window_image_refusal",
+      "kind": "enforced",
+      "owner": {
+        "unenforced": "Nothing refuses at 24 images. 24 is the Context `trigger_inline_images` soft trigger: it admits the L4 externalization pass and evicts nothing (grounding_palette.py comment); the only image ceiling, `max_inline_images_per_request`, is set by no active baseline."
+      },
+      "unit": "count",
+      "enforced_by": "nothing: the sentence states a refusal no code makes",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "the request window holds 24 images and refuses rather than dropping the oldest",
+          "literal": "24",
+          "surfaces": [
+            "robotwin"
+          ],
+          "expected_failure": {
+            "surfaces": [
+              "robotwin"
+            ],
+            "reason": "N1 mismatch (1b): Nothing refuses at 24 images. 24 is the Context `trigger_inline_images` soft trigger: it admits the L4 externalization pass and evicts nothing (grounding_palette.py comment); the only image ceiling, `max_inline_images_per_request`, is set by no active baseline."
+          }
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.card_width",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.grounding_preview:CARD_WIDTH"
+      },
+      "unit": "px",
+      "enforced_by": "ora/agent/tools/grounding_preview.py renders every candidate card this wide",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "one labelled 1024x800 raw/mask candidate card per result",
+          "literal": "1024",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "grasp_plan.candidates",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/runtime/grasp.py",
+        "pattern": "maximum = (\\d+)\\n"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/grasp.py refuses a larger max_candidates as invalid_arguments",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "Returns: up to three candidates",
+          "literal": "three",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "Maximum candidates returned, 1 to 3, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*"
+          ]
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "How many candidates to return, 1 to 3, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "from one through three, default 3",
+          "literal": "three",
+          "surfaces": [
+            "libero*"
+          ]
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "max_candidates outside 1 to 3;",
+          "literal": "3",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "grasp_plan",
+          "pointer": "/properties/max_candidates/maximum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "grasp_plan.candidates_default",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/agent/tools/runtime/grasp.py",
+        "pattern": "maximum = (\\d+)\\n"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/grasp.py: an omitted max_candidates takes the maximum",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "Maximum candidates returned, 1 to 3, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*"
+          ],
+          "literal_index": 1
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "How many candidates to return, 1 to 3, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "literal_index": 1
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "from one through three, default 3",
+          "literal": "3",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "grasp_plan",
+          "pointer": "/properties/max_candidates/default",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "grasp_plan.candidates_minimum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/runtime/grasp.py",
+        "pattern": "or not (\\d+) <= max_candidates <= maximum"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/runtime/grasp.py",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "Maximum candidates returned, 1 to 3, default 3",
+          "literal": "1",
+          "surfaces": [
+            "robotwin*"
+          ]
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "How many candidates to return, 1 to 3, default 3",
+          "literal": "1",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "grasp_plan",
+          "text": "max_candidates outside 1 to 3;",
+          "literal": "1",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "grasp_plan",
+          "pointer": "/properties/max_candidates/minimum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "grasp_execute.lift",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.skill_retention:LIFT_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/skill_driver.py lifts the contact pose by this much",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "a 3 cm world-up probe",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ],
+          "unit": "cm"
+        },
+        {
+          "tool": "grasp_execute",
+          "text": "then requests 3 cm world-up at the same orientation",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ],
+          "unit": "cm"
+        },
+        {
+          "tool": "grasp_execute",
+          "text": "or a pregrasp, contact or 3 cm lift pose",
+          "literal": "3",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2"
+          ],
+          "unit": "cm"
+        }
+      ]
+    },
+    {
+      "key": "grasp_execute.stage_actions",
+      "kind": "parameter",
+      "owner": {
+        "count_excluding": {
+          "items": "ora.agent.tools.skill_ledger:PREPARED_GRASP_STAGES",
+          "exclude": "ora.agent.tools.skill_ledger:READ_ONLY_STAGES"
+        }
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/skill_driver.py dispatches one action per non-read-only stage",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "The Supervisor drives five stage actions as one robot decision",
+          "literal": "five",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "skill.rationale_characters",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.contracts.skill_sequence:MAX_RATIONALE_CHARS"
+      },
+      "unit": "characters",
+      "enforced_by": "ora/contracts/skill_sequence.py and skill_receipt.validate_rationale refuse a longer rationale",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "at most 200 characters",
+          "literal": "200",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "place_execute",
+          "text": "at most 200 characters",
+          "literal": "200",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "grasp_execute",
+          "pointer": "/properties/rationale/maxLength",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "place_execute",
+          "pointer": "/properties/rationale/maxLength",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "place_execute.stage_actions",
+      "kind": "parameter",
+      "owner": {
+        "count_excluding": {
+          "items": "ora.agent.tools.skill_ledger:PLACE_STAGES",
+          "exclude": "ora.agent.tools.skill_ledger:READ_ONLY_STAGES"
+        }
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/skill_driver.py dispatches one action per non-read-only stage",
+      "statements": [
+        {
+          "tool": "place_execute",
+          "text": "dispatches four stage actions, so the simulator advances four times",
+          "literal": "four",
+          "surfaces": [
+            "robotwin"
+          ]
+        },
+        {
+          "tool": "place_execute",
+          "text": "dispatches four stage actions, so the simulator advances four times",
+          "literal": "four",
+          "surfaces": [
+            "robotwin"
+          ],
+          "literal_index": 1
+        }
+      ]
+    },
+    {
+      "key": "place_resume.stage_actions",
+      "kind": "parameter",
+      "owner": {
+        "count_excluding": {
+          "items": "ora.agent.tools.skill_ledger:PLACE_STAGES",
+          "after": "stop",
+          "exclude": "ora.agent.tools.skill_ledger:READ_ONLY_STAGES"
+        }
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/skill_driver.resume_skill drives release, settle and verify; verify dispatches nothing",
+      "statements": [
+        {
+          "tool": "place_resume",
+          "text": "costs one further robot decision with three dispatched stage actions",
+          "literal": "three",
+          "surfaces": [
+            "robotwin"
+          ],
+          "expected_failure": {
+            "surfaces": [
+              "robotwin"
+            ],
+            "reason": "N1 mismatch (5, found in 0059): place_resume drives release, settle and verify after the stop, and verify is read-only (skill_ledger.READ_ONLY_STAGES), so the cost it returns is two dispatched stage actions (tests/test_skill_sequence_executor.py resume case)."
+          }
+        }
+      ]
+    },
+    {
+      "key": "align_plan.standoff_default",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.alignment:DEFAULT_STANDOFF_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/alignment.py",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "(default 0.10 m, permitted 0.02-0.30 m)",
+          "literal": "0.10",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "Default 0.10 m. Values outside 0.02-0.30 m are refused.",
+          "literal": "0.10",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "align_plan",
+          "pointer": "/properties/standoff_m/default",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.standoff_minimum",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.alignment:MINIMUM_STANDOFF_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/alignment.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "(default 0.10 m, permitted 0.02-0.30 m)",
+          "literal": "0.02",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "Default 0.10 m. Values outside 0.02-0.30 m are refused.",
+          "literal": "0.02",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "the value left 0.02-0.30 m",
+          "literal": "0.02",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "standoff_m outside 0.02-0.30 m or max_candidates outside 1 to 6",
+          "literal": "0.02",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "align_plan",
+          "pointer": "/properties/standoff_m/minimum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.standoff_maximum",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.alignment:MAXIMUM_STANDOFF_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/alignment.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "(default 0.10 m, permitted 0.02-0.30 m)",
+          "literal": "0.30",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "Default 0.10 m. Values outside 0.02-0.30 m are refused.",
+          "literal": "0.30",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "the value left 0.02-0.30 m",
+          "literal": "0.30",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "standoff_m outside 0.02-0.30 m or max_candidates outside 1 to 6",
+          "literal": "0.30",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "align_plan",
+          "pointer": "/properties/standoff_m/maximum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.jaw_rolls_default",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.alignment:DEFAULT_CANDIDATES"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/alignment.py",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "(default 3, at most 6)",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "1 to 6, default 3",
+          "literal": "3",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "align_plan",
+          "pointer": "/properties/max_candidates/default",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.jaw_rolls",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/alignment.py",
+        "pattern": "not \\d+ <= count <= (\\d+):"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/alignment.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "(default 3, at most 6)",
+          "literal": "6",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "1 to 6, default 3",
+          "literal": "6",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "standoff_m outside 0.02-0.30 m or max_candidates outside 1 to 6",
+          "literal": "6",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "align_plan",
+          "pointer": "/properties/max_candidates/maximum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.jaw_rolls_minimum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/alignment.py",
+        "pattern": "not (\\d+) <= count <= \\d+:"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/alignment.py",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "1 to 6, default 3",
+          "literal": "1",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "standoff_m outside 0.02-0.30 m or max_candidates outside 1 to 6",
+          "literal": "1",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "align_plan",
+          "pointer": "/properties/max_candidates/minimum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.solver_iterations_robotwin",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.controllers.reachability:solve_reachability",
+        "path": [
+          "__kwdefaults__",
+          "maximum_iterations"
+        ]
+      },
+      "unit": "count",
+      "enforced_by": "environment/controllers/reachability.solve_reachability, called without an override by robotwin/motion_adapter.py",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "iterations (solver steps, at most 60)",
+          "literal": "60",
+          "surfaces": [
+            "robotwin*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "align_plan.solver_iterations_robodojo",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/environment/backends/robodojo/reachability.py",
+        "pattern": "'iterations': (\\d+),"
+      },
+      "unit": "count",
+      "enforced_by": "environment/backends/robodojo/reachability.py reports one SDK IK solve per pose",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "iterations (1 on this backend: one SDK IK solve per pose)",
+          "literal": "1",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.ik_branch_jump",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.sparse_motion:GLOBAL_JOINT_JUMP_LIMIT_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "environment/backends/robodojo/ik.py rejects a valid solution as joint_jump; the global route refuses ik_branch_jump",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "needs a raw joint move larger than 180 deg from the current configuration",
+          "literal": "180",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "a joint move above 180 deg (ik_branch_jump)",
+          "literal": "180",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.endpoint_settle_translation",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/strategy_router/endpoint_settle/maximum_translation_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/motion_transaction.py routes precision global_then_local_settle; the settle is bounded by this",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "may add one bounded 10 mm/5 degree local settle",
+          "literal": "10",
+          "surfaces": [
+            "robotwin*"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "run only when the remaining error is within 10 mm and 5 degrees",
+          "literal": "10",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "run only when the remaining error is within 10 mm and 5 degrees",
+          "literal": "10",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.endpoint_settle_rotation",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/strategy_router/endpoint_settle/maximum_rotation_rad"
+      },
+      "unit": "rad",
+      "enforced_by": "environment/controllers/motion_transaction.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "may add one bounded 10 mm/5 degree local settle",
+          "literal": "5",
+          "surfaces": [
+            "robotwin*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "run only when the remaining error is within 10 mm and 5 degrees",
+          "literal": "5",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "run only when the remaining error is within 10 mm and 5 degrees",
+          "literal": "5",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.direct_local_translation",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/strategy_router/direct_local_translation_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/motion_transaction.py local_eligible",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "contact_approach up to 10 mm/5 degrees is local",
+          "literal": "10",
+          "surfaces": [
+            "robotwin*"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.direct_local_rotation",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/strategy_router/direct_local_rotation_rad"
+      },
+      "unit": "rad",
+      "enforced_by": "environment/controllers/motion_transaction.py local_eligible",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "contact_approach up to 10 mm/5 degrees is local",
+          "literal": "5",
+          "surfaces": [
+            "robotwin*"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.precontact_local_translation",
+      "kind": "parameter",
+      "owner": {
+        "derive": "difference",
+        "unit": "m",
+        "of": [
+          {
+            "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+            "pointer": "/strategy_router/direct_local_translation_m",
+            "unit": "m"
+          },
+          {
+            "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+            "pointer": "/strategy_router/precontact_arrival_reserve_m",
+            "unit": "m"
+          }
+        ]
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/motion_transaction.py _precontact_pose leaves direct_local minus the arrival reserve",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "locally executes only the final 10 mm/5 degrees",
+          "literal": "10",
+          "surfaces": [
+            "robotwin"
+          ],
+          "unit": "mm",
+          "expected_failure": {
+            "surfaces": [
+              "robotwin"
+            ],
+            "reason": "N1 mismatch (2a): the staged pre-contact pose leaves direct_local_translation_m 0.010 minus precontact_arrival_reserve_m 0.007 = 3 mm for the local stage (motion_transaction.py, control-profile-v10.json /strategy_router)."
+          }
+        },
+        {
+          "tool": "move_pose",
+          "text": "locally executes only the final 3 mm/2.1 degrees",
+          "literal": "3",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm",
+          "rounded": true
+        }
+      ]
+    },
+    {
+      "key": "robotwin.precontact_local_rotation",
+      "kind": "parameter",
+      "owner": {
+        "derive": "difference",
+        "unit": "rad",
+        "of": [
+          {
+            "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+            "pointer": "/strategy_router/direct_local_rotation_rad",
+            "unit": "rad"
+          },
+          {
+            "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+            "pointer": "/strategy_router/precontact_arrival_reserve_rad",
+            "unit": "rad"
+          }
+        ]
+      },
+      "unit": "rad",
+      "enforced_by": "environment/controllers/motion_transaction.py _precontact_pose",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "locally executes only the final 10 mm/5 degrees",
+          "literal": "5",
+          "surfaces": [
+            "robotwin"
+          ],
+          "unit": "deg",
+          "expected_failure": {
+            "surfaces": [
+              "robotwin"
+            ],
+            "reason": "N1 mismatch (2b): the local stage keeps direct_local_rotation_rad 0.0873 minus precontact_arrival_reserve_rad 0.05 = 0.0373 rad, about 2.1 degrees."
+          }
+        },
+        {
+          "tool": "move_pose",
+          "text": "locally executes only the final 3 mm/2.1 degrees",
+          "literal": "2.1",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "deg",
+          "rounded": true
+        }
+      ]
+    },
+    {
+      "key": "servo_delta.translation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.action:SERVO_MAX_TRANSLATION_M"
+      },
+      "unit": "m",
+      "enforced_by": "libero_pro/session.py _within_local_servo_envelope and robodojo/sparse_motion.py route locally within it",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "precision within 50 mm and 15 degrees uses bounded OSC",
+          "literal": "50",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "move_pose",
+          "text": "contact_approach within 50 mm and 15 degrees uses bounded OSC",
+          "literal": "50",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "move_pose",
+          "text": "when the complete change is within 50 mm and 15 degrees",
+          "literal": "50",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "move_pose",
+          "text": "contact_approach up to 50 mm/15 degrees is local",
+          "literal": "50",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "move_to",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "50",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "move_pose",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "50",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "servo_delta.rotation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.action:SERVO_MAX_ROTATION_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "libero_pro/session.py and robodojo/sparse_motion.py local route envelope",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "precision within 50 mm and 15 degrees uses bounded OSC",
+          "literal": "15",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "contact_approach within 50 mm and 15 degrees uses bounded OSC",
+          "literal": "15",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "when the complete change is within 50 mm and 15 degrees",
+          "literal": "15",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "contact_approach up to 50 mm/15 degrees is local",
+          "literal": "15",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "Rotations within 15 degrees use one bounded local Cartesian inverse-kinematics step",
+          "literal": "15",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "Rotations within 15 degrees use one bounded local Cartesian inverse-kinematics step",
+          "literal": "15",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "Rotations of at most 15 degrees execute through the bounded OSC servo",
+          "literal": "15",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "rotations of at most 15 degrees execute through the bounded OSC servo",
+          "literal": "15",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "move_to",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "15",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "15",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "libero.precontact_local_translation",
+      "kind": "parameter",
+      "owner": {
+        "derive": "difference",
+        "unit": "m",
+        "of": [
+          {
+            "python": "ora.contracts.action:SERVO_MAX_TRANSLATION_M",
+            "unit": "m"
+          },
+          {
+            "python": "ora.environment.controllers.hybrid_motion:libero_global_endpoint_tolerances",
+            "path": [
+              "()",
+              0
+            ],
+            "unit": "m"
+          }
+        ]
+      },
+      "unit": "m",
+      "enforced_by": "libero_pro/motion_settle.precontact_pose",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "leaves at most 35 mm and 10 degrees",
+          "literal": "35",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "libero.precontact_local_rotation",
+      "kind": "parameter",
+      "owner": {
+        "derive": "difference",
+        "unit": "rad",
+        "of": [
+          {
+            "python": "ora.contracts.action:SERVO_MAX_ROTATION_RAD",
+            "unit": "rad"
+          },
+          {
+            "python": "ora.environment.controllers.hybrid_motion:libero_global_endpoint_tolerances",
+            "path": [
+              "()",
+              1
+            ],
+            "unit": "rad"
+          }
+        ]
+      },
+      "unit": "rad",
+      "enforced_by": "libero_pro/motion_settle.precontact_pose",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "leaves at most 35 mm and 10 degrees",
+          "literal": "10",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "libero.control_period",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.libero_pro.motion_settle:LIBERO_CONTROL_PERIOD_S"
+      },
+      "unit": "s",
+      "enforced_by": "LIBERO BDDL environments run robosuite at control_freq=20 (libero_pro/motion_settle.py)",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "(50 ms each)",
+          "literal": "50",
+          "surfaces": [
+            "libero*"
+          ],
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "key": "libero.control_rate",
+      "kind": "parameter",
+      "owner": {
+        "derive": "reciprocal",
+        "unit": "Hz",
+        "of": [
+          {
+            "python": "ora.environment.backends.libero_pro.motion_settle:LIBERO_CONTROL_PERIOD_S",
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "Hz",
+      "enforced_by": "one control tick per LIBERO_CONTROL_PERIOD_S",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "the simulator advances in 20 Hz control ticks",
+          "literal": "20",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "libero.gripper_tolerance",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.controllers.libero_osc:GRIPPER_TOLERANCE_NORMALIZED"
+      },
+      "unit": "normalized",
+      "enforced_by": "libero_pro/session.py gripper arrival",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "within 0.03 of the commanded normalized opening",
+          "literal": "0.03",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "libero.gripper_ticks",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/baselines/native-full-explicit-motion-direct-v4.json",
+        "pointer": "/instances/libero_pro/runtime/servo_max_steps"
+      },
+      "unit": "count",
+      "enforced_by": "libero_pro/session.py bounds one gripper command by servo_max_steps control ticks",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "for at most 80 control ticks (4 s)",
+          "literal": "80",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "libero.gripper_seconds",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "json": "ora/policy/baselines/native-full-explicit-motion-direct-v4.json",
+            "pointer": "/instances/libero_pro/runtime/servo_max_steps",
+            "unit": "count"
+          },
+          {
+            "python": "ora.environment.backends.libero_pro.motion_settle:LIBERO_CONTROL_PERIOD_S",
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "servo_max_steps control ticks of LIBERO_CONTROL_PERIOD_S",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "for at most 80 control ticks (4 s)",
+          "literal": "4",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.jaw_contact_centre",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/arx-x5/descriptor-public-geometry-v5.json",
+        "pointer": "/geometry/grippers/0/reference_parameters/contact_center_distance_m"
+      },
+      "unit": "m",
+      "enforced_by": "agent/context/contact_point_projection.py projects jaw_center_pixels this far ahead of link6",
+      "statements": [
+        {
+          "tool": "observe",
+          "text": "the nominal pad contact centre 0.1501 m ahead of link6",
+          "literal": "0.1501",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.grasp_opening_ceiling",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.arx_x5_gripper:ARX_X5_NOMINAL_MAXIMUM_OPENING_M"
+      },
+      "unit": "m",
+      "enforced_by": "agent/tools/grasp.py moves a wider candidate to diagnostics.rejected (aperture_exceeds_embodiment_limit)",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "admitted up to the 80 mm nominal ceiling",
+          "literal": "80",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.grasp_ik_pool",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.composition.grasp_ik_reachability_schema:POOL_LIMIT"
+      },
+      "unit": "count",
+      "enforced_by": "agent/tools/reach_check.select_grasp_candidates",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "every compiled candidate in a pool of up to 32 is checked",
+          "literal": "32",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.grasp_vertical_preference",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.reach_check:VERTICAL_PREFERENCE_DEG"
+      },
+      "unit": "deg",
+      "enforced_by": "agent/tools/reach_check.py orders near-vertical reachable candidates first",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "those whose approach is within 30 degrees of straight down",
+          "literal": "30",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.wrist_roll_limit",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.grasp_jaw_symmetry:ARX_X5_WRIST_ROLL_LIMIT_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "the ARX X5 joint6 limit the IK checks and jaw-symmetry margins use",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "the wrist roll (limit +/-179.91 deg)",
+          "literal": "179.91",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "rounded": true,
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "on this arm only joint6 changes, limit +/-179.91 deg",
+          "literal": "179.91",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "rounded": true,
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.jaw_flip_margin_floor",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.move_pose_reach:JOINT6_MARGIN_FLOOR_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "agent/tools/move_pose_reach.py sends the flipped turn below this joint6 margin",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "has under 45 degrees of joint6 margin",
+          "literal": "45",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "unit": "deg",
+          "rounded": true
+        }
+      ]
+    },
+    {
+      "key": "robodojo.nearest_orientation_smallest",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.composition.reach_orientation_schema:ROTATIONS_DEG",
+        "path": [
+          0
+        ]
+      },
+      "unit": "deg",
+      "enforced_by": "agent/tools/reach_orientation.py sweeps these turns",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "(15 to 75 degrees in 15-degree steps",
+          "literal": "15",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.nearest_orientation_largest",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.composition.reach_orientation_schema:ROTATIONS_DEG",
+        "path": [
+          -1
+        ]
+      },
+      "unit": "deg",
+      "enforced_by": "agent/tools/reach_orientation.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "(15 to 75 degrees in 15-degree steps",
+          "literal": "75",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.nearest_orientation_step",
+      "kind": "parameter",
+      "owner": {
+        "derive": "difference",
+        "unit": "deg",
+        "of": [
+          {
+            "python": "ora.agent.composition.reach_orientation_schema:ROTATIONS_DEG",
+            "path": [
+              1
+            ],
+            "unit": "deg"
+          },
+          {
+            "python": "ora.agent.composition.reach_orientation_schema:ROTATIONS_DEG",
+            "path": [
+              0
+            ],
+            "unit": "deg"
+          }
+        ]
+      },
+      "unit": "deg",
+      "enforced_by": "agent/tools/reach_orientation.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "(15 to 75 degrees in 15-degree steps",
+          "literal": "15",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2",
+            "libero_overhead"
+          ],
+          "literal_index": 1
+        }
+      ]
+    },
+    {
+      "key": "robodojo.native_actions_per_command",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "native_actions_per_command"
+        ]
+      },
+      "unit": "count",
+      "enforced_by": "environment/backends/robodojo reserves this many native actions per command",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "reserves up to 20 native actions from the task's native-action allowance",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "so one command's 20 native actions last at most 0.8 s",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "when the 20 native actions ran out",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "within at most 20 native actions per command",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        },
+        {
+          "tool": "set_gripper",
+          "text": "\"native_actions_per_command\":20",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        },
+        {
+          "tool": "move_to",
+          "text": "within the command's reserved window of at most 20 native actions",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "move_pose",
+          "text": "It reserves up to 20 native actions of the task's native-action limit",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.skill_native_actions",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "count",
+        "of": [
+          {
+            "count_excluding": {
+              "items": "ora.agent.tools.skill_ledger:PREPARED_GRASP_STAGES",
+              "exclude": "ora.agent.tools.skill_ledger:READ_ONLY_STAGES"
+            },
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "native_actions_per_command"
+            ],
+            "unit": "count"
+          }
+        ]
+      },
+      "unit": "count",
+      "enforced_by": "five dispatched stages of one reserved command window each",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "so a complete sequence can consume up to 100",
+          "literal": "100",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.gripper_stall_window",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.common:ARX_GRIPPER_STALL",
+        "path": [
+          "window"
+        ]
+      },
+      "unit": "count",
+      "enforced_by": "environment/controllers/gripper_stall.py with robodojo/common.ARX_GRIPPER_STALL",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "a close that stops on the object ends 3 native actions after the jaws stop",
+          "literal": "3",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "three consecutive native actions that each moved less than 0.005",
+          "literal": "three",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "therefore ends 3 native actions (0.12 s) after the jaws stop",
+          "literal": "3",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.gripper_stall_step",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.common:ARX_GRIPPER_STALL",
+        "path": [
+          "still_step"
+        ]
+      },
+      "unit": "normalized",
+      "enforced_by": "environment/controllers/gripper_stall.py",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "three consecutive native actions that each moved less than 0.005",
+          "literal": "0.005",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.gripper_stall_seconds",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "python": "ora.environment.backends.robodojo.common:ARX_GRIPPER_STALL",
+            "path": [
+              "window"
+            ],
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_steps_per_native_action"
+            ],
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_dt_s"
+            ],
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "the stall window in native actions of physics_steps_per_native_action x physics_dt_s",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "therefore ends 3 native actions (0.12 s) after the jaws stop",
+          "literal": "0.12",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.jaw_hold_offset",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.jaw_hold:SYMMETRIC_OFFSET_BOUND_M"
+      },
+      "unit": "m",
+      "enforced_by": "agent/tools/jaw_hold.py reports unknown beyond it",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "has the finger pair shifted more than 4 mm to one side",
+          "literal": "4",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.physics_steps_per_native_action",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "physics_steps_per_native_action"
+        ]
+      },
+      "unit": "count",
+      "enforced_by": "the RoboDojo native action steps physics this many times",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "one native action is 10 physics steps of 4 ms",
+          "literal": "10",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.physics_step",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "physics_dt_s"
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "the RoboDojo physics step",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "one native action is 10 physics steps of 4 ms",
+          "literal": "4",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.control_rate",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "control_hz"
+        ]
+      },
+      "unit": "Hz",
+      "enforced_by": "the RoboDojo native action rate",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "(25 Hz, 40 ms per native action)",
+          "literal": "25",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.native_action_duration",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_steps_per_native_action"
+            ],
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_dt_s"
+            ],
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "physics_steps_per_native_action x physics_dt_s",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "(25 Hz, 40 ms per native action)",
+          "literal": "40",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.command_duration",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "native_actions_per_command"
+            ],
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_steps_per_native_action"
+            ],
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_dt_s"
+            ],
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "native_actions_per_command native actions",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "so one command's 20 native actions last at most 0.8 s",
+          "literal": "0.8",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.gripper_tolerance",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "gripper_tolerance_normalized"
+        ]
+      },
+      "unit": "normalized",
+      "enforced_by": "environment/backends/robodojo gripper arrival",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "within 0.03 of its effective target",
+          "literal": "0.03",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "normalized gripper error <= 0.03",
+          "literal": "0.03",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        },
+        {
+          "tool": "set_gripper",
+          "text": "\"gripper_tolerance_normalized\":0.03",
+          "literal": "0.03",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        }
+      ]
+    },
+    {
+      "key": "robodojo.gripper_drive_limit",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "gripper_drive_limit",
+          "maximum_normalized_offset"
+        ]
+      },
+      "unit": "normalized",
+      "enforced_by": "the pinned SDK MetaControl.get_action drive limiter the bridge retains",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "(0.2 below the first finger's reading while the jaws are held apart)",
+          "literal": "0.2",
+          "surfaces": [
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "set_gripper",
+          "text": "within 0.2 normalized units of the current FIRST finger encoder",
+          "literal": "0.2",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        },
+        {
+          "tool": "set_gripper",
+          "text": "\"maximum_normalized_offset\":0.2",
+          "literal": "0.2",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        }
+      ]
+    },
+    {
+      "key": "robodojo.position_tolerance",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "position_tolerance_m"
+        ]
+      },
+      "unit": "m",
+      "enforced_by": "RoboDojo controller arrival",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "position error <= 0.01 m",
+          "literal": "0.01",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        },
+        {
+          "tool": "set_gripper",
+          "text": "\"position_tolerance_m\":0.01",
+          "literal": "0.01",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "generated": true
+        }
+      ]
+    },
+    {
+      "key": "robodojo.orientation_tolerance",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+        "path": [
+          "orientation_tolerance_rad"
+        ]
+      },
+      "unit": "rad",
+      "enforced_by": "RoboDojo controller arrival",
+      "statements": [
+        {
+          "tool": "set_gripper",
+          "text": "orientation error <= 5.73 deg",
+          "literal": "5.73",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "generated": true,
+          "rounded": true,
+          "unit": "deg"
+        },
+        {
+          "tool": "set_gripper",
+          "text": "\"orientation_tolerance_deg\":5.729578",
+          "literal": "5.729578",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "generated": true,
+          "rounded": true,
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.precontact_local_translation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.staged_contact:PRECONTACT_LOCAL_TRANSLATION_M"
+      },
+      "unit": "m",
+      "enforced_by": "environment/backends/robodojo/staged_contact.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "locally executes only the final 40 mm/9.3 degrees",
+          "literal": "40",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.precontact_local_rotation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.staged_contact:PRECONTACT_LOCAL_ROTATION_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "environment/backends/robodojo/staged_contact.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "locally executes only the final 40 mm/9.3 degrees",
+          "literal": "9.3",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "deg",
+          "rounded": true
+        }
+      ]
+    },
+    {
+      "key": "robodojo.motion_stall_step",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.motion_stall:STALL_JOINT_STEP_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "environment/backends/robodojo/motion_stall.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "stops once no joint moves 0.286 deg per native action for 3 native actions",
+          "literal": "0.286",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "rounded": true,
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.motion_stall_window",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.motion_stall:STALL_WINDOW_NATIVE_ACTIONS"
+      },
+      "unit": "count",
+      "enforced_by": "environment/backends/robodojo/motion_stall.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "stops once no joint moves 0.286 deg per native action for 3 native actions",
+          "literal": "3",
+          "surfaces": [
+            "robodojo_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.recovery_retract",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.recovery:RETRACT_LIFT_M"
+      },
+      "unit": "m",
+      "enforced_by": "environment/backends/robodojo/recovery.py",
+      "statements": [
+        {
+          "tool": "recover_pose",
+          "text": "home first lifts link6 up to 0.10 m straight up",
+          "literal": "0.10",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wait.ticks",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.contracts.wait:WAIT_MAX_TICKS"
+      },
+      "unit": "count",
+      "enforced_by": "contracts/wait.validate_wait_arguments refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "at most 20 per call",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        },
+        {
+          "tool": "wait_ticks",
+          "text": "20 ticks is 0.8 s.",
+          "literal": "20",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2"
+          ]
+        },
+        {
+          "tool": "wait_ticks",
+          "text": "ticks that is not an integer from 1 to 20",
+          "literal": "20",
+          "surfaces": [
+            "robodojo_v2",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        },
+        {
+          "tool": "wait_ticks",
+          "text": "20 ticks is 1.0 s.",
+          "literal": "20",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "wait_ticks",
+          "pointer": "/properties/ticks/maximum",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wait.physics_steps_per_tick",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.contracts.wait:WAIT_PHYSICS_STEPS_PER_TICK"
+      },
+      "unit": "count",
+      "enforced_by": "contracts/wait.py",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "one tick being 10 physics steps (40 ms of simulated time)",
+          "literal": "10",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2"
+          ]
+        },
+        {
+          "tool": "wait_ticks",
+          "text": "One tick is 10 physics steps (40 ms of simulated time)",
+          "literal": "10",
+          "surfaces": [
+            "robodojo*",
+            "robotwin_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wait.tick_duration",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "python": "ora.contracts.wait:WAIT_PHYSICS_STEPS_PER_TICK",
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_dt_s"
+            ],
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "WAIT_PHYSICS_STEPS_PER_TICK physics steps of physics_dt_s",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "one tick being 10 physics steps (40 ms of simulated time)",
+          "literal": "40",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "ms"
+        },
+        {
+          "tool": "wait_ticks",
+          "text": "One tick is 10 physics steps (40 ms of simulated time)",
+          "literal": "40",
+          "surfaces": [
+            "robodojo*"
+          ],
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "key": "wait.call_duration",
+      "kind": "parameter",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "python": "ora.contracts.wait:WAIT_MAX_TICKS",
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.wait:WAIT_PHYSICS_STEPS_PER_TICK",
+            "unit": "count"
+          },
+          {
+            "python": "ora.contracts.robodojo_arx:ARX_X5_CONTRACT",
+            "path": [
+              "physics_dt_s"
+            ],
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "WAIT_MAX_TICKS ticks",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "20 ticks is 0.8 s.",
+          "literal": "0.8",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "geometry_query.window_maximum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/robot.py",
+        "pattern": "window_px must be in \\[\\d+,(\\d+)\\]"
+      },
+      "unit": "px",
+      "enforced_by": "ora/agent/tools/robot.py RobotToolRuntime._geometry refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "geometry_query",
+          "text": "window_px outside 0 to 15",
+          "literal": "15",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "geometry_query",
+          "pointer": "/properties/window_px/maximum",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.string_literal",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/compute.py",
+        "pattern": "if len\\(node\\.value\\) > (\\d+):"
+      },
+      "unit": "characters",
+      "enforced_by": "ora/agent/tools/compute.py refuses a longer string literal as invalid_arguments",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "a string literal longer than 32 characters",
+          "literal": "32",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "compute.binding_origin",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.compute_arguments:MAX_ORIGIN_CHARACTERS"
+      },
+      "unit": "characters",
+      "enforced_by": "ora/agent/tools/compute_arguments.py refuses a longer from as invalid_arguments",
+      "statements": [
+        {
+          "tool": "compute",
+          "text": "a binding whose from is blank or longer than 120 characters",
+          "literal": "120",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "compute",
+          "pointer": "/properties/bindings/items/properties/from/maxLength",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.text_characters",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/runtime/perception.py",
+        "pattern": "1 <= len\\(text\\.strip\\(\\)\\) <= (\\d+)"
+      },
+      "unit": "characters",
+      "enforced_by": "ora/agent/tools/runtime/perception.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "text that is empty after trimming or longer than 120 characters",
+          "literal": "120",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "vision_ground",
+          "pointer": "/properties/text/maxLength",
+          "surfaces": [
+            "robotwin*",
+            "libero*",
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vision_ground.card_height_with_depth_profile",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.grounding_preview:PROFILE_CARD_HEIGHT"
+      },
+      "unit": "px",
+      "enforced_by": "ora/agent/tools/grounding_preview.py, on a surface with grounding_candidate_depth_profile_v1",
+      "statements": [
+        {
+          "tool": "vision_ground",
+          "text": "one labelled 1024x800 raw/mask candidate card per result",
+          "literal": "800",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        }
+      ],
+      "requires_capability": "grounding_candidate_depth_profile_v1"
+    },
+    {
+      "key": "robotwin.grasp_opening_ceiling",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.aloha_gripper_geometry:ALOHA_NOMINAL_MAXIMUM_OPENING_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/grasp.py moves a wider candidate to diagnostics.rejected (aperture_exceeds_embodiment_limit)",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "exceeds the 94.9 mm nominal ceiling",
+          "literal": "94.9",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm",
+          "rounded": true
+        }
+      ]
+    },
+    {
+      "key": "libero.grasp_opening_ceiling",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.grasp:ContactGraspNetApiProposer",
+        "path": [
+          "maximum_aperture_m"
+        ]
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/tools/grasp.py: the Panda compiler declares no maximum, so the proposer's maximum_aperture_m applies (aperture_exceeds_panda_limit)",
+      "statements": [
+        {
+          "tool": "grasp_plan",
+          "text": "exceeds the 80 mm nominal ceiling",
+          "literal": "80",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "skill.quaternion_tolerance",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/skill_geometry.py",
+        "pattern": "abs\\(norm - 1\\.0\\) > ([0-9.e-]+):"
+      },
+      "unit": "normalized",
+      "enforced_by": "ora/agent/tools/skill_geometry.validate_prepared_targets refuses as candidate_geometry_unavailable",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "more than 0.001 from a unit quaternion",
+          "literal": "0.001",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robotwin.precommit_roll",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/environment/backends/robotwin/probe.py",
+        "pattern": "\\[0\\.0, -(\\d+)\\.0, \\d+\\.0, 180\\.0"
+      },
+      "unit": "deg",
+      "enforced_by": "ora/environment/backends/robotwin/probe.py parallel_jaw_equivalents",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "rolls of 0 and +/-10 degrees about the approach axis",
+          "literal": "10",
+          "surfaces": [
+            "robotwin_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robotwin.precommit_exact_roll",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/environment/backends/robotwin/probe.py",
+        "pattern": "\\[(\\d+)\\.0, -\\d+\\.0, \\d+\\.0, 180\\.0"
+      },
+      "unit": "deg",
+      "enforced_by": "ora/environment/backends/robotwin/probe.py parallel_jaw_equivalents",
+      "statements": [
+        {
+          "tool": "grasp_execute",
+          "text": "rolls of 0 and +/-10 degrees about the approach axis",
+          "literal": "0",
+          "surfaces": [
+            "robotwin_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "place.protected_regions",
+      "kind": "enforced",
+      "owner": {
+        "schema_keyword": {
+          "tool": "place_plan",
+          "pointer": "/properties/protected_before_refs/maxItems"
+        }
+      },
+      "unit": "count",
+      "enforced_by": "the place_plan input schema; the gateway refuses a longer list as invalid_arguments",
+      "statements": [
+        {
+          "tool": "place_plan",
+          "text": "Zero to three earlier same-round target_refs",
+          "literal": "three",
+          "surfaces": [
+            "robotwin"
+          ]
+        },
+        {
+          "tool": "place_plan",
+          "text": "Zero to three current-observation target_refs",
+          "literal": "three",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "place.rim_minimum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/placement.py",
+        "pattern": "\"minimum_points\": (\\d+), \"maximum_points\""
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/placement.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "place_plan",
+          "text": "Six to twelve ordered points",
+          "literal": "Six",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "place_plan",
+          "pointer": "/properties/rim/properties/points_uv/minItems",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "place.rim_maximum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/agent/tools/placement.py",
+        "pattern": "\"maximum_points\": (\\d+),"
+      },
+      "unit": "count",
+      "enforced_by": "ora/agent/tools/placement.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "place_plan",
+          "text": "Six to twelve ordered points",
+          "literal": "twelve",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "place_plan",
+          "pointer": "/properties/rim/properties/points_uv/maxItems",
+          "surfaces": [
+            "robotwin"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.ik_seed_cap",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.ik:MAX_CANDIDATES"
+      },
+      "unit": "count",
+      "enforced_by": "ora/environment/backends/robodojo/ik.py solves with min(MAX_CANDIDATES, the SDK num_seeds)",
+      "statements": [
+        {
+          "tool": "align_plan",
+          "text": "up to 32 seeds from the current joints (the SDK's configured count, capped at 32)",
+          "literal": "32",
+          "surfaces": [
+            "robodojo_v2"
+          ]
+        },
+        {
+          "tool": "align_plan",
+          "text": "up to 32 seeds from the current joints (the SDK's configured count, capped at 32)",
+          "literal": "32",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "literal_index": 1
+        }
+      ]
+    },
+    {
+      "key": "motion.angle_maximum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/contracts/motion.py",
+        "pattern": "abs\\(float\\(raw_angle\\)\\) > (\\d+\\.\\d+)"
+      },
+      "unit": "deg",
+      "enforced_by": "contracts/motion.py refuses as invalid_motion_arguments; the rotate schemas bound it too",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "a rotation_angle_deg outside [-180, 180]",
+          "literal": "180",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ],
+          "literal_index": 1
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "an angle outside [-180, 180] degrees",
+          "literal": "180",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ],
+          "literal_index": 1
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "an angle outside [-180, 180] degrees",
+          "literal": "180",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ],
+          "literal_index": 1
+        }
+      ],
+      "schema": [
+        {
+          "tool": "rotate_wrist",
+          "pointer": "/properties/targets/properties/left/maximum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "rotate_pitch",
+          "pointer": "/properties/targets/properties/right/maximum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "rotate_wrist",
+          "pointer": "/properties/angle_deg/maximum",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "motion.angle_minimum",
+      "kind": "enforced",
+      "owner": {
+        "derive": "negative",
+        "unit": "deg",
+        "of": [
+          {
+            "source": "ora/contracts/motion.py",
+            "pattern": "abs\\(float\\(raw_angle\\)\\) > (\\d+\\.\\d+)",
+            "unit": "deg"
+          }
+        ]
+      },
+      "unit": "deg",
+      "enforced_by": "contracts/motion.py refuses as invalid_motion_arguments",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "a rotation_angle_deg outside [-180, 180]",
+          "literal": "-180",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "an angle outside [-180, 180] degrees",
+          "literal": "-180",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "an angle outside [-180, 180] degrees",
+          "literal": "-180",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "rotate_wrist",
+          "pointer": "/properties/targets/properties/left/minimum",
+          "surfaces": [
+            "robotwin*",
+            "robodojo*"
+          ]
+        },
+        {
+          "tool": "rotate_pitch",
+          "pointer": "/properties/angle_deg/minimum",
+          "surfaces": [
+            "libero*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "pose.quaternion_norm_minimum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/contracts/pose.py",
+        "pattern": "if not ([\\d.]+) <= magnitude <= [\\d.]+:"
+      },
+      "unit": "normalized",
+      "enforced_by": "contracts/pose.canonicalize_quaternion refuses as invalid_motion_arguments",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "an orientation_xyzw whose norm lies outside [0.98, 1.02]",
+          "literal": "0.98",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "pose.quaternion_norm_maximum",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/contracts/pose.py",
+        "pattern": "if not [\\d.]+ <= magnitude <= ([\\d.]+):"
+      },
+      "unit": "normalized",
+      "enforced_by": "contracts/pose.canonicalize_quaternion refuses as invalid_motion_arguments",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "an orientation_xyzw whose norm lies outside [0.98, 1.02]",
+          "literal": "1.02",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robotwin.pure_rotation_local_rotation",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/strategy_router/pure_rotation_local/maximum_rotation_rad"
+      },
+      "unit": "rad",
+      "enforced_by": "environment/controllers/motion_transaction.py routes such a precision change local",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "rotates by at most 15 degrees while moving at most 5 mm is local",
+          "literal": "15",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_wrist",
+          "text": "Rotations of at most 15 degrees use measured local Cartesian control",
+          "literal": "15",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "deg"
+        },
+        {
+          "tool": "rotate_pitch",
+          "text": "Rotations of at most 15 degrees use measured local Cartesian control",
+          "literal": "15",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.pure_rotation_local_translation",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/strategy_router/pure_rotation_local/maximum_translation_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/motion_transaction.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "rotates by at most 15 degrees while moving at most 5 mm is local",
+          "literal": "5",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.plan_tcp_step",
+      "kind": "enforced",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/plan_validation/maximum_tcp_step_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/plan_validation.py rejects the plan",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "a planned TCP step above 80 mm",
+          "literal": "80",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.plan_workspace_margin",
+      "kind": "enforced",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/plan_validation/workspace_margin_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/plan_validation.py rejects the plan",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "leaving the action workspace by more than 0.1 m",
+          "literal": "0.1",
+          "surfaces": [
+            "robotwin_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robotwin.link_sphere_radius",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/dual_arm_collision_check/link_radius_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/inter_arm_clearance.py",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "the two arms' 45 mm link spheres coming within 5 mm of each other",
+          "literal": "45",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.link_sphere_clearance",
+      "kind": "enforced",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/dual_arm_collision_check/minimum_surface_clearance_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/inter_arm_clearance.py rejects the plan (inter_arm_collision)",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "the two arms' 45 mm link spheres coming within 5 mm of each other",
+          "literal": "5",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.link_sphere_escape",
+      "kind": "enforced",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/dual_arm_collision_check/escape_maximum_inward_deviation_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/controllers/inter_arm_clearance.py escape rule",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "closing in by more than 1 mm",
+          "literal": "1",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "robotwin.blocked_retreat",
+      "kind": "parameter",
+      "owner": {
+        "json": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "pointer": "/blocked_motion_recovery/retreat_distance_m"
+      },
+      "unit": "m",
+      "enforced_by": "environment/backends/robotwin/sparse_planning.py retreats before recovery after a blocked failure",
+      "statements": [
+        {
+          "tool": "recover_pose",
+          "text": "which first retreats 20 mm opposite the recorded approach direction",
+          "literal": "20",
+          "surfaces": [
+            "robotwin_v2"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "libero.local_endpoint_position",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.controllers.hybrid_motion:libero_local_endpoint_tolerances",
+        "path": [
+          "()",
+          0
+        ]
+      },
+      "unit": "m",
+      "enforced_by": "libero_pro/motion_settle.settle_refusal settles only above the local route's endpoint bound",
+      "statements": [
+        {
+          "tool": "move_to",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "5",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "mm"
+        },
+        {
+          "tool": "move_pose",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "5",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "libero.local_endpoint_orientation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.environment.controllers.hybrid_motion:libero_local_endpoint_tolerances",
+        "path": [
+          "()",
+          1
+        ]
+      },
+      "unit": "rad",
+      "enforced_by": "libero_pro/motion_settle.settle_refusal",
+      "statements": [
+        {
+          "tool": "move_to",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "2.86",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "rounded": true,
+          "unit": "deg"
+        },
+        {
+          "tool": "move_pose",
+          "text": "misses by more than 5 mm or 2.86 deg and by no more than 50 mm and 15 degrees",
+          "literal": "2.86",
+          "surfaces": [
+            "libero_overhead"
+          ],
+          "rounded": true,
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "world_axes.direction_length",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.world_axes:MIN_DIRECTION_LENGTH"
+      },
+      "unit": "length",
+      "enforced_by": "ora/agent/tools/world_axes.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "is shorter than 1e-6",
+          "literal": "1e-6",
+          "surfaces": [
+            "robodojo_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "world_axes.separation",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.tools.world_axes:MIN_SEPARATION_DEG"
+      },
+      "unit": "deg",
+      "enforced_by": "ora/agent/tools/world_axes.py refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "a jaw line within 5 degrees of the approach axis",
+          "literal": "5",
+          "surfaces": [
+            "robodojo_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robodojo.local_branch_jump",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.sparse_motion:LOCAL_JOINT_JUMP_LIMIT_RAD"
+      },
+      "unit": "rad",
+      "enforced_by": "ora/environment/backends/robodojo/sparse_motion.py rejects as plan_rejected local_ik_branch_jump",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "a local-route one above 57.3 deg",
+          "literal": "57.3",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "rounded": true,
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "key": "robodojo.pitch_interval_maximum",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.common:CANONICAL_JOINT_INTERVAL_RAD",
+        "path": [
+          1
+        ]
+      },
+      "unit": "rad",
+      "enforced_by": "ora/environment/backends/robodojo/ik.py rejects a solution as pitch_joint_wrap (common.pitch_joint_wraps)",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "out of [-pi, pi], or farther out when already outside",
+          "literal": "pi",
+          "surfaces": [
+            "robodojo_v2"
+          ],
+          "literal_index": 1
+        }
+      ]
+    },
+    {
+      "key": "robodojo.pitch_interval_minimum",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.environment.backends.robodojo.common:CANONICAL_JOINT_INTERVAL_RAD",
+        "path": [
+          0
+        ]
+      },
+      "unit": "rad",
+      "enforced_by": "ora/environment/backends/robodojo/ik.py rejects a solution as pitch_joint_wrap",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "out of [-pi, pi], or farther out when already outside",
+          "literal": "-pi",
+          "surfaces": [
+            "robodojo_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wait.minimum_ticks",
+      "kind": "enforced",
+      "owner": {
+        "source": "ora/contracts/wait.py",
+        "pattern": "not (\\d+) <= ticks <= WAIT_MAX_TICKS"
+      },
+      "unit": "count",
+      "enforced_by": "contracts/wait.validate_wait_arguments refuses as invalid_arguments",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "ticks that is not an integer from 1 to 20",
+          "literal": "1",
+          "surfaces": [
+            "robodojo_v2",
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        }
+      ],
+      "schema": [
+        {
+          "tool": "wait_ticks",
+          "pointer": "/properties/ticks/minimum",
+          "surfaces": [
+            "robodojo*"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "finish.reason_characters",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.composition.finish_outcomes_schema:MIN_REASON_CHARACTERS"
+      },
+      "unit": "characters",
+      "enforced_by": "agent/tools/finish_outcomes.reason_problem refuses a shorter reason as finish_reason_insufficient",
+      "statements": [
+        {
+          "tool": "finish_episode",
+          "text": "at least 24 characters and 4 words",
+          "literal": "24",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "finish.reason_words",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.agent.composition.finish_outcomes_schema:MIN_REASON_WORDS"
+      },
+      "unit": "words",
+      "enforced_by": "agent/tools/finish_outcomes.reason_problem refuses a shorter reason as finish_reason_insufficient",
+      "statements": [
+        {
+          "tool": "finish_episode",
+          "text": "at least 24 characters and 4 words",
+          "literal": "4",
+          "surfaces": [
+            "*_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "observed_clearance.holding_separation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.tools.localization:NEAR_CLOSED_M"
+      },
+      "unit": "m",
+      "enforced_by": "agent/tools/observed_clearance_geometry (HOLD_SEPARATION) reads the jaws as holding above this measured separation",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "the measured jaw separation exceeds 3 mm",
+          "literal": "3",
+          "unit": "mm",
+          "surfaces": [
+            "robotwin_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "robotwin.admission_ik_seeds",
+      "kind": "parameter",
+      "owner": {
+        "source": "ora/environment/backends/robotwin/vendored/planner.py",
+        "pattern": "seed_count = (\\d+)"
+      },
+      "unit": "count",
+      "enforced_by": "the vendored RoboTwin planner's nearest-IK admission solves with this many seeds",
+      "statements": [
+        {
+          "tool": "move_pose",
+          "text": "move_pose admits through a 128-seed collision-checked CuRobo IK",
+          "literal": "128",
+          "surfaces": [
+            "robotwin_v2"
+          ]
+        },
+        {
+          "tool": "grasp_execute",
+          "text": "one CuRobo exact-pose IK solve with 128 seeds",
+          "literal": "128",
+          "surfaces": [
+            "robotwin_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "libero.wait_tick_duration",
+      "kind": "enforced",
+      "owner": {
+        "python": "ora.environment.backends.libero_pro.motion_settle:LIBERO_CONTROL_PERIOD_S"
+      },
+      "unit": "s",
+      "enforced_by": "backends/libero_pro/wait.wait_timing refuses a wait whose control period, read from the worker, is not LIBERO_CONTROL_PERIOD_S; one tick is one env.step (controllers/libero_wait.py LIBERO_WAIT_TICK_UNIT control_step)",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "one LIBERO control step (50 ms of simulated time, 20 Hz)",
+          "literal": "50",
+          "unit": "ms",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        },
+        {
+          "tool": "wait_ticks",
+          "text": "One tick is one LIBERO control step (50 ms of simulated time)",
+          "literal": "50",
+          "unit": "ms",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "libero.wait_tick_rate",
+      "kind": "enforced",
+      "owner": {
+        "derive": "reciprocal",
+        "unit": "Hz",
+        "of": [
+          {
+            "python": "ora.environment.backends.libero_pro.motion_settle:LIBERO_CONTROL_PERIOD_S",
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "Hz",
+      "enforced_by": "the reciprocal of the LIBERO_CONTROL_PERIOD_S wait tick (backends/libero_pro/wait.py)",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "one LIBERO control step (50 ms of simulated time, 20 Hz)",
+          "literal": "20",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "libero.wait_call_duration",
+      "kind": "enforced",
+      "owner": {
+        "derive": "product",
+        "unit": "s",
+        "of": [
+          {
+            "python": "ora.contracts.wait:WAIT_MAX_TICKS",
+            "unit": "count"
+          },
+          {
+            "python": "ora.environment.backends.libero_pro.motion_settle:LIBERO_CONTROL_PERIOD_S",
+            "unit": "s"
+          }
+        ]
+      },
+      "unit": "s",
+      "enforced_by": "WAIT_MAX_TICKS ticks of LIBERO_CONTROL_PERIOD_S (backends/libero_pro/wait.py)",
+      "statements": [
+        {
+          "tool": "wait_ticks",
+          "text": "20 ticks is 1.0 s.",
+          "literal": "1.0",
+          "surfaces": [
+            "libero_overhead"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "delivery_trim.untargeted_drift_translation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.context.delivery_trim:DRIFT_NOISE_TRANSLATION_M"
+      },
+      "unit": "m",
+      "enforced_by": "ora/agent/context/delivery_trim.py leaves out an untargeted arm's inactive_arm_drift at or below it",
+      "statements": [
+        {
+          "tool": "observe",
+          "text": "its inactive_arm_drift only above 0.1 mm or 0.01 deg",
+          "literal": "0.1",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2",
+            "libero_overhead"
+          ],
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "key": "delivery_trim.untargeted_drift_orientation",
+      "kind": "parameter",
+      "owner": {
+        "python": "ora.agent.context.delivery_trim:DRIFT_NOISE_ORIENTATION_DEG"
+      },
+      "unit": "deg",
+      "enforced_by": "ora/agent/context/delivery_trim.py leaves out an untargeted arm's inactive_arm_drift at or below it",
+      "statements": [
+        {
+          "tool": "observe",
+          "text": "its inactive_arm_drift only above 0.1 mm or 0.01 deg",
+          "literal": "0.01",
+          "surfaces": [
+            "robotwin_v2",
+            "robodojo_v2",
+            "libero_overhead"
+          ]
+        }
+      ]
+    }
+  ],
+  "informational": [
+    {
+      "tools": [
+        "grasp_plan",
+        "place_plan",
+        "align_plan"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "\"position_m\":[0.1,0.0,0.9],\"orientation_mode\":\"absolute_quaternion\",\"orientation_xyzw\":[0.0,0.0,0.0,1.0]",
+      "reason": "illustrative call example whose pose the help says to replace"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "{\"bindings\":[{\"name\":\"a\",\"value\":[0.1,0.2,0.3]},{\"name\":\"b\",\"value\":[0.4,0.6,0.3]}]",
+      "reason": "illustrative call example"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "{\"bindings\":[{\"name\":\"p\",\"value\":[0.1,0.2,0.3]},{\"name\":\"q\",\"value\":[0.0,0.0,0.0,1.0]}]",
+      "reason": "illustrative call example"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "axis = geom.rotate(q, [1, 0, 0])\\npoint = p + 0.03 * axis\\nangle = geom.angle_deg(axis, [0, 0, 1])",
+      "reason": "illustrative call example"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "The first example returns distance_m=0.5; the second returns point=[0.13,0.2,0.3] and angle=90.",
+      "reason": "result of the illustrative example"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "np.clip(x,-1,1)",
+      "reason": "a call example's arguments"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "normalizes a nonzero 3-vector",
+      "reason": "vector dimension, not a limit"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "rotates a 3-vector by q",
+      "reason": "vector dimension, not a limit"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "the unsigned angle in [0,180] degrees",
+      "reason": "the mathematical range of an unsigned angle, not a refusal"
+    },
+    {
+      "tools": [
+        "compute"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "UTF-8",
+      "reason": "an encoding name"
+    },
+    {
+      "tools": [
+        "vision_segment"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "usually 3–5 separated interior points",
+      "reason": "usage advice, not a bound"
+    },
+    {
+      "tools": [
+        "vision_segment"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "Prefer 3–5 separated interior points",
+      "reason": "usage advice, not a bound"
+    },
+    {
+      "tools": [
+        "vision_segment"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "require position 0 to be the intended object",
+      "reason": "a list index"
+    },
+    {
+      "tools": [
+        "vision_ground"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "rank 0",
+      "reason": "a list index"
+    },
+    {
+      "tools": [
+        "vision_ground"
+      ],
+      "surfaces": [
+        "libero*"
+      ],
+      "text": "image 0 as the numbered full-scene overview",
+      "reason": "an image index"
+    },
+    {
+      "tools": [
+        "vision_ground"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "three cost roughly 479 milliseconds against 244 for one",
+      "reason": "measured service latency (EXP11B), not a limit"
+    },
+    {
+      "tools": [
+        "geometry_query"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "valid_count 0",
+      "reason": "a returned value"
+    },
+    {
+      "tools": [
+        "rotate_pitch"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "libero*",
+        "robodojo*"
+      ],
+      "text": "so +90 is not universally world-down",
+      "reason": "an illustrative angle"
+    },
+    {
+      "tools": [
+        "align_plan"
+      ],
+      "surfaces": [
+        "robotwin*",
+        "robodojo*"
+      ],
+      "text": "counting from 0",
+      "reason": "an index origin"
+    },
+    {
+      "tools": [
+        "set_gripper"
+      ],
+      "surfaces": [
+        "libero*"
+      ],
+      "text": "A full close in free air takes about 15 ticks (0.75 s).",
+      "reason": "measured on LIBERO; no code constant"
+    },
+    {
+      "tools": [
+        "set_gripper"
+      ],
+      "surfaces": [
+        "libero*"
+      ],
+      "text": "typically within 0.7 s",
+      "reason": "measured on LIBERO; no code constant"
+    },
+    {
+      "tools": [
+        "recover_pose"
+      ],
+      "surfaces": [
+        "libero*"
+      ],
+      "text": "measured median 9 mm on LIBERO",
+      "reason": "measured; no code constant"
+    },
+    {
+      "tools": [
+        "recover_pose"
+      ],
+      "surfaces": [
+        "libero*"
+      ],
+      "text": "measured median 260 mm",
+      "reason": "measured; no code constant"
+    },
+    {
+      "tools": [
+        "grasp_plan"
+      ],
+      "surfaces": [
+        "robodojo*",
+        "robotwin_v2",
+        "libero_overhead"
+      ],
+      "text": "its 180-degree jaw flip",
+      "reason": "the definition of the jaw flip (a half turn), not a limit"
+    },
+    {
+      "tools": [
+        "grasp_plan"
+      ],
+      "surfaces": [
+        "robodojo*"
+      ],
+      "text": "the same grasp turned 180 degrees about the approach axis",
+      "reason": "the definition of the jaw flip (a half turn), not a limit"
+    },
+    {
+      "tools": [
+        "move_pose"
+      ],
+      "surfaces": [
+        "robodojo*"
+      ],
+      "text": "turned 180 degrees about the approach axis",
+      "reason": "the definition of the jaw flip (a half turn), not a limit"
+    },
+    {
+      "tools": [
+        "set_gripper"
+      ],
+      "surfaces": [
+        "robodojo*"
+      ],
+      "text": "the jaws travel at most about 0.16 of the opening per native action",
+      "reason": "measured under the SDK drive limiter; no code constant"
+    },
+    {
+      "tools": [
+        "set_gripper"
+      ],
+      "surfaces": [
+        "robodojo*"
+      ],
+      "text": "(normalized opening about 0.185) in about 6 native actions (0.24 s), and a free-air open from closed takes about 8 (0.32 s)",
+      "reason": "measured free-air timings; no code constant"
+    },
+    {
+      "tools": [
+        "rotate_wrist",
+        "rotate_pitch"
+      ],
+      "surfaces": [
+        "*_v2",
+        "libero_overhead"
+      ],
+      "text": "an angle of 0",
+      "reason": "the no-op target rule (contracts/motion.py refuses a target that does not change the measured pose); 0 is the refused value, not a bound"
+    },
+    {
+      "tools": [
+        "grasp_execute"
+      ],
+      "surfaces": [
+        "robotwin_v2",
+        "robodojo_v2"
+      ],
+      "text": "180-degree jaw flip",
+      "reason": "the definition of the jaw flip (a half turn), not a limit"
+    },
+    {
+      "tools": [
+        "move_pose"
+      ],
+      "surfaces": [
+        "robotwin_v2"
+      ],
+      "text": "Measured against that IK on 7,860 align_plan poses from 500 states in 114 runs, it refuses about 5% of the poses move_pose admits and calls reachable about 4% of the poses move_pose refuses",
+      "reason": "measured disagreement of the RoboTwin read-only reach check against move_pose's admission IK; the delivered fractions are reach_reference_schema.MEASURED_DISAGREEMENT (0.05, 0.04)"
+    },
+    {
+      "tools": [
+        "wait_ticks"
+      ],
+      "surfaces": [
+        "robotwin_v2"
+      ],
+      "text": "(40 ms of simulated time)",
+      "reason": "RoboTwin's 4 ms physics step is the scene's own timestep (recorded as physics_dt_s 0.004 in the ALOHA servo profiles); robotwin/wait.py steps WAIT_PHYSICS_STEPS_PER_TICK scene steps per tick and reports tick_period_s from scene.get_timestep() in each receipt"
+    },
+    {
+      "tools": [
+        "wait_ticks"
+      ],
+      "surfaces": [
+        "robotwin_v2"
+      ],
+      "text": "20 ticks is 0.8 s.",
+      "reason": "RoboTwin's 4 ms physics step is the scene's own timestep (recorded as physics_dt_s 0.004 in the ALOHA servo profiles); robotwin/wait.py steps WAIT_PHYSICS_STEPS_PER_TICK scene steps per tick and reports tick_period_s from scene.get_timestep() in each receipt"
+    },
+    {
+      "tools": [
+        "recover_pose"
+      ],
+      "surfaces": [
+        "robodojo_v2"
+      ],
+      "text": "Joints move about 11.46 deg per native action",
+      "reason": "the 0.2 rad per native action free-air joint speed of the frozen text, restated in degrees by policy_angles_degrees_v1"
+    },
+    {
+      "tools": [
+        "grasp_execute"
+      ],
+      "surfaces": [
+        "robotwin_v2"
+      ],
+      "text": "(it is 0 only when no endpoint is valid)",
+      "reason": "a definitional zero: with no valid endpoint no endpoint can be continuous (robotwin/probe_feedback.py)"
+    },
+    {
+      "tools": [
+        "observe"
+      ],
+      "surfaces": [
+        "robotwin_v2",
+        "robodojo_v2",
+        "libero_overhead"
+      ],
+      "text": "native_pixel_to_image_offset_xy when it is [0, 0]",
+      "reason": "observation_delivery_trim_v1: the identity offset a camera entry leaves out"
+    },
+    {
+      "tools": [
+        "observe"
+      ],
+      "surfaces": [
+        "robotwin_v2",
+        "robodojo_v2",
+        "libero_overhead"
+      ],
+      "text": "below 0.000001 is 0",
+      "reason": "observation_delivery_trim_v1: the delivered value of a float below the zero threshold"
+    },
+    {
+      "tools": [
+        "move_pose"
+      ],
+      "surfaces": [
+        "robotwin_v2"
+      ],
+      "text": "not the 128-seed collision-checked CuRobo IK move_pose plans through",
+      "reason": "observation_delivery_trim_v1: the RoboTwin reach-check claim (environment/backends/robotwin/reach_inter_arm.py) quoted verbatim so results can leave it out"
+    },
+    {
+      "tools": [
+        "move_pose"
+      ],
+      "surfaces": [
+        "libero_overhead"
+      ],
+      "text": "checked against the 0.005 m / 2.86 deg arrival bound",
+      "reason": "observation_delivery_trim_v1: the LIBERO reach-check claim (environment/backends/libero_pro/reach_check.py, built from the arrival bound's own constants) quoted verbatim in its delivered degree form so results can leave it out"
+    }
+  ]
+}

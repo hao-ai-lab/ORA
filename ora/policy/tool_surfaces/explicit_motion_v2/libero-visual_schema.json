@@ -1,0 +1,47 @@
+{
+  "observe": {
+    "additionalProperties": false,
+    "properties": {
+      "history_point_ids": {
+        "description": "Solved mark_point IDs to reproject; omit or pass null for no history overlay.",
+        "items": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": [
+          "array",
+          "null"
+        ]
+      },
+      "views": {
+        "description": "Selected public views; omit for every physical camera. All current RGB views and calibration are already delivered automatically; use observe for overlays or saved observations.",
+        "items": {
+          "enum": [
+            "agentview",
+            "wrist",
+            "pointcloud_top",
+            "pointcloud_front",
+            "pointcloud_side"
+          ],
+          "type": "string"
+        },
+        "minItems": 1,
+        "type": [
+          "array",
+          "null"
+        ],
+        "uniqueItems": true
+      },
+      "step": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0,
+        "description": "Saved public observation step in the current round; omit or null for current. Historical selection is read-only and does not rewind the world. Use recovery.baseline_step when inspecting a retention baseline."
+      }
+    },
+    "type": "object",
+    "description": "With a historical step, request physical camera views only and omit history_point_ids; pointcloud views are current-only."
+  }
+}

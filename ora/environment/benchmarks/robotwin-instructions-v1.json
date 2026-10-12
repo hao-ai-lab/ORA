@@ -1,0 +1,160 @@
+{
+  "schema": "ora.robotwin-public-instructions.v1",
+  "note": "Public task instructions the EXP10A RoboTwin arms delivered, one per task; collected from the development line's experiment packages on 2026-09-30 for the official suite and moved here from experiments/official_suite_v1/robotwin-instructions.json on 2026-10-05 (task entries unchanged), so maintained RunSpec builders read them without importing an experiment package. Tasks marked seed_named take their instruction from a public episode-names file.",
+  "tasks": {
+    "adjust_bottle": {
+      "instruction": "Pick up the bottle on the table and hold it head up."
+    },
+    "beat_block_hammer": {
+      "instruction": "Grab the hammer on the table and beat the block with it."
+    },
+    "blocks_ranking_rgb": {
+      "instruction": "Move the three blocks to the center of the table and arrange them red, green and blue from left to right."
+    },
+    "blocks_ranking_size": {
+      "instruction": "Move the three blocks to the center of the table and arrange them from largest to smallest, from left to right."
+    },
+    "click_alarmclock": {
+      "instruction": "Click the button on the top of the alarm clock."
+    },
+    "click_bell": {
+      "instruction": "Click the top center of the bell."
+    },
+    "dump_bin_bigbin": {
+      "instruction": "Grab the small bin and pour the balls into the big bin."
+    },
+    "grab_roller": {
+      "instruction": "Use both arms to grab the roller on the table."
+    },
+    "handover_block": {
+      "instruction": "Grasp the red block with the left arm, hand it over to the right arm and place it on the blue pad."
+    },
+    "handover_mic": {
+      "instruction": "Grasp the microphone with one arm and hand it over to the other arm."
+    },
+    "hanging_mug": {
+      "instruction": "Pick up the mug with the left arm, rotate it and set it down in the middle of the table, then hang it on the rack with the right arm."
+    },
+    "lift_pot": {
+      "instruction": "Use both arms to lift the pot."
+    },
+    "move_can_pot": {
+      "instruction": "Pick up the can and move it beside the pot."
+    },
+    "move_pillbottle_pad": {
+      "instruction": "Use one arm to pick up the pill bottle and place it onto the pad."
+    },
+    "move_playingcard_away": {
+      "instruction": "Pick up the playing card and move it away from the near edge of the table."
+    },
+    "move_stapler_pad": {
+      "instruction": "Move the stapler to a colored mat."
+    },
+    "open_laptop": {
+      "instruction": "Use one arm to open the laptop."
+    },
+    "open_microwave": {
+      "instruction": "Use one arm to open the microwave."
+    },
+    "pick_diverse_bottles": {
+      "instruction": "Pick up one bottle with one arm and the other bottle with the other arm."
+    },
+    "pick_dual_bottles": {
+      "instruction": "Pick up one bottle with one arm and the other bottle with the other arm."
+    },
+    "place_a2b_left": {
+      "instruction": null,
+      "seed_named": true,
+      "note": "The public instruction names the two objects the seed spawns; supply it per (task, seed) through --episode-names."
+    },
+    "place_a2b_right": {
+      "instruction": null,
+      "seed_named": true,
+      "note": "The public instruction names the two objects the seed spawns; supply it per (task, seed) through --episode-names."
+    },
+    "place_bread_basket": {
+      "instruction": "Put every bread on the table into the basket."
+    },
+    "place_bread_skillet": {
+      "instruction": "Put the bread on the table into the skillet."
+    },
+    "place_burger_fries": {
+      "instruction": "Use both arms to pick up the hamburger and the fries and put them onto the tray."
+    },
+    "place_can_basket": {
+      "instruction": "Put the can into the basket with one arm, then lift the basket with the other arm."
+    },
+    "place_cans_plasticbox": {
+      "instruction": "Use both arms to pick up the cans and place them into the plastic box."
+    },
+    "place_container_plate": {
+      "instruction": "Place the container onto the plate."
+    },
+    "place_dual_shoes": {
+      "instruction": "Use both arms to put the two shoes into the shoe box with the shoe tips pointing left."
+    },
+    "place_empty_cup": {
+      "instruction": "Place the empty cup on the coaster."
+    },
+    "place_fan": {
+      "instruction": "Grab the fan and place it on a colored mat, facing the robot."
+    },
+    "place_mouse_pad": {
+      "instruction": "Grab the mouse and place it on a colored mat."
+    },
+    "place_object_basket": {
+      "instruction": "Put the target object into the basket, then grab the basket with the other arm and move it slightly away."
+    },
+    "place_object_scale": {
+      "instruction": "Use one arm to grab the object and put it on the scale."
+    },
+    "place_object_stand": {
+      "instruction": "Place the object on the stand."
+    },
+    "place_phone_stand": {
+      "instruction": "Pick up the phone and put it on the phone stand."
+    },
+    "place_shoe": {
+      "instruction": "Use one arm to grab the shoe from the table and place it on the mat."
+    },
+    "press_stapler": {
+      "instruction": "Use one arm to press the stapler."
+    },
+    "put_bottles_dustbin": {
+      "instruction": "Grab the bottles and put them into the dustbin to the left of the table."
+    },
+    "put_object_cabinet": {
+      "instruction": "Open the cabinet drawer with one arm and use the other arm to put the object on the table into the drawer."
+    },
+    "rotate_qrcode": {
+      "instruction": "Pick up the QR code board and rotate it so the code faces you."
+    },
+    "scan_object": {
+      "instruction": "Pick up the scanner with one arm and the object with the other, then scan the object."
+    },
+    "shake_bottle": {
+      "instruction": "Shake the bottle with the appropriate arm."
+    },
+    "shake_bottle_horizontally": {
+      "instruction": "Shake the bottle horizontally with the appropriate arm."
+    },
+    "stack_blocks_three": {
+      "instruction": "Move the three blocks to the center of the table and stack the blue block on the green block and the green block on the red block."
+    },
+    "stack_blocks_two": {
+      "instruction": "Move the two blocks to the center of the table and stack the green block on the red block."
+    },
+    "stack_bowls_three": {
+      "instruction": "Stack the three bowls on top of each other."
+    },
+    "stack_bowls_two": {
+      "instruction": "Stack the two bowls on top of each other."
+    },
+    "stamp_seal": {
+      "instruction": "Grab the stamp and stamp it onto the target colored mat."
+    },
+    "turn_switch": {
+      "instruction": "Use the arm to click the switch."
+    }
+  }
+}

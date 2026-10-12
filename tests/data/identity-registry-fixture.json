@@ -1,0 +1,182 @@
+{
+  "schema": "ora.experiment-lineage.v1",
+  "families": {
+    "EXP01A": {
+      "title": "Synthetic study A",
+      "description": "Fixture family with a main line and two forks."
+    },
+    "EXP01B": {
+      "title": "Synthetic study B",
+      "description": "Fixture family that receives runs by reviewed migration."
+    }
+  },
+  "namespaces": {
+    "study-a": "EXP01A",
+    "study-a-low": "EXP01A",
+    "study-b": "EXP01B"
+  },
+  "generations": {
+    "EXP01A/main/g001": {
+      "status": "historical",
+      "label": "First treatment; runs recorded before plans carried an identity.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01A",
+        "branch": "main",
+        "generation": "g001",
+        "parents": []
+      }
+    },
+    "EXP01A/main/g002": {
+      "status": "historical",
+      "label": "Revised prompt.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01A",
+        "branch": "main",
+        "generation": "g002",
+        "parents": [
+          "EXP01A/main/g001"
+        ]
+      }
+    },
+    "EXP01A/main/g003": {
+      "status": "historical",
+      "label": "Revised tool surface; plan-bound runs later relabeled to EXP01B.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01A",
+        "branch": "main",
+        "generation": "g003",
+        "parents": [
+          "EXP01A/main/g002"
+        ]
+      }
+    },
+    "EXP01A/main/g004": {
+      "status": "development",
+      "label": "Development successor on the main branch.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01A",
+        "branch": "main",
+        "generation": "g004",
+        "parents": [
+          "EXP01A/main/g003"
+        ]
+      }
+    },
+    "EXP01A/low/g001": {
+      "status": "historical",
+      "label": "Low-effort fork of main g002.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01A",
+        "branch": "low",
+        "generation": "g001",
+        "parents": [
+          "EXP01A/main/g002"
+        ]
+      }
+    },
+    "EXP01A/vla/g001": {
+      "status": "historical",
+      "label": "Learned-policy fork; legacy runs in a shared pilot namespace.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01A",
+        "branch": "vla",
+        "generation": "g001",
+        "parents": [
+          "EXP01A/main/g001"
+        ]
+      }
+    },
+    "EXP01B/main/g001": {
+      "status": "historical",
+      "label": "Shown by reviewed migration from EXP01A/main/g003.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01B",
+        "branch": "main",
+        "generation": "g001",
+        "parents": [
+          "EXP01A/main/g003"
+        ]
+      }
+    },
+    "EXP01B/main/g002": {
+      "status": "development",
+      "label": "First generation declared in EXP01B's own namespace.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01B",
+        "branch": "main",
+        "generation": "g002",
+        "parents": [
+          "EXP01B/main/g001"
+        ]
+      }
+    },
+    "EXP01B/main/g003": {
+      "status": "development",
+      "label": "Combines EXP01B g002 with the low-effort fork.",
+      "identity": {
+        "schema": "ora.experiment-identity.v1",
+        "family": "EXP01B",
+        "branch": "main",
+        "generation": "g003",
+        "parents": [
+          "EXP01B/main/g002",
+          "EXP01A/low/g001"
+        ]
+      }
+    }
+  },
+  "legacy_aliases": [
+    {
+      "experiment": "study-a",
+      "cohort_id": "study-a-g001",
+      "source_commit": "1111111111111111111111111111111111111111",
+      "generation_id": "EXP01A/main/g001"
+    },
+    {
+      "experiment": "study-a",
+      "cohort_id": "study-a-g002",
+      "source_commit": "2222222222222222222222222222222222222222",
+      "generation_id": "EXP01A/main/g002"
+    },
+    {
+      "experiment": "study-a-low",
+      "cohort_id": "study-a-low-g001",
+      "source_commit": "2222222222222222222222222222222222222222",
+      "generation_id": "EXP01A/low/g001"
+    },
+    {
+      "experiment": "shared-pilot",
+      "cohort_id": "",
+      "source_commit": "5555555555555555555555555555555555555555",
+      "generation_id": "EXP01A/vla/g001"
+    }
+  ],
+  "reviewed_migrations": [
+    {
+      "experiment": "study-a",
+      "cohort_id": "study-a-g003",
+      "source_commit": "3333333333333333333333333333333333333333",
+      "recorded_generation_id": "EXP01A/main/g003",
+      "generation_id": "EXP01B/main/g001",
+      "decided": "2026-01-02",
+      "review": "Fixture: the g003 runs answer the EXP01B question."
+    },
+    {
+      "experiment": "study-a",
+      "cohort_id": "study-a-g003-fill",
+      "source_commit": "4444444444444444444444444444444444444444",
+      "recorded_generation_id": "EXP01A/main/g003",
+      "generation_id": "EXP01B/main/g001",
+      "decided": "2026-01-02",
+      "review": "Fixture: the fill cohort of the same treatment at its own source."
+    }
+  ]
+}

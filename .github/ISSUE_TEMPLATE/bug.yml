@@ -1,0 +1,20 @@
+name: Bug report
+description: Report incorrect behavior with a reproducible example.
+body:
+  - type: textarea
+    attributes:
+      label: What happened and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction, commit and relevant RunSpec
+      description: Remove credentials, private endpoints and private observations.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: ora doctor output
+      description: Include --env for a simulator issue. Redact private paths if needed.
+    validations:
+      required: true

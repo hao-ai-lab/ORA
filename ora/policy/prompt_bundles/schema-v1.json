@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ora.prompt-bundle-authoring.v1",
+  "title": "Robot Harness modular prompt-bundle authoring manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "bundle_id",
+    "status",
+    "runtime",
+    "layers",
+    "bindings",
+    "ownership"
+  ],
+  "properties": {
+    "schema": {"const": "ora.prompt-bundle-authoring.v1"},
+    "bundle_id": {"$ref": "#/$defs/nonempty"},
+    "status": {"enum": ["draft", "reviewed"]},
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy_kind", "context_schema", "provider_scaffold"],
+      "properties": {
+        "policy_kind": {"enum": ["native_api", "codex", "claude_code"]},
+        "context_schema": {"enum": [
+          "ora.policy-context.v3",
+          "legacy_managed_v1"
+        ]},
+        "provider_scaffold": {"enum": ["none", "opaque_provider_owned"]}
+      }
+    },
+    "layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "planner",
+        "core",
+        "environment",
+        "embodiment",
+        "episode_task",
+        "tool_manual",
+        "tool_surface",
+        "dynamic_runtime"
+      ],
+      "properties": {
+        "planner": {"$ref": "#/$defs/source_list_layer"},
+        "core": {"$ref": "#/$defs/source_list_layer"},
+        "environment": {"$ref": "#/$defs/source_layer"},
+        "embodiment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "format", "descriptor", "control_profile", "delivery"],
+          "properties": {
+            "source": {"$ref": "#/$defs/nonempty"},
+            "format": {"const": "prompt_bundle_embodiment_v1"},
+            "descriptor": {"oneOf": [{"$ref": "#/$defs/nonempty"}, {"type": "null"}]},
+            "control_profile": {"oneOf": [{"$ref": "#/$defs/nonempty"}, {"type": "null"}]},
+            "delivery": {"$ref": "#/$defs/nonempty"}
+          }
+        },
+        "episode_task": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "placeholder", "delivery"],
+          "properties": {
+            "source": {"$ref": "#/$defs/nonempty"},
+            "placeholder": {"const": "{{TASK}}"},
+            "delivery": {"$ref": "#/$defs/nonempty"}
+          }
+        },
+        "tool_manual": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sources", "delivery", "reader_tool"],
+          "properties": {
+            "sources": {"$ref": "#/$defs/nonempty_strings"},
+            "delivery": {"enum": ["manifest_only", "on_demand", "managed_workspace_file"]},
+            "reader_tool": {"oneOf": [{"$ref": "#/$defs/nonempty"}, {"type": "null"}]}
+          }
+        },
+        "tool_surface": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["profile", "delivery"],
+          "properties": {
+            "profile": {"$ref": "#/$defs/nonempty"},
+            "delivery": {"$ref": "#/$defs/nonempty"}
+          }
+        },
+        "dynamic_runtime": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["owner", "delivery"],
+          "properties": {
+            "owner": {"const": "ora"},
+            "delivery": {"$ref": "#/$defs/nonempty"}
+          }
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_prompt_profile"],
+      "properties": {
+        "environment_prompt_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["profile_id", "public_environment_context"],
+          "properties": {
+            "profile_id": {"$ref": "#/$defs/nonempty"},
+            "public_environment_context": {"type": "object"}
+          }
+        }
+      }
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_terms", "embodiment_terms"],
+      "properties": {
+        "environment_terms": {"$ref": "#/$defs/nonempty_strings"},
+        "embodiment_terms": {"$ref": "#/$defs/nonempty_strings"}
+      }
+    }
+  },
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "nonempty_strings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/nonempty"}
+    },
+    "source_list_layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sources", "delivery"],
+      "properties": {
+        "sources": {"$ref": "#/$defs/nonempty_strings"},
+        "delivery": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "source_layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "delivery"],
+      "properties": {
+        "source": {"$ref": "#/$defs/nonempty"},
+        "delivery": {"$ref": "#/$defs/nonempty"}
+      }
+    }
+  }
+}

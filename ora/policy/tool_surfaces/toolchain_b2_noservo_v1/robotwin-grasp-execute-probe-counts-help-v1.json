@@ -1,0 +1,5 @@
+{
+  "append": {
+    "grasp_execute": "On this backend a refused probe's summary also carries ik_candidate_counts for each pose: returned is the solutions of one CuRobo exact-pose IK solve with 128 seeds from the measured joints, valid_endpoint counts those that are finite, solver-successful and within the joint limits, and continuous is null because this backend applies no joint-jump filter to IK endpoints (it is 0 only when no endpoint is valid). ik_outcome_counts names no_valid_endpoint, or no_admitted_trajectory when valid endpoints exist but no planned trajectory to them passed admission, and constraint_rejection_counts gives the three filters this backend measures, the others null. They describe one bounded IK solve and its trajectory admission, not proof that the pregrasp is unreachable."
+  }
+}

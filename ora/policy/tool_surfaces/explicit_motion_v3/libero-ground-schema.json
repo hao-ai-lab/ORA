@@ -1,0 +1,33 @@
+{
+  "vision.ground": {
+    "additionalProperties": false,
+    "properties": {
+      "camera": {
+        "description": "Exact current native-resolution RGB-D camera in which to ground the text.",
+        "enum": [
+          "agentview",
+          "wrist"
+        ],
+        "type": "string"
+      },
+      "max_candidates": {
+        "default": 3,
+        "description": "Maximum ranked regions to return, 1 to 3; omit for three. Three is what the grounding service answers per call, so a larger number is refused before the request is sent rather than returned as an error you cannot act on. Close-up previews are capped at the first six across a step: the request window holds 24 images and refuses rather than dropping the oldest. Breadth is not free: three regions cost roughly 479 milliseconds against 244 for one, so raise it from one when you are choosing between instances and leave it otherwise.",
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "text": {
+        "description": "Short visible object or part description used to retrieve an inspectable candidate set; use task language or a concrete visual rephrasing, never a simulator identifier.",
+        "maxLength": 120,
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "camera",
+      "text"
+    ],
+    "type": "object"
+  }
+}

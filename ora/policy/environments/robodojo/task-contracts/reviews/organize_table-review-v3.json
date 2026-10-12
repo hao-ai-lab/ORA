@@ -1,0 +1,207 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "organize_table",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/organize_table.py",
+    "file_sha256": "aceb298e78f3f39e4cf9a9f4c5a4f747b2c55f1a6006de2065e110a05f4295d6",
+    "run_reward_lines": [
+      23,
+      35
+    ],
+    "run_reward_sha256": "3e832b3f30109435422845d10de64b4495853bd3a1d07d9e74a410b2626fff95"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_0.json",
+    "layout_sha256": "e55e5cffef73b1967ad26dc0c7c8933ce05e68f329450ae0ac933abf386fa5ba",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Place the mouse on the mouse pad, push the keyboard into the frame, put the figurine on the stand, place the alarm clock on the drawer, then open the drawer and put all remaining miscellaneous items inside."
+  },
+  "native_action_limit": 1000,
+  "semantic_contract": [
+    "Place the mouse on its mouse pad, the keyboard lying flat over its marked frame so that it covers the middle of the frame, the figurine upright on its stand, and the alarm clock upright on top of the drawer unit, and let each placed object come to rest.",
+    "The keyboard is larger than its frame, so the instruction's 'push the keyboard into the frame' cannot mean fitting it inside: the keyboard lies over the frame, overhanging the frame's edges, centred so that it covers the frame's central strip along nearly the frame's whole length.",
+    "Keep the keyboard aligned with its frame, facing the same way and with the same side up as when the episode reset, and keep the mouse aligned with its pad, facing the same way as when the episode reset.",
+    "The instruction's final step, opening the drawer and putting remaining items inside, is not part of the official completion criteria.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/organize_table-completion-v3.md",
+    "sha256": "474a73f69442a85e3636f0daff5502461b9eadbd4a8d791b0e099fa57b85b15f"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/organize_table.yml",
+      "sha256": "9ffa15dd279060d4f042285a2c53a341c7208e2f89a2f3dd36ee08b22aa453fa"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mouse/00004/metadata.json",
+      "sha256": "3c9699b2e1aa4e09e89dcccb39433b12e47ce7e68eca8a93f3ee8565101bb616"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/alarm/00000/metadata.json",
+      "sha256": "d4670ac239f1fb0342f4717a5ae118c2858e363b51ab1cb42f8ff3d456eeefd9"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/keyboard/00000/metadata.json",
+      "sha256": "07aabcddd84ced704314f56a4eb305247e578529d1c59a9ae13c860a8db04a6b"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/garage/00008/metadata.json",
+      "sha256": "6997891009cc1c856d37a43d96427e381e829216f863cab1fb76b9879f45fb30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/drawer/00000/metadata.json",
+      "sha256": "b184ba5d4ee020440b1a48c8fa6e21f2ae8c5dd0f30a18994cdc92ca2347d32d"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/cube_cushion/00002/metadata.json",
+      "sha256": "9c2816df664ad3064c1df76167aefb7d4fb514123c05aee337fb20d806b3c2c2"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/monitor/00000/metadata.json",
+      "sha256": "fbbbef890324ea2585f3995a0f3291e118a4af65db8423ca69f9d4783b6690ce"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/mousemat/00000/metadata.json",
+      "sha256": "9f096ee8e83ae99d974bb52609948e648a7ac95b8303a7efa2d962b963f8e18e"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/frame/00000/metadata.json",
+      "sha256": "2ca33b0452068bd01787f484050ce1837b6a5c66fa96ef62a17767873c510840"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "clause-1",
+      "semantic": "Place the mouse on its mouse pad, the keyboard lying flat over its marked frame so that it covers the middle of the frame, the figurine upright on its stand, and the alarm clock upright on top of the drawer unit, and let each placed object come to rest."
+    },
+    {
+      "id": "clause-2",
+      "semantic": "The keyboard is larger than its frame, so the instruction's 'push the keyboard into the frame' cannot mean fitting it inside: the keyboard lies over the frame, overhanging the frame's edges, centred so that it covers the frame's central strip along nearly the frame's whole length."
+    },
+    {
+      "id": "clause-3",
+      "semantic": "Keep the keyboard aligned with its frame, facing the same way and with the same side up as when the episode reset, and keep the mouse aligned with its pad, facing the same way as when the episode reset."
+    },
+    {
+      "id": "clause-4",
+      "semantic": "The instruction's final step, opening the drawer and putting remaining items inside, is not part of the official completion criteria."
+    },
+    {
+      "id": "clause-5",
+      "semantic": "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    }
+  ],
+  "review_notes": [
+    "The official Boolean checks mouse/keyboard/figurine/alarm plus arm return; opening the drawer and miscellaneous-item storage appear in the original language but are not checked. Preserve original intent. Mouse local-y heading and keyboard local-y heading are checked; exact angular/numeric thresholds remain private. Asset up transforms and layout frame orientation were inspected; no success-image witness exists for this source.",
+    "v3 (EXP11A U6, 2026-09-30): registry-v4's keyboard wording ('inside its marked frame') contradicted the check. The keyboard check is a footprint-cover test of a fixed world-frame rectangle centred on the frame's middle, plus a signed heading check of the keyboard's local y against world +Y and an upright check of its local z; the keyboard asset's footprint exceeds the frame's in both horizontal directions. v3 states cover-the-middle, overhang, reset facing and reset up side qualitatively, and the mouse's reset facing (its heading check is also signed); the region extents and angular windows stay private."
+  ],
+  "review": {
+    "scope": "source/layout-bound qualitative contract review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "_mouse_checks",
+      "_keyboard_checks",
+      "_garage_checks",
+      "_alarm_checks",
+      "_single_item_score_options",
+      "_combined_item_score_options",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in wrong destination or wrong arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object IDs, numeric thresholds or evaluator code is delivered."
+  },
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Place the mouse on its mouse pad, the keyboard lying flat over its marked frame so that it covers the middle of the frame, the figurine upright on its stand, and the alarm clock upright on top of the drawer unit, and let each placed object come to rest.",
+      "The keyboard is larger than its frame, so the instruction's 'push the keyboard into the frame' cannot mean fitting it inside: the keyboard lies over the frame, overhanging the frame's edges, centred so that it covers the frame's central strip along nearly the frame's whole length.",
+      "Keep the keyboard aligned with its frame, facing the same way and with the same side up as when the episode reset, and keep the mouse aligned with its pad, facing the same way as when the episode reset.",
+      "The instruction's final step, opening the drawer and putting remaining items inside, is not part of the official completion criteria.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": []
+  },
+  "supersedes": {
+    "record": "ora/policy/environments/robodojo/task-contracts/reviews/organize_table-review-v2.json",
+    "record_sha256": "b0328311e18f48b1ca8fab221fd1f7ddc48691b3fdb33f70c7eb875a58d570ca",
+    "layer": "ora/policy/environments/robodojo/task-contracts/organize_table-completion-v2.md",
+    "layer_sha256": "92d86d9f8bf584dd35ba91da5b57b3c9c6868eeeaa78c6b977ec7a4233beac75"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "date": "2026-09-30",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and _keyboard_checks at the pinned revision",
+      "is_A_bbox_cover_rect_region, is_axis_aligned (signed angle between the axes) and is_axis_up in the pinned func_parser and transformer",
+      "the pinned layout file (frame and keyboard reset poses) and the frame and keyboard asset metadata",
+      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item a"
+    ],
+    "changes": [
+      "Replaces 'the keyboard inside its marked frame' with the keyboard lying flat over the frame so that it covers the frame's middle. _keyboard_checks requires the keyboard's world-frame footprint to contain a fixed rectangular region centred on the frame's middle (the frame is static scene geometry). The keyboard's footprint is larger than the frame's in both horizontal directions, so fitting it inside the frame is physically impossible and pointed the policy away from the check.",
+      "Adds a clause that says so publicly: the instruction's 'push the keyboard into the frame' means over it, overhanging the edges and covering the frame's central strip along nearly its whole length. The region's extents are not stated.",
+      "States the keyboard's facing and up-side requirements that registry-v4 left implicit: the heading check is signed, so the keyboard may not be turned around, and the upright check keeps the same side up. Both hold at reset, so they are stated relative to the reset pose; the angular windows stay private.",
+      "States the mouse's facing requirement the same way: _mouse_checks aligns the mouse's local +Y with world +X by a signed angle, which holds at reset, so a mouse turned around on its pad fails; 'aligned with its pad' alone left that silent. The angular window stays private."
+    ],
+    "carried_forward": "The mouse, figurine and alarm clock placements, the settling requirement, the drawer note and the return clause restate registry-v4's reviewed text verbatim.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

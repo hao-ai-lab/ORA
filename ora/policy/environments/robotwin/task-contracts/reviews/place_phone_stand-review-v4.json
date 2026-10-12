@@ -1,0 +1,307 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "place_phone_stand",
+  "status": "reviewed",
+  "reviewer": "Claude (Opus 5.5) individual predicate, mesh/asset and simulator counterfactual review requested by operator; fifty-task audit of 2026-10-07 for the zero-shot delivery",
+  "reviewed_at": "2026-10-07",
+  "scope": "Fifty-task semantic generation v4: corrects public clauses that a literal reading fails (wrong reference point or direction), adds checked end-state conditions the v3 text omitted, and corrects private review facts. Vague tolerances are deliberately left qualitative (operator decision 2026-10-07: no tightening, no numbers). Same source revisions as v3; evaluator, helper and asset sources unchanged at cf4872cc90538fd4bca761c8db912d8f65e49f2b. Counterfactual probes evaluate the official predicate on the expert's final geometry with one actor teleported; they are predicate evidence, not physical qualification of every asset variant.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/place_phone_stand.py",
+      "sha256": "719cf84ebf997b8d15d0ef9f997d439da62d64067a292b6008433da3536a0216"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/place_phone_stand.json",
+      "sha256": "4b5ae75353cd562b515aa2118dd51f12f9b86aef70c09e3c257c3a34f61828e7"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data0.json",
+      "sha256": "dd1e9b5af53636a53dea72611fd638c183d83f9817d2d50239a46bd69d84bd46"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data1.json",
+      "sha256": "2d7fae4a0413c5b156959a3a5cfaabd60072bcc2dae7aad535dd0bd292b267ac"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data2.json",
+      "sha256": "14f2917bf417ebc8efa8ff631dc17fdd8697fcb181ea95e5660c96767ecb4139"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data3.json",
+      "sha256": "fea6aa40ff10e8fae40009ddd9da8b851156880fc78fbb7e671fedd14f9d07f2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/model_data4.json",
+      "sha256": "db17091e9b80082b5124c94a3b0070d1b056417a2849cf8bd659251f4c59e59d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/077_phone/points_info.json",
+      "sha256": "4fc1962709490146955bbb31b02b0ef5612be80c3c465d093085fd2723d78e67"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data0.json",
+      "sha256": "3b225d5231a63233ceba1fe886db721ca7da4d0121918bc953224c430b4af3da"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data1.json",
+      "sha256": "48789245a8cd6947951e57db4131758a2becda4ae4922c19f5b6b17b6f993cab"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data2.json",
+      "sha256": "b6777d63e03ba32d4e1aeb202c70aaf484ca2c155a045ccec4a6807c55fe792b"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data3.json",
+      "sha256": "8721937172e029c1e87e1af60c3f271cda82cc6ff2362cabf4d8d159ac21f716"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data4.json",
+      "sha256": "165791883a273ee090c9cf9d73088e308c7fb0a6d184eebfd67b6277ef39b606"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data5.json",
+      "sha256": "90f0b4877bebc6d8d921ebac86bc75dc173090a11734ceef18eb513dd2f4823e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/model_data6.json",
+      "sha256": "b13814191cc87f6e4bafca792e14d16dca6cdec5c88531d0f8e38dfd86771a09"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/078_phonestand/points_info.json",
+      "sha256": "4a0fc5dee6f9e32bbcb55b4df963ab50273a646f04d1b764a2c270bc7ef741ff"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/077_phone/collision/base1.glb",
+      "sha256": "a9a3a37aa85536c7f0caf1cfea0bf02d2a2d060a509462a81f068992ab14248d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/077_phone/visual/base1.glb",
+      "sha256": "41a4c1fa556c21243e93fcad756bbd99be7a6e68deb6b8234f07e8501a960e0d"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/078_phonestand/collision/base2.glb",
+      "sha256": "b60a4e4b0b99806ce6e5eee3a7724bccf2bb1f7286b45015163f5d01386c732f"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/078_phonestand/visual/base2.glb",
+      "sha256": "37e94e5a59c763fabe17b4bdfebe0381a7b221e2021179c8c40128d96dc4f244"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/b704d5a396163f84bae44bfcef3ded76d58401c7/seed-qualification/oracle-place_phone_stand-s0-gpu6b-20260909T132943Z/place_phone_stand/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "f15f5c02efd3fa38c62c05b7bffceef7b183b1289afba86fa31c4c4b11695bcc"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/b704d5a396163f84bae44bfcef3ded76d58401c7/seed-qualification/oracle-place_phone_stand-s0-gpu6b-20260909T132943Z/place_phone_stand/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "c54e6fc8e363e09288042758f5a5a9f9ae00b41c74c4dd21a65409b0b4670c58"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/b704d5a396163f84bae44bfcef3ded76d58401c7/seed-qualification/oracle-place_phone_stand-s0-gpu6b-20260909T132943Z/place_phone_stand/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "ef5a9f2c2ac0a297e4fb5737471a6d55e9882deb3393188ef1b88685dc110761"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_phone_stand-demo_clean-s100000.json",
+      "sha256": "f2ef8f2e692898f74aba2fbedeb8b3e3185b9a725c9bd47619b306e65a026dbe"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/place_phone_stand-demo_clean-s100001.json",
+      "sha256": "1fb6ba8e7f058a55987105ca5675b4a38ecd6e2a546cff45df178317574c67b6"
+    }
+  ],
+  "public_clauses": [
+    "Seat the phone upright in the stand's cradle with its bottom edge down, the short edge that was nearer the robot when the phone lay on the table at the start, leaning back against the stand's support.",
+    "Leave both grippers open when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: phone FP0 and stand FP0 close in xyz; seating comes from task intent and paired feature metadata. v4: Phone functional point 0 is the centre of its bottom edge; it must meet the stand's tray point, which fixes which end goes down; simulator probe v4.",
+      "interpretation": "Seat the phone upright in the stand's cradle with its bottom edge down, the short edge that was nearer the robot when the phone lay on the table at the start, leaning back against the stand's support.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: is_left_gripper_open AND is_right_gripper_open; wrappers delegate to cached normalized gripper command state.",
+      "interpretation": "Leave both grippers open when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/place_phone_stand.py:check_success lines 99-104, helper and asset dependencies listed in this record.",
+      "interpretation": "No separate orientation, support or contact test, but the phone's bottom-edge feature must meet the stand's tray feature, which fixes bottom-edge-down seating: the same phone upside down or sideways about the same centre fails (v4 probe). Supersedes the v3 note that there is no top/bottom rule.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. Feature offset creates indirect pose dependence, not a universal portrait/landscape or top/bottom rule. No support/contact test."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. Phone0/1/2/4 have different initial quaternions and offset reference points; stand1/2 has cradle marker. No final rotation matrix is read."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "Phone0/1/2/4 have different initial quaternions and offset reference points; stand1/2 has cradle marker. No final rotation matrix is read. Parsed 14 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. Phone0/1/2/4 have different initial quaternions and offset reference points; stand1/2 has cradle marker. No final rotation matrix is read."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows phone resting in orange support at rear-left; top is partly occluded."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Phone merely overlaps stand in a view but sits away from cradle in depth: fails feature-position match. This is a source-derived counterexample review; it is not a newly executed simulator trial. v4: near-miss poses evaluated with the official predicate in the simulator (probe evidence)."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. Feature offset creates indirect pose dependence, not a universal portrait/landscape or top/bottom rule. No support/contact test."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Phone merely overlaps stand in a view but sits away from cradle in depth: fails feature-position match.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    },
+    {
+      "case": "Expert pose passes; the same phone turned upside down or sideways about the same centre fails.",
+      "expected": "Official predicate evaluated in the simulator with the actor teleported (expert-final or reset-state geometry); see v4_counterfactual_probe evidence.",
+      "v4_probe_results": [
+        {
+          "seed": 100000,
+          "method": "expert_final_counterfactual",
+          "expert_success": true,
+          "probes": {
+            "expert_pose": true,
+            "upside_down_same_centre": false,
+            "sideways_same_centre": false
+          },
+          "error": null
+        },
+        {
+          "seed": 100001,
+          "method": "expert_final_counterfactual",
+          "expert_success": true,
+          "probes": {
+            "expert_pose": true,
+            "upside_down_same_centre": false,
+            "sideways_same_centre": false
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "补上缺失条件：判据的手机参考点在底边中点，头尾颠倒或横放必失败；底边即初始时靠近机器人的短边。撤销v3“不规定上下”的判断。",
+  "witness_scope": {
+    "source_revision": "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "077_phone",
+        "model_id": 1
+      },
+      {
+        "model_name": "078_phonestand",
+        "model_id": 2
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows phone resting in orange support at rear-left; top is partly occluded.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "Feature offset creates indirect pose dependence, not a universal portrait/landscape or top/bottom rule. No support/contact test. Head image shows phone resting in orange support at rear-left; top is partly occluded. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification. v4: counterfactual probes cover the listed demo_clean expert-accepted seeds and their selected assets; reset-state probes test the predicate on constructed geometry, not physical reachability; other asset variants rely on metadata and mesh review."
+}

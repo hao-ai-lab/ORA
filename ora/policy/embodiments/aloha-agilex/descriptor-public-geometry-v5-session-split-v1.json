@@ -1,0 +1,433 @@
+{
+  "schema": "ora.embodiment-descriptor.v2",
+  "descriptor_id": "aloha_agilex_public_geometry_v5",
+  "embodiment_id": "aloha_agilex",
+  "display_name": "ALOHA AgileX public robot geometry",
+  "status": "draft",
+  "identity": {
+    "manufacturer": "AgileX",
+    "model": "ALOHA",
+    "variant": "source-bound dual-arm ALOHA-AgileX",
+    "base_mobility": "fixed"
+  },
+  "topology": {
+    "manipulators": [
+      {
+        "id": "left_arm",
+        "kind": "serial_arm",
+        "side": "left",
+        "joint_dof": 6
+      },
+      {
+        "id": "right_arm",
+        "kind": "serial_arm",
+        "side": "right",
+        "joint_dof": 6
+      }
+    ],
+    "end_effectors": [
+      {
+        "id": "left_gripper",
+        "kind": "parallel_jaw_gripper",
+        "manipulator_id": "left_arm",
+        "command_dof": 1
+      },
+      {
+        "id": "right_gripper",
+        "kind": "parallel_jaw_gripper",
+        "manipulator_id": "right_arm",
+        "command_dof": 1
+      }
+    ]
+  },
+  "control": {
+    "controlled_points": [
+      {
+        "id": "left_tcp",
+        "manipulator_id": "left_arm",
+        "source_name": "fl_link6",
+        "description": "tool_center",
+        "offset_from": "manipulator_flange",
+        "offset_m": [
+          0.12,
+          0,
+          0
+        ],
+        "local_axes": {
+          "approach": [
+            1,
+            0,
+            0
+          ],
+          "closing": [
+            0,
+            1,
+            0
+          ]
+        }
+      },
+      {
+        "id": "right_tcp",
+        "manipulator_id": "right_arm",
+        "source_name": "fr_link6",
+        "description": "tool_center",
+        "offset_from": "manipulator_flange",
+        "offset_m": [
+          0.12,
+          0,
+          0
+        ],
+        "local_axes": {
+          "approach": [
+            1,
+            0,
+            0
+          ],
+          "closing": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    ],
+    "action_abstraction": "cartesian_target",
+    "position_frame": "world",
+    "position_unit": "metre",
+    "orientation": {
+      "representation": "quaternion",
+      "order": "xyzw",
+      "angle_unit": "radian"
+    },
+    "controller_family": "hybrid",
+    "internal_controller_policy": "tool_surface_owned"
+  },
+  "geometry": {
+    "grippers": [
+      {
+        "end_effector_id": "left_gripper",
+        "opening_mode": "symmetric",
+        "maximum_aperture_m": null,
+        "aperture_semantics": "jaw_separation",
+        "contact_geometry": {
+          "controlled_point": "left_tcp",
+          "unit": "metre",
+          "reference_finger_qpos_m": [
+            0,
+            0
+          ],
+          "fingers": [
+            {
+              "id": "finger_1",
+              "opening_direction_local": [
+                -1e-07,
+                -1,
+                -1e-07
+              ],
+              "collision_bounds_m": {
+                "minimum": [
+                  -0.0504299923,
+                  -0.0373486018,
+                  -0.030500019
+                ],
+                "maximum": [
+                  0.0355700174,
+                  1.4076e-06,
+                  0.0305000152
+                ]
+              }
+            },
+            {
+              "id": "finger_2",
+              "opening_direction_local": [
+                2e-07,
+                1,
+                1e-07
+              ],
+              "collision_bounds_m": {
+                "minimum": [
+                  -0.0504300128,
+                  1.5451e-06,
+                  -0.0305000097
+                ],
+                "maximum": [
+                  0.0355700104,
+                  0.037351583,
+                  0.0304999948
+                ]
+              }
+            }
+          ],
+          "centerline_gap_at_tcp_m": 0.0048963953,
+          "claim": "robot_geometry_not_contact_or_grasp_guarantee"
+        }
+      },
+      {
+        "end_effector_id": "right_gripper",
+        "opening_mode": "symmetric",
+        "maximum_aperture_m": null,
+        "aperture_semantics": "jaw_separation",
+        "contact_geometry": {
+          "controlled_point": "right_tcp",
+          "unit": "metre",
+          "reference_finger_qpos_m": [
+            0,
+            0
+          ],
+          "fingers": [
+            {
+              "id": "finger_1",
+              "opening_direction_local": [
+                -1e-07,
+                -1,
+                -1e-07
+              ],
+              "collision_bounds_m": {
+                "minimum": [
+                  -0.0504300055,
+                  -0.0373485831,
+                  -0.0305000367
+                ],
+                "maximum": [
+                  0.0355700174,
+                  1.4301e-06,
+                  0.0305000125
+                ]
+              }
+            },
+            {
+              "id": "finger_2",
+              "opening_direction_local": [
+                2e-07,
+                1,
+                1e-07
+              ],
+              "collision_bounds_m": {
+                "minimum": [
+                  -0.0504300056,
+                  1.5734e-06,
+                  -0.0305000124
+                ],
+                "maximum": [
+                  0.0355700159,
+                  0.0373516102,
+                  0.0304999921
+                ]
+              }
+            }
+          ],
+          "centerline_gap_at_tcp_m": 0.0048963941,
+          "claim": "robot_geometry_not_contact_or_grasp_guarantee"
+        }
+      }
+    ],
+    "workspace_limits": {
+      "source": "tool_surface",
+      "projection": "tool_surface_enforced_bounds"
+    },
+    "collision_model": {
+      "source": "runtime",
+      "projection": "bounded_motion_execution_evidence"
+    }
+  },
+  "sensing": {
+    "cameras": [
+      {
+        "public_name": "head_camera",
+        "source_name": "head_camera",
+        "mounting": "fixed_world",
+        "attached_to": "world",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      },
+      {
+        "public_name": "front_camera",
+        "source_name": "front_camera",
+        "mounting": "fixed_world",
+        "attached_to": "world",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      },
+      {
+        "public_name": "left_camera",
+        "source_name": "left_camera",
+        "mounting": "end_effector",
+        "attached_to": "left_gripper",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      },
+      {
+        "public_name": "right_camera",
+        "source_name": "right_camera",
+        "mounting": "end_effector",
+        "attached_to": "right_gripper",
+        "modalities": [
+          "rgb",
+          "metric_depth"
+        ],
+        "calibration": "per_observation"
+      }
+    ],
+    "state_fields": [
+      {
+        "name": "eef_pose_xyz_xyzw",
+        "meaning": "controlled_point_pose",
+        "unit": "world_metre_xyzw",
+        "source": "observation"
+      }
+    ]
+  },
+  "dynamic_facts": [
+    {
+      "name": "camera_calibration",
+      "owner": "observation",
+      "reason": "camera_calibration"
+    },
+    {
+      "name": "robot_base_pose",
+      "owner": "runtime",
+      "reason": "robot_base_pose"
+    },
+    {
+      "name": "workspace_bounds",
+      "owner": "tool_surface",
+      "reason": "workspace_bounds"
+    }
+  ],
+  "evidence_limits": [
+    "motion_completion_not_contact",
+    "gripper_closure_not_contact",
+    "gripper_closure_not_retention",
+    "geometry_not_collision_guarantee"
+  ],
+  "provenance": {
+    "runtime_truth": "compiled_model",
+    "sources": [
+      {
+        "source_id": "aloha_urdf",
+        "kind": "robot_urdf",
+        "uri": "robot-asset://RoboTwin/aloha-agilex/urdf/arx5_description_isaac.urdf",
+        "revision": "cf4872cc90538fd4bca761c8db912d8f65e49f2b",
+        "sha256": "097c59fb19a7b482249c6097df8319586ea7cfd268c015516f103b289a7e761a",
+        "supports": [
+          "identity.base_mobility",
+          "topology.manipulator.left_arm",
+          "topology.end_effector.left_gripper",
+          "topology.manipulator.right_arm",
+          "topology.end_effector.right_gripper",
+          "geometry.gripper.left_gripper",
+          "geometry.gripper.right_gripper"
+        ]
+      },
+      {
+        "source_id": "aloha_control_binding",
+        "kind": "controller_config",
+        "uri": "repo://ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "local_path": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json",
+        "supports": [
+          "embodiment_control.controlled_point.left_tcp",
+          "embodiment_control.controlled_point.right_tcp",
+          "embodiment_control.action_abstraction",
+          "embodiment_control.internal_controller_policy",
+          "embodiment_control.position_frame",
+          "embodiment_control.position_unit",
+          "embodiment_control.orientation",
+          "geometry.workspace_limits",
+          "geometry.collision_model",
+          "dynamic.workspace_bounds",
+          "dynamic.robot_base_pose"
+        ]
+      },
+      {
+        "source_id": "robotwin_public_adapter",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/robotwin/observation.py",
+        "local_path": "ora/environment/backends/robotwin/observation.py",
+        "supports": [
+          "sensing.camera.head_camera",
+          "sensing.camera.front_camera",
+          "sensing.camera.left_camera",
+          "sensing.camera.right_camera",
+          "sensing.state.eef_pose_xyz_xyzw",
+          "dynamic.camera_calibration"
+        ]
+      },
+      {
+        "source_id": "robotwin_public_adapter_common",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/robotwin/common.py",
+        "local_path": "ora/environment/backends/robotwin/common.py",
+        "supports": [
+          "sensing.camera.head_camera",
+          "sensing.camera.front_camera",
+          "sensing.camera.left_camera",
+          "sensing.camera.right_camera",
+          "sensing.state.eef_pose_xyz_xyzw",
+          "dynamic.camera_calibration"
+        ]
+      },
+      {
+        "source_id": "robotwin_public_pose_frames",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/robotwin/kinematics.py",
+        "local_path": "ora/environment/backends/robotwin/kinematics.py",
+        "supports": [
+          "sensing.state.eef_pose_xyz_xyzw"
+        ]
+      },
+      {
+        "source_id": "robotwin_public_control_profile",
+        "kind": "environment_runtime_adapter",
+        "uri": "repo://ora/environment/backends/robotwin/control_profile.py",
+        "local_path": "ora/environment/backends/robotwin/control_profile.py",
+        "supports": [
+          "sensing.state.eef_pose_xyz_xyzw"
+        ]
+      },
+      {
+        "source_id": "aloha_cooked_robot_verification",
+        "kind": "robot_asset_verification",
+        "uri": "robot-asset-verification://aloha-grippers-v2.json",
+        "revision": "sapien-3.0.0b1-robot-only-no-step",
+        "sha256": "58a42b96d78ff3609737f8f655f8b5714eb82c4fcc65ab886bc71a4b291dc421",
+        "supports": [
+          "geometry.gripper.left_gripper",
+          "geometry.gripper.right_gripper",
+          "embodiment_control.controlled_point.left_tcp",
+          "embodiment_control.controlled_point.right_tcp"
+        ]
+      },
+      {
+        "source_id": "aloha_finger_1_collision_mesh",
+        "kind": "collision_mesh",
+        "uri": "robot-asset://RoboTwin/aloha-agilex/fl_link7",
+        "revision": "cf4872cc90538fd4bca761c8db912d8f65e49f2b",
+        "sha256": "ec3d40b39cccde0075ca3d16603f14f180fce41a46b446473d384def7a1b0be0",
+        "supports": [
+          "geometry.gripper.left_gripper",
+          "geometry.gripper.right_gripper"
+        ]
+      },
+      {
+        "source_id": "aloha_finger_2_collision_mesh",
+        "kind": "collision_mesh",
+        "uri": "robot-asset://RoboTwin/aloha-agilex/fl_link8",
+        "revision": "cf4872cc90538fd4bca761c8db912d8f65e49f2b",
+        "sha256": "29f7a8379cad81797e82e4ba099455cc275ac6ac5bb9e264ce46719fd7d2bb60",
+        "supports": [
+          "geometry.gripper.left_gripper",
+          "geometry.gripper.right_gripper"
+        ]
+      }
+    ]
+  }
+}

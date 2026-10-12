@@ -1,0 +1,323 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "scan_object",
+  "status": "reviewed",
+  "reviewer": "Claude (Opus 5.5) individual predicate, mesh/asset and simulator counterfactual review requested by operator; fifty-task audit of 2026-10-07 for the zero-shot delivery",
+  "reviewed_at": "2026-10-07",
+  "scope": "Fifty-task semantic generation v4: corrects public clauses that a literal reading fails (wrong reference point or direction), adds checked end-state conditions the v3 text omitted, and corrects private review facts. Vague tolerances are deliberately left qualitative (operator decision 2026-10-07: no tightening, no numbers). Same source revisions as v3; evaluator, helper and asset sources unchanged at cf4872cc90538fd4bca761c8db912d8f65e49f2b. Counterfactual probes evaluate the official predicate on the expert's final geometry with one actor teleported; they are predicate evidence, not physical qualification of every asset variant.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/scan_object.py",
+      "sha256": "860dfe2cc86d180096089bc87502c7904f7ce2efb64fb32620c1720ca0178c2b"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/scan_object.json",
+      "sha256": "0d641a174c056b17ea1d58c0305bd33e8c02f91a195877e6283f1d6e3005410b"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/024_scanner/model_data0.json",
+      "sha256": "e2f8e351d23f8b05c61bb95002949e3ed10e41986968b7d19a5de7c4bd63c5b4"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/024_scanner/model_data1.json",
+      "sha256": "630427f8b65314ed1b9ded333e172dde0a4245a98c5ceade403940a3dbc1e339"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/024_scanner/model_data2.json",
+      "sha256": "f6d2251c35ddcd56141349b390e9db06e266247ffaebec56d65775b834a59a3d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/024_scanner/model_data3.json",
+      "sha256": "9ba2db064adb186187728cd22f15b76a282bc037fd09f78ef580d62c0e004be0"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/024_scanner/model_data4.json",
+      "sha256": "f1781484a5d509ee8c3d3a77b3d1ab86e179d295b279daa6cf59cc767277b719"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/024_scanner/points_info.json",
+      "sha256": "227671b086448ac669c942746715333747133bb02a3a5001ae631ceba3cb8a33"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data0.json",
+      "sha256": "c1eaf4beef134c8089248a5e2a0ab5b44e7b20711d805740d1db51b1399504a2"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data1.json",
+      "sha256": "a7ae1b6b120d58dbcc216ad7b200e00c045daed42e508409961daf2baf8ec14c"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data2.json",
+      "sha256": "1d070bc9d2f97586a9669687a13710aa83fe4cc20e9afdd05b58bb40abbcdc3e"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data3.json",
+      "sha256": "cbbe5378ae6f008650fedafc12ca443c0933563863782c3bb264d0c6e0db74d6"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data4.json",
+      "sha256": "7e6615c455d23189a5b6d2bdf5a4ab843aa43ac448db5509f76348fa3f16637d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/model_data5.json",
+      "sha256": "7a7c9aa1879ab55dae5fac798551b78b4f846f6e0501b4ef7ee66b0d261cd821"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/112_tea-box/points_info.json",
+      "sha256": "80408e357012bc7679908e63110557003df7008b715af991c9a79f935a755986"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/024_scanner/collision/base2.glb",
+      "sha256": "09bcc7d8c519a3d8a37166dd406d5259954f369d0b648e797359b8a0db2fc3dc"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/024_scanner/visual/base2.glb",
+      "sha256": "0adc2962e8d5f85ea7c83fed02888b2531f8e80cc8db2d25ab3eb2bb6ccb411c"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/112_tea-box/collision/base5.glb",
+      "sha256": "b565a6aaa5d124be7618f25f91a5e4378505b50bf8ad4f4c4fad5343e9b35d7a"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/112_tea-box/visual/base5.glb",
+      "sha256": "3197a01ec7e39b00e47e2d0dbaaf5d4c306ff50290016aef3f0e7bb0f4276705"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-scan_object-s5-gpu7-20260908T213114Z/scan_object/attempts/seed-000005-try-00/attempt.json",
+      "sha256": "05c33a7cf5afd9d610959276b89199977506449a7622091d25abf5537cd35087"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-scan_object-s5-gpu7-20260908T213114Z/scan_object/attempts/seed-000005-try-00/verifier-telemetry.json",
+      "sha256": "5813d574f3956d7a45166bf2ae864bf5dec9a7736dc9aa53421f730ef7bad2e6"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08h-placement-bundle/robotwin-prerequisites/594653475fd31e57d456f880ec5c7e089f399a4b/seed-qualification/oracle-scan_object-s5-gpu7-20260908T213114Z/scan_object/attempts/seed-000005-try-00/head_camera-rgb.png",
+      "sha256": "23f9f3849ea2ce7713265fa3517fdcec1868352b0213340eb3a714df2754d0ff"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/scan_object-demo_clean-s100002.json",
+      "sha256": "79c138beb483766eb01231f971e6d1608ae232d0f403e6289a9defc560b1f412"
+    },
+    {
+      "role": "v4_counterfactual_probe",
+      "path": "outputs/robotwin-contract-v4-probes/scan_object-demo_clean-s100006.json",
+      "sha256": "b81ad740c47fca9b9dfcf529860853468308f188df9515c4aeef011199719c5a"
+    }
+  ],
+  "public_clauses": [
+    "Hold the scanner in one gripper and the object in the other, keeping both grippers set to close.",
+    "Aim the scanner's scanning window squarely at the centre of the object's base, the face it stood on at the start, and bring the window close to that face, with the object in front of the window."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "Original task: one item per arm; check_success requires both close helpers but does not check item retention contacts.",
+      "interpretation": "Hold the scanner in one gripper and the object in the other, keeping both grippers set to close.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: object projection close to scanner FP0; projected distance strictly positive and below .07 along incoming -functional-Z vector. v4: Tea-box root lies on the base face (asset metadata, all six models); simulator probe v4.",
+      "interpretation": "Aim the scanner's scanning window squarely at the centre of the object's base, the face it stood on at the start, and bring the window close to that face, with the object in front of the window.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/scan_object.py:check_success lines 103-112, helper and asset dependencies listed in this record.",
+      "interpretation": "No barcode decoding, trigger, contact, object yaw or fixed scanner world orientation. Geometric scan pose is the benchmark completion boundary.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No barcode decoding, trigger, contact, object yaw or fixed scanner world orientation. Geometric scan pose is the benchmark completion boundary."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. All scanner0..4 functional frames inspected: incoming target_vec=-Z, so outgoing window direction toward object is +Z. Tea-box root acts as object-body reference."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "All scanner0..4 functional frames inspected: incoming target_vec=-Z, so outgoing window direction toward object is +Z. Tea-box root acts as object-body reference. Parsed 13 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. All scanner0..4 functional frames inspected: incoming target_vec=-Z, so outgoing window direction toward object is +Z. Tea-box root acts as object-body reference."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows scanner window facing tea-box side while both are held; no visual code-reading outcome is asserted."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Scanner near object but aimed away or off its body: projection/sign fails. A trigger press is not a substitute for geometric alignment. This is a source-derived counterexample review; it is not a newly executed simulator trial. v4: near-miss poses evaluated with the official predicate in the simulator (probe evidence)."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No barcode decoding, trigger, contact, object yaw or fixed scanner world orientation. Geometric scan pose is the benchmark completion boundary."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Scanner near object but aimed away or off its body: projection/sign fails. A trigger press is not a substitute for geometric alignment.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    },
+    {
+      "case": "Window aimed at each of the six box faces at two small gaps: only the base face passes; aiming at the body middle through a side face fails.",
+      "expected": "Official predicate evaluated in the simulator with the actor teleported (expert-final or reset-state geometry); see v4_counterfactual_probe evidence.",
+      "v4_probe_results": [
+        {
+          "seed": 100002,
+          "method": "expert_final_counterfactual",
+          "expert_success": true,
+          "probes": {
+            "bottom@1cm": true,
+            "bottom@3cm": true,
+            "top@1cm": false,
+            "top@3cm": false,
+            "side+x@1cm": false,
+            "side+x@3cm": false,
+            "side-x@1cm": false,
+            "side-x@3cm": false,
+            "side+z@1cm": false,
+            "side+z@3cm": false,
+            "side-z@1cm": false,
+            "side-z@3cm": false,
+            "restored_expert_pose": true
+          },
+          "error": null
+        },
+        {
+          "seed": 100006,
+          "method": "expert_final_counterfactual",
+          "expert_success": true,
+          "probes": {
+            "bottom@1cm": true,
+            "bottom@3cm": true,
+            "top@1cm": false,
+            "top@3cm": false,
+            "side+x@1cm": false,
+            "side+x@3cm": false,
+            "side-x@1cm": false,
+            "side-x@3cm": false,
+            "side+z@1cm": false,
+            "side+z@3cm": false,
+            "side-z@1cm": false,
+            "side-z@3cm": false,
+            "restored_expert_pose": true
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "纠正参考点：判据量的是茶叶盒底面中心（原点在底面），v3“对准本体中部”照做必失败；改为对准底面中心。",
+  "witness_scope": {
+    "source_revision": "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "requested_seed": 5,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "024_scanner",
+        "model_id": 2
+      },
+      {
+        "model_name": "112_tea-box",
+        "model_id": 5
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows scanner window facing tea-box side while both are held; no visual code-reading outcome is asserted.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification",
+    "v4_note": "v4 probe on seeds 100002 and 100006: the expert's final scan axis lies within a fraction of a degree of the tea box's up axis and passes through the base-face centre; the v3 visual reading 'window facing tea-box side' is superseded."
+  },
+  "limitations": "No barcode decoding, trigger, contact, object yaw or fixed scanner world orientation. Geometric scan pose is the benchmark completion boundary. Head image shows scanner window facing tea-box side while both are held; no visual code-reading outcome is asserted. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification. v4: counterfactual probes cover the listed demo_clean expert-accepted seeds and their selected assets; reset-state probes test the predicate on constructed geometry, not physical reachability; other asset variants rely on metadata and mesh review."
+}

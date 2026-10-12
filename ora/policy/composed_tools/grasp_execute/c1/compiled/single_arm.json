@@ -1,0 +1,181 @@
+{
+  "schema": "ora.composed-tool-compiled.v1",
+  "tool": "grasp_execute",
+  "version": "c1",
+  "arm_profile": "single_arm",
+  "arms": [
+    "right"
+  ],
+  "source_sha256": "sha256:8d2705637ebbb439d0b0f542a8188bdd2d5e78f0dc3535f76b2ca59a8ef6a4fe",
+  "tunables_sha256": "sha256:83094dfa232520705b96f4efb2eb63b55433a374e5fe91a5708bc82c77233cf6",
+  "definition": {
+    "name": "grasp_execute",
+    "description": "Execute your selected grasp through open, pregrasp, approach, close, lift and verify.\nUse when: grasp_plan returned candidates on the current observation and you selected one, the gripper may open at its current position, and a short upward probe is appropriate; use manual motion for articulation or a grasp that must not lift.\nEffect: runs one committed sequence through the Supervisor and consumes one robot decision: open (open the gripper, releasing anything held), then pregrasp (move to the candidate's pregrasp pose in free space), then approach (follow the approach to the contact pose), then close (close the gripper), then lift (request 3 cm world-up at the same orientation), then verify (measure jaw separation beside the target's visible extent and the lift's effect), on the arm the candidate was compiled for. It dispatches at most 5 primitive actions; the Supervisor admits every one like the matching atomic command. When a stage does not arrive the sequence stops there and the remaining stages are skipped. Check stages only read public state.\nReturns: a submitted acknowledgement now; precommit_motion_check when the call produced it; on the next turn a staged receipt with one entry per stage that ran (status, reason, measurements), the stages not reached, and a fresh observation.\nDoes not: change the candidate, retry a stage, or stop for a decision halfway; infer an empty gripper before opening; opening releases anything held; certify attachment, stable transport or task success; a completed sequence only records execution.\nOn error: Refused: a candidate from an earlier observation (stale_candidate_observation); a candidate the planner did not publish (candidate_unavailable); a pregrasp or contact pose that is missing, non-finite or not a unit quaternion, that differs in orientation or does not stand off, or a pose outside the action workspace (candidate_geometry_unavailable); either probed pose unreachable, or the two reachable only under different parallel-jaw equivalents (grasp_pregrasp_unreachable); a backend equivalent that moved a committed position (environment_contract); an argument outside this schema (invalid_arguments, naming the field); another committed sequence is still running (skill_sequence_active); a placement is waiting at its pre-release stop (skill_sequence_paused); the episode has reached its terminal boundary (episode_terminal). A refusal submits nothing: correct the named field, or act on current evidence, before calling again.",
+    "inputSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The candidate_id of one candidate from a grasp_plan call on the current observation. A candidate from an earlier observation is refused as stale rather than executed against geometry the robot has moved through."
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "One short sentence saying why you chose this action now, at most 200 characters. It is echoed into the receipt and is the only record of the reason: the trajectory keeps the call and its result, never the reasoning behind them."
+        }
+      },
+      "required": [
+        "candidate_id",
+        "rationale"
+      ]
+    }
+  },
+  "result_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "submitted"
+        ]
+      },
+      "tool": {
+        "type": "string",
+        "const": "grasp_execute"
+      },
+      "version": {
+        "type": "string",
+        "const": "c1"
+      },
+      "arm": {
+        "type": "string",
+        "enum": [
+          "right"
+        ]
+      },
+      "committed_sequence": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "open",
+            "pregrasp",
+            "approach",
+            "close",
+            "lift",
+            "verify"
+          ]
+        },
+        "minItems": 6,
+        "maxItems": 6
+      },
+      "cost": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "robot_decisions": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "max_primitive_actions": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          }
+        },
+        "required": [
+          "robot_decisions",
+          "max_primitive_actions"
+        ]
+      },
+      "claim_boundary": {
+        "type": "string"
+      },
+      "candidate_id": {
+        "type": "string"
+      },
+      "precommit_motion_check": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "tool",
+      "version",
+      "arm",
+      "committed_sequence",
+      "cost",
+      "claim_boundary",
+      "candidate_id"
+    ]
+  },
+  "claim_boundary": "one committed sequence of trusted executions and the public measurements taken after it; motion arrival and jaw separation beside visible extents are evidence, not grasp, placement, retention or official task success",
+  "evidence": [
+    "precommit_motion_check"
+  ],
+  "stages": [
+    {
+      "name": "open",
+      "primitive": "gripper"
+    },
+    {
+      "name": "pregrasp",
+      "primitive": "move"
+    },
+    {
+      "name": "approach",
+      "primitive": "move"
+    },
+    {
+      "name": "close",
+      "primitive": "gripper"
+    },
+    {
+      "name": "lift",
+      "primitive": "move"
+    },
+    {
+      "name": "verify",
+      "primitive": "check"
+    }
+  ],
+  "budgets": {
+    "primitive_actions": 5,
+    "queries": 5,
+    "wall_s": 120,
+    "measurements_per_stage": 4
+  },
+  "refusals": [
+    {
+      "code": "stale_candidate_observation",
+      "retryable": true
+    },
+    {
+      "code": "candidate_unavailable",
+      "retryable": true
+    },
+    {
+      "code": "candidate_geometry_unavailable",
+      "retryable": true
+    },
+    {
+      "code": "grasp_pregrasp_unreachable",
+      "retryable": true
+    },
+    {
+      "code": "environment_contract",
+      "retryable": false
+    }
+  ],
+  "parameters": [],
+  "compiled_sha256": "sha256:e5cb2d6db6caf6599dbac68ba0b7d084e079efaace3b2f988d85fb871cd45827"
+}

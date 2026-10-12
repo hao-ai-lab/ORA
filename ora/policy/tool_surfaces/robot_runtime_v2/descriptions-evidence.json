@@ -1,0 +1,9 @@
+{
+  "append": {
+    "observation.dump_state": "Returned artifact identities are hash-bound; an older snapshot is evidence about that step and never proves the current scene is unchanged.",
+    "vision.inspect": "Overlays are visual annotations and do not create metric depth or hidden scene facts.",
+    "geometry.query": "Invalid or missing depth fails explicitly rather than being inferred.",
+    "robot.read_manual": "The advertised section enum is the complete current directory; section matching is exact and case-sensitive.",
+    "robot.submit_action": "A valid proposal is not an execution receipt, contact observation, grasp verdict, or task success; use the next fresh observation for measured outcome."
+  }
+}

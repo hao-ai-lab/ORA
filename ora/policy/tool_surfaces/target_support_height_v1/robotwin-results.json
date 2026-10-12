@@ -1,0 +1,1753 @@
+{
+  "vision.segment": {
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "additionalProperties": false,
+        "properties": {
+          "backend_score": {
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "localization": {
+            "$ref": "#/$defs/localization"
+          },
+          "mask_summary": {
+            "$ref": "#/$defs/mask_summary"
+          },
+          "overlay_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rank",
+          "target_ref",
+          "backend_score",
+          "bbox_xyxy",
+          "mask_summary",
+          "localization",
+          "overlay_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate_preview": {
+        "additionalProperties": false,
+        "properties": {
+          "crop_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "image_index": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "render_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "resampling": {
+            "const": "bicubic_visual_enlargement_no_new_source_detail",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "source_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_index",
+          "rank",
+          "target_ref",
+          "sha256",
+          "source_dimensions",
+          "source_bbox_xyxy",
+          "crop_xyxy",
+          "render_dimensions",
+          "resampling"
+        ],
+        "type": "object"
+      },
+      "depth_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "median": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "min",
+          "median",
+          "max"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "request_id",
+          "returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "localization": {
+        "additionalProperties": false,
+        "properties": {
+          "aabb_max_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "aabb_min_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "center_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "depth_inlier_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "extent_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "inlier_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "largest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "largest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mask_pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "middle_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "middle_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "primary_component_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "principal_axes_world": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "type": "array"
+            }
+          },
+          "principal_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "principal_extents_m": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "scope": {
+            "const": "visible_mask_depth",
+            "type": "string"
+          },
+          "smallest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "smallest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "localized",
+              "insufficient_depth"
+            ],
+            "type": "string"
+          },
+          "valid_depth_component_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "valid_depth_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "support_z_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "height_above_support_m": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "mid_height_z_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "support_point_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "support_height_basis": {
+            "type": "string",
+            "enum": [
+              "single_view_depth_ring_estimate_not_ground_truth"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "method",
+          "frame",
+          "scope",
+          "mask_pixel_count",
+          "valid_depth_point_count",
+          "valid_depth_component_count",
+          "inlier_point_count",
+          "depth_valid_fraction",
+          "primary_component_fraction",
+          "depth_inlier_fraction",
+          "center_xyz_m",
+          "aabb_min_xyz_m",
+          "aabb_max_xyz_m",
+          "extent_xyz_m",
+          "principal_axis_world"
+        ],
+        "type": "object"
+      },
+      "mask_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "area_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "centroid_uv": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "depth_m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/depth_summary"
+              }
+            ]
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pixel_count",
+          "area_fraction",
+          "bbox_xyxy",
+          "centroid_uv",
+          "depth_valid_fraction",
+          "depth_m"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_vector3": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_index": {
+            "const": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height",
+          "image_index"
+        ],
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "cache_reused": {
+        "type": "boolean"
+      },
+      "camera": {
+        "enum": [
+          "head_camera",
+          "front_camera",
+          "left_camera",
+          "right_camera"
+        ],
+        "type": "string"
+      },
+      "candidate_previews": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "crop_xyxy": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "type": "array"
+            },
+            "image_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "position": {
+              "maximum": 11,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "render_dimensions": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "type": "array"
+            },
+            "resampling": {
+              "type": "string"
+            },
+            "source_bbox_xyxy": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "type": "array"
+            },
+            "source_dimensions": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "type": "array"
+            },
+            "target_ref": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "target_ref",
+            "source_dimensions",
+            "source_bbox_xyxy",
+            "crop_xyxy",
+            "render_dimensions",
+            "resampling",
+            "position"
+          ],
+          "type": "object"
+        },
+        "maxItems": 5,
+        "type": "array"
+      },
+      "candidates": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "backend_score": {
+              "type": "number"
+            },
+            "bbox_xyxy": {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "localization": {
+              "$ref": "#/$defs/localization"
+            },
+            "mask_summary": {
+              "$ref": "#/$defs/mask_summary"
+            },
+            "mask_touches_image_boundary": {
+              "type": "boolean"
+            },
+            "normalization": {
+              "additionalProperties": false,
+              "properties": {
+                "method": {
+                  "const": "positive_prompt_8_connected_component_v1",
+                  "type": "string"
+                },
+                "prompt_component_pixel_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "raw_component_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "raw_pixel_count": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "retained_fraction": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "method",
+                "raw_component_count",
+                "raw_pixel_count",
+                "prompt_component_pixel_count",
+                "retained_fraction"
+              ],
+              "type": "object"
+            },
+            "overlay_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "position": {
+              "maximum": 11,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "representative_point_uv": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "shared_with_source_indexes": {
+              "items": {
+                "maximum": 7,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 8,
+              "type": "array"
+            },
+            "source_queries": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "query_index": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "source_index": {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "query_index",
+                  "source_index"
+                ],
+                "type": "object"
+              },
+              "maxItems": 24,
+              "type": "array"
+            },
+            "target_ref": {
+              "pattern": "^target-[0-9a-f]{24}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_ref",
+            "backend_score",
+            "bbox_xyxy",
+            "mask_summary",
+            "localization",
+            "overlay_sha256",
+            "candidate_id",
+            "source_queries",
+            "representative_point_uv",
+            "normalization",
+            "mask_touches_image_boundary",
+            "position",
+            "shared_with_source_indexes"
+          ],
+          "type": "object"
+        },
+        "maxItems": 12,
+        "type": "array"
+      },
+      "claim_boundary": {
+        "type": "string"
+      },
+      "image_mapping": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "camera": {
+              "enum": [
+                "head_camera",
+                "front_camera",
+                "left_camera",
+                "right_camera"
+              ],
+              "type": "string"
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "image_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "role": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ],
+          "type": "object"
+        },
+        "maxItems": 6,
+        "type": "array"
+      },
+      "image_order": {
+        "items": {
+          "type": "string"
+        },
+        "maxItems": 6,
+        "type": "array"
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "points_uv": {
+        "items": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "queries": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "candidate_count": {
+              "maximum": 3,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "candidate_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 3,
+              "type": "array"
+            },
+            "error_code": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "omitted_over_call_cap": {
+              "maximum": 3,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "omitted_over_point_limit": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "point_uv": {
+              "items": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "preview_image_index": {
+              "maximum": 5,
+              "minimum": 1,
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "previews_omitted": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "query_index": {
+              "maximum": 7,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "raw_candidate_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "status": {
+              "enum": [
+                "candidates",
+                "no_candidate",
+                "failed"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "query_index",
+            "point_uv",
+            "status",
+            "error_code",
+            "raw_candidate_count",
+            "candidate_count",
+            "candidate_ids",
+            "omitted_over_point_limit",
+            "omitted_over_call_cap",
+            "preview_image_index",
+            "previews_omitted"
+          ],
+          "type": "object"
+        },
+        "maxItems": 8,
+        "type": "array"
+      },
+      "query_count": {
+        "maximum": 8,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "query_ref": {
+        "type": "string"
+      },
+      "schema": {
+        "const": "ora.point-segmentation-batch.v2",
+        "type": "string"
+      },
+      "selection": {
+        "additionalProperties": false,
+        "properties": {
+          "distinct_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "duplicate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "mask_iou_threshold": {
+            "type": "number"
+          },
+          "max_candidates_per_point": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "max_returned_candidates": {
+            "maximum": 12,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "const": "per_point_reserved_then_rank_major_v1",
+            "type": "string"
+          },
+          "omitted_over_call_cap_total": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "omitted_over_point_limit_total": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "raw_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "rejected_candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "query_index": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "source_index": {
+                  "minimum": 0,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "query_index",
+                "source_index",
+                "reason"
+              ],
+              "type": "object"
+            },
+            "maxItems": 24,
+            "type": "array"
+          },
+          "returned_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "semantic_selection": {
+            "const": "agent",
+            "type": "string"
+          },
+          "usable_candidate_count": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "method",
+          "mask_iou_threshold",
+          "max_candidates_per_point",
+          "max_returned_candidates",
+          "raw_candidate_count",
+          "usable_candidate_count",
+          "distinct_candidate_count",
+          "duplicate_count",
+          "returned_count",
+          "omitted_over_point_limit_total",
+          "omitted_over_call_cap_total",
+          "rejected_candidates",
+          "semantic_selection"
+        ],
+        "type": "object"
+      },
+      "semantic_identity_verified": {
+        "const": false,
+        "type": "boolean"
+      },
+      "status": {
+        "enum": [
+          "candidates",
+          "partial",
+          "no_candidate"
+        ],
+        "type": "string"
+      }
+    },
+    "required": [
+      "schema",
+      "status",
+      "query_ref",
+      "observation_id",
+      "camera",
+      "points_uv",
+      "candidates",
+      "queries",
+      "selection",
+      "candidate_previews",
+      "image_order",
+      "cache_reused",
+      "semantic_identity_verified",
+      "claim_boundary",
+      "query_count"
+    ],
+    "type": "object"
+  },
+  "vision.ground": {
+    "$defs": {
+      "backend": {
+        "additionalProperties": false,
+        "properties": {
+          "config_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "config_sha256"
+        ],
+        "type": "object"
+      },
+      "candidate": {
+        "type": "object",
+        "properties": {
+          "rank": {
+            "type": "integer"
+          },
+          "target_ref": {
+            "type": "string"
+          },
+          "backend_score": {
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "mask_summary": {
+            "$ref": "#/$defs/mask_summary"
+          },
+          "localization": {
+            "$ref": "#/$defs/localization"
+          },
+          "overlay_sha256": {
+            "type": "string"
+          },
+          "candidate_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rank",
+          "target_ref",
+          "backend_score",
+          "bbox_xyxy",
+          "mask_summary",
+          "localization",
+          "overlay_sha256",
+          "candidate_id"
+        ],
+        "additionalProperties": false
+      },
+      "candidate_preview": {
+        "additionalProperties": false,
+        "properties": {
+          "crop_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "image_index": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "rank": {
+            "maximum": 2,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "render_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "resampling": {
+            "const": "bicubic_visual_enlargement_no_new_source_detail",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "source_dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "target_ref": {
+            "pattern": "^target-[0-9a-f]{24}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_index",
+          "rank",
+          "target_ref",
+          "sha256",
+          "source_dimensions",
+          "source_bbox_xyxy",
+          "crop_xyxy",
+          "render_dimensions",
+          "resampling"
+        ],
+        "type": "object"
+      },
+      "depth_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "median": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "min",
+          "median",
+          "max"
+        ],
+        "type": "object"
+      },
+      "diagnostics": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "$ref": "#/$defs/latency"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "returned_candidate_count": {
+            "maximum": 3,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "request_id",
+          "returned_candidate_count"
+        ],
+        "type": "object"
+      },
+      "latency": {
+        "additionalProperties": false,
+        "properties": {
+          "roundtrip": {
+            "type": "number"
+          },
+          "service_inference": {
+            "type": "number"
+          },
+          "service_queue": {
+            "type": "number"
+          },
+          "service_total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "roundtrip",
+          "service_queue",
+          "service_inference",
+          "service_total"
+        ],
+        "type": "object"
+      },
+      "localization": {
+        "additionalProperties": false,
+        "properties": {
+          "aabb_max_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "aabb_min_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "center_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "depth_inlier_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "extent_xyz_m": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "frame": {
+            "const": "world",
+            "type": "string"
+          },
+          "inlier_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "largest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "largest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mask_pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "middle_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "middle_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "primary_component_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "principal_axes_world": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "type": "array"
+            }
+          },
+          "principal_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "principal_extents_m": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "scope": {
+            "const": "visible_mask_depth",
+            "type": "string"
+          },
+          "smallest_extent_axis_world": {
+            "$ref": "#/$defs/nullable_vector3"
+          },
+          "smallest_extent_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "localized",
+              "insufficient_depth"
+            ],
+            "type": "string"
+          },
+          "valid_depth_component_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "valid_depth_point_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "support_z_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "height_above_support_m": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "mid_height_z_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "support_point_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "support_height_basis": {
+            "type": "string",
+            "enum": [
+              "single_view_depth_ring_estimate_not_ground_truth"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "method",
+          "frame",
+          "scope",
+          "mask_pixel_count",
+          "valid_depth_point_count",
+          "valid_depth_component_count",
+          "inlier_point_count",
+          "depth_valid_fraction",
+          "primary_component_fraction",
+          "depth_inlier_fraction",
+          "center_xyz_m",
+          "aabb_min_xyz_m",
+          "aabb_max_xyz_m",
+          "extent_xyz_m",
+          "principal_axis_world"
+        ],
+        "type": "object"
+      },
+      "mask_summary": {
+        "additionalProperties": false,
+        "properties": {
+          "area_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "bbox_xyxy": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "centroid_uv": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "depth_m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/depth_summary"
+              }
+            ]
+          },
+          "depth_valid_fraction": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "pixel_count": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pixel_count",
+          "area_fraction",
+          "bbox_xyxy",
+          "centroid_uv",
+          "depth_valid_fraction",
+          "depth_m"
+        ],
+        "type": "object"
+      },
+      "model": {
+        "additionalProperties": false,
+        "properties": {
+          "checkpoint_sha256": {
+            "type": "string"
+          },
+          "config_sha256": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "source_commit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "family",
+          "source_commit",
+          "checkpoint_sha256"
+        ],
+        "type": "object"
+      },
+      "nullable_vector3": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        ]
+      },
+      "overlay": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "image_index": {
+            "const": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha256",
+          "width",
+          "height",
+          "image_index"
+        ],
+        "type": "object"
+      }
+    },
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "const": true
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "candidates",
+          "no_candidate"
+        ]
+      },
+      "observation_id": {
+        "type": "string"
+      },
+      "camera": {
+        "type": "string",
+        "enum": [
+          "head_camera",
+          "front_camera",
+          "left_camera",
+          "right_camera"
+        ]
+      },
+      "text": {
+        "type": "string"
+      },
+      "grounding_ref": {
+        "type": "string"
+      },
+      "backend": {
+        "$ref": "#/$defs/backend"
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidate"
+        },
+        "maxItems": 3
+      },
+      "diagnostics": {
+        "$ref": "#/$defs/diagnostics"
+      },
+      "overlay": {
+        "$ref": "#/$defs/overlay"
+      },
+      "candidate_previews": {
+        "items": {
+          "$ref": "#/$defs/candidate_preview"
+        },
+        "maxItems": 3,
+        "type": "array"
+      },
+      "perception_evidence": {
+        "type": "object",
+        "properties": {
+          "schema": {
+            "type": "string",
+            "const": "ora.perception-selection-evidence.v1"
+          },
+          "prompt_kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "point"
+            ]
+          },
+          "source_image_size": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "point_uv": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "point_inside_returned_mask": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "semantic_identity_verified": {
+            "type": "boolean",
+            "const": false
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "target_ref": {
+                  "type": "string"
+                },
+                "mask_touches_image_boundary": {
+                  "type": "boolean"
+                },
+                "mask_pixel_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "depth_valid_fraction": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "depth_inlier_fraction": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "primary_component_fraction": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "visible_extent_xyz_m": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              },
+              "required": [
+                "target_ref",
+                "mask_touches_image_boundary",
+                "mask_pixel_count",
+                "depth_valid_fraction",
+                "depth_inlier_fraction",
+                "primary_component_fraction",
+                "visible_extent_xyz_m"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "schema",
+          "prompt_kind",
+          "source_image_size",
+          "point_uv",
+          "point_inside_returned_mask",
+          "semantic_identity_verified",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      "image_mapping": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "role": {
+              "type": "string"
+            },
+            "camera": {
+              "type": "string",
+              "enum": [
+                "head_camera",
+                "front_camera",
+                "left_camera",
+                "right_camera"
+              ]
+            },
+            "candidate_id": {
+              "type": "string"
+            },
+            "target_ref": {
+              "type": "string"
+            },
+            "observation_step": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "image_index",
+            "role",
+            "camera",
+            "candidate_id",
+            "target_ref",
+            "observation_step"
+          ]
+        }
+      }
+    },
+    "required": [
+      "success",
+      "status",
+      "observation_id",
+      "camera",
+      "text",
+      "grounding_ref",
+      "backend",
+      "candidates",
+      "diagnostics",
+      "overlay",
+      "candidate_previews",
+      "perception_evidence"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "append": {
+    "move_pose": "Every arm motion, grasp_execute stages included, stops once no joint moves 0.005 rad per native action for 3 native actions short of target, then holds its measured joints: controller_stalled with motion_progress (arms.<arm> or a stage measurement)."
+  }
+}

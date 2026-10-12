@@ -1,0 +1,8 @@
+{
+  "append": {
+    "move_pose": "Before submission each target gets a read-only reach pre-check, compiled_pose.targets.<arm>.reach_along_request. On this backend it is approximate and is not what move_pose runs: one CuRobo IK solve for the grip site from the measured joints, with joint limits and Panda self-collision only and no table, object or scene model (ik_model libero_curobo_ik_robot_only_v1, matches_move_pose_admission false). move_pose plans a full CuRobo trajectory where it routes globally and moves by bounded OSC, which no IK check models, where it routes locally. Its disagreement with move_pose has not yet been measured (measured_disagreement null). If the target does not solve, it also reports the farthest solving fraction of the straight path from the current pose, and that pose. It never blocks or changes the move.",
+    "move_to": "Its compiled_pose targets carry reach_along_request, the same approximate pre-check as move_pose's.",
+    "rotate_wrist": "Its compiled_pose targets carry reach_along_request, the same approximate pre-check as move_pose's.",
+    "rotate_pitch": "Its compiled_pose targets carry reach_along_request, the same approximate pre-check as move_pose's."
+  }
+}

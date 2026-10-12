@@ -1,0 +1,5 @@
+{
+  "append": {
+    "grasp_plan": "IK selection: before the max_candidates display cap, every compiled candidate in a pool of up to 32 is checked with this backend's read-only inverse kinematics -- pregrasp_pose as a free_space move from the current joints, then contact_pose as a contact_approach chained from that pregrasp, trying the compiled orientation and then its 180-degree jaw flip. Candidates it calls reachable are shown first, those whose approach is within 30 degrees of straight down before the rest, each group in backend order; the cap then keeps the first max_candidates and nothing else is dropped. Each shown candidate carries ik_reachability {reachable, member, pregrasp, approach, approach_tilt_from_vertical_deg}, and the result's ik_reachability states the solver, how many pool candidates were checked and how many were reachable. It is an IK reference at planning time, not a guarantee: every motion still runs its own backend admission, and matches_move_pose_admission says whether this solver is that one. reachable null means the check was unavailable and the backend order was kept."
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "append": {
+    "recover_pose": "Cost: previous undoes only the last motion action, so the arm travels about as far as that action did (measured median 9 mm on LIBERO); home travels to the start configuration wherever the task stands (measured median 260 mm, about six ordinary pose commands) and gives up the approach already made. Prefer previous when the last motion left a poor configuration; choose home only when the configuration before that motion is unusable too."
+  }
+}

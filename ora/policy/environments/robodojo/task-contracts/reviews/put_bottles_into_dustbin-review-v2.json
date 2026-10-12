@@ -1,0 +1,161 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "put_bottles_into_dustbin",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/put_bottles_into_dustbin.py",
+    "file_sha256": "3ba6e19df0c5ff19ba961092f031ce14e91e72a9a4a5934eece6000a1ffa1c48",
+    "run_reward_lines": [
+      21,
+      24
+    ],
+    "run_reward_sha256": "f4f8c28edeaba84b47e3385c68eb2ebffad0a1db47a0adfc78ab96febfdc70da"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_0.json",
+    "layout_sha256": "3c2168f460d48dde2d72d55429f1af7e850725b642dfcb8c8d5e31ed2ec25537",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Pick up the bottles and throw them into the dustbin, using handover when needed."
+  },
+  "native_action_limit": 700,
+  "semantic_contract": [
+    "Put all four bottles fully inside the dustbin, down in its lower interior.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/put_bottles_into_dustbin-completion-v2.md",
+    "sha256": "f36ada3ae4beb329eb25f61e09d3ffaf6c119c9327e1018e8e27f3ab05e219c1"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/put_bottles_into_dustbin.yml",
+      "sha256": "7eddf43e287b6e8aea686c6d686fb87e13ac1be1cb5aac16a8a2b0d2e9eb976e"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/bottle/00041/metadata.json",
+      "sha256": "9ad91a5a25c7e8ce0746e68f1e1849cbb656a819bee06f2c20e7c1e08ff40972"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/bottle/00060/metadata.json",
+      "sha256": "d3a59a806e9aff26327ec96f73013cce13b21f116fda23a265d38f16af0d7fd5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/bottle/00025/metadata.json",
+      "sha256": "7a9ab0555f8f30caba6e97d147540e6cf0f48027b934724f996e1bcffe0173dd"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/bottle/00022/metadata.json",
+      "sha256": "421aba4cfe465eec17c9fa6064d9b099afa841b6a10f5fab9f6c10a777b496ef"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/dustbin/00000/metadata.json",
+      "sha256": "41295bf8b6fc831e21f10aac32697c5009dd317ed10fa4629b854c0765de0a5e"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "clause-1",
+      "semantic": "Put all four bottles fully inside the dustbin, down in its lower interior."
+    },
+    {
+      "id": "clause-2",
+      "semantic": "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    }
+  ],
+  "review_notes": [
+    "All four is_A_on_B_bottom checks require complete projected bbox containment and bottom-height gap; all_robot_back_to_origin is separate. Handover is optional in original language, not a success clause. No impact trajectory or throwing velocity requirement."
+  ],
+  "review": {
+    "scope": "source/layout-bound qualitative contract review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "_bottle_checks",
+      "_single_item_score_options",
+      "_combined_item_score_options",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in wrong destination or wrong arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object IDs, numeric thresholds or evaluator code is delivered."
+  },
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Put all four bottles fully inside the dustbin, down in its lower interior.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": []
+  },
+  "supersedes": {
+    "record": "ora/policy/environments/robodojo/task-contracts/reviews/put_bottles_into_dustbin-review-v1.json",
+    "record_sha256": "16be88655422b7acb0eaadcb5a2459067adae0368a2efb9d76f934be8bac512f",
+    "layer": "ora/policy/environments/robodojo/task-contracts/put_bottles_into_dustbin-completion-v1.md",
+    "layer_sha256": "969e7691d03138c0eb8b01888303d6f21f5aaf2235770afb909ceac4c1340000"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for EXP11A g004; no simulator, provider or physical run",
+    "date": "2026-09-29",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and the reward-manager helpers it calls at the pinned revision",
+      "the pinned layout file",
+      "boundary-v2 applies the arm-return requirement only where the task contract states it"
+    ],
+    "changes": [
+      "Replaces 'Return both robot arms ... after completing the arrangement' with the simultaneous return clause: the arms are judged in the same check as the placements, not after them."
+    ],
+    "carried_forward": "Clauses not named in changes restate the predecessor's reviewed semantics.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

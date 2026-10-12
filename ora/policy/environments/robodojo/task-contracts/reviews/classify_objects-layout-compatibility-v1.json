@@ -1,0 +1,537 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "classify_objects",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects-review-v2.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/classify_objects-completion-v2.md",
+    "sha256": "de46d878c12cc0b2f5bee9ae0c27ae997392c10ccd70e7b6225c3147ab3d0c7d"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_0.json",
+    "layout_sha256": "5ceb9e18e6d8490a7db85dd001462d63265c297ea6fad0d7438364deb2de3ece"
+  },
+  "instruction": {
+    "text": "Sort the objects by category into the three baskets.",
+    "origin": "task/RoboDojo/tasks/classify_objects.py::gen_instruction"
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json"
+  },
+  "decision": "User decision 2026-10-01: EXP11A g012 adds a three-round session (K = 3 rounds) of classify_objects with a new reviewed layout of eval_seed 0 per round. This appendix extends the classify_objects review-v2 record from layout 0 to the reviewed pool 49, 54, 37 and the fallback 50 without changing its contract text, and binds each audited layout's object metadata.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/classify_objects.py:101-103) returns the constant template \"Sort the objects by category into the three baskets.\" with no placeholder, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
+    "Objects: every audited layout holds exactly the three Rigid groups cat0, cat1 and cat2 that run_reward reads by label prefix, each of one category with two or three instances, the three categories distinct, and no other Rigid instance. The baskets basket0-basket2 (basket/2, /3, /4) and the camera stand under Geometry, and the Room, Table, Ground and Background sections, are JSON-equal to the reviewed layout 0.",
+    "Contract text: the three review-v2 sentences name no category, count, position or model; \"a separate basket for each category\" holds because every audited layout has exactly three categories for the three baskets. The layout-0 categories (pen, watch, garage) are evidence for layout 0 only and are never delivered.",
+    "Evaluator: is_all_A_in_B and is_all_A_z_lower_than_B_bbox_zmax read object root poses and each basket's metadata oriented box. The settled check pairs cat_i with basket_i (record review note); the three basket models have the same oriented box (0.252 x 0.168 x 0.077 m), so that pairing acts the same in every layout.",
+    "Evaluator assets: the record binds the metadata of every object instance of layout 0 (evaluator_dependencies). Each row binds the metadata of every object instance of its own layout (evaluator_asset_dependencies; the layout-0 row reproduces the record's set byte for byte), which RunSpec resolution discloses for the scheduled layouts and fresh preflight re-hashes with the record's own dependencies (fail closed).",
+    "Asset load: action_camera/1 has no physics mass in its layout entries or its asset metadata, so RigidObject (env/scene_manager/objects/rigid.py) loads it at the 0.5 kg default; no audited layout holds it and no audited object is mass-clamped.",
+    "Not a reachability review: whether an arm reaches each object is decided by the catalog review (computed spawn distances) and the scene smoke (scheduled_object_reach); fixtures and placement targets are not reach-checked."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_0.json",
+      "layout_sha256": "5ceb9e18e6d8490a7db85dd001462d63265c297ea6fad0d7438364deb2de3ece",
+      "object_groups": {
+        "cat0": {
+          "category": "pen",
+          "labels": [
+            "cat0_0",
+            "cat0_1"
+          ],
+          "models": [
+            4,
+            1
+          ]
+        },
+        "cat1": {
+          "category": "watch",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            1,
+            0
+          ]
+        },
+        "cat2": {
+          "category": "garage",
+          "labels": [
+            "cat2_0",
+            "cat2_1",
+            "cat2_2"
+          ],
+          "models": [
+            15,
+            15,
+            15
+          ]
+        }
+      },
+      "object_count": 7,
+      "three_distinct_categories": true,
+      "baskets": {
+        "basket0": 2,
+        "basket1": 3,
+        "basket2": 4
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00015/metadata.json",
+          "root": "assets",
+          "sha256": "1a369d72cd6a5290dbe0a37fd070efad75f6220eff146f69700b3e88b88bba1f"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/pen/00001/metadata.json",
+          "root": "assets",
+          "sha256": "ba06cdc6765b77f685b781c498afbd6f169683da933bdbde4ac37d67a380d1da"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/pen/00004/metadata.json",
+          "root": "assets",
+          "sha256": "d5b71fa6a96ced02ad6dbb266ed91f741825112f8b712becda742457a2cca831"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00000/metadata.json",
+          "root": "assets",
+          "sha256": "67607c9304fcc53574d12343acd743e8786c723c037575c5f14cd322c785188f"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00001/metadata.json",
+          "root": "assets",
+          "sha256": "248b4820e639fd68b6d20974197334baa89ca9b4ff710607321f0909140e5e9e"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 49,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_49.json",
+      "layout_sha256": "a48d6b05e7d5e90d1ce311d26dfdfe98cf51488015d5af638d18160b8b2bf84f",
+      "object_groups": {
+        "cat0": {
+          "category": "garage",
+          "labels": [
+            "cat0_0",
+            "cat0_1"
+          ],
+          "models": [
+            15,
+            15
+          ]
+        },
+        "cat1": {
+          "category": "toy_car",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            1,
+            4
+          ]
+        },
+        "cat2": {
+          "category": "watch",
+          "labels": [
+            "cat2_0",
+            "cat2_1",
+            "cat2_2"
+          ],
+          "models": [
+            1,
+            2,
+            2
+          ]
+        }
+      },
+      "object_count": 7,
+      "three_distinct_categories": true,
+      "baskets": {
+        "basket0": 2,
+        "basket1": 3,
+        "basket2": 4
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/garage/00015/metadata.json",
+          "root": "assets",
+          "sha256": "1a369d72cd6a5290dbe0a37fd070efad75f6220eff146f69700b3e88b88bba1f"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00001/metadata.json",
+          "root": "assets",
+          "sha256": "6f6b9fd4f9fb3e45ca225e3ae63b4a2d39c7518b56a24d74293acef06baca06b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00004/metadata.json",
+          "root": "assets",
+          "sha256": "6c0a71485e3fe3dee7141fa6d6bfb8ae9268ab2db628763c1b55199331cb6604"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00001/metadata.json",
+          "root": "assets",
+          "sha256": "248b4820e639fd68b6d20974197334baa89ca9b4ff710607321f0909140e5e9e"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00002/metadata.json",
+          "root": "assets",
+          "sha256": "e0834452ff65a3626178918b21c81e3b21fec1c669cd5aca84fbddfe8a0c8e27"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 54,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_54.json",
+      "layout_sha256": "fd4081c096b7ad0da466680a42c095da6c58354d038516978c70098c4ac4fc15",
+      "object_groups": {
+        "cat0": {
+          "category": "action_camera",
+          "labels": [
+            "cat0_0",
+            "cat0_1",
+            "cat0_2"
+          ],
+          "models": [
+            2,
+            0,
+            2
+          ]
+        },
+        "cat1": {
+          "category": "watch",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            1,
+            0
+          ]
+        },
+        "cat2": {
+          "category": "toy_car",
+          "labels": [
+            "cat2_0",
+            "cat2_1"
+          ],
+          "models": [
+            0,
+            0
+          ]
+        }
+      },
+      "object_count": 7,
+      "three_distinct_categories": true,
+      "baskets": {
+        "basket0": 2,
+        "basket1": 3,
+        "basket2": 4
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/action_camera/00000/metadata.json",
+          "root": "assets",
+          "sha256": "8f315613dd982875dc6c537188231bb748a6f0dbca603214d5a6be70756ceec9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/action_camera/00002/metadata.json",
+          "root": "assets",
+          "sha256": "4b524a073315002ac27bfd811b15664bc619eb80d5e81180bd6ad5a2c7fd4f58"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00000/metadata.json",
+          "root": "assets",
+          "sha256": "44868628d7ef0df14d0bfea236e6e7e831b043b7e23c9f3821e60b7b9bff16ad"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00000/metadata.json",
+          "root": "assets",
+          "sha256": "67607c9304fcc53574d12343acd743e8786c723c037575c5f14cd322c785188f"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00001/metadata.json",
+          "root": "assets",
+          "sha256": "248b4820e639fd68b6d20974197334baa89ca9b4ff710607321f0909140e5e9e"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 37,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_37.json",
+      "layout_sha256": "3a5fc76c5c6c49137a2d105641ff424b83a75dfe84b11209c2d99721df2a3808",
+      "object_groups": {
+        "cat0": {
+          "category": "toy_car",
+          "labels": [
+            "cat0_0",
+            "cat0_1"
+          ],
+          "models": [
+            4,
+            3
+          ]
+        },
+        "cat1": {
+          "category": "pen",
+          "labels": [
+            "cat1_0",
+            "cat1_1",
+            "cat1_2"
+          ],
+          "models": [
+            0,
+            0,
+            1
+          ]
+        },
+        "cat2": {
+          "category": "watch",
+          "labels": [
+            "cat2_0",
+            "cat2_1"
+          ],
+          "models": [
+            1,
+            0
+          ]
+        }
+      },
+      "object_count": 7,
+      "three_distinct_categories": true,
+      "baskets": {
+        "basket0": 2,
+        "basket1": 3,
+        "basket2": 4
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/pen/00000/metadata.json",
+          "root": "assets",
+          "sha256": "096ae5b15c74600a7e84171f6c0fc25e05dd25fe2244ff18ab8cce08347f57e1"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/pen/00001/metadata.json",
+          "root": "assets",
+          "sha256": "ba06cdc6765b77f685b781c498afbd6f169683da933bdbde4ac37d67a380d1da"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00003/metadata.json",
+          "root": "assets",
+          "sha256": "ee3f7c6669a4ebdb17cbecbc5363ea761768fbae93a87cb20a6548725131c698"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00004/metadata.json",
+          "root": "assets",
+          "sha256": "6c0a71485e3fe3dee7141fa6d6bfb8ae9268ab2db628763c1b55199331cb6604"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00000/metadata.json",
+          "root": "assets",
+          "sha256": "67607c9304fcc53574d12343acd743e8786c723c037575c5f14cd322c785188f"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00001/metadata.json",
+          "root": "assets",
+          "sha256": "248b4820e639fd68b6d20974197334baa89ca9b4ff710607321f0909140e5e9e"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 50,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_50.json",
+      "layout_sha256": "6ac97f7ba763596c69dec11a39a94d6daa9d7ccbb2a4beea26aa22a74b6088a2",
+      "object_groups": {
+        "cat0": {
+          "category": "toy_car",
+          "labels": [
+            "cat0_0",
+            "cat0_1",
+            "cat0_2"
+          ],
+          "models": [
+            0,
+            1,
+            4
+          ]
+        },
+        "cat1": {
+          "category": "action_camera",
+          "labels": [
+            "cat1_0",
+            "cat1_1"
+          ],
+          "models": [
+            0,
+            0
+          ]
+        },
+        "cat2": {
+          "category": "watch",
+          "labels": [
+            "cat2_0",
+            "cat2_1"
+          ],
+          "models": [
+            1,
+            1
+          ]
+        }
+      },
+      "object_count": 7,
+      "three_distinct_categories": true,
+      "baskets": {
+        "basket0": 2,
+        "basket1": 3,
+        "basket2": 4
+      },
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00002/metadata.json",
+          "root": "assets",
+          "sha256": "8b252bc59e1974e23d68d91b7335d8d1f90f0fc0e744c73563fffccb5f96b35f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00003/metadata.json",
+          "root": "assets",
+          "sha256": "03ebee2708b8e7c8ca7389d221817ac5d0a5e4e1cbc6aa5667bcc0100c225f56"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/basket/00004/metadata.json",
+          "root": "assets",
+          "sha256": "fb954a824d7e222749f6f268af6a7b3ad1fe7dc46828786033f9e0db3616c36f"
+        },
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/action_camera/00000/metadata.json",
+          "root": "assets",
+          "sha256": "8f315613dd982875dc6c537188231bb748a6f0dbca603214d5a6be70756ceec9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00000/metadata.json",
+          "root": "assets",
+          "sha256": "44868628d7ef0df14d0bfea236e6e7e831b043b7e23c9f3821e60b7b9bff16ad"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00001/metadata.json",
+          "root": "assets",
+          "sha256": "6f6b9fd4f9fb3e45ca225e3ae63b4a2d39c7518b56a24d74293acef06baca06b"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/toy_car/00004/metadata.json",
+          "root": "assets",
+          "sha256": "6c0a71485e3fe3dee7141fa6d6bfb8ae9268ab2db628763c1b55199331cb6604"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/watch/00001/metadata.json",
+          "root": "assets",
+          "sha256": "248b4820e639fd68b6d20974197334baa89ca9b4ff710607321f0909140e5e9e"
+        }
+      ],
+      "compatible": true
+    }
+  ]
+}

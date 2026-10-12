@@ -1,0 +1,155 @@
+{
+  "schema": "ora.native-baseline.v1",
+  "id": "native_full_explicit_motion_direct_v4",
+  "policy": {
+    "context_profile": "native_causal_context_v1",
+    "context_composition": "native_slots_v4",
+    "context_retention": "action_step_lossless_v4",
+    "summary_policy": "rollout_checkpoint_v1",
+    "memory_policy": "disabled",
+    "provider_continuation_replay": "exact_v1",
+    "initial_observation": "automatic",
+    "timeout_s": 900,
+    "max_model_calls_per_observation": 120,
+    "action_codec": "motion_action_v3",
+    "context_management": {
+      "schema": "ora.native-context-management.v6",
+      "causal_exact_tail_action_steps": 3,
+      "inline_media_tail_action_steps": 2,
+      "eager_large_result_bytes": 50000,
+      "eager_preview_bytes": 2048,
+      "eager_exact_deduplication": true,
+      "trigger_inline_images": 24,
+      "trigger_estimated_tokens": 48000,
+      "trigger_provider_input_ratio": 0.7,
+      "episode_checkpoint_trigger_tokens": 150000,
+      "emergency_fallback_ratio": 0.8,
+      "emergency_target_ratio": 0.65,
+      "checkpoint_target_estimated_tokens": 1200,
+      "checkpoint_max_estimated_tokens": 1600,
+      "tail_aging_stride_action_steps": 4
+    },
+    "require_live_marker": true,
+    "provider_recovery": "same_credential_deadline_v1"
+  },
+  "required_service_capabilities": [
+    "resident_sam3_point_segmentation_v1",
+    "resident_sam3_text_grounding_v1",
+    "resident_contact_graspnet_v1"
+  ],
+  "instances": {
+    "libero_pro": {
+      "id": "libero_panda",
+      "tool_surface": "libero_placement_direct_overhead_v1",
+      "prompt_bundle": "ora/policy/prompt_bundles/current_v4/libero-panda-native_api-v4.yaml",
+      "environment_prompt_profile": "libero_pro_public_direct_v1",
+      "runtime": {
+        "kind": "libero_pro",
+        "transport": "local_rpc",
+        "python_env": "LIBERO_PRO_PYTHON",
+        "libero_pro_root_env": "LIBERO_PRO_ROOT",
+        "data_root_env": "LIBERO_PRO_DATA_ROOT",
+        "required_libero_pro_revision": "2b910b5b5f53016bef9907632f6f840f1ce2229c",
+        "required_data_revision": "c86fc3b8293185a6f373677018ff3e37f8391602",
+        "require_gpu": true,
+        "main_camera": "agentview",
+        "policy_cameras": [
+          "agentview",
+          "wrist"
+        ],
+        "controlled_end_effector": "right",
+        "startup_timeout_s": 600,
+        "request_timeout_s": 1800,
+        "servo_max_steps": 80,
+        "workspace_profile": "libero_pro_panda_hybrid_motion_v1",
+        "motion_planner": {
+          "backend": "curobo_motion_gen",
+          "version": "v0.7.8",
+          "python_env": "CUROBO_PYTHON",
+          "root_env": "CUROBO_ROOT",
+          "required_revision": "d64c4b005459db10c5dd867d8b30a87d5bda9bdb",
+          "request_timeout_s": 180,
+          "world_model": "none"
+        },
+        "motion_profile": "ora/policy/embodiments/franka-panda/motion-profile-v2.json",
+        "environment_driver": "direct_libero_v1"
+      }
+    },
+    "robotwin": {
+      "id": "robotwin_aloha",
+      "tool_surface": "robotwin_toolchain_b2_closed_noservo_v2",
+      "prompt_bundle": "ora/policy/prompt_bundles/current_v4/robotwin-aloha-native_api-v4.yaml",
+      "environment_prompt_profile": "robotwin_public_explicit_v6",
+      "runtime": {
+        "kind": "robotwin",
+        "transport": "local_rpc",
+        "python_env": "ROBOTWIN_PYTHON",
+        "root_env": "ROBOTWIN_ROOT",
+        "required_revision": "cf4872cc90538fd4bca761c8db912d8f65e49f2b",
+        "require_gpu": true,
+        "main_camera": "head_camera",
+        "policy_cameras": [
+          "head_camera",
+          "front_camera",
+          "left_camera",
+          "right_camera"
+        ],
+        "policy_observer_camera": false,
+        "environment_signal_policy": "lifecycle_only",
+        "startup_timeout_s": 600,
+        "request_timeout_s": 1800,
+        "task_config": "demo_randomized",
+        "workspace_bounds_m": {
+          "x": [
+            -0.6,
+            0.6
+          ],
+          "y": [
+            -0.4,
+            0.4
+          ],
+          "z": [
+            0.7,
+            1.45
+          ]
+        },
+        "control_profile": "ora/policy/embodiments/aloha-agilex/control-profile-v10.json"
+      }
+    },
+    "robodojo": {
+      "id": "robodojo_arx_x5",
+      "tool_surface": "robodojo_placement_closed_skills_v2",
+      "prompt_bundle": "ora/policy/prompt_bundles/current_v4/robodojo-x5-native_api-v4.yaml",
+      "environment_prompt_profile": "robodojo_public_explicit_v6",
+      "runtime": {
+        "kind": "robodojo",
+        "transport": "local_rpc",
+        "root_env": "ROBODOJO_ROOT",
+        "python_env": "ROBODOJO_PYTHON",
+        "asset_root_env": "ROBODOJO_ASSET_ROOT",
+        "required_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+        "required_isaaclab_revision": "afca7b09d60d8beb9c1cb28b43066499940b969b",
+        "required_curobo_revision": "d17b54ce32cba095c0b000c4c58777075d11de0e",
+        "required_xpolicylab_revision": "432f82b1758c5b1202e42a3dfe014546dbc50871",
+        "required_asset_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+        "require_gpu": true,
+        "num_envs": 1,
+        "env_config": "arx_x5",
+        "sensor_profile": "rgbd_metric_v1",
+        "physics_dt": 0.004,
+        "control_hz": 25,
+        "native_actions_per_command": 20,
+        "main_camera": "head",
+        "policy_cameras": [
+          "head",
+          "left_wrist",
+          "right_wrist"
+        ],
+        "workspace_profile": "robodojo_arx_x5_tabletop_v1",
+        "startup_timeout_s": 600,
+        "request_timeout_s": 600,
+        "close_timeout_s": 30
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<nav class="ui-nav"><a href="/">Runs</a><a href="/gallery/libero">LIBERO tasks</a></nav>
+<h1>Frontend template</h1>
+<p class="ui-note">Shared defaults for project pages, tables and review tools. The rows below are examples.</p>
+<section class="ui-section">
+  <h2>Controls</h2>
+  <form class="ui-toolbar" onsubmit="event.preventDefault()">
+    <label>Search <input type="search" placeholder="Task or run ID"></label>
+    <label>Round <select><option>All rounds</option><option>Round 1</option><option>Round 2</option></select></label>
+    <button type="submit">Filter</button>
+    <button type="reset">Reset</button>
+    <label><input type="checkbox"> Show details</label>
+  </form>
+</section>
+<section class="ui-section">
+  <h2>Results</h2>
+  <div class="ui-table-scroll">
+    <table>
+      <thead><tr><th>Example task</th><th>Round 1</th><th>Round 2</th><th>Actions</th></tr></thead>
+      <tbody>
+        <tr><td>Pick and place</td><td><span class="ui-status failure">Failure</span></td><td><span class="ui-status success">Success</span></td><td>18</td></tr>
+        <tr><td>Open a drawer</td><td><span class="ui-status warning">Incomplete</span></td><td><span class="muted">Not run</span></td><td>12</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="ui-section">
+  <h2>Supporting details</h2>
+  <details class="ui-panel"><summary>Recorded configuration</summary><pre>{ "rounds": 2, "example": true }</pre></details>
+</section>

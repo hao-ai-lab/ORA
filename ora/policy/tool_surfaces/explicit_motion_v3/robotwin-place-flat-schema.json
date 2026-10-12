@@ -1,0 +1,266 @@
+{
+  "place.plan": {
+    "type": "object",
+    "description": "Closed placement evidence request; no user-supplied release, stability, contact or success assertions.",
+    "properties": {
+      "object_ref": {
+        "type": "string",
+        "description": "Current-observation target_ref for the visible object being placed, from vision.segment or vision.ground; stale references are rejected. The selected mask is not semantic identity ground truth.",
+        "minLength": 1
+      },
+      "destination_kind": {
+        "type": "string",
+        "enum": [
+          "support_surface",
+          "open_container",
+          "front_cavity"
+        ],
+        "description": "Destination geometry family for this placement. support_surface places onto a visible supporting patch and has no opening. open_container places into an upward-open container and also requires destination_boundary_ref naming its visible rim. front_cavity places through a front aperture onto visible interior support and also requires destination_boundary_ref naming that aperture or frame. Dimensionless closed vocabulary; a whole-object mask or its centroid is not a functional region."
+      },
+      "destination_support_ref": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Current-observation target_ref selecting the visible supporting patch the object is placed on: the support patch itself for support_surface, the visible interior support for open_container and front_cavity. Dimensionless reference, not a coordinate. A hidden bottom cannot be inferred as evidence, and the parent object's mask is not the patch."
+      },
+      "destination_boundary_ref": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "minLength": 1,
+        "description": "Current-observation target_ref selecting the visible functional opening — the rim for open_container, the front aperture or frame for front_cavity — or null when the destination has none. Required for those two kinds and refused for support_surface, each as a structured error naming this field rather than a schema branch. Dimensionless reference; a whole-container mask or its centroid does not establish cavity clearance."
+      },
+      "orientation_requirement": {
+        "type": "string",
+        "description": "Select none when no orientation claim is needed, or upright when the selected object's visible rim normal must agree with world up. Without admissible rim points, upright evidence is unknown; no PCA object axis is invented.",
+        "enum": [
+          "none",
+          "upright"
+        ]
+      },
+      "rim": {
+        "type": "object",
+        "description": "Optional manually selected visible circular rim on the object, bound to the object_ref source camera. Circle fitting measures this selected rim normal, not cup identity or a PCA axis.",
+        "properties": {
+          "camera": {
+            "type": "string",
+            "description": "Camera that produced object_ref; the runtime rejects a different source camera.",
+            "enum": [
+              "head_camera",
+              "front_camera",
+              "left_camera",
+              "right_camera"
+            ]
+          },
+          "points_uv": {
+            "type": "array",
+            "description": "Six to twelve ordered points on the same visible circular rim in native RGB pixels; all must be inside the source image and admissible object region with valid depth.",
+            "items": {
+              "type": "array",
+              "description": "One [u,v] pixel in top-left OpenCV coordinates.",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Non-negative native-image pixel coordinate; image bounds are checked at invocation."
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 6,
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "camera",
+          "points_uv"
+        ],
+        "additionalProperties": false
+      },
+      "protected_before_refs": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Zero to three earlier same-round target_refs for protected visible regions, index-aligned with protected_current_refs: entry i is the earlier state of the region named by protected_current_refs[i]. Both arrays must have the same length or the call is refused with the shorter field named. Dimensionless references; future or cross-round references are rejected.",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One earlier same-round target_ref for a protected visible region. Dimensionless reference, not a coordinate."
+        }
+      },
+      "protected_current_refs": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Zero to three current-observation target_refs selecting the regions intended to match protected_before_refs entry by entry, of the same length as it. Dimensionless references; the association stays the Agent's responsibility and is never authenticated identity.",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One current-observation target_ref for a protected visible region. Dimensionless reference, not a coordinate."
+        }
+      },
+      "prior_assessment_ref": {
+        "type": "string",
+        "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+        "pattern": "^place-check-[0-9a-f]{32}$"
+      },
+      "phase": {
+        "type": "string",
+        "description": "Request one next placement step: preplace alignment, lower approach, or a short post-release exit; not a complete execution script.",
+        "enum": [
+          "preplace",
+          "lower",
+          "exit"
+        ]
+      },
+      "arm": {
+        "type": "string",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "description": "Required selected RoboTwin arm; uses this arm's measured public grip-center TCP and command history. The other arm is not moved or granted holding permission."
+      }
+    },
+    "required": [
+      "object_ref",
+      "destination_kind",
+      "destination_support_ref",
+      "orientation_requirement",
+      "phase",
+      "arm"
+    ],
+    "additionalProperties": false
+  },
+  "place.verify": {
+    "type": "object",
+    "description": "Closed placement evidence request; no user-supplied release, stability, contact or success assertions.",
+    "properties": {
+      "object_ref": {
+        "type": "string",
+        "description": "Current-observation target_ref for the visible object being placed, from vision.segment or vision.ground; stale references are rejected. The selected mask is not semantic identity ground truth.",
+        "minLength": 1
+      },
+      "destination_kind": {
+        "type": "string",
+        "enum": [
+          "support_surface",
+          "open_container",
+          "front_cavity"
+        ],
+        "description": "Destination geometry family for this placement. support_surface places onto a visible supporting patch and has no opening. open_container places into an upward-open container and also requires destination_boundary_ref naming its visible rim. front_cavity places through a front aperture onto visible interior support and also requires destination_boundary_ref naming that aperture or frame. Dimensionless closed vocabulary; a whole-object mask or its centroid is not a functional region."
+      },
+      "destination_support_ref": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Current-observation target_ref selecting the visible supporting patch the object is placed on: the support patch itself for support_surface, the visible interior support for open_container and front_cavity. Dimensionless reference, not a coordinate. A hidden bottom cannot be inferred as evidence, and the parent object's mask is not the patch."
+      },
+      "destination_boundary_ref": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "minLength": 1,
+        "description": "Current-observation target_ref selecting the visible functional opening — the rim for open_container, the front aperture or frame for front_cavity — or null when the destination has none. Required for those two kinds and refused for support_surface, each as a structured error naming this field rather than a schema branch. Dimensionless reference; a whole-container mask or its centroid does not establish cavity clearance."
+      },
+      "orientation_requirement": {
+        "type": "string",
+        "description": "Select none when no orientation claim is needed, or upright when the selected object's visible rim normal must agree with world up. Without admissible rim points, upright evidence is unknown; no PCA object axis is invented.",
+        "enum": [
+          "none",
+          "upright"
+        ]
+      },
+      "rim": {
+        "type": "object",
+        "description": "Optional manually selected visible circular rim on the object, bound to the object_ref source camera. Circle fitting measures this selected rim normal, not cup identity or a PCA axis.",
+        "properties": {
+          "camera": {
+            "type": "string",
+            "description": "Camera that produced object_ref; the runtime rejects a different source camera.",
+            "enum": [
+              "head_camera",
+              "front_camera",
+              "left_camera",
+              "right_camera"
+            ]
+          },
+          "points_uv": {
+            "type": "array",
+            "description": "Six to twelve ordered points on the same visible circular rim in native RGB pixels; all must be inside the source image and admissible object region with valid depth.",
+            "items": {
+              "type": "array",
+              "description": "One [u,v] pixel in top-left OpenCV coordinates.",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Non-negative native-image pixel coordinate; image bounds are checked at invocation."
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 6,
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "camera",
+          "points_uv"
+        ],
+        "additionalProperties": false
+      },
+      "protected_before_refs": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Zero to three earlier same-round target_refs for protected visible regions, index-aligned with protected_current_refs: entry i is the earlier state of the region named by protected_current_refs[i]. Both arrays must have the same length or the call is refused with the shorter field named. Dimensionless references; future or cross-round references are rejected.",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One earlier same-round target_ref for a protected visible region. Dimensionless reference, not a coordinate."
+        }
+      },
+      "protected_current_refs": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Zero to three current-observation target_refs selecting the regions intended to match protected_before_refs entry by entry, of the same length as it. Dimensionless references; the association stays the Agent's responsibility and is never authenticated identity.",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One current-observation target_ref for a protected visible region. Dimensionless reference, not a coordinate."
+        }
+      },
+      "prior_assessment_ref": {
+        "type": "string",
+        "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+        "pattern": "^place-check-[0-9a-f]{32}$"
+      },
+      "stage": {
+        "type": "string",
+        "description": "Receipt-bound assessment stage; pre_release, post_release and post_exit are separate observations and cannot be asserted by a user proof field.",
+        "enum": [
+          "pre_release",
+          "post_release",
+          "post_exit"
+        ]
+      },
+      "arm": {
+        "type": "string",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "description": "Required selected RoboTwin arm; uses this arm's measured public grip-center TCP and command history. The other arm is not moved or granted holding permission."
+      }
+    },
+    "required": [
+      "object_ref",
+      "destination_kind",
+      "destination_support_ref",
+      "orientation_requirement",
+      "stage",
+      "arm"
+    ],
+    "additionalProperties": false
+  }
+}

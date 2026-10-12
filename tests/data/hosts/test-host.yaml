@@ -1,0 +1,662 @@
+# Test fixture execution host profile (test-host); not a real host. Tests load it
+# through ORA_HOSTS_DIR (tests/conftest.py).
+schema: ora.execution-host.v1
+id: test-host
+ssh_alias: null
+execution_marker:
+  environment_variable: ORA_EXECUTION_HOST
+  required_value: test-host
+project_root:
+  environment_variable: ORA_PROJECT_ROOT
+robotwin_root:
+  environment_variable: ROBOTWIN_ROOT
+robotwin_python:
+  environment_variable: ROBOTWIN_PYTHON
+  purpose: Isolated RoboTwin worker interpreter with SAPIEN, Torch and CuRobo.
+libero_pro:
+  python:
+    environment_variable: LIBERO_PRO_PYTHON
+    purpose: Isolated LIBERO-Pro worker interpreter with Torch, MuJoCo and robosuite.
+  rlinf_root:
+    environment_variable: RLINF_ROOT
+    purpose: Exact clean RLinf checkout used directly by the LIBERO adapter.
+  simulator_root:
+    environment_variable: LIBERO_PRO_ROOT
+    purpose: Exact clean LIBERO-Pro simulator source and asset root.
+  dataset_root:
+    environment_variable: LIBERO_PRO_DATA_ROOT
+    purpose: Exact clean authoritative BDDL and init-state dataset snapshot.
+  simulator_config:
+    environment_variable: LIBERO_CONFIG_PATH
+    purpose: Host-local LIBERO path map; generated state and never policy-visible.
+credentials:
+  mode: trusted_environment_only
+  committed_values: forbidden
+runtime_storage:
+  minimum_system_free_gib: 0
+execution_resources:
+  robotwin-gpu0:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 20480
+  robotwin-gpu3:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+    minimum_free_memory_mib: 20480
+  robotwin-gpu4:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 20480
+  robotwin-gpu6:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu6
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 20480
+  robotwin-gpu7:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu7
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 20480
+  robotwin-gpu0b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu0b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu0c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu0c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu1:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu1b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu1b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu1c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu1c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu2:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu2b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu2b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu2c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu2c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu3b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu3b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu3c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu3c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu4b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu4b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu4c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu4c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu5:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu5
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu5b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu5b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu5c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu5c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu6b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu6b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu6c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu6c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu6d:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu6d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu6e:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu6e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu7b:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu7b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu7c:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu7c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu7d:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu7d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 6144
+  robotwin-gpu7e:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu7e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 6144
+  libero-gpu0:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu1:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu2:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu3:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu4:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+      MUJOCO_EGL_DEVICE_ID: '4'
+    minimum_free_memory_mib: 2048
+  libero-gpu5:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu5
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+      MUJOCO_EGL_DEVICE_ID: '5'
+    minimum_free_memory_mib: 2048
+  libero-gpu0b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu0e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+      MUJOCO_EGL_DEVICE_ID: '0'
+    minimum_free_memory_mib: 2048
+  libero-gpu1b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu1e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu1e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '1'
+      MUJOCO_EGL_DEVICE_ID: '1'
+    minimum_free_memory_mib: 2048
+  libero-gpu2b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu2e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu2e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '2'
+      MUJOCO_EGL_DEVICE_ID: '2'
+    minimum_free_memory_mib: 2048
+  libero-gpu3b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu3e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu3e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+      MUJOCO_EGL_DEVICE_ID: '3'
+    minimum_free_memory_mib: 2048
+  libero-gpu4b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu4b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+      MUJOCO_EGL_DEVICE_ID: '4'
+    minimum_free_memory_mib: 2048
+  libero-gpu4c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu4c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+      MUJOCO_EGL_DEVICE_ID: '4'
+    minimum_free_memory_mib: 2048
+  libero-gpu4d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu4d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+      MUJOCO_EGL_DEVICE_ID: '4'
+    minimum_free_memory_mib: 2048
+  libero-gpu4e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu4e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+      MUJOCO_EGL_DEVICE_ID: '4'
+    minimum_free_memory_mib: 2048
+  libero-gpu5b:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu5b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+      MUJOCO_EGL_DEVICE_ID: '5'
+    minimum_free_memory_mib: 2048
+  libero-gpu5c:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu5c
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+      MUJOCO_EGL_DEVICE_ID: '5'
+    minimum_free_memory_mib: 2048
+  libero-gpu5d:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu5d
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+      MUJOCO_EGL_DEVICE_ID: '5'
+    minimum_free_memory_mib: 2048
+  libero-gpu5e:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu5e
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+      MUJOCO_EGL_DEVICE_ID: '5'
+    minimum_free_memory_mib: 2048
+  robodojo-gpu3:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '3'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu7:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu7
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu6:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu6
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu6b:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu6b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu7b:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu7b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu4:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu4b:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu4b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu0:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu0b:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0b
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 20480
+  robodojo-gpu7-d1:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu7-d1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu7-d2:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu7-d2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu7-d3:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu7-d3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu7-d4:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu7-d4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '7'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu0-d1:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0-d1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu0-d2:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0-d2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu0-d3:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0-d3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu0-d4:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0-d4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '0'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu6-d1:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu6-d1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu6-d2:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu6-d2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '6'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu4-d1:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu4-d1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu4-d2:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu4-d2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu4-d3:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu4-d3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu4-d4:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu4-d4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '4'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu5-d1:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu5-d1
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu5-d2:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu5-d2
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu5-d3:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu5-d3
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 10240
+  robodojo-gpu5-d4:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu5-d4
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: '5'
+    minimum_free_memory_mib: 10240

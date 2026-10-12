@@ -1,0 +1,50 @@
+schema: ora.prompt-bundle-authoring.v1
+bundle_id: __REQUIRED__
+status: draft
+runtime:
+  policy_kind: native_api
+  context_schema: ora.policy-context.v3
+  provider_scaffold: none
+layers:
+  planner:
+    sources: [__REQUIRED__]
+    delivery: system
+  core:
+    sources: [__REQUIRED__]
+    delivery: project_instructions
+  environment:
+    source: __REQUIRED__
+    delivery: project_instructions
+  embodiment:
+    source: __REQUIRED__
+    format: prompt_bundle_embodiment_v1
+    descriptor: null
+    control_profile: __REQUIRED__
+    delivery: project_instructions
+  episode_task:
+    source: __REQUIRED__
+    placeholder: "{{TASK}}"
+    delivery: first_user_message
+  tool_manual:
+    sources: [__REQUIRED__]
+    delivery: manifest_only
+    reader_tool: null
+  tool_surface:
+    profile: __REQUIRED__
+    delivery: provider_tools_field
+  dynamic_runtime:
+    owner: ora
+    delivery: current_user_tail
+bindings:
+  environment_prompt_profile:
+    profile_id: __REQUIRED__
+    public_environment_context:
+      schema: ora.public-environment-context.v1
+      environment_id: __REQUIRED__
+      embodiment_id: __REQUIRED__
+      robot_models: [__REQUIRED__]
+      controller: __REQUIRED__
+      public_cameras: [__REQUIRED__]
+ownership:
+  environment_terms: [__REQUIRED__]
+  embodiment_terms: [__REQUIRED__]

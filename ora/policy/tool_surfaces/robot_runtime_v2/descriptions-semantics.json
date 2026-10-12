@@ -1,0 +1,8 @@
+{
+  "append": {
+    "vision.inspect": "Pixels use zero-based OpenCV (u,v) in the selected source image.",
+    "geometry.query": "Results use the declared world/base frame and SI units.",
+    "robot.read_manual": "Read only the sections needed for the present uncertainty.",
+    "robot.submit_action": "Pose and gripper are independently optional under target_state_v4; omitted controlled dimensions preserve the execution-time measured state, and a combined request runs gripper only after motion reaches."
+  }
+}

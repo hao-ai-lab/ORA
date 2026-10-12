@@ -1,0 +1,637 @@
+{
+  "schema": "ora.robodojo-layout-pools.v1",
+  "benchmark": "RoboDojo",
+  "embodiment_config": "arx_x5",
+  "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+  "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+  "eval_seed": 0,
+  "decision": "User decision 2026-10-01: by default every round of a persistent RoboDojo session starts on a new layout, so cross-round improvement measures transferable experience rather than scene memorization. A task is schedulable only with a reviewed pool here; the default schedule for K rounds is the first K pool entries, and an explicit selection must stay inside the pool.",
+  "tasks": {
+    "stack_bowls": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 23,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_23.json",
+          "layout_sha256": "383d71cffc5e4c08e73d7aa68d341a107bdc16ce11974349b9248c7537d0c65e"
+        },
+        {
+          "layout_id": 29,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_29.json",
+          "layout_sha256": "7ef168784a2be4318dcb7ec2bc5ceda33e53291df4c2b3902be7b33eb710956f"
+        },
+        {
+          "layout_id": 51,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_bowls_51.json",
+          "layout_sha256": "f7503864569bcb1c3a367260090e14e6236c094e148920a28f643b5ccd3ae3a4"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/stack_bowls-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "bowl_category_idx": 10,
+        "gather_distance_m": 0.555,
+        "max_nearer_base_distance_m": 0.416,
+        "mean_displacement_from_layout0_m": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-01 from the pinned assets (55 eval_seed 0 layouts, analysis outside Git)",
+        "selection": "Every layout uses one bowl model for all three bowls; model 10 (0.12 m rim, 0.05 m high), the model of layout 0, appears in layouts 0, 21, 23, 29, 34, 37, 38 and 51. The pool keeps that model so later rounds do not change object size, and holds only the model-10 layouts with every bowl inside the measured reach envelope.",
+        "default_order": "Rounds 23 -> 29 -> 51, ordered by gather distance (0.448, 0.656, 0.666 m against 0.555 m for layout 0, within +/-20%) from easiest to hardest so later-round gains are not explained by easier scenes; pairwise mean bowl displacement 0.092 (23-29), 0.123 (23-51) and 0.147 m (29-51). Layout 23 is close to layout 0 (mean displacement 0.063 m).",
+        "reach_evidence": "Scene smoke b2-robodojo-smoke-20261001T053708Z-2c3f7fa4 (2026-10-01, read-only top-down align_plan 0.20 m above each bowl centre, eight yaws, both arms) on the first schedule 21 -> 37 -> 51: layout 21 bowls at (0.379, 0.050) and (0.159, 0.041) and layout 37 bowl at (0.344, 0.051) reachable by no arm; layout 51 fully reachable. Measured envelope: bowls reachable at <= 0.47 m from the nearer arm base, unreachable at >= 0.50 m, so 21 and 37 left the pool. Largest nearer-base distance: 23 0.465 m (middle bowl, near the limit; the smoke decides), 29 0.419 m, 51 0.429 m.",
+        "fallback": "None reviewed: 34 and 38, the other model-10 layouts, each hold a bowl beyond 0.50 m (0.501 and 0.514 m).",
+        "known_limits": "The 0.12 m bowl exceeds the nominal 0.0888 m jaw opening, so a grasp holds the rim or wall; carries near full elbow extension and joint 6 limits failed in g007 (E11G7-002).",
+        "layouts": {
+          "23": {
+            "bowl_category_idx": 10,
+            "gather_distance_m": 0.448,
+            "max_nearer_base_distance_m": 0.465,
+            "mean_displacement_from_layout0_m": 0.063
+          },
+          "29": {
+            "bowl_category_idx": 10,
+            "gather_distance_m": 0.656,
+            "max_nearer_base_distance_m": 0.419,
+            "mean_displacement_from_layout0_m": 0.084
+          },
+          "51": {
+            "bowl_category_idx": 10,
+            "gather_distance_m": 0.666,
+            "max_nearer_base_distance_m": 0.429,
+            "mean_displacement_from_layout0_m": 0.117
+          }
+        }
+      }
+    },
+    "put_bottles_into_dustbin": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 17,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_17.json",
+          "layout_sha256": "588d5bf25aa013bf9f630cefbc7830990f32a73b15f40ecd717ea8862e3215ba"
+        },
+        {
+          "layout_id": 2,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_2.json",
+          "layout_sha256": "7110decf67ccb6d77942719bf2f79d567c5d1d080413d2c713d3b41e691c11fe"
+        },
+        {
+          "layout_id": 25,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_25.json",
+          "layout_sha256": "c187edcfafb78f62a1b8522ad6a3d7afed4921f6278eb847b37f6c5e91efec9c"
+        },
+        {
+          "layout_id": 21,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_21.json",
+          "layout_sha256": "dd699d65c014e8da6cc60c4385757f0faac8c6e5343e887c3a9f32e99238ca49"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/put_bottles_into_dustbin-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "models": [
+          41,
+          60,
+          25,
+          22
+        ],
+        "poses": "SSLS",
+        "n_handoff": 2,
+        "n_edge": 1,
+        "min_pair_xy": 0.123,
+        "difficulty": 6.06,
+        "shift_vs_L0_mean": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-01, operator-approved read-only survey of the 55 eval_seed 0 layouts (analysis outside Git); layout and bottle-metadata hashes re-verified from the pinned assets",
+        "selection": "Every layout has four bottles bottle0-bottle3 and the same dustbin and fixtures. The survey excluded layouts holding bottle/22 (layout physics mass 22, clamped to 0.5 kg at load) and scored the rest on arm reach and handover need, lying and slim bottles, pair spacing and table-edge clearance; difficulty is that score.",
+        "default_order": "Rounds 17 -> 2 -> 25, easy to hard by survey difficulty (3.06, 5.53, 6.02 against 6.06 for layout 0), each clearly different from layout 0 (mean matched bottle displacement 0.228, 0.116, 0.120 m).",
+        "reach_evidence": "Scene smoke b2-robodojo-smoke-20261001T053708Z-b7330173 (2026-10-01, read-only top-down align_plan 0.20 m above each spawn centre, eight yaws, both arms) on the first schedule 17 -> 2 -> 28: layouts 17 and 2 fully reachable; layout 28 standing bottle/50 at (-0.039, -0.059) reachable by no arm, so 28 left the pool and 25, the reviewed fallback, became round 3. Measured envelope (horizontal distance to the nearer arm base): lying bottles reachable at <= 0.47 m, unreachable at >= 0.50 m; standing bottles reachable at 0.43 m, unreachable at 0.47 m. Layout 25: standing bottle/0 at 0.422 m, lying bottle/25 at 0.469 m.",
+        "fallback": "Layout 21 may replace round-1 layout 17 only by an explicit selection inside this pool, never silently; it is not smoke-checked, and its standing bottles/0 and /5 stand 0.447 and 0.441 m from the nearer base, inside the uncertain 0.43-0.47 m band.",
+        "known_limits": "Layouts 2 and 25 each hold a bottle near the right table edge, layout 0's knock-off failure mode (footprint clearance: layout 2 standing bottle/2 0.127 m, layout 25 lying bottle/25 0.092 m; layout 0 0.119 m), so report per-bottle outcomes. In layout 25 the standing bottle/0 spawns about 7.5 mm into the table. No scheduled layout holds bottle/22, so earlier layout-0 results are not same-condition comparable.",
+        "layouts": {
+          "17": {
+            "models": [
+              41,
+              5,
+              25,
+              50
+            ],
+            "poses": "SLLS",
+            "n_handoff": 1,
+            "n_edge": 0,
+            "min_pair_xy": 0.161,
+            "difficulty": 3.06,
+            "shift_vs_L0_mean": 0.228
+          },
+          "2": {
+            "models": [
+              50,
+              25,
+              2,
+              5
+            ],
+            "poses": "SLSL",
+            "n_handoff": 2,
+            "n_edge": 1,
+            "min_pair_xy": 0.154,
+            "difficulty": 5.53,
+            "shift_vs_L0_mean": 0.116
+          },
+          "25": {
+            "models": [
+              0,
+              50,
+              25,
+              59
+            ],
+            "poses": "SSLL",
+            "n_handoff": 2,
+            "n_edge": 1,
+            "min_pair_xy": 0.215,
+            "difficulty": 6.02,
+            "shift_vs_L0_mean": 0.12
+          },
+          "21": {
+            "models": [
+              0,
+              60,
+              5,
+              50
+            ],
+            "poses": "SLSS",
+            "n_handoff": 1,
+            "n_edge": 0,
+            "min_pair_xy": 0.139,
+            "difficulty": 3.55,
+            "shift_vs_L0_mean": 0.203
+          }
+        }
+      }
+    },
+    "classify_objects": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 49,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_49.json",
+          "layout_sha256": "a48d6b05e7d5e90d1ce311d26dfdfe98cf51488015d5af638d18160b8b2bf84f"
+        },
+        {
+          "layout_id": 54,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_54.json",
+          "layout_sha256": "fd4081c096b7ad0da466680a42c095da6c58354d038516978c70098c4ac4fc15"
+        },
+        {
+          "layout_id": 37,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_37.json",
+          "layout_sha256": "3a5fc76c5c6c49137a2d105641ff424b83a75dfe84b11209c2d99721df2a3808"
+        },
+        {
+          "layout_id": 50,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_50.json",
+          "layout_sha256": "6ac97f7ba763596c69dec11a39a94d6daa9d7ccbb2a4beea26aa22a74b6088a2"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "categories": [
+          "pen",
+          "watch",
+          "garage"
+        ],
+        "object_count": 7,
+        "max_nearer_base_distance_m": 0.39,
+        "min_pair_centre_xy_m": 0.089,
+        "difficulty": 10.0,
+        "mean_displacement_from_layout0_m": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-02, read-only survey of the 55 eval_seed 0 layouts (analysis outside Git); layout and object-metadata hashes re-verified from the pinned assets",
+        "selection": "Every layout has three object groups cat0-cat2, each one category (toy_car, action_camera, pen, watch or garage) with two or three instances, three distinct categories for the three fixed baskets, and the fixtures of layout 0; all 55 hold every object inside the measured low-object envelope (largest nearer-base distance 0.458 m). The survey excluded the 31 layouts holding action_camera/1 (no physics mass anywhere, so it loads at the 0.5 kg default), kept seven objects like layout 0 and a category set other than layout 0's {pen, watch, garage}, and scored the rest on object count, 10x the distance beyond 0.40 m, 2 per object beyond 0.44 m, touching footprints, pens (thin) and objects of 0.3 kg or more; difficulty is that score.",
+        "default_order": "Rounds 49 -> 54 -> 37, easy to hard by survey difficulty (7.0, 8.38, 10.01 against 10.0 for layout 0). Categories {garage, toy_car, watch}, {action_camera, watch, toy_car} and {toy_car, pen, watch}, each different from layout 0's; objects resample one 0.86 x 0.23 m spawn region, so the mean matched object displacement from layout 0 is small (0.051, 0.103, 0.073 m).",
+        "reach_evidence": "Not smoke-checked. Computed from spawn centres against the envelope the 2026-10-01 scene smokes measured (low objects reachable at <= 0.47 m from the nearer arm base, unreachable at >= 0.50 m): every pool object is low (root at most 0.03 m above the table); largest distance 0.369 (49), 0.434 (54, action_camera/2 at (-0.072, -0.080)) and 0.401 m (37). The scene smoke decides.",
+        "fallback": "Layout 50 (toy_car, action_camera, watch; difficulty 7.5; largest distance 0.400 m) may replace a scheduled round only by an explicit selection inside this pool, never silently; it is not smoke-checked.",
+        "known_limits": "The baskets are identical fixtures in every layout; their centres lie 0.50 m (outer) and 0.58 m (middle) from the nearer arm base, at or beyond the measured top-down envelope, in layout 0 as in the pool; they are not reach-checked and the smoke does not test them. Layout 54 holds two 0.35 kg toy_car/0, layout 37 three pens 16-19 mm wide.",
+        "layouts": {
+          "49": {
+            "categories": [
+              "garage",
+              "toy_car",
+              "watch"
+            ],
+            "object_count": 7,
+            "max_nearer_base_distance_m": 0.369,
+            "min_pair_centre_xy_m": 0.096,
+            "difficulty": 7.0,
+            "mean_displacement_from_layout0_m": 0.051
+          },
+          "54": {
+            "categories": [
+              "action_camera",
+              "watch",
+              "toy_car"
+            ],
+            "object_count": 7,
+            "max_nearer_base_distance_m": 0.434,
+            "min_pair_centre_xy_m": 0.106,
+            "difficulty": 8.38,
+            "mean_displacement_from_layout0_m": 0.103
+          },
+          "37": {
+            "categories": [
+              "toy_car",
+              "pen",
+              "watch"
+            ],
+            "object_count": 7,
+            "max_nearer_base_distance_m": 0.401,
+            "min_pair_centre_xy_m": 0.113,
+            "difficulty": 10.01,
+            "mean_displacement_from_layout0_m": 0.073
+          },
+          "50": {
+            "categories": [
+              "toy_car",
+              "action_camera",
+              "watch"
+            ],
+            "object_count": 7,
+            "max_nearer_base_distance_m": 0.4,
+            "min_pair_centre_xy_m": 0.093,
+            "difficulty": 7.5,
+            "mean_displacement_from_layout0_m": 0.06
+          }
+        }
+      }
+    },
+    "arrange_largest_number": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 16,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_16.json",
+          "layout_sha256": "5aa229d25ae7c4ae50cda214fafa8e62520db1575abfa921fac8b5ef911d76eb"
+        },
+        {
+          "layout_id": 10,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_10.json",
+          "layout_sha256": "26840b97153bb21703516057464559334308957ede39af353c90a7a2628306ac"
+        },
+        {
+          "layout_id": 6,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_6.json",
+          "layout_sha256": "24af7076c9a327d38c21f9082c5c2dd3fce8ca34365ad9c33cf0698bf969fd2c"
+        },
+        {
+          "layout_id": 8,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/arrange_largest_number_8.json",
+          "layout_sha256": "2d2656dc24a7d49e29ca6feae62685f79367f964d752cecb61230400bd2d3d58"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/arrange_largest_number-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "digits": [
+          2,
+          8,
+          7,
+          0
+        ],
+        "handovers": 1,
+        "max_nearer_base_distance_m": 0.383,
+        "max_pad_nearer_base_distance_m": 0.469,
+        "max_heading_from_upright_deg": 36.0,
+        "difficulty": 4.7,
+        "mean_displacement_from_layout0_m": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-02, read-only survey of the 30 eval_seed 0 layouts (analysis outside Git); layout and object-metadata hashes re-verified from the pinned assets",
+        "selection": "30 eval_seed-0 layouts: 15 with four number pieces and four pads, 15 with five. Texture groups 0 (number/0-9, layout 0's), 1 and 2 share per-digit geometry and place orientation in metadata; the pool keeps four-piece layouts of group 0, as layout 0, so every piece model is of the group whose axis conventions the record reviewed (layout 1, group 2, also specifies its pieces at 0.01 kg against 0.1 kg metadata). Five-piece layouts were not selected: their middle pad lies 0.47-0.50 m from both arm bases (layout 0's inner pads 0.469 m). Difficulty adds 1.5 per piece whose reachable arm cannot reach its target pad (a handover; layout 0 has one), the pieces' heading from upright / 45 degrees, 0.5 per digit other than 0 or 8 (whose reading checks are lenient), 1 for a 6-and-9 pair and 10x the distance beyond 0.40 m (pieces) or 0.43 m (pads).",
+        "default_order": "Rounds 16 -> 10 -> 6, easy to hard (3.77, 5.5, 6.99 against 4.7 for layout 0): no, one and two handovers; digits 2-8-6-1, 3-5-8-0 and 0-1-8-5 against layout 0's 2-8-7-0; mean matched piece displacement from layout 0 0.187, 0.198 and 0.150 m.",
+        "reach_evidence": "Not smoke-checked. Every piece is low (root 0.007-0.008 m above the table); largest nearer-base distance 0.329 (16), 0.344 (10) and 0.399 m (6) against the measured 0.47 m envelope. The pads are fixtures and not reach-checked: inner pads 0.458 (16), 0.457 (10) and 0.450 m (6) from the nearer base, layout 0's 0.469 m.",
+        "fallback": "Layout 8 (digits 1-0-9-7, one handover, difficulty 5.6; inner pads 0.465 m) may replace a scheduled round only by an explicit selection inside this pool, never silently; it is not smoke-checked.",
+        "known_limits": "Pieces start up to about 41 degrees from upright (layout 0: 36), so most need a turn before placing; the reading-direction checks bind each model's local axes, which this review confirms from metadata only.",
+        "layouts": {
+          "16": {
+            "digits": [
+              2,
+              8,
+              6,
+              1
+            ],
+            "handovers": 0,
+            "max_nearer_base_distance_m": 0.329,
+            "max_pad_nearer_base_distance_m": 0.458,
+            "max_heading_from_upright_deg": 40.9,
+            "difficulty": 3.77,
+            "mean_displacement_from_layout0_m": 0.187
+          },
+          "10": {
+            "digits": [
+              3,
+              5,
+              8,
+              0
+            ],
+            "handovers": 1,
+            "max_nearer_base_distance_m": 0.344,
+            "max_pad_nearer_base_distance_m": 0.457,
+            "max_heading_from_upright_deg": 35.8,
+            "difficulty": 5.5,
+            "mean_displacement_from_layout0_m": 0.198
+          },
+          "6": {
+            "digits": [
+              0,
+              1,
+              8,
+              5
+            ],
+            "handovers": 2,
+            "max_nearer_base_distance_m": 0.399,
+            "max_pad_nearer_base_distance_m": 0.45,
+            "max_heading_from_upright_deg": 38.1,
+            "difficulty": 6.99,
+            "mean_displacement_from_layout0_m": 0.15
+          },
+          "8": {
+            "digits": [
+              1,
+              0,
+              9,
+              7
+            ],
+            "handovers": 1,
+            "max_nearer_base_distance_m": 0.355,
+            "max_pad_nearer_base_distance_m": 0.465,
+            "max_heading_from_upright_deg": 38.4,
+            "difficulty": 5.6,
+            "mean_displacement_from_layout0_m": 0.242
+          }
+        }
+      }
+    },
+    "organize_table": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 17,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_17.json",
+          "layout_sha256": "6841880168ca5dc34f98fa1068c9b6f65e3baa7ba517ff7f69a0f2e9cc953f3f"
+        },
+        {
+          "layout_id": 14,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_14.json",
+          "layout_sha256": "ab614f8c58a8a134f5098ba70360b715c34e6543ead9e3b03b0ca9cf40bb95f1"
+        },
+        {
+          "layout_id": 39,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_39.json",
+          "layout_sha256": "f344f80146452cc4a9e4def701ada89a73338025f9767d76da43f6158cef3744"
+        },
+        {
+          "layout_id": 19,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/organize_table_19.json",
+          "layout_sha256": "34eaa14fdc5b9a890658ad2bdd6356d0f71efdd695764a0644319d2da164454c"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/organize_table-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "models": {
+          "mouse": 4,
+          "alarm": 0,
+          "keyboard": 0,
+          "garage": 8
+        },
+        "max_nearer_base_distance_m": 0.478,
+        "reset_mouse_heading_from_world_x_deg": 0.95,
+        "mouse_pad_nearer_base_distance_m": 0.478,
+        "difficulty": 1.85,
+        "mean_displacement_from_layout0_m": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-02, read-only survey of the 55 eval_seed 0 layouts (analysis outside Git); layout and object-metadata hashes re-verified from the pinned assets",
+        "selection": "Every layout holds the mouse (model 4, 6 or 7), alarm/0, a keyboard (0, 1 or 2) and a figurine (garage 5, 6, 7, 8 or 11), the drawer, stand and frame at layout 0's poses, and a mouse pad and monitor placed per layout. The pool keeps figurine model 8, layout 0's, so its size and the evaluator's model-dependent figurine xy tolerance stay the reviewed ones (the other models are 0.10-0.18 m wide against the 0.0888 m jaw opening). It requires every object inside the measured envelope (the 0.18 m figurine stands, so the standing-object limit applies) and the mouse's reset heading within 30 degrees of world +X. 17 of the 55 layouts hold every object inside the envelope, 5 of them with figurine 8 (layout 0's alarm is at 0.478 m). Difficulty adds 10x the distance beyond 0.40 m (0.36 m for the figurine), the mouse heading / 45 degrees and 10x the mouse-pad and drawer distances beyond 0.47 m.",
+        "default_order": "Rounds 17 -> 14 -> 39, easy to hard (1.68, 1.98, 2.47 against 1.85 for layout 0); mean object displacement from layout 0 0.121, 0.095 and 0.148 m. In 17 and 39 the mouse pad moves to (0.49, 0.05), 0.535 m from the right arm base (layout 0: 0.478 m).",
+        "reach_evidence": "Not smoke-checked. Largest nearer-base distance: 17 alarm 0.408 m; 14 alarm 0.459 m (near the 0.47 m limit); 39 figurine 0.420 m (standing limit 0.43 m). Fixtures are not reach-checked: the stand 0.57 m and the drawer 0.56-0.57 m from the left base and the frame 0.49 m from the right base, in every layout including layout 0.",
+        "fallback": "Layout 19 (mouse 6, keyboard 0, figurine 8; difficulty 1.5; mean displacement 0.063 m, the closest to layout 0) may replace a scheduled round only by an explicit selection inside this pool, never silently; it is not smoke-checked.",
+        "known_limits": "The placement targets lie beyond the measured top-down envelope in every layout, layout 0 included. The keyboard has no physics mass in any layout and loads at the 0.5 kg default. In layout 14 the figurine and alarm start close to layout 0's (0.016 and 0.057 m).",
+        "layouts": {
+          "17": {
+            "models": {
+              "mouse": 6,
+              "alarm": 0,
+              "keyboard": 1,
+              "garage": 8
+            },
+            "max_nearer_base_distance_m": 0.408,
+            "reset_mouse_heading_from_world_x_deg": 1.0,
+            "mouse_pad_nearer_base_distance_m": 0.535,
+            "difficulty": 1.68,
+            "mean_displacement_from_layout0_m": 0.121
+          },
+          "14": {
+            "models": {
+              "mouse": 7,
+              "alarm": 0,
+              "keyboard": 1,
+              "garage": 8
+            },
+            "max_nearer_base_distance_m": 0.459,
+            "reset_mouse_heading_from_world_x_deg": 12.49,
+            "mouse_pad_nearer_base_distance_m": 0.48,
+            "difficulty": 1.98,
+            "mean_displacement_from_layout0_m": 0.095
+          },
+          "39": {
+            "models": {
+              "mouse": 7,
+              "alarm": 0,
+              "keyboard": 2,
+              "garage": 8
+            },
+            "max_nearer_base_distance_m": 0.42,
+            "reset_mouse_heading_from_world_x_deg": 11.1,
+            "mouse_pad_nearer_base_distance_m": 0.533,
+            "difficulty": 2.47,
+            "mean_displacement_from_layout0_m": 0.148
+          },
+          "19": {
+            "models": {
+              "mouse": 6,
+              "alarm": 0,
+              "keyboard": 0,
+              "garage": 8
+            },
+            "max_nearer_base_distance_m": 0.416,
+            "reset_mouse_heading_from_world_x_deg": 17.32,
+            "mouse_pad_nearer_base_distance_m": 0.458,
+            "difficulty": 1.5,
+            "mean_displacement_from_layout0_m": 0.063
+          }
+        }
+      }
+    },
+    "build_tower": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 2,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_2.json",
+          "layout_sha256": "8d6bff06259a8ae1dbaf982639c3febabccc9e681a34e18acc368647deced338"
+        },
+        {
+          "layout_id": 19,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_19.json",
+          "layout_sha256": "7c71ba7314a37aab8042a792a25aa38d8e7c39d8b1daa3d9503d552ce82350df"
+        },
+        {
+          "layout_id": 32,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_32.json",
+          "layout_sha256": "64880001692fbb48e62591e82a223eaf47a7a213c8f703d31724e1df3551f8f2"
+        },
+        {
+          "layout_id": 49,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_49.json",
+          "layout_sha256": "ba90b2fe6cdccc4ccbcc0b20a642e05006df246940857578919136470940c793"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/build_tower-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "smallest_board_side": "right",
+        "roof_side": "left",
+        "max_nearer_base_distance_m": 0.416,
+        "min_pair_centre_xy_m": 0.1,
+        "difficulty": 0.17,
+        "mean_displacement_from_layout0_m": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-02, read-only survey of the 55 eval_seed 0 layouts (analysis outside Git); layout and object-metadata hashes re-verified from the pinned assets",
+        "selection": "Every layout holds block0-block7 with the reviewed models (the two long boards at layout 0's poses, the smallest board, the roof and four upright blocks, one pair on each side), upright and level at spawn, and the fixtures of layout 0; all 55 hold every piece inside the measured low-object envelope (largest 0.465 m). Difficulty adds 10x the distance beyond 0.40 m, 2 per piece beyond 0.44 m, touching footprints and 1 when the smallest board and the roof start on the same side; the pool also requires a mean displacement of the six loose pieces from layout 0 of at least 0.2 m.",
+        "default_order": "Rounds 2 -> 19 -> 32, easy to hard (0.0, 1.16, 1.51 against 0.17 for layout 0): the smallest board and the roof start on opposite sides in 2 (swapped against layout 0), both right in 19 and both left in 32; mean loose-piece displacement from layout 0 0.321, 0.208 and 0.218 m.",
+        "reach_evidence": "Not smoke-checked. Every piece is low (root at most 0.019 m above the table); largest nearer-base distance 0.391 (2), 0.410 (19) and 0.433 m (32) against the measured 0.47 m envelope.",
+        "fallback": "Layout 49 (difficulty 0.0; largest distance 0.391 m) may replace a scheduled round only by an explicit selection inside this pool, never silently; it is not smoke-checked.",
+        "known_limits": "Where the tower stands is the policy's choice; the boards are 0.375 and 0.244 m long and the upright blocks 0.038 m wide.",
+        "layouts": {
+          "2": {
+            "smallest_board_side": "left",
+            "roof_side": "right",
+            "max_nearer_base_distance_m": 0.391,
+            "min_pair_centre_xy_m": 0.091,
+            "difficulty": 0.0,
+            "mean_displacement_from_layout0_m": 0.321
+          },
+          "19": {
+            "smallest_board_side": "right",
+            "roof_side": "right",
+            "max_nearer_base_distance_m": 0.41,
+            "min_pair_centre_xy_m": 0.087,
+            "difficulty": 1.16,
+            "mean_displacement_from_layout0_m": 0.208
+          },
+          "32": {
+            "smallest_board_side": "left",
+            "roof_side": "left",
+            "max_nearer_base_distance_m": 0.433,
+            "min_pair_centre_xy_m": 0.1,
+            "difficulty": 1.51,
+            "mean_displacement_from_layout0_m": 0.218
+          },
+          "49": {
+            "smallest_board_side": "left",
+            "roof_side": "right",
+            "max_nearer_base_distance_m": 0.391,
+            "min_pair_centre_xy_m": 0.1,
+            "difficulty": 0.0,
+            "mean_displacement_from_layout0_m": 0.305
+          }
+        }
+      }
+    },
+    "classify_objects_by_language": {
+      "status": "reviewed",
+      "pool": [
+        {
+          "layout_id": 7,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_7.json",
+          "layout_sha256": "9b72d61ef8fbbb7d45b4a4d778ca2b3bbafe1f01c59fed5c70e2a4435eaff233"
+        },
+        {
+          "layout_id": 41,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_41.json",
+          "layout_sha256": "8c45ac04a983357374bd24aa9bb73c0a1258096968ef999a21278b7923bd287d"
+        },
+        {
+          "layout_id": 0,
+          "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_0.json",
+          "layout_sha256": "eb7bc205a8e5f3acad8fdada3bf7a26b8e11fc39d7944f434aa4989356044eb2"
+        }
+      ],
+      "contract_appendix": "ora/policy/environments/robodojo/task-contracts/reviews/classify_objects_by_language-layout-compatibility-v1.json",
+      "reference_layout": {
+        "layout_id": 0,
+        "categories": [
+          "car",
+          "watch",
+          "wooden_toy"
+        ],
+        "object_count": 6,
+        "max_nearer_base_distance_m": 0.449,
+        "min_pair_centre_xy_m": 0.094,
+        "difficulty": 9.49,
+        "mean_displacement_from_layout0_m": 0.0
+      },
+      "review": {
+        "reviewed": "2026-10-02, read-only survey of the 55 eval_seed 0 layouts (analysis outside Git); layout and object-metadata hashes re-verified from the pinned assets",
+        "selection": "gen_instruction names each layout's three categories, and the reviewed contract carries layout 0's instruction (car, watch, wooden_toy); the worker refuses a round whose instruction differs. Of the 55 eval_seed-0 layouts only 0, 7 and 41 render it, so the pool is exactly those three. All three hold every object inside the measured low-object envelope (largest nearer-base distance 0.449, 0.407 and 0.384 m), no mass anomaly, and layout 0's baskets and fixtures. Difficulty uses the classify_objects score (object count, 10x the distance beyond 0.40 m, 2 per object beyond 0.44 m, touching footprints, 0.5 per object of 0.3 kg or more).",
+        "default_order": "Rounds 7 -> 41 -> 0 (user decision 2026-10-01; difficulty 7.57, 10.0 and 9.49). Round 3 is the reviewed layout 0, an accepted exception to the rule that every round differs from layout 0, for this task only and because no fourth layout renders the reviewed instruction. The order keeps the two new layouts first; it is not strictly easy to hard (41 scores above layout 0). Mean matched object displacement from layout 0: 0.076 (7) and 0.070 m (41).",
+        "reach_evidence": "Not smoke-checked. Every object is low (root at most 0.055 m above the table); largest nearer-base distance 0.407 m (7, watch/7 at (-0.074, -0.112)), 0.384 m (41, watch/6) and 0.449 m (0, watch/5), against the measured 0.47 m envelope; the wooden toys stay within 0.363 m, inside even the 0.43 m standing-object limit. The scene smoke decides.",
+        "fallback": "None is possible: no other eval_seed-0 layout renders the reviewed instruction.",
+        "known_limits": "Layout 0 in round 3 repeats the scene of g003-g007 runs on this task, so a round-3 result mixes transfer with exposure to a previously run scene (not within this session). The baskets lie 0.50 m (outer) and 0.58 m (middle) from the nearer arm base in every layout and are not reach-checked. Layout 41 holds two car/10 whose footprints come within 3 mm (axis-aligned bound) and four objects of 0.45 kg; cars are 0.45 kg in every layout.",
+        "layouts": {
+          "7": {
+            "categories": [
+              "car",
+              "watch",
+              "wooden_toy"
+            ],
+            "object_count": 6,
+            "max_nearer_base_distance_m": 0.407,
+            "min_pair_centre_xy_m": 0.12,
+            "difficulty": 7.57,
+            "mean_displacement_from_layout0_m": 0.076
+          },
+          "41": {
+            "categories": [
+              "car",
+              "watch",
+              "wooden_toy"
+            ],
+            "object_count": 7,
+            "max_nearer_base_distance_m": 0.384,
+            "min_pair_centre_xy_m": 0.117,
+            "difficulty": 10.0,
+            "mean_displacement_from_layout0_m": 0.07
+          },
+          "0": {
+            "categories": [
+              "car",
+              "watch",
+              "wooden_toy"
+            ],
+            "object_count": 6,
+            "max_nearer_base_distance_m": 0.449,
+            "min_pair_centre_xy_m": 0.094,
+            "difficulty": 9.49,
+            "mean_displacement_from_layout0_m": 0.0
+          }
+        }
+      }
+    }
+  }
+}

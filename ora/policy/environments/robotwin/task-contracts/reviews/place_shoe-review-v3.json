@@ -1,0 +1,240 @@
+{
+  "schema": "ora.task-contract-review.v1",
+  "backend": "robotwin",
+  "task": "place_shoe",
+  "status": "reviewed",
+  "reviewer": "Codex individual source, geometry, recorded-image and counterexample review requested by operator",
+  "reviewed_at": "2026-09-13",
+  "scope": "Fifty-task semantic generation v3. Whole task and shared semantic dependencies reviewed against the six listed revisions. Asset metadata covers reset-eligible families; physical evidence remains limited to the recorded source/seed/assets and camera visibility below. The appended IK-diagnostics install differs from c9f5288bf1cb7878c4e6bafa7657966698d1237f only in envs/robot/planner.py; task, evaluator, helper and robot source blobs are unchanged, and current asset dependencies match their recorded hashes. This extends semantic source compatibility, not physical qualification.",
+  "verified_revisions": [
+    "1f88406aea2334076087df8b81bbcd02b9d9cd6b",
+    "57e0b6f571e55da83f8f16edd499565dd01599b2",
+    "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "c3ddfa8b97d5519efa828b075999bd0006778e5e",
+    "c9f5288bf1cb7878c4e6bafa7657966698d1237f",
+    "dee8ee9062165bd3f921f05eb0f96aaaa6ba1b06",
+    "cf4872cc90538fd4bca761c8db912d8f65e49f2b"
+  ],
+  "source_dependencies": [
+    {
+      "role": "task_predicate_and_reset",
+      "path": "envs/place_shoe.py",
+      "sha256": "9e9b29eaca488f41617127070add87f33900c37db0d286a4c4b08e2138cbfc6f"
+    },
+    {
+      "role": "upstream_task_language",
+      "path": "description/task_instruction/place_shoe.json",
+      "sha256": "088ae335af61dfbe07a4948cc0b7246ca18f1013dde90f98e0f19eabca7cc1a1"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/_base_task.py",
+      "sha256": "448f7152b65cb9102217cf5463aa821d72810ca56f63d5a797ec7bd43e23e101"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/actor_utils.py",
+      "sha256": "252d43c526b23adcf4ba549fec64a49f037fc4a24e9edd1998e5f60d3e13d5d9"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/create_actor.py",
+      "sha256": "6bababee8e70da2460b2bbf47d3b5fbb20ccf73368782a7be596a63c962dce6d"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/rand_create_actor.py",
+      "sha256": "6c409ff1d97528b9dc654d39cc34683f51af6e797c1c5d92c076c29c09f9bedb"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/utils/transforms.py",
+      "sha256": "b8ec2a27275868dc476ca1e2c2c8264fdc2f8a907278ed531b53d13e82b338ca"
+    },
+    {
+      "role": "shared_semantic_helper",
+      "path": "envs/robot/robot.py",
+      "sha256": "caead777933e0cc4bd13aefeda43a39ea61052e3563ec6e9009dd58195f8bc0d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data0.json",
+      "sha256": "08d3fe1477ef47fbe76c276f612f66e36d7a55c7c89c0524dd0f31a22c6692ec"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data1.json",
+      "sha256": "e95b308dfed5438a7f636d9383c964cc15db60227fdadbd7b06af7fa6c989aa1"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data2.json",
+      "sha256": "f94ff8ec46c2e828426910502525e8085cd8ec9396c4ac8de3901060bc2e450d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data3.json",
+      "sha256": "1b25f3340edcecf46caecef7f028fba04d53c543c4cf156b79c3a9d159488a51"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data4.json",
+      "sha256": "e7d8fa080ffbaad1367eefcd8b6d65474343f9ebb692e8684a31170e87b3c668"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data5.json",
+      "sha256": "03269c47afaff9a1ed7592ab5e7a2f5a53fe04965803d2a02970d51ca6d6234a"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data6.json",
+      "sha256": "62ea79099f10621d576fb18559cb2938f8b89e34523e4cb2eec822df31e6eaee"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data7.json",
+      "sha256": "e3725a12204a54501dbdc11d0c6899245e9fd12b220b7ad649afe0ef4c19c441"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data8.json",
+      "sha256": "8a8efa778cd2ad0e54ceae0c5144899233c79fc0de07c0c2bd9d324f90978775"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/model_data9.json",
+      "sha256": "12aaae0a26a873f1787f4f796308f174a404a8e9cccd355c4cedf44ad8c0f19d"
+    },
+    {
+      "role": "reset_asset_metadata_or_articulation",
+      "path": "assets/objects/041_shoe/points_info.json",
+      "sha256": "cd58cc3b50c918ab20f80fbfd091d488df19440a0455c71e7229198c41f820e0"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/041_shoe/collision/base3.glb",
+      "sha256": "7fd59f61ae722512726aaa9cd72dde1d37287d8e6aee394311af3216f0e0634e"
+    },
+    {
+      "role": "recorded_witness_asset",
+      "path": "assets/objects/041_shoe/visual/base3.glb",
+      "sha256": "f9c7ee2bf08dc64d99e696e9d3015dd99906c93c7678a0faba2ddcaac791e3e4"
+    }
+  ],
+  "evidence": [
+    {
+      "role": "official_expert_result_and_hold",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-place_shoe-from-s0-gpu6c-20260830T094130Z/place_shoe/attempts/seed-000000-try-00/attempt.json",
+      "sha256": "f362209c35db9160c5af37fedbe7136687f9c092561dc83c30cba007a64d32a7"
+    },
+    {
+      "role": "post_hold_private_telemetry",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-place_shoe-from-s0-gpu6c-20260830T094130Z/place_shoe/attempts/seed-000000-try-00/verifier-telemetry.json",
+      "sha256": "a74daa1b0c6fc54d128784822f3c387b9ae3d20e2cb50b6c865e6bee9a0f8f3c"
+    },
+    {
+      "role": "reviewed_post_hold_image:head_camera",
+      "path": "outputs/exp08a-unified-native/seed-qualification/oracle-sweep-place_shoe-from-s0-gpu6c-20260830T094130Z/place_shoe/attempts/seed-000000-try-00/head_camera-rgb.png",
+      "sha256": "cf6ebddd9f2dea5d59857188390c66a6270ef6d83243e6f03b704083486723cc"
+    }
+  ],
+  "public_clauses": [
+    "Place the shoe centred on the mat, sole down, with its toe pointing to the robot's left along the mat's long edge.",
+    "Leave both grippers open when the placement is judged."
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "source_basis": "check_success: root xy near fixed mat center and sign-normalized q near [.5,.5,-.5,-.5]; asset toe local +Z maps to world -X.",
+      "interpretation": "Place the shoe centred on the mat, sole down, with its toe pointing to the robot's left along the mat's long edge.",
+      "disposition": "included",
+      "public_clause_indices": [
+        0
+      ]
+    },
+    {
+      "id": "c2",
+      "source_basis": "check_success: is_left_gripper_open AND is_right_gripper_open; wrappers delegate to cached normalized gripper command state.",
+      "interpretation": "Leave both grippers open when the placement is judged.",
+      "disposition": "included",
+      "public_clause_indices": [
+        1
+      ]
+    },
+    {
+      "id": "private_limits_and_scoring_gaps",
+      "source_basis": "envs/place_shoe.py:check_success lines 90-100, helper and asset dependencies listed in this record.",
+      "interpretation": "No z or support/contact predicate; sole-down is physical interpretation of intended quaternion family, not a separate height rule.",
+      "disposition": "withheld_private",
+      "public_clause_indices": [],
+      "omission_reason": "Private numeric tests and implementation weaknesses are documented for review, not delivered as exploit instructions. Original task language remains a separate episode layer."
+    }
+  ],
+  "checks": {
+    "predicate_and_helpers": {
+      "status": "passed",
+      "basis": "Read full task, all check_success branches and shared contact/TCP/point/gripper functions; individual condition mapping above. No z or support/contact predicate; sole-down is physical interpretation of intended quaternion family, not a separate height rule."
+    },
+    "reset_and_randomization": {
+      "status": "passed",
+      "basis": "Read load_actors and cached role/target state, including source-restored expert-only state for laptop, scale and cabinet. All ten shoe assets share toe/up semantic axes. Blue mat is long in world X."
+    },
+    "assets_and_frames": {
+      "status": "passed",
+      "basis": "All ten shoe assets share toe/up semantic axes. Blue mat is long in world X. Parsed 11 eligible-family metadata/URDF/point-index files; witness asset bytes checked against historical manifest. This is source/frame review, not a physical trial of every variant."
+    },
+    "success_timing": {
+      "status": "passed",
+      "basis": "Read Base_Task per-physics-step eval_success and task stage_success_tag where used; runtime preserves official latch. Conditions describe the success observation/event, not mandatory persistence until conversation finish. Saved images are after the separate qualification hold; hold is not a new task rule."
+    },
+    "public_observability": {
+      "status": "passed",
+      "basis": "Public object roles and table directions are qualitative; no raw poses, contacts, asset IDs, numbers or predicates enter rendered text. All ten shoe assets share toe/up semantic axes. Blue mat is long in world X."
+    },
+    "success_witness": {
+      "status": "passed",
+      "basis": "Head image shows white shoe toe-left on blue mat."
+    },
+    "counterexamples": {
+      "status": "passed",
+      "basis": "Shoe aligned with mat but toe right: quaternion condition fails. This is a source-derived counterexample review; it is not a newly executed simulator trial."
+    },
+    "no_expert_strategy": {
+      "status": "passed",
+      "basis": "Task-explicit arm/transfer/shake instructions remain intent; no expert-only waypoint, order, grasp pose, fixed target coordinate or chosen action sequence is promoted. No z or support/contact predicate; sole-down is physical interpretation of intended quaternion family, not a separate height rule."
+    },
+    "privacy": {
+      "status": "passed",
+      "basis": "Only public_clauses is deterministically rendered. Private conditions, hashes, thresholds, raw observations, expert source and asset records are excluded; final resolver/wire checks are recorded separately in the batch report."
+    }
+  },
+  "counterexamples": [
+    {
+      "case": "Shoe aligned with mat but toe right: quaternion condition fails.",
+      "expected": "Source-derived boundary described above; no new physical rollout claimed."
+    }
+  ],
+  "forbidden_public_claims": [],
+  "change_summary": "补齐注册；把旧版“某个特定端”改成可执行的鞋尖向机器人左侧。",
+  "witness_scope": {
+    "source_revision": "9f1fdb1280164f15c4c2d421bf68c552b7dfcd4f",
+    "requested_seed": 0,
+    "task_source_bytes_match_canonical": true,
+    "expert_post_play_success": true,
+    "hold_passed": true,
+    "capture_phase": "after_expert_and_separate_hold",
+    "selected_assets": [
+      {
+        "model_name": "041_shoe",
+        "model_id": 3
+      }
+    ],
+    "viewed_cameras": [
+      "head_camera"
+    ],
+    "visual_interpretation": "Head image shows white shoe toe-left on blue mat.",
+    "claim": "one_recorded_configuration_not_all_variant_physical_qualification"
+  },
+  "limitations": "No z or support/contact predicate; sole-down is physical interpretation of intended quaternion family, not a separate height rule. Head image shows white shoe toe-left on blue mat. Source-derived negative cases were not physically executed. No claim of improved Agent performance or whole-family physical qualification."
+}

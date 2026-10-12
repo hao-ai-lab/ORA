@@ -1,0 +1,42 @@
+{
+  "schema": "ora.tool-surface-profile.v1",
+  "profile_id": "native_atomic_causal_v1",
+  "revision": 1,
+  "runtime_id": "native_atomic_causal",
+  "base_definitions": "base-definitions.json",
+  "tool_order": [
+    "observe",
+    "mark_point",
+    "preview_move",
+    "move_pose",
+    "close_gripper",
+    "open_gripper",
+    "report_issue",
+    "check_task",
+    "finish_episode"
+  ],
+  "components": {
+    "descriptions.atomic_causal_v1": "descriptions.json"
+  },
+  "description_order": ["descriptions.atomic_causal_v1"],
+  "schema_order": [],
+  "result_order": [],
+  "mutation_tools": ["move_pose", "close_gripper", "open_gripper"],
+  "lifecycle_tools": ["finish_episode"],
+  "observation_tools": ["observe"],
+  "call_effect_profile": "native_atomic_causal_effects_v1",
+  "capabilities": [
+    "rgbd",
+    "two_view_pointcloud_v1",
+    "runtime_action_v3",
+    "faithful_check_task",
+    "atomic_pose_gripper_v1",
+    "causal_observation_v1",
+    "batched_mark_overlay_v1"
+  ],
+  "provenance": {
+    "derived_from": "openeta_light_prompt_v2",
+    "experiment": "native-harness-exp01b",
+    "treatment": "atomic_actions_and_causal_context"
+  }
+}

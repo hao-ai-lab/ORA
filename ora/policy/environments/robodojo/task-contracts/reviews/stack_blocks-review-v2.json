@@ -1,0 +1,103 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "stack_blocks",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/stack_blocks.py",
+    "file_sha256": "50bd388f9e47002966fbb0146742467a820295b8686e0f86379f0efbcfffcc1b",
+    "run_reward_lines": [
+      33,
+      42
+    ],
+    "run_reward_sha256": "24b19f599e3a96abfa5b2ef3f2a827d9bb49df5c3b223e66c1b3a40e61dc1385",
+    "predicate_sha256_method": "sha256 of exact UTF-8 FunctionDef lineno..end_lineno bytes, inclusive"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/stack_blocks_0.json",
+    "layout_sha256": "9a6b1ba160b2fc5420fd4aa858400b1ee0346d7d7449bdd85aa99d9f65418191",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Stack the three blocks with different textures."
+  },
+  "semantic_contract": [
+    "Arrange all three blocks one above another, with their centers vertically aligned. No particular texture order is required.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/stack_blocks-completion-v3.md",
+    "sha256": "7ccec1a5eb1d8857118cf1a0c6236550fa2953e6cffc3b767e3d0373cc3dd63d"
+  },
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Arrange all three blocks one above another, with their centers vertically aligned. No particular texture order is required.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": []
+  },
+  "native_action_limit": 550,
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    }
+  ],
+  "verdict": "instruction_incomplete",
+  "latching_failures": [],
+  "evaluator_clauses": [
+    {
+      "id": "all_blocks_vertical_alignment",
+      "source": "run_reward -> is_stacked",
+      "semantic": "All three centers vertically aligned and ordered by height; no texture order",
+      "direct_check": "pairwise horizontal distance and positive vertical separation after sorting; no orientation, contact or support query",
+      "gap": "precise public arrangement made explicit"
+    },
+    {
+      "id": "return_to_origin",
+      "source": "all_robot_back_to_origin",
+      "semantic": "both arms at reset poses simultaneously",
+      "owner": "task_completion_contract"
+    }
+  ],
+  "review_notes": [
+    "Removed the old upright/support assertions because the predicate does not directly test them. Stacking remains the objective; no reward-exploiting strategy is supplied.",
+    "get_score gripper-open partial-score condition is not part of run_reward Boolean success."
+  ],
+  "supersedes": {
+    "record": "experiments/toolchain_b2_robodojo/task-contracts/stack_blocks-v2.json",
+    "record_sha256": "ae1f50686367b070ecdbb822982bd77294620f18f55345f6fc64925083ded468",
+    "layer": "ora/policy/environments/robodojo/task-contracts/stack_blocks-completion-v2.md",
+    "layer_sha256": "977fb6a27e25946366e4828417acb6350bc398ae59839913f66afb486933aa0b"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for EXP11A g004; no simulator, provider or physical run",
+    "date": "2026-09-29",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and the reward-manager helpers it calls at the pinned revision",
+      "the pinned layout file",
+      "boundary-v2 applies the arm-return requirement only where the task contract states it"
+    ],
+    "changes": [
+      "Adds the explicit return clause: boundary-v2 applies the return requirement only where the task contract states it, and this task's success check conjoins all_robot_back_to_origin.",
+      "Uses the shared 'Public completion contract for this task:' header."
+    ],
+    "carried_forward": "Every other clause is the predecessor's reviewed text, unchanged.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

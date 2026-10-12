@@ -1,0 +1,116 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "fold_clothes",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/fold_clothes.py",
+    "file_sha256": "ecea9c287d0579605330168e6f36734704fb14a6b1e5dec82b6f2ee3a56ec20a",
+    "run_reward_lines": [
+      19,
+      121
+    ],
+    "run_reward_sha256": "6c1e45bc04def2399d3a7eeb7cbeafd126f5a266d5223a90ff2b5ea3aab39bb6",
+    "predicate_sha256_method": "sha256 of exact UTF-8 FunctionDef lineno..end_lineno bytes, inclusive"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/fold_clothes_0.json",
+    "layout_sha256": "53de16e28978c71cfaa0620712633a0e07ed9d4bb79cdb63c5a953fa26f1b5ba",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "instruction": {
+    "text": "Fold the clothes neatly."
+  },
+  "semantic_contract": [
+    "Fold each sleeve across the torso toward the opposite side of the chest.",
+    "Fold the lower body of the garment toward the shoulders, bringing each side of the hem near its corresponding shoulder and aligning the hem edge with the shoulder edge.",
+    "The fold is judged at the moment the robot enters the state of both arms back at their reset poses with both grippers open. Everything above must already be true at that moment; if it is not, only a later fresh entry into that state is judged.",
+    "If either arm arrives back at its reset pose while the body is folded but a sleeve is not across the chest, the episode ends at once as a permanent failure."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/fold_clothes-completion-v2.md",
+    "sha256": "e0f5ed7c9ed82b8d467e536279708562fad1a68c8c2e4385fcac1bba1d65da5b"
+  },
+  "universal_return_to_origin": true,
+  "disclosure": {
+    "task_completion_contract": [
+      "Fold each sleeve across the torso toward the opposite side of the chest.",
+      "Fold the lower body of the garment toward the shoulders, bringing each side of the hem near its corresponding shoulder and aligning the hem edge with the shoulder edge.",
+      "The fold is judged at the moment the robot enters the state of both arms back at their reset poses with both grippers open. Everything above must already be true at that moment; if it is not, only a later fresh entry into that state is judged.",
+      "If either arm arrives back at its reset pose while the body is folded but a sleeve is not across the chest, the episode ends at once as a permanent failure."
+    ],
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "environment_boundary": []
+  },
+  "native_action_limit": 500,
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Garment/Top_Long/00009/metadata.json",
+      "sha256": "33705940f27a0874a5af479c88c220c555b9c8d02ecb474f2ab3aded5c3b1f0d"
+    }
+  ],
+  "verdict": "instruction_incomplete",
+  "latching_failures": [
+    "Once the body is folded, returning either arm to its reset pose while a sleeve remains out of place causes failure."
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "sleeves",
+      "semantic": "Fold each sleeve across the torso toward the opposite side of the chest."
+    },
+    {
+      "id": "body_fold",
+      "semantic": "Fold the lower body of the garment toward the shoulders, bringing each side of the hem near its corresponding shoulder and aligning the hem edge with the shoulder edge."
+    },
+    {
+      "id": "completion_trigger",
+      "semantic": "The fold is judged at the moment the robot enters the state of both arms back at their reset poses with both grippers open. Everything above must already be true at that moment; if it is not, only a later fresh entry into that state is judged."
+    },
+    {
+      "id": "premature_return_failure",
+      "semantic": "If either arm arrives back at its reset pose while the body is folded but a sleeve is not across the chest, the episode ends at once as a permanent failure."
+    }
+  ],
+  "review_notes": [
+    "Reviewed run_reward plus RewardManager nested OR checks and rising-edge query latch. get_score is not the Boolean verdict. Numeric thresholds and garment functional vertex identifiers remain host-private."
+  ],
+  "supersedes": {
+    "record": "experiments/toolchain_b2_robodojo/task-contracts/fold_clothes-v1.json",
+    "record_sha256": "ea09b3b4e4f75db64c9a9cacadf8be6f8148c07765c3409e8888030ffec06f6b",
+    "layer": "ora/policy/environments/robodojo/task-contracts/fold_clothes-completion-v1.md",
+    "layer_sha256": "9a4be135d3696ea4b9f58aa17ef1cc15131dae0da2c96be5dab3b2fa46b47d3f"
+  },
+  "successor_review": {
+    "scope": "source/layout-bound qualitative successor review for EXP11A g004; no simulator, provider or physical run",
+    "date": "2026-09-29",
+    "reviewer": "claude_source_review",
+    "basis": [
+      "run_reward and the reward-manager helpers it calls at the pinned revision",
+      "the pinned layout file",
+      "boundary-v2 applies the arm-return requirement only where the task contract states it"
+    ],
+    "changes": [
+      "States when the fold is judged: run_reward registers the fold checks as a rising-edge trigger on all grippers open and all arms back at their reset poses (fold_clothes.py 105-109), so the result is judged on arrival, not whenever it becomes true.",
+      "Phrases the premature-return query as an episode-ending permanent failure."
+    ],
+    "carried_forward": "Clauses not named in changes restate the predecessor's reviewed semantics.",
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed for the successor text."
+    },
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "align_plan": {
+    "additionalProperties": false,
+    "properties": {
+      "approach_side": {
+        "enum": [
+          "top",
+          "left",
+          "right",
+          "front",
+          "back"
+        ],
+        "type": "string"
+      },
+      "candidates": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "align_pose": {
+              "additionalProperties": false,
+              "properties": {
+                "orientation_xyzw": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 4,
+                  "minItems": 4,
+                  "type": "array"
+                },
+                "position_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "position_m",
+                "orientation_xyzw"
+              ],
+              "type": "object"
+            },
+            "arm": {
+              "enum": [
+                "left",
+                "right"
+              ],
+              "type": "string"
+            },
+            "claim_boundary": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "iterations": {
+              "maximum": 60,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "orientation_error_rad": {
+              "minimum": 0,
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "position_error_m": {
+              "minimum": 0,
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "reachable": {
+              "type": "boolean"
+            },
+            "rejection_reason": {
+              "description": "null when reachable. ik_failed: the SDK IK returned no joint solution within the joint limits. ik_branch_jump: every valid solution needs a raw joint move larger than the global joint-jump limit (pi rad) from the current configuration, i.e. another arm branch. fk_residual_exceeded: a solution exists but its forward kinematics misses the pose by more than the arrival tolerance (0.01 m or 0.1 rad).",
+              "enum": [
+                null,
+                "ik_failed",
+                "ik_branch_jump",
+                "fk_residual_exceeded"
+              ],
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_index": {
+              "maximum": 5,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "source_index",
+            "arm",
+            "align_pose",
+            "reachable",
+            "position_error_m",
+            "orientation_error_rad",
+            "iterations",
+            "rejection_reason",
+            "claim_boundary"
+          ],
+          "type": "object"
+        },
+        "maxItems": 12,
+        "minItems": 1,
+        "type": "array"
+      },
+      "motion_planner_called": {
+        "const": false,
+        "type": "boolean"
+      },
+      "requested_arm": {
+        "enum": [
+          "left",
+          "right",
+          "both"
+        ],
+        "type": "string"
+      },
+      "schema": {
+        "const": "ora.align-plan-result.v1",
+        "type": "string"
+      },
+      "target_ref": {
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "schema",
+      "target_ref",
+      "approach_side",
+      "requested_arm",
+      "motion_planner_called",
+      "candidates"
+    ],
+    "type": "object"
+  }
+}

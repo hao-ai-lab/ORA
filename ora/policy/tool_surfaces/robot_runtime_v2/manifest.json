@@ -1,0 +1,29 @@
+{
+  "schema": "ora.tool-surface-profile.v1",
+  "profile_id": "robot_runtime_v2",
+  "revision": 1,
+  "runtime_id": "robot_runtime",
+  "tool_order": [
+    "observation.dump_state",
+    "vision.inspect",
+    "geometry.query",
+    "robot.read_manual",
+    "robot.submit_action"
+  ],
+  "components": {
+    "descriptions.base": "descriptions-base.json",
+    "descriptions.evidence": "descriptions-evidence.json",
+    "descriptions.semantics": "descriptions-semantics.json",
+    "schemas.target_state_v4": "action-v4-schema.json"
+  },
+  "description_order": [
+    "descriptions.base",
+    "descriptions.evidence",
+    "descriptions.semantics"
+  ],
+  "schema_order": ["schemas.target_state_v4"],
+  "result_order": [],
+  "mutation_tools": ["robot.submit_action"],
+  "lifecycle_tools": [],
+  "capabilities": ["policy_state", "rgbd", "manual", "target_state_v4"]
+}

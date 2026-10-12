@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# Repository-local wrapper for the canonical Orchestrator CLI.
+# It selects the locked project interpreter when available and adds no commands.
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ -x "$ROOT/.venv/bin/python" ]; then
+  PYTHON="$ROOT/.venv/bin/python"
+else
+  PYTHON=${PYTHON:-python3}
+fi
+exec "$PYTHON" -m ora.orchestrator.cli "$@"

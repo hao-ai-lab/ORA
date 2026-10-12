@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ora.embodiment-descriptor.v1",
+  "title": "Robot Harness policy-safe embodiment descriptor v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "descriptor_id",
+    "embodiment_id",
+    "display_name",
+    "status",
+    "identity",
+    "topology",
+    "control",
+    "geometry",
+    "sensing",
+    "dynamic_facts",
+    "evidence_limits",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {"const": "ora.embodiment-descriptor.v1"},
+    "descriptor_id": {"$ref": "#/$defs/identifier"},
+    "embodiment_id": {"$ref": "#/$defs/identifier"},
+    "display_name": {"$ref": "#/$defs/nonempty"},
+    "status": {"enum": ["draft", "reviewed"]},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manufacturer", "model", "variant", "base_mobility"],
+      "properties": {
+        "manufacturer": {"$ref": "#/$defs/nonempty"},
+        "model": {"$ref": "#/$defs/nonempty"},
+        "variant": {"$ref": "#/$defs/nonempty"},
+        "base_mobility": {"enum": ["fixed", "mobile", "hybrid", "virtual"]}
+      }
+    },
+    "topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manipulators", "end_effectors"],
+      "properties": {
+        "manipulators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/manipulator"}
+        },
+        "end_effectors": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/end_effector"}
+        }
+      }
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controlled_points",
+        "action_abstraction",
+        "position_frame",
+        "position_unit",
+        "orientation",
+        "controller_family",
+        "internal_controller_policy"
+      ],
+      "properties": {
+        "controlled_points": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/controlled_point"}
+        },
+        "action_abstraction": {
+          "enum": ["cartesian_target", "joint_target", "base_velocity", "hybrid"]
+        },
+        "position_frame": {"enum": ["world", "robot_base", "controlled_point_local"]},
+        "position_unit": {"enum": ["metre"]},
+        "orientation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["representation", "order", "angle_unit"],
+          "properties": {
+            "representation": {
+              "enum": ["quaternion", "rotation_matrix", "axis_angle", "euler", "none"]
+            },
+            "order": {"enum": ["xyzw", "wxyz", "xyz", "none"]},
+            "angle_unit": {"enum": ["radian", "none"]}
+          }
+        },
+        "controller_family": {
+          "enum": [
+            "operational_space_pose", "joint_position", "joint_velocity",
+            "base_velocity", "hybrid", "__REQUIRED__"
+          ]
+        },
+        "internal_controller_policy": {
+          "enum": ["tool_surface_owned", "policy_visible"]
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grippers", "workspace_limits", "collision_model"],
+      "properties": {
+        "card_projection": {"const": "control_only_nine_node_v1"},
+        "grippers": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/gripper"}
+        },
+        "workspace_limits": {"$ref": "#/$defs/projection_owner"},
+        "collision_model": {"$ref": "#/$defs/projection_owner"}
+      }
+    },
+    "sensing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cameras", "state_fields"],
+      "properties": {
+        "cameras": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/camera"}
+        },
+        "state_fields": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/state_field"}
+        }
+      }
+    },
+    "dynamic_facts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/dynamic_fact"}
+    },
+    "evidence_limits": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "motion_completion_not_contact",
+          "gripper_closure_not_contact",
+          "gripper_closure_not_retention",
+          "physical_gripper_geometry_unavailable",
+          "geometry_not_collision_guarantee"
+        ]
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime_truth", "sources"],
+      "properties": {
+        "runtime_truth": {
+          "enum": ["compiled_model", "hardware_interface", "synthetic_contract"]
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/source"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "identifier": {
+      "type": "string",
+      "pattern": "^([a-z][a-z0-9_]*|__REQUIRED__)$"
+    },
+    "manipulator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "side", "joint_dof"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "kind": {
+          "enum": ["serial_arm", "parallel_arm", "mobile_manipulator"]
+        },
+        "side": {"enum": ["left", "right", "center", "none"]},
+        "joint_dof": {"type": "integer", "minimum": 1}
+      }
+    },
+    "end_effector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "manipulator_id", "command_dof"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "kind": {
+          "enum": [
+            "parallel_jaw_gripper", "suction_gripper", "tool", "__REQUIRED__"
+          ]
+        },
+        "manipulator_id": {"$ref": "#/$defs/identifier"},
+        "command_dof": {"type": "integer", "minimum": 1}
+      }
+    },
+    "controlled_point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "manipulator_id", "source_name", "description"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "manipulator_id": {"$ref": "#/$defs/identifier"},
+        "source_name": {"$ref": "#/$defs/nonempty"},
+        "description": {"enum": ["grip_center", "tool_center"]},
+        "offset_from": {"enum": ["end_effector_root", "manipulator_flange"]},
+        "offset_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"type": "number"}
+        }
+      }
+    },
+    "gripper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "end_effector_id",
+        "opening_mode",
+        "maximum_aperture_m",
+        "aperture_semantics"
+      ],
+      "properties": {
+        "end_effector_id": {"$ref": "#/$defs/identifier"},
+        "opening_mode": {"enum": ["symmetric", "asymmetric", "binary", "other"]},
+        "maximum_aperture_m": {"type": "number", "minimum": 0},
+        "aperture_semantics": {"enum": ["jaw_separation"]}
+      }
+    },
+    "projection_owner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "projection"],
+      "properties": {
+        "source": {"enum": ["descriptor", "runtime", "observation", "tool_surface"]},
+        "projection": {
+          "enum": [
+            "tool_surface_enforced_bounds", "runtime_enforced_bounds",
+            "bounded_motion_execution_evidence"
+          ]
+        }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_name",
+        "source_name",
+        "mounting",
+        "attached_to",
+        "modalities",
+        "calibration"
+      ],
+      "properties": {
+        "public_name": {"$ref": "#/$defs/identifier"},
+        "source_name": {"$ref": "#/$defs/nonempty"},
+        "mounting": {
+          "enum": ["fixed_world", "base", "manipulator", "end_effector", "other"]
+        },
+        "attached_to": {"$ref": "#/$defs/identifier"},
+        "modalities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["rgb", "metric_depth"]}
+        },
+        "calibration": {
+          "enum": ["per_observation", "per_session", "static", "unavailable"]
+        }
+      }
+    },
+    "state_field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "meaning", "unit", "source"],
+      "properties": {
+        "name": {"$ref": "#/$defs/identifier"},
+        "joint_names": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/identifier"}},
+        "meaning": {"enum": ["controlled_point_pose", "jaw_separation", "rotary_joint_positions", "robotiq_2f85_rotary_encoder_opening"]},
+        "unit": {
+          "enum": ["world_metre_xyzw", "millimetre", "tool_surface_declared", "robot_root_metre_xyzw", "radian", "dimensionless"]
+        },
+        "source": {"enum": ["observation", "tool_result", "runtime"]}
+      }
+    },
+    "dynamic_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "owner", "reason"],
+      "properties": {
+        "name": {"$ref": "#/$defs/identifier"},
+        "owner": {"enum": ["runtime", "observation", "tool_surface"]},
+        "reason": {"enum": ["camera_calibration", "robot_base_pose", "workspace_bounds"]}
+      }
+    },
+    "source": {
+      "$comment": "A repository source (local_path) is named by path only: the RunPlan source commit identifies its bytes, so it carries no revision or sha256. An external source carries both.",
+      "oneOf": [{"$ref": "#/$defs/repository_source"}, {"$ref": "#/$defs/external_source"}]
+    },
+    "repository_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "kind", "uri", "local_path", "supports"],
+      "properties": {
+        "source_id": {"$ref": "#/$defs/identifier"},
+        "kind": {"$ref": "#/$defs/source_kind"},
+        "uri": {"$ref": "#/$defs/nonempty"},
+        "local_path": {"$ref": "#/$defs/nonempty"},
+        "supports": {"$ref": "#/$defs/source_supports"}
+      }
+    },
+    "external_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "kind", "uri", "revision", "sha256", "supports"],
+      "properties": {
+        "source_id": {"$ref": "#/$defs/identifier"},
+        "kind": {"$ref": "#/$defs/source_kind"},
+        "uri": {"$ref": "#/$defs/nonempty"},
+        "revision": {"$ref": "#/$defs/nonempty"},
+        "sha256": {
+          "type": "string",
+          "pattern": "^([0-9a-f]{64}|__REQUIRED__)$"
+        },
+        "supports": {"$ref": "#/$defs/source_supports"}
+      }
+    },
+    "source_kind": {
+      "enum": [
+        "robot_mjcf", "gripper_mjcf", "controller_config",
+        "environment_robot_binding", "environment_runtime_adapter",
+        "policy_runtime_adapter", "tool_surface_contract", "__REQUIRED__"
+      ]
+    },
+    "source_supports": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/nonempty"}
+    }
+  }
+}

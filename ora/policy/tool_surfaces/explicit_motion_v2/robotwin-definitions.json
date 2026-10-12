@@ -1,0 +1,1400 @@
+{
+  "tools": [
+    {
+      "name": "observe",
+      "description": "Inspect current or saved public camera images without moving the world.\nUse when: checking current geometry or collecting a same-camera retention baseline with step=recovery.baseline_step.\nEffect: read-only; step selects an immutable observation in the current round, never recaptures or rewinds the environment.\nReturns: images, dimensions and actual or actual_historical_observation status; historical results name observation_step.\nDoes not: establish object identity, attachment or task success; historical images are not the current world.\nOn error: choose a saved step in the current round. With step, use physical camera views only and omit history_point_ids. For a complementary retention check, inspect the same camera both at baseline and now, then segment each with its matching step. Measurement feedback states coordinate units and limitations; null residuals are unmeasured. Images are explicitly indexed when present.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "views": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "head_camera",
+                "front_camera",
+                "left_camera",
+                "right_camera"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "Current immutable RGB-D views; omit for all four cameras. Head is central overhead; front is a partial frontal view; wrist views are current near-field or deliberately repositioned evidence."
+          },
+          "history_point_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Solved current-observation mark IDs to overlay; omit or pass null for none."
+          },
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Saved public observation step in the current round; omit or null for current. Historical selection is read-only and does not rewind the world. Use recovery.baseline_step when inspecting a retention baseline."
+          }
+        },
+        "additionalProperties": false,
+        "description": "With a historical step, request physical camera views only and omit history_point_ids; pointcloud views are current-only."
+      }
+    },
+    {
+      "name": "mark_point",
+      "description": "Convert one visible RGB-D pixel into an observation-bound world-frame point measurement. Use when: one exact current pixel—not an object identity, centre or full extent—is needed for a waypoint, clearance comparison or geometric fallback; use the native top-left [x,y] coordinates of the named current camera and choose a pixel well inside the intended visible surface. Effect: read-only with respect to the world; combines current depth with that camera's current calibration and persists one geometric mark bound to the observation. Returns: point_id plus pending, solved or verified status; solved evidence includes xyz_m and contributing views. Does not: track a pixel through robot or camera motion, segment or identify the object, infer hidden geometry, correct a click on the wrong surface, expose simulator ground truth, or prove reachability, collision clearance, contact, retention or success. On error: first distinguish an interface error from a bad visual click; verify the returned view dimensions and top-left [x,y], retry farther inside the intended surface, or use a complementary current view. A wrist camera moves with its arm, so after any motion discard old wrist pixels and query the fresh observation rather than hand-projecting the old image location. Measurement feedback states coordinate units and limitations; null residuals are unmeasured. Images are explicitly indexed when present.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "point_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Stable policy-chosen identifier for this geometric point."
+          },
+          "view": {
+            "type": "string",
+            "enum": [
+              "head_camera",
+              "front_camera",
+              "left_camera",
+              "right_camera"
+            ],
+            "description": "Exact returned current RGB-D view containing the pixel; use wrist calibration only at its current post-motion boundary."
+          },
+          "x": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Horizontal pixel coordinate from the left edge of the exact returned view."
+          },
+          "y": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Vertical pixel coordinate from the top edge of the exact returned view."
+          }
+        },
+        "required": [
+          "point_id",
+          "view",
+          "x",
+          "y"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "vision.segment",
+      "description": "Propose a small mask set from several independent points on one public image.\nUse when: comparing plausible regions around the intended object; give 1–8 source-pixel points, usually 3–5 separated interior points. Every point is queried independently, not jointly as one mask prompt.\nEffect: world-read-only; binds one current or saved same-round RGB-D view, reuses its image encoding, pools the per-point SAM alternatives and records immutable masks and query outcomes.\nReturns: up to max_candidates distinct masks TOTAL (default 3, maximum 3), each with T-index, target_ref, score, associated queries, geometry and depth/normalization limitations. An overview and one source/mask crop per returned candidate show the points and coverage. Inspect Top-K and select the intended semantic region; score is only proposal ordering. Query failures and deduplication/truncation counts remain visible.\nDoes not: require rank 0 to be the intended object, prove identity, add sensor resolution by enlargement, mutate the world or grant motion permission. A point on background, boundary or shadow can return the table, robot or a neighbour. Historical pixels never become current geometry after motion.\nOn error: correct the named input or source. If no candidate matches the intended region, choose better interior points or another public view; partial point failures preserve other results. A disconnected mask keeps the prompted component and reports what was removed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "camera": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Public RGB-D camera name; all points refer to this one view.",
+            "enum": [
+              "head_camera",
+              "front_camera",
+              "left_camera",
+              "right_camera"
+            ]
+          },
+          "points_uv": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2,
+              "description": "One independent positive point [u,v], in integer source-image pixels; OpenCV top-left coordinates."
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "description": "Independent positive point queries on one image. Prefer 3–5 separated interior points; these points are not a joint prompt for one mask."
+          },
+          "max_candidates": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "default": 3,
+            "description": "Total maximum distinct masks after pooling and deduplication across every point, not a per-point limit; omitted means 3."
+          },
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Optional saved observation step in the current round. Omit or null for the current image; historical targets remain historical."
+          }
+        },
+        "required": [
+          "camera",
+          "points_uv"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "vision.ground",
+      "description": "Retrieve up to three inspectable text-grounded target proposals from one selected current RGB-D camera. Use when: task language names an object or part and the scene-level search space should be reduced before the policy makes its own identity decision; begin with the widest useful view, then choose head, front or a useful wrist to resolve a concrete ambiguity. Treat the returned set as recall-oriented proposals: top rank and backend score are within-call ordering signals, not an oracle. Effect: read-only and creates one separate observation-bound target_ref per candidate. Returns: ranked candidates, source camera, bounding boxes, mask-area/depth summaries and numbered overlay; compare all plausible candidates against visible colour, shape, scale, location and surrounding context before selecting one. Does not: choose the correct candidate, guarantee that rank 0 is foreground, combine cameras, expose object ground truth, calibrate scores across calls, or prove absence when current coverage misses the target. On error: reject a candidate whose overlay or mask is dominated by table, robot, background or an implausibly large region even when its score is highest; inspect another returned proposal, rephrase a short visible description, switch current camera, or use vision.segment only after you can point safely inside the intended instance. Selection check: compare the requested task referent with every candidate crop and the original view; rank 0 and a high score do not authenticate identity. Separate an instance hypothesis from an observed property. Failed grasping is not evidence that the intended object is static or that a different object is the target. Revise a mistaken association when the visible evidence contradicts it. Boundary and mask/depth diagnostics describe observability, not semantic truth.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "camera": {
+            "type": "string",
+            "enum": [
+              "head_camera",
+              "front_camera",
+              "left_camera",
+              "right_camera"
+            ],
+            "description": "Exact current native-resolution RGB-D source: head for central top-down geometry, front for visible frontal appearance, or a wrist when its current pose supplies useful detail."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "description": "Short visible object or part description, never a simulator identifier."
+          },
+          "max_candidates": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "default": 3,
+            "description": "Maximum ranked regions; omit for three."
+          }
+        },
+        "required": [
+          "camera",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "grasp.plan",
+      "description": "Generate inspectable public RGB-D grasp candidates for one current target.\nUse when: current grounding or segmentation identifies the intended object and you need parallel-jaw poses. Select the arm on dual-arm embodiments.\nEffect: read-only; queries Contact-GraspNet using the selected source-camera RGB-D and compiles poses to the public TCP convention. ALOHA also supplies geometry-derived top-down candidates. Optional synchronized views provide review evidence.\nReturns: up to three candidates, complete world-frame pregrasp_pose and contact_pose, copyable bounded contact_approach targets, predicted opening, compiler checks and labeled review images. Reachability is delegated to move_pose. Inspect every candidate panel and choose target identity and geometry independently of rank. Copy the selected pregrasp_pose into move_pose, then inspect the execution receipt and fresh observation before approaching or closing.\nDoes not: plan trajectories, certify reachability, move the robot, command a gripper, use object ground truth, certify retention or report task success. Backend rank is not a success probability. Missing optional review cameras do not invalidate usable primary input.\nOn error: obtain a better current view or select another target or candidate. Recompute after the target or observation changes. After a submitted motion fails, use its phase and measured residual to choose the next action. Retention evidence remains advisory.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "arm": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "description": "Arm whose wrist RGB-D joins head_camera in scene fusion and whose source-bound ALOHA end-effector compiler is used."
+          },
+          "target_ref": {
+            "type": "string",
+            "pattern": "^target-[0-9a-f]{24}$",
+            "description": "Current observation-bound target from grounding or segmentation; target-mask points remain tied to its source camera."
+          },
+          "max_candidates": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "default": 3,
+            "description": "Maximum compiled candidates; omit for three."
+          }
+        },
+        "required": [
+          "arm",
+          "target_ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "grasp.verify_retention",
+      "description": "Compare public visible target motion across saved observations. Use when: estimating whether an Agent-associated region moved consistently with the selected closed gripper; this diagnostic is optional. Effect: read-only; pairs must advance within the same current round, each temporal pair uses the same camera, and additional_pairs share baseline/current states. Returns: consistent, inconsistent or unknown; per-view measurements, signed threshold gaps (positive satisfies that individual threshold), paired mask images, quality flags and explicit conflicts. Does not: authenticate semantic correspondence, create a motion permission, limit cumulative probing, prove attachment or replace the official verdict. A negative view-angle margin limits negative inference, not every positive comparison. On error: select source-matched references; for unknown or conflicting evidence independently choose another view, different points, a legal action, or recovery. Use observe(step=...) and vision.segment(step=...) for saved same-round evidence; historical pixels retain their original camera pose.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "arm": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "description": "Arm whose measured public TCP displacement is compared with the target."
+          },
+          "before_target_ref": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Selected arm's consumed post-close target_ref initially; then the latest baseline_target_ref from that arm's execution_gate. The reference must be earlier in the same round; never use the pre-close anchor as the transport baseline."
+          },
+          "current_target_ref": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Fresh target localized from the current observation after the small lift."
+          },
+          "additional_pairs": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "One additional same-camera temporal pair for the same Agent-selected object; both observations must equal the primary baseline/current steps.",
+              "properties": {
+                "before_target_ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Target segmented in this camera at recovery.baseline_step."
+                },
+                "current_target_ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "The same selected object segmented in the same camera at the current step."
+                }
+              },
+              "required": [
+                "before_target_ref",
+                "current_target_ref"
+              ]
+            },
+            "description": "Optional complementary camera pairs. Observe and segment that same camera at the saved baseline step and current step. Cross-view semantic association is your responsibility. Primary before_target_ref must still equal execution_gate.baseline_target_ref."
+          }
+        },
+        "required": [
+          "arm",
+          "before_target_ref",
+          "current_target_ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "place.plan",
+      "description": "Propose a bounded, numeric next placement step from selected current public RGB-D regions.\nUse when: explicitly select the arm that holds or released this object; a retained object is near a visible destination and you need a preplace, lower, or short exit candidate. Select object_ref and current functional support/opening references explicitly; a whole-container centroid is not its cavity. Re-localize after every physical action.\nEffect: read-only with respect to the world; creates an immutable observation-bound assessment, measured geometry and overlay. It consumes no robot decision, executes no motion and changes no action admission state. The original mask and depth are preserved as immutable evidence. In this placement-only projection, boundary discontinuity pixels are flagged uncertain, not certified background; the original depth remains available for inspection.\nReturns: candidates, no_candidate or unknown with at most three one-step numeric sparse move_pose={targets:{selected_arm:{position_m,orientation_xyzw,interaction}}} candidates, checks, stage evidence and hashed public evidence. Copy an appropriate numeric target into move_pose only at this observation; after any physical step, re-observe and recompute. assessment_ref is an audit reference, never an executable trajectory. Inspect the reported depth-edge uncertainty: all retained points still face unchanged support/opening tests. When boundary evidence is unresolved, candidates are conditional on unresolved silhouette, not full-object fit, passage or release certificates.\nDoes not: prove object identity, grasp attachment, stable support, physical release or official success; infer hidden cavity volume; or certify a collision-free scene/payload trajectory. The existing RoboTwin motion route is unchanged; this tool adds no scene or carried-object collision model. No visible conflict is not collision-free. upright uses a fit to the selected visible circular rim, not a PCA cup axis; absent/invalid rim evidence stays unknown. protected_objects pairs are Agent associations, not identity authentication. A boundary depth gap cannot distinguish leaked background from a true farther surface or thin handle; flagged pixels remain unresolved evidence, not semantic background exclusions.\nOn error: inspect fresh complementary RGB-D and reselect functional regions; do not replace missing geometry with a guessed center or stale candidate. Retention checks supply advisory geometric evidence; decide closed-gripper motion from fresh observations and the reported uncertainty. Placement sequence: place.verify(pre_release), independent open_gripper, fresh place.verify(post_release), place.plan(exit) for a short departure, then fresh place.verify(post_exit). Each check is evidence for Agent judgment, not an automatic release or success authorization.\nArm binding: close_gripper({arm,target_ref?}), grasp.verify_retention({arm,before_target_ref,current_target_ref}), placement checks and open_gripper({arm}) must name the intended arm. Opposite-arm opening does not release this object; opposite-arm motion is not this arm's exit. All candidates stale after any world action, including motion of the other arm. A successful gripper receipt says executed, not Cartesian reached; it is command completion, not physical release. geometry_status and measured checks are separate from stage_evidence and uncertainty_reasons. Unconfirmed action stage preserves valid geometric candidates; inspect their prerequisites and decide subsequent actions independently.",
+      "inputSchema": {
+        "type": "object",
+        "description": "Closed placement evidence request; no user-supplied release, stability, contact or success assertions.",
+        "properties": {
+          "object_ref": {
+            "type": "string",
+            "description": "Current-observation target_ref for the visible object being placed, from vision.segment or vision.ground; stale references are rejected. The selected mask is not semantic identity ground truth.",
+            "minLength": 1
+          },
+          "destination": {
+            "description": "Agent-selected functional destination regions in the current observation. A support patch is a visible supporting surface, and a boundary patch is the visible rim/opening or front aperture, not the container's whole-object centroid.",
+            "oneOf": [
+              {
+                "type": "object",
+                "description": "Placement onto a selected visible support patch.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Destination geometry family.",
+                    "enum": [
+                      "support_surface"
+                    ]
+                  },
+                  "support_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting the visible support patch, not merely its parent object.",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "support_ref"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "description": "Placement into an upward-open container with separately selected support and opening regions.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Destination geometry family.",
+                    "enum": [
+                      "open_container"
+                    ]
+                  },
+                  "support_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting visible interior support; hidden bottoms cannot be inferred as evidence.",
+                    "minLength": 1
+                  },
+                  "boundary_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting the visible opening/rim functional region; a whole-container mask or its centroid does not establish cavity clearance.",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "support_ref",
+                  "boundary_ref"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "description": "Placement through a front aperture onto a selected visible interior support patch.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Destination geometry family.",
+                    "enum": [
+                      "front_cavity"
+                    ]
+                  },
+                  "support_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting visible interior support; unavailable support produces unknown evidence.",
+                    "minLength": 1
+                  },
+                  "boundary_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting the visible front aperture/frame functional region, not the whole cabinet or drawer.",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "support_ref",
+                  "boundary_ref"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "orientation_requirement": {
+            "type": "string",
+            "description": "Select none when no orientation claim is needed, or upright when the selected object's visible rim normal must agree with world up. Without admissible rim points, upright evidence is unknown; no PCA object axis is invented.",
+            "enum": [
+              "none",
+              "upright"
+            ]
+          },
+          "rim": {
+            "type": "object",
+            "description": "Optional manually selected visible circular rim on the object, bound to the object_ref source camera. Circle fitting measures this selected rim normal, not cup identity or a PCA axis.",
+            "properties": {
+              "camera": {
+                "type": "string",
+                "description": "Camera that produced object_ref; the runtime rejects a different source camera.",
+                "enum": [
+                  "head_camera",
+                  "front_camera",
+                  "left_camera",
+                  "right_camera"
+                ]
+              },
+              "points_uv": {
+                "type": "array",
+                "description": "Six to twelve ordered points on the same visible circular rim in native RGB pixels; all must be inside the source image and admissible object region with valid depth.",
+                "items": {
+                  "type": "array",
+                  "description": "One [u,v] pixel in top-left OpenCV coordinates.",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Non-negative native-image pixel coordinate; image bounds are checked at invocation."
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "minItems": 6,
+                "maxItems": 12
+              }
+            },
+            "required": [
+              "camera",
+              "points_uv"
+            ],
+            "additionalProperties": false
+          },
+          "protected_objects": {
+            "type": "array",
+            "description": "Optional zero to three Agent-associated protected regions to compare against same-round history. The selected before/current pair is not authenticated object identity.",
+            "items": {
+              "type": "object",
+              "description": "One protected-region association chosen by the Agent.",
+              "properties": {
+                "before_target_ref": {
+                  "type": "string",
+                  "description": "Earlier same-round target_ref for the protected visible region; future or cross-round references are rejected.",
+                  "minLength": 1
+                },
+                "current_target_ref": {
+                  "type": "string",
+                  "description": "Current-observation target_ref selecting the region intended to match before_target_ref; this association remains the Agent's responsibility.",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "before_target_ref",
+                "current_target_ref"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 3
+          },
+          "prior_assessment_ref": {
+            "type": "string",
+            "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+            "pattern": "^place-check-[0-9a-f]{32}$"
+          },
+          "phase": {
+            "type": "string",
+            "description": "Request one next placement step: preplace alignment, lower approach, or a short post-release exit; not a complete execution script.",
+            "enum": [
+              "preplace",
+              "lower",
+              "exit"
+            ]
+          },
+          "arm": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "description": "Required selected RoboTwin arm; uses this arm's measured public grip-center TCP and command history. The other arm is not moved or granted holding permission."
+          }
+        },
+        "required": [
+          "object_ref",
+          "destination",
+          "orientation_requirement",
+          "phase",
+          "arm"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "place.verify",
+      "description": "Assess current visible placement relations separately before release, after release, and after departure.\nUse when: explicitly select the arm that holds or released this object; at pre_release before independently opening, at post_release with fresh regions after opening, or at post_exit after a short departure. Select the current object and functional support/opening patches; a whole-container centroid is not its cavity. Use historical same-round protected pairs or prior_assessment_ref only for the declared comparison.\nEffect: read-only with respect to the world; records one immutable assessment and overlay from public RGB-D and actual action receipts. It consumes no robot decision and does not open, retreat, wait, move or change action admission state. The original mask and depth are preserved as immutable evidence. In this placement-only projection, boundary discontinuity pixels are flagged uncertain, not certified background; the original depth remains available for inspection.\nReturns: consistent, contradicted or unknown with separate region, support, orientation and protected-object checks, receipt-derived stage evidence, measurements, selected-region hashes and evidence hashes. consistent means compatibility with the stated visible checks, not attachment, stable support, actual release, permission to release or official success. Inspect the reported depth-edge uncertainty: all retained points still face unchanged support/opening tests. Compatibility is conditional evidence; related place.plan candidates are conditional on unresolved silhouette, not full-object fit, passage or release certificates.\nDoes not: accept user claims of released/stable state, authenticate selected object identities, infer an invisible support or cavity, or use object ground truth/contact forces. upright measures the selected visible circular rim normal, never a PCA cup axis; without admissible rim evidence it is unknown. Agent-chosen protected pairs do not establish identity. The absence of a visible conflict does not certify a collision-free scene/payload path; The existing RoboTwin motion route is unchanged; this tool adds no scene or carried-object collision model. A boundary depth gap cannot distinguish leaked background from a true farther surface or thin handle; flagged pixels remain unresolved evidence, not semantic background exclusions.\nOn error: inspect a complementary current view and re-localize the same intended functional regions; do not treat unknown as verified. Keep phases separate: place.verify(pre_release), independent open_gripper, fresh place.verify(post_release), place.plan(exit) for a short departure, then fresh place.verify(post_exit). Receipt stage evidence must match the requested phase. Recompute after physical action; assessment_ref is only an audit reference, not a trajectory. Retention evidence is advisory; a verification call is not a prerequisite for closed-gripper motion.\nArm binding: close_gripper({arm,target_ref?}), grasp.verify_retention({arm,before_target_ref,current_target_ref}), placement checks and open_gripper({arm}) must name the intended arm. Opposite-arm opening does not release this object; opposite-arm motion is not this arm's exit. All candidates stale after any world action, including motion of the other arm. A successful gripper receipt says executed, not Cartesian reached; it is command completion, not physical release. geometry_status and measured checks are separate from stage_evidence and uncertainty_reasons. Unconfirmed action stage preserves valid geometric candidates; inspect their prerequisites and decide subsequent actions independently.",
+      "inputSchema": {
+        "type": "object",
+        "description": "Closed placement evidence request; no user-supplied release, stability, contact or success assertions.",
+        "properties": {
+          "object_ref": {
+            "type": "string",
+            "description": "Current-observation target_ref for the visible object being placed, from vision.segment or vision.ground; stale references are rejected. The selected mask is not semantic identity ground truth.",
+            "minLength": 1
+          },
+          "destination": {
+            "description": "Agent-selected functional destination regions in the current observation. A support patch is a visible supporting surface, and a boundary patch is the visible rim/opening or front aperture, not the container's whole-object centroid.",
+            "oneOf": [
+              {
+                "type": "object",
+                "description": "Placement onto a selected visible support patch.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Destination geometry family.",
+                    "enum": [
+                      "support_surface"
+                    ]
+                  },
+                  "support_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting the visible support patch, not merely its parent object.",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "support_ref"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "description": "Placement into an upward-open container with separately selected support and opening regions.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Destination geometry family.",
+                    "enum": [
+                      "open_container"
+                    ]
+                  },
+                  "support_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting visible interior support; hidden bottoms cannot be inferred as evidence.",
+                    "minLength": 1
+                  },
+                  "boundary_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting the visible opening/rim functional region; a whole-container mask or its centroid does not establish cavity clearance.",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "support_ref",
+                  "boundary_ref"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "description": "Placement through a front aperture onto a selected visible interior support patch.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Destination geometry family.",
+                    "enum": [
+                      "front_cavity"
+                    ]
+                  },
+                  "support_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting visible interior support; unavailable support produces unknown evidence.",
+                    "minLength": 1
+                  },
+                  "boundary_ref": {
+                    "type": "string",
+                    "description": "Current target_ref selecting the visible front aperture/frame functional region, not the whole cabinet or drawer.",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "support_ref",
+                  "boundary_ref"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "orientation_requirement": {
+            "type": "string",
+            "description": "Select none when no orientation claim is needed, or upright when the selected object's visible rim normal must agree with world up. Without admissible rim points, upright evidence is unknown; no PCA object axis is invented.",
+            "enum": [
+              "none",
+              "upright"
+            ]
+          },
+          "rim": {
+            "type": "object",
+            "description": "Optional manually selected visible circular rim on the object, bound to the object_ref source camera. Circle fitting measures this selected rim normal, not cup identity or a PCA axis.",
+            "properties": {
+              "camera": {
+                "type": "string",
+                "description": "Camera that produced object_ref; the runtime rejects a different source camera.",
+                "enum": [
+                  "head_camera",
+                  "front_camera",
+                  "left_camera",
+                  "right_camera"
+                ]
+              },
+              "points_uv": {
+                "type": "array",
+                "description": "Six to twelve ordered points on the same visible circular rim in native RGB pixels; all must be inside the source image and admissible object region with valid depth.",
+                "items": {
+                  "type": "array",
+                  "description": "One [u,v] pixel in top-left OpenCV coordinates.",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Non-negative native-image pixel coordinate; image bounds are checked at invocation."
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "minItems": 6,
+                "maxItems": 12
+              }
+            },
+            "required": [
+              "camera",
+              "points_uv"
+            ],
+            "additionalProperties": false
+          },
+          "protected_objects": {
+            "type": "array",
+            "description": "Optional zero to three Agent-associated protected regions to compare against same-round history. The selected before/current pair is not authenticated object identity.",
+            "items": {
+              "type": "object",
+              "description": "One protected-region association chosen by the Agent.",
+              "properties": {
+                "before_target_ref": {
+                  "type": "string",
+                  "description": "Earlier same-round target_ref for the protected visible region; future or cross-round references are rejected.",
+                  "minLength": 1
+                },
+                "current_target_ref": {
+                  "type": "string",
+                  "description": "Current-observation target_ref selecting the region intended to match before_target_ref; this association remains the Agent's responsibility.",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "before_target_ref",
+                "current_target_ref"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 3
+          },
+          "prior_assessment_ref": {
+            "type": "string",
+            "description": "Immutable same-round assessment identifier for audit comparison only; never an executable motion handle.",
+            "pattern": "^place-check-[0-9a-f]{32}$"
+          },
+          "stage": {
+            "type": "string",
+            "description": "Receipt-bound assessment stage; pre_release, post_release and post_exit are separate observations and cannot be asserted by a user proof field.",
+            "enum": [
+              "pre_release",
+              "post_release",
+              "post_exit"
+            ]
+          },
+          "arm": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "description": "Required selected RoboTwin arm; uses this arm's measured public grip-center TCP and command history. The other arm is not moved or granted holding permission."
+          }
+        },
+        "required": [
+          "object_ref",
+          "destination",
+          "orientation_requirement",
+          "stage",
+          "arm"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "move_to",
+      "description": "Move selected public TCPs to world-frame positions while holding each measured action-start orientation. Use when: the intended change is translation-only free-space repositioning and a position-only trajectory label is useful. Effect: world mutation; compiles through canonical move_pose with interaction=free_space, so the Runtime selects a collision-aware route and may apply a bounded endpoint refinement only after the main execution converges. Returns: the later receipt separates refusal, arrival and recoverable non-arrival; available contact feedback includes requested versus measured motion, force/progress evidence and truthful unknown values. an immediate acknowledgement with status=submitted, action and compiled_pose; compiled_pose.targets contains the compiled requested target, not a measured arrival. The subsequent Supervisor receipt and fresh causal observation separately report execution route, phase outcomes and measured residuals. A pre-admission error submits no action.\nDoes not: ask the policy to select a controller implementation; rotate, command a gripper, infer contact intent, or guarantee reachability. On error: inspect the named failure stage and current residual, then choose a reachable intermediate or recover_pose after a genuine motion failure.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "object",
+                "description": "Left-arm translation-only target; use only after its current orientation is already suitable.",
+                "properties": {
+                  "position_m": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "description": "Absolute world-frame [x,y,z] left end-effector position in metres. The action-start orientation is held: decreasing world z lowers the controlled point but does not pitch the gripper."
+                  }
+                },
+                "required": [
+                  "position_m"
+                ],
+                "additionalProperties": false
+              },
+              "right": {
+                "type": "object",
+                "description": "Right-arm translation-only target; use only after its current orientation is already suitable.",
+                "properties": {
+                  "position_m": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "description": "Absolute world-frame [x,y,z] right end-effector position in metres. The action-start orientation is held: decreasing world z lowers the controlled point but does not pitch the gripper."
+                  }
+                },
+                "required": [
+                  "position_m"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "minProperties": 1,
+            "additionalProperties": false,
+            "description": "Non-empty sparse translation-only targets over left and right. Omitted arms receive no planner or new drive target; use rotate_pitch, rotate_wrist or move_pose before this call when orientation must change."
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "move_pose",
+      "description": "Submit a complete pose target through the Supervisor.\nUse when: moving one or both public TCPs with a standard absolute pose or enhanced hold/absolute/delta target; label enhanced targets free_space, precision, or contact_approach by physical intent, not by controller name.\nEffect: compiles the request once. free_space always uses global CuRobo; precision uses global CuRobo and may add one bounded 10 mm/5 degree local settle; contact_approach up to 10 mm/5 degrees is local, while a larger contact approach globally reaches a pre-contact pose and locally executes only the final 10 mm/5 degrees. Small in-place rotations may be local. Every stage uses measured convergence and a local failure never silently falls back to global.\nReturns: the later receipt separates refusal, arrival and recoverable non-arrival; available contact feedback includes requested versus measured motion, force/progress evidence and truthful unknown values. an immediate acknowledgement with status=submitted, action and compiled_pose; compiled_pose.targets contains the compiled requested target, not a measured arrival. The subsequent Supervisor receipt and fresh causal observation separately report execution route, phase outcomes and measured residuals. A pre-admission error submits no action.\nDoes not: ask the policy to choose CuRobo versus local DLS; change an exact requested orientation; command a gripper; move an omitted arm; infer contact, retention or task success; retry a failed local stage through another backend.\nOn error: planner_failed means all admitted Top-K IK planning attempts failed; plan_rejected means zero controller writes; not_reached means execution started but measured convergence or endpoint verification failed. Use the named phase and fresh evidence rather than repeating the same target blindly. Failure diagnosis: planner_error identifies a failed planner service or implementation, not an unreachable target; invalid_start_state requires correcting the measured start; planner_failed reports ordinary search failure. not_reached preserves endpoint and controller evidence independently of official task termination. Read the fresh observation before proposing another action.",
+      "inputSchema": {
+        "$defs": {
+          "absolute_pose": {
+            "type": "object",
+            "properties": {
+              "position_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "description": "Absolute world-frame public TCP [x,y,z] in metres. Copy this shape directly from grasp.plan."
+              },
+              "orientation_xyzw": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4,
+                "description": "Normalized absolute world-frame public TCP quaternion [x,y,z,w]. Copy this shape directly from grasp.plan."
+              },
+              "interaction": {
+                "type": "string",
+                "enum": [
+                  "free_space",
+                  "precision",
+                  "contact_approach"
+                ],
+                "default": "free_space",
+                "description": "Optional semantic intent for an absolute pose. Omit for ordinary collision-aware free-space motion; precision allows endpoint refinement but does not bypass global planning for a large displacement."
+              }
+            },
+            "required": [
+              "position_m",
+              "orientation_xyzw"
+            ],
+            "additionalProperties": false
+          },
+          "position": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "hold_current",
+                    "description": "Keep the measured action-start position while orientation changes."
+                  }
+                },
+                "required": [
+                  "mode"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "absolute",
+                    "description": "Use a complete world-frame position."
+                  },
+                  "position_m": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "description": "World-frame [x,y,z] TCP position in metres; world +Z is upward."
+                  }
+                },
+                "required": [
+                  "mode",
+                  "position_m"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "delta",
+                    "description": "Offset the measured action-start position once."
+                  },
+                  "translation_m": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "description": "[dx,dy,dz] translation in metres in the selected frame."
+                  },
+                  "frame": {
+                    "type": "string",
+                    "enum": [
+                      "world",
+                      "end_effector"
+                    ],
+                    "description": "Coordinate frame of translation_m; end_effector local +X is approach, +Y is jaw separation and +Z is lateral."
+                  }
+                },
+                "required": [
+                  "mode",
+                  "translation_m",
+                  "frame"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "orientation": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "hold_current",
+                    "description": "Keep the measured action-start orientation while position changes."
+                  }
+                },
+                "required": [
+                  "mode"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "absolute_quaternion",
+                    "description": "Use a complete world-frame orientation."
+                  },
+                  "quaternion_xyzw": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "description": "Normalized world-frame TCP quaternion [x,y,z,w]."
+                  }
+                },
+                "required": [
+                  "mode",
+                  "quaternion_xyzw"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "axis_angle_delta",
+                    "description": "Rotate once from the measured action-start orientation."
+                  },
+                  "axis": {
+                    "type": "string",
+                    "enum": [
+                      "x",
+                      "y",
+                      "z"
+                    ],
+                    "description": "Positive axis in the selected frame; local +X is approach/wrist roll, +Y is jaw separation and +Z is lateral."
+                  },
+                  "angle_deg": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180,
+                    "description": "Signed right-hand-rule rotation angle in degrees."
+                  },
+                  "frame": {
+                    "type": "string",
+                    "enum": [
+                      "world",
+                      "end_effector"
+                    ],
+                    "description": "Action-start frame owning the rotation axis."
+                  }
+                },
+                "required": [
+                  "mode",
+                  "axis",
+                  "angle_deg",
+                  "frame"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "arm_target": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/absolute_pose"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "position": {
+                    "$ref": "#/$defs/position",
+                    "description": "Ergonomic position update: hold, absolute or one delta."
+                  },
+                  "orientation": {
+                    "$ref": "#/$defs/orientation",
+                    "description": "Ergonomic orientation update: hold, absolute quaternion or one axis-angle delta."
+                  },
+                  "interaction": {
+                    "type": "string",
+                    "enum": [
+                      "free_space",
+                      "precision",
+                      "contact_approach"
+                    ],
+                    "description": "Semantic physical intent, not a controller choice. free_space always uses collision-aware global planning. precision uses global planning and may apply one bounded endpoint settle; a small in-place rotation may use qualified local control. contact_approach uses local control when the complete delta is within 10 mm and 5 degrees; larger deltas use one global pre-contact stage followed by only the final bounded local segment."
+                  }
+                },
+                "required": [
+                  "position",
+                  "orientation",
+                  "interaction"
+                ],
+                "additionalProperties": false
+              }
+            ],
+            "description": "Either a standard absolute TCP pose copied from grasp.plan or the enhanced hold/delta/axis-angle form. The forms are mutually exclusive."
+          }
+        },
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "targets": {
+                "type": "object",
+                "minProperties": 1,
+                "description": "Sparse direct left/right TCP targets compiled from one action-start snapshot.",
+                "properties": {
+                  "left": {
+                    "$ref": "#/$defs/arm_target",
+                    "description": "Direct left-arm standard absolute TCP pose or enhanced request."
+                  },
+                  "right": {
+                    "$ref": "#/$defs/arm_target",
+                    "description": "Direct right-arm standard absolute TCP pose or enhanced request."
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "targets"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "servo",
+      "description": "Execute a bounded local Cartesian delta.\nUse when: small local corrections or explicit allow_contact pushing within the locked profile.\nEffect: submits through the Supervisor and preserves gripper directives.\nReturns: submitted acknowledgement, then measured progress, remaining displacement and fresh observation.\nDoes not: provide hold, global planning, gripper actuation or a success guarantee.\nOn error: inspect fresh evidence; after window_exhausted with progress continue only the remaining world-frame displacement, never the original full delta. A blocked or stalled request requires changing the physical situation.",
+      "inputSchema": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "const": "delta",
+                "type": "string",
+                "description": "Track one immutable local pose increment; zero Delta does not advance time or imply hold."
+              },
+              "window": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "standard",
+                  "long"
+                ],
+                "default": "short",
+                "description": "Execution/observation window only; does not change Delta, speed, tolerance or limits."
+              },
+              "contact_mode": {
+                "type": "string",
+                "enum": [
+                  "stop_on_force",
+                  "allow_contact"
+                ],
+                "default": "stop_on_force",
+                "description": "stop_on_force uses the ordinary force stop. allow_contact explicitly permits pushing under the locked contact force ceiling; blocked, stall and motion guards remain active. Requires a contact-enabled profile."
+              },
+              "targets": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "description": "Nonempty sparse selected-arm mapping. Multiple arms require a source-qualified synchronous group.",
+                "properties": {
+                  "left": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "description": "One selected arm's local public-TCP Delta. Omitted arms receive no new motion target.",
+                    "properties": {
+                      "frame": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "eef_start"
+                        ],
+                        "description": "world applies a world-frame Delta; eef_start freezes the measured public TCP frame once at action start."
+                      },
+                      "translation_m": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3,
+                        "description": "Finite translation vector in metres; omitted is zero."
+                      },
+                      "rotation_vector_rad": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3,
+                        "description": "Finite axis-angle vector in radians; omitted is zero. Not Euler angles."
+                      }
+                    },
+                    "required": [
+                      "frame"
+                    ],
+                    "anyOf": [
+                      {
+                        "required": [
+                          "translation_m"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "rotation_vector_rad"
+                        ]
+                      }
+                    ]
+                  },
+                  "right": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "description": "One selected arm's local public-TCP Delta. Omitted arms receive no new motion target.",
+                    "properties": {
+                      "frame": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "eef_start"
+                        ],
+                        "description": "world applies a world-frame Delta; eef_start freezes the measured public TCP frame once at action start."
+                      },
+                      "translation_m": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3,
+                        "description": "Finite translation vector in metres; omitted is zero."
+                      },
+                      "rotation_vector_rad": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3,
+                        "description": "Finite axis-angle vector in radians; omitted is zero. Not Euler angles."
+                      }
+                    },
+                    "required": [
+                      "frame"
+                    ],
+                    "anyOf": [
+                      {
+                        "required": [
+                          "translation_m"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "rotation_vector_rad"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "mode",
+              "targets"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rotate_wrist",
+      "description": "Rotate the jaw line around the current approach axis while holding position.\nUse when: rotating selected public TCPs about each action-start local +X approach axis while holding public TCP position, usually to align the jaw-closing line.\nEffect: compiles to an exact pose. Qualified small rotations use measured local Cartesian control; larger rotations use global CuRobo with at most one bounded endpoint settle.\nReturns: an immediate acknowledgement with status=submitted, action and compiled_pose; compiled_pose.targets contains the compiled requested target, not a measured arrival. The subsequent Supervisor receipt and fresh causal observation separately report execution route, phase outcomes and measured residuals. A pre-admission error submits no action.\nDoes not: expose a literal wrist joint, translate by request, infer object alignment, command a gripper, maintain contact force or change the signed requested angle.\nOn error: inspect the current TCP axes and residual; correct sign/magnitude or use move_pose when position must co-vary. A failed local rotation is not retried through global planning.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "description": "Signed right-hand-rule degrees around the left end effector's action-start local +X approach axis. This rolls the jaw line without changing the requested approach direction."
+              },
+              "right": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "description": "Signed right-hand-rule degrees around the right end effector's action-start local +X approach axis. This rolls the jaw line without changing the requested approach direction."
+              }
+            },
+            "minProperties": 1,
+            "additionalProperties": false,
+            "description": "Non-empty sparse in-place approach-axis rolls over left and right. Position is held; omitted arms receive no planner or new drive target."
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "rotate_pitch",
+      "description": "Tilt the current approach axis while holding position.\nUse when: rotating selected public TCPs about each action-start local +Y jaw-separation axis while holding public TCP position, usually to change the approach direction.\nEffect: compiles to an exact pose. Qualified small rotations use measured local Cartesian control; larger rotations use global CuRobo with at most one bounded endpoint settle.\nReturns: an immediate acknowledgement with status=submitted, action and compiled_pose; compiled_pose.targets contains the compiled requested target, not a measured arrival. The subsequent Supervisor receipt and fresh causal observation separately report execution route, phase outcomes and measured residuals. A pre-admission error submits no action.\nDoes not: expose a literal robot joint, imply that positive pitch is always world-down, translate by request, infer surface alignment, command a gripper or maintain contact force.\nOn error: inspect realized axes and residuals, then correct sign/magnitude or use move_pose when position must co-vary. A failed local rotation is not retried through global planning.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "description": "Signed right-hand-rule degrees around the left end effector's action-start local +Y jaw-separation axis. This tilts local +X; the resulting world direction depends on the current orientation, so +90 is not universally world-down."
+              },
+              "right": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "description": "Signed right-hand-rule degrees around the right end effector's action-start local +Y jaw-separation axis. This tilts local +X; the resulting world direction depends on the current orientation, so +90 is not universally world-down."
+              }
+            },
+            "minProperties": 1,
+            "additionalProperties": false,
+            "description": "Non-empty sparse in-place approach-direction pitches over left and right. Position is held by request; omitted arms receive no planner or new drive target."
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "recover_pose",
+      "description": "Plan selected arms to a named robot-only recovery configuration while preserving all gripper commands. Use when: a planner/execution failure or poor configuration makes ordinary waypoint correction inappropriate; choose previous to return to that arm's latest safely reached measured joint configuration, and choose home for a deliberate return to the source-bound RoboTwin start joints. Prefer one-arm recovery unless both arms genuinely require synchronized retreat. Effect: world mutation through the canonical recovery boundary; omitted arms receive no planner or drive target, a two-arm request executes only after both plans succeed, and a successful recovery does not replace the saved previous checkpoint. Returns: the later receipt separates refusal, arrival and recoverable non-arrival; available contact feedback includes requested versus measured motion, force/progress evidence and truthful unknown values. submitted public strategies and recovery mapping immediately; the next receipt and fresh observation report actual planning, synchronization, residuals, preservation and drift. Does not: reset the episode, restore moved objects or evaluator state, release a gripper, reverse an old trajectory, undo physics, act as an emergency stop, model scene or payload collisions, or guarantee escape from contact. On error: inspect each arm result and scene state, retry one arm at a time or use the other strategy only when physically sensible; stop and finish with failure or abort if both planned recovery routes are exhausted or unsafe.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "string",
+                "enum": [
+                  "previous",
+                  "home"
+                ],
+                "description": "Left-arm recovery strategy: previous is the pose before its latest successful non-recovery pose mutation; home is the source-bound RoboTwin start pose. Neither changes its gripper command."
+              },
+              "right": {
+                "type": "string",
+                "enum": [
+                  "previous",
+                  "home"
+                ],
+                "description": "Right-arm recovery strategy: previous is the pose before its latest successful non-recovery pose mutation; home is the source-bound RoboTwin start pose. Neither changes its gripper command."
+              }
+            },
+            "minProperties": 1,
+            "additionalProperties": false,
+            "description": "Non-empty sparse planner-backed robot recovery routes. Omitted arms receive no planner or drive target. This never resets the episode, objects or evaluator state."
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "report_issue",
+      "description": "Persist one concise policy-visible interface, tool or evidence defect. Use when: a concrete inconsistency—such as a malformed result, stale observation binding, contradictory camera evidence or missing capability—prevents reliable action; normal task difficulty is not itself an interface issue. Effect: read-only with respect to the robot world and appends one diagnostic record without ending the episode. Returns: an acknowledgement after the diagnostic record is persisted; the Native acknowledgement may contain no additional decision fields.\nDoes not: repair the defect, move the robot, change task state, consume a robot decision, establish official failure or finish the policy session. On error: reduce the message to one reproducible symptom and retry once; continue only if the remaining evidence is safe and internally consistent.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "description": "Concise concrete interface or evidence defect.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "check_task",
+      "description": "Query the environment-owned official RoboTwin Boolean verdict at the current valid state boundary. Use when: fresh physical evidence suggests the requested arrangement may be complete, and always before finish_episode(outcome=success); a planner success, closed gripper or visually plausible placement is not a substitute. Effect: read-only call to the trusted RoboTwin checker and no world advance. Returns: task_success Boolean when available, or an explicit retryable unavailable result. Does not: explain the predicate, expose numerical tolerances, actor handles, target coordinates, task source or expert trajectory, change the world, or validate infrastructure quality. On error: wait for a valid state boundary and retry; never infer official success from action submission or visual appearance alone.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      }
+    },
+    {
+      "name": "finish_episode",
+      "description": "End the current policy lifecycle with an explicit success, failure or abort outcome. Use when: check_task has returned true at the same valid state boundary, available safe attempts are genuinely exhausted, or an infrastructure condition requires abort; failure must summarize non-empty attempted strategies. Effect: lifecycle mutation; persists the accepted outcome and prevents further robot proposals from this policy session. Returns: the accepted outcome after lifecycle finalization is admitted; it is not a new official task verdict.\nDoes not: move the physical world, create official task success, repair infrastructure, or accept success without same-boundary check_task=true. On error: resolve pending action and fresh-observation boundaries first, call check_task before retrying success, and provide a concise reason plus exhausted attempts for failure.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "attempts": {
+            "description": "Non-empty exhausted-attempt summaries for failure; omit or pass null otherwise.",
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "outcome": {
+            "description": "Final outcome; success requires same-boundary check_task=true.",
+            "enum": [
+              "success",
+              "failure",
+              "abort"
+            ],
+            "type": "string"
+          },
+          "reason": {
+            "default": "",
+            "description": "Concise failure or abort reason; failure requires a non-empty value.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "outcome"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "description": "Measure the world-frame offset between two selected visible target regions.\nUse when: comparing ref_a and ref_b from the same current camera and depth source before a bounded action; use mark_point for a single pixel measurement instead.\nEffect: read-only RGB-D geometry; submits no action.\nReturns: status=measured, ref_a, ref_b, centroid_a_world_m, centroid_b_world_m, offset_a_to_b_world_m, distance_m, planar_distance_m, vertical_offset_m, principal-axis measurements, axis_degenerate and visible_point_counts={a,b}. The vector points from a to b; centroids describe visible surfaces.\nDoes not: measure a target relative to the robot, reconstruct unseen object centres, authenticate identity, prove retention or plan a collision-free path.\nOn error: re-localize both selected regions from the same clearer current observation; a failed grasp does not establish wrong identity. Measurement feedback states coordinate units and limitations; null residuals are unmeasured. Images are explicitly indexed when present.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "ref_a": {
+            "description": "First segmented target from the current observation; the offset vector points from this target to ref_b.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "ref_b": {
+            "description": "Second segmented target from the current observation; must come from the same camera frame and depth source as ref_a.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref_a",
+          "ref_b"
+        ],
+        "type": "object"
+      },
+      "name": "vision.offset"
+    },
+    {
+      "description": "Open the selected gripper. Use when: choosing to release an object or reset the jaws. Effect: submits one atomic open through the Supervisor under the ordinary freshness and action budgets. Returns: submitted acknowledgement; the real receipt and fresh observation report execution. Does not: establish separation, stable support, correct placement or task success. On error: inspect the structured source, arm or lifecycle error and reconsider using current evidence. place.plan and place.verify are optional diagnostics; the Agent decides when to release and depart. Form: arm is required.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "arm": {
+            "description": "The single gripper this atomic command drives; the other arm holds its current targets.",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "arm"
+        ],
+        "type": "object"
+      },
+      "name": "open_gripper"
+    },
+    {
+      "description": "Close the selected gripper. Use when: the jaws are positioned for closure or another close is useful. Effect: submits one atomic close through the Supervisor, consuming the current observation and normal action/time budgets; repeat closure is allowed after fresh observation. Returns: submitted acknowledgement and optional target_ref intent annotation; actual execution arrives in the next receipt and observation. Does not: require segmentation, authenticate the intent annotation, move the pose, or establish contact, attachment, retention or success. On error: inspect the structured source, arm or lifecycle error and obtain a fresh observation before a new action. Form: arm is required; target_ref is optional.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "target_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "description": "Optional Agent intent annotation; not resolved or required for closure."
+          },
+          "arm": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "description": "Required selected RoboTwin arm; uses this arm's measured public grip-center TCP and command history. The other arm is not moved or granted holding permission."
+          }
+        },
+        "required": [
+          "arm"
+        ]
+      },
+      "name": "close_gripper"
+    }
+  ]
+}

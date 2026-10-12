@@ -1,0 +1,536 @@
+{
+  "schema": "ora.robodojo-task-contract-layout-appendix.v1",
+  "task": "build_tower",
+  "contract_record": "ora/policy/environments/robodojo/task-contracts/reviews/build_tower-review-v3.json",
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/build_tower-completion-v3.md",
+    "sha256": "c5a54567ff6c4f5e51b37da9bea97e3ca28471e5e885c40f93f927d0dcc2745f"
+  },
+  "reviewed_layout": {
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_0.json",
+    "layout_sha256": "afcf896086392357a8826f84bebe4910dcb7a5f1b84e7be435e16e3d5c3607a4"
+  },
+  "instruction": {
+    "text": "Build a tower using the wooden blocks and wooden boards.",
+    "origin": "task/RoboDojo/tasks/build_tower.py::gen_instruction"
+  },
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1",
+    "eval_seed": 0,
+    "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
+    "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json"
+  },
+  "decision": "User decision 2026-10-01: EXP11A g012 adds a three-round session (K = 3 rounds) of build_tower with a new reviewed layout of eval_seed 0 per round. This appendix extends the build_tower review-v3 record from layout 0 to the reviewed pool 2, 19, 32 and the fallback 49 without changing its contract text, and binds each audited layout's object metadata.",
+  "criteria": [
+    "Instruction: gen_instruction (task/RoboDojo/tasks/build_tower.py:133-135) returns the constant template \"Build a tower using the wooden blocks and wooden boards.\" with no placeholder, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
+    "Objects: every audited layout holds block0-block7 with the reviewed models (block0 = block/0 longest board, block7 = block/4 second-longest board, block3 = block/1 smallest board, block4 = block/3 roof, block1, block2, block5 and block6 = block/2 upright blocks); block0 and block7 are JSON-equal to layout 0, and the Geometry, Room, Table, Ground and Background sections are equal to layout 0.",
+    "Contract clause 1: block1 and block5 spawn at x < 0 and block2 and block6 at x > 0, all four upright, in every audited layout, so \"the four upright blocks start as two pairs, one pair on each side of the table\" holds; the evaluator accepts any of the four cross pairings.",
+    "Contract clauses 2-4: the boards and the roof are the reviewed models in every audited layout; the boards spawn level and the roof upright (local +Y up), so \"keep the roof upright\" and \"keep the blocks upright and the boards level\" describe the start. The smallest board and the roof start on either side (rows), which the text does not state.",
+    "Evaluator assets: the record binds the metadata of every object instance of layout 0 (evaluator_dependencies). Each row binds the metadata of every object instance of its own layout (evaluator_asset_dependencies; the layout-0 row reproduces the record's set byte for byte), which RunSpec resolution discloses for the scheduled layouts and fresh preflight re-hashes with the record's own dependencies (fail closed). The support-circle checks read block/0's, block/4's and block/1's support entries, the same models in every layout.",
+    "Not a reachability review: whether an arm reaches each object is decided by the catalog review (computed spawn distances) and the scene smoke (scheduled_object_reach); fixtures and placement targets are not reach-checked."
+  ],
+  "layouts": [
+    {
+      "ordinal": 0,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_0.json",
+      "layout_sha256": "afcf896086392357a8826f84bebe4910dcb7a5f1b84e7be435e16e3d5c3607a4",
+      "blocks": {
+        "block0": {
+          "category_idx": 0,
+          "side": "centre",
+          "tilt_deg": 0.0
+        },
+        "block1": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block2": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block3": {
+          "category_idx": 1,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block4": {
+          "category_idx": 3,
+          "side": "left",
+          "tilt_deg": 90.0
+        },
+        "block5": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block6": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block7": {
+          "category_idx": 4,
+          "side": "centre",
+          "tilt_deg": 0.0
+        }
+      },
+      "models_as_reviewed": true,
+      "upright_block_pairs": {
+        "left": [
+          "block1",
+          "block5"
+        ],
+        "right": [
+          "block2",
+          "block6"
+        ]
+      },
+      "pairs_on_opposite_sides": true,
+      "max_upright_block_tilt_deg": 0.0,
+      "max_board_tilt_deg": 0.0,
+      "roof_local_y_from_up_deg": 0.0,
+      "boards_at_reviewed_pose": true,
+      "smallest_board_side": "right",
+      "roof_side": "left",
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00000/metadata.json",
+          "root": "assets",
+          "sha256": "7aaee6a3f407543f6ce6232f643b242ec0be86e44f9623491eedb3bda5e64b39"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00001/metadata.json",
+          "root": "assets",
+          "sha256": "7016602ec35c489a31c6282abc3b822ddee010776077c5436c751fb9bbb368e9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00002/metadata.json",
+          "root": "assets",
+          "sha256": "b5ebf53ce713dde2182bcb7c2c7e6d22f27ff9116ae7f2a0f252cddc35c16fa4"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00003/metadata.json",
+          "root": "assets",
+          "sha256": "d8c177ed390b74d253e0f940ecf18323a485bfb18fe19e67c795aeff25cbfb93"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00004/metadata.json",
+          "root": "assets",
+          "sha256": "3ccef21becea07906c7a39b975714de01513b2b9988d0e418f332084d088df9a"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 2,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_2.json",
+      "layout_sha256": "8d6bff06259a8ae1dbaf982639c3febabccc9e681a34e18acc368647deced338",
+      "blocks": {
+        "block0": {
+          "category_idx": 0,
+          "side": "centre",
+          "tilt_deg": 0.0
+        },
+        "block1": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block2": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block3": {
+          "category_idx": 1,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block4": {
+          "category_idx": 3,
+          "side": "right",
+          "tilt_deg": 90.0
+        },
+        "block5": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block6": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block7": {
+          "category_idx": 4,
+          "side": "centre",
+          "tilt_deg": 0.0
+        }
+      },
+      "models_as_reviewed": true,
+      "upright_block_pairs": {
+        "left": [
+          "block1",
+          "block5"
+        ],
+        "right": [
+          "block2",
+          "block6"
+        ]
+      },
+      "pairs_on_opposite_sides": true,
+      "max_upright_block_tilt_deg": 0.0,
+      "max_board_tilt_deg": 0.0,
+      "roof_local_y_from_up_deg": 0.0,
+      "boards_at_reviewed_pose": true,
+      "smallest_board_side": "left",
+      "roof_side": "right",
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00000/metadata.json",
+          "root": "assets",
+          "sha256": "7aaee6a3f407543f6ce6232f643b242ec0be86e44f9623491eedb3bda5e64b39"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00001/metadata.json",
+          "root": "assets",
+          "sha256": "7016602ec35c489a31c6282abc3b822ddee010776077c5436c751fb9bbb368e9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00002/metadata.json",
+          "root": "assets",
+          "sha256": "b5ebf53ce713dde2182bcb7c2c7e6d22f27ff9116ae7f2a0f252cddc35c16fa4"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00003/metadata.json",
+          "root": "assets",
+          "sha256": "d8c177ed390b74d253e0f940ecf18323a485bfb18fe19e67c795aeff25cbfb93"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00004/metadata.json",
+          "root": "assets",
+          "sha256": "3ccef21becea07906c7a39b975714de01513b2b9988d0e418f332084d088df9a"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 19,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_19.json",
+      "layout_sha256": "7c71ba7314a37aab8042a792a25aa38d8e7c39d8b1daa3d9503d552ce82350df",
+      "blocks": {
+        "block0": {
+          "category_idx": 0,
+          "side": "centre",
+          "tilt_deg": 0.0
+        },
+        "block1": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block2": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block3": {
+          "category_idx": 1,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block4": {
+          "category_idx": 3,
+          "side": "right",
+          "tilt_deg": 90.0
+        },
+        "block5": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block6": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block7": {
+          "category_idx": 4,
+          "side": "centre",
+          "tilt_deg": 0.0
+        }
+      },
+      "models_as_reviewed": true,
+      "upright_block_pairs": {
+        "left": [
+          "block1",
+          "block5"
+        ],
+        "right": [
+          "block2",
+          "block6"
+        ]
+      },
+      "pairs_on_opposite_sides": true,
+      "max_upright_block_tilt_deg": 0.0,
+      "max_board_tilt_deg": 0.0,
+      "roof_local_y_from_up_deg": 0.0,
+      "boards_at_reviewed_pose": true,
+      "smallest_board_side": "right",
+      "roof_side": "right",
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00000/metadata.json",
+          "root": "assets",
+          "sha256": "7aaee6a3f407543f6ce6232f643b242ec0be86e44f9623491eedb3bda5e64b39"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00001/metadata.json",
+          "root": "assets",
+          "sha256": "7016602ec35c489a31c6282abc3b822ddee010776077c5436c751fb9bbb368e9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00002/metadata.json",
+          "root": "assets",
+          "sha256": "b5ebf53ce713dde2182bcb7c2c7e6d22f27ff9116ae7f2a0f252cddc35c16fa4"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00003/metadata.json",
+          "root": "assets",
+          "sha256": "d8c177ed390b74d253e0f940ecf18323a485bfb18fe19e67c795aeff25cbfb93"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00004/metadata.json",
+          "root": "assets",
+          "sha256": "3ccef21becea07906c7a39b975714de01513b2b9988d0e418f332084d088df9a"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 32,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_32.json",
+      "layout_sha256": "64880001692fbb48e62591e82a223eaf47a7a213c8f703d31724e1df3551f8f2",
+      "blocks": {
+        "block0": {
+          "category_idx": 0,
+          "side": "centre",
+          "tilt_deg": 0.0
+        },
+        "block1": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block2": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block3": {
+          "category_idx": 1,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block4": {
+          "category_idx": 3,
+          "side": "left",
+          "tilt_deg": 90.0
+        },
+        "block5": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block6": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block7": {
+          "category_idx": 4,
+          "side": "centre",
+          "tilt_deg": 0.0
+        }
+      },
+      "models_as_reviewed": true,
+      "upright_block_pairs": {
+        "left": [
+          "block1",
+          "block5"
+        ],
+        "right": [
+          "block2",
+          "block6"
+        ]
+      },
+      "pairs_on_opposite_sides": true,
+      "max_upright_block_tilt_deg": 0.0,
+      "max_board_tilt_deg": 0.0,
+      "roof_local_y_from_up_deg": 0.0,
+      "boards_at_reviewed_pose": true,
+      "smallest_board_side": "left",
+      "roof_side": "left",
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00000/metadata.json",
+          "root": "assets",
+          "sha256": "7aaee6a3f407543f6ce6232f643b242ec0be86e44f9623491eedb3bda5e64b39"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00001/metadata.json",
+          "root": "assets",
+          "sha256": "7016602ec35c489a31c6282abc3b822ddee010776077c5436c751fb9bbb368e9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00002/metadata.json",
+          "root": "assets",
+          "sha256": "b5ebf53ce713dde2182bcb7c2c7e6d22f27ff9116ae7f2a0f252cddc35c16fa4"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00003/metadata.json",
+          "root": "assets",
+          "sha256": "d8c177ed390b74d253e0f940ecf18323a485bfb18fe19e67c795aeff25cbfb93"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00004/metadata.json",
+          "root": "assets",
+          "sha256": "3ccef21becea07906c7a39b975714de01513b2b9988d0e418f332084d088df9a"
+        }
+      ],
+      "compatible": true
+    },
+    {
+      "ordinal": 49,
+      "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/build_tower_49.json",
+      "layout_sha256": "ba90b2fe6cdccc4ccbcc0b20a642e05006df246940857578919136470940c793",
+      "blocks": {
+        "block0": {
+          "category_idx": 0,
+          "side": "centre",
+          "tilt_deg": 0.0
+        },
+        "block1": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block2": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block3": {
+          "category_idx": 1,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block4": {
+          "category_idx": 3,
+          "side": "right",
+          "tilt_deg": 90.0
+        },
+        "block5": {
+          "category_idx": 2,
+          "side": "left",
+          "tilt_deg": 0.0
+        },
+        "block6": {
+          "category_idx": 2,
+          "side": "right",
+          "tilt_deg": 0.0
+        },
+        "block7": {
+          "category_idx": 4,
+          "side": "centre",
+          "tilt_deg": 0.0
+        }
+      },
+      "models_as_reviewed": true,
+      "upright_block_pairs": {
+        "left": [
+          "block1",
+          "block5"
+        ],
+        "right": [
+          "block2",
+          "block6"
+        ]
+      },
+      "pairs_on_opposite_sides": true,
+      "max_upright_block_tilt_deg": 0.0,
+      "max_board_tilt_deg": 0.0,
+      "roof_local_y_from_up_deg": 0.0,
+      "boards_at_reviewed_pose": true,
+      "smallest_board_side": "left",
+      "roof_side": "right",
+      "fixtures_equal_reviewed_layout": true,
+      "mass_load_notes": [],
+      "evaluator_asset_dependencies": [
+        {
+          "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+          "root": "assets",
+          "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00000/metadata.json",
+          "root": "assets",
+          "sha256": "7aaee6a3f407543f6ce6232f643b242ec0be86e44f9623491eedb3bda5e64b39"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00001/metadata.json",
+          "root": "assets",
+          "sha256": "7016602ec35c489a31c6282abc3b822ddee010776077c5436c751fb9bbb368e9"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00002/metadata.json",
+          "root": "assets",
+          "sha256": "b5ebf53ce713dde2182bcb7c2c7e6d22f27ff9116ae7f2a0f252cddc35c16fa4"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00003/metadata.json",
+          "root": "assets",
+          "sha256": "d8c177ed390b74d253e0f940ecf18323a485bfb18fe19e67c795aeff25cbfb93"
+        },
+        {
+          "path": "Object/RoboDojo/Rigid/block/00004/metadata.json",
+          "root": "assets",
+          "sha256": "3ccef21becea07906c7a39b975714de01513b2b9988d0e418f332084d088df9a"
+        }
+      ],
+      "compatible": true
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "schema": "ora.robodojo-task-contract.v1",
+  "task": "play_Xylophone",
+  "source": {
+    "robodojo_revision": "ee67a1468510da7624a089164402359f2afc72c8",
+    "source_path": "task/RoboDojo/tasks/play_Xylophone.py",
+    "file_sha256": "b7a4b0bc0457bcf55d714ca1867476fc4aabc53084adfc78d3ff5d1437bf7847",
+    "run_reward_lines": [
+      19,
+      153
+    ],
+    "run_reward_sha256": "f9c398f6ba5808c986d8d36a5b582afbc8d732ed9fcdcb945d6b6523b1ef5899",
+    "gen_instruction_lines": [
+      155,
+      157
+    ],
+    "gen_instruction_sha256": "14539bac60c00720a640eaa2266aff266caa72bed0a42d5d822afadc893e5db0",
+    "method_spans": {
+      "__init__": {
+        "lines": [
+          6,
+          9
+        ],
+        "sha256": "792b40ed4da2b0139535d0d06a7c3cc2bec3cda23f8123c34018edd862d264cb"
+      },
+      "_post_setup_scene": {
+        "lines": [
+          11,
+          13
+        ],
+        "sha256": "28ab30e4ab1db2db88be81b8461c4fe246fad51f8f59b2f8b4e4ab8d14d7ab01"
+      },
+      "reset": {
+        "lines": [
+          15,
+          17
+        ],
+        "sha256": "a578c034181027b2e64ab33874a662d5840201f00fd90ab9f36e46e75d5e18a0"
+      }
+    },
+    "predicate_sha256_method": "sha256 over the exact UTF-8 bytes of the FunctionDef of the named method, located with ast.parse and read back over its lineno..end_lineno span (inclusive, original line endings preserved)",
+    "line_number_basis": "absolute 1-based line numbers in source_path"
+  },
+  "layout": {
+    "eval_seed": 0,
+    "ordinal": 0,
+    "layout_file": "Eval_Layout/RoboDojo/arx_x5/0/play_Xylophone_0.json",
+    "layout_sha256": "acb2c7dacf66afe330797215b2fe325b203f5745ffc31bae1406272975184265",
+    "assets_revision": "a14409d7fae673c00499e01fd88b4457df6351b1"
+  },
+  "native_action_limit": 500,
+  "instruction": {
+    "text": "Pick up the mallet and strike all xylophone keys from left to right.",
+    "origin": "task/RoboDojo/tasks/play_Xylophone.py::gen_instruction"
+  },
+  "semantic_contract": [
+    "Left to right runs from world -X, the side of the table where the left arm is mounted, toward world +X, the right-arm side. Every key must be struck, one after another in the order the keys lie along the xylophone, beginning with the key at its left end and ending with the key at its right end.",
+    "A key counts as struck when the head of the mallet comes down to that key, touching it or just above it, over the key itself rather than between keys or beside the xylophone. Contact by any other part of the mallet, or by a gripper, does not count.",
+    "After each strike the mallet must be lifted clearly back up from that key before a strike on the next key counts; sliding the mallet along the keys without lifting it counts as a single strike at most.",
+    "A key counts only once every key to its left has been struck in turn; a key struck out of turn must be struck again later. The task is complete at the moment the key at the right end is struck.",
+    "This task does not require the arms to end at their reset poses."
+  ],
+  "contract_layer": {
+    "path": "ora/policy/environments/robodojo/task-contracts/play_Xylophone-completion-v1.md",
+    "sha256": "d7db1437ad994984a1e27067a5060982891b229e6f4e14c0b54179f9004328cc"
+  },
+  "evaluator_dependencies": [
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/reward_manager.py",
+      "sha256": "bc56efd3aaa861b4b38960dc4fb7778a9b4da9cf131f815ac3170300dd233a41"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/reward_manager/func_parser.py",
+      "sha256": "eb928a05c3eb6bae429a922c59e64272c2c3851c22d779143d45627e47b3a504"
+    },
+    {
+      "root": "robodojo",
+      "path": "env/scene_manager/layout_manager.py",
+      "sha256": "7f244bec972e09236a94d8b4761b248ba19ec3f61c631d3c83c00b82912a14b8"
+    },
+    {
+      "root": "robodojo",
+      "path": "utils/transformer.py",
+      "sha256": "73de4f5e1e0ff60d4f2e1aaf6104368e8f919269facb68b4fa0344d35bc08cbe"
+    },
+    {
+      "root": "robodojo",
+      "path": "task/RoboDojo/config/play_Xylophone.yml",
+      "sha256": "28adedb0f03c49693af32cea37855f3f95ec3f76f031bfd571fb8bfffb2ec59c"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/xylophone/00000/metadata.json",
+      "sha256": "79b11122c70fd76800ab5a142fd501c9c1298a6aecfdc9c870680d378859e74f"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mallet/00000/metadata.json",
+      "sha256": "a99092a76f3ac3e527a316ef3428a8b2f6d0b2dfc797423f0a509ffb4271fa16"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mallet/00000/object.usdz",
+      "sha256": "f1c48a594f6348cc7dca8f2191e2992b815075aa932e0ec743d03843e1e717e9"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Rigid/mallet_stand/00000/metadata.json",
+      "sha256": "6846715a710a094ac8b554b281288ce5d051a682d3213ff530800e157c74cc05"
+    },
+    {
+      "root": "assets",
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    }
+  ],
+  "evaluator_clauses": [
+    {
+      "id": "c1",
+      "kind": "sequence",
+      "summary": "Eight strike stages latched in order, key bbox_0 first through bbox_7 last, with a lift stage between consecutive strikes.",
+      "numeric": "run_reward registers fifteen check stages (play_Xylophone.py:20-153): strike stages for keys 0-7 at lines 20-35, 37-52, 54-69, 71-86, 88-103, 105-120, 122-137 and 139-153, alternating with seven lift stages at lines 36, 53, 70, 87, 104, 121 and 138. step() pops only check_list[0] at a native-action boundary (reward_manager.py:376-389), so the stages latch strictly in order, at most one per native action; a strike on a later key while an earlier stage is pending does not latch.",
+      "source_lines": [
+        20,
+        153
+      ],
+      "classification": "stated",
+      "note": "'strike all xylophone keys from left to right' states one strike per key in left-to-right order; that a key struck early must be struck again in turn is the literal reading of striking them in order.",
+      "public_clauses": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "c2",
+      "kind": "reference",
+      "summary": "Left to right is world -X to +X; the check's first key (bbox_0) lies at the xylophone's world -X end in layout 0.",
+      "numeric": "xylophone/00000 metadata: bbox_0 spans local x 0.135-0.161 and bbox_7 local x -0.164 to -0.138, keys shortening from bbox_0 (local y -0.068..0.042) to bbox_7 (-0.033..0.037). Layout 0 places the xylophone at (-0.074, -0.025) with w-first quaternion [0.0476, 0, 0, 0.9989], a yaw of about 174.5 degrees, so key 0's hit point lies at world x about -0.22 and key 7's at about +0.08.",
+      "source_lines": [
+        20,
+        153
+      ],
+      "classification": "derivable",
+      "note": "The robot is mounted on the -Y side facing +Y, so its own left is world -X, as in the other registered contracts; the order the check fixes matches that reading at layout 0. The public text gives the frame, not the key positions.",
+      "public_clauses": [
+        1
+      ]
+    },
+    {
+      "id": "c3",
+      "kind": "contact",
+      "summary": "A strike on key i: a 'beat' point of the mallet head inside key i's top quadrilateral in xy and slightly above key i's hit point in z.",
+      "numeric": "is_pointA_in_B_functional_bbox(label_A='mallet', label_B='xylophone', A_functional_tag='beat', B_functional_tag='bbox_i') (func_parser.py:2219-2301: either active 'beat' point, mallet local (0, -0.001, +-0.01), inside the xy polygon of the four bbox_i frame points, buffered 1e-6) AND is_A_point_above_B_point_by_z_range(label_A='mallet', label_B='xylophone', A_functional_tag='beat', B_functional_tag='hit_i', z_upper=0.036, z_lower=0.01) (func_parser.py:1048-1124: some beat point minus the hit_i frame point, local z 0.014, strictly between 0.01 and 0.036 m). The head is a sphere of radius 0.0127 m at the mallet root and the key tops are at local z about 0.020-0.023 (pxr probe), so a head resting on the key passes, a head held up to roughly 0.015-0.025 m above the key top still passes (depending on the mallet's roll), and a head between keys or beside the instrument fails.",
+      "source_lines": [
+        21,
+        152
+      ],
+      "classification": "stated",
+      "note": "'strike ... keys' with 'the mallet' states the head coming down on each key; the check accepts it touching the key or hovering just above it, never between keys. The public text says 'touching it or just above it' without the band.",
+      "public_clauses": [
+        2
+      ]
+    },
+    {
+      "id": "c4",
+      "kind": "lift",
+      "summary": "Between consecutive strikes the mallet root must rise more than a small height above where it was at the previous strike.",
+      "numeric": "Each strike stage ends with update_object_state(label='mallet') (func_parser.py:2473-2506), which overwrites pre_state[mallet] with the mallet pose at the boundary where that stage passes (check_once stops at the first false term, so the update runs only when the strike holds). The next stage is is_lift(label='mallet', z_threshold=0.025) (func_parser.py:64-73): mallet root z minus that stored z must exceed 0.025 m. No lift stage follows key 7.",
+      "source_lines": [
+        33,
+        138
+      ],
+      "classification": "derivable",
+      "note": "Striking each key implies separate blows; a mallet dragged or rolled along the keys without lifting latches at most one strike. Disclosed without the height.",
+      "public_clauses": [
+        3
+      ]
+    }
+  ],
+  "latching_failures": [],
+  "gap": {
+    "stated": [
+      "c1",
+      "c3"
+    ],
+    "derivable": [
+      "c2",
+      "c4"
+    ],
+    "hidden": [],
+    "clause_count": 4,
+    "hidden_count": 0,
+    "hidden_active": []
+  },
+  "verdict": "instruction_complete",
+  "verdict_rationale": "Measured against the bare instruction 'Pick up the mallet and strike all xylophone keys from left to right.': the ordered sequence of strikes (c1) and what a strike is, the mallet head down on the key itself (c3), are stated; the left-to-right frame (c2) and the lift between strikes (c4) are derivable. No clause is hidden, so the record is instruction_complete. There is no arm-return term, no gripper term and no failure latch; the layer states the absence of a return requirement with the shared no-return sentence.",
+  "review_notes": [
+    "run_reward registers FIFTEEN sequential check stages (play_Xylophone.py:20-153) and no query, trigger_check, final_check or get_score: no permanent failure condition and no score ladder.",
+    "EVALUATION CADENCE. The Harness bridge registers run_reward (and get_score) once at reset, after reward_manager.init_state, and calls reward_manager.step once per native action after its ten physics steps drain (bridge.py native_tick), then advance_official_terminal reads get_reward. check() stages latch in registration order: step() pops check_list[0] only when all its conjuncts hold at that native-action boundary (reward_manager.py:376-389), and get_reward returns 1.0 only when every check list is empty and every query count equals its aim (reward_manager.py:527-587). A state that exists only between two native-action boundaries is never sampled.",
+    "STAGE STRICTNESS. A strike on a later key before an earlier one neither latches nor harms; the earlier key's stage is still waiting. A latched stage is not re-checked.",
+    "MEANS NOT CHECKED. 'Pick up the mallet' names the means; only the mallet head's 'beat' points and the mallet root height are read. Nothing reads the mallet stand, the grippers or where the mallet ends up after the last strike.",
+    "NO RETURN TERM. run_reward has no all_robot_back_to_origin; the layer closes with the shared no-return sentence used by make_kong-completion-v2 (tests/test_robodojo_task_contracts_v4.py NO_RETURN_CLAUSE), so boundary-v2 applies no return requirement. Success latches at the boundary where the check passes, wherever the arms are.",
+    "SAMPLING RISK. A strike exists for the check only if the head is on or just above the key at a native-action boundary (every ten physics steps); a blow that rebounds between two boundaries is never seen. The public text says 'comes down to that key' and does not describe the sampling.",
+    "SCENE, seed 0 ordinal 0: xylophone/00000 (static Geometry, eight keys shortening from its world -X end to its +X end, convexDecomposition collision) at (-0.074, -0.025); mallet/00000 (a 0.20 m handle with a spherical head of radius 0.0127 m at its root, mass 0.02 kg) resting in mallet_stand/00000 (place_tag up_side) at about (-0.10, -0.21). gen_instruction (play_Xylophone.py:155-157) returns one fixed template.",
+    "BUDGET. step_lim = 500 native actions (play_Xylophone.py:9), 25 full 20-action commands."
+  ],
+  "review": {
+    "status": "reviewed",
+    "scope": "source/layout-bound qualitative contract review; no simulator, scene smoke, provider or physical run",
+    "date": "2026-10-03",
+    "reviewer": "claude_source_review",
+    "methods_inspected": [
+      "__init__",
+      "_post_setup_scene",
+      "reset",
+      "run_reward",
+      "gen_instruction"
+    ],
+    "success_witness": {
+      "status": "unavailable",
+      "claim": "No physical success witness or task-solving qualification is claimed."
+    },
+    "counterexamples": [
+      "Task objects in the wrong place or arrangement must not be described as complete.",
+      "Arms at home alone do not imply task completion.",
+      "Mallet swept along all eight keys in one stroke: at most one strike latches (c4); distinguished by clause 3.",
+      "Keys struck right to left: only the leftmost key latches; distinguished by clauses 1 and 4.",
+      "Head brought down between two keys: neither key latches (c3); distinguished by clause 2.",
+      "Key touched by the handle or a gripper instead of the head: not counted (c3); distinguished by clause 2."
+    ],
+    "private_boundary": "No GT, trajectory contents, hidden object labels, numeric thresholds or evaluator code is delivered."
+  },
+  "forbidden_public_claims": [
+    "Each key must sound, or be hit with a particular force or speed.",
+    "A key struck out of turn makes the episode fail.",
+    "The mallet must be put back on its stand, or the arms must return to their reset poses.",
+    "Any statement of where the keys, the mallet or its stand are."
+  ],
+  "universal_return_to_origin": false,
+  "disclosure": {
+    "basis": "what the policy receives in this treatment, over and above the task language",
+    "environment_boundary": [],
+    "task_completion_contract": [
+      "Left to right runs from world -X, the side of the table where the left arm is mounted, toward world +X, the right-arm side. Every key must be struck, one after another in the order the keys lie along the xylophone, beginning with the key at its left end and ending with the key at its right end.",
+      "A key counts as struck when the head of the mallet comes down to that key, touching it or just above it, over the key itself rather than between keys or beside the xylophone. Contact by any other part of the mallet, or by a gripper, does not count.",
+      "After each strike the mallet must be lifted clearly back up from that key before a strike on the next key counts; sliding the mallet along the keys without lifting it counts as a single strike at most.",
+      "A key counts only once every key to its left has been struck in turn; a key struck out of turn must be struck again later. The task is complete at the moment the key at the right end is struck.",
+      "This task does not require the arms to end at their reset poses."
+    ],
+    "clause_mapping": {
+      "c1": [
+        1,
+        4
+      ],
+      "c2": [
+        1
+      ],
+      "c3": [
+        2
+      ],
+      "c4": [
+        3
+      ]
+    },
+    "private_numeric_thresholds_delivered": false,
+    "undisclosed": [],
+    "note": "Every evaluator clause is disclosed in words. The pinned check has no arm-return term, so the last clause is the shared no-return sentence and maps to no evaluator clause; boundary-v2 then applies no return requirement. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
+  },
+  "public_text_zh_reference": {
+    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "clauses": [
+      "从左到右指从世界 -X 方向（左臂安装的一侧）到世界 +X 方向（右臂一侧）。每个琴键都必须被敲击，按琴键在木琴上的排列顺序依次进行，从木琴左端的琴键开始，到右端的琴键结束。",
+      "当琴槌的槌头落到某个琴键处，接触该琴键或就在其上方，并且位于该琴键本身之上、而不是在两个琴键之间或木琴之外时，才算敲击了该琴键。琴槌其他部分或夹爪的接触都不算。",
+      "每次敲击之后，必须先把琴槌从该琴键上明显抬起，对下一个琴键的敲击才算数；琴槌不抬起而沿琴键滑过，至多只算一次敲击。",
+      "只有当左侧所有琴键都已依次敲过，一个琴键才算数；未按顺序敲击的琴键之后必须重新敲击。敲中右端琴键的那一刻任务即完成。",
+      "本任务不要求双臂最终回到复位时的位姿。"
+    ]
+  },
+  "supersedes": null
+}

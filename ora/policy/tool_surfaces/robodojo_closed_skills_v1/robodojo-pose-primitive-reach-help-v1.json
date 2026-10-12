@@ -1,0 +1,7 @@
+{
+  "append": {
+    "move_to": "Its compiled_pose targets carry reach_along_request, as move_pose's do.",
+    "rotate_wrist": "Its compiled_pose targets carry reach_along_request, as move_pose's do.",
+    "rotate_pitch": "Its compiled_pose targets carry reach_along_request, as move_pose's do."
+  }
+}

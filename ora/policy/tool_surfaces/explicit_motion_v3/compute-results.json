@@ -1,0 +1,72 @@
+{
+  "compute": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "outputs"
+    ],
+    "properties": {
+      "outputs": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 12,
+        "description": "One entry per name the block bound to a numeric value.",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "value",
+            "kind"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The block's own identifier for this measurement, carried as a value so no policy-chosen word becomes a key in the run record."
+            },
+            "value": {
+              "type": [
+                "number",
+                "boolean",
+                "array"
+              ],
+              "description": "The measurement, rounded to nine decimals when real.",
+              "items": {
+                "type": [
+                  "number",
+                  "boolean",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "number",
+                    "boolean"
+                  ],
+                  "description": "One component of a matrix row."
+                },
+                "description": "One component, or one row of a matrix."
+              }
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "boolean",
+                "scalar",
+                "vector3",
+                "vector4",
+                "vector",
+                "matrix3x3",
+                "matrix"
+              ],
+              "description": "The shape of value, so it need not be inferred."
+            }
+          }
+        }
+      },
+      "intermediates_not_returned": {
+        "type": "string",
+        "description": "Names the block bound to something not numeric, each with the reason it could not be returned. Absent when every binding was returned."
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "append": {
+    "observe": "Public robot facts: return measured pose, controlled-frame world axes, and measured finger/command state with explicit semantics. Each returned physical camera includes native RGB dimensions, pinhole intrinsics and a world-to-camera CV transform from this exact observation; historical requests use historical calibration. Derived point-cloud panels have no pinhole calibration. Full current camera coverage is supplied automatically. Numerical joint opening alone never proves a grasp; unavailable measurements remain null or explicitly unavailable."
+  }
+}
