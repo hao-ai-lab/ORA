@@ -1,6 +1,6 @@
 # ToolSurface authoring and model-visible help
 
-Robot Harness treats every policy-visible tool definition as executable model
+ORA treats every policy-visible tool definition as executable model
 documentation. A fixed tool catalog does not need a separate `help` tool: the
 canonical description, input schema, public result schema and structured error
 must together tell the policy when the tool is useful, what it changes, what it

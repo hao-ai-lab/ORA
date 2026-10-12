@@ -1,1 +1,1 @@
-"""Minimal run viewer for Robot Harness Runtime v1."""
+"""Minimal run viewer for ORA Runtime v1."""

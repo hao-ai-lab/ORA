@@ -342,7 +342,7 @@ The default run page treats an episode as one continuous review document rather
 than a slideshow with one selected step. This follows the useful reading
 hierarchy in CapX-style execution viewers—model response followed by execution
 details—and the earlier Agent-as-Policy viewer's sticky episode outline, while
-keeping Robot Harness evidence identities and privilege labels authoritative.
+keeping ORA evidence identities and privilege labels authoritative.
 It does not reproduce another system's chat UI or execution semantics.
 
 Each compiled ActionStep is rendered in the same order:
@@ -525,7 +525,7 @@ recorded verdict, visibility label or receipt.
 `viewer/libero_pro_catalog.py` preserves the task-order and perturbation model
 first presented in the historical Agent-as-Policy Atlas at commit
 `a762defefdecff6286ba3079cb02a77cd5327141`, but rebuilds the content against the
-current Robot Harness source pins: LIBERO-Pro code
+current ORA source pins: LIBERO-Pro code
 `2b910b5b5f53016bef9907632f6f840f1ce2229c` and dataset
 `c86fc3b8293185a6f373677018ff3e37f8391602`. The tracked snapshot contains all
 130 original tasks: 30 controlled-transfer tasks in Spatial/Object/Goal and the

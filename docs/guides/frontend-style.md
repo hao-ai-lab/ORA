@@ -1,6 +1,6 @@
 # Shared frontend style
 
-The default for Robot Harness frontends is a minimal light interface. Use the
+The default for ORA frontends is a minimal light interface. Use the
 same template for run registries, task catalogs, experiment pages and review
 tools. A new page inherits this style unless the user explicitly requests a
 different presentation.

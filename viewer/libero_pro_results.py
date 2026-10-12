@@ -1,7 +1,7 @@
 """Source-backed, protocol-aware published LIBERO-Pro result registry.
 
 The values in this module are literature metadata for the read-only Viewer.
-They are not local Robot Harness run evidence and must never be mixed into the
+They are not local ORA run evidence and must never be mixed into the
 run registry or used to infer an experiment verdict.
 """
 

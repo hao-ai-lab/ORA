@@ -1,6 +1,6 @@
 # Prompt Bundle authoring guide
 
-Robot Harness authors a robot policy as one versioned bundle of independently
+ORA authors a robot policy as one versioned bundle of independently
 owned layers. The purpose is not to make the prompt longer. It is to ensure
 that every fact has one owner, every first-action fact is actually visible, and
 adding a robot cannot silently mix task strategy, camera folklore, tool syntax,

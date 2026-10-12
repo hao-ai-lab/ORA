@@ -350,7 +350,7 @@ def index() -> str:
     root_items = "".join(
         f"<li><code>{html.escape(str(path))}</code></li>" for path in evidence_roots
     )
-    body = "<span class='eyebrow'>All experiments · Agent-as-Policy run registry</span><h1>Robot Harness experiments</h1><p class='muted'>Filter every discovered RoboTwin and LIBERO run by experiment, lifecycle and official outcome. Formal runs are completed, evaluator-valid, sealed behavioral evidence; synthetic and diagnostic runs remain available under All.</p>"
+    body = "<span class='eyebrow'>All experiments · ORA run registry</span><h1>ORA experiments</h1><p class='muted'>Filter every discovered RoboTwin and LIBERO run by experiment, lifecycle and official outcome. Formal runs are completed, evaluator-valid, sealed behavioral evidence; synthetic and diagnostic runs remain available under All.</p>"
     body += (
         "<details class='provenance'><summary>Evidence workspace · "
         f"{html.escape(str(OUTPUTS_ROOT))}</summary>"
@@ -379,7 +379,7 @@ def index() -> str:
         "<th>outcome</th><th>review</th></tr></thead><tbody>"
         + "".join(rows) + "</tbody></table>"
     )
-    return page("Robot Harness Runtime", body)
+    return page("ORA Runtime", body)
 
 
 @app.get("/costs")
@@ -627,7 +627,7 @@ def _robotwin_gallery(selected_id: str | None = None) -> str:
         "<dl class='provenance-grid'><div><dt>Action teacher</dt><dd>Task-specific expert program and CuRobo path</dd></div>"
         "<div><dt>Task ground truth</dt><dd>SAPIEN actor poses, functional annotations, task config and seed</dd></div>"
         "<div><dt>Verifier</dt><dd><code>plan_success &amp;&amp; check_success()</code> during generation</dd></div>"
-        "<div><dt>Policy visibility</dt><dd>These privileged inputs remain outside the Robot Harness policy boundary</dd></div></dl>"
+        "<div><dt>Policy visibility</dt><dd>These privileged inputs remain outside the ORA policy boundary</dd></div></dl>"
         "<p class='muted'>These are expert examples, not policy rollouts or Harness results.</p></details>"
     )
     body += (
