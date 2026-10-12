@@ -3,7 +3,7 @@
 ORA has two loops: a Native policy decides what to try; the trusted runtime decides whether and how an action may execute.
 
 ```mermaid
-flowchart LR
+flowchart TB
     API[Model API] <--> N[Native policy session]
     M[Task + manual + tool contracts] --> N
     O[Public observations + receipts] --> N

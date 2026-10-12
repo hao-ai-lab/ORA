@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ORA_DOCS_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd -- "$ORA_DOCS_ROOT"
+if ! command -v uv >/dev/null 2>&1; then
+  echo 'Install uv first: https://docs.astral.sh/uv/getting-started/installation/' >&2
+  exit 1
+fi
+case "${1:-serve}" in
+  build|serve) ORA_DOCS_COMMAND="${1:-serve}"; [[ $# -eq 0 ]] || shift ;;
+  -h|--help)
+    echo 'Usage: ./scripts/docs [serve|build] [MkDocs options]'
+    echo 'serve: local preview with live reload; build: strict validation and static output.'
+    exit 0 ;;
+  *) echo 'Usage: ./scripts/docs [serve|build] [MkDocs options]' >&2; exit 2 ;;
+esac
+exec uv run --isolated --no-project --python 3.11 \
+  --with-requirements docs/requirements.txt \
+  python -m mkdocs "$ORA_DOCS_COMMAND" --strict "$@"

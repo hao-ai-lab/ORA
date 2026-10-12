@@ -34,7 +34,7 @@ for a self-hosted model.
 reviewed completion contract; without it the plan records
 `task_contract.delivered: false`. Single cells and other cell lists compose
 through the maintained `ora/orchestrator/benchmark_spec.py`
-([RunSpec inputs](../../docs/reference/configuration-and-evidence.md#new-robotwin-libero-pro-and-libero-runspecs)).
+([RunSpec inputs](../../docs/reference/configuration-and-evidence.md#fresh-benchmark-specifications)).
 
 ## Commands
 

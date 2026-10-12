@@ -52,6 +52,10 @@ uv run --locked python -m pytest tests
 
 The distribution is named `ora-agent`; the Python import and command are `ora`. Use a source checkout for launches so plans can bind a clean Git commit. A PyPI release and the accompanying blog are pending.
 
+Preview the searchable documentation site with `./scripts/docs serve` and open
+`http://127.0.0.1:8000/`. Build and validate its static output with
+`./scripts/docs build`. See the [documentation guide](docs/developer/documentation.md).
+
 To install with a coding agent, give it this instruction:
 
 > Read AGENTS.md and docs/quickstart.md. Install the locked ORA environment, run ora doctor, and help me configure my existing model API without printing or committing credentials. Run the Synthetic quickstart before installing a simulator.

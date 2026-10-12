@@ -1,0 +1,164 @@
+site_name: ORA
+site_description: Open Robot-Use Agents — installation, robot environments, runtime and API documentation.
+site_url: !ENV [ORA_DOCS_URL, 'http://127.0.0.1:8000/']
+docs_dir: docs
+site_dir: .cache/docs/site
+strict: true
+exclude_docs: |
+  /design/
+  *.py
+  /requirements.in
+  /requirements.txt
+  **/__pycache__/**
+  !/templates/
+
+theme:
+  name: material
+  language: en
+  font: false
+  icon:
+    logo: material/robot-industrial
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-._]+'
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ['.']
+          options:
+            allow_inspection: false
+            show_root_heading: true
+            show_root_full_path: false
+            show_source: true
+            show_signature_annotations: true
+            separate_signature: true
+            members_order: source
+            docstring_section_style: table
+            filters: ['!^_']
+
+hooks:
+  - docs/_hooks.py
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true
+
+validation:
+  nav:
+    omitted_files: warn
+  links:
+    anchors: warn
+    unrecognized_links: warn
+
+extra_css:
+  - assets/stylesheets/ora.css
+
+extra:
+  source_repository: https://github.com/hao-ai-lab/ora-agent/blob/main/
+
+nav:
+  - Home: README.md
+  - Getting started:
+      - Installation: getting-started/installation.md
+      - First episode: quickstart.md
+      - Model APIs: getting-started/model-apis.md
+      - Supported setups: support.md
+      - Troubleshooting: getting-started/troubleshooting.md
+  - Environments:
+      - Overview: environments/README.md
+      - Host and perception setup: environments/common.md
+      - LIBERO / LIBERO-Pro: environments/libero.md
+      - RoboTwin: environments/robotwin.md
+      - RoboDojo: environments/robodojo.md
+      - RoboDojo installation reference: environments/robodojo-installation.md
+      - Official suite setup: guides/official-suite-getting-started.md
+  - User guide:
+      - Run and inspect: usage/runs.md
+      - Command-line reference: guides/cli-reference.md
+      - Evidence viewer: usage/viewer.md
+      - Examples: usage/examples.md
+      - Official-suite cookbook: usage/official-suite.md
+      - Compute tool: guides/compute-usage.md
+  - Concepts:
+      - Architecture: architecture.md
+      - Context assembly: context-assembly.md
+      - Glossary: glossary.md
+  - API reference:
+      - Overview: reference/README.md
+      - Public interfaces: reference/public-interfaces.md
+      - Configuration and evidence: reference/configuration-and-evidence.md
+      - Runtime lifecycle: reference/runtime-lifecycle.md
+      - Experiment identity: reference/experiment-identity.md
+      - RoboTwin contact recovery: reference/robotwin-contact-recovery.md
+      - RoboDojo motion qualification: reference/robodojo-motion-qualification.md
+      - Python API:
+          - Overview: api/README.md
+          - Plans and benchmark cells: api/plans.md
+          - Policy sessions: api/policy.md
+          - Environment sessions: api/environment.md
+          - Action contracts: api/actions.md
+  - Developer guide:
+      - Contributing: developer/contributing.md
+      - Code map: code-map.md
+      - Documentation: developer/documentation.md
+      - Tests: guides/test-suite-navigation.md
+      - Runtime qualification ladder: developer/runtime-ladder.md
+      - Add an environment: guides/add-backend.md
+      - Environment compatibility: guides/environment-compatibility-authoring.md
+      - Tool surfaces: guides/tool-surface-authoring.md
+      - Prompt bundles: guides/prompt-bundle-authoring.md
+      - Task contracts: guides/task-contract-and-feedback-authoring.md
+      - Qualification: guides/qualification-authoring.md
+      - Trajectory and viewer integration: guides/trajectory-capture-and-viewer.md
+      - Viewer style: guides/frontend-style.md
+      - Templates:
+          - Environment compatibility: templates/environment-compatibility-record.md
+          - Task contract review: templates/task-contract-review.md

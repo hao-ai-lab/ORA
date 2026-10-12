@@ -1,0 +1,26 @@
+:root {
+  --md-text-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-code-font: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #fff;
+  --md-primary-bg-color: #152a43;
+  --md-typeset-a-color: #3557ae;
+}
+.md-header { box-shadow: none; border-bottom: 1px solid var(--md-default-fg-color--lightest); }
+.md-tabs { border-bottom: 1px solid var(--md-default-fg-color--lightest); }
+.md-header__topic:first-child { font-weight: 750; letter-spacing: -.025em; }
+.md-typeset h1 { color: var(--md-default-fg-color); font-weight: 650; letter-spacing: -.025em; }
+.md-typeset h2 { font-weight: 600; letter-spacing: -.015em; }
+.md-typeset .ora-intro { max-width: 42rem; font-size: 1.06rem; line-height: 1.65; }
+.md-typeset .ora-meta { color: var(--md-default-fg-color--light); font-size: .72rem; }
+.md-typeset .grid.cards > ul > li { border-radius: .35rem; padding: 1.15rem; box-shadow: none; }
+.md-typeset .grid.cards > ul > li:hover { box-shadow: none; }
+.md-typeset .ora-next { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.1rem 0 1.8rem; }
+.md-typeset .ora-next > p { display: contents; }
+.md-typeset .md-button { border-radius: .25rem; font-size: .75rem; padding: .5em 1em; }
+.md-typeset table:not([class]) { font-size: .72rem; }
+.md-typeset pre > code { border-radius: .25rem; }
+.md-typeset .doc-signature code { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (min-width: 76.25em) { .md-grid { max-width: 76rem; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }

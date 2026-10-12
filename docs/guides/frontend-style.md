@@ -5,6 +5,11 @@ same template for run registries, task catalogs, experiment pages and review
 tools. A new page inherits this style unless the user explicitly requests a
 different presentation.
 
+The public documentation site uses MkDocs Material, following the explicitly
+selected FastVideo documentation layout. Its navigation and theme live in
+`mkdocs.yml` and `docs/assets/stylesheets/ora.css`; the Viewer retains the
+shared template below.
+
 ## Shared sources
 
 | Source | Owns |
