@@ -7,7 +7,10 @@ RunSpec and an indexed run. From a source checkout, use the repository wrapper:
 ./scripts/ora --help
 ```
 
-An installed wheel exposes the same command as `ora`. Experiment
+The wrapper runs `.venv/bin/python` from the checkout when it exists, else
+`$PYTHON`, else `python3`. If your environment lives elsewhere (for example via
+`UV_PROJECT_ENVIRONMENT`), use `uv run --locked ora ...` or set `PYTHON` to that
+environment's interpreter. An installed wheel exposes the same command as `ora`. Experiment
 CLIs remain the normal place to select a config, task and seed; they delegate
 the resulting RunSpec and run operations to this generic surface. The internal
 `_supervise` child-process entry is deliberately excluded from the public
@@ -22,9 +25,9 @@ that a command sends a robot action unless explicitly stated.
 | Command | Syntax | Writes or external effect | Purpose |
 |---|---|---|---|
 | `run` | `run --env synthetic` | Calls the configured model and writes a sealed episode | Run the bounded, simulator-free Native quickstart through the normal preflight and supervisor. |
-| `doctor` | `doctor [--env synthetic\|robotwin\|libero_pro\|robodojo] [--json]` | None | Discover Python, ORA, credential presence, simulator interpreters, asset directories and graphics libraries without starting a simulator. |
+| `doctor` | `doctor [--env synthetic\|robotwin\|libero_pro\|robodojo] [--json]` | None | Discover Python, ORA, credential presence, simulator interpreters, asset directories and graphics libraries without starting a simulator. For `robodojo` it also loads `libvulkan.so.1` in the simulator interpreter (honouring `LD_LIBRARY_PATH`) and, on drivers that need it (595.x), verifies the Vulkan compatibility-layer receipt. |
 | `validate` | `validate RUN_SPEC` | None | Parse, validate and content-bind one RunSpec; print its plan identity. |
-| `plan` | `plan RUN_SPEC` | None | Print the resolved content-addressed RunPlan, including policy, Runtime, budgets and hashes. |
+| `plan` | `plan RUN_SPEC` | None | Print the resolved content-addressed RunPlan, including policy, Runtime, budgets, hashes and the launch confirmation code (the last six hex digits of the plan sha256). |
 | `context` | `context RUN_SPEC` | Temporary files only | Preview the exact project-owned context, composition and tools without starting an episode. Native provider requests are inspectable. |
 | `preflight` | `preflight RUN_SPEC` | Writes a content-addressed preflight record | Run source, host, environment and provider admission gates without launching an episode. A live provider check may be billable when required by the RunSpec. |
 | `launch` | `launch RUN_SPEC [--yes]` | Creates a run and starts its supervisor | Repeat preflight, require the plan confirmation code, atomically acquire the RunPlan's execution-resource lease, enforce optional plan-bound launch admission and launch one episode. A `single_attempt_cell` claim is consumed by this generic path, including when called outside an experiment wrapper. Unprofiled and physical Runtime plans retain host-wide exclusivity; explicitly qualified simulator slots may coexist. `--yes` is only for an already reviewed higher-level workflow. |
@@ -36,7 +39,7 @@ that a command sends a robot action unless explicitly stated.
 | `experiments` | `experiments [FAMILY] [--json]` | None | Inspect stable experiment families, generation parents and historical aliases; never launch or reset admission. |
 | `lock` | `lock [--check]` | Writes `policy.lock` (without `--check`) | Regenerate `policy.lock`, the sorted `sha256sum`-format inventory of every tracked policy asset and of the path-loaded assets outside `ora/policy/`. `--check` writes nothing, lists assets that are missing from, extra in or changed against the lock, and exits 1 on any drift; CI runs it before the tests. Run it after editing, adding or deleting an asset (a new asset counts once it is `git add`ed) and commit the result. |
 | `revalidate` | `revalidate [RUN_DIR ...] [--run-list LIST.json] --output-dir OUT [--workers N]` | Writes separate reports only | Review exact completed run directories with checker/source hashes, original/new evaluations and differences; preserve all original files and defer active prefixes. |
-| `watch` | `watch RUN_ID` | None | Stream canonical causal events until the selected run reaches a terminal state. `Ctrl-C` stops watching, not the run. |
+| `watch` | `watch RUN_ID\|RUN_DIR [--speed S] [--ui auto\|pi\|ansi\|plain] [--raw]` | None | Follow a live run, or replay a finished one, as ORA's terminal transcript: the model's visible words, condensed tool results, refusals, receipts and per-round verdicts. A finished run replays on recorded time (`--speed 0` prints at once). `--ui pi` draws with pi-tui (needs Node 20+ and `npm ci` in `ora-tui/`); `auto` uses it in a terminal when installed, else the built-in ANSI view. `--raw` prints the canonical causal events as JSON lines instead. Read-only: it writes nothing under the run and takes no lease; `Ctrl-C` stops watching, not the run. |
 | `stop` | `stop RUN_ID` | Sends `SIGTERM` to one verified process group | Request graceful termination only when the exact run ID, its resource lease and process command agree; sibling slots are unaffected. |
 | `metadata` | `metadata RUN_ID` | None | Print the run's exact context/environment manifest. |
 | `state` | `state RUN_ID [--step N]` | None | Verify the policy-state hash chain and print the latest or selected public state. |

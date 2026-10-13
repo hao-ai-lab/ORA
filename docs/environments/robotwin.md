@@ -57,7 +57,7 @@ uv run --locked python -m ora.orchestrator.robotwin_evaluation qualify \
   --plan PATH_TO_PRINTED_PLAN --confirm QUALIFY-ROBOTWIN:PRINTED_HASH
 ```
 
-The immutable plan gives the estimate and confirmation hash. Candidate probes can take minutes; this bounded scan is separate from a full 50-task qualification. The resulting `seed-manifests/adjust_bottle.json` names accepted seeds and binds the source/configuration. Select a seed actually present in it. Reuse still-valid evidence instead of rescanning on every launch. See [CLI reference](../guides/cli-reference.md#robotwin-evaluation-preparation).
+The immutable plan gives the estimate and confirmation hash. Candidate probes can take minutes (the three-candidate `adjust_bottle` scan above finished in about 7 minutes on one H200 lane, under its 28.5-minute estimate); this bounded scan is separate from a full 50-task qualification. Preparation and qualification records are written under `runtime-v1/robotwin-evaluation/` in the outputs root (`ORA_OUTPUTS_ROOT` when set, otherwise `<workspace>/outputs`); this namespace is fixed. `qualify` prints the path of the resulting `seed-manifests/adjust_bottle.json`, which names accepted seeds and binds the source/configuration. Select a seed actually present in it. Reuse still-valid evidence instead of rescanning on every launch. See [CLI reference](../guides/cli-reference.md#robotwin-evaluation-preparation).
 
 ## Compose and launch
 

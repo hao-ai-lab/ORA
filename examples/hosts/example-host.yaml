@@ -44,6 +44,18 @@ motion_planner:
   root:
     environment_variable: CUROBO_ROOT
     purpose: Exact clean CuRobo checkout matching the pinned revision.
+# RoboDojo (omit when the host does not run RoboDojo). The worker derives the
+# runtime root from ROBODOJO_PYTHON (<root>/env/bin/python); see .env.example.
+robodojo:
+  python:
+    environment_variable: ROBODOJO_PYTHON
+    purpose: Isolated Isaac Sim 5.1 / RoboDojo interpreter of the installer's runtime root.
+  simulator_root:
+    environment_variable: ROBODOJO_ROOT
+    purpose: Exact RoboDojo source checkout inside the runtime root.
+  asset_root:
+    environment_variable: ROBODOJO_ASSET_ROOT
+    purpose: Verified, pinned RoboDojo Assets tree.
 credentials:
   mode: trusted_environment_only
   committed_values: forbidden

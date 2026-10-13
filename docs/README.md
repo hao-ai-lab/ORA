@@ -48,7 +48,7 @@
 From a source checkout, install ORA and check the environment:
 
 ```bash
-uv sync --locked
+uv sync --all-extras --locked
 uv run --locked ora doctor
 ```
 

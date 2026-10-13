@@ -36,6 +36,28 @@ uv run --locked ora doctor --env libero_pro
 
 `doctor` checks package discovery and directories. It does not qualify rendering. The worker's render guard rejects corrupted RGB/depth; check EGL/CUDA device correspondence before allocating concurrent slots. Start with one LIBERO renderer per GPU and keep its graphics selector explicit.
 
+### Software-rendered (Mesa) slots
+
+NVIDIA EGL tolerates one LIBERO renderer per GPU, and on some drivers a SAPIEN (RoboTwin) process anywhere on the same machine corrupts its frames. To pack several LIBERO episodes on a host, or to run LIBERO beside RoboTwin, render on the CPU with Mesa llvmpipe instead. Declare a slot whose `worker_environment` selects Mesa's EGL vendor:
+
+```yaml
+  libero-mesa-gpu0:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: lpm-gpu0-s0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "0"          # CuRobo's GPU; robosuite also needs the EGL device listed here
+      MUJOCO_EGL_DEVICE_ID: "0"
+      MUJOCO_GL: egl
+      PYOPENGL_PLATFORM: egl
+      __EGL_VENDOR_LIBRARY_FILENAMES: /usr/share/glvnd/egl_vendor.d/50_mesa.json
+      LIBGL_ALWAYS_SOFTWARE: "1"
+      LP_NUM_THREADS: "2"
+    minimum_free_memory_mib: 2048
+```
+
+Mesa exposes one EGL device, numbered 0, and robosuite requires `MUJOCO_EGL_DEVICE_ID` to appear in `CUDA_VISIBLE_DEVICES`. A slot whose planner runs on GPU K therefore lists `"K,0"`, and lease admission also checks the slot's free-memory floor on GPU 0. Each lane costs CPU (about two cores at `LP_NUM_THREADS=2`) rather than GPU rendering. Mesa and NVIDIA images differ slightly (depth matches; RGB does not bit-match), so keep one renderer per scored cohort and do not pool their results.
+
 ## Compose and launch
 
 Register a `libero-gpu0` slot and obtain a [perception readiness report](common.md#install-the-shared-perception-services). For a Pro object-swap task:

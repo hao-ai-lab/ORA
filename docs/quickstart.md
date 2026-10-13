@@ -4,7 +4,7 @@ You need Git, uv, Python 3.11 and a model API key. ORA installs its Python depen
 
 ```bash
 git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
-uv sync --locked
+uv sync --all-extras --locked
 uv run --locked ora doctor
 ```
 

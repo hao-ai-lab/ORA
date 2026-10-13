@@ -29,6 +29,14 @@ Replace `RUN_ID` with the exact ID printed at launch:
 ./scripts/ora metrics RUN_ID
 ```
 
+`ora watch` shows the run as a terminal transcript: what the model said,
+which tools it called with condensed results, refusals, action receipts and
+each round's official verdict. It follows a live run and replays a finished
+one on recorded time (`--speed 0` prints it at once). For the pi-tui front
+end, install Node 20+ and run `npm ci` in `ora-tui/` once; without it `ora
+watch` uses its built-in terminal view. `ora watch RUN_ID --raw` prints the
+canonical causal events as JSON lines instead.
+
 Use `ora stop RUN_ID` to stop that active run. Avoid broad process kills that
 could stop unrelated sessions or services.
 

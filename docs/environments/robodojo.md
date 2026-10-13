@@ -22,7 +22,21 @@ export ROBODOJO_PYTHON="$ORA_DOJO_INSTALL/env/bin/python"
 uv run --locked ora doctor --env robodojo
 ```
 
-`sources`, `assets` and `sdk` may run independently. Later stages depend on those inputs. Installation does not launch a simulator or qualify physics. The installer preserves source/package/asset receipts and supports reuse of matching components. Isaac SDK and assets are large separate downloads; consult their licenses and check local disk capacity first. No portable VRAM or installation-time minimum has been established by ORA.
+`sources`, `assets` and `sdk` may run independently. Later stages depend on those inputs. Installation does not launch a simulator or qualify physics. The installer preserves source/package/asset receipts and supports reuse of matching components. Isaac SDK and assets are large separate downloads; consult their licenses and check local disk capacity first. No portable VRAM or installation-time minimum has been established by ORA. Keep the three `ROBODOJO_*` paths in your private `.env` (see `.env.example`).
+
+### Vulkan loader and compatibility layer
+
+Isaac Sim renders through Vulkan, so the host needs a Vulkan loader (`libvulkan.so.1`, for example Ubuntu's `libvulkan1`). If you cannot install it system-wide, put a directory holding it on `LD_LIBRARY_PATH` before starting ORA; the isolated worker inherits that variable.
+
+NVIDIA 595 drivers report an unbounded `maxMemoryAllocationSize`, which crashes Isaac Sim 5.1 at RTX startup. On these drivers qualification and preflight require the process-local Khronos Profiles layer that caps the limit. Build it once into the runtime root (needs Git, CMake, a C++17 compiler and network access for the layer's pinned dependencies; a few minutes):
+
+```bash
+./scripts/setup-robodojo graphics-compat --root "$ORA_DOJO_INSTALL"
+```
+
+The stage clones `KhronosGroup/Vulkan-Profiles` at the pinned revision, applies the tracked core-identity patch, builds only the layer, and writes `graphics-compat/` with its hash receipt `installation.json`. It changes no driver, SDK or shell profile; the worker activates the layer for itself and checks the repaired properties before every start. The [installer reference](../../ora/environment/backends/robodojo/installation/INSTALL.md#process-local-graphics-compatibility) explains the repair. `graphics-compat/` belongs to that runtime root: the worker finds it next to `env/` (`ROBODOJO_PYTHON` is `<root>/env/bin/python`), and the Kit cache and data directories must be real directories inside the same root, not symlinks into another installation.
+
+`uv run --locked ora doctor --env robodojo` reports `vulkan_loader` and, on drivers that need it, `vulkan_compatibility_layer`.
 
 ## Qualify the lane
 
@@ -41,7 +55,9 @@ uv run --locked python -m ora.orchestrator.robodojo_lane_qualification task stac
   --gpu 1 --resource-profile robodojo-gpu1 --card PATH_TO_CARD_RECORD --yes
 ```
 
-The card check performs two full-length episodes (the operator's estimate is 35–56 minutes). Reuse a still-valid card record whose actual source, controller, device and asset dependencies match. A task record admits the default layout 0 only. For another layout or a multi-round session, use the lane operator's `smoke` and offline `revalidate` commands with the exact schedule; see their `--help`. Qualification evidence belongs under the selected shared workspace, outside Git.
+Each command runs two full-length simulator episodes. On one H200 lane, `stack_bowls` took 38 minutes for the card and about 60 minutes for the task record (2026-10-13); budget both before an episode on a new lane. Reuse a still-valid card record whose actual source, controller, device and asset dependencies match. A task record admits the default layout 0 only. For another layout or a multi-round session, use the lane operator's `smoke` and offline `revalidate` commands with the exact schedule; see their `--help`.
+
+Records are written to `robodojo-compat/qualification/` under the outputs root (`ORA_OUTPUTS_ROOT` when set, otherwise `<workspace>/outputs`), outside Git. The task step and the composer bind them as workspace-relative `outputs/robodojo-compat/...` pairs; with a separate outputs root, ORA creates the workspace link `outputs/robodojo-compat` onto it. A record elsewhere is refused.
 
 ## Compose and launch
 

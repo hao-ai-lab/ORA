@@ -6,6 +6,10 @@ Complete the [Synthetic quickstart](../quickstart.md) first. ORA's locked enviro
 
 Copy `examples/hosts/example-host.yaml` to a host-local directory as `<host-id>.yaml`. Change `id`, `execution_marker.required_value` and GPU selectors to match your machine. Export `ORA_HOSTS_DIR` to that directory, `ORA_EXECUTION_HOST` to the ID, and `ORA_PROJECT_ROOT` to the clean ORA checkout. Keep absolute installation paths in your shell or a private `.env`, using the variable names in the template. Do not put credentials in a host profile.
 
+### Workspace and evidence roots
+
+The runtime workspace holds `.harness-runtime/` (resource leases and the run index); evidence goes to the outputs root, `<workspace>/outputs` by default. A linked Git worktree defaults to the workspace of the checkout that owns the common `.git` directory, not to itself, so leases and runs from every worktree meet there. Set `ORA_WORKSPACE_ROOT` (absolute) to choose the workspace explicitly, for example one per node so leases stay node-local, and `ORA_OUTPUTS_ROOT` (an existing absolute directory) to keep evidence from several workspaces in one place. `uv run --locked ora workspace` prints the resolved roots. Read leases only on the machine that runs them.
+
 Declare only slots you can actually run. Each slot binds a backend, a physical GPU and a minimum free-memory floor. An unprofiled run takes a host-wide lease. Start with one renderer per GPU; measure before increasing concurrency. LIBERO's EGL device numbering must be checked against CUDA numbering on the actual host.
 
 ## Configure the model
@@ -76,7 +80,9 @@ uv run --locked ora watch RUN_ID
 ./scripts/open-viewer
 ```
 
-Launch asks for the plan's confirmation code. Evidence lands under `outputs/<experiment>/runs/<run_id>/` (or the selected outputs root). A landed run records `result.json`, evaluation and a seal or seal-refusal reason. Read the official verdict and infrastructure status separately. The robot episode budgets are ceilings, not expected duration; provider speed, task length and retries determine elapsed time and token usage.
+`plan` and `launch` print the plan's `confirmation code` (the last six hex digits of its `plan sha256`); launch asks you to type it. Evidence lands under `outputs/<experiment>/runs/<run_id>/` (or the selected outputs root). A landed run records `result.json`, evaluation and a seal or seal-refusal reason. Read the official verdict and infrastructure status separately. The robot episode budgets are ceilings, not expected duration; provider speed, task length and retries determine elapsed time and token usage.
+
+`ora launch` and `scripts/model-services start` start detached processes and return. Those processes must outlive the shell that started them. Under a batch scheduler such as Slurm, every process of a job step (`srun`) is killed when the step ends, detached or not: keep the step alive until the run lands (for example, run the launcher in `tmux` inside one long-lived `srun --overlap` step that waits for the supervisor PID in the run's `process.json`), and keep the services' step alive for as long as runs use them. Stop a run with `ora stop RUN_ID` before ending its step; killing the step leaves the run unlanded.
 
 | Problem | Check |
 |---|---|

@@ -15,7 +15,7 @@ For robot dependencies, use `ora doctor --env robotwin`, `--env libero_pro`, or
 | Symptom | Check |
 |---|---|
 | `uv` is missing | Install uv and ensure it is on `PATH`. |
-| Wrong Python or missing package | Run `uv sync --locked` from the source checkout, then use `uv run --locked`. |
+| Wrong Python or missing package | Run `uv sync --all-extras --locked` from the source checkout, then use `uv run --locked`. |
 | Dirty-source refusal | Review and commit intentional changes; keep keys and outputs ignored. |
 | Missing FFmpeg | Install system FFmpeg, including `ffprobe`, for video export and tests. Synthetic itself does not need it. |
 

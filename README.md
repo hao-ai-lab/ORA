@@ -10,7 +10,7 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 
 ```bash
 git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
-uv sync --locked
+uv sync --all-extras --locked
 uv run --locked ora doctor
 ```
 

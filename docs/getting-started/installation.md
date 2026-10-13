@@ -7,9 +7,13 @@ checkout so launches can record an exact Git commit.
 ```bash
 git clone https://github.com/hao-ai-lab/ora-agent.git
 cd ora-agent
-uv sync --locked
+uv sync --all-extras --locked
 uv run --locked ora doctor
 ```
+
+`--all-extras` also installs the media extra (`imageio`, used by RoboTwin
+qualification captures) and the test runner; the same command is used everywhere
+in these docs.
 
 `ora doctor` reports Python and ORA versions, credential presence, and optional
 graphics/media dependencies. It does not print keys, authenticate a provider,

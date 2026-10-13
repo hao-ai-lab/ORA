@@ -221,6 +221,14 @@ when the device supports core Vulkan 1.1 without the instance extension being
 listed as a device extension. The patch preserves the driver's actual UUID,
 LUID and node-mask values; it does not replace them with profile data.
 
+`scripts/setup-robodojo graphics-compat --root ROOT` performs these steps (opt-in;
+needs Git, CMake, a C++17 compiler and network access for `known_good.json`): it
+clones the pinned revision under `ROOT/graphics-compat-build/`, applies the patch,
+generates with `jsonschema` in a separate build venv, builds only `ProfilesLayer`,
+and writes `ROOT/graphics-compat/` with the tracked profile and the receipt.
+On fs-mbz (driver 595.91.07, 2026-10-13) the stage's layer passed the readback
+and driver gate on all eight GPUs.
+
 `installation.json` records the exact patch, generated source, dependencies,
 compiler, local build commands, layer/profile/manifest hashes and verification
 receipt. Reproduce its `build.reproduction_commands` in a fresh installation.
