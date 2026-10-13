@@ -226,7 +226,7 @@ needs Git, CMake, a C++17 compiler and network access for `known_good.json`): it
 clones the pinned revision under `ROOT/graphics-compat-build/`, applies the patch,
 generates with `jsonschema` in a separate build venv, builds only `ProfilesLayer`,
 and writes `ROOT/graphics-compat/` with the tracked profile and the receipt.
-On fs-mbz (driver 595.91.07, 2026-10-13) the stage's layer passed the readback
+On an eight-GPU H200 host (driver 595.91.07, 2026-10-13) the stage's layer passed the readback
 and driver gate on all eight GPUs.
 
 `installation.json` records the exact patch, generated source, dependencies,
