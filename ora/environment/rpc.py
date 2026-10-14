@@ -9,6 +9,7 @@ import os
 import signal
 import socket
 import subprocess
+import sys
 import tempfile
 import time
 import uuid
@@ -23,8 +24,9 @@ from .base import validate_environment_status
 RPC_SCHEMA = "ora.environment-rpc.v1"
 SESSION_RECORD_SCHEMA = "ora.environment-process-session.v1"
 MAX_MESSAGE_BYTES = 16 * 1024 * 1024
-# Linux sockaddr_un.sun_path is 108 bytes including the terminating NUL.
-MAX_UNIX_SOCKET_PATH_BYTES = 107
+# sockaddr_un.sun_path includes the terminating NUL: 104 bytes on macOS,
+# 108 on Linux. Use the current worker host's bound before starting it.
+MAX_UNIX_SOCKET_PATH_BYTES = 103 if sys.platform == "darwin" else 107
 #: A Kit worker exits with this before starting Kit when its PID collides with
 #: another user's carb segment (sysexits EX_CANTCREAT; RoboTwin qualification
 #: already uses 75). The launcher relaunches it under a new PID.

@@ -37,6 +37,13 @@ end, install Node 20+ and run `npm ci` in `ora-tui/` once; without it `ora
 watch` uses its built-in terminal view. `ora watch RUN_ID --raw` prints the
 canonical causal events as JSON lines instead.
 
+A live `ora watch` in a terminal also opens a read-only browser window bound
+to the run's recorded camera frames (`--world-view off` disables it; a
+finished-run replay leaves it off). When the run executes on another machine,
+`./scripts/ora-remote HOST --repo /path/on/HOST -- watch RUN_DIR` runs ORA there
+over SSH and forwards the world view to a local browser. To steer a run while
+it works, see [interactive sessions](interactive.md).
+
 Use `ora stop RUN_ID` to stop that active run. Avoid broad process kills that
 could stop unrelated sessions or services.
 

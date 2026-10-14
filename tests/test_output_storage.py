@@ -190,3 +190,66 @@ def test_a_workspace_link_onto_other_storage_is_still_refused(
     with pytest.raises(ValueError, match="portable outputs locator"):
         paths.portable_output_locator(outside, workspace)
     assert not (workspace / "outputs/elsewhere").exists()
+
+
+def _card_record(path: Path) -> None:
+    from ora.orchestrator.robodojo_card_qualification import CARD_QUALIFICATION_SCHEMA
+
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"schema": CARD_QUALIFICATION_SCHEMA, "passed": True}))
+
+
+@pytest.mark.parametrize("outputs_root", ["set", "unset"])
+def test_robodojo_task_step_accepts_the_card_its_card_step_wrote(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, outputs_root: str,
+) -> None:
+    """ORA acceptance 2026-10-13: with ORA_OUTPUTS_ROOT set, `card` wrote under the outputs
+    root and `task` refused it ("must live in the shared workspace"). Both now bind the
+    same workspace-relative pair that the qualification reader resolves."""
+    import hashlib
+
+    from ora.orchestrator import robodojo_qualification as qualification
+    from ora.orchestrator import robodojo_spec
+    from ora.orchestrator.robodojo_card_qualification import _card_reference
+
+    if outputs_root == "set":
+        workspace, storage = _per_node_workspace(monkeypatch, tmp_path)
+    else:
+        workspace = tmp_path / "ws"
+        (workspace / "outputs").mkdir(parents=True)
+        monkeypatch.setattr(paths, "WORKSPACE_ROOT", workspace)
+        monkeypatch.setattr(paths, "OUTPUTS_ROOT", workspace / "outputs")
+        monkeypatch.setattr(paths, "output_roots", lambda: (paths.OUTPUTS_ROOT,))
+        storage = workspace / "outputs"
+    card = storage / "robodojo-compat/qualification/robodojo-lane-card-x/card-qualification.json"
+    _card_record(card)
+    _, reference = _card_reference(card)
+    assert reference == {
+        "path": "outputs/robodojo-compat/qualification/robodojo-lane-card-x/card-qualification.json",
+        "sha256": hashlib.sha256(card.read_bytes()).hexdigest(),
+    }
+    assert qualification._read_record(reference, workspace_root=workspace, label="card")[1].resolve() == card.resolve()
+    task = storage / "robodojo-compat/qualification/robodojo-lane-task-x/task-qualification.json"
+    task.parent.mkdir(parents=True)
+    task.write_text(json.dumps({"passed": True, "card_qualification": reference}))
+    layered = robodojo_spec.layered_qualification(task)
+    assert layered["card"] == reference
+    assert layered["task"]["path"] == "outputs/robodojo-compat/qualification/robodojo-lane-task-x/task-qualification.json"
+    assert qualification._read_record(layered["task"], workspace_root=workspace, label="task")[0]["passed"] is True
+
+
+def test_robodojo_card_outside_workspace_and_outputs_root_is_still_refused(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    from ora.orchestrator import robodojo_spec
+    from ora.orchestrator.robodojo_card_qualification import _card_reference
+
+    _per_node_workspace(monkeypatch, tmp_path)
+    stray = tmp_path / "elsewhere/robodojo-compat/card-qualification.json"
+    _card_record(stray)
+    with pytest.raises(RuntimeError, match="shared workspace or the configured outputs root"):
+        _card_reference(stray)
+    stray_task = stray.with_name("task-qualification.json")
+    stray_task.write_text(json.dumps({"passed": True, "card_qualification": {"path": "x", "sha256": "0" * 64}}))
+    with pytest.raises(ValueError, match="shared workspace or the configured outputs root"):
+        robodojo_spec.layered_qualification(stray_task)

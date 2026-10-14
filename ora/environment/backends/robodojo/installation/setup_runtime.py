@@ -35,6 +35,16 @@ def upstream_purged(name: str) -> bool:
     return fnmatch.fnmatchcase(name, UPSTREAM_PURGED_ASSETS)
 
 
+#: Process-local Vulkan allocation-limit repair for NVIDIA 595 drivers (INSTALL.md,
+#: "Process-local graphics compatibility"); must equal graphics_compat.py's pins.
+VULKAN_PROFILES_URL = "https://github.com/KhronosGroup/Vulkan-Profiles"
+VULKAN_PROFILES_REV = "a400d0b10059b2cc3cd285475593eee79975a5c4"
+COMPAT_PATCH_SHA256 = "4189d74dda895d78786dac467021f70084714c68cefc9826406225c797b6193e"
+COMPAT_PROFILE_SHA256 = "a94b47098944b7f0ddc95ec46a811c877af582fddee3c02061d5dd4b23ccb1cd"
+COMPAT_PROFILE_NAME = "VP_ROBODOJO_RTX_ALLOCATION_COMPAT"
+COMPAT_GENERATOR_REQUIREMENTS = ("jsonschema==4.23.0",)
+
+
 CONSTRAINTS = """numpy==1.26.0
 packaging==23.0
 typing_extensions==4.12.2
@@ -468,6 +478,77 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
         self.run("bash", script, "--skip-conda", "--skip-isaac", "--skip-policy",
                  "--summary", self.root / "doctor.json", cwd=self.source)
 
+    def graphics_compat(self, jobs: int = 16):
+        """Build the Khronos Profiles layer and write ``graphics-compat/`` with its receipt.
+
+        Opt-in: only hosts whose driver overflows Isaac Sim's allocation limit (595.x)
+        need it. Needs git, CMake, a C++17 compiler and network access for the
+        layer's pinned ``known_good.json`` dependencies. Starts no simulator; the
+        worker's own readback verifies the repair on the GPU before every start.
+        """
+        here = Path(__file__).resolve().parent
+        patch, profile = here / "vulkan-profiles-core-id.patch", here / f"{COMPAT_PROFILE_NAME}.json"
+        for path, expected in ((patch, COMPAT_PATCH_SHA256), (profile, COMPAT_PROFILE_SHA256)):
+            if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise RuntimeError(f"Tracked compatibility input drifted: {path.name}")
+        if not self.python.exists():
+            raise RuntimeError("graphics-compat needs the RoboDojo interpreter; run the sdk stage first")
+        work = self.root / "graphics-compat-build"
+        source, build, venv = work / "Vulkan-Profiles", work / "build", work / "venv"
+        if not (source / ".git").exists() or self.run(
+                "git", "rev-parse", "HEAD", cwd=source, capture=True) != VULKAN_PROFILES_REV:
+            self.clone(VULKAN_PROFILES_URL, source, VULKAN_PROFILES_REV)
+        if self.run("git", "rev-parse", "HEAD", cwd=source, capture=True) != VULKAN_PROFILES_REV:
+            raise RuntimeError("Unexpected Vulkan-Profiles revision")
+        applied = subprocess.run(["git", "apply", "--reverse", "--check", str(patch)], cwd=source,
+                                 env=self.env, capture_output=True).returncode == 0
+        if not applied:
+            self.run("git", "apply", patch, cwd=source)
+        if not (venv / "bin/python").exists():
+            self.run("uv", "venv", "--python", self.python, venv)
+        self.run("uv", "pip", "install", "--python", venv / "bin/python", *COMPAT_GENERATOR_REQUIREMENTS)
+        commands = [
+            ["cmake", "-S", source, "-B", build, "-DCMAKE_BUILD_TYPE=Release", "-DUPDATE_DEPS=ON",
+             "-DBUILD_TESTS=OFF", f"-DPython3_EXECUTABLE={venv / 'bin/python'}"],
+            ["cmake", "--build", build, "--target", "ProfilesLayer", "-j", str(jobs)],
+        ]
+        for command in commands:
+            self.run(*command)
+        built_layer = build / "layer/libVkLayer_khronos_profiles.so"
+        built_manifest = build / "layer/VkLayer_khronos_profiles.json"
+        if not built_layer.is_file() or not built_manifest.is_file():
+            raise RuntimeError("ProfilesLayer build produced no layer or manifest")
+        out = self.root / "graphics-compat"
+        targets = {"layer": out / "lib/libVkLayer_khronos_profiles.so",
+                   "profile": out / f"profiles/{COMPAT_PROFILE_NAME}.json",
+                   "manifest": out / "share/vulkan/implicit_layer.d/VkLayer_khronos_profiles.json",
+                   "patch": out / patch.name}
+        for path in targets.values():
+            path.parent.mkdir(parents=True, exist_ok=True)
+        targets["layer"].write_bytes(built_layer.read_bytes())
+        targets["profile"].write_bytes(profile.read_bytes())
+        targets["patch"].write_bytes(patch.read_bytes())
+        manifest = json.loads(built_manifest.read_text())
+        manifest["layer"]["library_path"] = str(targets["layer"])
+        manifest["layer"]["enable_environment"] = {"ROBODOJO_VULKAN_COMPAT_ENABLE": "1"}
+        manifest["layer"]["disable_environment"] = {"ROBODOJO_VULKAN_COMPAT_DISABLE": ""}
+        targets["manifest"].write_text(json.dumps(manifest, indent=4) + "\n")
+        versions = {tool: self.run(tool, "--version", capture=True).splitlines()[0] for tool in ("cmake", "c++")}
+        reference = {role: {"path": path.relative_to(out).as_posix(),
+                            "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+                     for role, path in targets.items()}
+        receipt = {"schema": "ora.robodojo-graphics-compat-installation.v1",
+                   "source_url": VULKAN_PROFILES_URL, "source_revision": VULKAN_PROFILES_REV,
+                   "patches": [reference["patch"]], **reference,
+                   "build": {"installer": "scripts/setup-robodojo graphics-compat",
+                             "generator_requirements": list(COMPAT_GENERATOR_REQUIREMENTS),
+                             "tool_versions": versions,
+                             "reproduction_commands": [" ".join(map(str, c)) for c in commands]}}
+        temp = out / f"installation.{os.getpid()}.json"
+        temp.write_text(json.dumps(receipt, indent=2) + "\n")
+        temp.replace(out / "installation.json")
+        print(json.dumps({role: value["sha256"] for role, value in reference.items()}, indent=2))
+
     def manifest(self):
         data = {"schema": "robodojo-install.v1", "root": str(self.root),
                 "python": str(self.python), "source": str(self.source),
@@ -489,7 +570,7 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=("sources", "assets", "verify-assets", "python-runtime", "sdk", "packages", "resolve", "bind-assets", "doctor", "manifest", "donor-wheels"))
+    parser.add_argument("stage", choices=("sources", "assets", "verify-assets", "python-runtime", "sdk", "packages", "resolve", "bind-assets", "doctor", "manifest", "donor-wheels", "graphics-compat"))
     parser.add_argument("--donor-site-packages", type=Path)
     parser.add_argument("--root", type=Path, default=Path.home() / "robodojo-runtime")
     args = parser.parse_args()
@@ -500,6 +581,7 @@ def main():
         installer.donor_wheels(args.donor_site_packages.resolve())
         return
     stages = {"assets": installer.download_assets, "verify-assets": installer.verify_assets,
+              "graphics-compat": installer.graphics_compat,
               "bind-assets": installer.bind_assets, "python-runtime": installer.python_runtime}
     (stages.get(args.stage) or getattr(installer, args.stage))()
 

@@ -24,6 +24,8 @@ This calls a real model API and saves a sealed episode under `outputs/quickstart
 
 Synthetic checks the agent/runtime connection. It has no manipulation benchmark score: `official_success` is `null`.
 
+To see ORA work a real LIBERO task on your own computer without a GPU, follow [Run ORA on your computer (CPU)](docs/getting-started/local.md): `./scripts/ora setup`, then `./scripts/ora local --confirm-launch`. You can steer the run from the terminal while it works ([interactive sessions](docs/usage/interactive.md)).
+
 ## Choose an environment
 
 | Environment | Install and run | Verdict |

@@ -1127,3 +1127,7 @@ code{overflow-wrap:anywhere;}
   .process-screen-footer { flex-wrap: wrap; gap: 6px; }
   .libero-field-guide { margin: 0; padding: 0; }
 }
+.live-world-cameras { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.live-world-cameras figure { margin: 0; border: 1px solid var(--line); }
+.live-world-cameras img { display: block; width: 100%; height: auto; object-fit: contain; }
+.live-world-cameras figcaption { padding: 6px 8px; }

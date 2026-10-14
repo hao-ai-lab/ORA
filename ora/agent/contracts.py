@@ -107,6 +107,7 @@ class PolicyRuntimeEvent:
         "environment_receipt",
         "official_verdict",
         "run_termination",
+        "operator_message",
     ]
     payload: Mapping[str, Any]
     observation_id: str | None = None

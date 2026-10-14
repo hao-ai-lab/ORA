@@ -13,6 +13,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
+from .operator_messages import operator_trace_errors
 from ora.agent.evidence import request_archive
 
 
@@ -463,6 +464,7 @@ def verify_agent_trace(run_root: Path) -> dict[str, Any]:
     mutation_tools = {"robot.submit_action"}
     allow_public_grasp_contact_pose = False
     safe_field_names: frozenset[str] = frozenset()
+    plan: dict[str, Any] = {}
     plan_path = root / "plan.json"
     if plan_path.is_file():
         try:
@@ -492,6 +494,7 @@ def verify_agent_trace(run_root: Path) -> dict[str, Any]:
         except (OSError, json.JSONDecodeError):
             errors.append("plan:invalid")
 
+    errors.extend(operator_trace_errors(events, plan if plan_path.is_file() else {}))
     for index, event in enumerate(events):
         if event.get("schema") != AGENT_EVENT_SCHEMA:
             errors.append(f"event:{index}:schema")

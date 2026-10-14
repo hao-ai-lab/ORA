@@ -388,7 +388,7 @@ def qualify_card(
 def _card_reference(card_qualification: Path) -> tuple[dict[str, Any], dict[str, str]]:
     """Read the card record a task probe will rest on, and its exact pair."""
 
-    from ora.orchestrator.paths import WORKSPACE_ROOT
+    from ora.orchestrator.paths import workspace_record_locator
 
     path = Path(card_qualification).resolve()
     data = path.read_bytes()
@@ -398,13 +398,13 @@ def _card_reference(card_qualification: Path) -> tuple[dict[str, Any], dict[str,
              f"{path} is not a passing RoboDojo card qualification record")
     # The reference the task record stores must be the same workspace-relative
     # pair the Runtime binding will name, so a card record kept anywhere else
-    # is refused here rather than producing an unpairable task record.
-    _require(path.is_relative_to(WORKSPACE_ROOT.resolve()),
-             f"the card qualification must live in the shared workspace: {path}")
-    reference = {
-        "path": path.relative_to(WORKSPACE_ROOT.resolve()).as_posix(),
-        "sha256": hashlib.sha256(data).hexdigest(),
-    }
+    # is refused here rather than producing an unpairable task record. The card
+    # step writes under the outputs root, which may lie outside the workspace.
+    try:
+        locator = workspace_record_locator(card_qualification, label="the card qualification")
+    except ValueError as exc:
+        raise RuntimeError(str(exc)) from exc
+    reference = {"path": locator, "sha256": hashlib.sha256(data).hexdigest()}
     return card, reference
 
 

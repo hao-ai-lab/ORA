@@ -38,6 +38,7 @@ PROFILE_CATALOG = {
     "native_atomic_causal_v1": (
         PROFILE_ROOT / "native_atomic_causal_v1" / "manifest.json"
     ),
+    "local_atomic_cpu_v1": PROFILE_ROOT / "local_atomic_cpu_v1" / "manifest.json",
 }
 
 

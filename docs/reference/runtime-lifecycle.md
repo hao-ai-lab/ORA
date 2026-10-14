@@ -20,13 +20,15 @@ The episode loop opens one policy session and one environment session. Native re
 
 The v3 atomic action envelope separates pose motion from gripper motion. Target-state v4 accepts pose/gripper independently and stages a combined proposal as pose-first, conditional-gripper execution. Motion-action v3 supports the declared motion interface. Physical contact can change measured state without itself being an infrastructure fault.
 
+With `operator_control`, the episode loop checks the run's inbox before each Native model call. A steering message enters the conversation at that boundary; it cannot alter a request in flight, execute a tool or override Supervisor admission. An abort uses the normal stop path below.
+
 Budgets bound decisions, model calls, simulation work and wall time. A persistent multi-round session must be selected explicitly. Cross-episode Task Memory is disabled; recoverable context artifacts remain episode-local evidence.
 
 ## Land, inspect and seal
 
 The environment's official boundary supplies success: RoboTwin `check_success`, LIBERO termination or RoboDojo's task verdict. Synthetic reports `official_success: null`.
 
-On landing the supervisor derives metrics and context audits, evaluates evidence and attempts sealing. An invalid trace receives a seal refusal rather than a fabricated seal. Provider request storage can be compacted losslessly after sealing. Resource leases and per-run scratch are released for this exact run.
+On landing the supervisor derives metrics and context audits, evaluates evidence and attempts sealing. An invalid trace receives a seal refusal rather than a fabricated seal. Provider request storage can be compacted losslessly after sealing. Resource leases and per-run scratch are released for this exact run. The Supervisor belongs to the process (or cluster job step) that launched it; an interactive client reports the run finished only after the Supervisor has exited, so keep that process open until then.
 
 `ora status`, `watch`, `metadata`, `state`, `metrics` and `ownership` inspect recorded state. `ora stop RUN_ID` verifies the selected run's process identity before signaling it. Retry is restricted to an unsealed incomplete attempt before any robot action was dispatched. Sealed evidence is never rewritten by revalidation; reports are written separately.
 

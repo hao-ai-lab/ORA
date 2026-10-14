@@ -1,0 +1,77 @@
+{
+  "schema": "ora.tool-surface-profile.v1",
+  "profile_id": "local_atomic_cpu_v1",
+  "revision": 1,
+  "runtime_id": "native_atomic_causal",
+  "base_definitions": "../native_atomic_causal_v1/base-definitions.json",
+  "tool_order": [
+    "observe",
+    "mark_point",
+    "preview_move",
+    "move_pose",
+    "close_gripper",
+    "open_gripper",
+    "report_issue",
+    "check_task",
+    "finish_episode"
+  ],
+  "components": {
+    "descriptions.local_cpu_v1": "descriptions.json",
+    "schemas.local_cpu_v1": "input-schemas.json",
+    "results.local_cpu_v1": "result-schemas.json"
+  },
+  "description_order": [
+    "descriptions.local_cpu_v1"
+  ],
+  "schema_order": [
+    "schemas.local_cpu_v1"
+  ],
+  "result_order": [
+    "results.local_cpu_v1"
+  ],
+  "mutation_tools": [
+    "move_pose",
+    "close_gripper",
+    "open_gripper"
+  ],
+  "lifecycle_tools": [
+    "finish_episode"
+  ],
+  "observation_tools": [
+    "observe"
+  ],
+  "call_effect_profile": "native_atomic_causal_effects_v1",
+  "view_config": {
+    "schema": "ora.policy-view-config.v1",
+    "rgb_resolution": "native",
+    "derived_resolution": [
+      256,
+      256
+    ],
+    "automatic_actual_views": [
+      "agentview"
+    ],
+    "default_observe_views": [
+      "agentview"
+    ],
+    "coordinate_convention": "opencv_top_left_xy"
+  },
+  "capabilities": [
+    "rgbd",
+    "two_view_pointcloud_v1",
+    "runtime_action_v3",
+    "faithful_check_task",
+    "atomic_pose_gripper_v1",
+    "causal_observation_v1",
+    "batched_mark_overlay_v1",
+    "shared_policy_view_config_v1",
+    "pose_frame_contract_v2",
+    "actuator_target_pose_hold_v1",
+    "tracking_envelope_v1",
+    "policy_tool_help_v1"
+  ],
+  "provenance": {
+    "derived_from": "native_atomic_causal_v3",
+    "change": "local_CPU_OSC_help_and_public_results; unchanged_atomic_action_compiler"
+  }
+}

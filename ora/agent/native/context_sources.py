@@ -17,6 +17,7 @@ from typing import Any, Mapping, Sequence
 from ora.agent.evidence.trajectory import canonical_bytes
 
 from .constants import COMPOSITION_CONTEXT_CAPABILITIES, NATIVE_CAUSAL_SLOTS
+from .operator_messages import OPERATOR_MESSAGE_PREFIX
 
 _CHECKPOINT_PREFIX = "<rollout_checkpoint>\n"
 
@@ -47,6 +48,23 @@ def annotate_context_sources(
         )
         if composition in COMPOSITION_CONTEXT_CAPABILITIES:
             _annotate_round_static_facts(projected)
+    if composition in NATIVE_CAUSAL_SLOTS:
+        _annotate_operator_messages(projected)
+
+
+def _annotate_operator_messages(projected: dict[str, Any]) -> None:
+    records = projected["manifest"]["context_sources"]
+    order = max(int(item["order"]) for item in records) + 1
+    for message in projected["messages"]:
+        content = message.get("content")
+        if message.get("role") == "user" and isinstance(content, str) and content.startswith(OPERATOR_MESSAGE_PREFIX):
+            data = canonical_bytes(message)
+            records.append({
+                "kind": "operator_message", "role": "user", "order": order,
+                "status": "protected_human_guidance", "bytes": len(data),
+                "sha256": _sha256(data),
+            })
+            order += 1
 
 
 def _round_static_facts_slot(message: Mapping[str, Any]) -> bool:

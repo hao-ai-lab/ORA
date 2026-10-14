@@ -167,6 +167,9 @@ def test_generic_cli_dispatches_every_public_command_without_live_boundaries(
     invocations = {
         "run": ["run", "--env", "synthetic"],
         "doctor": ["doctor", "--json"],
+        "local": ["local", "--suite", "libero_goal"],
+        "setup": ["setup", "--json"],
+        "interactive": ["interactive", "--spec", str(tmp_path / "spec.yaml")],
         "validate": ["validate", str(tmp_path / "spec.yaml")],
         "plan": ["plan", str(tmp_path / "spec.yaml")],
         "context": ["context", str(tmp_path / "spec.yaml")],
@@ -196,8 +199,14 @@ def test_generic_cli_dispatches_every_public_command_without_live_boundaries(
     from ora.orchestrator import quickstart, doctor
     monkeypatch.setattr(quickstart, "command_run", lambda _args: 0)
     monkeypatch.setattr(doctor, "command_doctor", lambda _args: 0)
+    from ora.orchestrator import ora_cli
+    routed: list[list[str]] = []
+    monkeypatch.setattr(ora_cli, "main", lambda argv: routed.append(list(argv)) or 0)
     for arguments in invocations.values():
         assert control_cli.main(arguments) == 0
+    # The local CPU and interactive front ends, and `doctor --env local`, belong to ora_cli.
+    assert control_cli.main(["doctor", "--env", "local", "--json"]) == 0
+    assert routed == [invocations["local"], invocations["setup"], invocations["interactive"], ["doctor", "--json"]]
 
     assert {
         "plan", "context", "preflight", "launch", "retry", "status",
@@ -215,9 +224,11 @@ def test_runtime_packages_are_in_installed_distribution() -> None:
     ):
         assert (ROOT / package.replace(".", "/") / "__init__.py").is_file(), package
         assert any(fnmatch.fnmatchcase(package, pattern) for pattern in include), package
+    # static/*.js ships the ORA world-view page script (viewer/static/live_world.js).
     assert project["tool"]["setuptools"]["package-data"]["viewer"] == [
-        "templates/*.html", "static/*.css", "provider-pricing.json"
+        "templates/*.html", "static/*.css", "static/*.js", "provider-pricing.json"
     ]
+    assert (ROOT / "viewer/static/live_world.js").is_file()
 
 
 def test_documented_script_and_test_module_inventory_is_current() -> None:

@@ -304,7 +304,11 @@ def test_qualification_names_keep_cuda_unchanged_and_mark_cpu_physics():
 # --- qualification, services and the operator entry point -------------------------------------------
 
 def test_qualification_bindings_come_from_workspace_records(tmp_path, monkeypatch):
+    from ora.orchestrator import paths
+
     monkeypatch.setattr(robodojo_spec, "WORKSPACE_ROOT", tmp_path)
+    monkeypatch.setattr(paths, "WORKSPACE_ROOT", tmp_path)
+    monkeypatch.setattr(paths, "OUTPUTS_ROOT", tmp_path / "outputs")
     card = {"path": "outputs/robodojo-compat/qualification/card/card-qualification.json", "sha256": "1" * 64}
     task = tmp_path / "outputs/robodojo-compat/qualification/task/task-qualification.json"
     task.parent.mkdir(parents=True)

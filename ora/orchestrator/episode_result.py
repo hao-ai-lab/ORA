@@ -144,7 +144,9 @@ def _session_result(
                 TerminationAuthority.INFRASTRUCTURE,
                 TerminationAuthority.OPERATOR,
             }
+            and not bool(loop.operator_message_count)
         ),
+        **(loop.operator_evidence_fields() if "operator_control" in loop.plan else {}),
         "official_success": official, "decisions": loop.decisions,
         "refused_proposals": loop.refused_proposals, "model_calls": loop.model_calls,
         "verdict": None if multi_round else loop.verdict,
@@ -321,6 +323,8 @@ def _fault_result_record(
         "verdict": None if multi_round else verdict,
         "official_verdict_checker_divergence": None if multi_round else loop.verdict_guard.divergence,
         "behavioral_outcome_preserved": behavioral_outcome_preserved,
+        **(loop.operator_evidence_fields() if "operator_control" in loop.plan else {}),
+        **({"behavioral_sample_valid": False} if "operator_control" in loop.plan else {}),
         "auxiliary_failures": list(loop.auxiliary_failures),
         "started_unix_s": loop.started, "finished_unix_s": finished,
         "wall_duration_s": wall_duration_s,

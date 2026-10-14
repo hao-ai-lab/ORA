@@ -1,0 +1,16 @@
+{
+  "name": "ora-tui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ORA's terminal front end on pi-tui: draws the UI operations `ora watch --emit jsonl` writes",
+  "type": "module",
+  "main": "index.mjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@earendil-works/pi-tui": "1.0.4",
+    "chalk": "5.6.2"
+  },
+  "license": "Apache-2.0"
+}

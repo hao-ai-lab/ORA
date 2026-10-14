@@ -3,7 +3,8 @@
 An execution host profile is ``<hosts>/<host id>.yaml``. ``<hosts>`` is this
 package's ``hosts/`` directory, or the directory named by
 ``ORA_HOSTS_DIR``; ``examples/hosts/example-host.yaml`` is a
-documented template.
+documented template. Profiles shipped in the package (``local-cpu``) remain
+available when ``ORA_HOSTS_DIR`` has no profile of that id.
 """
 
 from __future__ import annotations
@@ -25,6 +26,17 @@ HOST_PROFILE_SCHEMA = "ora.execution-host.v1"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 HOSTS_DIR_ENV = "ORA_HOSTS_DIR"
 HOSTS_ROOT = Path(os.environ.get(HOSTS_DIR_ENV) or Path(__file__).resolve().parent / "hosts").resolve()
+#: Profiles shipped with ORA (``local-cpu`` for ``ora local``); a user's ``ORA_HOSTS_DIR``
+#: profile of the same id takes precedence.
+BUILTIN_HOSTS_ROOT = (Path(__file__).resolve().parent / "hosts").resolve()
+
+
+def _host_profile_path(stable_host: str) -> Path | None:
+    for root in dict.fromkeys((HOSTS_ROOT, BUILTIN_HOSTS_ROOT)):
+        path = (root / f"{stable_host}.yaml").resolve()
+        if path.is_file() and path.is_relative_to(root):
+            return path
+    return None
 HOST_MARKER_ENV = "ORA_EXECUTION_HOST"
 WORKER_ENVIRONMENT_NAMES = {
     "CUDA_VISIBLE_DEVICES",
@@ -69,8 +81,8 @@ def _load_host_profile(host_id: str) -> tuple[Mapping[str, Any], Path]:
     """
 
     stable_host = _stable_id(host_id, "execution host")
-    path = (HOSTS_ROOT / f"{stable_host}.yaml").resolve()
-    if not path.is_file() or not path.is_relative_to(HOSTS_ROOT.resolve()):
+    path = _host_profile_path(stable_host)
+    if path is None:
         raise ExecutionResourceError(
             f"execution host profile is unavailable: {stable_host}"
         )
@@ -241,7 +253,7 @@ def load_host_profile(host_id: str) -> dict[str, Any] | None:
     """Read one source-tracked host profile; None when the host has none."""
 
     stable_host = _stable_id(host_id, "execution host")
-    if not (HOSTS_ROOT / f"{stable_host}.yaml").is_file():
+    if _host_profile_path(stable_host) is None:
         return None
     return _load_host_profile(stable_host)[0]
 

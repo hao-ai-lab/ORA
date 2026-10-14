@@ -1,0 +1,16 @@
+{
+  "schema": "ora.environment-prompt-profile.v1",
+  "profile_id": "libero_pro_local_cpu_v1",
+  "default": false,
+  "match": {
+    "environment_id": "libero_pro",
+    "embodiment_id": "franka_panda",
+    "robot_models": ["Panda"],
+    "controller": "OSC_POSE",
+    "public_cameras": ["agentview", "wrist"]
+  },
+  "sources": {
+    "environment_policy": "ora/policy/environments/libero_pro/boundary-v2.md",
+    "embodiment_policy": "ora/policy/embodiments/franka-panda/manual-local-cpu-v1.md"
+  }
+}

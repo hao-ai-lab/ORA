@@ -50,6 +50,7 @@ from .episode_terminal import (
 from .interaction import EpisodeInteractionState
 from .live import HarnessLiveEvent, LiveInteractionPort, NullLiveInteractionPort
 from .operator_stop import act_unless_stopped
+from .operator_control import initialize_control
 from .policy_finish import infrastructure_abort, read_policy_finish
 from .robodojo_round_scene import layout_change_sentence, require_round_scene
 from .round_isolation import RoundIsolationError, require_round_isolation
@@ -128,6 +129,8 @@ class EpisodeLoop:
         # Set once the PolicySession has started; an operator signal then
         # also interrupts its in-flight turn.
         self.planner: Any = None
+        self.operator_inbox: Any = None
+        self.operator_message_count = 0
         self.previous_term = signal.signal(signal.SIGTERM, self._on_operator_signal)
         self.previous_int = signal.signal(signal.SIGINT, self._on_operator_signal)
 
@@ -197,6 +200,41 @@ class EpisodeLoop:
         except Exception as exc:
             self.record_auxiliary_failure(f"policy_callback:{stage}", exc)
             return False
+
+    def operator_evidence_fields(self) -> dict[str, Any]:
+        if "operator_control" not in self.plan:
+            return {}
+        return {
+            "human_intervention": bool(self.operator_message_count),
+            "operator_message_count": self.operator_message_count,
+        }
+
+    def _deliver_operator_messages(self, *, observation_step: int, before_model_call_id: str) -> None:
+        for command in self.operator_inbox.poll():
+            payload = {
+                **command, "round_index": self.round_index,
+                "observation_step": observation_step,
+                "before_model_call_id": before_model_call_id,
+            }
+            # Record conservatively before delivery: if the policy callback
+            # fails partway through, the fault cannot become an autonomous run.
+            self.operator_message_count += 1
+            _append(self.events, {"type": "operator_message", "payload": payload, "time": time.time()})
+            try:
+                self.planner.accept_runtime_event(PolicyRuntimeEvent(
+                    kind="operator_message", payload=payload,
+                    observation_id=self.interaction.observation_id,
+                    observation_step=observation_step,
+                ))
+            except Exception as exc:
+                self.operator_inbox.acknowledge(command, "rejected", reason="delivery_failed")
+                raise SupervisorError("operator message delivery failed") from exc
+            self.operator_inbox.acknowledge(
+                command, "applied", round_index=self.round_index,
+                observation_step=observation_step,
+                before_model_call_id=before_model_call_id,
+            )
+            self.publish_live("operator_message", payload)
 
     def record_termination_decision(
         self,
@@ -282,6 +320,7 @@ class EpisodeLoop:
         self._init_episode_state()
         _status(self.status_path, run_id=self.run_id, state="running", decisions=0, model_calls=0, official_success=None)
         try:
+            self._start_operator_control()
             self._start_environment()
             self._run_rounds()
             return finish_session(self)
@@ -307,6 +346,15 @@ class EpisodeLoop:
                 workspace_root=self.run_root.parents[3],
             ),
         )
+
+    def _start_operator_control(self) -> None:
+        if "operator_control" not in self.plan:
+            return
+        bind_operator = getattr(self.planner, "bind_operator_decision_callback", None)
+        if not callable(bind_operator):
+            raise SupervisorError("bound policy cannot receive operator messages")
+        self.operator_inbox = initialize_control(self.run_root, self.plan, self.run_id)
+        bind_operator(self._deliver_operator_messages)
 
     def _init_episode_state(self) -> None:
         plan = self.plan
@@ -363,6 +411,11 @@ class EpisodeLoop:
             self.audit_round_isolation(self.reset_record, 0)
 
     def _close(self) -> None:
+        if self.operator_inbox is not None:
+            try:
+                self.operator_inbox.close()
+            except Exception as exc:
+                self.record_auxiliary_failure("cleanup:operator_control", exc)
         if self.planner is not None and not self.planner_closed:
             try:
                 self.planner.close()

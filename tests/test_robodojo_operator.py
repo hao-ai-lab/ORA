@@ -663,3 +663,57 @@ def test_probe_admission_uses_the_slot_memory_floor(
         RuntimeError, "insufficient free memory")
     with pytest.raises(expected[0], match=expected[1]):
         module._prepare("2", "hang_mugs", runtime, "robodojo-card")
+
+
+def test_robodojo_installer_graphics_compat_pins_match_the_worker() -> None:
+    from ora.environment.backends.robodojo import graphics_compat
+    from ora.environment.backends.robodojo.installation import setup_runtime
+
+    assert setup_runtime.VULKAN_PROFILES_REV == graphics_compat.SOURCE_REVISION
+    assert setup_runtime.COMPAT_PATCH_SHA256 == graphics_compat.PATCH_SHA256
+    assert setup_runtime.COMPAT_PROFILE_NAME == graphics_compat.PROFILE
+    here = Path(setup_runtime.__file__).parent
+    profile = here / f"{setup_runtime.COMPAT_PROFILE_NAME}.json"
+    assert hashlib.sha256(profile.read_bytes()).hexdigest() == setup_runtime.COMPAT_PROFILE_SHA256
+
+
+def test_robodojo_installer_graphics_compat_writes_a_receipt_the_worker_accepts(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from types import SimpleNamespace
+
+    from ora.environment.backends.robodojo import graphics_compat
+    from ora.environment.backends.robodojo.installation import setup_runtime
+
+    installer = setup_runtime.Installer(tmp_path / "runtime")
+    installer.python.parent.mkdir(parents=True)
+    installer.python.touch()
+    work = installer.root / "graphics-compat-build"
+    (work / "Vulkan-Profiles/.git").mkdir(parents=True)
+    calls = []
+
+    def execute(*args, **kwargs):
+        calls.append(tuple(str(arg) for arg in args))
+        if args[:2] == ("git", "rev-parse"):
+            return setup_runtime.VULKAN_PROFILES_REV
+        if args[-1] == "--version":
+            return f"{args[0]} fixture 1.0"
+        if args[:2] == ("cmake", "--build"):
+            layer = work / "build/layer"
+            layer.mkdir(parents=True)
+            (layer / "libVkLayer_khronos_profiles.so").write_bytes(b"fixture layer")
+            (layer / "VkLayer_khronos_profiles.json").write_text(json.dumps({
+                "file_format_version": "1.2.1",
+                "layer": {"name": "VK_LAYER_KHRONOS_profiles", "type": "GLOBAL",
+                          "library_path": "./libVkLayer_khronos_profiles.so"}}))
+        return "" if kwargs.get("capture") else None
+
+    monkeypatch.setattr(installer, "run", execute)
+    monkeypatch.setattr(setup_runtime.subprocess, "run", lambda *a, **k: SimpleNamespace(returncode=1))
+    installer.graphics_compat(jobs=2)
+    assert ("git", "apply", str(Path(setup_runtime.__file__).parent / "vulkan-profiles-core-id.patch")) in calls
+    assert any(call[:2] == ("cmake", "-S") and "-DUPDATE_DEPS=ON" in call for call in calls)
+    receipt, files = graphics_compat.installation(installer.root)
+    assert receipt["schema"] == "ora.robodojo-graphics-compat-installation.v1"
+    assert set(files) == {"layer", "profile", "manifest", "patch"}
+    assert not any(call[:2] == ("git", "clone") for call in calls)

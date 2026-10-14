@@ -92,6 +92,8 @@ def _transcript(reader: EvidenceReader, events: list[dict], round_record: dict,
             content = reader.json(ref["path"], ref["sha256"]) if ref else payload
             messages.append({"role": "tool", "tool_call_id": event.get("tool_call_id"),
                              "name": payload.get("name"), "content": json.dumps(content, ensure_ascii=False)})
+        elif kind == "operator_message" and isinstance(payload.get("message"), str):
+            messages.append({"role": "user", "content": payload["message"]})
         elif images and event["seq"] in keyframes:
             from PIL import Image
             import numpy as np
@@ -118,12 +120,31 @@ def _transcript(reader: EvidenceReader, events: list[dict], round_record: dict,
     return messages
 
 
+def _operator_messages(events: list[dict], round_index: int) -> tuple[list[dict], int]:
+    """Retain delivered input and carry its persistent-context effect forward."""
+    messages, cumulative_count = [], 0
+    for event in events:
+        if event.get("type") != "operator_message":
+            continue
+        payload = event.get("payload", {})
+        delivered_round = payload.get("round_index")
+        if type(delivered_round) is not int or delivered_round < 0:
+            raise InspectExportError("operator message has no valid round identity")
+        if delivered_round <= round_index:
+            cumulative_count += 1
+        if delivered_round == round_index:
+            messages.append({"t": payload.get("observation_step"), "text": payload.get("message"),
+                             "source": "harness_operator", **payload})
+    return messages, cumulative_count
+
+
 def export_run(run_root: Path, destination: Path, *, images: bool = True,
                comparison: str = "Source-bound Harness run; no cross-benchmark equivalence claimed") -> Path:
     """Write an Inspect EvalLog and a consumed-artifact provenance manifest.
 
-    A sealed valid run gets official per-round scores. A terminal unsealed or
-    invalid run is an error with empty score entries; missing verdicts are never
+    A sealed valid run gets autonomous per-round scores; assisted outcomes remain
+    metadata without entering scores. A terminal unsealed or invalid run is an
+    error with empty score entries; missing verdicts are never
     converted into failures. Only consumed files are checked, not the entire
     potentially multi-gigabyte seal inventory. Each persistent round is a
     distinct scene, never an independent epoch/trial replication claim.
@@ -179,21 +200,27 @@ def _write_export(root: Path, destination: Path, *, images: bool, comparison: st
         scene_id = f"round-{index:04d}"
         official = record.get("official_success")
         verdict = record.get("verdict") or {}
-        scoreable = valid and record.get("state") == "completed" and isinstance(official, bool)
-        if valid and plan["runtime"]["kind"] != "synthetic" and not scoreable:
+        completed_verdict = record.get("state") == "completed" and isinstance(official, bool)
+        if valid and plan["runtime"]["kind"] != "synthetic" and not completed_verdict:
             raise InspectExportError("valid behavioral round is missing its official Boolean")
         if isinstance(verdict.get("official_success"), bool) and verdict["official_success"] != official:
             raise InspectExportError("round verdict disagrees with official result")
+        operator_messages, delivered_count = _operator_messages(events, record.get("round_index", index))
+        assisted = record.get("human_intervention") is True or bool(delivered_count)
+        scoreable = valid and completed_verdict and record.get("behavioral_sample_valid") is not False and not assisted
         score = {"official_success": float(official)} if scoreable else {}
         if scoreable:
             scores.append(float(official))
         round_metadata = {key: record.get(key) for key in (
             "round_index", "seed", "decisions", "refused_proposals", "model_calls", "termination",
             "termination_authority", "behavioral_sample_valid", "protocol_comparable",
-            "round_end_basis", "wall_duration_s")}
+            "round_end_basis", "wall_duration_s", "human_intervention", "operator_message_count")}
         round_metadata.update(native_actions=verdict.get("native_actions"),
                               physics_steps=verdict.get("physics_steps"),
-                              official_success=official, verdict_source=verdict.get("source"))
+                              official_success=official, verdict_source=verdict.get("source"),
+                              human_intervention=assisted,
+                              operator_message_count=record.get("operator_message_count", delivered_count),
+                              autonomous_scoreable=scoreable)
         messages = _transcript(reader, events, record, scene_id, frames, images=images)
         samples.append({
             "scene_id": scene_id, "status": "success" if valid else "error",
@@ -203,7 +230,7 @@ def _write_export(root: Path, destination: Path, *, images: bool, comparison: st
             "scene_metadata": {"run_id": run_id, "persistent_round_index": index,
                                "independent_replicate": False, "runtime_kind": plan["runtime"]["kind"]},
             "operator_judgements": [None], "judgement_sources": [None], "operator_notes": [None],
-            "operator_messages": [[]], "trial_metadata": [round_metadata],
+            "operator_messages": [operator_messages], "trial_metadata": [round_metadata],
             "termination_reasons": [record.get("termination")], "policy_transcripts": [messages],
         })
     policy = plan["policy"]
@@ -242,7 +269,8 @@ def _write_export(root: Path, destination: Path, *, images: bool, comparison: st
                   "seal_sha256": reader.consumed.get("seal.json", {}).get("sha256"),
                   "consumed_artifacts": list(reader.consumed.values()), "eval_sha256": _sha(log_path.read_bytes()),
                   "workload": metrics.get("workload"), "latency": metrics.get("latency"),
-                  "transcript_projection": "accepted assistant content/tool calls and tool results; provider reasoning and wire requests omitted",
+                  "transcript_projection": "accepted assistant content/tool calls, tool results and delivered operator text; provider reasoning and wire requests omitted",
+                  "score_projection": "autonomous behavioral rounds only; assisted official outcomes retained in trial metadata",
                   "media_projection": "first/last recorded policy RGB per round; sparse keyframes, not continuous execution video"}
     (destination / "provenance.json").write_text(json.dumps(provenance, ensure_ascii=False, indent=2) + "\n")
     return log_path

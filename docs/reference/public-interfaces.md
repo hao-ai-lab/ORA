@@ -8,6 +8,9 @@ Import from the explicit `ora` subpackages. There are no flat compatibility re-e
 |---|---|---|
 | `ora` | `ora.orchestrator.cli` | Validate, plan, preview context, preflight, launch, inspect, evaluate, seal and export. |
 | `ora doctor` | `ora.orchestrator.doctor` | Read-only Python/distribution, credential-presence, interpreter/asset and graphics-library discovery. Never prints key values or starts a simulator. |
+| `ora local`, `ora setup`, `ora doctor --env local` | `ora.orchestrator.ora_local`, `ora.orchestrator.ora_local_setup` | Local CPU MuJoCo LIBERO: pinned setup, read-only readiness check, and the reduced `ora_local_cpu_v1` composition on the bundled `local-cpu` host profile. Launch needs `--confirm-launch`. |
+| `ora interactive` | `ora.orchestrator.ora_backend`, `ora.orchestrator.ora_catalog`, `ora-tui/` | Task picker over prepared Native RunSpecs; JSON-lines requests `prompt`, `steer`, `follow_up`, `abort`; steering through `operator_control: file_inbox_v1`; `end` follows the Supervisor's landing. |
+| World view, `ora-remote` | `ora.orchestrator.ora_world`, `viewer.live_world`, `ora.orchestrator.ora_remote` | Loopback, read-only browser companion bound to the run's original execution capture; SSH launcher that forwards it. |
 | `ora run --env synthetic` | `ora.orchestrator.quickstart` | Bounded Native API demonstration through normal launch gates; waits for completed, sealed evidence. |
 | `load_run_spec`, `resolve_run_spec`, `validate_run_plan` | `ora.orchestrator.spec` | Source/asset-bound plan resolution and persisted plan validation. |
 | `resolve_tool_surface`, `PROFILE_CATALOG` | `ora.agent.composition` | Registered tool definitions, schemas, roles, capabilities and effect contracts. |

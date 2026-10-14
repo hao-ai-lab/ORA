@@ -29,7 +29,7 @@ from typing import Any, Mapping
 from .evaluation import EvaluationError, evaluate, export, seal
 from .ownership_audit import write_ownership_audit
 from .context_audit import write_context_audit
-from . import paths
+from . import ora_cli, ora_world, paths
 from .preflight import run_preflight
 from .provider_gateway import gateway_preflight
 from . import host_storage
@@ -65,6 +65,9 @@ LEASE_SCHEMA = "ora.runtime-resource-lease.v1"
 PUBLIC_COMMANDS = (
     "run",
     "doctor",
+    "local",
+    "setup",
+    "interactive",
     "validate",
     "plan",
     "context",
@@ -180,19 +183,20 @@ def _display_plan(plan: Mapping[str, Any]) -> None:
         ),
         ("budgets", json.dumps(plan["budgets"], sort_keys=True)),
         ("plan sha256", plan["plan_sha256"]),
+        ("confirmation code", plan["confirmation_code"]),
     ]
     width = max(len(label) for label, _ in rows)
     for label, value in rows:
         print(f"{label:<{width}}  {value}")
 
 
-def _preflight(plan: Mapping[str, Any], *, persist: bool = True) -> dict[str, Any]:
+def _preflight(plan: Mapping[str, Any], *, persist: bool = True, report: Any = print) -> dict[str, Any]:
     result = gateway_preflight(plan, run_preflight)  # loopback gateway client first (U13)
     if persist:
         _atomic(paths.workspace_from_plan(plan) / "preflight" / f"{plan['plan_sha256']}.json", result)
     for check in result["checks"]:
-        print(f"[{'PASS' if check['passed'] else 'FAIL'}] {check['check']}: {check['detail']}")
-    print(f"preflight: {'PASS' if result['passed'] else 'BLOCKED'}")
+        report(f"[{'PASS' if check['passed'] else 'FAIL'}] {check['check']}: {check['detail']}")
+    report(f"preflight: {'PASS' if result['passed'] else 'BLOCKED'}")
     return result
 
 
@@ -538,7 +542,7 @@ def _seal_at_landing(root: Path) -> None:
     request_archive.compact_after_seal(root)  # lossless, silent, fail-open (agent/evidence/request_archive.py)
 
 
-def _spawn(plan: Mapping[str, Any], preflight: Mapping[str, Any], *, yes: bool, retry_of: str | None = None) -> str:
+def _spawn(plan: Mapping[str, Any], preflight: Mapping[str, Any], *, yes: bool, retry_of: str | None = None, report: Any = print) -> str:
     validate_run_plan(plan)
     _require_launchable(plan, retry=retry_of is not None)
     if (
@@ -612,8 +616,8 @@ def _spawn(plan: Mapping[str, Any], preflight: Mapping[str, Any], *, yes: bool, 
         raise
     _atomic(root / "process.json", {"run_id": run_id, "pid": process.pid, "process_group": process.pid})
     host_storage.bind_scratch_owner(staged, process.pid)
-    print(f"launched {run_id} pid={process.pid}")
-    print(f"watch: ./scripts/ora watch {run_id}")
+    report(f"launched {run_id} pid={process.pid}")
+    report(f"watch: ./scripts/ora watch {run_id}")
     return run_id
 
 
@@ -749,8 +753,12 @@ def command_context(plan: Mapping[str, Any]) -> int:
     return 0
 
 
-def command_watch(run_id: str) -> int:
-    root = _run_root(run_id)
+def command_watch(args: argparse.Namespace) -> int:
+    candidate = Path(args.run_id).expanduser()
+    root = candidate.resolve() if candidate.is_dir() else _run_root(args.run_id)
+    if not args.raw:
+        from ora.agent.native.tui.cli import watch_run
+        return watch_run(root, args, observer_factory=ora_world.watch_observer(args))
     events = root / "events.jsonl"
     offset = 0
     try:
@@ -770,7 +778,7 @@ def command_watch(run_id: str) -> int:
         return 130
 
 
-def command_stop(run_id: str) -> int:
+def command_stop(run_id: str, *, report: Any = print) -> int:
     root = _run_root(run_id)
     process = _load(root / "process.json")
     lease = _lease_for_run(run_id)
@@ -783,7 +791,7 @@ def command_stop(run_id: str) -> int:
     if probe.returncode or run_id not in probe.stdout:
         raise RuntimeError("refusing to signal a PID that is not this supervisor")
     os.killpg(int(process["process_group"]), signal.SIGTERM)
-    print(f"graceful stop requested for {run_id}")
+    report(f"graceful stop requested for {run_id}")
     return 0
 
 
@@ -793,8 +801,10 @@ def build_parser() -> argparse.ArgumentParser:
     quickstart = sub.add_parser("run", help="run a bounded Synthetic episode with your model API")
     quickstart.add_argument("--env", choices=("synthetic",), default="synthetic")
     doctor = sub.add_parser("doctor", help="check setup without displaying credentials or starting simulators")
-    doctor.add_argument("--env", choices=("synthetic", "robotwin", "libero_pro", "robodojo"), default="synthetic")
+    doctor.add_argument("--env", choices=("synthetic", "robotwin", "libero_pro", "robodojo", "local"), default="synthetic")
+    doctor.add_argument("--root", type=Path, help="with --env local: the local setup root")
     doctor.add_argument("--json", action="store_true")
+    ora_cli.add_forwarded_commands(sub)  # local, setup, interactive: parsed by ora_cli
     read_only = {
         "validate": "validate and bind one RunSpec without writing a run",
         "plan": "print the resolved, content-addressed RunPlan",
@@ -840,8 +850,19 @@ def build_parser() -> argparse.ArgumentParser:
     revalidate.add_argument("--run-list", type=Path, help="JSON list of absolute run directories")
     revalidate.add_argument("--output-dir", required=True, type=Path)
     revalidate.add_argument("--workers", type=int, default=2)
+    from ora.agent.native.tui.cli import add_watch_options
+    watch = sub.add_parser(
+        "watch", help="follow a live run, or replay a finished one, as ORA's transcript",
+        description="Follow a live Native run, or replay a finished one, as ORA's terminal "
+                    "transcript. Read-only: writes nothing under the run and takes no lease; "
+                    "Ctrl-C stops watching, not the run.",
+    )
+    watch.add_argument("run_id", help="run ID or run directory")
+    add_watch_options(watch)
+    ora_world.add_world_options(watch)
+    watch.add_argument("--raw", action="store_true",
+                       help="print the run's canonical causal events as JSON lines until it terminates")
     run_commands = {
-        "watch": "stream one run's causal events until termination",
         "stop": "request SIGTERM for the exact active run lease",
         "metadata": "print one run's context and environment manifest",
         "state": "verify and print the latest or one saved public policy state",
@@ -875,7 +896,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+    values = list(sys.argv[1:] if argv is None else argv)
+    if (routed := ora_cli.route(values)) is not None:
+        return ora_cli.main(routed)
+    args = build_parser().parse_args(values)
     try:
         if args.command == "run":
             from .quickstart import command_run
@@ -935,7 +959,7 @@ def main(argv: list[str] | None = None) -> int:
                     )
             return 0
         if args.command == "watch":
-            return command_watch(args.run_id)
+            return command_watch(args)
         if args.command == "stop":
             return command_stop(args.run_id)
         if args.command == "revalidate":

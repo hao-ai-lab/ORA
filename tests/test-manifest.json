@@ -55,7 +55,7 @@
     },
     {
       "path": "tests/test_composed_task_tools.py",
-      "contract": "Task tools (composed spec \u00a718, T1): a composed: override adds a library tool the surface does not declare, appended after the surface's tools with its compiled definition and result schema, as a mutation tool recorded scope added, changing the composition hash; a surface without composed_tools_v1 refuses it and a manifest still binds declared tools only; harness-change task_tools bind on their task and on no other, a missing version fails only on its task, records are validated (task key, ref, overlap with composed_tools); the runtime serves an added task tool through the composed path. No simulator or Provider."
+      "contract": "Task tools (composed spec §18, T1): a composed: override adds a library tool the surface does not declare, appended after the surface's tools with its compiled definition and result schema, as a mutation tool recorded scope added, changing the composition hash; a surface without composed_tools_v1 refuses it and a manifest still binds declared tools only; harness-change task_tools bind on their task and on no other, a missing version fails only on its task, records are validated (task key, ref, overlap with composed_tools); the runtime serves an added task tool through the composed path. No simulator or Provider."
     },
     {
       "path": "tests/test_harness_change.py",
@@ -1152,6 +1152,50 @@
     {
       "path": "tests/test_quickstart.py",
       "contract": "Credential-free setup discovery and a complete Native Synthetic CLI episode through local HTTP, preflight, leases, supervision, evaluation and sealing; no simulator, GPU or paid API."
+    },
+    {
+      "path": "tests/test_ora_world_view.py",
+      "disposition": "core",
+      "contract": "ORA's exact-run read-only world companion follows complete capture-timeline prefixes and original PNGs with explicit waiting, holding, executing, capture-behind, error and connection states; binding, delivered cameras and decoded-frame browser acknowledgements govern connection, source action/skill-child identities align capture and receipts, bounded pinned frames survive observer advancement, safe artifact paths preserve run evidence, and a finished run remains static. Uses temporary capture fixtures and local HTTP, no simulator or provider."
+    },
+    {
+      "path": "tests/test_ora_remote.py",
+      "disposition": "core",
+      "contract": "The standard-library local ORA launcher constructs an interactive SSH terminal with loopback forwarding and literal remote arguments, rejects invalid host/path and conflicting world-view options, preserves explicit launch confirmation, verifies the forwarded world service before opening one local browser tab, and leaves a failed or detached transport without task retry or Supervisor abort. SSH/browser boundaries use fixtures; no real remote session, simulator or provider."
+    },
+    {
+      "path": "tests/test_ora_watch.py",
+      "contract": "ORA's read-only terminal watch (`ora watch`): a synthetic agent-events.jsonl renders to an exact transcript (header, instruction, visible words without reasoning_content, condensed tool results, refusals, receipts, compaction, per-round verdicts, footer); the run directory is left byte- and mtime-identical; a finished run replays with recorded elapsed time; a live run is followed through torn appends until session_closed; long recorded gaps are shortened; importing the watcher loads neither NumPy nor the Native session; --emit jsonl writes the operations the pi-tui front end draws."
+    },
+    {
+      "path": "tests/test_ora_interactive.py",
+      "disposition": "core",
+      "contract": "ORA interactive task selection preserves the prepared Native benchmark task, provider, seed, qualifications and policy; selected tasks default to a new ora-interactive plan with a fresh admission cell and a plan-bound follow-up queue; launch requires confirmation, changed specs and source-bound gates are refused, queued steering reaches only the bound Supervisor, acknowledgements control transcript delivery, startup races retain messages, abort stops only the selected run, detach leaves live runs alone, and terminal evidence stays byte- and mtime-identical."
+    },
+    {
+      "path": "tests/test_ora_operator_control.py",
+      "disposition": "core",
+      "contract": "Native operator guidance is admitted only through an external atomic inbox bound to the exact interactive run, plan and local node; initial follow-ups are plan-hashed, steering arrives at the next request after the complete tool batch, abort preserves cancellation, delivered text has protected Context and trace provenance, persistent rounds retain human-intervention metadata, automatic Memory and learning/SFT exclude assisted runs, and invalid binding faults close the policy normally."
+    },
+    {
+      "path": "tests/test_ora_local.py",
+      "disposition": "core",
+      "contract": "Local default entry, source-bound immutable task preparation, CPU execution identity, read-only readiness and credential-name reporting, canonical credential precedence, and preservation of manual task selection and explicit launch authorization; no simulator or provider."
+    },
+    {
+      "path": "tests/test_ora_local_setup.py",
+      "disposition": "core",
+      "contract": "Pinned isolated local simulator installation, validated platform dependencies, idempotent setup and input readiness without credentials or implicit simulator/provider execution."
+    },
+    {
+      "path": "tests/test_ora_local_composition.py",
+      "disposition": "core",
+      "contract": "Fresh local CPU composition selects the audited tool and prompt assets, direct LIBERO/OSC execution, source-owned task and geometry boundaries, and no GPU service prerequisites."
+    },
+    {
+      "path": "tests/test_local_cpu_platform.py",
+      "disposition": "core",
+      "contract": "Darwin native graphics selection, stale Linux loader refusal, preserved Linux EGL/default and explicit OSMesa behavior, and short Unix socket fallback at the desktop path budget."
     }
   ]
 }

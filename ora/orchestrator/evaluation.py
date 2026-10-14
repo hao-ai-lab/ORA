@@ -61,6 +61,7 @@ from .context_audit import ContextAuditError, verify_context_audit, write_contex
 from .metrics import RuntimeMetricsError, verify_runtime_metrics, write_runtime_metrics
 from .wait_accounting import session_wait_accounting
 from .paths import PROJECT_ROOT
+from .operator_control import intervention_reasons
 from .spec import (
     RunSpecError, json_sha256, validate_run_plan, verify_launch_admission,
 )
@@ -98,6 +99,10 @@ def assess_learning_eligibility(
     reasons: list[str] = []
     if result.get("state") != "completed":
         reasons.append("episode_not_completed")
+    if result.get("human_intervention") is True or any(
+        event.get("type") == "operator_message" for event in events
+    ):
+        reasons.append("human_intervention")
     if any(event.get("type") == "trusted_fault" for event in events):
         reasons.append("trusted_runtime_fault")
     runtime = plan.get("runtime", {})
@@ -288,6 +293,7 @@ def evaluate(
     if result.get("plan_sha256") != plan.get("plan_sha256"):
         reasons.append("plan_result_hash_mismatch")
     reasons.extend(verify_multi_round_session(run_root, plan, result, events))
+    reasons.extend(intervention_reasons(plan, result, events))
     agent_trace = _agent_trace_evidence(run_root, plan)
     reasons.extend(agent_trace.reasons)
     context_manifest_path = run_root / "context-manifest.json"

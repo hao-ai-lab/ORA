@@ -18,6 +18,7 @@ from ora.contracts.workspace import (
 )
 
 from ora.agent.tools import tool_errors
+from ora.contracts.pose import PoseCompilationError, compile_pose_request
 from ora.agent.tools.runtime.common import _matrix_quat, _quat_matrix
 from ora.agent.tools.robot import ToolError, _finite_vector
 
@@ -131,9 +132,39 @@ class MotionSubmissionRuntimeMixin:
         }, current_position_m=current_pose[:3])
         return result
 
+    def _compile_pose_v2(
+        self, arguments: Mapping[str, Any], *, current_pose: list[float], arm: str,
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        """``pose_frame_contract_v2`` (the ``ora local`` CPU surface): frame-explicit pose requests."""
+        try:
+            compiled = compile_pose_request(
+                arguments,
+                current_pose_xyz_xyzw=current_pose,
+                controlled_point="robosuite_grip_site",
+            )
+        except PoseCompilationError as exc:
+            raise ToolError(str(exc), code="invalid_pose_contract_v2") from exc
+        target_pose = compiled["target_pose_xyz_xyzw"]
+        target = {
+            "arm": arm,
+            "position_m": list(target_pose[:3]),
+            "orientation_xyzw": list(target_pose[3:]),
+        }
+        self._validate_target_workspace({
+            "pose": {
+                "position_m": target["position_m"],
+                "orientation_xyzw": target["orientation_xyzw"],
+            }
+        }, current_position_m=current_pose[:3])
+        return target, compiled
+
     def _atomic_compiled_target(
         self, arguments: Mapping[str, Any], *, current_pose: list[float], arm: str,
     ) -> tuple[dict[str, Any], dict[str, Any] | None]:
+        if "pose_frame_contract_v2" in self.surface.capabilities:
+            return self._compile_pose_v2(
+                arguments, current_pose=current_pose, arm=arm,
+            )
         return (
             self._atomic_pose_arguments(
                 arguments, current_pose=current_pose, arm=arm,

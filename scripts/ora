@@ -9,4 +9,5 @@ if [ -x "$ROOT/.venv/bin/python" ]; then
 else
   PYTHON=${PYTHON:-python3}
 fi
+export PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}"
 exec "$PYTHON" -m ora.orchestrator.cli "$@"

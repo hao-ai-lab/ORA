@@ -67,3 +67,13 @@ def test_vendored_robotwin_sources_ship_as_data_beside_their_installer():
     patterns = CONFIG["package-data"]["ora"]
     assert "environment/backends/robotwin/vendored/*" in patterns
     assert (ROOT / "ora/environment/backends/robotwin/vendored/planner.py").is_file()
+
+
+def test_live_world_browser_assets_are_in_the_wheel():
+    shipped = {
+        str(path.relative_to(ROOT / "viewer"))
+        for pattern in CONFIG["package-data"]["viewer"]
+        for path in (ROOT / "viewer").glob(pattern) if path.is_file()
+    }
+    assert {"templates/base.html", "templates/live_world.html", "static/base.css",
+            "static/viewer.css", "static/live_world.js"} <= shipped

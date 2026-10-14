@@ -37,6 +37,7 @@ class DelegatingPolicySession:
             "environment_receipt": "record_environment_receipt",
             "official_verdict": "record_official_verdict",
             "run_termination": "record_run_termination",
+            "operator_message": "record_operator_message",
         }[event.kind]
         callback = getattr(self.delegate, method, None)
         if callable(callback):
@@ -45,6 +46,8 @@ class DelegatingPolicySession:
                 if event.kind == "official_verdict"
                 else payload
             )
+        elif event.kind == "operator_message":
+            raise TypeError("PolicySession delegate does not support operator messages")
 
     def interrupt(self, reason: str = "operator_interrupt") -> None:
         callback = getattr(self.delegate, "interrupt", None)

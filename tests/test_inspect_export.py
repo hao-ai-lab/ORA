@@ -61,6 +61,69 @@ def test_false_is_scored_and_persistent_rounds_keep_identity(run, tmp_path):
     assert value["stats"]["total_steps"] == 2  # parent decisions, not 8 native actions
 
 
+@pytest.mark.parametrize("intervention_round,expected_metric", [(0, None), (1, 0.0)])
+def test_assisted_outcomes_keep_verdicts_and_input_without_autonomous_scores(run, tmp_path, intervention_round, expected_metric):
+    plan = json.loads((run / "plan.json").read_text())
+    plan.update(experiment="ora-interactive", operator_control={"mode": "file_inbox_v1"})
+    write(run / "plan.json", plan)
+    result = json.loads((run / "result.json").read_text())
+    result.update(human_intervention=True, operator_message_count=1, behavioral_sample_valid=False)
+    for record in result["rounds"]:
+        assisted = record["round_index"] >= intervention_round
+        record.update(human_intervention=assisted, operator_message_count=int(assisted), behavioral_sample_valid=not assisted)
+    write(run / "result.json", result)
+    evaluation = json.loads((run / "evaluation.json").read_text())
+    evaluation["result_sha256"] = digest((run / "result.json").read_bytes())
+    write(run / "evaluation.json", evaluation)
+    payload = {"schema": "ora.ora-operator-command.v1", "id": "steer-1", "type": "steer",
+               "message": "Check alignment before inserting.", "run_id": "test-run", "plan_sha256": plan["plan_sha256"],
+               "round_index": intervention_round, "observation_step": 3, "submitted_unix_ns": 1,
+               "before_model_call_id": "model-call-000001"}
+    (run / "agent-events.jsonl").write_text(json.dumps({
+        "type": "operator_message", "seq": 0, "unix_s": 1001 + 20 * intervention_round, "payload": payload,
+    }) + "\n")
+    seal(run)
+    before = {path.name: path.read_bytes() for path in run.iterdir()}
+    value = json.loads(export_run(run, tmp_path / "export", images=False).read_text())
+    assert value["status"] == "success"
+    assert value["results"]["errored_trials"] == 0
+    assert value["results"]["metrics"] == ({} if expected_metric is None else {"official_success": expected_metric})
+    assert value["results"]["total_trials"] == 2
+    for index, sample in enumerate(value["samples"]):
+        assisted = index >= intervention_round
+        assert sample["epochs"] == ([{}] if assisted else [{"official_success": 0.0}])
+        metadata = sample["trial_metadata"][0]
+        assert metadata["official_success"] is (index == 1)
+        assert metadata["human_intervention"] is assisted
+        assert metadata["operator_message_count"] == int(assisted)
+        assert metadata["autonomous_scoreable"] is not assisted
+        if index == intervention_round:
+            message = sample["operator_messages"][0][0]
+            assert message["text"] == payload["message"]
+            assert message["source"] == "harness_operator"
+            assert message["t"] == 3
+            assert message["id"] == payload["id"]
+            assert sample["policy_transcripts"][0] == [{"role": "user", "content": payload["message"]}]
+        else:
+            assert sample["operator_messages"] == [[]]
+    assert before == {path.name: path.read_bytes() for path in run.iterdir()}
+
+
+@pytest.mark.parametrize("field,value", [("human_intervention", True), ("behavioral_sample_valid", False)])
+def test_assistance_or_invalid_sample_marker_excludes_round_without_changing_verdict(run, tmp_path, field, value):
+    result = json.loads((run / "result.json").read_text())
+    result["rounds"][1][field] = value
+    write(run / "result.json", result)
+    evaluation = json.loads((run / "evaluation.json").read_text())
+    evaluation["result_sha256"] = digest((run / "result.json").read_bytes())
+    write(run / "evaluation.json", evaluation)
+    seal(run)
+    exported = json.loads(export_run(run, tmp_path / "export", images=False).read_text())
+    assert exported["results"]["metrics"] == {"official_success": 0.0}
+    assert exported["samples"][1]["trial_metadata"][0]["official_success"] is True
+    assert exported["samples"][1]["reduced"] == {}
+
+
 def test_unsealed_prefix_never_becomes_behavioral_failure(run, tmp_path):
     (run / "seal.json").unlink()
     value = json.loads(export_run(run, tmp_path / "export", images=False).read_text())

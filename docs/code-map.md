@@ -4,6 +4,7 @@
 |---|---|
 | Plan resolution, defaults and source identity | `ora/orchestrator/spec.py`, `defaults.py`, `spec_source.py` |
 | CLI, admission, leases and supervision | `ora/orchestrator/cli.py`, `preflight.py`, `lease_claim.py` |
+| Terminal watch, interactive sessions and local CPU entry | `ora/agent/native/tui/` and `ora-tui/` (transcript and Pi front end); `ora/orchestrator/ora_cli.py`, `ora_backend.py`, `ora_catalog.py`, `operator_control.py`, `ora_local.py`, `ora_local_setup.py`, `ora_world.py`, `ora_remote.py`; `viewer/live_world.py`; `ora/agent/native/operator_messages.py` |
 | Episode coordination and official evaluation | `ora/orchestrator/coordinator.py`, `evaluation.py` |
 | Native policy lifecycle and provider/tool loop | `ora/agent/native/session.py`, `tool_loop.py` |
 | Provider protocols and credentials | `ora/agent/providers/` |

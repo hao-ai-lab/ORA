@@ -1,0 +1,392 @@
+{
+  "observe": {
+    "$defs": {
+      "error": {
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "retryable": {
+            "type": "boolean"
+          },
+          "success": {
+            "const": false
+          }
+        },
+        "required": [
+          "success",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "vector3nullable": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": [
+          "array",
+          "null"
+        ]
+      }
+    },
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "additionalProperties": false,
+        "properties": {
+          "aperture_limits_mm": {
+            "additionalProperties": false,
+            "properties": {
+              "near_closed": {
+                "type": "number"
+              },
+              "open": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "near_closed",
+              "open"
+            ],
+            "type": "object"
+          },
+          "aperture_mm": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "grip_xyz_m": {
+            "$ref": "#/$defs/vector3nullable"
+          },
+          "observation_id": {
+            "type": "string"
+          },
+          "success": {
+            "const": true
+          },
+          "views": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "view_dimensions": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "success",
+          "observation_id",
+          "views",
+          "grip_xyz_m",
+          "aperture_mm"
+        ],
+        "type": "object"
+      },
+      {
+        "$ref": "#/$defs/error"
+      }
+    ]
+  },
+  "mark_point": {
+    "$defs": {
+      "vector3": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 3,
+        "minItems": 3,
+        "type": "array"
+      }
+    },
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "additionalProperties": false,
+        "properties": {
+          "next_views": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "point_id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "solved",
+              "verified"
+            ]
+          },
+          "success": {
+            "const": true
+          },
+          "views": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "xyz_m": {
+            "$ref": "#/$defs/vector3"
+          },
+          "action_workspace": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "success",
+          "status",
+          "point_id"
+        ],
+        "type": "object"
+      },
+      {
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "next_views": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "point_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "retryable": {
+            "type": "boolean"
+          },
+          "success": {
+            "const": false
+          }
+        },
+        "required": [
+          "success",
+          "reason"
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  "check_task": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "const": true
+          },
+          "task_success": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "task_success"
+        ],
+        "type": "object"
+      },
+      {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "retryable": {
+            "type": "boolean"
+          },
+          "success": {
+            "const": false
+          }
+        },
+        "required": [
+          "success",
+          "reason"
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  "report_issue": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "const": true
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "type": "object"
+      },
+      {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "success": {
+            "const": false
+          }
+        },
+        "required": [
+          "success",
+          "reason"
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  "finish_episode": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "additionalProperties": false,
+        "properties": {
+          "outcome": {
+            "enum": [
+              "success",
+              "failure",
+              "abort"
+            ]
+          },
+          "success": {
+            "const": true
+          }
+        },
+        "required": [
+          "success",
+          "outcome"
+        ],
+        "type": "object"
+      },
+      {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "required_fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "retryable": {
+            "type": "boolean"
+          },
+          "success": {
+            "const": false
+          }
+        },
+        "required": [
+          "success",
+          "reason"
+        ],
+        "type": "object"
+      }
+    ]
+  },
+  "preview_move": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "const": "candidate"
+      },
+      "preview_id": {
+        "type": "string"
+      },
+      "views": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "compiled_pose": {
+        "type": "object"
+      },
+      "view_dimensions": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "preview_id",
+      "views",
+      "compiled_pose",
+      "view_dimensions"
+    ],
+    "additionalProperties": false
+  },
+  "move_pose": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "const": "submitted"
+      },
+      "action": {
+        "const": "move_pose"
+      },
+      "compiled_pose": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "status",
+      "action",
+      "compiled_pose"
+    ],
+    "additionalProperties": false
+  },
+  "close_gripper": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "const": "submitted"
+      },
+      "action": {
+        "const": "close_gripper"
+      }
+    },
+    "required": [
+      "status",
+      "action"
+    ],
+    "additionalProperties": false
+  },
+  "open_gripper": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "const": "submitted"
+      },
+      "action": {
+        "const": "open_gripper"
+      }
+    },
+    "required": [
+      "status",
+      "action"
+    ],
+    "additionalProperties": false
+  }
+}

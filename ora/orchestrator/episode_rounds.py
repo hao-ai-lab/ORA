@@ -114,7 +114,8 @@ def _round_result(
         "termination_authority": authority.value,
         "behavioral_sample_valid": authority not in {
             TerminationAuthority.INFRASTRUCTURE,
-            TerminationAuthority.OPERATOR},
+            TerminationAuthority.OPERATOR} and not bool(loop.operator_message_count),
+        **loop.operator_evidence_fields(),
         "official_success": round_official,
         # Whether this round may share a denominator with another
         # one, carried on the round record so a reader never has to

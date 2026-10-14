@@ -536,3 +536,17 @@ sharing Compute v2 input/output selection, numeric helpers and executable
 examples. Earlier manifests remain available. The current core and prompt
 bundles retain the target's selection. See the
 [usage guide](../../docs/guides/compute-usage.md).
+
+## Local CPU ORA composition
+
+The default local ORA entry selects `local_atomic_cpu_v1` and the
+`local_cpu_v1/libero-panda-native-api.yaml` bundle explicitly through
+`agent/composition/ora_local.py`. It reuses the atomic v3 OSC action compiler
+with nine tools and no GPU planner, VLA or resident perception service.
+`control-local-cpu-v1.json`, `manual-local-cpu-v1.md` and the
+`libero_pro_local_cpu_v1` context profile bind the reviewed Panda/controller
+facts; the legacy atomic manifests and the shared server baseline stay byte
+stable. Context settings come from the current maintained baseline; local
+provider, source, host and task inputs are checked by normal resolution and
+preflight. See the [current local contract](../../docs/reference/public-interfaces.md#ora-local-default)
+and [source compatibility audit](../../docs/design/ora-local-cpu-compatibility.md).

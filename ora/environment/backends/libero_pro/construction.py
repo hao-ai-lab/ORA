@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any, Callable
 from ora.environment.controllers.libero_osc import libero_osc_action_contract
+from ora.environment.graphics_probe import configure_libero_graphics
 
 
 def build_environment(
@@ -22,8 +23,7 @@ def build_environment(
         libero_public_environment_context,
     )
 
-    os.environ.setdefault("MUJOCO_GL", "egl")
-    os.environ.setdefault("PYOPENGL_PLATFORM", "egl")
+    configure_libero_graphics()
     runtime_bindings = _prepare_pinned_libero_imports(
         libero_pro_root=libero_pro_root, data_root=data_root,
         runtime_config_root=runtime_config_root, suite=suite,

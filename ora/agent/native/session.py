@@ -62,6 +62,7 @@ from .request_assembly import NativeRequestAssembler
 from .engine import NativeSessionEngine
 from .tool_loop import NativeTurnLoop, _arguments, _tool_error
 from .session_manifest import SessionManifestWriter
+from .operator_messages import NativeOperatorMessagesMixin
 from .actual_snapshot import NativeActualSnapshotMixin
 # Re-exported: importable from this module since before the causal
 # current-observation snapshot moved to ``actual_snapshot``.
@@ -91,7 +92,7 @@ def _declared_result_properties(schema: Mapping[str, Any]) -> tuple[str, ...]:
 
 
 @dataclass
-class NativePlanner(NativeActualSnapshotMixin):
+class NativePlanner(NativeActualSnapshotMixin, NativeOperatorMessagesMixin):
     """Observation-scoped policy session over one canonical message IR."""
 
     run_root: Path
@@ -1592,18 +1593,6 @@ class NativePlanner(NativeActualSnapshotMixin):
                 "_context_source": f"official_round_result_{round_number}",
                 "_source_event_ids": [str(event["event_id"])],
             })
-
-    def record_run_termination(self, result: Mapping[str, Any]) -> None:
-        self._append(
-            "run_terminated",
-            visibility="derived",
-            payload={
-                "state": result.get("state"),
-                "termination": result.get("termination"),
-                "decisions": result.get("decisions"),
-                "model_calls": result.get("model_calls"),
-            },
-        )
 
     def interrupt(self, reason: str = "operator_interrupt") -> None:
         self.interrupted = True

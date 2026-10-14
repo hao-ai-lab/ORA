@@ -38,6 +38,23 @@ Source checkouts contain tracked code/assets. A runtime workspace holds `.harnes
 
 Logical run namespaces are `outputs/<experiment>/`; a run is keyed by its exact run ID. Keep generated artifacts, qualification, seeds, credentials and media outside Git. The Synthetic quickstart writes `outputs/quickstart/runs/<run-id>/` beneath its selected evidence root.
 
+## Interactive operator control
+
+A Native RunSpec may declare `operator_control: {mode: file_inbox_v1}`, as
+`ora interactive` and `ora local` do; their runs use the `ora-interactive`
+namespace. The operator inbox lives outside the run directory, under the
+workspace state root (`ora-interactive/<run_id>`), and only that run's
+Supervisor consumes it. Each accepted message is appended to the run's
+evidence as an `operator_message` event before the model sees it, and the
+context manifest records it as protected human guidance. Follow-ups queued
+for a later run are bound into that run's plan as `initial_messages`.
+
+A run with any accepted message records `human_intervention: true`,
+`operator_message_count` and `behavioral_sample_valid: false` (per round for
+multi-round sessions). Evaluation checks these fields against the delivery
+events, and learning eligibility excludes the run (`human_intervention`).
+Enabling the channel without sending a message leaves a run autonomous.
+
 ## Episode evidence
 
 The run directory binds `plan.json`, `preflight.json`, `launch.json`, process identity, canonical events, policy-state/trajectory evidence, public observations, action proposals and measured receipts. `result.json` records termination/state and the official environment verdict. Provider requests/responses and content-addressed artifacts are archived for reconstruction; exact filenames and schemas are owned by the evidence modules and validated by their tests.

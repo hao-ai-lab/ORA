@@ -2,10 +2,11 @@
 
 Family navigation is available at `/experiments` and `/experiments/<family>`; the main registry filters family and full generation ID and preserves source/run identities. `/api/experiments/<family>` exposes the same projection. A run relabeled by reviewed migration shows its recorded generation beside the new one, and the recorded family's page counts the runs it shows under another family. See [experiment identity](../docs/reference/experiment-identity.md).
 
-The repository has one local, read-only Flask application for Runtime evidence,
+The registry is a local, read-only Flask application for Runtime evidence,
 experiment task sheets, the pinned LIBERO/LIBERO-Pro atlas, and the pinned
-RoboTwin task catalog. It does not write run artifacts and it does not contact
-a simulator.
+RoboTwin task catalog. ORA also uses a small exact-run world-view service for
+live execution capture. Neither service writes run artifacts or contacts a
+simulator.
 
 For original capture, diagnostic reconstruction, cache verification and new
 backend integration, use the shared [trajectory-to-Viewer procedure](../docs/guides/trajectory-capture-and-viewer.md).
@@ -19,6 +20,34 @@ thin borders and unfiltered media. Open `/style-guide` for a small example.
 shell and defaults; `viewer/static/viewer.css` owns component layout. See the
 [frontend style guide](../docs/guides/frontend-style.md) before adding a page.
 The installed package includes these HTML and CSS assets.
+
+## ORA live world view
+
+`viewer/live_world.py` supplies ORA's loopback-only companion window. A human
+terminal running `ora interactive` opens it in a waiting state before task
+selection; a live `ora watch RUN` binds it to that exact run. The service
+follows original execution-capture PNG frames and the complete prefix of the
+append-only capture timeline. It takes no Runtime lease and starts no model
+or simulator. Browser acknowledgements affect only its ephemeral connection
+state, not run evidence or official outcomes.
+
+The view distinguishes waiting, holding, executing, capture-behind, error and
+disconnected states. A connection becomes confirmed only after the browser
+decodes and acknowledges an image for the bound run. A last captured frame
+can remain on screen while capture catches up; the status preserves that
+distinction. A sealed transcript replay does not automatically open this live
+view because its replay clock differs from the latest captured frame.
+
+The CLI defaults to `--world-view auto --world-port 0 --world-browser auto`
+for human sessions. `--world-view off` selects terminal-only use;
+`--world-browser off` leaves the service available without browser launch.
+JSON-lines clients are headless unless they explicitly request a world port
+or public URL. For a remote simulation host, `scripts/ora-remote` provides the
+loopback tunnel and opens the browser on the operator's local computer. Local
+execution remains subject to the supplied task's host and simulator
+qualifications; a full Mac CPU/MuJoCo preset is not yet qualified. See the
+[run guide](../docs/usage/runs.md#follow-one-run) and
+[public interfaces](../docs/reference/public-interfaces.md#operator-and-composition).
 
 ## Start the viewer
 

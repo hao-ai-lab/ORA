@@ -109,6 +109,7 @@ nav:
   - Getting started:
       - Installation: getting-started/installation.md
       - First episode: quickstart.md
+      - Run on your computer (CPU): getting-started/local.md
       - Model APIs: getting-started/model-apis.md
       - Supported setups: support.md
       - Troubleshooting: getting-started/troubleshooting.md
@@ -122,6 +123,7 @@ nav:
       - Official suite setup: guides/official-suite-getting-started.md
   - User guide:
       - Run and inspect: usage/runs.md
+      - Interactive sessions: usage/interactive.md
       - Command-line reference: guides/cli-reference.md
       - Evidence viewer: usage/viewer.md
       - Examples: usage/examples.md

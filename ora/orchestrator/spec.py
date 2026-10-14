@@ -69,6 +69,7 @@ from .spec_native_provider import (
 )
 from .spec_composition import bind_policy_context, compose_policy
 from .spec_native_policy import resolve_native_policy
+from .spec_operator_control import resolve_operator_control, validate_persisted_operator_control
 from .spec_policy import (
     POLICY_KINDS, resolve_policy_surface, resolve_scripted_policy,
 )
@@ -103,6 +104,7 @@ def validate_run_plan(
 
     if not isinstance(plan, Mapping) or plan.get("schema") != PLAN_SCHEMA:
         raise RunSpecError("persisted RunPlan schema is invalid")
+    validate_persisted_operator_control(plan)
     if "experiment_identity" in plan:
         try:
             validate_identity(plan["experiment_identity"])
@@ -547,6 +549,7 @@ def resolve_run_spec(spec: Mapping[str, Any], *, root: Path = PROJECT_ROOT) -> d
     policy, surface, profile_id = resolve_policy_surface(spec)
     POLICY_KIND_RESOLVERS[policy["kind"]](policy, surface, spec.get("runtime"))
     _refuse_memory(policy)
+    operator_control = resolve_operator_control({**spec, "policy": policy}) if "operator_control" in spec else None
 
     runtime, surface = resolve_runtime(
         spec, policy, surface, task=episode.task, seed=episode.seed,
@@ -589,6 +592,8 @@ def resolve_run_spec(spec: Mapping[str, Any], *, root: Path = PROJECT_ROOT) -> d
         portable["launch_admission"] = launch_admission
     if session is not None:
         portable["session"] = session
+    if operator_control is not None:
+        portable["operator_control"] = operator_control
     portable["policy_identity"] = bind_policy_identity(portable, root=root)
     plan = _seal_plan(
         spec, portable, episode=episode, source_commit=source_commit,

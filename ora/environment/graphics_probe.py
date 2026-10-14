@@ -19,6 +19,7 @@ import argparse
 import ctypes
 import json
 import os
+import platform
 from pathlib import Path
 from typing import Any
 
@@ -39,6 +40,33 @@ _REPORTED_ENVIRONMENT = (
 # eglQueryDevicesEXT writes into a caller-owned array; 32 exceeds any host the
 # Runtime qualifies and keeps the call a single pass.
 _MAX_EGL_DEVICES = 32
+
+
+def default_libero_backend() -> str:
+    """Match MuJoCo's native macOS context while retaining Linux EGL defaults."""
+    return "cgl" if platform.system() == "Darwin" else "egl"
+
+
+def _opengl_platform(backend: str) -> str | None:
+    return {"egl": "egl", "osmesa": "osmesa", "cgl": "darwin",
+            "glfw": "darwin" if platform.system() == "Darwin" else "glx",
+            "glx": "glx", "wgl": "win32"}.get(backend)
+
+
+def configure_libero_graphics() -> None:
+    """Select graphics before importing LIBERO/robosuite; preserve explicit settings.
+
+    MuJoCo's macOS CGL context and robosuite's hidden GLFW window use the
+    native Darwin OpenGL loader. They must never inherit the Linux EGL default.
+    An explicit conflicting loader is an error rather than an implicit switch.
+    """
+    backend = os.environ.setdefault("MUJOCO_GL", default_libero_backend())
+    expected = _opengl_platform(backend)
+    selected = os.environ.get("PYOPENGL_PLATFORM")
+    if expected is not None and selected is not None and selected != expected:
+        raise ValueError(f"PYOPENGL_PLATFORM={selected!r} contradicts MUJOCO_GL={backend!r}; expected {expected!r}")
+    if expected is not None:
+        os.environ.setdefault("PYOPENGL_PLATFORM", expected)
 
 
 def _vendor_icd_files() -> list[str]:
@@ -90,9 +118,8 @@ def query_egl_devices() -> int:
 def probe() -> dict[str, Any]:
     """Report the offscreen graphics binding this interpreter would resolve."""
 
-    # The isolated workers call ``setdefault`` for both variables, so an unset
-    # value resolves to EGL exactly as it will at rollout time.
-    backend = os.environ.get("MUJOCO_GL") or "egl"
+    # Unset bindings follow the same platform selection as the isolated worker.
+    backend = os.environ.get("MUJOCO_GL") or default_libero_backend()
     pyopengl = os.environ.get("PYOPENGL_PLATFORM")
     result: dict[str, Any] = {
         "schema": GRAPHICS_PROBE_SCHEMA,
@@ -106,7 +133,11 @@ def probe() -> dict[str, Any]:
         "usable": False,
         "error": None,
     }
-    if pyopengl is not None and pyopengl != backend:
+    expected_platform = _opengl_platform(backend)
+    if expected_platform is None:
+        result["error"] = f"Unsupported offscreen graphics backend: {backend!r}"
+        return result
+    if pyopengl is not None and pyopengl != expected_platform:
         result["error"] = (
             f"PYOPENGL_PLATFORM={pyopengl!r} contradicts MUJOCO_GL={backend!r}; "
             "MuJoCo and PyOpenGL would bind different offscreen backends"

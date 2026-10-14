@@ -1,0 +1,27 @@
+schema: ora.execution-host.v1
+id: local-cpu
+purpose: >-
+  Portable single-machine MuJoCo CPU execution selected explicitly by ora local.
+  This identity does not attest controller precision or task success; ordinary
+  source, dependency, controller and launch checks still apply on this machine.
+execution_marker:
+  environment_variable: ORA_EXECUTION_HOST
+  required_value: local-cpu
+libero_pro:
+  python:
+    environment_variable: LIBERO_PRO_PYTHON
+    purpose: Isolated local MuJoCo/robosuite worker interpreter; no CUDA services.
+  simulator_root:
+    environment_variable: LIBERO_PRO_ROOT
+    purpose: Exact clean pinned LIBERO-Pro simulator source and asset root.
+  dataset_root:
+    environment_variable: LIBERO_PRO_DATA_ROOT
+    purpose: Exact clean authoritative task and init-state dataset revision.
+credentials:
+  mode: trusted_environment_only
+  committed_values: forbidden
+runtime_storage:
+  # Leave room for the worker's Unix socket even in a deeply nested checkout.
+  tmp_root: ~/.cache/ora
+  minimum_workspace_free_gib: 2
+  minimum_tmp_free_gib: 1

@@ -190,11 +190,10 @@ def service_prerequisite(report: Path, *, root: Path = PROJECT_ROOT) -> dict[str
 
 
 def _reference(path: Path) -> dict[str, str]:
-    resolved = Path(path).resolve()
-    if not resolved.is_relative_to(WORKSPACE_ROOT.resolve()):
-        raise ValueError(f"a qualification record must live in the shared workspace: {resolved}")
-    return {"path": resolved.relative_to(WORKSPACE_ROOT.resolve()).as_posix(),
-            "sha256": hashlib.sha256(resolved.read_bytes()).hexdigest()}
+    from ora.orchestrator.paths import workspace_record_locator
+
+    locator = workspace_record_locator(path, label="a qualification record")
+    return {"path": locator, "sha256": hashlib.sha256(Path(path).resolve().read_bytes()).hexdigest()}
 
 
 def layered_qualification(task_record: Path) -> dict[str, Any]:

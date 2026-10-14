@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.khronos.org/vulkan/profiles-0.8-latest.json",
+    "capabilities": {
+        "allocation_compat": {
+            "properties": {
+                "VkPhysicalDeviceMaintenance3Properties": {
+                    "maxMemoryAllocationSize": 4292870144
+                }
+            }
+        }
+    },
+    "profiles": {
+        "VP_ROBODOJO_RTX_ALLOCATION_COMPAT": {
+            "version": 1,
+            "api-version": "1.3.0",
+            "label": "RoboDojo RTX allocation compatibility",
+            "description": "Finite maxMemoryAllocationSize for Isaac Sim 5.x on NVIDIA 595 drivers (isaac-sim/IsaacSim#568)",
+            "capabilities": ["allocation_compat"]
+        }
+    }
+}

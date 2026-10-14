@@ -342,6 +342,30 @@ def portable_output_locator(path: Path | str, root: Path) -> str:
     raise ValueError("artefact has no portable outputs locator under this root")
 
 
+def workspace_record_locator(path: Path | str, *, label: str) -> str:
+    """The workspace-relative ``outputs/...`` locator of one qualification record.
+
+    A record pair stores ``path`` relative to the workspace, and readers resolve
+    it against ``WORKSPACE_ROOT``. With ``ORA_OUTPUTS_ROOT`` storing namespaces
+    outside the workspace, the record a qualification step just wrote lives
+    under the outputs root; ``portable_output_locator`` maps it through the
+    namespace's registration link. The locator must reach exactly the same
+    file, so a record kept anywhere else is still refused.
+    """
+
+    supplied = Path(path).absolute()
+    resolved = supplied.resolve()
+    try:
+        locator = portable_output_locator(supplied, WORKSPACE_ROOT)
+    except ValueError:
+        locator = None
+    if locator is None or (WORKSPACE_ROOT / locator).resolve() != resolved:
+        raise ValueError(
+            f"{label} must live in the shared workspace or the configured outputs root "
+            f"({WORKSPACE_ROOT.resolve()} or {OUTPUTS_ROOT.resolve()}): {resolved}")
+    return locator
+
+
 def workspace_topology() -> dict[str, Any]:
     """Return local-only path provenance for operators and launch evidence."""
 

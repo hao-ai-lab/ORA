@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Run this on the local machine: SSH terminal plus a local world-view browser.
+set -eu
+ORA_REMOTE_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+export PYTHONPATH="$ORA_REMOTE_ROOT${PYTHONPATH:+:$PYTHONPATH}"
+exec "${PYTHON:-python3}" -m ora.orchestrator.ora_remote "$@"

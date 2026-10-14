@@ -32,6 +32,7 @@ live = ["imageio>=2.34", "imageio-ffmpeg>=0.5"]
 [project.scripts]
 ora = "ora.orchestrator.cli:main"
 ora-viewer = "viewer.app:main"
+ora-remote = "ora.orchestrator.ora_remote:main"
 robotwin-qualify = "ora.environment.backends.robotwin.qualification:main"
 
 [tool.setuptools]
@@ -67,7 +68,7 @@ ora = [
   "environment/backends/robodojo/installation/*",
 ]
 experiments = ["**/*.yaml", "**/*.md", "**/*.json"]
-viewer = ["templates/*.html", "static/*.css", "provider-pricing.json"]
+viewer = ["templates/*.html", "static/*.css", "static/*.js", "provider-pricing.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

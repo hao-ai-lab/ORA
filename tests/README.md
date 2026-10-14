@@ -1529,3 +1529,19 @@ reviewed byte ceilings with the layer's measured growth.
 `test_native_baseline.py`, `test_bundle_quantities_ratchet.py` and
 `test_model_visible_identity.py` now expect the direct_v4 Native forms: one
 pose matrix and its owner, the `absent` listing, and core v8.
+
+`test_ora_interactive.py`, `test_ora_operator_control.py`, `test_ora_world_view.py`,
+`test_ora_remote.py`, `test_ora_local.py`, `test_ora_local_setup.py`,
+`test_ora_local_composition.py` and `test_local_cpu_platform.py` cover the
+interactive sessions, operator inbox and evidence marking, landing before
+`end`, the world view and SSH launcher, and the local CPU entry (setup,
+readiness, composition, macOS/Linux graphics and socket-path limits). They run
+offline: no simulator, provider or browser starts. `ora-tui/protocol.test.mjs`
+(`node --test` in `ora-tui/`) covers the front end's request protocol.
+
+`test_ora_watch.py` covers `ora watch` (`ora/agent/native/tui/`) on a
+synthetic run directory; no simulator or provider starts. It pins the exact
+plain transcript of a small two-round `agent-events.jsonl`, checks that the
+run directory is left untouched, replays a finished run on recorded time,
+follows a live run through torn appends, and checks that importing the
+watcher loads neither NumPy nor the Native session.

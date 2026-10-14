@@ -1,0 +1,252 @@
+{
+  "observe": {
+    "type": "object",
+    "properties": {
+      "views": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string",
+          "enum": [
+            "agentview",
+            "wrist",
+            "pointcloud_top",
+            "pointcloud_front",
+            "pointcloud_side"
+          ]
+        },
+        "description": "Unique public view names; omitted or null selects agentview. Physical RGB views retain their returned native size; pointcloud_top/front/side are derived views."
+      },
+      "history_point_ids": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "description": "Previously solved point identifiers to overlay; omitted or null adds no history marks. Identifiers are local measurement references, not object identities."
+      }
+    },
+    "additionalProperties": false
+  },
+  "mark_point": {
+    "type": "object",
+    "properties": {
+      "point_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Nonempty local identifier for this physical point; reuse across complementary views of the same point, never across different points."
+      },
+      "view": {
+        "type": "string",
+        "minLength": 1,
+        "description": "The exact view name whose returned pixel is being measured; actual camera or derived view, not a camera chosen from an old observation."
+      },
+      "x": {
+        "type": "integer",
+        "description": "Horizontal integer pixel at the returned view size, OpenCV top-left origin; dynamic image bounds apply."
+      },
+      "y": {
+        "type": "integer",
+        "description": "Vertical integer pixel at the returned view size, OpenCV top-left origin; dynamic image bounds apply."
+      }
+    },
+    "required": [
+      "point_id",
+      "view",
+      "x",
+      "y"
+    ],
+    "additionalProperties": false
+  },
+  "preview_move": {
+    "type": "object",
+    "properties": {
+      "target_xyz_world_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Absolute grip-site [x,y,z] in world metres; omit to hold measured current position. Mutually exclusive with translation_delta_mm."
+      },
+      "translation_delta_mm": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Grip-site translation [x,y,z] in millimetres in translation_delta_frame; omit to hold position. Mutually exclusive with target_xyz_world_m."
+      },
+      "translation_delta_frame": {
+        "type": "string",
+        "enum": [
+          "world",
+          "grip_site"
+        ],
+        "default": "world",
+        "description": "Frame for translation_delta_mm: fixed world axes or measured action-start grip_site axes; omitted defaults to world."
+      },
+      "target_orientation_world_xyzw": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4,
+        "description": "Absolute world grip-site quaternion [x,y,z,w]; omit to preserve current orientation. Mutually exclusive with axis-direction orientation fields."
+      },
+      "grip_site_z_axis_world": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "World direction [x,y,z] for local grip-site +Z; normalized by the shared pose compiler. Alternative to a quaternion; an omitted second axis preserves the closest compatible orientation."
+      },
+      "grip_site_x_axis_world": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "World direction [x,y,z] for local grip-site +X; normalized by the shared pose compiler. If +Z is supplied the two directions must be approximately orthogonal."
+      }
+    },
+    "additionalProperties": false
+  },
+  "move_pose": {
+    "type": "object",
+    "properties": {
+      "target_xyz_world_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Absolute grip-site [x,y,z] in world metres; omit to hold measured current position. Mutually exclusive with translation_delta_mm."
+      },
+      "translation_delta_mm": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Grip-site translation [x,y,z] in millimetres in translation_delta_frame; omit to hold position. Mutually exclusive with target_xyz_world_m."
+      },
+      "translation_delta_frame": {
+        "type": "string",
+        "enum": [
+          "world",
+          "grip_site"
+        ],
+        "default": "world",
+        "description": "Frame for translation_delta_mm: fixed world axes or measured action-start grip_site axes; omitted defaults to world."
+      },
+      "target_orientation_world_xyzw": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4,
+        "description": "Absolute world grip-site quaternion [x,y,z,w]; omit to preserve current orientation. Mutually exclusive with axis-direction orientation fields."
+      },
+      "grip_site_z_axis_world": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "World direction [x,y,z] for local grip-site +Z; normalized by the shared pose compiler. Alternative to a quaternion; an omitted second axis preserves the closest compatible orientation."
+      },
+      "grip_site_x_axis_world": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "World direction [x,y,z] for local grip-site +X; normalized by the shared pose compiler. If +Z is supplied the two directions must be approximately orthogonal."
+      },
+      "preview_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Current observation-bound preview reference; supply this field alone instead of direct pose fields. Stale references are refused."
+      }
+    },
+    "additionalProperties": false
+  },
+  "close_gripper": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "open_gripper": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "report_issue": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Nonempty issue description from current public evidence; does not request human steering or change the task."
+      }
+    },
+    "required": [
+      "message"
+    ],
+    "additionalProperties": false
+  },
+  "check_task": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "finish_episode": {
+    "type": "object",
+    "properties": {
+      "outcome": {
+        "type": "string",
+        "enum": [
+          "success",
+          "failure",
+          "abort"
+        ],
+        "description": "Policy lifecycle outcome: success requires a prior true checker result; failure requires reason and exhausted attempts; abort does not declare task success."
+      },
+      "reason": {
+        "type": "string",
+        "default": "",
+        "description": "Outcome rationale; omitted defaults to empty, but failure requires nonempty text."
+      },
+      "attempts": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "description": "Nonempty descriptions of exhausted attempts for failure; optional or null for other outcomes. Does not count as action evidence."
+      }
+    },
+    "required": [
+      "outcome"
+    ],
+    "additionalProperties": false
+  }
+}

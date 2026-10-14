@@ -90,6 +90,17 @@ class NativeTurnLoop:
         while attempts < turn.call_limit:
             if session.interrupted:
                 return operator_interrupted(attempts)
+            # All calls from the previous reply are paired before this point.
+            # The callback runs on this thread, before Context projection, so
+            # steering reaches the next model decision without racing tools.
+            operator_poll = getattr(session, "poll_operator_messages", None)
+            if callable(operator_poll):
+                operator_poll(
+                    observation_step=turn.step,
+                    before_model_call_id=f"model-call-{session.call_sequence:06d}",
+                )
+            if session.interrupted:
+                return operator_interrupted(attempts)
             projected = _project_context(session, turn)
             if projected is None:
                 return turn_state.context_exhausted(attempts)

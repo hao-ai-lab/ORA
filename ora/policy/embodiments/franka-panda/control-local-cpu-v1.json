@@ -1,0 +1,13 @@
+{
+  "schema": "ora.embodiment-control-profile.v1",
+  "profile_id": "libero_panda_local_osc_v1",
+  "embodiment_id": "franka_panda",
+  "action_codec": "runtime_action_v3",
+  "controller": "OSC_POSE",
+  "source_owners": {
+    "controller_units": "ora/environment/controllers/libero_osc.py",
+    "pose_compilation": "ora/agent/tools/runtime/motion_submit.py",
+    "execution": "ora/environment/backends/libero_pro/local_motion.py",
+    "official_termination": "ora/environment/backends/libero_pro/session.py"
+  }
+}

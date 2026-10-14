@@ -129,6 +129,14 @@ class MovePoseRuntimeMixin:
                 if isinstance(preview.get("compiled_pose"), Mapping)
                 else None
             )
+            if (
+                "pose_frame_contract_v2" in self.surface.capabilities
+                and compiled is None
+            ):
+                raise ToolError(
+                    "preview lacks its frozen compiled pose",
+                    code="stale_preview",
+                )
         else:
             target, compiled = self._atomic_compiled_target(
                 arguments,
