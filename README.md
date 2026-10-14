@@ -26,6 +26,21 @@ Synthetic checks the agent/runtime connection. It has no manipulation benchmark 
 
 To see ORA work a real LIBERO task on your own computer without a GPU, follow [Run ORA on your computer (CPU)](docs/getting-started/local.md): `./scripts/ora setup`, then `./scripts/ora local --confirm-launch`. You can steer the run from the terminal while it works ([interactive sessions](docs/usage/interactive.md)).
 
+## Terminal UI
+
+![ORA replaying a LIBERO episode in the terminal: the model's words, tool calls with condensed results, an operator message and the status footer](docs/assets/images/ora-watch.png)
+
+ORA shows a run the way a coding agent shows a session: the instruction, what the model says, each tool call with its condensed result, action receipts, the official verdict, and a footer with round, context and token use.
+
+```bash
+npm ci --prefix ora-tui                    # once; needs Node.js 20+ (`ora setup` does this for `ora local`)
+./scripts/ora watch RUN_ID                 # follow a live run or replay a finished one
+./scripts/ora interactive --spec SPEC --confirm-launch   # pick a task and steer it while it runs
+./scripts/ora local --confirm-launch       # a LIBERO task on your own computer (CPU)
+```
+
+`ora watch` is read-only. In `ora interactive` and `ora local`, Enter sends the running agent a message, Alt+Enter queues one for the next task, Esc stops the run and Ctrl-C leaves it running; runs you steer are marked human-assisted. Without Node, `ora watch` falls back to a built-in text view. See [run and inspect](docs/usage/runs.md) and [interactive sessions](docs/usage/interactive.md).
+
 ## Choose an environment
 
 | Environment | Install and run | Verdict |

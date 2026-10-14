@@ -64,6 +64,17 @@ connection; its `official_success` is `null`.
 
 [Complete quickstart and API configuration](quickstart.md)
 
+## Terminal UI
+
+![ORA replaying a LIBERO episode in the terminal](assets/images/ora-watch.png)
+
+`ora watch RUN_ID` follows a live run or replays a finished one as a terminal
+transcript; `ora interactive` and `ora local` add a task picker and let you
+steer the running agent. Install the front end once with
+`npm ci --prefix ora-tui` (Node.js 20+). See [run and inspect](usage/runs.md),
+[interactive sessions](usage/interactive.md) and
+[run ORA on your computer](getting-started/local.md).
+
 ## Choose an environment
 
 | Environment | Robot / simulator | Guide |

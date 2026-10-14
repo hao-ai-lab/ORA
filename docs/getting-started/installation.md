@@ -31,6 +31,18 @@ or start a simulator. Missing simulator dependencies are expected at this step.
 Synthetic uses a real model API. Cost and latency depend on the endpoint; a
 self-hosted service can use the same interface.
 
+## Terminal UI (optional)
+
+`ora watch`, `ora interactive` and `ora local` draw with a small Node front end
+in `ora-tui/` (pi-tui). Install Node.js 20 or newer, then once:
+
+```bash
+npm ci --prefix ora-tui
+```
+
+Without it, `ora watch` uses a built-in text view; the interactive commands
+need the front end (`ora setup` installs it for `ora local`).
+
 ## Next step
 
 [Run the first episode](../quickstart.md), then choose a

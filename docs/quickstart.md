@@ -50,7 +50,9 @@ Look under `outputs/quickstart/runs/<run-id>/` for `plan.json`, `result.json`, `
 ./scripts/open-viewer
 ```
 
-The viewer discovers the saved run. [Choose a robot environment](support.md) after this example works.
+The viewer discovers the saved run. To replay the episode in the terminal,
+with the model's words and each tool call, run `./scripts/ora watch RUN_ID`
+with the printed run ID ([terminal UI](getting-started/installation.md#terminal-ui-optional)). [Choose a robot environment](support.md) after this example works.
 
 Synthetic reserves 1 GiB of free workspace and 0.25 GiB of scratch by default; explicit host storage settings take precedence. No simulator disk reserve is required.
 
