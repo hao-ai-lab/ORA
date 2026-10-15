@@ -53,7 +53,9 @@ failure:
    prepare/qualify` or `robodojo_lane_qualification card/task` after an
    explicit confirmation (`--yes` off a terminal).
 3. `ora_run_services.ensure_services` starts the resident services only when
-   no listener is ready and binds the newest readiness report whose recorded
+   no listener is ready, refuses a ready listener whose pid and process
+   identity do not match this checkout's `model-services` record
+   (`foreign_listeners`), and binds the newest readiness report whose recorded
    service health equals the running instances and is under 20 h old
    (`REPORT_REUSE_MAX_AGE_S`), else writes a new one. It runs after stage 2, so
    a long scan cannot age the report out.

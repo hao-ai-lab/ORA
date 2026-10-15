@@ -207,7 +207,7 @@ def test_progress_runner_returns_stdout_and_reports_failures_with_the_log(tmp_pa
                                    log=tmp_path / "fail.log", stream=io.StringIO(), poll_s=0.01)
 
 
-def _fake_operator(monkeypatch, tmp_path, *, ready_after: int, reports=()):
+def _fake_operator(monkeypatch, tmp_path, *, ready_after: int, reports=(), owned=True):
     from ora.agent.model_services import operator
     from ora.orchestrator import model_services_cli
 
@@ -238,6 +238,9 @@ def _fake_operator(monkeypatch, tmp_path, *, ready_after: int, reports=()):
     monkeypatch.setattr(operator, "qualify", qualify)
     monkeypatch.setattr(operator, "binding", binding)
     monkeypatch.setattr(model_services_cli, "state_directory", lambda explicit: tmp_path)
+    monkeypatch.setattr(services, "_identity_matches", lambda record: owned)
+    for name in operator.NAMES:
+        (tmp_path / f"{name}.json").write_text(json.dumps({"pid": 1}))
     (tmp_path / "qualification").mkdir()
     for name in ("stale.json", *reports):
         (tmp_path / "qualification" / name).write_text("{}")
@@ -257,6 +260,17 @@ def test_running_services_reuse_the_report_naming_their_instances(monkeypatch, t
     report = services.ensure_services(stream=io.StringIO())
     assert report == tmp_path / "qualification/current.json"
     assert (calls["start"], calls["qualify"]) == (0, 0)
+
+
+def test_ready_services_this_checkout_did_not_start_are_refused(monkeypatch, tmp_path):
+    calls = _fake_operator(monkeypatch, tmp_path, ready_after=0, reports=("current.json",), owned=False)
+    with pytest.raises(RuntimeError, match="B2_SAM_PORT"):
+        services.ensure_services(stream=io.StringIO())
+    assert (calls["start"], calls["qualify"]) == (0, 0)
+    for name in ("segmentation", "grasp_proposals"):
+        (tmp_path / f"{name}.json").unlink()
+    with pytest.raises(RuntimeError, match="not started from this checkout"):
+        services.ensure_services(stream=io.StringIO())
 
 
 def test_main_prepares_then_forwards_to_interactive_with_explicit_authorization(monkeypatch, tmp_path, capsys):

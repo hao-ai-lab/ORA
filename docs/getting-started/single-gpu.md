@@ -76,6 +76,12 @@ git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
 uv sync --all-extras --locked
 ```
 
+While the repository is not public, the clone needs a GitHub account with
+access (`gh auth login`, or an SSH key and the `git@github.com:` URL). On a
+machine that should not hold GitHub credentials, clone elsewhere and copy a
+bundle: `git bundle create ora.bundle --all`, then `git clone ora.bundle
+ora-agent` on the machine.
+
 ORA ships the host profile this guide uses,
 `ora/orchestrator/hosts/single-gpu.yaml`: one `libero-gpu0`,
 `robotwin-gpu0` and `robodojo-gpu0` slot on CUDA device 0. You do not write
@@ -159,7 +165,9 @@ the reason:
    Later runs reuse these records. LIBERO needs none.
 3. **Perception services.** SAM3 and Contact-GraspNet start if they are not
    already running (~3 min the first time, ~8 GB of GPU memory). They keep
-   running between tasks.
+   running between tasks. Services on the ports that this checkout did not
+   start (another user's, on a shared machine) are refused; see
+   [§8](#8-troubleshooting).
 4. **Launch.** ORA writes a RunSpec under `outputs/ora-interactive/specs/`
    and opens the terminal UI on it. The full launch preflight runs again.
    The task starts only with `--confirm-launch` and your selection in the
@@ -257,7 +265,7 @@ not a success. See [interactive sessions](../usage/interactive.md) and
 | `ora run`: the checkout has local changes | runs bind a clean commit | commit or move the changes |
 | `ora run`: this step runs simulator episodes; rerun with --yes | a qualification is needed and stdin is not a terminal | read the estimate, rerun with `--yes` |
 | preflight stops at `provider_marker` or the run ends `incomplete` on the Provider recovery deadline | the API returned errors (for example HTTP 503) | check the provider's status and rerun |
-| ports 8114/8115 in use | another user's services | set `B2_SAM_PORT` / `B2_GRASP_PORT` in `.env` |
+| `ora run`: … answers but was not started from this checkout | on a shared machine another user's SAM3 / Contact-GraspNet listen on 8114/8115; `ora run` will not bind services it did not start | set free ports with `B2_SAM_PORT` / `B2_GRASP_PORT` in `.env` (for example 8124/8125) |
 | `model-services stop`: pid … is alive but this process cannot inspect it | services were started from another container or user namespace | stop them where they were started |
 | RoboDojo worker: `graphics-compat/installation.json` missing | the layer was not built | `./scripts/setup-robodojo graphics-compat --root <prefix>/robodojo-runtime` |
 | `git lfs` not found during RoboDojo assets | no git-lfs | static binary (§2) |

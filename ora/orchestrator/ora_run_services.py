@@ -7,6 +7,7 @@ reuse the readiness report that names the running instances, or ``qualify``.
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -104,6 +105,29 @@ def reusable_report(directory: Path, health: Mapping[str, Any]) -> Path | None:
     return None
 
 
+def _identity_matches(record: Mapping[str, Any]) -> bool:
+    from ora.agent.model_services.process import service_process_identity_matches
+
+    return service_process_identity_matches(record)
+
+
+def foreign_listeners(state: Path, health: Mapping[str, Any]) -> list[str]:
+    """Ready listeners this checkout's ``model-services`` did not start (on a shared host, another user's)."""
+    from ora.agent.model_services.operator import endpoints
+
+    urls = endpoints()
+    foreign = []
+    for name, item in health.items():
+        try:
+            record = json.loads((state / f"{name}.json").read_text())
+        except (OSError, ValueError):
+            record = None
+        if (not isinstance(record, dict) or record.get("pid") != item.get("health", {}).get("pid")
+                or not _identity_matches(record)):
+            foreign.append(f"{name} at {urls[name]}")
+    return foreign
+
+
 def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, poll_s: float = 5.0) -> Path:
     """Ready SAM3/Contact-GraspNet services and a readiness report for them; return the report."""
     from ora.agent.model_services import operator
@@ -130,6 +154,11 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
             waiting = ", ".join(name for name, item in health.items() if item.get("ready") is not True)
             print(f"  waiting for {waiting}: {_clock(elapsed)} elapsed", file=output, flush=True)
             time.sleep(poll_s)
+    foreign = foreign_listeners(state, health)
+    if foreign:
+        # A health check alone would bind another tenant's services to this run.
+        raise RuntimeError(f"{', '.join(foreign)} answers but was not started from this checkout (another user's "
+                           "services?); set free ports with B2_SAM_PORT / B2_GRASP_PORT in .env, or stop them")
     directory = state / "qualification"
     report = reusable_report(directory, health)
     if report is not None:
@@ -140,4 +169,5 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
     return report
 
 
-__all__ = ["REPORT_REUSE_MAX_AGE_S", "SERVICE_START_TIMEOUT_S", "confirm", "ensure_services", "reusable_report", "run_with_progress"]
+__all__ = ["REPORT_REUSE_MAX_AGE_S", "SERVICE_START_TIMEOUT_S", "confirm", "ensure_services", "foreign_listeners",
+           "reusable_report", "run_with_progress"]
