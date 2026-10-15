@@ -232,6 +232,14 @@ class Installer:
             if item["oid_type"] != "sha256" or digest.hexdigest() != item["oid"] or path.stat().st_size != item["size"]:
                 raise RuntimeError(f"Asset payload hash/size mismatch: {item['name']}")
         unique = {item["oid"]: item for item in files}
+        # git-lfs pull refreshes the index itself. When that fails (a transient
+        # index.lock on a network filesystem), every hydrated file stays
+        # stat-dirty although its payload was just verified above.
+        modified = self.run("git", "ls-files", "-m", "-z", cwd=self.assets, capture=True)
+        if modified:
+            print("+ git update-index -q --refresh -z --stdin  # stat-dirty hydrated files", flush=True)
+            subprocess.run(["git", "update-index", "-q", "--refresh", "-z", "--stdin"], input=modified,
+                           cwd=self.assets, env=self.env, check=True, text=True)
         status = self.run("git", "status", "--porcelain", cwd=self.assets, capture=True)
         if status:
             raise RuntimeError("Asset checkout must be clean after payload verification")
