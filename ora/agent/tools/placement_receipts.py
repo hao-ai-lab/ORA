@@ -122,7 +122,7 @@ def _command_states(states: list[Mapping[str, Any]], run_root: Path | None) -> l
 
     for index, state in enumerate(states):
         action = state.get("previous_public_action")
-        if not isinstance(action, Mapping) or action.get("action") not in {"execute_skill_sequence", "execute_composed_tool"}:
+        if not isinstance(action, Mapping) or action.get("action") != "execute_skill_sequence":
             expanded.append(state)
             continue
         receipt = _stage_receipt(state.get("previous_execution_receipt"), run_root)

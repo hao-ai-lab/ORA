@@ -9,7 +9,7 @@ hand-written configuration.
 The whole path, once the [tools](#2-user-space-tools) are on `PATH`:
 
 ```bash
-git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
+git clone https://github.com/hao-ai-lab/ORA.git && cd ORA
 uv sync --all-extras --locked
 ./scripts/ora setup --env robotwin                                   # install once
 export DEEPSEEK_LOW_API_KEY=sk-...
@@ -86,7 +86,7 @@ toolkit, install NVIDIA's `cuda_12.8.*_linux.run` with `--toolkit --silent
 ## 3. Get ORA
 
 ```bash
-git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
+git clone https://github.com/hao-ai-lab/ORA.git && cd ORA
 uv sync --all-extras --locked
 ```
 
@@ -94,7 +94,7 @@ While the repository is not public, the clone needs a GitHub account with
 access (`gh auth login`, or an SSH key and the `git@github.com:` URL). On a
 machine that should not hold GitHub credentials, clone elsewhere and copy a
 bundle: `git bundle create ora.bundle --all`, then `git clone ora.bundle
-ora-agent` on the machine.
+ORA` on the machine.
 
 ORA ships the host profile this guide uses,
 `ora/orchestrator/hosts/single-gpu.yaml`: one `libero-gpu0`,
@@ -447,7 +447,7 @@ before `graphics-compat` and in every shell that runs RoboDojo.
 
 `doctor` checks the source, assets and task inventory (expect `fail=0`); it
 skips Isaac imports, which the card qualification exercises. See the
-[RoboDojo installation reference](../environments/robodojo-installation.md).
+[RoboDojo installation reference](../../ora/environment/backends/robodojo/installation/INSTALL.md).
 
 ### 9.5 `.env`
 
@@ -515,7 +515,7 @@ qualifications refuse a dirty tree.
 ## 10. Measured on the verification machine
 
 RTX PRO 6000 Blackwell Max-Q (compute capability 12.0, 96 GB), driver
-580.159.04, Ubuntu 24.04, no sudo, no Docker; 2026-10-14 and 2026-10-15.
+580.159.04, Ubuntu 24.04, no sudo, no Docker.
 Other tenants used ~24 GB of the card. Times exclude downloads.
 
 | Step | Result | Time |
@@ -532,7 +532,7 @@ Other tenants used ~24 GB of the card. Times exclude downloads.
 
 These are single episodes that show the path works, not success rates.
 
-The whole guide was rerun on the same RTX PRO 6000 on 2026-10-15 in a fresh
+The whole guide was rerun on the same RTX PRO 6000 in a fresh
 user-space sandbox (new home, default prefix, a real key; §2 found no `uv`, no
 `git-lfs` and Node 18):
 
@@ -547,7 +547,7 @@ user-space sandbox (new home, default prefix, a real key; §2 found no `uv`, no
 | `ora run --env libero --task libero_goal/0`, steered once in the terminal UI | official success, 5 decisions, 11 model calls, sealed as human-assisted | episode 4.1 min |
 | GPU memory peaks | services 8–10 GB; RoboTwin worker 8.0 GB; RoboDojo worker 10.4 GB; LIBERO's CuRobo planner 1.0 GB | — |
 
-On one H200 (compute capability 9.0, driver 595.91.07, 2026-10-15), with a
+On one H200 (compute capability 9.0, driver 595.91.07), with a
 placeholder key so no model was called, the same path took:
 
 | Step | Result | Time |

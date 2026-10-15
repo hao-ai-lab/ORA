@@ -94,7 +94,7 @@ from ora.environment.backends.robotwin.qualification import selected_environment
 ROOT = Path(__file__).resolve().parents[1]
 PROMPT = ROOT / "ora/policy/core/thin-react-v1.md"
 MANUAL = ROOT / "ora/policy/embodiments/aloha-agilex/manual-v1.md"
-AGENT_RULES = ROOT / "ora/policy/planners/codex/workspace-v1.md"
+AGENT_RULES = ROOT / "ora/policy/planners/native/project-v1.md"
 BOUNDS = {"x": [-0.6, 0.6], "y": [-0.4, 0.4], "z": [0.7, 1.45]}
 
 
@@ -217,15 +217,14 @@ def test_control_factory_owns_backend_selection(tmp_path: Path, monkeypatch) -> 
         )
 
     monkeypatch.setenv("TEST_LIBERO_PYTHON", sys.executable)
-    monkeypatch.delenv("TEST_RLINF_ROOT", raising=False)
-    with pytest.raises(EnvironmentFactoryError, match="missing TEST_RLINF_ROOT"):
+    monkeypatch.delenv("TEST_LIBERO_ROOT", raising=False)
+    with pytest.raises(EnvironmentFactoryError, match="missing TEST_LIBERO_ROOT"):
         build_environment_session(
             runtime_config={
                 "kind": "libero_pro", "transport": "local_rpc",
-                "python_env": "TEST_LIBERO_PYTHON", "rlinf_root_env": "TEST_RLINF_ROOT",
+                "python_env": "TEST_LIBERO_PYTHON",
                 "libero_pro_root_env": "TEST_LIBERO_ROOT",
                 "data_root_env": "TEST_LIBERO_DATA_ROOT",
-                "required_rlinf_revision": "rlinf-revision",
                 "required_libero_pro_revision": "libero-revision",
                 "required_data_revision": "data-revision", "suite": "libero_goal_task",
                 "task_id": 0, "expected_task_language": "put the bowl on the plate",
@@ -246,7 +245,6 @@ def test_environment_factory_preserves_virtualenv_python_entry(
     venv_python.parent.mkdir(parents=True)
     venv_python.symlink_to(Path(sys.executable).resolve())
     roots = {
-        "TEST_RLINF_ROOT": tmp_path / "RLinf",
         "TEST_LIBERO_ROOT": tmp_path / "LIBERO-PRO",
         "TEST_LIBERO_DATA_ROOT": tmp_path / "LIBERO-Pro-data",
     }
@@ -258,10 +256,8 @@ def test_environment_factory_preserves_virtualenv_python_entry(
         runtime_config={
             "kind": "libero_pro", "transport": "local_rpc",
             "python_env": "TEST_LIBERO_PYTHON",
-            "rlinf_root_env": "TEST_RLINF_ROOT",
             "libero_pro_root_env": "TEST_LIBERO_ROOT",
             "data_root_env": "TEST_LIBERO_DATA_ROOT",
-            "required_rlinf_revision": "rlinf-revision",
             "required_libero_pro_revision": "libero-revision",
             "required_data_revision": "data-revision",
             "suite": "libero_goal_task", "task_id": 0,
@@ -390,7 +386,7 @@ def synthetic_plan() -> dict:
         "runtime": {"kind": "synthetic", "workspace_bounds_m": BOUNDS},
         "budgets": {"max_robot_decisions": 1, "max_model_calls": 2, "max_sim_steps": 5, "wall_time_s": 30},
         "policy_context": {
-            "codex_project": [{"path": "ora/policy/planners/codex/workspace-v1.md", "sha256": file_sha256(AGENT_RULES)}],
+            "codex_project": [{"path": "ora/policy/planners/native/project-v1.md", "sha256": file_sha256(AGENT_RULES)}],
             "episode_prefix": [{"path": "ora/policy/core/thin-react-v1.md", "sha256": file_sha256(PROMPT)}],
             "tool_manual": [{"path": "ora/policy/embodiments/aloha-agilex/manual-v1.md", "sha256": file_sha256(MANUAL)}],
             "composition_sha256": "test",
@@ -976,7 +972,7 @@ def _fake_libero_metadata(tmp_path: Path, public_environment_context: dict) -> d
         "task_language": "put the bowl on the plate", "task_name": "task",
         "bddl_file": str(tmp_path / "hidden.bddl"),
         "init_states_file": "hidden.pruned_init", "reset_id": 0,
-        "trial_count": 50, "rlinf_root": "/external/rlinf",
+        "trial_count": 50,
         "controller_action_contract": libero_osc_action_contract({
             "control_delta": True,
             "input_min": -1, "input_max": 1,

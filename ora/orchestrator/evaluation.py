@@ -394,10 +394,6 @@ def _evaluation_report(
             _hash(run_root / "context-audit.json")
             if (run_root / "context-audit.json").is_file() else None
         ),
-        "coding_audit_sha256": (
-            _hash(run_root / "native/coding-audit.jsonl")
-            if (run_root / "native/coding-audit.jsonl").is_file() else None
-        ),
     }
     if plan.get("runtime", {}).get("kind") == "robodojo":
         # The declared and resolved physics device of the run (CPU-physics lane).

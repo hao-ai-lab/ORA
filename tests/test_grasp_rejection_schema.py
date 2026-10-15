@@ -28,9 +28,9 @@ from surface_copies import rebase_manifest
 ROOT = Path(__file__).resolve().parents[1]
 CURRENT_PROFILES = (
     "libero_placement_direct_overhead_v1",
-    "robotwin_toolchain_b2_closed_noservo_v2", "robotwin_toolchain_b2_closed_composed_v1",
+    "robotwin_toolchain_b2_closed_noservo_v2",
     "robotwin_toolchain_b2_closed_noservo_v1",
-    "robodojo_placement_closed_skills_v2", "robodojo_placement_closed_composed_v1",
+    "robodojo_placement_closed_skills_v2",
 )
 COMPILERS = {
     "libero": PANDA_GRIP_SITE_COMPILER_IDENTITY,

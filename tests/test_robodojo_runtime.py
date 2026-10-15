@@ -244,7 +244,7 @@ def _round_isolation(clock: int) -> dict:
 
 def _plan() -> dict:
     paths = {
-        "codex_project": "ora/policy/planners/codex/workspace-v1.md",
+        "codex_project": "ora/policy/planners/native/project-v1.md",
         "episode_prefix": "ora/policy/core/thin-react-v1.md",
         "tool_manual": "ora/policy/embodiments/aloha-agilex/manual-v1.md",
     }

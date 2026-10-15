@@ -5,8 +5,42 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from viewer import app as viewer
+from viewer import pricing
 from viewer.pricing import estimate_run_cost
+
+#: A test-local price snapshot; the shipped catalog carries no prices.
+TEST_PRICE = {
+    "price_id": "example-model-test-price",
+    "provider": "Example",
+    "model": "example-model",
+    "model_aliases": ["example-model"],
+    "currency": "CNY",
+    "unit_tokens": 1000000,
+    "rates_per_million_tokens": {
+        "cache_hit_input": 2.0,
+        "cache_miss_input": 20.0,
+        "output": 100.0,
+    },
+    "effective_date": "2026-01-01",
+    "retrieved_date": "2026-01-01",
+    "source_url": "https://example.invalid/pricing",
+    "taxes_and_account_discounts": "excluded",
+}
+
+
+@pytest.fixture(autouse=True)
+def price_catalog(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    catalog = tmp_path / "provider-pricing.json"
+    catalog.write_text(json.dumps({"schema": pricing.PRICE_CATALOG_SCHEMA, "prices": [TEST_PRICE]}))
+    monkeypatch.setattr(pricing, "CATALOG_PATH", catalog)
+
+
+def test_the_shipped_catalog_is_valid_and_lists_no_prices() -> None:
+    shipped = json.loads((Path(pricing.__file__).with_name("provider-pricing.json")).read_text())
+    assert shipped == {"schema": pricing.PRICE_CATALOG_SCHEMA, "prices": []}
 
 
 def _run(tmp_path: Path, *, run_id: str = "priced-run") -> Path:
@@ -22,7 +56,7 @@ def _run(tmp_path: Path, *, run_id: str = "priced-run") -> Path:
         "runtime": {
             "kind": "libero_pro", "suite": "libero_object_swap", "task_id": 0,
         },
-        "policy": {"kind": "native_api", "model": "k3"},
+        "policy": {"kind": "native_api", "model": "example-model"},
         "source": {"commit": "abc123"},
     }))
     (root / "status.json").write_text(json.dumps({
@@ -35,7 +69,7 @@ def _run(tmp_path: Path, *, run_id: str = "priced-run") -> Path:
     return root
 
 
-def test_kimi_cost_uses_cache_categories_and_context_compactor(tmp_path: Path) -> None:
+def test_cost_uses_cache_categories_and_context_compactor(tmp_path: Path) -> None:
     root = _run(tmp_path)
     (root / "runtime-metrics.json").write_text(json.dumps({
         "schema": "ora.runtime-metrics.v1",
@@ -121,6 +155,6 @@ def test_cost_dashboard_excludes_non_behavioral_runs_by_registry_view(
     assert b"What did one robot task cost?" in response.data
     assert b"priced-run" in response.data
     assert b"\xc2\xa54.80" in response.data
-    assert b"kimi-k3-cny-2026-07-28" in response.data
+    assert b"example-model-test-price" in response.data
     assert cost_api.status_code == 200
     assert cost_api.json["cost"]["total"] == 4.8

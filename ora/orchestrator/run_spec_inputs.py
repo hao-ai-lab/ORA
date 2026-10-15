@@ -63,12 +63,11 @@ def provider_policy(profile_id: str | None = None, *, catalog: Path | None = Non
 
 
 def service_prerequisite(report: Path, environment: str, *, root: Path = PROJECT_ROOT,
-                         surface: str | None = None, baseline: str | None = None) -> dict[str, Any]:
+                         baseline: str | None = None) -> dict[str, Any]:
     """Bind a readiness report (``scripts/model-services qualify``) to the ``environment`` surface.
 
     The surface is the default baseline's, or that of the registered ``baseline``
-    the RunSpec selects (``policy.baseline``); ``surface`` names the surface a
-    ``policy.harness_change`` selects instead. Launch preflight requires the
+    the RunSpec selects (``policy.baseline``). Launch preflight requires the
     binding to name the surface the plan resolves.
 
     ``operator.binding`` refuses a report that is older than 24 hours, failed,
@@ -79,7 +78,7 @@ def service_prerequisite(report: Path, environment: str, *, root: Path = PROJECT
     from ora.agent.model_services import operator as services
 
     catalog, instance = default_instance(environment, root, baseline)
-    profile = surface or instance["tool_surface"]
+    profile = instance["tool_surface"]
     binding = services.binding(Path(report), profile, catalog["required_service_capabilities"])
     missing = set(binding["capability_scope"]) - set(resolve_tool_surface(profile).capabilities)
     if missing:

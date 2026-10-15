@@ -175,8 +175,8 @@ results, execution clips, receipts and official round outcomes. Native
 Repeated calls retain their identities and recorded order. Managed summaries
 declare incomplete ordering. The inspector links to original events and shows
 complete recorded reasoning in a collapsed panel. **Reasoning excerpts** and
-**Context & Memory** select additional video content; they never reconstruct
-unrecorded model reasoning or infer a Memory benefit.
+**Context** select additional video content; they never reconstruct
+unrecorded model reasoning.
 
 Compile an optional version explicitly, using an exact discovered run ID:
 
@@ -227,15 +227,14 @@ separately.
 | `/run/<run_id>/trajectory/raw` | Review every original Runtime, Agent and transcript JSONL record in one searchable three-pane viewer: immutable source-event rail, exact selected payload, and synchronized actual-observation context. Multi-round and analyzed runs add round filtering, point/Mask, control, Context and task-check review lenses, plus incident chains that jump to the underlying cycle. | The center pane is always the original source line. Filters, incident colors and right-side explanations are labelled navigation/analysis projections. |
 | `/api/run/<run_id>/trajectory/raw` | Return the compact raw-event index, source identities and synchronized observation-cycle index. | Schema `ora.viewer-raw-trajectory.v1`; it does not copy full event payloads or create a new canonical event order. |
 | `/api/run/<run_id>/trajectory/raw/<stream>/<source_line>` | Return one exact JSONL line, its parsed value, source/line hashes and contained artifact references. | Schema `ora.viewer-raw-trajectory-event.v1`; `stream + source_line` is the durable event address. |
-| `/run/<run_id>/trajectory.mp4` | Compile or stream the canonical action-centric review reel. Default source priority is finalized original execution capture, legacy same-session frames, then original observation snapshots. Simulator reconstruction requires explicit forensic mode and executes every recorded target. Both use synchronized camera mosaics plus the current Action/receipt side panel; persistent sessions expose round/reset boundaries. | Cache lives outside the sealed run. Historical semantic re-enactment preserves exact actions and historical Session code but regenerates controller commands/physics; it is visibly distinct from controller replay and original evidence. `?replay_mode=forensic` selects a precompiled diagnostic reconstruction; the web route never starts its simulator. |
-| `/api/run/<run_id>/trajectory-video` | Return video identity, source hashes, frame count, timing, resolution, camera panels, execution-timeline identity, sampling profile, source kind and output hash. Accepts the same allowlisted `replay_mode`. | Continuous videos use `ora.viewer-trajectory-video.v2` and distinguish original shared capture from `same_session_robotwin_control_frames`, `viewer_derived_controller_replay` and `viewer_derived_historical_libero_reenactment`; action-boundary fallback remains v1. |
+| `/run/<run_id>/trajectory.mp4` | Compile or stream the canonical action-centric review reel. Default source priority is finalized original execution capture, legacy same-session frames, then original observation snapshots. Simulator reconstruction requires explicit forensic mode and executes every recorded target. Both use synchronized camera mosaics plus the current Action/receipt side panel; persistent sessions expose round/reset boundaries. | Cache lives outside the sealed run. `?replay_mode=forensic` selects a precompiled diagnostic reconstruction; the web route never starts its simulator. |
+| `/api/run/<run_id>/trajectory-video` | Return video identity, source hashes, frame count, timing, resolution, camera panels, execution-timeline identity, sampling profile, source kind and output hash. Accepts the same allowlisted `replay_mode`. | Continuous videos use `ora.viewer-trajectory-video.v2` and distinguish original shared capture from `same_session_robotwin_control_frames` and `viewer_derived_controller_replay`; action-boundary fallback remains v1. |
 | `/run/<run_id>/raw` | Inspect complete plans, context, metrics, session, policy state, raw causal events, evaluation and seal. | Operator evidence; Control-only fields remain distinct from policy-visible evidence. |
-| `/gallery/libero` or `/gallery/libero-pro` | Search all 130 original tasks in official suite order, inspect their parent collection/subclass, and read the protocol-aware published LIBERO-Pro result registry. | Task previews remain presentation-only. Literature rows are paper-reported metadata grouped into within-paper comparison cohorts; they are not local runs and never form a global leaderboard. Only the 40 source-paired anchors expose LIBERO-Pro overlays. |
+| `/gallery/libero` or `/gallery/libero-pro` | Search all 130 original tasks in official suite order and inspect their parent collection/subclass. | Task previews remain presentation-only. Only the 40 source-paired anchors expose LIBERO-Pro overlays. |
 | `/gallery/libero/<family>/<task_id>` (or retained `libero-pro` alias) | Inspect one family-local task and its original seed-0 preview. All five original base suites are Runtime-admitted; Spatial/Object/Goal/LIBERO-Long anchors additionally show four core perturbations and seven robustness cases, while LIBERO-90 has no Pro variants. | Base Runtime admission still requires exact-source preflight. The 16 core and 28 robustness suite handles cover exactly 40 anchors. All images are zero-action Viewer derivatives, not trajectories. |
 | `/gallery/libero-pro/preview/<path>` | Serve one manifest-allowlisted seed-0 `agentview` PNG from the ignored Viewer cache. | Only paths named by the current source-pinned preview manifest are readable; arbitrary outputs and the manifest itself are rejected. |
 | `/api/libero/tasks` or `/api/libero-pro/tasks` | Read the complete 130-task taxonomy, five admitted base suites, 40 Pro anchors, 160 core configs and 280 extension configs as JSON. | Schema `ora.libero-pro-task-catalog.v2`; collection, suite, base Runtime admission, Pro admission and provenance remain explicit. |
 | `/api/libero-pro/previews` | Read preview-cache readiness, counts, source revisions, hashes and all image identities. | Schema `ora.libero-pro-preview-cache.v2`; no simulator call is made while serving it. |
-| `/api/libero-pro/results` | Read source links, per-cell scores, adaptation regimes and protocol fingerprints for Harness VLA, ASPIRE, RHO, CaP-Agent0, RATs and the explicit OpenETA non-result. | Schema `ora.libero-pro-published-results.v1`; comparisons are valid only within the named cohort, and the payload declares that no global ranking is valid. |
 | `/gallery/robotwin` | Search and filter all 50 pinned RoboTwin tasks. | Catalog metadata and upstream scripted-expert examples, not policy rollouts. |
 | `/gallery/robotwin/<task_id>` | Inspect one task, embodiment, viewpoint, generator statistics and source links. | Same catalog boundary as the gallery. |
 | `/api/robotwin/tasks` | Read the complete catalog as JSON. | Schema `ora.robotwin-task-catalog.v1`. |
@@ -276,26 +275,9 @@ applies those commands without running the policy, perception tools, planner or
 official evaluator. It captures all registered review cameras after replayed
 physics steps. These frames are useful near-deterministic debugging media, but
 remain `viewer_derived_controller_replay`, never actual original execution
-evidence. Pre-trace LIBERO runs can instead use receipt-validated
-`viewer_derived_historical_libero_reenactment`: the Viewer executes their exact
-released v3 or v4 semantic action envelopes with the exact historical Session
-source and pinned external revisions, then renders `agentview` plus `wrist`. It does not claim the
-regenerated controller commands or physics are original. A historical run that
-cannot pass that gate remains on the explicitly labelled action-boundary
-fallback. Its v1 video manifest records the attempted continuous source and
-the bounded validation error; the fallback never presents regenerated frames
-as physical evidence. Missing source, Runtime or simulator bindings remain
-operator-visible compilation errors rather than being hidden by that fallback.
-
-When a released Session requires reset-time controller qualification, the
-historical worker reuses the exact binding already recorded in the sealed reset
-event and validates it again against the active imported controller sources.
-For derived rendering on a different currently available physical GPU, set
-`ORA_VIEWER_GPU_ID` to one decimal index. The worker exports that
-physical index through both `CUDA_VISIBLE_DEVICES` and the legacy RoboSuite
-`MUJOCO_EGL_DEVICE_ID`; the selected render resource is retained in the derived
-manifest. This overrides only obsolete run-slot placement, never source,
-controller or action semantics.
+evidence. A run recorded without a controller trace stays on the explicitly
+labelled action-boundary fallback. Missing source, Runtime or simulator
+bindings remain operator-visible compilation errors.
 
 RoboTwin control profile v4 uses the same replay contract for validated global
 paths and local Cartesian DLS: the manifest contains the actual issued joint
@@ -466,19 +448,12 @@ Compile in batches only while that source-bound simulator slot is free.
 Compilation reports every incompatible historical run and exits non-zero if any
 selected video fails. The web process serves cached or locally renderable
 videos only: when a build would first have to run a simulator-side controller
-replay or historical re-enactment, the video route answers 503 with the exact
+replay, the video route answers 503 with the exact
 batch command and the run page shows the same hint instead of an empty player.
 Both rekey the cache when source-image or trace hashes change. A failed encode
 retains the already-simulated derived replay cache so a retry does not repeat
 the worker; the bulky replay frames are deleted only after the MP4 and its
 manifest are durably in place.
-
-To constrain every derived simulator worker in one batch to physical GPU 4:
-
-```bash
-ORA_VIEWER_GPU_ID=4 \
-  ./scripts/compile-viewer-videos --video-scope libero
-```
 
 Experiments register themselves by the `experiment` identity already present
 in RunPlan and `experiments/*/experiment.yaml`. Adding a new manipulation

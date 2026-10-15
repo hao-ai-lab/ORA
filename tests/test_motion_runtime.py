@@ -84,7 +84,6 @@ def test_curobo_preflight_closes_its_worker_even_when_readiness_raises(
     from ora.orchestrator import preflight
 
     absent = {
-        "rlinf_root_env": "TEST_CUROBO_PREFLIGHT_ABSENT_RLINF",
         "libero_pro_root_env": "TEST_CUROBO_PREFLIGHT_ABSENT_LIBERO",
         "data_root_env": "TEST_CUROBO_PREFLIGHT_ABSENT_DATA",
         "python_env": "TEST_CUROBO_PREFLIGHT_ABSENT_SIMULATOR",

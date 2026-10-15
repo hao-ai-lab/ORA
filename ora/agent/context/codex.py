@@ -13,7 +13,7 @@ from typing import Any, Mapping, Protocol
 from PIL import Image
 
 from .action_views import (
-    PostActionObservationError, is_servo_action,
+    PostActionObservationError,
     materialize_post_action_observation,
 )
 from .public_facts import (
@@ -174,9 +174,9 @@ class ContextProjector:
                 public_facts, view_config=self.view_config)
             from .policy_delivery import deliver_public_facts
             public_facts = deliver_public_facts(public_facts, capabilities=self.capabilities)
-        if is_servo_action(previous_action) or public_facts is not None:
+        if public_facts is not None:
             if self.run_root is None or self.view_config is None:
-                raise ContextError("Servo fresh views require a bound run root and view configuration")
+                raise ContextError("fresh current views require a bound run root and view configuration")
             try:
                 post_action = materialize_post_action_observation(
                     run_root=self.run_root, workspace=self.workspace,

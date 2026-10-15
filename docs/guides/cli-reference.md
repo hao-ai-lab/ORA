@@ -272,14 +272,3 @@ missing historical owner metadata is explicitly unavailable.
 --help` lists the official-suite cell, compose and queue commands.
 `uv run --locked python -m ora.orchestrator.inspect_export --help`
 lists sealed-run export options; this command is an evidence exporter.
-## RoboLab compatibility CLI
-
-`uv run --locked python -m experiments.robolab_compat.run` accepts `prepare`
-(read-only resources/dependencies/cost), `qualify` (one leased development
-simulation producing lifecycle-only v1 evidence), `prepare-camera <lifecycle-report>`
-(read-only reuse audit and six-minute estimate), `qualify-camera <lifecycle-report>`
-(one leased +2 cm translation, two observations and PolicyState publication),
-`check <composite>` (offline artifact validation) and `preflight <composite>`
-(fresh launch readiness). Current admission requires the v2 composite of the
-original lifecycle report and new dynamic-camera report; old ten-check v1 alone
-is insufficient.

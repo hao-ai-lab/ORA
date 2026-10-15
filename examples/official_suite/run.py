@@ -104,7 +104,7 @@ def libero_cells(*, families=None, perturbations=None, init_states: int | None =
 
 
 def load_instructions() -> dict[str, Any]:
-    """The maintained public RoboTwin instructions (moved out of this package 2026-10-05)."""
+    """The maintained public RoboTwin instructions."""
     from ora.environment.benchmarks.robotwin_instructions import public_instructions
 
     return public_instructions()

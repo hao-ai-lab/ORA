@@ -15,7 +15,7 @@ import json
 import pytest
 
 from delivery_lessons_fixtures import DEFAULT_PROFILES, NEW_CAPABILITIES, robotwin_receipt, skill_receipt
-from ora.agent.composition.profile_catalog import COMPOSED_SUCCESSORS, PROFILE_CATALOG
+from ora.agent.composition.profile_catalog import PROFILE_CATALOG
 from ora.agent.composition.tool_surface import resolve_tool_surface
 from ora.agent.native.receipt_projection import (
     _RECEIPT_EFFECT_PROJECTORS, ReceiptProjectionContext, resolve_receipt_effect_projector,
@@ -48,10 +48,9 @@ def test_the_degree_binder_never_runs_for_a_surface_that_does_not_declare_it(mon
 
     declaring = {profile for profile, path in PROFILE_CATALOG.items()
                  if policy_units_schema.CAPABILITY in json.loads(path.read_text(encoding="utf-8"))["capabilities"]}
-    # Integration 0059 unit A0: exactly the three defaults declare it, with
-    # the composed-tools successors derived from them.
+    # Exactly the three defaults declare it.
     assert declaring == {"robotwin_toolchain_b2_closed_noservo_v2", "libero_placement_direct_overhead_v1",
-                         "robodojo_placement_closed_skills_v2"} | set(COMPOSED_SUCCESSORS)
+                         "robodojo_placement_closed_skills_v2"}
     monkeypatch.setattr(policy_units_schema, "bind_policy_angles_degrees", refuse)
     for profile in sorted(set(PROFILE_CATALOG) - declaring):
         surface = resolve_tool_surface(profile)

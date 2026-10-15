@@ -17,8 +17,8 @@ review's edits applied to that surface's own text before them.
 
 A sentence that disagrees with its owner on a frozen surface is a strict
 expected failure with its reason; the current texts carry the correction and
-may not have any. A census then requires every digit in every composed tool
-text to belong to a registered statement or a reviewed informational entry,
+may not have any. A census then requires every digit in every composed
+tool text to belong to a registered statement or a reviewed informational entry,
 so a new number cannot enter the help without an owner.
 """
 
@@ -36,9 +36,7 @@ from typing import Any, Iterator
 import pytest
 
 from ora.agent.composition import description_edits, tool_surface
-from ora.agent.composition.profile_catalog import (
-    COMPOSED_SUCCESSORS, PROFILE_CATALOG,
-)
+from ora.agent.composition.profile_catalog import PROFILE_CATALOG
 from ora.agent.composition.tool_surface import resolve_tool_surface
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -418,7 +416,7 @@ def test_the_successor_layers_are_the_review_edits_applied_to_the_base_text(key)
 @pytest.mark.parametrize("key", GENERATED_KEYS)
 def test_every_edit_ships_a_chinese_reference(key):
     review = _review(key)
-    assert "英文" in review["public_text_zh_reference"]["note"]
+    assert "English text is authoritative" in review["public_text_zh_reference"]["note"]
     for edit in review["edits"]:
         assert edit["why"].strip(), edit["after"][:60]
         assert re.search(r"[一-鿿]", edit["zh"]), edit["after"][:60]
@@ -464,8 +462,6 @@ def test_the_published_limits_layers_come_last_on_the_current_surfaces(key):
 
 def test_only_the_current_surfaces_bind_the_published_limits_layers():
     current = {SURFACES[key]["profile"] for key in GENERATED_KEYS}
-    # A composed-tools successor keeps its source's layers, published limits included.
-    current |= {successor for successor, source in COMPOSED_SUCCESSORS.items() if source in current}
     for profile, manifest in sorted(PROFILE_CATALOG.items()):
         if profile in current:
             continue

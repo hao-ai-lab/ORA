@@ -508,20 +508,17 @@ class RobodojoSession(RobodojoRoundMixin, RobodojoObservationMixin, RobodojoExec
             admit_sequence_child(self.action_sequences[-1], parent, action_codec=self.action_codec)
         elif parent["observation_id"] != self.last_observation_id:
             raise RobodojoError("sequence must bind the latest unconsumed observation")
-        composed = None
         if schema == "ora-action.v4":
             phases = target_state_phases(parent)
             exact = {phase["action_id"]: phase for phase in phases}
             children = list(exact)
-        elif schema == "ora-composed-tool-action.v1":
-            children, exact, composed = [], {}, (-1, 0)
         else:
             args = parent["arguments"]
             children = [f"{parent['action_id']}:{index:02d}-{stage}"
                         for index, stage in enumerate(args["sequence"])
                         if index >= args["resume_from"] and stage not in {"stop", "verify"}]
             exact = {}
-        self.action_sequences.append({"parent": parent, "children": children, "exact": exact, "next": 0, "composed": composed})
+        self.action_sequences.append({"parent": parent, "children": children, "exact": exact, "next": 0})
         self.last_observation_id = None
 
     def end_action_sequence(self, action_id: str) -> None:

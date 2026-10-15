@@ -47,9 +47,6 @@ RoboDojo installer are included from their existing repository READMEs. The buil
 hook rewrites their relative links for the site and watches their source files.
 Edit those originals rather than creating another copy under `docs/`.
 
-`docs/design/` is internal preparation material. It is excluded from pages,
-assets, and search. The build rejects public links into that directory.
-
 ## Python reference
 
 Pages under `docs/api/` select the supported symbols using mkdocstrings.

@@ -124,8 +124,8 @@
   ],
   "review_notes": [
     "Five separate check groups are latched by RewardManager.step; all must have been achieved. query(0) rejects overlapping target-arm and support-arm departures and certain released/stationary out-of-order insertions. The demonstration order is never copied from the trajectory into the contract. The support demonstration is an environment-owned execution asset, not a policy/expert tool.",
-    "v2 (EXP11A g004) makes two changes. The fourth clause states the return requirement in registry-v4's shared sentence: boundary-v2 applies it only where the task contract states it, and the final run_reward stage (stage 4) conjoins all_robot_back_to_origin with every placement check, so the arms must be back at the same instant as the complete arrangement; the v1 'after completing the arrangement' wording is gone. One execution note follows the clause bullets: query_support_arm_traj advances the support-arm demonstration once per native tick, so it progresses only while native actions are consumed and the policy waits while it runs. The note names no tool, so it holds on every Dojo surface, and carries no numeric value. The other three clauses, the evaluator dependencies and every threshold are unchanged.",
-    "v3 (EXP11A U6, 2026-09-30): the policy's basket is basket0 (left-arm side, world -X, nearer the robot in the pinned layout) and the demonstrated basket is basket1 (right-arm side, world +X, farther away); v3 says so by position without naming either."
+    "v2 makes two changes. The fourth clause states the return requirement in registry-v4's shared sentence: boundary-v2 applies it only where the task contract states it, and the final run_reward stage (stage 4) conjoins all_robot_back_to_origin with every placement check, so the arms must be back at the same instant as the complete arrangement; the v1 'after completing the arrangement' wording is gone. One execution note follows the clause bullets: query_support_arm_traj advances the support-arm demonstration once per native tick, so it progresses only while native actions are consumed and the policy waits while it runs. The note names no tool, so it holds on every Dojo surface, and carries no numeric value. The other three clauses, the evaluator dependencies and every threshold are unchanged.",
+    "v3: the policy's basket is basket0 (left-arm side, world -X, nearer the robot in the pinned layout) and the demonstrated basket is basket1 (right-arm side, world +X, farther away); v3 says so by position without naming either."
   ],
   "review": {
     "scope": "source/layout-bound qualitative contract review",
@@ -170,13 +170,13 @@
     "layer_sha256": "4441e16a241c3d731947a4facbcf492375c97d776f5cbce3425599af838c6d07"
   },
   "successor_review": {
-    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "scope": "source/layout-bound qualitative successor review of a contract wording revision; no simulator, provider or physical run",
     "date": "2026-09-30",
     "reviewer": "claude_source_review",
     "basis": [
       "run_reward and check_support_arm_stable at the pinned revision",
       "the basket poses in the pinned layout file",
-      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item d"
+      "Contract audit of the public wording against the upstream predicates, item d"
     ],
     "changes": [
       "Adds a first clause identifying the baskets by position. run_reward scores the policy's placements in basket0 and requires every demonstrated object to stay in basket1, and check_support_arm_stable confirms the demonstrating arm fills basket1. The pinned layout puts basket0 on the left-arm side (world -X) and nearer the robot, basket1 on the right-arm side (world +X) and farther from the robot. Registry-v4 said 'your basket' and 'the other basket' without identifying either."

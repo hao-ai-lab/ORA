@@ -298,6 +298,44 @@ wheels = [
 ]
 
 [[package]]
+name = "ora-agent"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "flask" },
+    { name = "httpx" },
+    { name = "numpy" },
+    { name = "opencv-python-headless" },
+    { name = "pillow" },
+    { name = "pyyaml" },
+    { name = "scipy" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+]
+live = [
+    { name = "imageio" },
+    { name = "imageio-ffmpeg" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "flask", specifier = ">=3.0" },
+    { name = "httpx", specifier = ">=0.27,<1.0" },
+    { name = "imageio", marker = "extra == 'live'", specifier = ">=2.34" },
+    { name = "imageio-ffmpeg", marker = "extra == 'live'", specifier = ">=0.5" },
+    { name = "numpy", specifier = ">=1.26,<2.0" },
+    { name = "opencv-python-headless", specifier = ">=4.10,<4.12" },
+    { name = "pillow", specifier = ">=10.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+    { name = "pyyaml", specifier = ">=6.0" },
+    { name = "scipy", specifier = ">=1.12,<2.0" },
+]
+provides-extras = ["dev", "live"]
+
+[[package]]
 name = "packaging"
 version = "26.2"
 source = { registry = "https://pypi.org/simple" }
@@ -481,46 +519,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ora-agent"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "flask" },
-    { name = "httpx" },
-    { name = "numpy" },
-    { name = "opencv-python-headless" },
-    { name = "pillow" },
-    { name = "pyyaml" },
-    { name = "scipy" },
-    { name = "starlark-pyo3" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "pytest" },
-]
-live = [
-    { name = "imageio" },
-    { name = "imageio-ffmpeg" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "flask", specifier = ">=3.0" },
-    { name = "httpx", specifier = ">=0.27,<1.0" },
-    { name = "imageio", marker = "extra == 'live'", specifier = ">=2.34" },
-    { name = "imageio-ffmpeg", marker = "extra == 'live'", specifier = ">=0.5" },
-    { name = "numpy", specifier = ">=1.26,<2.0" },
-    { name = "opencv-python-headless", specifier = ">=4.10,<4.12" },
-    { name = "pillow", specifier = ">=10.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
-    { name = "pyyaml", specifier = ">=6.0" },
-    { name = "scipy", specifier = ">=1.12,<2.0" },
-    { name = "starlark-pyo3", specifier = ">=2026.1.2,<2027" },
-]
-provides-extras = ["dev", "live"]
-
-[[package]]
 name = "scipy"
 version = "1.17.1"
 source = { registry = "https://pypi.org/simple" }
@@ -589,37 +587,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/52/52/e57eceff0e342a1f50e274264ed47497b59e6a4e3118808ee58ddda7b74a/scipy-1.17.1-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:a77cbd07b940d326d39a1d1b37817e2ee4d79cb30e7338f3d0cddffae70fcaa2", size = 37682317, upload-time = "2026-02-23T00:22:18.513Z" },
     { url = "https://files.pythonhosted.org/packages/11/2f/b29eafe4a3fbc3d6de9662b36e028d5f039e72d345e05c250e121a230dd4/scipy-1.17.1-cp314-cp314t-win_amd64.whl", hash = "sha256:eb092099205ef62cd1782b006658db09e2fed75bffcae7cc0d44052d8aa0f484", size = 37345327, upload-time = "2026-02-23T00:22:24.442Z" },
     { url = "https://files.pythonhosted.org/packages/07/39/338d9219c4e87f3e708f18857ecd24d22a0c3094752393319553096b98af/scipy-1.17.1-cp314-cp314t-win_arm64.whl", hash = "sha256:200e1050faffacc162be6a486a984a0497866ec54149a01270adc8a59b7c7d21", size = 25489165, upload-time = "2026-02-23T00:22:29.563Z" },
-]
-
-[[package]]
-name = "starlark-pyo3"
-version = "2026.1.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/ad/7c/9cf8235a91ca5c7560db0683056c0dfc90752888ebc363bd78f0d31bb424/starlark_pyo3-2026.1.2.tar.gz", hash = "sha256:f83eeec891051fd955414f757b5b748030bdcb792607942679e986580fcfbde2", size = 49083, upload-time = "2026-09-08T00:43:38.405Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/18/45/f983487c58b556be8e4c314aa139906581faf6a92ad115bbef1203f85a9c/starlark_pyo3-2026.1.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:99482b4dd27bc9ff8ffab9d6c61fac6d5309bf3b6bb3363e94ae9182e20e7ca1", size = 2959943, upload-time = "2026-09-08T00:43:07.14Z" },
-    { url = "https://files.pythonhosted.org/packages/69/1a/b3753b39b2e292ac0e88502f5eefe718da83bdc5c6997c46ad939542e409/starlark_pyo3-2026.1.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3697f5f938dc50c5cb75455d047965fc7331194390017e18c06f8456fc3dc5e5", size = 3680439, upload-time = "2026-09-08T00:43:08.345Z" },
-    { url = "https://files.pythonhosted.org/packages/b3/8d/c9af5362095c45821dbee03ca1363f709491e56d02698a80949d9b2c1ca5/starlark_pyo3-2026.1.2-cp311-cp311-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:168ef76f1dfcf46772ecf3a7dfbce8c805dccf9056167f2a13905b8ab8b88465", size = 3463895, upload-time = "2026-09-08T00:43:09.683Z" },
-    { url = "https://files.pythonhosted.org/packages/1a/3d/f1f720719e3117e9fe089962a275553d9bd63d711b5909321e2ba62770f0/starlark_pyo3-2026.1.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c6cb3cbc81b3413b7111fe4ad9f2df92a6b5adecabeece34886466f0862a5032", size = 3442832, upload-time = "2026-09-08T00:43:11.086Z" },
-    { url = "https://files.pythonhosted.org/packages/89/b3/cd09c4a2729b0c23f8eb4e0f296d00647266ace2ecfb2d8ace33382c6274/starlark_pyo3-2026.1.2-cp311-cp311-win_amd64.whl", hash = "sha256:74d7d556109a602c52d481054699c9fd3800e25004729ec4e58eac64f460887a", size = 2678012, upload-time = "2026-09-08T00:43:12.562Z" },
-    { url = "https://files.pythonhosted.org/packages/a1/94/f71c1e9dda18a72b537eaede84b0c6f2b174aff2fc5dd09ec58a3577d955/starlark_pyo3-2026.1.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:b43ec6a53ec10d215dfa21bff3361399c84314f919ae63ae3d0fe36b80ce5b7b", size = 2951622, upload-time = "2026-09-08T00:43:13.925Z" },
-    { url = "https://files.pythonhosted.org/packages/b9/39/416c13ac4b005f026e152d1eeaa55fda04a76b262d49b4bee2fa9ac99614/starlark_pyo3-2026.1.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f221cce90a830f81be122702258eecfaa395f53eae947632e33080419c028a21", size = 3678693, upload-time = "2026-09-08T00:43:15.205Z" },
-    { url = "https://files.pythonhosted.org/packages/4d/68/0f588f3d6633aa9e705e58df5ec86f15fce68cf19efb2b94fad931317a17/starlark_pyo3-2026.1.2-cp312-cp312-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:84a5eb87a66976f7acc702c6084fcc4dfe62580c4ec8393ea55b245f3caa07fe", size = 3467182, upload-time = "2026-09-08T00:43:16.414Z" },
-    { url = "https://files.pythonhosted.org/packages/8d/8e/7b0e51898ccfc4501bba40478ecffe11944c6bde03aeeee0f8f21d7ff5ff/starlark_pyo3-2026.1.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:00520fb2803624cf0a54ed49a2da184a10485dda00ce15e5dba38d56330f6700", size = 3443816, upload-time = "2026-09-08T00:43:17.783Z" },
-    { url = "https://files.pythonhosted.org/packages/d0/cf/348a93c4e21f9cb77ebcd2a6024ff5786d30e6765f1c629dd98227e4a2c7/starlark_pyo3-2026.1.2-cp312-cp312-win_amd64.whl", hash = "sha256:d6849dd1b72ae8c457e9d3bc455d15d30c1ec15f5f7fc02a939f5b9bb3ce5b9f", size = 2678856, upload-time = "2026-09-08T00:43:19.395Z" },
-    { url = "https://files.pythonhosted.org/packages/48/92/188faa7ae08e03c81fd15cc455686f37569d9f65579fcde03c442f215e8b/starlark_pyo3-2026.1.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:55c8e2489bddeeb2c626f9d1157cd67caa392d35e6837b930e887865e3f42f8f", size = 2951800, upload-time = "2026-09-08T00:43:20.658Z" },
-    { url = "https://files.pythonhosted.org/packages/2e/81/cd50cadab38007be914e0e597dd312ec08927519f20f0914faf18fb9f3bb/starlark_pyo3-2026.1.2-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d7df87c16f0e2b33d0fe78a64b9e53a4cc488fdcb32b0b70227be2a1583648b8", size = 3679189, upload-time = "2026-09-08T00:43:22.077Z" },
-    { url = "https://files.pythonhosted.org/packages/0e/60/4a947e46518df3187d73771b26e3e5b9dc5c45b3edc531eb3125123b1004/starlark_pyo3-2026.1.2-cp313-cp313-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:e1511260484cab4b3953585ede77eb99fc7979f9e5b9a3fbd4360a2e62363492", size = 3466757, upload-time = "2026-09-08T00:43:23.463Z" },
-    { url = "https://files.pythonhosted.org/packages/22/32/f89aa4a8f07934008cadb583fc4107cd93153fd74195cda3e82782ad2dda/starlark_pyo3-2026.1.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c62c7d447b3a31931ec48f6307939ce278c65193a0700721c8473f7f27e1969c", size = 3443306, upload-time = "2026-09-08T00:43:24.751Z" },
-    { url = "https://files.pythonhosted.org/packages/d8/5a/88b960194540a9eeaf91440df60b039d878434ef8764901f06b5c9d7ab7c/starlark_pyo3-2026.1.2-cp313-cp313-win_amd64.whl", hash = "sha256:a2dcaefb3dde7cad7b67b23d2f3df71eb5072b3fbab05b7b687e05ec616f363b", size = 2678917, upload-time = "2026-09-08T00:43:26.048Z" },
-    { url = "https://files.pythonhosted.org/packages/db/1d/e700760470a5946f14f5d04a83c67de91d629ba49cfff65c547f16baced2/starlark_pyo3-2026.1.2-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:2573fa2b865635a164519657318bdaf98f1361003f2e0d34ebfd27acc34b8f80", size = 2951822, upload-time = "2026-09-08T00:43:27.159Z" },
-    { url = "https://files.pythonhosted.org/packages/fe/ed/55bc09cd950370bc8391894015198cc101b1a7943096db17e893665fa63f/starlark_pyo3-2026.1.2-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6dcd475895195d7e828bd7645e56bb451d0bb3a14ccec46a6c4c7de73acca2c6", size = 3444047, upload-time = "2026-09-08T00:43:28.49Z" },
-    { url = "https://files.pythonhosted.org/packages/3c/4e/7179a860d1b31bc7ab94b11c3e1fd854e9032d7cd16aa7eb67f2eed468b8/starlark_pyo3-2026.1.2-cp314-cp314-win_amd64.whl", hash = "sha256:080f0b91f2479c40953c792212841e29ab9a7034dfb6ea4e52b330eacf05bc8e", size = 2678243, upload-time = "2026-09-08T00:43:29.842Z" },
-    { url = "https://files.pythonhosted.org/packages/b6/dc/26ee231a8a830c3475954ca7fbec335ce346d8be8527bb5dce9e8b65103a/starlark_pyo3-2026.1.2-cp314-cp314t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:24d08cfa74bc3b9b5024ddab492012213c1479be82cbd333808c90f00c8ec61b", size = 3441292, upload-time = "2026-09-08T00:43:31.152Z" },
-    { url = "https://files.pythonhosted.org/packages/90/2f/f620082d93a55108c31129b2bb56eac8840034e2d6e7e10bd03c08c7bb2c/starlark_pyo3-2026.1.2-pp311-pypy311_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:05592fcba98ff22734452f1c368fa6a1c52126ad69db55ba4fa69e8b76f71acf", size = 3443047, upload-time = "2026-09-08T00:43:36.508Z" },
 ]
 
 [[package]]

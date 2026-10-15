@@ -359,7 +359,7 @@ def context_bundle_images(bundle: Mapping[str, Any]) -> list[Mapping[str, Any]]:
         or not all(isinstance(image, Mapping) for image in multiple)
         or bundle.get("image_attachment") is not None
         or not isinstance(record, Mapping)
-        or record.get("schema") not in {"ora.servo-post-action-observation.v1", "ora.current-visual-observation.v1"}
+        or record.get("schema") != "ora.current-visual-observation.v1"
     ):
         raise PolicyStateError("invalid versioned context image attachment inventory")
     return list(multiple)

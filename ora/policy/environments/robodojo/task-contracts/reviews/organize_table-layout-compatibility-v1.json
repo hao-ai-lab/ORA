@@ -22,7 +22,7 @@
     "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
     "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json"
   },
-  "decision": "User decision 2026-10-01: EXP11A g012 adds a three-round session (K = 3 rounds) of organize_table with a new reviewed layout of eval_seed 0 per round. This appendix extends the organize_table review-v3 record from layout 0 to the reviewed pool 17, 14, 39 and the fallback 19 without changing its contract text, and binds each audited layout's object metadata.",
+  "decision": "A three-round session (K = 3 rounds) of organize_table uses a new reviewed layout of eval_seed 0 per round. This appendix extends the organize_table review-v3 record from layout 0 to the reviewed pool 17, 14, 39 and the fallback 19 without changing its contract text, and binds each audited layout's object metadata.",
   "criteria": [
     "Instruction: gen_instruction (task/RoboDojo/tasks/organize_table.py:100-104) returns one constant template, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
     "Objects: every audited layout holds one each of the Rigid mouse, alarm (model 0), keyboard and garage (the figurine), and the Geometry drawer/0, cube_cushion/2 (the stand), monitor, mousemat/0, frame/0 and camera stand. The frame, the stand and the camera stand are JSON-equal to layout 0; the drawer's x, the mouse pad's position and the monitor's model and position change per layout (row fixtures). The monitor is a static scene object that neither run_reward nor the contract names. Room, Table, Ground and Background are equal.",

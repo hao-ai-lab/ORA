@@ -65,7 +65,7 @@ def spec_for(task):
             "tool_surface": {"profile": SURFACE, "component_overrides": {}}},
         "budgets": {"max_robot_decisions": 1, "max_model_calls": 1, "max_sim_steps": 20, "wall_time_s": 10},
         "policy_context": {"schema": "ora.policy-context.v3",
-            "harness_system": ["ora/policy/planners/native/policy-v4.md"],
+            "harness_system": ["ora/policy/planners/native/policy-v5.md"],
             "project_instructions": ["ora/policy/environments/robodojo/boundary-v2.md",
                 "ora/policy/embodiments/arx-x5/manual-public-geometry-v5.md"],
             "episode_task": ["ora/policy/prompt_bundles/templates/episode-task-v2.md"],

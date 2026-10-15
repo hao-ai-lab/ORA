@@ -1,7 +1,7 @@
 """Fail-closed adapter for the BDDL-driven LIBERO-Pro robustness cases.
 
 The perturbation algorithms belong to the pinned LIBERO-Pro source checkout.
-This module binds those algorithms to Robot Harness' one-environment RLinf
+This module binds those algorithms to the Harness' one-environment LIBERO
 worker lifecycle and validates the dataset-authored configuration before any
 simulator state is changed.
 """
@@ -76,7 +76,7 @@ class LiberoProRobustnessError(RuntimeError):
 
 
 class RobustnessEpisode:
-    """Drive and validate one worker-side robustness lifecycle over RLinf RPC."""
+    """Drive and validate one worker-side robustness lifecycle over the worker channel."""
 
     def __init__(self, case: str) -> None:
         if case not in ROBUSTNESS_CASES:
@@ -1064,7 +1064,7 @@ def robustness_env_factory(
     factory: Callable[[], Any], *, case: str, suite: str, task_name: str,
     bddl_path: Path, seed: int,
 ) -> Callable[[], RobustnessEnvironment]:
-    """Wrap an RLinf worker factory without importing MuJoCo on the host."""
+    """Wrap a LIBERO environment factory without importing MuJoCo on the host."""
 
     def build() -> RobustnessEnvironment:
         return RobustnessEnvironment(

@@ -36,7 +36,6 @@ def _sha256(path: Path) -> str:
 
 def probe(
     *,
-    rlinf_root: Path | None,
     libero_pro_root: Path,
     data_root: Path,
     runtime_config_root: Path,
@@ -46,19 +45,14 @@ def probe(
     robustness_case: str | None = None,
     include_init_states: bool = False,
     include_controller: bool = False,
-    environment_driver: str = "rlinf_v1",
+    environment_driver: str = "direct_libero_v1",
 ) -> dict[str, Any]:
     """Resolve one task and optional controller binding without starting MuJoCo."""
 
-    if environment_driver not in {"rlinf_v1", "direct_libero_v1"}:
+    if environment_driver != "direct_libero_v1":
         raise ValueError("unsupported LIBERO environment driver")
-    if environment_driver == "rlinf_v1" and rlinf_root is None:
-        raise ValueError("legacy RLinf probe requires its source root")
-    rlinf_root = rlinf_root.resolve() if rlinf_root is not None else None
     libero_pro_root = libero_pro_root.resolve()
     data_root = data_root.resolve()
-    if environment_driver == "rlinf_v1":
-        sys.path.insert(0, str(rlinf_root))
     module_names = [
         "ora.environment.worker",
         "numpy",
@@ -73,17 +67,11 @@ def probe(
         runtime_config_root=runtime_config_root,
         suite=suite,
     )
-    if environment_driver == "direct_libero_v1":
-        modules["ora.environment.backends.libero_pro.direct"] = importlib.import_module(
-            "ora.environment.backends.libero_pro.direct")
-        modules["libero.libero.envs"] = importlib.import_module("libero.libero.envs")
-        from libero.libero import benchmark
-        runtime_bindings.pop("rlinf_import_variant", None)
-        runtime_bindings["environment_driver"] = environment_driver
-    else:
-        modules["omegaconf"] = importlib.import_module("omegaconf")
-        modules["rlinf.envs.libero.libero_env"] = importlib.import_module("rlinf.envs.libero.libero_env")
-        from rlinf.envs.libero.utils import benchmark
+    modules["ora.environment.backends.libero_pro.direct"] = importlib.import_module(
+        "ora.environment.backends.libero_pro.direct")
+    modules["libero.libero.envs"] = importlib.import_module("libero.libero.envs")
+    from libero.libero import benchmark
+    runtime_bindings["environment_driver"] = environment_driver
     modules["libero.libero"] = importlib.import_module("libero.libero")
 
     from ora.environment.benchmarks.libero_pro import CORE_SUITES
@@ -146,7 +134,6 @@ def probe(
             / suite / str(task.init_states_file)
         ),
         "robustness": robustness,
-        **({"rlinf_root": str(rlinf_root)} if environment_driver == "rlinf_v1" else {}),
         "environment_driver": environment_driver,
         "runtime_bindings": runtime_bindings,
         "public_environment_context": libero_public_environment_context(
@@ -211,8 +198,7 @@ def probe(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--rlinf-root", type=Path)
-    parser.add_argument("--environment-driver", choices=("rlinf_v1", "direct_libero_v1"), default="rlinf_v1")
+    parser.add_argument("--environment-driver", choices=("direct_libero_v1",), default="direct_libero_v1")
     parser.add_argument("--libero-pro-root", type=Path, required=True)
     parser.add_argument("--data-root", type=Path, required=True)
     parser.add_argument("--runtime-config-root", type=Path, required=True)
@@ -228,7 +214,6 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     result = probe(
-        rlinf_root=args.rlinf_root,
         environment_driver=args.environment_driver,
         libero_pro_root=args.libero_pro_root,
         data_root=args.data_root,

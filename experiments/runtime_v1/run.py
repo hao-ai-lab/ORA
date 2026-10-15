@@ -28,12 +28,6 @@ GATES_ROOT = OUTPUT_WORKSPACE / "gates"
 QUALIFICATION_ROOT = OUTPUT_WORKSPACE / "qualification"
 LOCAL_QUALIFICATION_ROOT = OUTPUT_WORKSPACE / "qualification-manifests"
 CONTROL_AUDIT_ROOT = OUTPUT_WORKSPACE / "control-audits"
-LIBERO_CONTROL_QUALIFICATION_ROOT = QUALIFICATION_ROOT / "libero-pose-control-v2"
-LIBERO_CONTROL_REVISIONS = {
-    "rlinf": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
-    "libero_pro": "eafdb809426b13153aa1e4c42d6601844217dfec",
-    "data": "c86fc3b8293185a6f373677018ff3e37f8391602",
-}
 
 
 def _definition() -> dict[str, Any]:
@@ -77,12 +71,6 @@ def _current_source_commit() -> str:
     if result.returncode:
         raise RuntimeError("cannot resolve current Harness source commit")
     return result.stdout.strip()
-
-
-def _preserved_python_entry(value: str) -> Path:
-    """Canonicalize spelling without dereferencing a virtualenv entry."""
-
-    return Path(os.path.abspath(os.path.expanduser(value)))
 
 
 def _gate_source_commit(gate_path: Path) -> str:
@@ -336,75 +324,6 @@ def control_audit(run_id: str | None) -> int:
     return 0
 
 
-def libero_pose_control_qualification() -> int:
-    from ora.orchestrator.resources import declared_execution_host
-
-    declared_execution_host()
-    values = {
-        "python": os.environ.get("LIBERO_PRO_PYTHON"),
-        "rlinf": os.environ.get("RLINF_ROOT"),
-        "libero_pro": os.environ.get("LIBERO_PRO_ROOT"),
-        "data": os.environ.get("LIBERO_PRO_DATA_ROOT"),
-    }
-    missing = [name for name, value in values.items() if not value]
-    if missing:
-        raise RuntimeError(
-            f"missing LIBERO qualification environment: {', '.join(missing)}"
-        )
-    # Keep the configured venv/conda entry itself. Resolving its Python
-    # symlink would select the base interpreter and lose environment packages.
-    python = _preserved_python_entry(str(values["python"]))
-    roots = {
-        name: Path(str(values[name])).expanduser().resolve()
-        for name in ("rlinf", "libero_pro", "data")
-    }
-    if not python.is_file() or not os.access(python, os.X_OK):
-        raise RuntimeError("LIBERO_PRO_PYTHON is not executable")
-    for name, root in roots.items():
-        if not root.is_dir():
-            raise RuntimeError(f"{name} root is unavailable: {root}")
-        if _git_external(root, "rev-parse", "HEAD") != LIBERO_CONTROL_REVISIONS[name]:
-            raise RuntimeError(f"{name} revision does not match the pinned qualification")
-        if _git_external(root, "status", "--porcelain", "--untracked-files=no"):
-            raise RuntimeError(f"{name} source is modified")
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    output = LIBERO_CONTROL_QUALIFICATION_ROOT / stamp
-    report = output / "report.json"
-    script = Path(__file__).with_name("libero_pose_control_qualification.py")
-    command = [
-        str(python), str(script),
-        "--project-root", str(PROJECT_ROOT),
-        "--output-root", str(output / "scenarios"),
-        "--report", str(report),
-        "--rlinf-root", str(roots["rlinf"]),
-        "--libero-pro-root", str(roots["libero_pro"]),
-        "--data-root", str(roots["data"]),
-        "--required-rlinf-revision", LIBERO_CONTROL_REVISIONS["rlinf"],
-        "--required-libero-pro-revision", LIBERO_CONTROL_REVISIONS["libero_pro"],
-        "--required-data-revision", LIBERO_CONTROL_REVISIONS["data"],
-    ]
-    environment = os.environ.copy()
-    environment["LIBERO_TYPE"] = "standard"
-    environment["PYTHONPATH"] = os.pathsep.join(filter(None, (
-        str(PROJECT_ROOT), str(roots["rlinf"]), environment.get("PYTHONPATH"),
-    )))
-    result = subprocess.run(
-        command, cwd=roots["rlinf"], env=environment, check=False,
-    )
-    print(f"LIBERO pose qualification report: {report}")
-    return result.returncode
-
-
-def _git_external(root: Path, *arguments: str) -> str:
-    result = subprocess.run(
-        ["git", "-C", str(root), *arguments],
-        capture_output=True, text=True, check=False,
-    )
-    if result.returncode:
-        raise RuntimeError(f"cannot inspect source root: {root}")
-    return result.stdout.strip()
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="runtime-v1", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -433,10 +352,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="classify LIBERO behavioral verdict and control validity separately",
     )
     audit.add_argument("run_id", nargs="?")
-    sub.add_parser(
-        "libero-pose-control",
-        help="run the source-bound real LIBERO/Panda Pose/Frame v2 matrix",
-    )
     forwarded = {
         "watch": "stream one milestone run's causal events",
         "stop": "stop the exact active Runtime v1 run",
@@ -478,8 +393,6 @@ def main(argv: list[str] | None = None) -> int:
             return _control(["status", *([args.run_id] if args.run_id else [])])
         if args.command == "control-audit":
             return control_audit(args.run_id)
-        if args.command == "libero-pose-control":
-            return libero_pose_control_qualification()
         if args.command == "seal":
             result = _control(["seal", args.run_id])
             return mark_gate(args.run_id) if result == 0 else result

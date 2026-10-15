@@ -1,8 +1,7 @@
 """Classify one dispatched stage action: did it do what it was sent to do?
 
-Closed-skill sequences (``action_executor._execute_skill_sequence``) and
-composed tools (``composed_tool_job.execute_composed_tool``) both classify
-through here, so the two cannot disagree about what an arrival is.
+Closed-skill sequences (``action_executor._execute_skill_sequence``) classify
+every stage through here, so one rule decides what an arrival is.
 """
 
 from __future__ import annotations

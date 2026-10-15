@@ -20,11 +20,8 @@ from viewer.process_timeline import tool_images_by_step
 from viewer.replay import (
     REPLAY_MODES,
     ViewerReplayError,
-    ViewerReplayValidationError,
     _exclusive_replay_lock,
     ensure_controller_replay,
-    ensure_historical_libero_replay,
-    historical_libero_replay_identity,
     replay_identity,
 )
 
@@ -40,9 +37,6 @@ ROBOTWIN_EXECUTION_FRAME_SCHEMA = (
     "ora.robotwin-operator-execution-frame.v1"
 )
 CONTROLLER_REPLAY_FRAME_SCHEMA = "ora.viewer-controller-replay-frame.v2"
-HISTORICAL_REENACTMENT_FRAME_SCHEMA = (
-    "ora.viewer-historical-libero-reenactment-frame.v1"
-)
 RAW_SCHEMA = "ora.viewer-raw-trajectory.v1"
 RAW_EVENT_SCHEMA = "ora.viewer-raw-trajectory-event.v1"
 ANALYSIS_SCHEMA = "ora.viewer-run-analysis.v1"
@@ -1516,71 +1510,6 @@ def _controller_replay_source(
     }
 
 
-def _historical_libero_reenactment_source(root: Path) -> dict[str, Any] | None:
-    """Compile and resolve validated exact-source legacy semantic re-enactment."""
-
-    if historical_libero_replay_identity(root) is None:
-        return None
-    replay_root, replay = ensure_historical_libero_replay(root)
-    timeline_value = replay.get("timeline")
-    relative = (
-        timeline_value.get("path") if isinstance(timeline_value, Mapping) else None
-    )
-    if not isinstance(relative, str):
-        raise RuntimeError("historical re-enactment timeline is unavailable")
-    timeline = (replay_root / relative).resolve()
-    if not timeline.is_relative_to(replay_root) or not timeline.is_file():
-        raise RuntimeError("historical re-enactment timeline escaped its workspace")
-    sampling = replay.get("sampling")
-    if not isinstance(sampling, Mapping) or sampling.get("mode") != "action_keyframes_v1":
-        raise RuntimeError("historical re-enactment sampling profile is invalid")
-    sampling = dict(sampling)
-    limit = sampling.get("max_frames_per_action")
-    if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 32:
-        raise RuntimeError("historical re-enactment frame limit is invalid")
-    expected_semantics = (
-        "derived_exact_harness_source_semantic_action_reenactment_action_keyframes"
-    )
-    if replay.get("capture_semantics") != expected_semantics:
-        raise RuntimeError("historical re-enactment semantics are inconsistent")
-    validation = replay.get("validation")
-    if not isinstance(validation, Mapping) or validation.get("status") != "valid":
-        raise RuntimeError("historical re-enactment did not validate against receipts")
-    frames: list[dict[str, Any]] = []
-    for expected, record in enumerate(_jsonl(timeline)):
-        if (
-            record.get("schema") != HISTORICAL_REENACTMENT_FRAME_SCHEMA
-            or record.get("frame_index") != expected
-        ):
-            raise RuntimeError("historical re-enactment timeline is not contiguous")
-        if (
-            record.get("sampling") != sampling
-            or record.get("capture_semantics") != expected_semantics
-        ):
-            raise RuntimeError("historical re-enactment frame metadata drifted")
-        frame = (replay_root / str(record.get("path", ""))).resolve()
-        if not frame.is_relative_to(replay_root) or not frame.is_file():
-            raise RuntimeError(
-                f"historical re-enactment frame {expected} is unavailable"
-            )
-        frames.append(dict(record))
-    if not frames:
-        raise RuntimeError("historical re-enactment produced no frames")
-    return {
-        "root": replay_root,
-        "timeline_path": timeline.relative_to(replay_root).as_posix(),
-        "timeline_sha256": _sha256(timeline),
-        "frame_count": len(frames),
-        "camera_panels": list(replay.get("camera_panels") or []),
-        "frames": frames,
-        "sampling": sampling,
-        "capture_semantics": replay.get("capture_semantics"),
-        "kind": "viewer_derived_historical_libero_reenactment",
-        "round_count": replay.get("round_count"),
-        "validation": dict(validation),
-    }
-
-
 def _execution_step_map(
     trajectory: Mapping[str, Any],
 ) -> tuple[dict[str, Mapping[str, Any]], int]:
@@ -1662,9 +1591,6 @@ def _render_continuous_execution_frame(
     control_step = record.get("control_step_index")
 
     derived_replay = source_kind == "viewer_derived_controller_replay"
-    historical_reenactment = (
-        source_kind == "viewer_derived_historical_libero_reenactment"
-    )
     sampling = record.get("sampling") if isinstance(record.get("sampling"), Mapping) else {}
     sampling_mode = sampling.get("mode")
     capture_stride = sampling.get("capture_stride", 1)
@@ -1672,8 +1598,6 @@ def _render_continuous_execution_frame(
     draw.text(
         (1310, 24),
         (
-            f"HISTORICAL SEMANTIC RE-ENACTMENT · ACTION KEYFRAMES ≤{frame_limit}"
-            if historical_reenactment else
             f"DERIVED CONTROLLER REPLAY · ACTION KEYFRAMES ≤{frame_limit}"
             if derived_replay and sampling_mode == "action_keyframes_v1"
             else
@@ -1756,7 +1680,7 @@ def _render_continuous_execution_frame(
     draw.text(
         (1310, y),
         "ORIGINAL RUN RECEIPT · NOT REPLAY RESULT"
-        if derived_replay or historical_reenactment else "MEASURED OUTCOME",
+        if derived_replay else "MEASURED OUTCOME",
         font=label, fill=orange,
     ); y += 30
     if receipt:
@@ -1834,8 +1758,6 @@ def _render_continuous_execution_frame(
     draw.text(
         (1310, 928),
         (
-            "exact historical actions/controller code · regenerated physics · not original evidence"
-            if historical_reenactment else
             "full controller execution · sampled frames · unverified reconstruction"
             if derived_replay and sampling_mode == "action_keyframes_v1"
             else "same source + seed · approximate timing · not original evidence"
@@ -1855,7 +1777,7 @@ def _render_continuous_execution_frame(
             detail += f" · FRAME GAP: last image {age:.2f} s old"
         draw.rectangle((0, 925, 1279, 959), fill="#8c2424" if age > 1.5 * float(record.get("capture_interval_s", 0.1)) else "#121715")
         draw.text((14, 936), detail, font=_font(14), fill="white")
-    if derived_replay or historical_reenactment:
+    if derived_replay:
         draw.rectangle((0, 0, 1279, 36), fill="#8c2424")
         draw.text(
             (16, 8), "DIAGNOSTIC RECONSTRUCTION · MAY DIFFER FROM ORIGINAL RUN",
@@ -1892,14 +1814,7 @@ def _video_target(
             )[0],
         }
     elif replay_mode == "forensic":
-        historical = historical_libero_replay_identity(root)
-        execution_identity = (
-            {
-                "kind": "viewer_derived_historical_libero_reenactment",
-                "replay_identity_sha256": historical[0],
-            }
-            if historical is not None else None
-        )
+        execution_identity = None
     else:
         execution_identity = {"kind": "original_observation_sequence"}
     identity_payload = {
@@ -1913,9 +1828,6 @@ def _video_target(
         ),
         "controller_replay_worker_sha256": _sha256(
             PROJECT_ROOT / "ora/environment/replay_worker.py"
-        ),
-        "historical_reenactment_worker_sha256": _sha256(
-            PROJECT_ROOT / "ora/environment/historical_libero_replay_worker.py"
         ),
     }
     identity = hashlib.sha256(
@@ -1940,10 +1852,6 @@ def pending_replay_source(root: Path, *, replay_mode: str = "review") -> str | N
         _replay_id, replay_output = replay_identity(root, replay_mode=replay_mode)
         if not (replay_output / "manifest.json").is_file():
             return "controller replay"
-        return None
-    historical = historical_libero_replay_identity(root)
-    if historical is not None and not (historical[1] / "manifest.json").is_file():
-        return "historical LIBERO re-enactment"
     return None
 
 
@@ -1982,7 +1890,7 @@ def compile_trajectory_video(
 
     ``allow_replay_compile=False`` serves cached or locally renderable videos
     only; when the build would first have to run a simulator-side controller
-    replay or historical re-enactment, it raises
+    replay, it raises
     :class:`TrajectoryVideoPendingError` instead of launching that worker.
     """
     root = root.resolve()
@@ -2015,24 +1923,8 @@ def _compile_trajectory_video_locked(
 ) -> tuple[Path, dict[str, Any]]:
     output_root = output.parent
     execution = _continuous_execution_source(root)
-    continuous_execution_fallback: dict[str, Any] | None = None
     if execution is None and replay_mode == "forensic":
         execution = _controller_replay_source(root, replay_mode=replay_mode)
-    if execution is None and replay_mode == "forensic":
-        try:
-            execution = _historical_libero_reenactment_source(root)
-        except ViewerReplayValidationError as error:
-            detail_lines = [
-                line.strip() for line in str(error).splitlines() if line.strip()
-            ]
-            continuous_execution_fallback = {
-                "schema": "ora.viewer-continuous-replay-fallback.v1",
-                "attempted_source_kind": (
-                    "viewer_derived_historical_libero_reenactment"
-                ),
-                "reason": "receipt_validation_failed",
-                "detail": (detail_lines[-1] if detail_lines else str(error))[-1200:],
-            }
     steps = trajectory.get("steps") if isinstance(trajectory.get("steps"), list) else []
     if not steps and execution is None:
         raise RuntimeError("trajectory contains no observation steps")
@@ -2052,10 +1944,7 @@ def _compile_trajectory_video_locked(
     derived_replay_root = (
         Path(execution["root"])
         if execution is not None
-        and execution.get("kind") in {
-            "viewer_derived_controller_replay",
-            "viewer_derived_historical_libero_reenactment",
-        }
+        and execution.get("kind") == "viewer_derived_controller_replay"
         else None
     )
     derived_timeline = output.with_suffix(".timeline.jsonl")
@@ -2138,7 +2027,6 @@ def _compile_trajectory_video_locked(
             "source_hashes": trajectory.get("source_hashes"),
             "controller_replay_manifest_sha256": _sha256(root / "native/controller-replay/manifest.json"),
             "continuous_execution": execution is not None,
-            "continuous_execution_fallback": continuous_execution_fallback,
             "execution_capture_manifest_sha256": (
                 _sha256(root / "native/execution-capture/manifest.json")
                 if execution is not None and execution.get("kind") == "same_session_execution_capture"
@@ -2158,11 +2046,6 @@ def _compile_trajectory_video_locked(
             "controller_replay": (
                 execution is not None
                 and execution["kind"] == "viewer_derived_controller_replay"
-            ),
-            "historical_semantic_reenactment": (
-                execution is not None
-                and execution["kind"]
-                == "viewer_derived_historical_libero_reenactment"
             ),
             "replay_mode": replay_mode if derived_replay_root is not None else None,
             "sampling": sampling,

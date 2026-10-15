@@ -1,9 +1,7 @@
 """Fresh source-bound bundle templates of the Native policy runtime.
 
 The templates are the bundles the default baseline names for each backend and
-consumer. Since 2026-09-29 the RoboTwin default is the B2 closed-skill surface
-without Servo, and since 2026-10-04 (direct_v4, integration 0059 unit A0) no
-default declares Servo on any backend.
+consumer. No default declares Servo on any backend.
 """
 from pathlib import Path
 

@@ -60,22 +60,12 @@ def expand_native_defaults(spec: Mapping[str, Any], *, root: Path) -> dict[str, 
     policy, runtime = result.get("policy"), result.get("runtime")
     if not isinstance(policy, dict) or not isinstance(runtime, dict):
         return result
-    change = change_ref = None
-    if "harness_change" in policy:
-        # A recorded overlay on its baseline (orchestrator/harness_change.py).
-        from .harness_change import load_change
-
-        change, change_ref = load_change(root, policy.pop("harness_change"))
-        if policy.setdefault("baseline", change["baseline"]) != change["baseline"]:
-            raise ValueError(f"policy.harness_change changes {change['baseline']}, not policy.baseline")
     requested = policy.get("baseline")
     if "baseline" in policy and (not isinstance(requested, str) or requested not in BASELINE_CATALOGS):
         raise ValueError("policy.baseline must be a registered id string")
     eligible = policy.get("kind") == "native_api" and runtime.get("kind") in NATIVE_BASELINE_KINDS
     if requested is not None and not eligible:
         raise ValueError("policy.baseline requires a supported Native robot environment")
-    if change is not None and (not eligible or "tool_surface" in policy):
-        raise ValueError("policy.harness_change applies to a Native robot RunSpec without an explicit tool_surface")
     if not eligible or (requested is None and "tool_surface" in policy):
         return result
     catalog = load_native_baseline(root, requested or BASELINE_ID)
@@ -88,10 +78,6 @@ def expand_native_defaults(spec: Mapping[str, Any], *, root: Path) -> dict[str, 
     instance = catalog["instances"][runtime["kind"]]
     surface = {"profile": instance["tool_surface"], "component_overrides": {}}
     bundle_ref = instance["prompt_bundle"]
-    if change is not None:
-        from .harness_change import apply_overlay, task_key
-
-        surface, bundle_ref = apply_overlay(change, instance, runtime["kind"], root=root, task=task_key(runtime))
     raw_surface = policy.get("tool_surface", surface)
     if not isinstance(raw_surface, Mapping) or (
         raw_surface.get("profile") != surface["profile"]
@@ -223,14 +209,11 @@ def expand_native_defaults(spec: Mapping[str, Any], *, root: Path) -> dict[str, 
         )
     policy["baseline"] = {
         "id": catalog["id"], "instance": instance["id"],
-        "selection": ("harness_change" if change is not None
-                      else "explicit" if requested is not None else "omitted_tool_surface"),
+        "selection": "explicit" if requested is not None else "omitted_tool_surface",
         "path": catalog["path"], "sha256": catalog["sha256"],
         "prompt_bundle": {
             "path": bundle_ref,
             "sha256": hashlib.sha256(bundle_raw).hexdigest(),
         },
     }
-    if change_ref is not None:
-        policy["baseline"]["harness_change"] = change_ref
     return result

@@ -28,7 +28,7 @@ import pytest
 from ora.agent.composition import resolve_tool_surface
 from ora.agent.composition.observed_clearance_schema import PROPERTY, TOOLS
 from ora.agent.composition.observed_clearance_v2_schema import CAPABILITY, bind_observed_clearance_v2
-from ora.agent.composition.profile_catalog import COMPOSED_SUCCESSORS, PROFILE_CATALOG
+from ora.agent.composition.profile_catalog import PROFILE_CATALOG
 from ora.agent.composition.tool_surface import ToolSurfaceError, validate_schema_instance
 from ora.agent.tools import observed_clearance as oc
 from ora.agent.tools import observed_clearance_runtime as rt
@@ -255,11 +255,10 @@ def test_the_runtime_edge_measures_on_the_robotwin_default(tmp_path):
 def test_only_the_v2_defaults_declare_v2_and_the_binder_refuses_what_it_cannot_serve():
     declaring = {profile for profile, path in PROFILE_CATALOG.items()
                  if CAPABILITY in json.loads(path.read_text(encoding="utf-8")).get("capabilities", [])}
-    # Integration 0059 unit A0: the three defaults (RoboDojo's X5 jaw is v1's loader;
-    # LIBERO's is the overhead successor, its default since integration 0084), with
-    # the composed-tools successors derived from them.
+    # The three defaults (RoboDojo's X5 jaw is v1's loader; LIBERO's is the
+    # overhead successor).
     assert declaring == {"robotwin_toolchain_b2_closed_noservo_v2", "libero_placement_direct_overhead_v1",
-                         "robodojo_placement_closed_skills_v2"} | set(COMPOSED_SUCCESSORS)
+                         "robodojo_placement_closed_skills_v2"}
     released = resolve_tool_surface("robotwin_toolchain_b2_closed_noservo_v1")
     results, view = copy.deepcopy(dict(released.result_schemas)), released.view_config
     base = [*released.capabilities, CAPABILITY]

@@ -56,8 +56,7 @@ COVERAGE: tuple[Coverage, ...] = (
         "every policy loader: ToolSurface manifests and components, prompt "
         "bundles and layers, context profiles, embodiment descriptors, cards "
         "and wording reviews, baseline catalogs, capability manifests, "
-        "task contracts, runtime/control/motion profiles, composed "
-        "tools and questions, harness-change records (orchestrator/harness_change.py)",
+        "task contracts and runtime/control/motion profiles",
         "the policy asset tree",
     ),
     Coverage(

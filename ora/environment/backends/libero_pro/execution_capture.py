@@ -68,7 +68,7 @@ class LiberoWorkerCaptureMixin:
         try:
             self._execution_capture_command(value)
         except Exception as exc:
-            # A media failure must not kill RLinf's simulator subprocess.
+            # A media failure must not kill the simulator.
             self._capture_command_error = f"{type(exc).__name__}: {exc}"
             if self._execution_recorder is not None:
                 self._execution_recorder.error = self._capture_command_error
@@ -123,7 +123,7 @@ class LiberoExecutionCaptureMixin:
             if not callable(setter):
                 raise LiberoProError("execution capture worker channel is unavailable")
             setter("harness_execution_capture", {"op": op, **values})
-            # RLinf setattr only sends a command. A following getattr is the
+            # The attribute setter only sends a command. A following getattr is the
             # FIFO acknowledgement, essential before worker close and sealing.
             status = self._worker_attr("harness_execution_capture")
             if not isinstance(status, Mapping) or not status.get("initialized"):

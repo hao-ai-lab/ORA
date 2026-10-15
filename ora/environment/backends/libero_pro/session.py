@@ -1,4 +1,4 @@
-"""Privilege-clean direct RLinf/LIBERO-Pro session.
+"""Privilege-clean direct LIBERO/LIBERO-Pro session.
 
 RPent informed the reset and OSC conventions during implementation but is not a
 runtime dependency. The Harness keeps planning, task source, object ground
@@ -152,7 +152,6 @@ class LiberoProSession(
 ):
     """One trusted, isolated LIBERO-Pro episode writer."""
 
-    rlinf_root: Path | None
     libero_pro_root: Path
     data_root: Path
     output_root: Path
@@ -161,13 +160,12 @@ class LiberoProSession(
     suite: str
     task_id: int
     expected_task_language: str
-    required_rlinf_revision: str | None
     required_libero_pro_revision: str
     required_data_revision: str
     workspace_bounds_m: Mapping[str, Any]
     max_sim_steps: int
     robustness_case: str | None = None
-    environment_driver: str = "rlinf_v1"
+    environment_driver: str = "direct_libero_v1"
     workspace_profile: Mapping[str, Any] | None = None
     qualified_controller_binding: Mapping[str, Any] | None = None
     servo_max_steps: int = 80
@@ -218,15 +216,8 @@ class LiberoProSession(
 
     def __post_init__(self) -> None:
         self.execution_capture = resolve_execution_capture(self.execution_capture)
-        if self.environment_driver not in {"rlinf_v1", "direct_libero_v1"}:
+        if self.environment_driver != "direct_libero_v1":
             raise LiberoProError("unsupported LIBERO environment driver")
-        if self.environment_driver == "direct_libero_v1":
-            if self.rlinf_root is not None or self.required_rlinf_revision is not None:
-                raise LiberoProError("direct LIBERO driver must not bind RLinf")
-        elif self.rlinf_root is None or not self.required_rlinf_revision:
-            raise LiberoProError("legacy RLinf driver requires explicit source bindings")
-        if self.rlinf_root is not None:
-            self.rlinf_root = self.rlinf_root.expanduser().resolve()
         self.libero_pro_root = self.libero_pro_root.expanduser().resolve()
         self.data_root = self.data_root.expanduser().resolve()
         self.output_root = self.output_root.expanduser().resolve()
@@ -308,7 +299,7 @@ class LiberoProSession(
         if self.environment is not None:
             raise LiberoProError("LIBERO-Pro episode already started")
         environment, metadata = self.environment_factory(
-            rlinf_root=self.rlinf_root, libero_pro_root=self.libero_pro_root,
+            libero_pro_root=self.libero_pro_root,
             data_root=self.data_root,
             runtime_config_root=self.output_root / "runtime-config/libero",
             suite=self.suite, task_id=self.task_id, seed=self.seed,

@@ -823,7 +823,6 @@ def load_jsonl(path: Path) -> list[dict]:
 
 def _timeline(root: Path) -> str:
     labels = {
-        "agent_session_step_started": "Codex turn",
         "tool_result": "tool call/result",
         "tool_error": "tool error",
         "action_submitted": "submitted action",
@@ -2102,7 +2101,6 @@ def experiment_configs(experiment_id: str) -> str:
 def detail(run_id: str) -> str:
     root = run_root(run_id)
     plan = load(root / "plan.json")
-    context_manifest = load(root / "context-manifest.json")
     result = load(root / "result.json")
     session = load(root / "native/agent-session.json")
     runtime_metrics = load(root / "runtime-metrics.json")
@@ -2159,18 +2157,14 @@ def detail(run_id: str) -> str:
         f"<h3>Context manifest</h3><pre>{raw(root/'context-manifest.json')}</pre></section>"
     )
     body += f"<section><h2>World video</h2>{video_html}<h2>Policy images</h2>{images}</section></div>"
-    memory = context_manifest.get("memory_system", {})
     environment_status = result.get("environment_status", {})
     body += (
         "<h2>Runtime lanes</h2><div class='cards'>"
         f"<article class='card'><h3>AgentSession</h3><p>backend: <code>{html.escape(str(session.get('backend', 'not recorded')))}</code></p>"
         f"<p>process: {html.escape(str(session.get('process_pid', '—')))} · invocations: {html.escape(str(session.get('process_invocations', '—')))} · restarts: {html.escape(str(session.get('process_restarts', 0)))}</p>"
         f"<p>thread: <code>{html.escape(str(session.get('thread_id', '—')))}</code></p></article>"
-        f"<article class='card'><h3>Memory</h3><p>{'active' if memory.get('active') else 'disabled'}</p>"
-        f"<p>provider: {html.escape(str(memory.get('provider', '—')))} · generation: {html.escape(str(memory.get('generation', '—')))}</p>"
-        f"<p>block hash: <code>{html.escape(str(memory.get('block_sha256', '—')))}</code></p></article>"
         f"<article class='card'><h3>Native context</h3><p>compactions: {len(session.get('compaction_events', []))}</p>"
-        f"<p>Harness rollovers: {len(session.get('rollovers', []))}</p><p>Codex history/KV remains opaque.</p></article>"
+        f"<p>Harness rollovers: {len(session.get('rollovers', []))}</p></article>"
         f"<article class='card'><h3>Environment status</h3><p>{html.escape(str(environment_status.get('phase', 'not recorded')))}</p>"
         f"<p>reason: <code>{html.escape(str(environment_status.get('reason', '—')))}</code> · visibility: "
         f"{html.escape(str(environment_status.get('policy_visibility', '—')))}</p></article>"
@@ -2180,7 +2174,6 @@ def detail(run_id: str) -> str:
     body += "<details><summary>Complete runtime-metrics.json</summary>"
     body += f"<pre>{raw(root/'runtime-metrics.json')}</pre></details>"
     disclosure = context_audit.get("camera_disclosure", {})
-    coding = context_audit.get("coding", {})
     repetition = context_audit.get("verifiable_redundancy", {})
     body += (
         "<h2>Audit lanes</h2>"
@@ -2189,9 +2182,6 @@ def detail(run_id: str) -> str:
         f"{_metric(context_audit.get('thresholds', {}).get('observed_later_median_bytes'))} / "
         f"{_metric(context_audit.get('thresholds', {}).get('observed_later_max_bytes'))}</p>"
         f"<p>exact repeated Harness messages after first: {_metric(repetition.get('harness_repeated_exact_messages', {}).get('repetitions_after_first'))}</p></div>"
-        "<div class='lane'><h3>Coding</h3>"
-        f"<p>shell commands: {_metric(coding.get('command_count'))} · scratch generations: {_metric(coding.get('scratch_artifact_generations'))}</p>"
-        f"<p>immutable guard: {html.escape(str(coding.get('integrity_passed', 'not recorded')))}</p></div>"
         "<div class='lane'><h3>Camera disclosure</h3>"
         f"<p>automatic: <code>{html.escape(str(disclosure.get('automatic_policy_camera', main_camera)))}</code> · images: {_metric(disclosure.get('automatic_images'))}</p>"
         f"<p>on-demand tool images: {_metric(len(disclosure.get('tool_images', [])))} · auxiliary: {_metric(len(disclosure.get('auxiliary_camera_tool_images', [])))}</p></div>"
@@ -2210,7 +2200,7 @@ def detail(run_id: str) -> str:
     bundles = sorted((root / "context-bundles").glob("call-*.json"))
     body += "<h2>Context bundles</h2>" + (
         "".join(f"<h3>{html.escape(path.name)}</h3><pre>{raw(path)}</pre>" for path in bundles)
-        if bundles else "<p>no Codex context calls</p>"
+        if bundles else "<p>no context bundles</p>"
     )
     body += f"<h2>Causal events</h2><pre>{raw(root/'events.jsonl')}</pre>"
     body += f"<h2>Evaluation / seal</h2><pre>{raw(root/'evaluation.json')}</pre><pre>{raw(root/'seal.json')}</pre>"
@@ -2274,7 +2264,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--video-mode", choices=("execution", "process"), default="execution", help="execution or optional full recorded process")
     parser.add_argument("--round", dest="video_round", type=int, help="export one recorded round (one-based)")
     parser.add_argument("--include-reasoning", action="store_true", help="include recorded API-visible reasoning excerpts in process videos")
-    parser.add_argument("--include-context", action="store_true", help="include recorded Context/Memory lifecycle events in process videos")
+    parser.add_argument("--include-context", action="store_true", help="include recorded Context lifecycle events in process videos")
     parser.add_argument("--card-seconds", type=float, default=2.5, help="reading-card duration, 0.5–15 seconds (default: 2.5)")
     return parser
 

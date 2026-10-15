@@ -1004,14 +1004,11 @@ def test_published_compute_examples_execute_through_every_applicable_surface():
             expected = {'distance_m': .5} if len(sample['outputs']) == 1 else {'point': [.13,.2,.3], 'angle': 90.0}
             assert _named(result) == expected
             assert _causal_projection_violations([{'role': 'tool', 'content': json.dumps(_visible(result))}]) == []
-    # The three defaults, their composed-tools successors and the RoboTwin
-    # prepared-grasp v1 surface all execute the same published examples
-    # through their real schema/handler.
-    from ora.agent.composition.profile_catalog import COMPOSED_SUCCESSORS
+    # The three defaults and the RoboTwin prepared-grasp v1 surface all
+    # execute the same published examples through their real schema/handler.
     assert set(checked) == {
         "libero_placement_direct_overhead_v1", "robotwin_toolchain_b2_closed_noservo_v2",
         "robodojo_placement_closed_skills_v2", "robotwin_toolchain_b2_closed_noservo_v1",
-        *COMPOSED_SUCCESSORS,
     }
 
 

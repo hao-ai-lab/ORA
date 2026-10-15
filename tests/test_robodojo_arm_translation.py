@@ -19,7 +19,7 @@ from pathlib import Path
 
 
 from delivery_lessons_fixtures import project
-from ora.agent.composition.profile_catalog import COMPOSED_SUCCESSORS, PROFILE_CATALOG
+from ora.agent.composition.profile_catalog import PROFILE_CATALOG
 from ora.agent.composition.tool_surface import resolve_tool_surface
 from ora.agent.native.action_summary import _millimetres, action_summary
 from ora.agent.native.receipt_projection import (
@@ -102,9 +102,9 @@ def test_the_capability_needs_contact_feedback():
 
 
 def test_only_the_v2_defaults_declare_it():
-    """Integration 0059 unit A0: the v2 defaults (LIBERO's is its overhead successor, 0084), nothing frozen."""
+    """The v2 defaults (LIBERO's is its overhead successor), nothing frozen."""
     declaring = {profile for profile in PROFILE_CATALOG
                  if PER_ARM_TRANSLATION_CAPABILITY in resolve_tool_surface(profile).capabilities}
 
     assert declaring == {"robotwin_toolchain_b2_closed_noservo_v2", "libero_placement_direct_overhead_v1",
-                         "robodojo_placement_closed_skills_v2"} | set(COMPOSED_SUCCESSORS)
+                         "robodojo_placement_closed_skills_v2"}

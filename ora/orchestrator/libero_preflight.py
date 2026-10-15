@@ -187,8 +187,8 @@ def _offscreen_graphics_runtime(
     """Name a broken offscreen GL binding before the LIBERO import probe runs.
 
     MuJoCo and PyOpenGL resolve EGL from forwarded process environment that no
-    other check covers, and RLinf swallows the resulting loader error behind a
-    generic ``ImportError``.  Enumerating devices in the simulator interpreter
+    other check covers, and the LIBERO import chain swallows the resulting
+    loader error behind a generic ``ImportError``.  Enumerating devices in the simulator interpreter
     keeps that failure attributable to the graphics stack.
     """
 
@@ -227,7 +227,6 @@ def libero_pro_runtime(
     # preflight._git or preflight.PROJECT_ROOT still reaches this check.
     _git, PROJECT_ROOT = git, project_root
     runtime = plan["runtime"]
-    direct_driver = runtime.get("environment_driver") == "direct_libero_v1"
     # Sparse motion v3 on LIBERO runs the hybrid CuRobo/OSC bindings, so it
     # takes the motion preflight (planner probe included).
     motion_enabled = (
@@ -250,7 +249,6 @@ def libero_pro_runtime(
     checks.append(execution_host_check(runtime, os.environ.get("ORA_EXECUTION_HOST")))
     roots: dict[str, Path | None] = {}
     for name, env_field, revision_field in (
-        *((("rlinf", "rlinf_root_env", "required_rlinf_revision"),) if not direct_driver else ()),
         ("libero_pro", "libero_pro_root_env", "required_libero_pro_revision"),
         ("libero_pro_data", "data_root_env", "required_data_revision"),
     ):
@@ -283,7 +281,6 @@ def libero_pro_runtime(
         "env": python_env, "configured": bool(raw_python),
         "executable": str(python) if python else None,
     }))
-    rlinf_root = roots.get("rlinf")
     libero_pro_root = roots.get("libero_pro")
     data_root = roots.get("libero_pro_data")
     # Every probe runs under the lane's own worker environment, as its worker
@@ -300,12 +297,12 @@ def libero_pro_runtime(
     if executable and python is not None:
         graphics = _offscreen_graphics_runtime(python, {**os.environ, **lane_environment})
         checks.append(graphics)
-    if executable and (direct_driver or rlinf_root) and libero_pro_root and data_root and (
+    if executable and libero_pro_root and data_root and (
         graphics is not None and graphics["passed"]
     ):
         probe_environment = {**os.environ, **lane_environment}
         probe_environment["LIBERO_TYPE"] = "standard"
-        python_paths = [str(PROJECT_ROOT), *([str(rlinf_root)] if not direct_driver else [])]
+        python_paths = [str(PROJECT_ROOT)]
         if probe_environment.get("PYTHONPATH"):
             python_paths.append(probe_environment["PYTHONPATH"])
         probe_environment["PYTHONPATH"] = os.pathsep.join(python_paths)
@@ -316,8 +313,7 @@ def libero_pro_runtime(
                 command = [
                     str(python), "-m",
                     "ora.environment.backends.libero_pro.probe",
-                    *(["--environment-driver", "direct_libero_v1"] if direct_driver
-                      else ["--rlinf-root", str(rlinf_root)]),
+                    "--environment-driver", "direct_libero_v1",
                     "--libero-pro-root", str(libero_pro_root),
                     "--data-root", str(data_root),
                     "--runtime-config-root", runtime_config_root,
@@ -333,7 +329,7 @@ def libero_pro_runtime(
                         "--robustness-case", str(runtime["robustness_case"]),
                     ))
                 probe = subprocess.run(
-                    command, cwd=libero_pro_root if direct_driver else rlinf_root, env=probe_environment,
+                    command, cwd=libero_pro_root, env=probe_environment,
                     capture_output=True, text=True, timeout=180, check=False,
                 )
             observed = None
@@ -364,7 +360,7 @@ def libero_pro_runtime(
             ))
     elif graphics is not None and not graphics["passed"]:
         # Running the import probe under a broken graphics stack only produces
-        # RLinf's generic ImportError, which reads as a broken LIBERO install.
+        # a generic ImportError, which reads as a broken LIBERO install.
         skipped = (
             "not evaluated: offscreen_graphics_runtime failed, so a LIBERO "
             "import failure here would misattribute the graphics fault"

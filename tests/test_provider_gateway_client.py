@@ -1,4 +1,4 @@
-"""Loopback gateway client binding before preflight (integration 0062 U13).
+"""Loopback gateway client binding before preflight.
 
 Fake gateway directories under tmp stand in for ~/.config/cliproxyapi-*; the
 real files are never read. Every assertion that touches a record, an error or
@@ -18,8 +18,24 @@ from ora.orchestrator import provider_gateway
 KIMI_KEY, CODEX_KEY, OTHER_KEY = "fake-kimi-client-key", "fake-codex-client-key", "fake-unaccepted-key"
 SECRETS = (KIMI_KEY, CODEX_KEY, OTHER_KEY)
 PROFILES = load_builtin_provider_profiles()
-KIMI = {"kind": "native_api", **PROFILES["kimi_loopback_pool_k3_anthropic_high_v1"]}
-ASTRA = {"kind": "native_api", **PROFILES["gpt6_astra_codexproxy_openai_high_16k_v1"]}
+_LOOPBACK = {
+    "endpoint_transport": "loopback_http_v1", "gateway_client_binding": True,
+    "proxy_env": ["NO_PROXY", "no_proxy"], "reasoning_effort": "high", "stream": True,
+    "supports_images": True, "session_affinity": "x_session_id_run_v1",
+    "qualification_schema": "ora.native-provider-probe.v1", "qualification_version": 1,
+}
+# Two test-local gateway profiles: an Anthropic-protocol account pool and an
+# OpenAI-compatible gateway whose endpoint carries /v1.
+KIMI = {"kind": "native_api", **_LOOPBACK, "protocol": "anthropic_messages",
+        "endpoint": "http://127.0.0.1:8318", "model": "k3", "model_env": "NATIVE_MODEL_ID",
+        "base_url_env": "NATIVE_MODEL_BASE_URL", "api_key_env": "NATIVE_MODEL_API_KEY",
+        "context_window_tokens": 262144, "max_output_tokens": 8192}
+ASTRA = {"kind": "native_api", **_LOOPBACK, "protocol": "openai_compatible",
+         "endpoint": "http://127.0.0.1:8319/v1", "model": "gpt-6-astra",
+         "model_env": "CODEX_PROXY_MODEL_ID", "base_url_env": "CODEX_PROXY_CHAT_BASE_URL",
+         "api_key_env": "CODEX_PROXY_API_KEY", "context_window_tokens": 262144,
+         "max_output_tokens": 16384, "output_token_parameter": "max_completion_tokens",
+         "tool_strictness": "explicit_false", "auth_scheme": "bearer"}
 LOW = {"kind": "native_api", **PROFILES["deepseek_flash_openai_low_16k_v1"]}
 
 

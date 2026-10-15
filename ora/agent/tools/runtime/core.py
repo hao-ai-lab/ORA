@@ -149,7 +149,6 @@ from ora.agent.tools.runtime.perception import PerceptionRuntimeMixin
 from ora.agent.tools.runtime.grasp import GraspRuntimeMixin
 from ora.agent.tools.runtime.holding import HoldingRuntimeMixin
 from ora.agent.tools.runtime.skills import SkillRuntimeMixin
-from ora.agent.tools.runtime.composed import ComposedToolRuntimeMixin
 from ora.agent.tools.runtime.motion_submit import MotionSubmissionRuntimeMixin
 from ora.agent.tools.runtime.motion import MotionRuntimeMixin
 from ora.agent.tools.runtime.move_pose import MovePoseRuntimeMixin
@@ -165,7 +164,6 @@ class ManipulationToolRuntime(
     GraspRuntimeMixin,
     HoldingRuntimeMixin,
     SkillRuntimeMixin,
-    ComposedToolRuntimeMixin,
     MotionSubmissionRuntimeMixin,
     MotionRuntimeMixin,
     MovePoseRuntimeMixin,
@@ -449,13 +447,7 @@ class ManipulationToolRuntime(
             # are registered once, under the canonical name, so a tool added
             # later cannot be reachable under one spelling and missing under the
             # other.
-            # A tool the surface binds to a composed library entry is served by
-            # its compiled contract and body, never by a same-named handler.
-            canonical = tool_names.canonical(name)
-            if canonical in (getattr(self.surface, "composed_tools", None) or {}):
-                result = self._composed_tool(canonical, arguments)
-            else:
-                result = handlers[canonical](arguments)
+            result = handlers[tool_names.canonical(name)](arguments)
             perception_feedback.enrich(self, name, arguments, result)
             visible = {
                 key: value for key, value in result.items()

@@ -9,4 +9,4 @@ An environment implements the session contract under `ora/environment/` and regi
 5. Add targeted fake-worker contract tests and the smallest meaningful qualified simulator smoke. Record dependency/version coverage; do not reuse physical evidence across an unreviewed invalidating change.
 6. Add an English installation and one-cell recipe, doctor discovery bindings, support-matrix row and issue-template guidance.
 
-Use the existing Synthetic backend for transport/lifecycle contracts and one maintained robot backend for the isolated interpreter pattern. Run the relevant tests, regenerate policy/composed identities when needed, and compare model-visible composition before submitting a PR.
+Use the existing Synthetic backend for transport/lifecycle contracts and one maintained robot backend for the isolated interpreter pattern. Run the relevant tests, regenerate `policy.lock` when needed, and compare model-visible composition before submitting a PR.

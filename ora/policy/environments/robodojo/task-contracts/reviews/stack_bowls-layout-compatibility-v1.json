@@ -23,7 +23,7 @@
     "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json",
     "excluded": "stack_bowls_random_<n>.json belongs to the separate stack_bowls_random task module and never matches <task>_\\d+\\.json"
   },
-  "decision": "User decision 2026-10-01: every round of a RoboDojo persistent session starts on a new layout by default. This appendix extends the stack_bowls review-v2 record from layout 0 to every eval_seed 0 layout without changing its contract text.",
+  "decision": "Every round of a RoboDojo persistent session starts on a new layout by default. This appendix extends the stack_bowls review-v2 record from layout 0 to every eval_seed 0 layout without changing its contract text.",
   "criteria": [
     "Instruction: gen_instruction (task/RoboDojo/tasks/stack_bowls.py:93-95) returns the constant template \"Stack the three bowls together.\" and ignores env_idx; the per-environment seed (equal to the layout ordinal) only reseeds the choice among one template, so every layout delivers the reviewed instruction. The worker refuses a round whose upstream instruction differs from round 0.",
     "Objects: every layout contains exactly the three Rigid instances bowl0, bowl1 and bowl2 named by run_reward, all of one bowl category (one asset per layout), and no other Rigid category: no clutter. The camera_stand under Geometry and the Room, Table, Ground and Background sections are JSON-equal to the reviewed layout 0.",

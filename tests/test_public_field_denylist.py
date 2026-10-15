@@ -40,7 +40,7 @@ from test_robodojo_backend import fake_sdk_candidate_boundary as _fake_boundary
 fake_sdk_candidate_boundary = pytest.fixture(_fake_boundary.__wrapped__)
 
 GRASP_CONTACT_POSE = "public_grasp_contact_pose_v1"
-LIVE_DOJO = ("robodojo_placement_closed_skills_v2", "robodojo_placement_closed_composed_v1")
+LIVE_DOJO = ("robodojo_placement_closed_skills_v2",)
 
 
 def _projection_surfaces() -> list[str]:

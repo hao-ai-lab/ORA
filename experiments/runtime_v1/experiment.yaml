@@ -7,7 +7,7 @@ output_workspace: outputs/harness-runtime-v1
 provider_profile: deepseek_flash_openai_low_16k_v1
 policy_context:
   codex_project:
-    - ora/policy/planners/codex/workspace-v1.md
+    - ora/policy/planners/native/project-v1.md
   episode_prefix:
     - ora/policy/core/thin-react-v1.md
     - ora/policy/environments/robotwin/boundary-v1.md

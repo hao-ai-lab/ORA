@@ -657,7 +657,7 @@ intervening opening/reset, insufficient motion and corrupt historical evidence.
 
 | Area | Representative modules | Responsibility |
 |---|---|---|
-| Control and qualification | `test_control_plane*.py`, `test_runtime_v1*.py`, `test_artifact_provenance.py`, `test_robotwin_prepared_grasp_qualification.py` | Planning, exact CLI, source gates, leases, evidence, sealing and repository hygiene; issued Artifact provenance, immutable historical review and bounded RoboTwin prepared-grasp evidence checks. |
+| Control and qualification | `test_control_plane*.py`, `test_runtime_v1*.py`, `test_artifact_provenance.py` | Planning, exact CLI, source gates, leases, evidence, sealing and repository hygiene; issued Artifact provenance and immutable historical review. |
 | Policy runtimes | `test_native_harness*.py` | Native and managed lifecycle, provider transport, tool pairing and wire integrity; real Codex through a local fake provider/MCP, exact namespace inventory, child-schema/compaction-alias rejection and flat/mixed legacy trace compatibility. |
 | Provider attempt recovery | `test_native_harness.py`, `test_native_harness_anthropic.py`, `test_native_harness_openai.py` | Bounded Anthropic stream recovery, credential redaction, request/artifact/attempt joins, OpenAI partial-stream recovery and TLS/final-error boundaries, including bounded pre-response bad-record-MAC retry. |
 | Operator stop during a policy turn | `test_operator_stop_cancellation.py` | An explicit stop that lands during projection, a provider stream or a completed reply ends the session with operator authority: no later request, retry or tool dispatch, no executed action and no valid behavioral sample; a closed-client error from any policy runtime is not a `trusted_fault`, while the identical failure without a stop stays infrastructure. Scripted providers only. |
@@ -666,12 +666,9 @@ intervening opening/reset, insufficient motion and corrupt historical evidence.
 | Robot actions and tools | `test_pose_frame_contract.py`, `test_motion_runtime.py`, `test_grounding_grasp_runtime.py`, `test_tool_help_contract.py`, `test_tool_description_consistency.py`, `test_published_limits.py` | Canonical action compilation, controller evidence, proposals and model-visible contracts; on the current surfaces, help that matches its handler (EXP11B description consistency); every enforced number in tool help equal to its owner through one table (`policy/tool_surfaces/published_limits_v1/limits.json`), with the current surfaces' known mismatches as strict expected failures and the unregistered successor texts (0059 N1/N2, with their refusal sentences) free of them. |
 | Holding and placement | `test_placement_geometry.py`, `test_placement_argument_shapes.py`, `test_robotwin_placement_adapter.py` | Public partial-geometry proposals, bounded front-cavity headroom with all observed points retained, actual public-state/receipt stage joins, explicit-arm sparse proposals and unchanged baseline transports. Both `place.*` argument spellings normalize to one selection with the bound schema deciding which is legal, the two active default surfaces publish the flat one and are checked for a surviving union after composition and after provider projection, and the conditional-opening and unequal-length rejections name their field rather than reproducing a union. CPU tests do not certify real GPU planning or physical placement. |
 | Closed manipulation skills | `test_manipulation_skill_ledger.py`, `test_manipulation_skill_driver.py`, `test_closed_skill_surface_contract.py`, `test_closed_skill_help_drift_repair.py`, `test_skill_sequence_action.py`, `test_skill_sequence_executor.py`, `test_skill_receipt_delivery.py`, `test_target_localization.py`, `test_verifier_retirement_capture.py`, `test_placement_rejection_ledger.py`, `test_grasp_candidate_palette.py` | One policy decision per skill: a grasp never yields, a place yields once before the release. Staged receipts measured against the delivery ceilings with the threshold's own serializer, per-source image binding and a mandatory bounded rationale. The canonical localization contract the retired verifiers' measurements moved into, the place.plan rejection ledger, and palettes pinned to the counts they bound. Trusted terminal signals produce irreversible `terminated` receipts, release skill ownership and prevent every subsequent stage while preserving measured controller evidence. CPU tests do not certify physical grasping, placement or retention. |
-| Composed tools | `test_starlark_runtime.py`, `test_composed_tool_contract.py`, `test_composed_tool_execution.py`, `test_composed_grasp_equivalence.py`, `test_composed_tool_live_path.py`, `test_composed_hold_and_questions.py`, `test_composed_linking.py` | The Starlark language boundary; reads, nested tools, value inputs and workspace tools bound by absolute path; headers, the SDK, the tunable table and the compiler; the executor's one-decision sequences with bounded retries, budgets and closed-skill receipt conventions; layer-1 static checks and the layer-2 contract of every library tool; layer-3 equivalence of grasp_execute c1 with the native prepared grasp; surface binding, the composed action, dispatch and delivery; check.hold and the question bank. Synthetic backends and fakes only: nothing here certifies a composed tool on a robot. |
-| Harness changes | `test_harness_change.py`, `test_composed_task_tools.py`, `test_benchmark_spec.py` | Composed version overrides and task tools added on one task, harness-change records in the default expansion and in a built RunSpec (surface, service binding, recorded selection). Offline: nothing here runs a candidate or measures a gain. |
 | Holding and placement | `test_placement_geometry.py`, `test_placement_argument_shapes.py`, `test_robotwin_placement_adapter.py` | Public partial-geometry proposals, bounded front-cavity headroom with all observed points retained, actual public-state/receipt stage joins, explicit-arm sparse proposals and unchanged baseline transports. Both `place.*` argument spellings normalize to one selection with the bound schema deciding which is legal, and the conditional-opening and unequal-length rejections name their field rather than reproducing a union. CPU tests do not certify real GPU planning or physical placement. |
 | Placement depth uncertainty | `test_placement_depth.py`, `test_placement_depth_tool_surface.py` | Local discontinuity evidence, preserved originals, retained-point projection, genuine far-tip ambiguity, conditional fit labels, immutable v1 surfaces and rehashed/recomputed v2 records. CPU counterexamples do not substitute for live evidence. |
-| Post-action image delivery | `test_servo_observation_delivery.py` | Fresh default and selected-wrist views after an action, explicit missing-wrist disclosure, fail-closed stale images, verified image bytes and immutable multi-image runtime inputs (`agent/context/action_views.py`). |
-| Historical Servo replay | `test_servo_historical_replay.py` | Historical replay rejects recorded Servo actions before simulator construction while legacy `servo_delta` payloads keep their bytes. |
+| Post-action image delivery | `test_current_visual_delivery.py` | Fresh current views after an action, fail-closed stale images, verified image bytes and immutable multi-image runtime inputs (`agent/context/action_views.py`). |
 | Plan A v7 feedback | `test_tool_boundary_recovery.py`, `test_environment_rpc_refusal.py`, `test_correctness_feedback.py`, `test_robotwin_contact_recovery.py`, `test_robotwin_ik_feedback.py` | Typed pre-execution refusals, truthful physical causes, fixed-start escape and frozen-target stalls, measured IK rejection counts and valid variant references. |
 | Prompt authoring | `test_prompt_bundle_authoring.py` | Modular prompt-bundle schema, layer ownership, embodiment format and offline audit gate. |
 | LIBERO execution correctness | `test_libero_correctness_repair.py` | First termination, planner/source binding and worker lifecycle; profile-v2 joint/TCP settling with fixed budget, precision-only force stops through sparse dispatch, sensor-site force conversion, executed-command drift and unchanged frozen-v1 behavior. Waypoint interruption and unfinished endpoint convergence remain distinct from measured settling through raw and model-visible feedback. Controller-boundary fakes do not qualify simulator dynamics. |
@@ -942,13 +939,9 @@ It covers `agent/native/session.py` and `agent/native/actual_snapshot.py`, which
 resolves the causal current observation's images, carried extras and measured
 end-effector state.
 
-Integration 0036 advanced those expectations to the reviewed v3 default and
-retired the eight repaired Servo disclosure gaps; with bounded Servo removed
-from this tree, the Servo guards of `test_parameter_delivery_guards.py` skip.
-Controller values, frozen profiles and historical evidence are unchanged.
-`test_servo_prompt_templates.py` checks that the fresh default templates
-declare no Servo and that the frozen Servo-baseline templates are refused at
-resolution and resolve without `servo`.
+`test_default_prompt_templates.py` checks that the default baseline's prompt
+templates pass their bundle audit, bind their exact surfaces and declare no
+Servo.
 
 
 Integration 0037 selects all approved public-data changes with Observer off. `test_successor_default_delivery.py` independently checks the six fresh
@@ -1282,18 +1275,6 @@ inside or overlapping a formal run is refused, and unfinished prefixes are
 deferred. `test_control_plane_cli.py` binds this command to the exact public CLI,
 documentation order and dispatch contract.
 
-`test_robotwin_prepared_grasp_qualification.py` checks the bounded four-case
-qualification evidence contract: stopping versus physical coverage, stage order,
-selected-arm routing, missing historical images and the difference between
-measured zero jaw aperture and normalized actuator position. Its CPU assertions validate the checker; only
-separately recorded simulator cases establish physical coverage. No fixture
-creates a grasp-success or task-success claim.
-
-`test_provider_prepared_grasp_probe.py` checks the restricted two-call Kimi/DeepSeek Low
-diagnostic, exact candidate/tool admission, public receipt and image delivery,
-and refusal of additional mutations. Its mock HTTP exercises both real protocol adapters without establishing a
-live Provider result; live cases retain separate source-bound requests and responses.
-
 
 - `test_provider_continuation_binding.py`: exact provider continuation identity across dispatch, missing tool IDs and both protocol projections.
 
@@ -1325,7 +1306,6 @@ fail, and unbound modules on the worker's import-time chain may only make
 declarative calls. It also covers readmitting a record whose manifest only grew
 by unchanged files, end to end through the real admission code, and the
 `kernel_admission` report it returns.
-`test_b2_collaboration.py` checks collaborator CLI defaults and service inputs.
 These use offline fixtures; they do not certify simulator or service readiness.
 
 `test_robodojo_ik_continuity.py` covers per-seed feasibility, joint limits and FK

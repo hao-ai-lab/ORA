@@ -43,7 +43,7 @@ PARITY = json.loads((ROOT / "ci/backend-parity.json").read_text(encoding="utf-8"
 ACTIVATION = json.loads((ROOT / "tests/data/default-expectations.json").read_text(encoding="utf-8"))
 CLASSES = {"generic", "generic_needs_backend_code", "backend_specific"}
 KINDS = {"retired", "deferred", "backend_missing", "version_split"}
-#: P<integration>-<letter><two digits>: 0059 opened the ledger, 0084 added P0084-D01.
+#: P<four digits>-<letter><two digits>: one id per recorded exception.
 EXCEPTION_ID = re.compile(r"^P\d{4}-[A-Z]\d{2}$")
 
 

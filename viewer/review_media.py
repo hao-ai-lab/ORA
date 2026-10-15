@@ -101,8 +101,7 @@ def find_execution_media(root: Path, trajectory: Mapping[str, Any], *, replay_mo
             continue
         kind = manifest.get("video_source_kind")
         reconstructed = (manifest.get("controller_replay") is True
-                         or manifest.get("historical_semantic_reenactment") is True
-                         or kind in {"viewer_derived_controller_replay", "viewer_derived_historical_libero_reenactment"}
+                         or kind == "viewer_derived_controller_replay"
                          or manifest.get("visual_fidelity") == "unverified_simulator_reconstruction")
         if replay_mode == "review" and (reconstructed or (
             kind not in {"same_session_execution_capture", "same_session_robotwin_control_frames",

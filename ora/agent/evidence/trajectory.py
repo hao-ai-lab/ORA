@@ -783,21 +783,6 @@ def export_sft(run_root: Path, destination: Path) -> Path:
             + ", ".join(str(item) for item in reasons)
         )
     events = read_agent_events(root)
-    # Export v1 has no qualified Servo training contract. Inspect exact action
-    # artifacts as well as evaluation so a stale/forged eligibility Boolean
-    # cannot relabel an unqualified local attempt as a fine-control target.
-    for event in events:
-        if event.get("type") != "action_proposed":
-            continue
-        reference = event.get("artifact_ref")
-        if not isinstance(reference, Mapping) or not isinstance(reference.get("path"), str):
-            continue  # Trace verification owns malformed/missing artifacts.
-        action_path = (root / reference["path"]).resolve()
-        if not action_path.is_relative_to(root) or not action_path.is_file():
-            continue
-        proposed = json.loads(action_path.read_text(encoding="utf-8"))
-        if isinstance(proposed, Mapping) and proposed.get("schema") == "ora-servo-action.v1":
-            raise TrajectoryError("SFT export v1 does not support unqualified Servo execution evidence")
     plan = json.loads((root / "plan.json").read_text(encoding="utf-8"))
     allow_public_grasp_contact_pose = _allows_public_grasp_contact_pose(plan)
     result = json.loads((root / "result.json").read_text(encoding="utf-8"))

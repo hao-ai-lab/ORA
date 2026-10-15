@@ -1,7 +1,7 @@
 {
   "schema": "ora.description-edit-review.v1",
-  "unit": "integration 0059, N1 phase 1 and N2 (2026-10-04)",
-  "status": "Registered by integration 0059 unit A0 as the last two description and schema slots of the successor manifest, each component pinned by its generated sha256. The edits apply to the successor's own text composed before these two layers and before any capability binder (edits_apply_to), so every layer the successor adds before them (ports, IK selection, wait, the M6 screen) survives. Regenerate with `python -m ora.agent.composition.description_edits <this file>` whenever that text changes, then re-pin the manifest.",
+  "unit": "published limits N1 phase 1 and N2",
+  "status": "Registered as the last two description and schema slots of the successor manifest, each component pinned by its generated sha256. The edits apply to the successor's own text composed before these two layers and before any capability binder (edits_apply_to), so every layer the successor adds before them (ports, IK selection, wait, the M6 screen) survives. Regenerate with `python -m ora.agent.composition.description_edits <this file>` whenever that text changes, then re-pin the manifest.",
   "base_profile": "robotwin_toolchain_b2_closed_noservo_v1",
   "successor_profile": "robotwin_toolchain_b2_closed_noservo_v2",
   "edits_apply_to": "successor_before_layers",
@@ -18,7 +18,7 @@
     "finish_episode": "policy_finish_outcomes_v2 (finish_outcomes_schema.description) writes finish_episode's whole description and input schema after every layer, so its Refused: sentence is generated there, with the codes agent/tools/finish_outcomes.py and finish_task_check.py raise; a layer edit would be overwritten."
   },
   "public_text_zh_reference": {
-    "note": "中文对照，仅供审阅；英文为权威文本，也是唯一投递给 Policy 的文本。每条 zh 只翻译该编辑新增或改动的文字，保留下来的锚定原句不重复翻译。"
+    "note": "Chinese reference rendering for review only; the English text is authoritative and is the only text delivered to the policy. Each zh translates only the words its edit adds or changes; anchor sentences kept unchanged are not translated again."
   },
   "edits": [
     {

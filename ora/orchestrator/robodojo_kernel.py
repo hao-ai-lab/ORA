@@ -68,10 +68,9 @@ from ora.environment.benchmarks.robodojo import RoboDojoBenchmarkError
 #: controller in 7c7e6a8a), ``pose`` (executed through
 #: ``motion.compile_servo_delta``), ``wait``, ``reach_check``,
 #: ``robot_geometry`` and ``skill_sequence`` (it decides which skill-sequence
-#: children the session admits, in what order). ``composed_tool`` joined for the
-#: same reason when composed tools reached the live path, with
-#: ``sequence_admission``, the session's child admission moved out of
-#: ``session.py`` (and so also in the motion subset the session belonged to).
+#: children the session admits, in what order), with ``sequence_admission``,
+#: the session's child admission moved out of ``session.py`` (and so also in
+#: the motion subset the session belonged to).
 #:
 #: Deliberately outside the set: the entries of ``KERNEL_REVIEWED_EXCLUSIONS``;
 #: ``agent/composition/embodiment.py`` and the tracked ARX X5 card, which
@@ -82,7 +81,6 @@ from ora.environment.benchmarks.robodojo import RoboDojoBenchmarkError
 WORKER_KERNEL_PATHS = (
     "ora/contracts/acceptance.py",
     "ora/contracts/action.py",
-    "ora/contracts/composed_tool.py",
     "ora/contracts/gripper_feedback.py",
     "ora/contracts/motion.py",
     "ora/contracts/planning_diagnostics.py",

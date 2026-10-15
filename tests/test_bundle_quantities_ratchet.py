@@ -287,9 +287,14 @@ def test_the_scan_covers_the_live_bundles_and_leaves_sealed_ones_alone() -> None
     """The live/frozen split is the reason this ratchet is obeyable; pin it."""
 
     live = _live_bundles()
-    assert live, "no live bundle resolved; the baseline catalog or frozen list moved"
-    frozen_dirs = {"placement_unified_v7", "explicit_motion_placement_v1", "explicit_motion_placement_v2"}
-    assert not {bundle for bundle in live if Path(bundle).parent.name in frozen_dirs}
+    assert live, "no live bundle resolved; the baseline catalog moved"
+    assert all((ROOT / bundle).is_file() for bundle in live), live
+    # Every other shipped bundle is out of scope only by name: today that is
+    # the explicit `ora local` bundle, which no baseline selects. A bundle
+    # added outside the baseline catalogs must be named here to be skipped.
+    shipped = {path.relative_to(ROOT).as_posix()
+               for path in (ROOT / "ora/policy/prompt_bundles").rglob("*.yaml")}
+    assert shipped - live == {"ora/policy/prompt_bundles/local_cpu_v1/libero-panda-native-api.yaml"}
     sources = _live_layer_sources()
     # Each authored layer that reaches the policy as prose is scanned. Both
     # backends of the default select the compute-routed planner and core

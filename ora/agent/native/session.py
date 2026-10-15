@@ -493,9 +493,7 @@ class NativePlanner(NativeActualSnapshotMixin, NativeOperatorMessagesMixin):
         record = current.get("post_action_observation")
         if not isinstance(record, Mapping):
             return feedback
-        label = ("current_views" if record.get("schema") ==
-            "ora.current-observation-bundle.v1" else "post_action_views")
-        return {**feedback, label: {
+        return {**feedback, "current_views": {
             "mode": record["mode"], "selected_arms": record["selected_arms"],
             "status": record["status"], "missing_wrist_views": record["missing_wrist_views"],
             "views": [image["camera"] for image in record["images"]],
@@ -1039,7 +1037,7 @@ class NativePlanner(NativeActualSnapshotMixin, NativeOperatorMessagesMixin):
             raise PolicySessionError(str(exc)) from exc
         if post_action_images:
             if not self.supports_images:
-                raise PolicySessionError("Servo post-action observation requires image support")
+                raise PolicySessionError("current post-action views require image support")
             for item in post_action_images:
                 content.extend([
                     {"type": "text", "text": f"ACTION RESULT ACTUAL · {item['camera']}"},

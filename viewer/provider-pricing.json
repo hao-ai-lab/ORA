@@ -1,22 +1,4 @@
 {
   "schema": "ora.viewer-provider-price-catalog.v1",
-  "prices": [
-    {
-      "price_id": "kimi-k3-cny-2026-07-28",
-      "provider": "Kimi",
-      "model": "kimi-k3",
-      "model_aliases": ["k3", "kimi-k3"],
-      "currency": "CNY",
-      "unit_tokens": 1000000,
-      "rates_per_million_tokens": {
-        "cache_hit_input": 2.0,
-        "cache_miss_input": 20.0,
-        "output": 100.0
-      },
-      "effective_date": "2026-07-28",
-      "retrieved_date": "2026-08-14",
-      "source_url": "https://www.kimi.com/zh-cn/resources/kimi-k3-pricing",
-      "taxes_and_account_discounts": "excluded"
-    }
-  ]
+  "prices": []
 }

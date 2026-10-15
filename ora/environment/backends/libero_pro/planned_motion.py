@@ -47,7 +47,7 @@ class LiberoPlannedMotionMixin:
         self.last_backtrack_tcp_pose = list(pose) if pose is not None else None
 
     def _refresh_joint_observation(self, steps: int) -> None:
-        """Update RLinf's cache from the last dispatched step, without stepping."""
+        """Update the driver's observation cache from the last dispatched step, without stepping."""
 
         if steps == 0:
             return
@@ -56,7 +56,7 @@ class LiberoPlannedMotionMixin:
             raise LiberoProError("joint execution observation is unavailable")
         environment = self._require_environment()
         environment.current_raw_obs = [dict(raw)]
-        # Direct joint dispatch bypasses RLinf.step, including its counter. The
+        # Direct joint dispatch bypasses the driver's step, including its counter. The
         # observation transfer itself consumes zero simulation steps.
         if hasattr(environment, "_elapsed_steps"):
             environment._elapsed_steps += steps

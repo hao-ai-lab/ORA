@@ -45,11 +45,9 @@ def _prepare_pinned_libero_imports(
 ) -> dict[str, str]:
     """Bind imports and public benchmark data to the verified checkouts.
 
-    RLinf's ``pro`` router prefers an installed ``liberopro`` distribution.  The
-    pinned LIBERO-Pro checkout in this project deliberately exposes the normal
-    ``libero`` package and already contains the Pro suites.  Selecting the
-    standard import route is therefore an adapter detail, not a benchmark
-    downgrade: suite names and data still come from the pinned Pro repositories.
+    The pinned LIBERO-Pro checkout exposes the normal ``libero`` package and
+    already contains the Pro suites, so the standard import route is used:
+    suite names and data still come from the pinned Pro repositories.
     """
 
     from .session import LiberoProError, _atomic_json
@@ -161,5 +159,4 @@ def _prepare_pinned_libero_imports(
         "benchmark_data_root": str(benchmark_data_root),
         "benchmark_data_source": benchmark_data_source,
         "assets_root": str(assets_root),
-        "rlinf_import_variant": "standard_import_of_pinned_libero_pro_checkout",
     }

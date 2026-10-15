@@ -45,7 +45,7 @@ def synthetic_spec() -> dict[str, Any]:
         "budgets": {"max_robot_decisions": 1, "max_model_calls": 6,
                     "max_sim_steps": 1, "wall_time_s": 120},
         "policy_context": {
-            "codex_project": ["ora/policy/planners/codex/workspace-v1.md"],
+            "codex_project": ["ora/policy/planners/native/project-v1.md"],
             "episode_prefix": ["ora/policy/core/thin-react-v1.md"],
             "tool_manual": ["ora/policy/embodiments/aloha-agilex/manual-v1.md"],
         },

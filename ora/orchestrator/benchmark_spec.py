@@ -31,8 +31,7 @@ What the RunSpec owns comes from here:
 
 Composing a RunSpec is not host qualification, service startup or authority to
 launch: ``scripts/ora plan|preflight|launch`` still resolve and check
-the written spec. The H200 official-suite delivery launcher remains on its
-delivery tag and composes only there.
+the written spec.
 """
 
 from __future__ import annotations
@@ -62,7 +61,7 @@ from ora.orchestrator.run_spec_inputs import (
 )
 
 ENVIRONMENTS = ("robotwin", "libero_pro", "libero")
-#: The official suite's per-episode budgets (the H200 delivery launcher's), for both benchmarks.
+#: The official suite's per-episode budgets, for both benchmarks.
 DEFAULT_BUDGETS = {"max_robot_decisions": 80, "max_model_calls": 200, "max_sim_steps": 10000,
                    "wall_time_s": 21600}
 DEFAULT_MILESTONES = {"robotwin": "ROBOTWIN", "libero_pro": "LIBERO-PRO", "libero": "LIBERO"}
@@ -95,8 +94,7 @@ def _assemble(environment: str, *, experiment: str, config: str, task: str, inst
               runtime: dict[str, Any], qualification: dict[str, Any], provider_profile: str | None,
               provider_catalog: Path | None, budgets: Mapping[str, int] | None, service_report: Path | None,
               cohort_id: str | None, milestone: str | None, evidence_tier: str, root: Path,
-              rounds: int | None = None, harness_change: Path | None = None,
-              baseline: str | None = None) -> dict[str, Any]:
+              rounds: int | None = None, baseline: str | None = None) -> dict[str, Any]:
     spec: dict[str, Any] = {
         "schema": SPEC_SCHEMA, "experiment": experiment, "config": config,
         "output_workspace": f"outputs/{experiment}", "milestone": milestone or DEFAULT_MILESTONES[environment],
@@ -111,17 +109,8 @@ def _assemble(environment: str, *, experiment: str, config: str, task: str, inst
         spec["policy"]["baseline"] = baseline
     if rounds is not None:
         spec["session"] = session_rounds(rounds, seed)
-    surface = None
-    if harness_change is not None:
-        # A harness-change record: defaults.expand_native_defaults applies it.
-        from ora.orchestrator.harness_change import bind_change, task_key
-
-        spec["policy"]["harness_change"], resolved = bind_change(harness_change, environment, root=root,
-                                                                 task=task_key(runtime))
-        surface = resolved["profile"]
     if service_report is not None:
-        spec["prerequisite"] = service_prerequisite(service_report, environment, root=root, surface=surface,
-                                                    baseline=baseline)
+        spec["prerequisite"] = service_prerequisite(service_report, environment, root=root, baseline=baseline)
     if cohort_id is not None:
         spec["launch_admission"] = single_attempt_admission(cohort_id, config)
     return spec
@@ -210,8 +199,7 @@ def build_robotwin_spec(task: str, *, seed: int, experiment: str, resource_profi
                         provider_catalog: Path | None = None, budgets: Mapping[str, int] | None = None,
                         service_report: Path | None = None, cohort_id: str | None = None,
                         milestone: str | None = None, evidence_tier: str = "behavioral",
-                        rounds: int | None = None, harness_change: Path | None = None,
-                        baseline: str | None = None,
+                        rounds: int | None = None, baseline: str | None = None,
                         root: Path = PROJECT_ROOT) -> dict[str, Any]:
     """One RoboTwin cell (task, seed, scene configuration) on the default baseline.
 
@@ -252,8 +240,7 @@ def build_robotwin_spec(task: str, *, seed: int, experiment: str, resource_profi
         runtime=runtime, qualification=qualification,
         provider_profile=provider_profile, provider_catalog=provider_catalog, budgets=budgets,
         service_report=service_report, cohort_id=cohort_id, milestone=milestone,
-        evidence_tier=evidence_tier, root=root, rounds=rounds, harness_change=harness_change,
-        baseline=baseline)
+        evidence_tier=evidence_tier, root=root, rounds=rounds, baseline=baseline)
 
 
 # --- LIBERO-Pro -----------------------------------------------------------------------------------
@@ -264,8 +251,7 @@ def build_libero_pro_spec(suite: str, task_id: int, *, seed: int, experiment: st
                           budgets: Mapping[str, int] | None = None, service_report: Path | None = None,
                           cohort_id: str | None = None, milestone: str | None = None,
                           evidence_tier: str = "behavioral", rounds: int | None = None,
-                          harness_change: Path | None = None, baseline: str | None = None,
-                          root: Path = PROJECT_ROOT) -> dict[str, Any]:
+                          baseline: str | None = None, root: Path = PROJECT_ROOT) -> dict[str, Any]:
     """One LIBERO-Pro core cell (suite, task, initial state ``seed``) on the default baseline.
 
     The official core evaluation runs initial states 0-49 of each task
@@ -278,8 +264,7 @@ def build_libero_pro_spec(suite: str, task_id: int, *, seed: int, experiment: st
                         experiment=experiment, resource_profile=resource_profile, host=host, config=config,
                         provider_profile=provider_profile, provider_catalog=provider_catalog, budgets=budgets,
                         service_report=service_report, cohort_id=cohort_id, milestone=milestone,
-                        evidence_tier=evidence_tier, rounds=rounds, harness_change=harness_change,
-                        baseline=baseline, root=root)
+                        evidence_tier=evidence_tier, rounds=rounds, baseline=baseline, root=root)
 
 
 def build_libero_spec(suite: str, task_id: int, *, seed: int, experiment: str, resource_profile: str,
@@ -288,8 +273,7 @@ def build_libero_spec(suite: str, task_id: int, *, seed: int, experiment: str, r
                       budgets: Mapping[str, int] | None = None, service_report: Path | None = None,
                       cohort_id: str | None = None, milestone: str | None = None,
                       evidence_tier: str = "behavioral", rounds: int | None = None,
-                      harness_change: Path | None = None, baseline: str | None = None,
-                      root: Path = PROJECT_ROOT) -> dict[str, Any]:
+                      baseline: str | None = None, root: Path = PROJECT_ROOT) -> dict[str, Any]:
     """One original LIBERO cell (base suite, task, initial state ``seed``) on the LIBERO-Pro backend.
 
     The four source-paired base suites (spatial, object, goal, 10) run on the
@@ -306,8 +290,7 @@ def build_libero_spec(suite: str, task_id: int, *, seed: int, experiment: str, r
                         experiment=experiment, resource_profile=resource_profile, host=host, config=config,
                         provider_profile=provider_profile, provider_catalog=provider_catalog, budgets=budgets,
                         service_report=service_report, cohort_id=cohort_id, milestone=milestone,
-                        evidence_tier=evidence_tier, rounds=rounds, harness_change=harness_change,
-                        baseline=baseline, root=root)
+                        evidence_tier=evidence_tier, rounds=rounds, baseline=baseline, root=root)
 
 
 #: Why a base cell's official instruction may differ from its BDDL file's wording.
@@ -323,7 +306,7 @@ def _libero_cell(suite: str, task_id: int, language, *, prefix: str, benchmark: 
                  provider_profile: str | None, provider_catalog: Path | None, budgets: Mapping[str, int] | None,
                  service_report: Path | None, cohort_id: str | None, milestone: str | None,
                  evidence_tier: str, rounds: int | None, root: Path,
-                 harness_change: Path | None = None, baseline: str | None = None) -> dict[str, Any]:
+                 baseline: str | None = None) -> dict[str, Any]:
     if (isinstance(seed, bool) or not isinstance(seed, int)
             or not 0 <= seed < OFFICIAL_CORE_INIT_STATES):
         raise ValueError(f"a LIBERO initial state must be in [0, {OFFICIAL_CORE_INIT_STATES})")
@@ -343,7 +326,7 @@ def _libero_cell(suite: str, task_id: int, language, *, prefix: str, benchmark: 
         provider_profile=provider_profile, provider_catalog=provider_catalog, budgets=budgets,
         service_report=service_report, cohort_id=cohort_id,
         milestone=milestone or DEFAULT_MILESTONES[benchmark], evidence_tier=evidence_tier, root=root,
-        rounds=rounds, harness_change=harness_change, baseline=baseline)
+        rounds=rounds, baseline=baseline)
 
 
 # --- writing --------------------------------------------------------------------------------------

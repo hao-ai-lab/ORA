@@ -203,28 +203,6 @@ def test_a_robotwin_cell_resolves_the_default_instance_and_delivers_its_contract
     assert {key for key in set(policy) | set(default) if policy.get(key) != default.get(key)} <= _provider_owned()
 
 
-def test_a_harness_change_cell_resolves_its_candidate_surface_and_binds_services_to_it(workspace, monkeypatch):
-    """A practice-loop candidate (harness_change) on the same cell: the plan records the overlay."""
-    change = Path("ora/policy/harness_changes/robotwin-composed-grasp-c1.json")
-    report = _readiness_report(workspace / "reports", monkeypatch)
-    spec, manifest = _robotwin(workspace, service_report=report, harness_change=change)
-    assert spec["policy"]["harness_change"] == {
-        "path": change.as_posix(), "sha256": hashlib.sha256((ROOT / change).read_bytes()).hexdigest()}
-    assert {child["tool_surface"] for child in spec["prerequisite"]["services"].values()} == {
-        "robotwin_toolchain_b2_closed_composed_v1"}
-    benchmark_spec.compose(spec, seed_manifest=manifest)
-    plan = resolve_run_spec(spec, root=ROOT)
-    baseline = plan["policy"]["baseline"]
-    assert (baseline["id"], baseline["selection"]) == (BASELINE_ID, "harness_change")
-    assert baseline["harness_change"] == {"id": "robotwin-composed-grasp-c1", **spec["policy"]["harness_change"]}
-    surface = plan["policy"]["tool_surface"]
-    assert surface["profile"] == "robotwin_toolchain_b2_closed_composed_v1"
-    assert plan["prerequisite"] == spec["prerequisite"]
-    default, _ = _robotwin(workspace / "default", service_report=report)
-    assert resolve_run_spec(default, root=ROOT)["policy"]["tool_surface"]["composition_sha256"] != (
-        surface["composition_sha256"])
-
-
 def test_without_runtime_task_a_robotwin_plan_silently_withholds_the_contract(workspace):
     """The pitfall the builder encodes: the plan still resolves, the contract is just not delivered."""
     spec, manifest = _robotwin(workspace)

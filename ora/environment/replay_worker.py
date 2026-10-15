@@ -646,9 +646,7 @@ def _replay_libero(
         raise ReplayWorkerError("run omits Runtime configuration")
     qualified_controller_binding = _libero_qualified_controller_binding(manifest_path)
     session = LiberoProSession(
-        rlinf_root=(_required_environment_path(runtime, "rlinf_root_env")
-                    if runtime.get("environment_driver", "rlinf_v1") == "rlinf_v1" else None),
-        environment_driver=str(runtime.get("environment_driver", "rlinf_v1")),
+        environment_driver=str(runtime.get("environment_driver", "direct_libero_v1")),
         libero_pro_root=_required_environment_path(runtime, "libero_pro_root_env"),
         data_root=_required_environment_path(runtime, "data_root_env"),
         output_root=output_root / "runtime",
@@ -661,7 +659,6 @@ def _replay_libero(
             if runtime.get("robustness_case") is not None else None
         ),
         expected_task_language=str(runtime["expected_task_language"]),
-        required_rlinf_revision=runtime.get("required_rlinf_revision"),
         required_libero_pro_revision=str(runtime["required_libero_pro_revision"]),
         required_data_revision=str(runtime["required_data_revision"]),
         workspace_bounds_m=runtime["workspace_bounds_m"],

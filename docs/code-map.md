@@ -11,7 +11,7 @@
 | Policy composition, embodiment and tool contracts | `ora/agent/composition/` |
 | Context projection, compaction and delivery | `ora/agent/context/` |
 | Recoverable context artifact storage | `ora/agent/memory/` (historical package name; no Task Memory) |
-| Policy-visible tools and composed skills | `ora/agent/tools/` |
+| Policy-visible tools and closed skills | `ora/agent/tools/` |
 | Resident perception services | `ora/agent/model_services/` |
 | Trace and policy-state evidence | `ora/agent/evidence/` |
 | Action envelopes and shared validation | `ora/contracts/` |

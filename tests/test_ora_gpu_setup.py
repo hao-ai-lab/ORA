@@ -42,6 +42,7 @@ def test_environments_pull_in_only_what_they_run_on():
 
 def _recording(tmp_path, **kwargs):
     commands = []
+    created = [0]
 
     def runner(argv, *, cwd=None, env=None, timeout=None):
         commands.append({"argv": argv, "cwd": cwd, "env": dict(env or {})})
@@ -50,7 +51,14 @@ def _recording(tmp_path, **kwargs):
             (target / "bin").mkdir(parents=True, exist_ok=True)
             (target / "bin/python").write_text("")
             version = argv[argv.index("--python") + 1]
-            (target / "pyvenv.cfg").write_text(f"version_info = {version}.4\n")
+            config = target / "pyvenv.cfg"
+            config.write_text(f"version_info = {version}.4\n")
+            # A real ``uv venv`` takes far longer than one timestamp tick; without
+            # this, ext4 can reuse the inode within one tick and a recreated
+            # environment looks unchanged to ``_venv_identity``.
+            created[0] += 1
+            stamp = config.stat().st_mtime_ns + created[0] * 1_000_000_000
+            os.utime(config, ns=(stamp, stamp))
 
     context = setup.Context(prefix=tmp_path / "prefix", runner=runner, environ={"PATH": "/usr/bin"}, **kwargs)
     return context, commands

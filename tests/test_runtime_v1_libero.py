@@ -56,18 +56,16 @@ def test_libero_pro_session_projects_metric_rgbd_and_uses_official_termination(
         )
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test", workspace_bounds_m={
             "x": [-0.3, 0.3], "y": [-0.3, 0.3], "z": [-0.1, 1.3],
         }, max_sim_steps=100, environment_factory=factory,
     )
     reset = session.start()
-    assert factory_arguments["rlinf_root"] == (tmp_path / "RLinf").resolve()
     assert factory_arguments["libero_pro_root"] == (
         tmp_path / "LIBERO-PRO"
     ).resolve()
@@ -210,11 +208,10 @@ def test_libero_pro_session_projects_metric_rgbd_and_uses_official_termination(
         )
 
     blocked = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "blocked-native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -263,11 +260,10 @@ def test_libero_contact_deflection_is_degraded_physics_not_infra_fault(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -307,11 +303,10 @@ def test_libero_motion_force_is_telemetry_without_stop_authority(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "motion-force-reflex",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -402,7 +397,6 @@ def test_libero_nonzero_rotation_closes_the_servo_loop_in_radians(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf",
         libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data",
         output_root=tmp_path / "native-rotation",
@@ -411,7 +405,6 @@ def test_libero_nonzero_rotation_closes_the_servo_loop_in_radians(
         suite="libero_goal_task",
         task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -468,7 +461,6 @@ def test_libero_session_allows_only_monotonic_out_of_bounds_recovery(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf",
         libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data",
         output_root=tmp_path / "native-recovery",
@@ -477,7 +469,6 @@ def test_libero_session_allows_only_monotonic_out_of_bounds_recovery(
         suite="libero_goal_task",
         task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -541,11 +532,10 @@ def test_libero_control_health_fault_stops_after_gross_divergence(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -588,11 +578,10 @@ def test_libero_tracking_guard_records_cross_axis_drift_without_stopping_progres
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "tracking-native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -645,11 +634,10 @@ def test_libero_tracking_growth_is_telemetry_without_stop_authority(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "diverging-native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -693,11 +681,10 @@ def test_libero_orientation_divergence_is_action_failure_not_infra(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "orientation-native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -738,11 +725,10 @@ def test_libero_gripper_contact_motion_is_degraded_not_collision_truth(
         return environment, _fake_libero_metadata(tmp_path, public_context)
 
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "gripper-motion-native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test",
         required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={
@@ -783,12 +769,10 @@ def test_libero_gripper_contact_motion_is_degraded_not_collision_truth(
 def test_libero_runtime_rechecks_bound_controller_source_files(tmp_path: Path) -> None:
     """Exercise the live-only binding branch without importing the simulator."""
 
-    rlinf_root = tmp_path / "RLinf"
     libero_root = tmp_path / "LIBERO-PRO"
     data_root = tmp_path / "data"
     robosuite_root = tmp_path / "site-packages/robosuite"
     files = {
-        "rlinf_module": rlinf_root / "rlinf/envs/libero/libero_env.py",
         "libero_module": libero_root / "libero/libero/__init__.py",
         "benchmark_module": libero_root / "libero/libero/benchmark.py",
         "bddl_root": libero_root / "libero/libero/bddl_files",
@@ -826,14 +810,17 @@ def test_libero_runtime_rechecks_bound_controller_source_files(tmp_path: Path) -
     session = object.__new__(LiberoProSession)
     session.execution_capture = {"enabled": False}  # This fixture has no live camera worker.
     session.environment_factory = _build_environment
-    session.rlinf_root = rlinf_root
     session.libero_pro_root = libero_root
     session.data_root = data_root
     session.suite = "libero_object"
     session.metadata = {
         "bddl_file": str(bddl_file),
         "init_states_file": str(init_file),
-        "runtime_bindings": {name: str(path) for name, path in files.items()},
+        "runtime_bindings": {
+            **{name: str(path) for name, path in files.items()},
+            # The direct driver is bound inside the installed backend package.
+            "direct_driver_module": str(Path(_build_environment.__code__.co_filename).with_name("direct.py")),
+        },
     }
     session.controller_action_contract = libero_osc_action_contract(controller_config)
     session.source_manifest = {"source": "test"}

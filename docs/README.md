@@ -27,7 +27,7 @@
     installs LIBERO, RoboTwin or RoboDojo and `ora run --env … --task …` runs
     one task in the terminal UI.
 
-    [Run on one GPU →](getting-started/single-gpu.md)
+    [LIBERO →](getting-started/libero.md) · [RoboTwin →](getting-started/robotwin.md) · [RoboDojo →](getting-started/robodojo.md) · [One-GPU guide →](getting-started/single-gpu.md)
 
 -   **Robot environments**
 

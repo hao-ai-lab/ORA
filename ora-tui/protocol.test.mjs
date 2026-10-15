@@ -300,9 +300,9 @@ test("footer preserves task, model, usage and actual context counts at recording
 
 test("Pi rendering anchors the visible prompt and keeps complete identity at 90×44 and 110×44", (t) => {
 	const app = frontEnd(t, ["some/run"]);
-	const runId = "rpent-zeroshot-hdev-robotwin-a10efe025260--20261005T124118Z";
+	const runId = "example-zeroshot-v1-robotwin-0123456789ab--20260101T120000Z";
 	app.handlers.header({ version: "v0.14.0", mode: "replay ×10", run_id: runId,
-		benchmark: "RoboTwin", task: "place_shoe", experiment: "rpent-zeroshot-hdev",
+		benchmark: "RoboTwin", task: "place_shoe", experiment: "example-zeroshot-v1",
 		model: "DeepSeek-V4.1-Flash", reasoning_effort: "low", provider_protocol: "openai_chat_completions" });
 	app.handlers.user({ text: "Use one arm to grab the shoe from the table and place it on the mat." });
 	app.handlers.assistant({ text: "I will inspect the scene before moving." });

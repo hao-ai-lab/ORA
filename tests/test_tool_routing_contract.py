@@ -12,8 +12,7 @@ from ora.agent.composition.tool_surface import ToolSurfaceError
 PROFILES = [
     "libero_placement_direct_overhead_v1",
     "robotwin_toolchain_b2_closed_noservo_v1", "robotwin_toolchain_b2_closed_noservo_v2",
-    "robotwin_toolchain_b2_closed_composed_v1",
-    "robodojo_placement_closed_skills_v2", "robodojo_placement_closed_composed_v1",
+    "robodojo_placement_closed_skills_v2",
 ]
 
 

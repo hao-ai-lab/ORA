@@ -35,7 +35,7 @@ from ora.contracts.reach_check import RESULT_SCHEMA
 from ora.environment.controllers.reach_check import joint_delta_rad, joint_limit_margin_rad
 
 DOJO = "robodojo_placement_closed_skills_v2"
-ROBOTWIN_LIVE = ("robotwin_toolchain_b2_closed_noservo_v2", "robotwin_toolchain_b2_closed_composed_v1")
+ROBOTWIN_LIVE = ("robotwin_toolchain_b2_closed_noservo_v2",)
 #: The live articulation's limits as the g007 IK diagnostics recorded them.
 X5_LIMITS = [[-9.999999046325684, 9.999999046325684]] * 5 + [[-3.1399998664855957, 3.1399998664855957]]
 MEASURED = [6.886e-13, -1.436e-15, 1.080e-16, 7.720e-16, -1.147e-12, 5.051e-12]

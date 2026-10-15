@@ -44,4 +44,4 @@ uv run --locked python experiments/runtime_v1/run.py seal NATIVE_RUN_ID
 
 Only a valid completed Native M5 run with `official_success: true` records final behavioral acceptance. Lower infrastructure gates may be valid with a false behavioral verdict. The source and run identities of previous evidence remain unchanged.
 
-The extra `control-audit` and `libero-pose-control` commands support specific controller diagnostics; inspect `--help` and their module contracts before allocating a simulator. They are not required by the Synthetic quickstart.
+The extra `control-audit` command classifies a LIBERO run's behavioral verdict and control validity separately; inspect `--help` before using it. They are not required by the Synthetic quickstart.

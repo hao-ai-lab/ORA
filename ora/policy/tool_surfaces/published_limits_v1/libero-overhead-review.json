@@ -1,6 +1,6 @@
 {
  "schema": "ora.description-edit-review.v1",
- "unit": "EXP12B/placement-centre (2026-10-09): integration 0059 N1/N2 edits regenerated for libero_placement_direct_overhead_v1",
+ "unit": "published limits N1/N2 edits regenerated for libero_placement_direct_overhead_v1",
  "status": "Registered as the last two description and schema slots of libero_placement_direct_overhead_v1, each component pinned by its generated sha256. The edits are libero-review.json's (direct_v2); they apply to the candidate's own text composed before these two layers and before any capability binder (edits_apply_to). Regenerate with `python -m ora.agent.composition.description_edits <this file>` whenever that text changes.",
  "base_profile": "libero_placement_explicit_motion_direct_v2",
  "successor_profile": "libero_placement_direct_overhead_v1",
@@ -18,7 +18,7 @@
   "finish_episode": "policy_finish_outcomes_v2 (finish_outcomes_schema.description) writes finish_episode's whole description and input schema after every layer, so its Refused: sentence is generated there, with the codes agent/tools/finish_outcomes.py and finish_task_check.py raise; a layer edit would be overwritten."
  },
  "public_text_zh_reference": {
-  "note": "中文对照，仅供审阅；英文为权威文本，也是唯一投递给 Policy 的文本。每条 zh 只翻译该编辑新增或改动的文字，保留下来的锚定原句不重复翻译。"
+  "note": "Chinese reference rendering for review only; the English text is authoritative and is the only text delivered to the policy. Each zh translates only the words its edit adds or changes; anchor sentences kept unchanged are not translated again."
  },
  "edits": [
   {

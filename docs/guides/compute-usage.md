@@ -11,8 +11,8 @@ The exact model-visible description is the `compute` entry in
 [`tool_routing_v1/shared-help.json`](../../ora/policy/tool_surfaces/tool_routing_v1/shared-help.json).
 The evaluator, input schema and output schema retain their v2 behavior. That
 file also appends a four-sentence copy of the rule to `move_pose`, `move_to`,
-`rotate_pitch` and `rotate_wrist`; from EXP11B (2026-10-03) the current LIBERO,
-RoboTwin and Dojo surfaces replace that copy with one sentence pointing to
+`rotate_pitch` and `rotate_wrist`; the current LIBERO, RoboTwin and Dojo
+surfaces replace that copy with one sentence pointing to
 `compute`'s Use when, which stays the rule's only owner
 ([reference](../reference/public-interfaces.md#tool-description-consistency)).
 

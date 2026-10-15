@@ -318,7 +318,6 @@ def _audit_system_section() -> dict[str, Any]:
     return {
         "runtime_metrics": "runtime-metrics.json",
         "context_audit": "context-audit.json",
-        "coding_audit": "native/coding-audit.jsonl",
     }
 
 

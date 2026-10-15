@@ -276,7 +276,7 @@ def test_capture_configuration_reaches_isolated_backend_constructor(tmp_path, mo
         request_timeout_s=1, task_config='demo_randomized', required_revision='source',
         workspace_bounds_m={'x': [-1, 1], 'y': [-1, 1], 'z': [0, 2]},
         suite='libero_spatial', task_id=0, expected_task_language='fixture',
-        required_rlinf_revision='rlinf-source', required_libero_pro_revision='libero-source',
+        required_libero_pro_revision='libero-source',
         required_data_revision='data-source', servo_max_steps=80)
     context = factory._BuildContext(runtime=runtime, output_root=tmp_path / 'native',
         task='fixture-task', seed=0, max_sim_steps=10, redacted_environment_names=(),

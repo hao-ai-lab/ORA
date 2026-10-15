@@ -1,9 +1,4 @@
-"""Resident perception services: readiness reports, binding and lifecycle.
-
-These checks of ora/agent/model_services/operator.py were reached only
-through tests/test_b2_collaboration.py, whose module imports a study package;
-they run here against the product module alone (RoboDojo builder relocation).
-"""
+"""Resident perception services: readiness reports, binding and lifecycle."""
 from __future__ import annotations
 
 import copy

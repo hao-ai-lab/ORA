@@ -25,7 +25,7 @@ Import from the explicit `ora` subpackages. There are no flat compatibility re-e
 
 `ora.agent.contracts` defines policy-session contracts. `ora.agent.native` implements the direct API lifecycle and loop. `ora.agent.providers` translates canonical OpenAI-shaped requests at the OpenAI-compatible or Anthropic Messages wire boundary. Credentials are environment inputs, not RunSpec values.
 
-Tool runtime ownership is `ora.agent.tools`. A ToolSurface is the authority for advertised names and schemas; callers must not infer tools from module names. Observation, perception and geometry tools are read-only. Mutation tools submit proposals through the host mutation port and Supervisor. Composed tools are checked/compiled from the versioned library; their compiled identities must match their sources.
+Tool runtime ownership is `ora.agent.tools`. A ToolSurface is the authority for advertised names and schemas; callers must not infer tools from module names. Observation, perception and geometry tools are read-only. Mutation tools submit proposals through the host mutation port and Supervisor.
 
 `observation.dump_state` reads public current/historical state. `robot.submit_action` is the generic mutation boundary; selected surfaces use their declared motion/gripper/skill names without bypassing supervision. Argument refusals include their public constraints. Grasp/placement helpers may provide derived geometry, never privileged simulator labels.
 

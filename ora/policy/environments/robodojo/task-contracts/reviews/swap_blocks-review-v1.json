@@ -304,7 +304,7 @@
     "note": "Every evaluator clause and failure latch is disclosed in words. The arm-return sentence is the shared registry wording; boundary-v2 owns its reference poses, private allowance and home route and applies it only where a task contract states it. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
   },
   "public_text_zh_reference": {
-    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "note": "Chinese reference rendering for review only; the English semantic_contract is authoritative and is the only text delivered to the policy.",
     "clauses": [
       "交换是指每个方块最终位于本回合复位时另一个方块所在的垫子上。两个方块外观相同，因此完成后的布置看起来与开始时一样；只有每个方块确实被移到了对方的垫子上才算。",
       "官方判定依次寻找恰好三次移动：先把一个方块从它自己的垫子移到复位时空着的那块垫子上；再把另一个方块移到第一个方块原来所在的垫子上；最后把第一个方块从原先空着的垫子移到第二个方块原来所在的垫子上。哪个方块先移都可以。只有当被移动的方块已放在新垫子的中部、同时另一个方块停在它所在的垫子上时，这次移动才算完成。",

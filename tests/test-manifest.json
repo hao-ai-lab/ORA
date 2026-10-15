@@ -26,42 +26,6 @@
       "contract": "Original RGB provenance, bounded queue/finalization, control-path coverage and shared capture defaults."
     },
     {
-      "path": "tests/test_starlark_runtime.py",
-      "contract": "Starlark boundary for composed tool bodies: the standard dialect without while, load, print or f-strings; host symbols bound as immutable nested namespaces; query and action calls refused at load time while pure symbols run at load and on every interpretation without being journaled; declared globals read before the module freezes; plan entries cannot reach an action; execute entries suspend at the first unjournaled action and replay recorded calls without re-calling the host; divergent or over-long journals are refused; tick, wall-clock and call-stack limits, fail(), host failures, deliberate host refusals and non-finite or non-data values each map to one error code. Pins the binding's lossy NaN/inf-to-None edge. No tool surface or robot is involved."
-    },
-    {
-      "path": "tests/test_composed_tool_contract.py",
-      "contract": "Composed tool headers, SDK, tunable table and compiler: header constructors and strict parse (one rationale input, arm input for dual-arm tools, privileged names, 1..6 stages of gripper/move/check, budgets covering the action stages, one-sentence summary); unqualified tunables cannot be exposed and qualified ranges bound what they admit; SDK action requests normalize positional and keyword calls, name declared stages of their primitive and lower to validated motion v3 set_gripper/move_pose envelopes; result, measurement and vector/pose constructors check their arguments; compiled help is six labelled lines generated from the header and passes validate_tool_help_contract, arm profiles compile different input schemas, and compiled_sha256 binds source and contract. No robot, ToolSurface or runtime dispatch is involved."
-    },
-    {
-      "path": "tests/test_composed_tool_execution.py",
-      "contract": "Composed tool execution and admission: the committed library (open_gripper, close_gripper and grasp_execute c1) passes the layer-1 static checks and keeps every layer-2 contract invariant in every single-fault scenario (not_reached, unavailable, refused, operator interrupt, terminal environment) on both arm profiles; the gripper tools submit the motion v3 set_gripper the atomic tools submit, with the atomic tools' arm and target_ref arguments plus a rationale; schema refusals name the field and submit nothing; a fixture body records bounded retries as one stage with an attempts count and declared-index child ids, spends action, query and wall budgets into budget_exhausted, maps body faults to stage_driver_fault with a receipt, refuses undeclared plan refusal codes, and replays deterministically; static checks report compiled drift, undeclared tool names and undeclared stage literals. Uses a fake world; no simulator or Provider."
-    },
-    {
-      "path": "tests/test_composed_grasp_equivalence.py",
-      "contract": "Layer 3 for grasp_execute/c1: on identical synthetic backends behind one motion v3 shim, the native prepared grasp (begin_skill, execute_skill_sequence) and the composed tool (surface binding, invoke, start_composed_tool, execute_composed_tool) give the same child actions, outer stage records and skill receipt (apart from the composed identity, paths and verification.hold) nominally, with pregrasp, approach or lift not reached, with open or close unavailable, and with the episode ending after approach; the nominal composed run dispatches five declared-index stages, verifies with the lift probe, the post-close baseline and the pre-commit probe evidence, and reports a hold verdict. No simulator or Provider."
-    },
-    {
-      "path": "tests/test_composed_tool_live_path.py",
-      "contract": "Composed tools on the live path: the two composed successor surfaces serve grasp_execute from its compiled dual-arm document with every other tool identical to their source and the binding in the composition hash; bind_composed_tools replaces only the bound tool and refuses a missing capability, an undeclared or renamed tool and a malformed or missing version; the composed action contract normalizes, routes and refuses malformed fields; a native sequence in flight or a stale candidate refuses the composed call with nothing submitted; the call persists its commitment and one action, and a drifted action is refused at start; the job requires start_composed_tool; the projection delivers a composed receipt as stages with the stages not reached; RoboDojo admits composed children by committed stage in order with counted retries only as sparse motion v3; the command-tree and placement evidence readers join every composed child, retries and skipped stages included, and refuse a receipt that does not join. No simulator or Provider."
-    },
-    {
-      "path": "tests/test_composed_hold_and_questions.py",
-      "contract": "check.hold and the question bank: the hold rule table fuses closure extent, lift surface motion, RoboDojo jaw stall and a labelled model judgement into contradicted, supported or unknown; sdk.check.hold is a pure function a body branches on; gripper_holds_object@v1 is registered and not admitted, an evaluated question is admitted and checks its answers and slots, and malformed questions are refused; sdk.ask is unavailable for an unadmitted question or a host without model_judge and answers through an admitted one; a tool that asks an unadmitted question fails the static checks. No Provider."
-    },
-    {
-      "path": "tests/test_composed_linking.py",
-      "contract": "Linking a composed tool to the Harness (composed spec 20): text, number and choice inputs compile to a closed schema and are validated; sdk.read returns scripted read results in plan and execute, an unmeasured read lets plan refuse and a non-read tool is a fault and a layer-1 finding; a tool stage plans its nested tool and dispatches its actions as attempts of the stage with a nested_tool summary, keeps its contract in every single-fault scenario, passes a nested refusal to the body and stops at the depth cap; tool stages resolve next to the tool and refuse cycles and missing tools; a workspace tool binds by absolute path with root, source sha256 and its nested closure pinned; quaternion helpers; on a real tool runtime a workspace tool re-reads after a move and runs a library tool as a stage. No simulator or Provider."
-    },
-    {
-      "path": "tests/test_composed_task_tools.py",
-      "contract": "Task tools (composed spec §18, T1): a composed: override adds a library tool the surface does not declare, appended after the surface's tools with its compiled definition and result schema, as a mutation tool recorded scope added, changing the composition hash; a surface without composed_tools_v1 refuses it and a manifest still binds declared tools only; harness-change task_tools bind on their task and on no other, a missing version fails only on its task, records are validated (task key, ref, overlap with composed_tools); the runtime serves an added task tool through the composed path. No simulator or Provider."
-    },
-    {
-      "path": "tests/test_harness_change.py",
-      "contract": "Harness-change records: a composed: component override rebinds a library version through every resolver call and is refused without composed_tools_v1 or for a missing version; a harness-change record overlays its baseline's instance in the default expansion (successor surface, composed overrides, prompt bundle), is recorded as selection harness_change, leaves other Runtime kinds unchanged and is refused for drifted bytes, a non-successor surface, an unbindable tool, an explicit surface or a malformed field. No simulator or Provider."
-    },
-    {
       "path": "tests/test_viewer_visual_fidelity.py",
       "contract": "Original-only default review, complete diagnostic target execution, fidelity labels and capture integrity."
     },
@@ -411,7 +375,7 @@
     },
     {
       "path": "tests/test_parameter_delivery_guards.py",
-      "contract": "Quantitative delivery guards: a bound the Runtime enforces, a tier the policy selects by name and a public failure code naming a comparison must each reach the model as usable numbers. Its Servo-profile guards run against every discovered Servo profile and skip on this tree, which ships none. Production Native camera geometry delivery ratchet requires both maintained defaults to deliver numeric camera geometry after the DS-R06 repair. Actual gripper residual/threshold delivery and missing/tampered-evidence rejection complement the static registry. Every RoboDojo IK candidate rejection code is registered with the ik_selection numbers it must deliver, and a pitch_joint_wrap refusal is checked to carry the joint, its measured and commanded values and the canonical interval."
+      "contract": "Quantitative delivery guards: a bound the Runtime enforces, a tier the policy selects by name and a public failure code naming a comparison must each reach the model as usable numbers. Production Native camera geometry delivery ratchet requires both maintained defaults to deliver numeric camera geometry after the DS-R06 repair. Actual gripper residual/threshold delivery and missing/tampered-evidence rejection complement the static registry. Every RoboDojo IK candidate rejection code is registered with the ik_selection numbers it must deliver, and a pitch_joint_wrap refusal is checked to carry the joint, its measured and commanded values and the canonical interval."
     },
     {
       "path": "tests/test_perception_choice.py",
@@ -614,15 +578,7 @@
       "contract": "M0-M5 Runtime qualification, planning, evidence and sealing."
     },
     {
-      "path": "tests/test_servo_historical_replay.py",
-      "contract": "Historical replay explicitly rejects new Servo records before simulator import while retaining legacy servo_delta behavior."
-    },
-    {
-      "path": "tests/test_servo_observation_delivery.py",
-      "contract": "Mandatory primary and selected-wrist action-result images through Native, Codex and Claude Code, including partial image failure without action resubmission."
-    },
-    {
-      "path": "tests/test_servo_prompt_templates.py",
+      "path": "tests/test_default_prompt_templates.py",
       "contract": "The default baseline's LIBERO, RoboTwin and RoboDojo Native prompt templates pass their bundle audit and bind their exact surfaces and prompt ownership; no default declares Servo, the dual-arm defaults are closed-skill surfaces without place_execute, and the template inventory covers all three backends."
     },
     {
@@ -786,14 +742,6 @@
       "contract": "Harness-issued Context Artifact origins, rejected model-reference separation, successful-read traceability, backing-file corruption rejection and immutable historical revalidation reports with explicit evidence gaps."
     },
     {
-      "path": "tests/test_robotwin_prepared_grasp_qualification.py",
-      "contract": "Bounded RoboTwin prepared-grasp qualification evidence checks: left/right closed-start and empty-lift case identities, stage order and measured geometry/lift, original observation delivery, source/dependency binding and conservative failure/coverage reporting without behavioral-success claims."
-    },
-    {
-      "path": "tests/test_provider_prepared_grasp_probe.py",
-      "contract": "Restricted Kimi/DeepSeek Low grasp diagnostic binds the registered provider, permits one selected-candidate grasp then feedback assessment, preserves public receipt/image delivery and refuses additional mutations; CPU fakes make no live-provider claim."
-    },
-    {
       "path": "tests/test_provider_continuation_binding.py",
       "contract": "Provider-bound assistant identity survives dispatch and projection; missing tool-call IDs are repaired only without bound continuation."
     },
@@ -823,7 +771,7 @@
     },
     {
       "path": "tests/test_control_plane_viewer.py",
-      "contract": "Viewer run discovery and classification, historical LIBERO re-enactment identity and codec admission, RoboTwin and LIBERO controller replay routes and caches, and the pinned task catalogs."
+      "contract": "Viewer run discovery and classification, RoboTwin and LIBERO controller replay routes and caches, and the pinned task catalogs."
     },
     {
       "path": "tests/test_control_plane_workspace.py",
@@ -912,10 +860,6 @@
     {
       "path": "tests/test_inspect_export.py",
       "contract": "Read-only Inspect export preserves original run/source and round identities, validates sealed evidence, distinguishes prefixes from failures and resolves controller/image references."
-    },
-    {
-      "path": "tests/test_b2_collaboration.py",
-      "contract": "Collaborator CLI composes maintained LIBERO/RoboTwin defaults, explicit resource/provider inputs and bounded service readiness without live launches."
     },
     {
       "path": "tests/test_motion_repair_admission.py",
@@ -1111,7 +1055,7 @@
     },
     {
       "path": "tests/test_direct_libero_runtime.py",
-      "contract": "The direct LIBERO driver resets to its seeded initial state with fifteen settling no-ops, truncates at its step budget, never auto-resets on termination, refuses another task's reset id and non-finite actions; the default LIBERO RunSpec binds direct_libero_v1 and refuses RLinf dependency fields."
+      "contract": "The direct LIBERO driver resets to its seeded initial state with fifteen settling no-ops, truncates at its step budget, never auto-resets on termination, refuses another task's reset id and non-finite actions; the default LIBERO RunSpec binds direct_libero_v1, a runtime without a driver selects it, and external driver fields are refused."
     },
     {
       "path": "tests/test_native_minimal_context.py",

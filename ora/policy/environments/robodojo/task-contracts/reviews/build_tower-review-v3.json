@@ -114,7 +114,7 @@
   ],
   "review_notes": [
     "Reviewed all helper branches: four interchangeable support-block pairings, upright axes, relative heights, support circles and two top x-axis alignments accepting either sign. block0/7 are lower/upper boards, block3 the smaller slab, block4 the roof with local-y up. Metadata dimensions/place/support axes were inspected. Height predicates alone do not prove contact support; natural tower intent retained.",
-    "v3 (EXP11A U6, 2026-09-30): _middle_structure_checks also holds the second-longest board's position inside a support circle around the longest board's middle; registry-v4 omitted that clause. v3 adds it without the radius."
+    "v3: _middle_structure_checks also holds the second-longest board's position inside a support circle around the longest board's middle; registry-v4 omitted that clause. v3 adds it without the radius."
   ],
   "review": {
     "scope": "source/layout-bound qualitative contract review",
@@ -169,14 +169,14 @@
     "layer_sha256": "fb59a1210ab186f474303079eee05c9a55f513000ae2a031ef2995b07b2bc84f"
   },
   "successor_review": {
-    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "scope": "source/layout-bound qualitative successor review of a contract wording revision; no simulator, provider or physical run",
     "date": "2026-09-30",
     "reviewer": "claude_source_review",
     "basis": [
       "run_reward, _middle_structure_checks and _support_circle_check at the pinned revision",
       "is_A_in_B_support_circle in the pinned func_parser and the block/0 support entry of the longest board's asset metadata",
       "the pinned layout file (which block asset each block label selects)",
-      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item b"
+      "Contract audit of the public wording against the upstream predicates, item b"
     ],
     "changes": [
       "Adds the omitted support-centre clause: _middle_structure_checks requires the second-longest board (block7) to stand inside a support circle around the longest board's (block0) central support point, so the second-longest board must be centred over the middle of the longest board. Registry-v4 said only that it rests across the remaining block of each pair. The circle radius stays private.",

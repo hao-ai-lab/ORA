@@ -4,7 +4,7 @@ status: authorized
 live_launch_authorized: true
 # One episode per seed or initial state, as the official protocols evaluate.
 # No persistent session; every cell is a single-attempt admission.
-cohort_id: official-suite-g001
+cohort_id: official-suite-1
 arms:
   libero_pro:
     # Official LIBERO-Pro core evaluation: sixteen core suites x ten tasks x

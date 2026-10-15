@@ -21,13 +21,9 @@ PROFILE_CATALOG = {
     # (EXP12B/placement-centre/g001).
     "libero_placement_direct_overhead_v1": PROFILE_ROOT / "explicit_motion_v3" / "libero_placement_direct_overhead_v1-manifest.json",
     "robodojo_placement_closed_skills_v2": PROFILE_ROOT / "robodojo_closed_skills_v1" / "robodojo_placement_closed_skills_v2-manifest.json",
-    # Composed tools M2a: each default closed-skill surface with grasp_execute
-    # served by the composed library entry grasp_execute/c1. Registered for
-    # comparison, not selected by any baseline (COMPOSED_SUCCESSORS below).
-    "robotwin_toolchain_b2_closed_composed_v1": PROFILE_ROOT / "toolchain_b2_noservo_v1" / "robotwin_toolchain_b2_closed_composed_v1-manifest.json",
-    "robodojo_placement_closed_composed_v1": PROFILE_ROOT / "robodojo_closed_skills_v1" / "robodojo_placement_closed_composed_v1-manifest.json",
-    # The RoboTwin closed arm without the bounded servo (TOOLCHAIN-B2); the
-    # runtime_v1 RoboTwin prepared-grasp qualification binds it.
+    # The earlier RoboTwin closed-skill surface: the default's predecessor,
+    # which keeps the place_plan/place_execute/place_resume and
+    # grasp_verify_retention tools. No baseline selects it.
     "robotwin_toolchain_b2_closed_noservo_v1": PROFILE_ROOT / "toolchain_b2_noservo_v1" / "robotwin-prepared-grasp-v2-aperture-v1-manifest.json",
     # The runtime_v1 qualification ladder (robot_runtime_v1), the RunSpec
     # default when policy.tool_surface is omitted (robot_runtime_v2,
@@ -41,12 +37,3 @@ PROFILE_CATALOG = {
     "local_atomic_cpu_v1": PROFILE_ROOT / "local_atomic_cpu_v1" / "manifest.json",
 }
 
-
-#: Composed-tools successors and the default surface each was derived from.
-#: A successor carries every capability and layer of its source and only
-#: rebinds tools to composed library entries, so a check of which profiles
-#: declare a default-generation capability counts these with their sources.
-COMPOSED_SUCCESSORS = {
-    "robotwin_toolchain_b2_closed_composed_v1": "robotwin_toolchain_b2_closed_noservo_v2",
-    "robodojo_placement_closed_composed_v1": "robodojo_placement_closed_skills_v2",
-}

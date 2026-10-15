@@ -26,7 +26,7 @@ export LIBERO_PRO_DATA_ROOT="$ORA_INSTALL_ROOT/sources/LIBERO-Pro-data"
 export MUJOCO_GL=egl PYOPENGL_PLATFORM=egl TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 ```
 
-The base suites read BDDL/init-state files from the code checkout; Pro reads the pinned dataset. The task definitions and init-state files are required, while demonstration downloads are skipped. Avoid global `LIBERO_TYPE`, `LIBERO_CONFIG_PATH` and `PYTHONPATH`; ORA creates its own isolated path map. The separate worker needs neither RLinf nor a training framework.
+The base suites read BDDL/init-state files from the code checkout; Pro reads the pinned dataset. The task definitions and init-state files are required, while demonstration downloads are skipped. Avoid global `LIBERO_TYPE`, `LIBERO_CONFIG_PATH` and `PYTHONPATH`; ORA creates its own isolated path map. The separate worker needs no training framework.
 
 Install CuRobo `d64c4b005459db10c5dd867d8b30a87d5bda9bdb` in its own compatible Torch/CUDA interpreter using the [RoboTwin planner recipe](robotwin.md#source-interpreter-and-planner). Set `CUROBO_ROOT` and `CUROBO_PYTHON`. That planner environment can be shared; it does not require installing RoboTwin when used only for LIBERO.
 

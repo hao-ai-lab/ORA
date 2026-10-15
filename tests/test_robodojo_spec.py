@@ -423,39 +423,6 @@ def test_the_default_surface_reaches_a_strict_false_gateway_with_nullable_option
     assert optional and all("null" in parameters["properties"][name]["type"] for name in optional)
 
 
-# --- strong-model and loopback-gateway Provider profiles (U11) ------------------------------------------
-
-def test_the_kimi_account_pool_resolves_from_the_maintained_catalog(tmp_path, capsys):
-    """The Kimi K3 loopback pool profile resolves with per-run session affinity."""
-    if not (ASSETS / "Eval_Layout/RoboDojo/arx_x5/0").is_dir():
-        pytest.skip("pinned RoboDojo Assets absent")
-    reference = tmp_path / "gate.json"
-    reference.write_text(json.dumps(QUALIFICATION))
-    kimi = "kimi_loopback_pool_k3_anthropic_high_v1"
-    assert robodojo_spec.main(["spec", "insert_tubes", "--experiment", EXPERIMENT, "--gpu", "0",
-                               "--provider-profile", kimi, "--qualification-reference", str(reference)]) == 0
-    spec = json.loads(capsys.readouterr().out)
-    policy = resolve_run_spec(spec, root=ROOT)["policy"]
-    assert (policy["provider_profile"], policy["provider"], policy["model"]) == (kimi, "anthropic_messages", "k3")
-    assert (policy["endpoint"], policy["endpoint_transport"]) == ("http://127.0.0.1:8318", "loopback_http_v1")
-    assert policy["provider_session_affinity"] == "x_session_id_run_v1"
-    assert (policy["api_key_env"], policy["base_url_env"], policy["model_env"]) == (
-        "NATIVE_MODEL_API_KEY", "NATIVE_MODEL_BASE_URL", "NATIVE_MODEL_ID")
-    assert policy["proxy_env"] == ["NO_PROXY", "no_proxy"] and policy["reasoning_effort"] == "high"
-    assert policy["baseline"]["id"] == BASELINE_ID
-
-
-@needs_assets
-@pytest.mark.parametrize("profile_id, model", [("gpt6_astra_codexproxy_openai_high_16k_v1", "gpt-6-astra"),
-                                               ("gpt61_sol_codexproxy_openai_high_16k_v1", "gpt-6.1-sol")])
-def test_the_codex_gateway_profiles_resolve_strict_false_with_their_output_parameter(profile_id, model):
-    policy = resolve_run_spec(_spec("stack_bowls", provider_profile=profile_id), root=ROOT)["policy"]
-    assert (policy["model"], policy["endpoint"]) == (model, "http://127.0.0.1:8319/v1")
-    assert (policy["tool_strictness"], policy["output_token_parameter"]) == ("explicit_false", "max_completion_tokens")
-    assert policy["provider_session_affinity"] == "x_session_id_run_v1"
-    assert policy["api_key_env"] == "CODEX_PROXY_API_KEY"
-
-
 def test_no_bound_tool_client_endpoint_outlives_this_module():
     """Runs last in the module: the fixture endpoints above must not leak."""
     for _, variable in robodojo_spec.SERVICE_VARIABLES:

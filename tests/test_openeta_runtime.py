@@ -40,7 +40,7 @@ LIBERO_PUBLIC_ENVIRONMENT_CONTEXT = libero_public_environment_context(
 ROOT = Path(__file__).resolve().parents[1]
 MANUAL = ROOT / "ora/policy/embodiments/aloha-agilex/manual-v1.md"
 PROMPT = ROOT / "tests/data/prompts/startup-prompt-v1.md"
-AGENTS = ROOT / "ora/policy/planners/codex/workspace-v1.md"
+AGENTS = ROOT / "ora/policy/planners/native/project-v1.md"
 BOUNDS = {"x": [-0.6, 0.6], "y": [-0.4, 0.4], "z": [0.7, 1.45]}
 
 

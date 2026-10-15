@@ -1,10 +1,5 @@
 """Transport-neutral contracts shared across Harness trust boundaries."""
 
-from .composed_tool import (
-    COMPOSED_TOOL_ACTION,
-    COMPOSED_TOOL_ACTION_SCHEMA,
-    validate_composed_tool_action,
-)
 from .action import (
     ActionValidationError,
     MOTION_ACTION_SCHEMA,
@@ -40,8 +35,6 @@ __all__ = [
     "MOTION_ACTION_SCHEMA",
     "MOTION_ACTION_V3_SCHEMA",
     "MOTION_INTERACTIONS",
-    "COMPOSED_TOOL_ACTION",
-    "COMPOSED_TOOL_ACTION_SCHEMA",
     "POSE_FRAME_CONTRACT",
     "POSE_FRAME_CONTRACT_SCHEMA",
     "POSE_FRAME_CONTRACT_SHA256",
@@ -59,5 +52,4 @@ __all__ = [
     "compile_servo_delta",
     "target_state_phases",
     "validate_runtime_action",
-    "validate_composed_tool_action",
 ]

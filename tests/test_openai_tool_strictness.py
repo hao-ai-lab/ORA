@@ -105,11 +105,3 @@ def test_the_profile_field_is_closed_and_openai_only(tmp_path):
             load_provider_profiles(catalog(protocol, value))
 
 
-def test_the_codex_gateway_profile_states_strict_false():
-    # The maintained catalog carries the gateway profiles (integration 0062 U11).
-    from ora.agent.providers.profiles import load_builtin_provider_profiles
-
-    profiles = load_builtin_provider_profiles()
-    assert profiles["gpt6_astra_codexproxy_openai_high_16k_v1"]["tool_strictness"] == "explicit_false"
-    assert profiles["gpt61_sol_codexproxy_openai_high_16k_v1"]["tool_strictness"] == "explicit_false"
-    assert "tool_strictness" not in profiles["deepseek_flash_openai_high_16k_sharedkey_v1"]

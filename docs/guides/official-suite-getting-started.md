@@ -7,7 +7,7 @@ Start with a [single Synthetic episode](../quickstart.md), then install one robo
 - [RoboDojo](../environments/robodojo.md)
 - [Shared host, planner and perception setup](../environments/common.md)
 
-Each page describes the isolated interpreter, pinned sources/assets, discovery checks and one-cell launch. Run one qualified cell before scaling up. No delivery branch or historical experiment tag is required.
+Each page describes the isolated interpreter, pinned sources/assets, discovery checks and one-cell launch. Run one qualified cell before scaling up.
 
 [examples/official_suite](../../examples/official_suite/README.md) expands maintained LIBERO-Pro and RoboTwin suites from the current default resolver. Official seed selection, task/source versions, episode budget and environment verdict remain explicit. Use `ora.orchestrator.suite_queue --help` for scheduling already composed cells, respecting declared resources and existing leases.
 

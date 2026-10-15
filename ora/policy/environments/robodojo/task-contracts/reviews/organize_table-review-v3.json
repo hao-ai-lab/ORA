@@ -134,7 +134,7 @@
   ],
   "review_notes": [
     "The official Boolean checks mouse/keyboard/figurine/alarm plus arm return; opening the drawer and miscellaneous-item storage appear in the original language but are not checked. Preserve original intent. Mouse local-y heading and keyboard local-y heading are checked; exact angular/numeric thresholds remain private. Asset up transforms and layout frame orientation were inspected; no success-image witness exists for this source.",
-    "v3 (EXP11A U6, 2026-09-30): registry-v4's keyboard wording ('inside its marked frame') contradicted the check. The keyboard check is a footprint-cover test of a fixed world-frame rectangle centred on the frame's middle, plus a signed heading check of the keyboard's local y against world +Y and an upright check of its local z; the keyboard asset's footprint exceeds the frame's in both horizontal directions. v3 states cover-the-middle, overhang, reset facing and reset up side qualitatively, and the mouse's reset facing (its heading check is also signed); the region extents and angular windows stay private."
+    "v3: registry-v4's keyboard wording ('inside its marked frame') contradicted the check. The keyboard check is a footprint-cover test of a fixed world-frame rectangle centred on the frame's middle, plus a signed heading check of the keyboard's local y against world +Y and an upright check of its local z; the keyboard asset's footprint exceeds the frame's in both horizontal directions. v3 states cover-the-middle, overhang, reset facing and reset up side qualitatively, and the mouse's reset facing (its heading check is also signed); the region extents and angular windows stay private."
   ],
   "review": {
     "scope": "source/layout-bound qualitative contract review",
@@ -182,14 +182,14 @@
     "layer_sha256": "92d86d9f8bf584dd35ba91da5b57b3c9c6868eeeaa78c6b977ec7a4233beac75"
   },
   "successor_review": {
-    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "scope": "source/layout-bound qualitative successor review of a contract wording revision; no simulator, provider or physical run",
     "date": "2026-09-30",
     "reviewer": "claude_source_review",
     "basis": [
       "run_reward and _keyboard_checks at the pinned revision",
       "is_A_bbox_cover_rect_region, is_axis_aligned (signed angle between the axes) and is_axis_up in the pinned func_parser and transformer",
       "the pinned layout file (frame and keyboard reset poses) and the frame and keyboard asset metadata",
-      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item a"
+      "Contract audit of the public wording against the upstream predicates, item a"
     ],
     "changes": [
       "Replaces 'the keyboard inside its marked frame' with the keyboard lying flat over the frame so that it covers the frame's middle. _keyboard_checks requires the keyboard's world-frame footprint to contain a fixed rectangular region centred on the frame's middle (the frame is static scene geometry). The keyboard's footprint is larger than the frame's in both horizontal directions, so fitting it inside the frame is physically impossible and pointed the policy away from the check.",

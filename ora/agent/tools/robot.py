@@ -474,10 +474,6 @@ class RobotToolRuntime:
         }
 
     def _current(self) -> tuple[dict[str, Any], Path, dict[str, Any]]:
-        override = self.__dict__.get("_current_override")
-        if override is not None:
-            # A composed tool's read on an observation captured mid-sequence (runtime.composed).
-            return override
         pointer = self.control_root / "current-observation.json"
         if not pointer.is_file():
             raise ToolError(

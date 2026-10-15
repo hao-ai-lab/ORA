@@ -230,17 +230,15 @@ def _repetition(values: list[str]) -> dict[str, Any]:
 
 
 def build_context_audit(run_root: Path) -> dict[str, Any]:
-    """Build an external audit without claiming access to Codex-owned internals."""
+    """Build an external audit of what the policy was given and what it cost."""
     root = run_root.resolve()
     plan = _load(root / "plan.json", required=True)
     result = _load(root / "result.json", required=True)
     session = _load(root / "native/agent-session.json")
     metrics = build_runtime_metrics(root)
     events = _jsonl(root / "events.jsonl")
-    coding = _jsonl(root / "native/coding-audit.jsonl")
     bundles = [_load(path) for path in sorted((root / "context-bundles").glob("call-*.json"))]
     tool_images = _tool_images(events)
-    coding_by_turn = {str(item.get("turn_id")): item for item in coding if item.get("turn_id")}
     bundle_by_call = {item.get("call"): item for item in bundles}
 
     turns = []
@@ -250,7 +248,6 @@ def build_context_audit(run_root: Path) -> dict[str, Any]:
         message = bundle.get("message") if isinstance(bundle.get("message"), Mapping) else {}
         attachment = bundle.get("image_attachment")
         usage = turn.get("request_usage") if isinstance(turn.get("request_usage"), Mapping) else {}
-        command_record = coding_by_turn.get(str(turn.get("turn_id")), {})
         message_bytes = turn.get("project_message_bytes")
         turns.append({
             "call": call,
@@ -290,31 +287,9 @@ def build_context_audit(run_root: Path) -> dict[str, Any]:
             **({"automatic_images": context_bundle_images(bundle),
                 **{field: bundle[field] for field in ("post_action_observation", "current_visual_observation") if field in bundle}}
                if "image_attachments" in bundle else {}),
-            "coding": {
-                "cwd": command_record.get("cwd"),
-                "commands": command_record.get("commands", []),
-                "scratch": command_record.get("scratch", {}),
-                "immutable_inputs_unchanged": command_record.get("immutable_inputs_unchanged"),
-            },
             "latency_s": turn.get("latency_s"),
             "native_compaction_sequences": turn.get("native_compaction_sequences", []),
         })
-
-    calls = session.get("calls") if isinstance(session.get("calls"), list) else []
-    repeated_shell = []
-    all_commands = []
-    repeated_reads = []
-    for item in coding:
-        for command in item.get("commands", []):
-            identity = str(command.get("command", ""))
-            all_commands.append(identity)
-            actions = command.get("command_actions", [])
-            if isinstance(actions, list) and any(
-                isinstance(action, Mapping) and action.get("type") == "read"
-                for action in actions
-            ):
-                repeated_reads.append(identity)
-    repeated_shell = _repetition(all_commands)
 
     read_only_tool_identities = []
     action_generation = 0
@@ -426,28 +401,11 @@ def build_context_audit(run_root: Path) -> dict[str, Any]:
             "tool_images": tool_images,
             "auxiliary_camera_tool_images": auxiliary,
         },
-        "coding": {
-            "calls": coding,
-            "command_count": len(all_commands),
-            "scratch_artifact_generations": sum(
-                len(item.get("scratch", {}).get("created", []))
-                + len(item.get("scratch", {}).get("modified", []))
-                for item in coding
-            ),
-            "integrity_passed": bool(coding) and all(
-                item.get("immutable_inputs_unchanged") is True
-                and not item.get("scratch", {}).get("reserved_paths_changed")
-                and not item.get("outside_workspace_path_violations")
-                for item in coding
-            ),
-        },
         "verifiable_redundancy": {
             "harness_repeated_exact_messages": _repetition(message_hashes),
             "repeated_automatic_images": _repetition(auto_hashes),
             "repeated_tool_images": _repetition([str(item["sha256"]) for item in tool_images]),
             "repeated_read_only_tool_calls_without_action": repeated_tool_calls,
-            "repeated_shell_commands": repeated_shell,
-            "repeated_shell_reads": _repetition(repeated_reads),
             "provider_cached_ratio": cache_ratio,
             "provider_cached_ratio_classification": "cache_reuse_not_redundant_new_input",
         },
@@ -455,8 +413,7 @@ def build_context_audit(run_root: Path) -> dict[str, Any]:
             relative: _file_ref(root, root / relative)
             for relative in (
                 "plan.json", "result.json", "events.jsonl", "context-manifest.json",
-                "native/agent-session.json", "native/coding-audit.jsonl",
-                "native/app-server-protocol.jsonl",
+                "native/agent-session.json",
             )
         },
     }

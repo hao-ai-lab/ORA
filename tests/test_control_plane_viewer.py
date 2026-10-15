@@ -8,15 +8,13 @@ import subprocess
 from pathlib import Path
 import pytest
 from ora.environment.replay_worker import ReplayWorkerError, _FrameWriter, _apply_robotwin_control_target, _capture_steps, _needs_final_capture, _uniform_capture_steps, _libero_qualified_controller_binding, _recorded_control_step_count, _robotwin_replay_needs_planner, _robotwin_replay_route
-from ora.environment.historical_libero_replay_worker import _uniform_capture_steps as _historical_uniform_capture_steps, _validate_reenacted_receipt
 from experiments.runtime_v1 import run as experiment
 from viewer import app as viewer
 from viewer.libero_pro_catalog import CATALOG_SCHEMA as LIBERO_PRO_CATALOG_SCHEMA, LIBERO_PRO_CODE_REVISION, LIBERO_PRO_DATA_REVISION, MIGRATED_FROM_COMMIT as LIBERO_MIGRATED_FROM_COMMIT, ROBUSTNESS_CASES as LIBERO_ROBUSTNESS_CASES, TASKS as LIBERO_PRO_TASKS
-from viewer.libero_pro_results import RESULTS as LIBERO_PRO_PUBLISHED_RESULTS, RESULTS_SCHEMA as LIBERO_PRO_RESULTS_SCHEMA, published_results_payload
 from viewer.robotwin_catalog import CATALOG_SCHEMA, MIGRATED_FROM_COMMIT, ROBOTWIN_REVISION, TASKS
 from viewer.registry import discover_run_roots, register_run, visible_runs
-from viewer.trajectory import ANALYSIS_SCHEMA, _controller_replay_source, _continuous_execution_source, _historical_libero_reenactment_source, _load_run_analysis, _render_continuous_execution_frame, _render_trajectory_frame, compile_raw_trajectory, compile_trajectory, compile_trajectory_video, raw_trajectory_event
-from viewer.replay import VIEWER_GPU_ENV, ViewerReplayError, ViewerReplayValidationError, _apply_viewer_gpu_override, _historical_libero_actions, _historical_libero_qualification, ensure_controller_replay, ensure_historical_libero_replay, historical_libero_replay_identity
+from viewer.trajectory import ANALYSIS_SCHEMA, _controller_replay_source, _continuous_execution_source, _load_run_analysis, _render_continuous_execution_frame, _render_trajectory_frame, compile_raw_trajectory, compile_trajectory, compile_trajectory_video, raw_trajectory_event
+from viewer.replay import ViewerReplayError, ensure_controller_replay
 from test_control_plane import (
     ROOT,
 )
@@ -562,145 +560,11 @@ def test_viewer_controller_replay_source_stays_in_derived_workspace(
         _controller_replay_source(run)
 
 
-def test_historical_libero_actions_preserve_round_and_receipt_pairing(
-    tmp_path: Path,
-) -> None:
-    run = tmp_path / "runs/historical"
-    run.mkdir(parents=True)
-    records = [
-        {"type": "reset", "record": {}},
-        {"type": "action_submitted", "action": {
-            "schema": "ora-action.v3", "action_id": "a0",
-            "action": "move_pose", "arguments": {"arm": "right"},
-        }},
-        {"type": "motion_receipt", "record": {
-            "action_id": "a0", "action": "move_pose", "steps_used": 4,
-        }},
-        {"type": "reset", "record": {}},
-        {"type": "action_submitted", "action": {
-            "schema": "ora-action.v3", "action_id": "a1",
-            "action": "set_gripper", "arguments": {"arm": "right"},
-        }},
-        {"type": "motion_receipt", "record": {
-            "action_id": "a1", "action": "set_gripper", "steps_used": 2,
-        }},
-    ]
-    (run / "events.jsonl").write_text(
-        "".join(json.dumps(value) + "\n" for value in records),
-        encoding="utf-8",
-    )
-    actions, rounds = _historical_libero_actions(run)
-    assert rounds == 2
-    assert [entry["round_index"] for entry in actions] == [0, 1]
-    assert [entry["round_action_sequence"] for entry in actions] == [0, 0]
-    assert [entry["round_action_count"] for entry in actions] == [1, 1]
-    assert actions[1]["recorded_receipt"]["steps_used"] == 2
-
-
-def test_historical_libero_actions_accept_released_v4_and_reject_unknown_codec(
-    tmp_path: Path,
-) -> None:
-    run = tmp_path / "runs/historical-v4"
-    run.mkdir(parents=True)
-    records = [
-        {"type": "reset", "record": {}},
-        {"type": "action_submitted", "action": {
-            "schema": "ora-action.v4", "action_id": "a0",
-            "action": "target_state", "arguments": {
-                "arm": "right", "pose": None, "gripper": 1.0,
-            },
-        }},
-        {"type": "motion_receipt", "record": {
-            "action_id": "a0", "action": "target_state", "steps_used": 3,
-        }},
-    ]
-    events = run / "events.jsonl"
-    events.write_text(
-        "".join(json.dumps(value) + "\n" for value in records),
-        encoding="utf-8",
-    )
-    actions, rounds = _historical_libero_actions(run)
-    assert rounds == 1
-    assert actions[0]["action"]["schema"] == "ora-action.v4"
-
-    records[1]["action"]["schema"] = "ora-action.v999"
-    events.write_text(
-        "".join(json.dumps(value) + "\n" for value in records),
-        encoding="utf-8",
-    )
-    with pytest.raises(RuntimeError, match="action codec is unsupported"):
-        _historical_libero_actions(run)
-
-
-def test_historical_libero_reuses_reset_qualification_and_explicit_viewer_gpu(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    run = tmp_path / "runs/historical-qualified"
-    run.mkdir(parents=True)
-    qualification = {
-        "schema": "ora.libero-controller-qualification.v1",
-        "contract_sha256": "a" * 64,
-        "binding": {"controller_config_file": "/exact/controller.json"},
-    }
-    (run / "events.jsonl").write_text(json.dumps({
-        "type": "reset",
-        "record": {"qualified_controller_binding": qualification},
-    }) + "\n")
-    assert _historical_libero_qualification(run) == qualification
-
-    environment = {
-        "CUDA_VISIBLE_DEVICES": "1",
-        "MUJOCO_EGL_DEVICE_ID": "1",
-    }
-    monkeypatch.setenv(VIEWER_GPU_ENV, "4")
-    resource = _apply_viewer_gpu_override(environment)
-    assert environment == {
-        "CUDA_VISIBLE_DEVICES": "4",
-        "MUJOCO_EGL_DEVICE_ID": "4",
-    }
-    assert resource == {
-        "schema": "ora.viewer-render-resource.v1",
-        "physical_gpu_id": 4,
-        "cuda_visible_devices": "4",
-        "mujoco_egl_device_id": 4,
-    }
-    monkeypatch.setenv(VIEWER_GPU_ENV, "4,5")
-    with pytest.raises(RuntimeError, match=f"{VIEWER_GPU_ENV} must be"):
-        _apply_viewer_gpu_override({})
-
-
-def test_historical_libero_identity_is_bound_to_events_and_source(
-    tmp_path: Path,
-) -> None:
-    run = tmp_path / "runs/historical-identity"
-    run.mkdir(parents=True)
-    (run / "plan.json").write_text(json.dumps({
-        "runtime": {"kind": "libero_pro"},
-        "source": {"commit": "a" * 40},
-    }))
-    (run / "seal.json").write_text("{}")
-    (run / "events.jsonl").write_text(json.dumps({
-        "type": "reset", "record": {},
-    }) + "\n")
-    first = historical_libero_replay_identity(run)
-    assert first is not None
-    (run / "events.jsonl").write_text(
-        (run / "events.jsonl").read_text() + json.dumps({
-            "type": "reset", "record": {},
-        }) + "\n"
-    )
-    second = historical_libero_replay_identity(run)
-    assert second is not None
-    assert first[0] != second[0]
-    assert first[1] != second[1]
-
-
 def test_viewer_replay_builders_recheck_cache_after_exclusive_lock(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     run = tmp_path / "runs/concurrent-replay"
     run.mkdir(parents=True)
-    historical = tmp_path / "viewer-derived/concurrent-replay/historical"
     controller = tmp_path / "viewer-derived/concurrent-replay/controller"
 
     class CompletingBuilder:
@@ -719,23 +583,6 @@ def test_viewer_replay_builders_recheck_cache_after_exclusive_lock(
 
     compile_calls: list[str] = []
     monkeypatch.setattr(
-        "viewer.replay.historical_libero_replay_identity",
-        lambda _root: ("historical-identity", historical),
-    )
-    monkeypatch.setattr(
-        "viewer.replay._exclusive_replay_lock",
-        lambda _output: CompletingBuilder(historical, {
-            "schema": "ora.viewer-historical-libero-reenactment.v1",
-            "identity": "historical-identity",
-        }),
-    )
-    monkeypatch.setattr(
-        "viewer.replay._compile_historical_libero_replay",
-        lambda *_args: compile_calls.append("historical"),
-    )
-    assert ensure_historical_libero_replay(run)[0] == historical
-
-    monkeypatch.setattr(
         "viewer.replay.replay_identity",
         lambda _root, *, replay_mode: ("controller-identity", controller),
     )
@@ -752,190 +599,6 @@ def test_viewer_replay_builders_recheck_cache_after_exclusive_lock(
     )
     assert ensure_controller_replay(run)[0] == controller
     assert compile_calls == []
-
-
-def test_historical_libero_source_requires_validated_bounded_frames(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    run = tmp_path / "runs/historical-source"
-    run.mkdir(parents=True)
-    derived = tmp_path / "viewer-derived/historical-source/reenactment"
-    (derived / "frames").mkdir(parents=True)
-    from PIL import Image
-    Image.new("RGB", (1280, 720), "#33443f").save(
-        derived / "frames/frame-000000.jpg"
-    )
-    sampling = {"mode": "action_keyframes_v1", "max_frames_per_action": 4}
-    semantics = (
-        "derived_exact_harness_source_semantic_action_reenactment_action_keyframes"
-    )
-    timeline = derived / "timeline.jsonl"
-    timeline.write_text(json.dumps({
-        "schema": "ora.viewer-historical-libero-reenactment-frame.v1",
-        "frame_index": 0,
-        "path": "frames/frame-000000.jpg",
-        "action_sequence": None,
-        "action_id": None,
-        "action": "reset",
-        "phase": "reset",
-        "control_step_index": None,
-        "round_index": 0,
-        "round_count": 5,
-        "sampling": sampling,
-        "cameras": ["agentview", "wrist"],
-        "capture_semantics": semantics,
-    }) + "\n")
-    result = {
-        "schema": "ora.viewer-historical-libero-reenactment.v1",
-        "camera_panels": ["agentview", "wrist"],
-        "sampling": sampling,
-        "timeline": {"path": "timeline.jsonl"},
-        "capture_semantics": semantics,
-        "round_count": 5,
-        "validation": {"status": "valid", "actions": []},
-    }
-    monkeypatch.setattr(
-        "viewer.trajectory.historical_libero_replay_identity",
-        lambda _root: ("identity", derived),
-    )
-    monkeypatch.setattr(
-        "viewer.trajectory.ensure_historical_libero_replay",
-        lambda _root: (derived, result),
-    )
-    source = _historical_libero_reenactment_source(run)
-    assert source is not None
-    assert source["kind"] == "viewer_derived_historical_libero_reenactment"
-    assert source["round_count"] == 5
-    assert source["camera_panels"] == ["agentview", "wrist"]
-
-
-def test_invalid_historical_reenactment_compiles_labelled_action_boundary_fallback(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    run = tmp_path / "runs/historical-fallback"
-    steps = run / "policy-state/steps"
-    steps.mkdir(parents=True)
-    (steps / "step-0000.json").write_text(json.dumps({
-        "step": 0,
-        "cause": "reset",
-        "observation": {"id": "obs-0"},
-        "cameras": {},
-    }))
-    (run / "policy-state/manifest.json").write_text(json.dumps({
-        "steps": [{
-            "step": 0, "path": "policy-state/steps/step-0000.json",
-        }],
-    }))
-    (run / "plan.json").write_text(json.dumps({
-        "experiment": "historical-fallback",
-        "task": "libero-task",
-        "runtime": {"kind": "libero_pro"},
-        "source": {"commit": "source"},
-    }))
-    output = tmp_path / "viewer-derived/historical-fallback/trajectory-review.mp4"
-    monkeypatch.setattr(
-        "viewer.trajectory._video_target",
-        lambda *_args, **_kwargs: (
-            "fallback-identity", output, output.with_suffix(".json"),
-        ),
-    )
-    monkeypatch.setattr(
-        "viewer.trajectory._continuous_execution_source", lambda _root: None,
-    )
-    monkeypatch.setattr(
-        "viewer.trajectory._controller_replay_source",
-        lambda _root, *, replay_mode: None,
-    )
-    monkeypatch.setattr(
-        "viewer.trajectory._historical_libero_reenactment_source",
-        lambda _root: (_ for _ in ()).throw(
-            ViewerReplayValidationError(
-                "gripper endpoint differs from sealed receipt"
-            ),
-        ),
-    )
-    video, manifest = compile_trajectory_video(run, replay_mode="forensic")
-    assert video.is_file()
-    assert manifest["schema"] == "ora.viewer-trajectory-video.v1"
-    assert manifest["continuous_execution"] is False
-    assert manifest["continuous_execution_fallback"] == {
-        "schema": "ora.viewer-continuous-replay-fallback.v1",
-        "attempted_source_kind": (
-            "viewer_derived_historical_libero_reenactment"
-        ),
-        "reason": "receipt_validation_failed",
-        "detail": "gripper endpoint differs from sealed receipt",
-    }
-
-    infrastructure_output = (
-        tmp_path / "viewer-derived/historical-fallback/infrastructure.mp4"
-    )
-    monkeypatch.setattr(
-        "viewer.trajectory._video_target",
-        lambda *_args, **_kwargs: (
-            "infrastructure-identity",
-            infrastructure_output,
-            infrastructure_output.with_suffix(".json"),
-        ),
-    )
-    monkeypatch.setattr(
-        "viewer.trajectory._historical_libero_reenactment_source",
-        lambda _root: (_ for _ in ()).throw(
-            ViewerReplayError("historical source binding is unavailable"),
-        ),
-    )
-    with pytest.raises(ViewerReplayError, match="source binding"):
-        compile_trajectory_video(run, replay_mode="forensic")
-
-
-def test_historical_libero_receipt_validation_is_pose_sign_invariant() -> None:
-    recorded = {
-        "action_id": "a0", "action": "move_pose", "steps_used": 10,
-        "after": {"right": {
-            "pose_xyz_xyzw": [0.1, 0.2, 0.3, 0.0, 0.0, 0.0, 1.0],
-            "gripper": 0.5,
-        }},
-    }
-    actual = {
-        "action_id": "a0", "action": "move_pose", "steps_used": 11,
-        "after": {"right": {
-            "pose_xyz_xyzw": [0.101, 0.2, 0.3, 0.0, 0.0, 0.0, -1.0],
-            "gripper": 0.51,
-        }},
-    }
-    result = _validate_reenacted_receipt(recorded, actual, {
-        "translation_m": 0.02,
-        "orientation_rad": 0.10,
-        "gripper_normalized": 0.08,
-    })
-    assert result["valid"] is True
-    assert result["reenacted_steps_used"] == 11
-    assert _historical_uniform_capture_steps(80, 4) == [0, 26, 53, 79]
-
-    composite_action = {
-        "schema": "ora-action.v4",
-        "action_id": "a1",
-        "action": "target_state",
-    }
-    composite_recorded = {
-        "action_id": "a1", "action": composite_action,
-        "phase_receipts": [{"receipt": {**recorded, "action_id": "a1:pose"}}],
-    }
-    composite_actual = {
-        "action_id": "a1", "action": composite_action,
-        "phase_receipts": [{"receipt": {**actual, "action_id": "a1:pose"}}],
-    }
-    composite = _validate_reenacted_receipt(
-        composite_recorded, composite_actual,
-        {
-            "translation_m": 0.02,
-            "orientation_rad": 0.10,
-            "gripper_normalized": 0.08,
-        },
-    )
-    assert composite["valid"] is True
-    assert composite["recorded_steps_used"] == 10
-    assert composite["reenacted_steps_used"] == 11
 
 
 def test_controller_replay_video_removes_transient_frames_and_reuses_cache(
@@ -1499,10 +1162,7 @@ def test_libero_pro_gallery_preserves_task_order_and_registration_boundary() -> 
     assert b"Pick the cream cheese and place it in the basket" in response.data
     assert b"Runtime \xc2\xb7 BDDL-driven" in response.data
     assert b"seed mod 50" in response.data
-    assert b"Harness VLA (Claude Code)" in response.data
-    assert b"82.4%" in response.data
-    assert b"ASPIRE" in response.data
-    assert b"No formal LIBERO-Pro result" in response.data
+    assert b"Published results" not in response.data
 
     libero_90 = client.get("/gallery/libero/libero_90/89")
     assert libero_90.status_code == 200
@@ -1554,26 +1214,4 @@ def test_libero_pro_gallery_preserves_task_order_and_registration_boundary() -> 
         for task in payload["tasks"] for asset in task["robustness_assets"]
     )
 
-    results = client.get("/api/libero-pro/results").get_json()
-    assert results == published_results_payload()
-    assert results["schema"] == LIBERO_PRO_RESULTS_SCHEMA
-    assert results["evidence_boundary"] == {
-        "kind": "paper_reported_literature_metadata",
-        "contains_local_rollouts": False,
-        "global_ranking_valid": False,
-        "comparability": "within_cohort_only",
-    }
-    rows = {
-        row["key"]: row
-        for cohort in results["cohorts"] for row in cohort["methods"]
-    }
-    assert rows["harness_vla_cc"]["reported_overall"] == 82.4
-    assert rows["harness_vla_cc"]["common_six"] == 87.7
-    assert rows["aspire"]["derived_overall"] == 71.7
-    assert rows["rho"]["reported_overall"] == 45.0
-    assert rows["rho"]["derived_overall"] == 45.0
-    assert rows["cap_agent0_rho"]["reported_overall"] == 18.17
-    assert rows["cap_agent0_aspire"]["reported_overall"] == 18.0
-    assert rows["cap_agent0_rats"]["reported_overall"] == 23.2
-    assert results["openeta"]["result"] is None
-    assert len(LIBERO_PRO_PUBLISHED_RESULTS) == 9
+    assert client.get("/api/libero-pro/results").status_code == 404

@@ -55,7 +55,7 @@ uv run --locked python -m ora.orchestrator.robodojo_lane_qualification task stac
   --gpu 1 --resource-profile robodojo-gpu1 --card PATH_TO_CARD_RECORD --yes
 ```
 
-Each command runs two full-length simulator episodes. On one H200 lane, `stack_bowls` took 38 minutes for the card and about 60 minutes for the task record (2026-10-13); budget both before an episode on a new lane. Reuse a still-valid card record whose actual source, controller, device and asset dependencies match. A task record admits the default layout 0 only. For another layout or a multi-round session, use the lane operator's `smoke` and offline `revalidate` commands with the exact schedule; see their `--help`.
+Each command runs two full-length simulator episodes. On one data-center GPU lane, `stack_bowls` took 38 minutes for the card and about 60 minutes for the task record; budget both before an episode on a new lane. Reuse a still-valid card record whose actual source, controller, device and asset dependencies match. A task record admits the default layout 0 only. For another layout or a multi-round session, use the lane operator's `smoke` and offline `revalidate` commands with the exact schedule; see their `--help`.
 
 Records are written to `robodojo-compat/qualification/` under the outputs root (`ORA_OUTPUTS_ROOT` when set, otherwise `<workspace>/outputs`), outside Git. The task step and the composer bind them as workspace-relative `outputs/robodojo-compat/...` pairs; with a separate outputs root, ORA creates the workspace link `outputs/robodojo-compat` onto it. A record elsewhere is refused.
 

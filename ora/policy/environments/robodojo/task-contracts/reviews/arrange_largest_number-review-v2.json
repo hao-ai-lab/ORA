@@ -145,7 +145,7 @@
     "layer_sha256": "e1283c92087a55e0a957d08efd49795e15db4ee2e4946964fc8edcf78fdc3841"
   },
   "successor_review": {
-    "scope": "source/layout-bound qualitative successor review for EXP11A g004; no simulator, provider or physical run",
+    "scope": "source/layout-bound qualitative successor review; no simulator, provider or physical run",
     "date": "2026-09-29",
     "reviewer": "claude_source_review",
     "basis": [

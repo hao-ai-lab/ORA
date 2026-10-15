@@ -1,4 +1,0 @@
-# Internal planning stays in the preparation branch, outside the public export.
-/docs/design/ export-ignore
-# The inherited historical seed summary is not fresh qualification.
-/experiments/runtime_v1/qualification/open_microwave.json export-ignore

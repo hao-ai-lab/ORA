@@ -35,7 +35,6 @@ def test_review_uses_original_images_even_with_replay_artifacts(
         pytest.fail("default review attempted simulator reconstruction")
 
     monkeypatch.setattr(video, "_controller_replay_source", forbidden)
-    monkeypatch.setattr(video, "_historical_libero_reenactment_source", forbidden)
     trajectory = video.compile_trajectory(run)
     assert trajectory["video_source"]["kind"] == "original_observation_sequence"
     assert video.pending_replay_source(run) is None
@@ -120,7 +119,7 @@ def test_robotwin_frame_sampling_executes_every_target_and_settle_step(
 def test_libero_legacy_replay_frames_use_each_actual_step_observation(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, controller: str,
 ) -> None:
-    """Direct worker steps must not render RLinf's unchanged outer reset cache."""
+    """Direct worker steps must not render an unchanged outer reset cache."""
     import numpy as np
     from ora.environment import replay_worker as worker
     from ora.environment.backends.libero_pro import session as backend
@@ -169,7 +168,7 @@ def test_libero_legacy_replay_frames_use_each_actual_step_observation(
     monkeypatch.setattr(worker, "_artifact_arrays", lambda *_: arrays)
     worker._replay_libero(
         plan={"runtime": {"suite": "libero_10", "task_id": 0,
-                          "expected_task_language": "test", "required_rlinf_revision": "r",
+                          "expected_task_language": "test",
                           "required_libero_pro_revision": "l", "required_data_revision": "d",
                           "workspace_bounds_m": []},
               "task": "test", "seed": 0, "budgets": {"max_sim_steps": 100}},

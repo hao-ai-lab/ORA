@@ -5,7 +5,6 @@ docs_dir: docs
 site_dir: .cache/docs/site
 strict: true
 exclude_docs: |
-  /design/
   *.py
   /requirements.in
   /requirements.txt
@@ -102,13 +101,16 @@ extra_css:
   - assets/stylesheets/ora.css
 
 extra:
-  source_repository: https://github.com/hao-ai-lab/ora-agent/blob/main/
+  source_repository: https://github.com/hao-ai-lab/ORA/blob/main/
 
 nav:
   - Home: README.md
   - Getting started:
       - Installation: getting-started/installation.md
       - First episode: quickstart.md
+      - LIBERO / LIBERO-Pro: getting-started/libero.md
+      - RoboTwin: getting-started/robotwin.md
+      - RoboDojo: getting-started/robodojo.md
       - Run on one GPU: getting-started/single-gpu.md
       - Run on your computer (CPU): getting-started/local.md
       - Model APIs: getting-started/model-apis.md
@@ -142,6 +144,7 @@ nav:
       - Experiment identity: reference/experiment-identity.md
       - RoboTwin contact recovery: reference/robotwin-contact-recovery.md
       - RoboDojo motion qualification: reference/robodojo-motion-qualification.md
+      - Local CPU compatibility: reference/ora-local-cpu-compatibility.md
       - Python API:
           - Overview: api/README.md
           - Plans and benchmark cells: api/plans.md

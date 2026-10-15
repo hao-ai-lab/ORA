@@ -22,7 +22,7 @@
     "layout_folder": "Eval_Layout/RoboDojo/arx_x5/0",
     "ordinal_rule": "SeedManager.init_eval (env/seed_manager/seed_manager.py:33-43) sorts <task>_<n>.json numerically; the 55 files are numbered 0-54 without a gap, so ordinal n is <task>_<n>.json"
   },
-  "decision": "User decision 2026-10-01: EXP11A g012 adds a three-round session (K = 3 rounds) of build_tower with a new reviewed layout of eval_seed 0 per round. This appendix extends the build_tower review-v3 record from layout 0 to the reviewed pool 2, 19, 32 and the fallback 49 without changing its contract text, and binds each audited layout's object metadata.",
+  "decision": "A three-round session (K = 3 rounds) of build_tower uses a new reviewed layout of eval_seed 0 per round. This appendix extends the build_tower review-v3 record from layout 0 to the reviewed pool 2, 19, 32 and the fallback 49 without changing its contract text, and binds each audited layout's object metadata.",
   "criteria": [
     "Instruction: gen_instruction (task/RoboDojo/tasks/build_tower.py:133-135) returns the constant template \"Build a tower using the wooden blocks and wooden boards.\" with no placeholder, so every layout delivers the reviewed instruction; the worker refuses a round whose upstream instruction differs from round 0.",
     "Objects: every audited layout holds block0-block7 with the reviewed models (block0 = block/0 longest board, block7 = block/4 second-longest board, block3 = block/1 smallest board, block4 = block/3 roof, block1, block2, block5 and block6 = block/2 upright blocks); block0 and block7 are JSON-equal to layout 0, and the Geometry, Room, Table, Ground and Background sections are equal to layout 0.",

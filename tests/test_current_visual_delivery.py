@@ -29,7 +29,7 @@ from ora.environment.synthetic import SyntheticSession
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def published(root, backend, *, after_servo=False):
+def published(root, backend, *, after_action=False):
     from test_native_causal_runtime import PROMPT, MANUAL, PROJECT
     instance = load_native_baseline(ROOT)["instances"][backend]
     surface = resolve_tool_surface(instance["tool_surface"])
@@ -106,7 +106,7 @@ def published(root, backend, *, after_servo=False):
             sha256=hashlib.sha256(depth.read_bytes()).hexdigest(), bytes=depth.stat().st_size)
     (source / "observation.json").write_text(json.dumps(observation))
     store = PolicyStateStore(root, "visual-test", "plan-test")
-    store.publish(observation=observation, observation_root=source, cause="mutation" if after_servo else "initial",
+    store.publish(observation=observation, observation_root=source, cause="mutation" if after_action else "initial",
         task_instruction="Inspect", previous_public_action=None, remaining_budget={})
     projector = ContextProjector(root / "workspace", root / "control", PROMPT, MANUAL, PROJECT,
         main_camera=cameras[0], run_root=root, view_config=surface.view_config,
@@ -114,8 +114,8 @@ def published(root, backend, *, after_servo=False):
                                                     "left_wrist": "left_wrist", "right_wrist": "right_wrist"}.items() if name in cameras})
     context = projector.publish(observation=observation, observation_root=source,
         task_instruction="Inspect", remaining_budget={}, policy_state=store.steps[-1],
-        previous_action={"schema": "ora-servo-action.v1", "action": "servo", "action_id": "servo-1",
-            "observation_id": "earlier", "arguments": {"mode": "hold", "arms": ["right"]}} if after_servo else None)
+        previous_action={"schema": "ora-action.v3", "action": "move_pose", "action_id": "action-1",
+            "observation_id": "earlier", "arguments": {}} if after_action else None)
     return context, projector, store, surface, source
 
 
@@ -133,9 +133,9 @@ def planner_for(root, context, surface):
 
 
 @pytest.mark.parametrize("backend", ["libero_pro", "robotwin"])
-@pytest.mark.parametrize("after_servo", [False, True])
-def test_all_current_rgb_and_calibration_reach_both_native_protocols(tmp_path, backend, after_servo):
-    context, _, _, surface, source = published(tmp_path, backend, after_servo=after_servo)
+@pytest.mark.parametrize("after_action", [False, True])
+def test_all_current_rgb_and_calibration_reach_both_native_protocols(tmp_path, backend, after_action):
+    context, _, _, surface, source = published(tmp_path, backend, after_action=after_action)
     planner = planner_for(tmp_path, context, surface)
     message = planner._causal_observation_message(context=context, terminal_lifecycle=False)
     current = json.loads(message["content"][0]["text"])["current_actual"]
@@ -179,15 +179,15 @@ def test_all_current_rgb_and_calibration_reach_both_native_protocols(tmp_path, b
 
 
 @pytest.mark.parametrize("backend", ["libero_pro", "robotwin"])
-@pytest.mark.parametrize("after_servo", [False, True])
+@pytest.mark.parametrize("after_action", [False, True])
 def test_native_slots_v4_delivers_every_camera_through_the_observation_and_its_slot(
-    tmp_path, backend, after_servo,
+    tmp_path, backend, after_action,
 ):
     """D3b: every image stays in the observation; calibration sits in the round slot."""
     from ora.agent.context import round_static_facts as slot
     from ora.agent.native.engine import NativeSessionEngine
 
-    context, _, _, surface, source = published(tmp_path, backend, after_servo=after_servo)
+    context, _, _, surface, source = published(tmp_path, backend, after_action=after_action)
     context = {**context, "remaining_budget": {"session_round": 1, "session_rounds": 1}}
     legacy_planner = planner_for(tmp_path, context, surface)
     legacy = legacy_planner._causal_observation_message(context=context, terminal_lifecycle=False)
@@ -449,3 +449,38 @@ def test_calibration_numbers_have_exactly_one_owner_in_the_delivered_observation
     from ora.agent.evidence.trajectory import _forbidden_path
     assert _causal_projection_violations(message["content"]) == []
     assert _forbidden_path(message["content"]) is None
+
+
+def test_post_action_image_bytes_are_verified_and_legacy_is_unchanged(tmp_path):
+    from ora.agent.context.action_views import materialize_post_action_observation
+    from observation_fixtures import observation_fixture
+
+    assert resolve_post_action_images({}, root=tmp_path) == []
+    observation, source = observation_fixture(tmp_path, ["head"])
+    projected = materialize_post_action_observation(
+        run_root=tmp_path, workspace=tmp_path / "workspace", observation=observation,
+        observation_root=source, policy_state={"step": observation["sequence"],
+            "state_sha256": "state-hash", "observation_id": observation["observation_id"]},
+        previous_action={"schema": "ora-action.v3", "action": "move_pose", "action_id": "action-1",
+            "observation_id": "observation-0", "arguments": {}},
+        view_config={"automatic_actual_views": ["head"], "rgb_resolution": "native",
+            "current_observation_delivery": "all_public_v1"},
+        camera_roles={},
+    )
+    delivered = tmp_path / "workspace" / projected["images"][0]["path"]
+    delivered.chmod(0o644)
+    delivered.write_bytes(b"different")
+    with pytest.raises(PostActionObservationError, match="hash"):
+        resolve_post_action_images({"post_action_observation": projected}, root=tmp_path / "workspace")
+
+
+def test_policy_turn_immutable_multi_image_extension_preserves_legacy_kwargs(tmp_path):
+    from ora.agent.contracts import PolicyTurnInput
+
+    args = dict(task_id="task", task_instruction="Act", context={}, image_path=None,
+        observation_id="obs", observation_step=1)
+    assert "image_paths" not in PolicyTurnInput(**args).runtime_kwargs()
+    paths = [tmp_path / "head.png", tmp_path / "wrist.png"]
+    turn = PolicyTurnInput(**args, image_paths=paths)
+    paths.clear()
+    assert turn.runtime_kwargs()["image_paths"] == (tmp_path / "head.png", tmp_path / "wrist.png")

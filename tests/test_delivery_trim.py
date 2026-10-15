@@ -132,7 +132,7 @@ def test_trim_observation_envelope_leaves_out_only_the_fixed_values():
 def test_view_freshness_leaves_only_when_it_equals_the_pairing():
     paired = {"current_views": {"fresh_for_this_action": True, "status": "complete"}}
     assert native.trim_view_freshness(paired, paired=True) == {"current_views": {"status": "complete"}}
-    initial = {"post_action_views": {"fresh_for_this_action": False}}
-    assert native.trim_view_freshness(initial, paired=False) == {"post_action_views": {}}
+    initial = {"current_views": {"fresh_for_this_action": False}}
+    assert native.trim_view_freshness(initial, paired=False) == {"current_views": {}}
     stale = {"current_views": {"fresh_for_this_action": False, "status": "complete"}}
     assert native.trim_view_freshness(stale, paired=True) == stale

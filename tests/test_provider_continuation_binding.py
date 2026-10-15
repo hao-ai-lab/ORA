@@ -41,7 +41,7 @@ from ora.environment.synthetic import SyntheticSession
 ROOT = Path(__file__).resolve().parents[1]
 PROMPT = ROOT / "ora/policy/core/thin-react-v1.md"
 MANUAL = ROOT / "ora/policy/embodiments/aloha-agilex/manual-v1.md"
-AGENT_RULES = ROOT / "ora/policy/planners/codex/workspace-v1.md"
+AGENT_RULES = ROOT / "ora/policy/planners/native/project-v1.md"
 BOUNDS = {"x": [-0.6, 0.6], "y": [-0.4, 0.4], "z": [0.7, 1.45]}
 MODEL = "continuation-binding-model"
 OPENAI_CONTINUATION_KIND = "openai_chat_reasoning_content_v1"

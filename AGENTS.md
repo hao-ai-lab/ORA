@@ -1,12 +1,5 @@
 # ORA: contributor and agent guide
 
-## Preparation authority
-
-This checkout is still being prepared for open source. Keep work on its current
-branch and leave edits uncommitted for the user to review and commit. Do not
-create or export repositories, push, publish, tag or integrate without a new
-explicit instruction. Passing tests is not release approval.
-
 This repository is a thin harness that runs a language-model agent as the
 policy of a simulated robot. The agent sees only public observations and tools;
 an isolated simulator backend executes its actions; only the benchmark's own
@@ -85,6 +78,6 @@ prompt bundles, task contracts, environment compatibility, qualification).
 
 The documentation site uses MkDocs Material. Run `./scripts/docs serve` for a
 local preview and `./scripts/docs build` for strict validation. Register public
-pages in `mkdocs.yml`; keep internal `docs/design/` out of the site and search.
-See `docs/developer/documentation.md`. Documentation dependencies have their
-own hash-locked requirements; do not change the runtime's `uv.lock` for them.
+pages in `mkdocs.yml`. See `docs/developer/documentation.md`. Documentation
+dependencies have their own hash-locked requirements; do not change the
+runtime's `uv.lock` for them.

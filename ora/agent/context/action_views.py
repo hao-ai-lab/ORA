@@ -1,7 +1,8 @@
-"""Fresh Servo views shared by Native and managed policy input paths.
+"""Fresh current views delivered with each new policy observation.
 
-Camera roles come from the public descriptor. Missing wrists are disclosed,
-never guessed from private sensors or replaced with historical pixels.
+Every declared default public view of the new observation is frozen into the
+run workspace; an unavailable default view fails closed rather than being
+replaced with historical pixels.
 """
 
 from __future__ import annotations
@@ -21,17 +22,11 @@ from .observation_projection import (
 )
 
 
-POST_ACTION_OBSERVATION_SCHEMA = "ora.servo-post-action-observation.v1"
 CURRENT_OBSERVATION_BUNDLE_SCHEMA = "ora.current-observation-bundle.v1"
-SERVO_ACTION_SCHEMA = "ora-servo-action.v1"
 
 
 class PostActionObservationError(RuntimeError):
     """Mandatory fresh action-end evidence cannot be delivered safely."""
-
-
-def is_servo_action(action: Mapping[str, Any] | None) -> bool:
-    return isinstance(action, Mapping) and action.get("schema") == SERVO_ACTION_SCHEMA
 
 
 def _hash(path: Path) -> str:
@@ -57,11 +52,10 @@ def materialize_post_action_observation(
     previous_action: Mapping[str, Any] | None, view_config: Mapping[str, Any],
     camera_roles: Mapping[str, str],
 ) -> dict[str, Any]:
-    """Freeze defaults plus selected public wrists from one new observation."""
+    """Freeze the declared default public views of one new observation."""
 
-    all_current = view_config.get("current_observation_delivery") == "all_public_v1"
-    if not all_current and not is_servo_action(previous_action):
-        raise PostActionObservationError("post-action projection requires a Servo action")
+    if view_config.get("current_observation_delivery") != "all_public_v1":
+        raise PostActionObservationError("current views require current_observation_delivery all_public_v1")
     previous_action = previous_action or {}
     run_root, workspace = run_root.resolve(), workspace.resolve()
     source = observation_root.resolve()
@@ -77,34 +71,14 @@ def materialize_post_action_observation(
         raise PostActionObservationError("policy-state observation identity differs")
     arguments = previous_action.get("arguments", {})
     if not isinstance(arguments, Mapping):
-        raise PostActionObservationError("Servo action lacks arguments")
-    selected_arms = (arguments.get("arms") if arguments.get("mode") == "hold"
-                     else arguments.get("targets"))
-    if all_current and not is_servo_action(previous_action):
-        selected_arms = []
-    elif not isinstance(selected_arms, (list, tuple, Mapping)) or not selected_arms or set(selected_arms) - {"left", "right"}:
-        raise PostActionObservationError("Servo action lacks selected arms")
-    arms = [arm for arm in ("left", "right") if arm in selected_arms]
+        raise PostActionObservationError("previous action lacks arguments")
     defaults = list(view_config.get("automatic_actual_views", ()))
     if not defaults or not all(isinstance(name, str) and name for name in defaults):
-        raise PostActionObservationError("Servo requires declared default public views")
+        raise PostActionObservationError("current views require declared default public views")
     cameras = observation.get("cameras")
     if not isinstance(cameras, Mapping):
         raise PostActionObservationError("current observation lacks public cameras")
     selected = list(dict.fromkeys(defaults))
-    missing = []
-    wrist_arms = {}
-    for arm in (() if all_current else arms):
-        matches = sorted(name for name, role in camera_roles.items() if role == f"{arm}_wrist")
-        if len(matches) > 1:
-            raise PostActionObservationError(f"ambiguous public wrist role: {arm}")
-        if not matches:
-            missing.append({"arm": arm, "camera": None, "reason": "public_wrist_not_declared"})
-            continue
-        name = matches[0]
-        wrist_arms[name] = arm
-        if name not in selected:
-            selected.append(name)
     manifest_hash = _hash(manifest)
     identity = hashlib.sha256(f"{observation_id}:{manifest_hash}".encode()).hexdigest()
     destination = workspace / "inputs/action-observations" / identity
@@ -156,10 +130,7 @@ def materialize_post_action_observation(
                 raise PostActionObservationError("current_rgb_resolution_mismatch")
         except (OSError, ValueError, KeyError, PostActionObservationError, ObservationProjectionError) as exc:
             reason = str(exc) if isinstance(exc, PostActionObservationError) else "current_rgb_decode_or_read_failed"
-            if name in defaults:
-                raise PostActionObservationError(f"mandatory default fresh view unavailable: {name}: {reason}") from exc
-            missing.append({"arm": wrist_arms[name], "camera": name, "reason": reason})
-            continue
+            raise PostActionObservationError(f"mandatory default fresh view unavailable: {name}: {reason}") from exc
         frozen = destination / f"{len(images):02d}-{hashlib.sha256(name.encode()).hexdigest()[:12]}.png"
         data = path.read_bytes()
         if frozen.exists():
@@ -173,15 +144,17 @@ def materialize_post_action_observation(
             "run_path": frozen.relative_to(run_root).as_posix(),
             "sha256": _hash(frozen), "width": width, "height": height,
             "calibration": calibration, "derivation": derivation})
-    return {"schema": CURRENT_OBSERVATION_BUNDLE_SCHEMA if all_current else POST_ACTION_OBSERVATION_SCHEMA,
+    # mode, selected_arms and missing_wrist_views keep the delivered record's
+    # shape: the current views select no arm and disclose no missing wrist.
+    return {"schema": CURRENT_OBSERVATION_BUNDLE_SCHEMA,
         "action_id": previous_action.get("action_id"), "mode": arguments.get("mode"),
-        "selected_arms": arms, "observation_id": observation_id,
+        "selected_arms": [], "observation_id": observation_id,
         "observation_sha256": manifest_hash, "observation_step": policy_state["step"],
         "state_sha256": policy_state.get("state_sha256"),
         "captured_at_unix_s": observation.get("captured_at_unix_s"),
         "observation_sequence": observation.get("sequence"),
-        "status": "degraded" if missing else "complete",
-        "missing_wrist_views": missing, "images": images}
+        "status": "complete",
+        "missing_wrist_views": [], "images": images}
 
 
 def resolve_post_action_images(
@@ -194,7 +167,7 @@ def resolve_post_action_images(
         return []
     from .current_visual import FULL_VISUAL_SCHEMA
     if not isinstance(record, Mapping) or record.get("schema") not in {
-        POST_ACTION_OBSERVATION_SCHEMA, CURRENT_OBSERVATION_BUNDLE_SCHEMA, FULL_VISUAL_SCHEMA,
+        CURRENT_OBSERVATION_BUNDLE_SCHEMA, FULL_VISUAL_SCHEMA,
     }:
         raise PostActionObservationError("unsupported post-action observation schema")
     state = context.get("policy_state")

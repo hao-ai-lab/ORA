@@ -23,14 +23,11 @@ class LiberoSourceBindingMixin:
     def _verify_source(self) -> dict[str, Any]:
         if self.environment_factory is not _build_environment:
             return {
-                "rlinf_revision": self.required_rlinf_revision,
                 "libero_pro_revision": self.required_libero_pro_revision,
                 "data_revision": self.required_data_revision,
                 "test_double": True,
             }
         bindings = (
-            *((("rlinf", self.rlinf_root, self.required_rlinf_revision),)
-              if self.environment_driver == "rlinf_v1" else ()),
             ("libero_pro", self.libero_pro_root, self.required_libero_pro_revision),
             ("data", self.data_root, self.required_data_revision),
         )
@@ -65,8 +62,7 @@ class LiberoSourceBindingMixin:
             required = {
                 "libero_module": self.libero_pro_root / "libero",
                 "benchmark_module": self.libero_pro_root / "libero",
-                **({"rlinf_module": self.rlinf_root} if self.environment_driver == "rlinf_v1" else
-                   {"direct_driver_module": Path(__file__).resolve().parent}),
+                "direct_driver_module": Path(__file__).resolve().parent,
                 "bddl_root": benchmark_data_root / "bddl_files",
                 "init_states_root": benchmark_data_root / "init_files",
             }

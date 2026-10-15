@@ -18,7 +18,7 @@ from ora.agent.context.public_facts import (
     PublicFactsError, project_current_public_facts, public_end_effectors, world_axes,
 )
 from ora.agent.context.projection import causal_provider_value, _causal_projection_violations
-from test_servo_observation_delivery import _observation
+from observation_fixtures import observation_fixture as _observation
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -227,11 +227,11 @@ def test_sheet_coordinates_and_observation_bound_extrinsics(tmp_path):
     assert second["cameras"]["left_camera"]["calibration"]["world_to_camera_cv"][0][3] == 2
 
 
-@pytest.mark.parametrize("action", [None, "move_pose", "servo", "close_gripper"])
+@pytest.mark.parametrize("action", [None, "move_pose", "close_gripper"])
 @pytest.mark.parametrize("backend", ["libero", "robotwin"])
 def test_initial_and_every_action_deliver_one_complete_current_set(tmp_path, backend, action):
     surface, observation, source = fixture(tmp_path, backend)
-    previous = None if action is None else {"schema": "ora-servo-action.v1" if action == "servo" else "other",
+    previous = None if action is None else {"schema": "other",
         "action": action, "observation_id": "observation-0", "action_id": "a0",
         "arguments": {"mode": "delta", "targets": {"right": {}}}}
     kwargs = dict(run_root=tmp_path, workspace=tmp_path / "workspace", observation=observation,

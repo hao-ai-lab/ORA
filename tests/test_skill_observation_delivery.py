@@ -12,7 +12,8 @@ from ora.agent.context.skill_observations import (
     materialize_skill_observations, resolve_skill_images,
 )
 from ora.agent.context.action_views import PostActionObservationError
-from test_servo_observation_delivery import _observation, _published_servo
+from observation_fixtures import observation_fixture as _observation
+from test_current_visual_delivery import published
 
 
 def _baseline(root, cameras=("agentview", "wrist")):
@@ -54,7 +55,8 @@ def test_native_provider_request_includes_labeled_historical_baseline(tmp_path, 
     from ora.agent.native.session import NativePlanner
     from ora.agent.providers.native import OpenAICompatibleProvider, translate_anthropic_request
 
-    context, _, _ = _published_servo(tmp_path)
+    # The default LIBERO current-views publication after an action.
+    context, _, _, _, _ = published(tmp_path, "libero_pro", after_action=True)
     receipt, source = _baseline(tmp_path)
     planner = NativePlanner.__new__(NativePlanner)
     planner.engine = SimpleNamespace()

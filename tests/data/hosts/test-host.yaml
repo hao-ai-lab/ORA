@@ -17,9 +17,6 @@ libero_pro:
   python:
     environment_variable: LIBERO_PRO_PYTHON
     purpose: Isolated LIBERO-Pro worker interpreter with Torch, MuJoCo and robosuite.
-  rlinf_root:
-    environment_variable: RLINF_ROOT
-    purpose: Exact clean RLinf checkout used directly by the LIBERO adapter.
   simulator_root:
     environment_variable: LIBERO_PRO_ROOT
     purpose: Exact clean LIBERO-Pro simulator source and asset root.

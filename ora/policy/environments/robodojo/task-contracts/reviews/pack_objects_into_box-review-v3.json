@@ -275,7 +275,7 @@
     "World +X is disclosed only as the task language direction convention, not an object pose or numeric evaluator tolerance. Camera-image left is not this fixed task direction.",
     "get_score open-gripper conditions and partial-score levels are not Boolean success criteria.",
     "Point-in-functional-box is a proxy for bottom-interior placement, not a containment or stable-support certificate.",
-    "v3 (EXP11A U6, 2026-09-30): the heading checks align the checkpoint -X (shoe: root +X) with world +X, and the mesh probe shows that axis points at the handle, heel or rear end in every selectable variant. The front end (head, brush head, toe, nose) therefore points toward world -X, the robot's own left. Registry-v4's '+X front' was the reverse under the natural meaning of front; functional_axis_review now records the checked end and the front end separately."
+    "v3: the heading checks align the checkpoint -X (shoe: root +X) with world +X, and the mesh probe shows that axis points at the handle, heel or rear end in every selectable variant. The front end (head, brush head, toe, nose) therefore points toward world -X, the robot's own left. Registry-v4's '+X front' was the reverse under the natural meaning of front; functional_axis_review now records the checked end and the front end separately."
   ],
   "supersedes": {
     "record": "ora/policy/environments/robodojo/task-contracts/reviews/pack_objects_into_box-review-v2.json",
@@ -284,7 +284,7 @@
     "layer_sha256": "7d5c977ad867a2d2e680d13ed007c42c8c0d6dccd1a1974e7697d60fb83d5fef"
   },
   "successor_review": {
-    "scope": "source/layout-bound qualitative successor review for the EXP11A contract wording unit U6; no simulator, provider or physical run",
+    "scope": "source/layout-bound qualitative successor review of a contract wording revision; no simulator, provider or physical run",
     "date": "2026-09-30",
     "reviewer": "claude_source_review",
     "basis": [
@@ -292,7 +292,7 @@
       "is_axis_aligned with a functional-point frame, get_functional_points and pose_to_matrix in the pinned reward manager, layout manager and transformer",
       "the checkpoint frames in the pinned asset metadata of every variant the task config can select",
       "a read-only mesh probe of the pinned usdz assets: cross-section extent at each end of the length axis and side/top silhouettes, per variant; no simulator run",
-      "EXP11A contract audit of the public wording against the upstream predicates, 2026-09-30, item c"
+      "Contract audit of the public wording against the upstream predicates, item c"
     ],
     "changes": [
       "Defines each object's front and back end publicly by shape: the car's nose and rear, the electric toothbrush's brush-head end and the bottom end of its handle, the hammer's head end and the free end of its handle, the shoe's toe and heel. Registry-v4 used 'front' without defining it for the toothbrush or the hammer.",

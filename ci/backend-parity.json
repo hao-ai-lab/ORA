@@ -1,6 +1,6 @@
 {
   "schema": "ora.backend-parity.v1",
-  "note": "Integration 0059 unit A0 (parity audit 2026-10-04). One row per capability and tool any maintained default declares; the maintained defaults are the default baseline's instances. tests/test_backend_parity.py checks that generic names are on every backend or excepted with a reason, that exceptions expire when the name is declared or the missing hook exists, that backend-specific names stay where they apply, and that a default swap keeps a superset of the default it replaced minus recorded retirements.",
+  "note": "Backend parity audit of the default surfaces. One row per capability and tool any maintained default declares; the maintained defaults are the default baseline's instances. tests/test_backend_parity.py checks that generic names are on every backend or excepted with a reason, that exceptions expire when the name is declared or the missing hook exists, that backend-specific names stay where they apply, and that a default swap keeps a superset of the default it replaced minus recorded retirements.",
   "classes": {
     "generic": "a Harness behaviour that applies on every backend; the agent code is backend-neutral",
     "generic_needs_backend_code": "generic, but a backend may lack the implementation hook; an exception names the hook",
@@ -83,7 +83,7 @@
         "robotwin",
         "robodojo"
       ],
-      "reason": "tool shape grasp_execute; the LIBERO default stays the direct surface (2026-09-29 decision)"
+      "reason": "tool shape grasp_execute; the LIBERO default stays the direct surface"
     },
     "compute_grammar_from_evaluator_v1": {
       "class": "generic",
@@ -831,8 +831,8 @@
         "glob": "ora/environment/backends/libero_pro/*.py",
         "mentions": "plan_alignment"
       },
-      "follow_up": "follow-up unit after integration 0059 (user decision 2026-10-04: \"登记例外，0059 后单列补\"): a LIBERO plan_alignment route on the CuRobo IK path plus the Panda approach-axis fix in the policy-side approach synthesis",
-      "reason": "LIBERO answers no alignment request (no plan_alignment route), and the policy-side approach synthesis puts approach on local +X, the Panda closing axis; declaring it would publish an align_plan LIBERO cannot answer (coordinator, 2026-10-04: do not declare on LIBERO).",
+      "follow_up": "a separate follow-up unit: a LIBERO plan_alignment route on the CuRobo IK path plus the Panda approach-axis fix in the policy-side approach synthesis",
+      "reason": "LIBERO answers no alignment request (no plan_alignment route), and the policy-side approach synthesis puts approach on local +X, the Panda closing axis; declaring it would publish an align_plan LIBERO cannot answer, so it is not declared on LIBERO.",
       "approved": "2026-10-04"
     },
     {
@@ -859,7 +859,7 @@
       "backends": [
         "robodojo"
       ],
-      "reason": "RoboDojo keeps v1: its reach check is move_pose's own SDK admission (matches_move_pose_admission true), so v1's route claim is true there; v2 would add ik_model, matches true and a null disagreement. Unifying is a RoboDojo help revision for a later generation. Approved by the user 2026-10-04 (\"接受保持 v1\").",
+      "reason": "RoboDojo keeps v1: its reach check is move_pose's own SDK admission (matches_move_pose_admission true), so v1's route claim is true there; v2 would add ik_model, matches true and a null disagreement. Unifying is a RoboDojo help revision for a later generation. Accepted: RoboDojo keeps v1.",
       "approved": "2026-10-04"
     },
     {
@@ -870,7 +870,7 @@
       "backends": [
         "robodojo"
       ],
-      "reason": "as P0059-D01. Approved by the user 2026-10-04 (\"接受保持 v1\").",
+      "reason": "as P0059-D01. Accepted: RoboDojo keeps v1.",
       "approved": "2026-10-04"
     },
     {
@@ -881,7 +881,7 @@
       "backends": [
         "robodojo"
       ],
-      "reason": "as P0059-D01; the X5 sweep holds the descriptor contact centre, which v1 already does. Approved by the user 2026-10-04 (\"接受保持 v1\").",
+      "reason": "as P0059-D01; the X5 sweep holds the descriptor contact centre, which v1 already does. Accepted: RoboDojo keeps v1.",
       "approved": "2026-10-04"
     },
     {
@@ -893,7 +893,7 @@
         "robotwin",
         "robodojo"
       ],
-      "reason": "The user made the overhead footprint localization the LIBERO and LIBERO-Pro default (2026-10-11: \"placement-centre 设为默认\") on the evidence of a LIBERO-only paired screen (EXP12B/placement-centre/g001); RoboTwin keeps the default its EXP12B/zeroshot/g004 results were measured on. The footprint centre is backend-neutral, but overhead_view_pose reads the single camera named wrist, so a dual-arm backend needs a per-arm camera choice and its own screen first.",
+      "reason": "The overhead footprint localization became the LIBERO and LIBERO-Pro default on the evidence of a LIBERO-only paired screen; RoboTwin keeps the default its own results were measured on. The footprint centre is backend-neutral, but overhead_view_pose reads the single camera named wrist, so a dual-arm backend needs a per-arm camera choice and its own screen first.",
       "approved": "2026-10-11"
     }
   ],
@@ -1005,43 +1005,43 @@
       "retirements": [
         {
           "name": "flat_placement_arguments_v1",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "grasp_verify_retention",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "held_object_offset_v1",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "place_execute",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "place_plan",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "place_resume",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "public_rgbd_dual_arm_placement_support_v1",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "public_rgbd_grasp_retention_verification_v4",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "public_rgbd_placement_depth_edges_v1",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         },
         {
           "name": "public_rgbd_placement_support_v1",
-          "reason": "retired by undeclaration on the v2 generation, as P04 retired it on the closed-skills surfaces (user decision 2026-10-04, \"v2 新面也退役\")"
+          "reason": "retired by undeclaration on the v2 generation, as it was retired on the earlier closed-skills surfaces"
         }
       ]
     },

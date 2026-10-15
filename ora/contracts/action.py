@@ -46,12 +46,6 @@ def validate_runtime_action(payload: Any) -> dict[str, Any]:
     }
     if set(payload) != expected:
         raise ActionValidationError("runtime action fields differ")
-    if payload["schema"] == "ora-composed-tool-action.v1":
-        from .composed_tool import validate_composed_tool_action
-        try:
-            return validate_composed_tool_action(payload)
-        except ValueError as exc:
-            raise ActionValidationError(str(exc)) from exc
     if payload["schema"] == SKILL_SEQUENCE_ACTION_SCHEMA:
         from .skill_sequence import validate_skill_sequence_action
         try:

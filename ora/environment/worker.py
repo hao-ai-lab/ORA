@@ -125,8 +125,7 @@ def _build_session(config: Mapping[str, Any]) -> Any:
         from ora.environment.backends.libero_pro.session import LiberoProSession
 
         return LiberoProSession(
-            rlinf_root=(Path(str(config["rlinf_root"])) if config.get("rlinf_root") is not None else None),
-            environment_driver=str(config.get("environment_driver", "rlinf_v1")),
+            environment_driver=str(config.get("environment_driver", "direct_libero_v1")),
             libero_pro_root=Path(str(config["libero_pro_root"])),
             data_root=Path(str(config["data_root"])),
             output_root=output_root,
@@ -140,7 +139,6 @@ def _build_session(config: Mapping[str, Any]) -> Any:
                 if config.get("robustness_case") is not None else None
             ),
             expected_task_language=str(config["expected_task_language"]),
-            required_rlinf_revision=config.get("required_rlinf_revision"),
             required_libero_pro_revision=str(config["required_libero_pro_revision"]),
             required_data_revision=str(config["required_data_revision"]),
             workspace_bounds_m=config["workspace_bounds_m"],
@@ -210,10 +208,7 @@ def _dispatch(session: Any, config: Mapping[str, Any], method: str, params: Mapp
         if not isinstance(action, Mapping):
             raise WorkerProtocolError("begin_action_sequence.action must be an object")
         action = validate_runtime_action(action)
-        if action["schema"] not in {
-            "ora-skill-sequence-action.v1", "ora-composed-tool-action.v1",
-            "ora-action.v4",
-        }:
+        if action["schema"] not in {"ora-skill-sequence-action.v1", "ora-action.v4"}:
             raise WorkerProtocolError("action sequence requires a supported parent")
         begin = getattr(session, "begin_action_sequence", None)
         if callable(begin):

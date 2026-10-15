@@ -402,7 +402,7 @@ def test_a_stalled_recovery_is_never_projected_as_a_timeout():
     assert public_motion_failure_code("execution", "native_action_budget_exhausted") == "controller_timeout"
 
 
-@pytest.mark.parametrize("surface", ["robodojo_placement_closed_skills_v2", "robodojo_placement_closed_composed_v1"])
+@pytest.mark.parametrize("surface", ["robodojo_placement_closed_skills_v2"])
 def test_the_dojo_help_states_the_stall_and_hold_the_executor_applies(surface):
     from ora.agent.context import policy_units
 

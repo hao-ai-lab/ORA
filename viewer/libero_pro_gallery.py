@@ -27,7 +27,6 @@ from viewer.libero_pro_catalog import (
     catalog_payload,
     robustness_assets,
 )
-from viewer.libero_pro_results import published_results_payload
 
 
 PageRenderer = Callable[..., str]
@@ -154,7 +153,6 @@ def _context(
                 "family": FAMILY_LABELS[identifier],
                 "cards": cards,
             })
-    published_results = published_results_payload()
     return {
         "query": query,
         "family_filter": family,
@@ -205,14 +203,6 @@ def _context(
         "data_revision": LIBERO_PRO_DATA_REVISION,
         "migrated_from_commit": MIGRATED_FROM_COMMIT,
         "legacy_environment": LEGACY_ENVIRONMENT,
-        "published_results": published_results,
-        "result_cohorts": published_results["cohorts"],
-        "result_by_key": {
-            row["key"]: row
-            for cohort in published_results["cohorts"]
-            for row in cohort["methods"]
-        },
-        "openeta_boundary": published_results["openeta"],
     }
 
 
@@ -287,11 +277,6 @@ def create_libero_pro_blueprint(
             "missing": status["missing"],
             "manifest": status["manifest"],
         })
-
-    @blueprint.get("/api/libero-pro/results")
-    def results_api():
-        return jsonify(published_results_payload())
-
     return blueprint
 
 

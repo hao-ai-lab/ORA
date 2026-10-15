@@ -127,11 +127,8 @@ def _runtime_revision(runtime: Mapping[str, Any]) -> str | None:
         revision = "/".join(value[:12] for value in source_revisions(runtime).values())
         return revision + f" layout={runtime['layout_id']} sha256={runtime['layout_sha256'][:12]}"
     if runtime["kind"] == "libero_pro":
-        # The direct driver resolves no RLinf checkout, so it has no RLinf pin.
-        driver = runtime.get("environment_driver", "rlinf_v1")
-        first = runtime["required_rlinf_revision"][:12] if driver == "rlinf_v1" else driver
         return "/".join((
-            first,
+            runtime.get("environment_driver", "direct_libero_v1"),
             runtime["required_libero_pro_revision"][:12],
             runtime["required_data_revision"][:12],
         ))

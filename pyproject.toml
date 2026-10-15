@@ -17,13 +17,12 @@ dependencies = [
   "pillow>=10.0",
   "pyyaml>=6.0",
   "scipy>=1.12,<2.0",
-  "starlark-pyo3>=2026.1.2,<2027",
 ]
 
 [project.urls]
-Repository = "https://github.com/hao-ai-lab/ora-agent"
-Documentation = "https://github.com/hao-ai-lab/ora-agent/blob/main/docs/README.md"
-Issues = "https://github.com/hao-ai-lab/ora-agent/issues"
+Repository = "https://github.com/hao-ai-lab/ORA"
+Documentation = "https://github.com/hao-ai-lab/ORA/blob/main/docs/README.md"
+Issues = "https://github.com/hao-ai-lab/ORA/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]

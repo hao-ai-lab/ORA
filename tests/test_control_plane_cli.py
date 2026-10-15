@@ -257,17 +257,12 @@ def test_documented_script_and_test_module_inventory_is_current() -> None:
     assert "[`test-manifest.json`](test-manifest.json)" in tests_doc
 
 
-@pytest.mark.parametrize("driver,expected", [
-    ("rlinf_v1", "c90951a0c799/2b910b5b5f53/c86fc3b8293b"),
-    ("direct_libero_v1", "direct_libero_v1/2b910b5b5f53/c86fc3b8293b"),
-])
-def test_plan_display_names_the_libero_driver_it_resolved(driver, expected) -> None:
-    # The direct driver resolves no RLinf checkout, so it carries no RLinf pin.
+@pytest.mark.parametrize("runtime_driver", [{"environment_driver": "direct_libero_v1"}, {}])
+def test_plan_display_names_the_libero_driver_it_resolved(runtime_driver) -> None:
+    # A RunSpec that names no driver selects the direct driver.
     runtime = {
-        "kind": "libero_pro", "environment_driver": driver,
+        "kind": "libero_pro", **runtime_driver,
         "required_libero_pro_revision": "2b910b5b5f53016bef9907632f6f840f1ce2229c",
         "required_data_revision": "c86fc3b8293b5f6f373677018ff3e37f8391602",
     }
-    if driver == "rlinf_v1":
-        runtime["required_rlinf_revision"] = "c90951a0c799a750cb5294ed10587c61cc2af8bf"
-    assert control_cli._runtime_revision(runtime) == expected
+    assert control_cli._runtime_revision(runtime) == "direct_libero_v1/2b910b5b5f53/c86fc3b8293b"

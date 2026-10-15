@@ -34,7 +34,7 @@ from ora.contracts.reach_check import MAXIMUM_POSES, RESULT_SCHEMA
 from test_reach_check import dojo  # noqa: F401  (the RoboDojo reach-check fixture)
 
 DOJO = "robodojo_placement_closed_skills_v2"
-ROBOTWIN_LIVE = ("robotwin_toolchain_b2_closed_noservo_v2", "robotwin_toolchain_b2_closed_composed_v1")
+ROBOTWIN_LIVE = ("robotwin_toolchain_b2_closed_noservo_v2",)
 BOUNDS = {"x": [-1.0, 1.0], "y": [-1.0, 1.0], "z": [0.0, 2.0]}
 APPROACH = np.array([1.0, 0.0, 0.0])
 OFFSET = np.array([0.1501, 0.0, 0.0])

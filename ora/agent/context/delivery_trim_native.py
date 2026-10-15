@@ -10,8 +10,8 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
-#: ``session._post_action_view_feedback``: the two labels of the view block.
-VIEW_BLOCKS = ("current_views", "post_action_views")
+#: ``session._post_action_view_feedback``: the label of the view block.
+VIEW_BLOCKS = ("current_views",)
 
 
 def _without(mapping: Mapping[str, Any], keys: tuple[str, ...]) -> dict[str, Any]:

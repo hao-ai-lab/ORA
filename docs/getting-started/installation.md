@@ -5,8 +5,8 @@ and Python 3.11. uv can install the pinned Python version. Start with a source
 checkout so launches can record an exact Git commit.
 
 ```bash
-git clone https://github.com/hao-ai-lab/ora-agent.git
-cd ora-agent
+git clone https://github.com/hao-ai-lab/ORA.git
+cd ORA
 uv sync --all-extras --locked
 uv run --locked ora doctor
 ```

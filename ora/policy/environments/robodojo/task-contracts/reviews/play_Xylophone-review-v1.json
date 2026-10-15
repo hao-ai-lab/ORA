@@ -269,7 +269,7 @@
     "note": "Every evaluator clause is disclosed in words. The pinned check has no arm-return term, so the last clause is the shared no-return sentence and maps to no evaluator clause; boundary-v2 then applies no return requirement. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
   },
   "public_text_zh_reference": {
-    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "note": "Chinese reference rendering for review only; the English semantic_contract is authoritative and is the only text delivered to the policy.",
     "clauses": [
       "从左到右指从世界 -X 方向（左臂安装的一侧）到世界 +X 方向（右臂一侧）。每个琴键都必须被敲击，按琴键在木琴上的排列顺序依次进行，从木琴左端的琴键开始，到右端的琴键结束。",
       "当琴槌的槌头落到某个琴键处，接触该琴键或就在其上方，并且位于该琴键本身之上、而不是在两个琴键之间或木琴之外时，才算敲击了该琴键。琴槌其他部分或夹爪的接触都不算。",

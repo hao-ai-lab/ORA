@@ -40,10 +40,6 @@ from ora.environment.replay_worker import (
     _robotwin_replay_needs_planner,
     _robotwin_replay_route,
 )
-from ora.environment.historical_libero_replay_worker import (
-    _uniform_capture_steps as _historical_uniform_capture_steps,
-    _validate_reenacted_receipt,
-)
 from ora.orchestrator.spec import RunSpecError, resolve_run_spec
 from ora.orchestrator.context_manifest import context_placeholder
 from experiments.runtime_v1 import run as experiment
@@ -63,11 +59,6 @@ from viewer.libero_previews import (
     load_preview_manifest,
     preview_descriptors,
 )
-from viewer.libero_pro_results import (
-    RESULTS as LIBERO_PRO_PUBLISHED_RESULTS,
-    RESULTS_SCHEMA as LIBERO_PRO_RESULTS_SCHEMA,
-    published_results_payload,
-)
 from viewer.robotwin_catalog import (
     CATALOG_SCHEMA,
     MIGRATED_FROM_COMMIT,
@@ -79,7 +70,6 @@ from viewer.trajectory import (
     ANALYSIS_SCHEMA,
     _controller_replay_source,
     _continuous_execution_source,
-    _historical_libero_reenactment_source,
     _load_run_analysis,
     _render_continuous_execution_frame,
     _render_trajectory_frame,
@@ -89,15 +79,8 @@ from viewer.trajectory import (
     raw_trajectory_event,
 )
 from viewer.replay import (
-    VIEWER_GPU_ENV,
     ViewerReplayError,
-    ViewerReplayValidationError,
-    _apply_viewer_gpu_override,
-    _historical_libero_actions,
-    _historical_libero_qualification,
     ensure_controller_replay,
-    ensure_historical_libero_replay,
-    historical_libero_replay_identity,
 )
 
 
@@ -181,9 +164,8 @@ def test_plan_is_deterministic_and_resource_change_rekeys(tmp_path: Path) -> Non
     libero = spec()
     libero["runtime"] = {
         "kind": "libero_pro", "transport": "local_rpc",
-        "python_env": "LIBERO_PRO_PYTHON", "rlinf_root_env": "RLINF_ROOT",
+        "python_env": "LIBERO_PRO_PYTHON",
         "libero_pro_root_env": "LIBERO_PRO_ROOT", "data_root_env": "LIBERO_PRO_DATA_ROOT",
-        "required_rlinf_revision": "rlinf-revision",
         "required_libero_pro_revision": "libero-revision",
         "required_data_revision": "data-revision", "suite": "libero_object_swap",
         "task_id": 2, "expected_task_language": "place the object",
@@ -306,15 +288,7 @@ def test_runtime_v1_is_first_class_experiment_package(tmp_path: Path) -> None:
         "launch", "status", "watch", "stop", "metadata", "metrics",
         "evaluate", "seal", "export",
     }
-    assert set(experiment_choices) == standard_choices | {
-        "control-audit", "libero-pose-control",
-    }
-    venv_python = tmp_path / "qualification-venv/bin/python"
-    venv_python.parent.mkdir(parents=True)
-    venv_python.symlink_to(Path(sys.executable).resolve())
-    assert experiment._preserved_python_entry(str(venv_python)) == (
-        venv_python.absolute()
-    )
+    assert set(experiment_choices) == standard_choices | {"control-audit"}
     definition = experiment._definition()
     assert definition["schema"] == "ora.runtime-experiment.v1"
     assert list(definition["milestones"]) == ["M0", "M1", "M2", "M3", "M4", "M5"]

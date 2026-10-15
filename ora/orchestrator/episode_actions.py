@@ -1,8 +1,7 @@
 """The Supervisor's execution of one accepted proposal.
 
 `dispatch_action` routes the persisted proposal by schema: a committed skill
-sequence runs its stage loop, a committed composed tool runs its body's
-primitive actions, and every other action goes through
+sequence runs its stage loop, and every other action goes through
 `execute_runtime_action`. `post_action_boundary` decides whether the fresh
 observation after that execution ends the round.
 """
@@ -12,13 +11,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Mapping
 
-from ora.contracts import (
-    COMPOSED_TOOL_ACTION_SCHEMA, SKILL_SEQUENCE_ACTION_SCHEMA,
-)
+from ora.contracts import SKILL_SEQUENCE_ACTION_SCHEMA
 
 from .action_executor import execute_runtime_action
 from .episode_records import _append
-from .composed_tool_job import run_composed_tool
 from .skill_sequence_job import run_skill_sequence
 from .termination import (
     TerminationDecision,
@@ -44,14 +40,6 @@ def dispatch_action(
     captured_after_action: tuple[dict[str, Any], Path] | None = None
     if action.get("schema") == SKILL_SEQUENCE_ACTION_SCHEMA:
         receipt, captured_after_action = run_skill_sequence(
-            loop.runtime, action, tools=loop.tools, current=current,
-            observation_root=loop.observation_root,
-            main_camera=loop.projector.main_camera,
-            record=lambda event: _append(loop.events, event),
-            should_stop=should_stop,
-        )
-    elif action.get("schema") == COMPOSED_TOOL_ACTION_SCHEMA:
-        receipt, captured_after_action = run_composed_tool(
             loop.runtime, action, tools=loop.tools, current=current,
             observation_root=loop.observation_root,
             main_camera=loop.projector.main_camera,

@@ -1,7 +1,5 @@
 # Script and command inventory
 
-`ora experiments [FAMILY] [--json]` inspects source-tracked generation lineage and exact-source historical aliases; see [experiment identity](../docs/reference/experiment-identity.md).
-
 This is the canonical inventory for human-operated repository commands. A
 script stays here only when it adds a stable command surface or unique safety
 logic. Thin per-task or per-milestone launch aliases are intentionally
@@ -109,9 +107,9 @@ live in `scripts/`:
 | Entry | Purpose | Intended caller |
 |---|---|---|
 | `examples/official_suite/run.py` | List the official LIBERO-Pro core and RoboTwin seed-manifest cells, compose one cell's RunSpec on the default baseline, qualify the resident services, or queue a selection across lanes with one attempt per cell. | Official-suite operator on a registered host. |
-| `experiments/runtime_v1/run.py` | Operate the first-class Runtime v1 experiment package through the standard discover/context/plan/preflight/launch/observe/evaluate/seal lifecycle, including M0-M5 prerequisite gates, read-only LIBERO control audit and the source-pinned Pose/Frame v2 Panda qualification matrix. | Runtime qualification operator. |
+| `experiments/runtime_v1/run.py` | Operate the first-class Runtime v1 experiment package through the standard discover/context/plan/preflight/launch/observe/evaluate/seal lifecycle, including M0-M5 prerequisite gates and the read-only LIBERO control audit. | Runtime qualification operator. |
 | `ora/orchestrator/cli.py` | Canonical generic RunSpec/episode-control implementation behind `scripts/ora` and the experiment CLIs. | Wrappers and advanced debugging; prefer the higher-level experiment CLI for normal work. |
-| `ora/environment/backends/robotwin/qualification.py` | Run the trusted RoboTwin expert/oracle seed qualification loop. | EXP00/runtime composition commands; direct use only when debugging qualification. |
+| `ora/environment/backends/robotwin/qualification.py` | Run the trusted RoboTwin expert/oracle seed qualification loop. | Runtime composition commands; direct use only when debugging qualification. |
 | `viewer/app.py` | Start the unified local read-only experiment config catalog, exact run-composition inspector, trajectory/raw-event viewers, generic run registry and 50-task RoboTwin Gallery on `127.0.0.1:5012`. | Local operator before task inspection or after runs are fetched. |
 
 The installed equivalents declared in `pyproject.toml` are `ora`,
@@ -129,11 +127,10 @@ Runtime qualification:
 ```bash
 uv run --locked python experiments/runtime_v1/run.py configs
 uv run --locked python experiments/runtime_v1/run.py explain M0
-uv run --locked python experiments/runtime_v1/run.py context M0 --policy codex
+uv run --locked python experiments/runtime_v1/run.py context M0 --policy native_api
 uv run --locked python experiments/runtime_v1/run.py plan M0 --policy scripted
 uv run --locked python experiments/runtime_v1/run.py preflight M0 --policy scripted
 uv run --locked python experiments/runtime_v1/run.py control-audit
-uv run --locked python experiments/runtime_v1/run.py libero-pose-control
 ```
 
 The generic `ora providers` command reads the shared packaged
@@ -142,14 +139,6 @@ entry records the independently qualified Anthropic Messages text/tool route,
 official 1M context and 128K output limits, and environment-variable names
 without storing credentials. It makes no image-capability claim; behavioral
 robot use still starts on a new source-bound experiment branch.
-
-## Removed aliases
-
-The repository deliberately removed `scripts/run-exp00` and
-`scripts/run-harness-m0` through `scripts/run-harness-m5`. They only forwarded
-arguments to an existing CLI, created seven extra entry points to maintain,
-and made direct launch commands easier to run without first inspecting the
-plan. Do not recreate equivalent aliases.
 
 ## Maintenance rule
 

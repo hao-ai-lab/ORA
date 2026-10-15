@@ -1,4 +1,4 @@
-"""Single LIBERO simulator owned by the isolated Harness worker, without RLinf."""
+"""Single LIBERO simulator owned by the isolated Harness worker."""
 from __future__ import annotations
 
 from typing import Any, Callable

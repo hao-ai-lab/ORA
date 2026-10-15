@@ -30,7 +30,7 @@ import pytest
 from ora.agent.composition import reach_reference_schema as schema
 from ora.agent.composition import resolve_tool_surface
 from ora.agent.composition.move_pose_reach_schema import LINE_FRACTIONS
-from ora.agent.composition.profile_catalog import COMPOSED_SUCCESSORS, PROFILE_CATALOG
+from ora.agent.composition.profile_catalog import PROFILE_CATALOG
 from ora.agent.composition.reach_orientation_schema import NEAREST_PROPERTY, ROTATIONS_DEG
 from ora.agent.composition.tool_surface import ToolSurfaceError, validate_schema_instance
 from ora.agent.context.public_facts import PublicFactsError
@@ -103,10 +103,8 @@ def test_only_the_robotwin_and_libero_v2_defaults_declare_the_ports():
     declaring = {profile for profile, path in PROFILE_CATALOG.items()
                  if set(json.loads(path.read_text(encoding="utf-8")).get("capabilities", [])) & set(NEW_CAPABILITIES)}
     # LIBERO joined with M2; RoboDojo keeps v1 (parity exceptions P0059-D01-D03).
-    # Composed-tools successors inherit their source's ports, as does LIBERO's
-    # overhead successor (the default since integration 0084).
-    sources = {ROBOTWIN_DEFAULT, "libero_placement_direct_overhead_v1"}
-    assert declaring == sources | {successor for successor, source in COMPOSED_SUCCESSORS.items() if source in sources}
+    # LIBERO's overhead successor inherits the ports.
+    assert declaring == {ROBOTWIN_DEFAULT, "libero_placement_direct_overhead_v1"}
     for profile in declaring:
         declared = set(json.loads(PROFILE_CATALOG[profile].read_text(encoding="utf-8"))["capabilities"])
         assert set(NEW_CAPABILITIES) <= declared, profile

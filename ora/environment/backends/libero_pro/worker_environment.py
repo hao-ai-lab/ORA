@@ -1,4 +1,4 @@
-"""The worker-side environment wrapper behind RLinf's getattr channel.
+"""The worker-side environment wrapper behind the driver's getattr channel.
 
 ``_CameraMetadataEnvironment`` wraps the constructed LIBERO environment inside
 the isolated worker and exposes controller-owned public geometry, sensor state
@@ -30,7 +30,7 @@ from .common import LiberoProError, _quaternion_error_rotvec
 
 
 class _CameraMetadataEnvironment(LiberoWorkerCaptureMixin):
-    """Expose controller-owned public geometry through RLinf's getattr channel."""
+    """Expose controller-owned public geometry through the driver's getattr channel."""
 
     def __init__(self, delegate: Any) -> None:
         self._delegate = delegate
@@ -59,7 +59,7 @@ class _CameraMetadataEnvironment(LiberoWorkerCaptureMixin):
 
     @property
     def unwrapped(self) -> "_CameraMetadataEnvironment":
-        # RLinf's worker applies set_env_attr to ``env.unwrapped``.  Keeping the
+        # The driver applies set_env_attr to ``env.unwrapped``.  Keeping the
         # trusted wrapper as that target lets the Harness synchronize controller
         # state without exposing an arbitrary backend mutation surface.
         return self
@@ -153,7 +153,7 @@ class _CameraMetadataEnvironment(LiberoWorkerCaptureMixin):
     def harness_servo_timing(self) -> dict[str, Any]:
         # LIBERO's ControlEnv exposes the robot/sim but keeps RoboSuite's
         # timing on its inner ``env``. Read the actual controller owner;
-        # otherwise RLinf's hasattr/getattr channel turns AttributeError
+        # otherwise the hasattr/getattr channel turns AttributeError
         # into a misleading None result.
         owner = self._delegate
         seen: set[int] = set()

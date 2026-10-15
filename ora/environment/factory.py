@@ -231,9 +231,7 @@ def _libero(context: _BuildContext) -> object:
     )
     roots = {
         field: _required_environment_path(runtime, field)
-        for field in (*(("rlinf_root_env",)
-            if runtime.get("environment_driver", "rlinf_v1") == "rlinf_v1" else ()),
-            "libero_pro_root_env", "data_root_env")
+        for field in ("libero_pro_root_env", "data_root_env")
     }
     motion_planner = None
     motion_profile = None
@@ -284,10 +282,7 @@ def _libero(context: _BuildContext) -> object:
         worker_config={
             "backend": "libero_pro",
             "execution_capture": runtime.get("execution_capture"),
-            "environment_driver": runtime.get("environment_driver", "rlinf_v1"),
-            **({"rlinf_root": str(roots["rlinf_root_env"]),
-                "required_rlinf_revision": runtime["required_rlinf_revision"]}
-               if runtime.get("environment_driver", "rlinf_v1") == "rlinf_v1" else {}),
+            "environment_driver": runtime.get("environment_driver", "direct_libero_v1"),
             "libero_pro_root": str(roots["libero_pro_root_env"]),
             "data_root": str(roots["data_root_env"]),
             "output_root": str(context.output_root.resolve()),

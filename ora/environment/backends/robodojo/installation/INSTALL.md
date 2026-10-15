@@ -16,8 +16,7 @@ export ROBODOJO_PYTHON=/path/to/robodojo-runtime/env/bin/python
 
 `setup-robodojo` has no host default root. `--root` wins; otherwise it uses
 `ROBODOJO_RUNTIME_ROOT`, or the root that `ROBODOJO_ROOT=<root>/source/RoboDojo`
-names (so the SSH23 bindings above select the SSH23 root); with neither it
-refuses. A single-GPU machine runs every stage through
+names (so the bindings above select that root); with neither it refuses. A single-GPU machine runs every stage through
 `./scripts/ora setup --env robodojo`, which passes `--root <prefix>/robodojo-runtime`.
 
 ## Fixed sources

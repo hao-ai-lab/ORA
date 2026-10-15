@@ -16,7 +16,7 @@ from ora.agent.tools.robot import TOOL_DEFINITIONS, RobotToolRuntime
 ROOT = Path(__file__).resolve().parents[1]
 PROMPT = ROOT / "tests/data/prompts/startup-prompt-v1.md"
 MANUAL = ROOT / "ora/policy/embodiments/aloha-agilex/manual-v1.md"
-AGENTS = ROOT / "ora/policy/planners/codex/workspace-v1.md"
+AGENTS = ROOT / "ora/policy/planners/native/project-v1.md"
 BOUNDS = {"x": [-0.6, 0.6], "y": [-0.4, 0.4], "z": [0.7, 1.45]}
 CAMERAS = ("observer_camera", "head_camera", "front_camera", "left_camera", "right_camera")
 
@@ -98,7 +98,7 @@ def test_observer_projection_round_trip_and_eef_projection_are_hash_bound(tmp_pa
     }
 
 
-def test_context_audit_separates_provider_harness_images_coding_and_cache(tmp_path: Path) -> None:
+def test_context_audit_separates_provider_harness_images_and_cache(tmp_path: Path) -> None:
     run = tmp_path / "run"
     (run / "native").mkdir(parents=True)
     (run / "context-bundles").mkdir()
@@ -123,7 +123,7 @@ def test_context_audit_separates_provider_harness_images_coding_and_cache(tmp_pa
     }
     (run / "context-bundles/call-0000.json").write_text(json.dumps(bundle))
     session = {
-        "backend": "codex_app_server_v2", "session_id": "agent", "process_pid": 1,
+        "backend": "native_openai_compatible_v1", "session_id": "agent", "process_pid": 1,
         "process_invocations": 1, "process_restarts": 0, "thread_id": "thread",
         "rollovers": [], "compaction_events": [],
         "calls": [{
@@ -136,17 +136,12 @@ def test_context_audit_separates_provider_harness_images_coding_and_cache(tmp_pa
         }],
     }
     (run / "native/agent-session.json").write_text(json.dumps(session))
-    (run / "native/coding-audit.jsonl").write_text(json.dumps({
-        "turn_id": "turn", "cwd": "scratch", "commands": [],
-        "scratch": {"created": [], "modified": [], "reserved_paths_changed": []},
-        "immutable_inputs_unchanged": True, "outside_workspace_path_violations": [],
-    }) + "\n")
     write_runtime_metrics(run)
     audit = write_context_audit(run)
     assert audit["turns"][0]["provider"]["cached_input_tokens"] == 80
     assert audit["turns"][0]["harness_text"]["token_status"].startswith("estimated")
     assert audit["camera_disclosure"]["automatic_policy_camera"] == "observer_camera"
-    assert audit["coding"]["integrity_passed"] is True
+    assert "coding" not in audit and "coding" not in audit["turns"][0]
     assert audit["verifiable_redundancy"]["provider_cached_ratio_classification"] == "cache_reuse_not_redundant_new_input"
     assert build_context_audit(run) == audit
     assert verify_context_audit(run)["status"] == "valid"

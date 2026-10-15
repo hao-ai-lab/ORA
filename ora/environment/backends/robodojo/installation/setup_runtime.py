@@ -631,7 +631,7 @@ def default_root(environ=None) -> Path | None:
 
     ``ROBODOJO_RUNTIME_ROOT`` wins; otherwise ``ROBODOJO_ROOT`` (the
     ``<root>/source/RoboDojo`` checkout) names its installation root. There is
-    no host default: a missing root used to fall back to one SSH23 path.
+    no host default: a missing root is refused.
     """
     values = os.environ if environ is None else environ
     if values.get("ROBODOJO_RUNTIME_ROOT"):

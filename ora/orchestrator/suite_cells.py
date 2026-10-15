@@ -22,10 +22,7 @@ receives the benchmark's pinned per-episode instruction by default
 instead carry an explicit ``episode_instruction``, which overrides it (a
 seed-named task outside that table needs one). ``config`` overrides the
 builder's cell id; ids must be distinct because admission is per cell. Any
-cell may carry ``harness_change``, the repository path of a harness-change
-record (``orchestrator/harness_change.py``), so one list can hold a parent
-and its candidates on the same seeds. Any cell may also name a
-registered ``baseline`` (``policy.baseline``); without it the default
+cell may name a registered ``baseline`` (``policy.baseline``); without it the default
 baseline composes, so one list can hold both arms of a paired comparison
 that differs only in the baseline.
 """
@@ -45,10 +42,9 @@ CELLS_SCHEMA = "ora.suite-cells.v1"
 RUNTIME_KINDS = {"robotwin": "robotwin", "libero_pro": "libero_pro", "libero": "libero_pro"}
 _FIELDS = {
     "robotwin": ({"environment", "task", "seed"}, {"task_config", "seed_manifest", "episode_instruction",
-                                                    "expert_unsolved", "config", "harness_change",
-                                                    "baseline"}),
-    "libero_pro": ({"environment", "suite", "task_id", "seed"}, {"config", "harness_change", "baseline"}),
-    "libero": ({"environment", "suite", "task_id", "seed"}, {"config", "harness_change", "baseline"}),
+                                                    "expert_unsolved", "config", "baseline"}),
+    "libero_pro": ({"environment", "suite", "task_id", "seed"}, {"config", "baseline"}),
+    "libero": ({"environment", "suite", "task_id", "seed"}, {"config", "baseline"}),
 }
 
 
@@ -105,8 +101,6 @@ def parse_cells(value: Mapping[str, Any]) -> list[Cell]:
                 and entry["episode_instruction"].strip()):
             raise ValueError(f"cell {index}: episode_instruction is the non-empty per-episode instruction "
                              "of a RoboTwin cell")
-        if "harness_change" in entry and not (isinstance(entry["harness_change"], str) and entry["harness_change"]):
-            raise ValueError(f"cell {index}: harness_change is the repository path of a harness-change record")
         unsolved = entry.get("expert_unsolved")
         if unsolved is not None and not (
                 isinstance(unsolved, Mapping) and set(unsolved) == {"reason", "evidence"}
@@ -162,8 +156,7 @@ def build_spec(cell: Cell, lane: str, treatment: Treatment) -> dict[str, Any]:
     common = dict(seed=cell.fields["seed"], experiment=treatment.experiment, resource_profile=lane,
                   host=treatment.host, config=cell.config, provider_profile=treatment.provider_profile,
                   provider_catalog=treatment.provider_catalog, service_report=treatment.service_report,
-                  cohort_id=treatment.cohort_id, rounds=treatment.rounds, baseline=cell.fields.get("baseline"),
-                  harness_change=Path(cell.fields["harness_change"]) if cell.fields.get("harness_change") else None)
+                  cohort_id=treatment.cohort_id, rounds=treatment.rounds, baseline=cell.fields.get("baseline"))
     if cell.environment == "robotwin":
         task, named = cell.fields["task"], cell.fields.get("episode_instruction")
         episode_names = {"episodes": {f"{task}:s{cell.fields['seed']}": {"instruction": named}}} if named else None

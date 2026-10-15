@@ -50,9 +50,8 @@ previous tick's last step when the physics clock is contiguous, never across a
 round start. A *segment* is a run of consecutive ticks of one action with one
 segment name commanding one arm. The target is that of its first tick; a
 segment whose target changes (a planned trajectory or a stall hold) is not a v1
-segment. *Global* segments are `move`, `plan_ref` (a probe-planned move; none
-in g005, so the fixed g005 global population is move, precontact, recover and
-retract), `precontact`, `retract` and every `recover*`. `local` is its own
+segment. *Global* segments are `move`, `plan_ref` (a probe-planned move),
+`precontact`, `retract` and every `recover*`. `local` is its own
 class; `gripper`, `wait` and `stall_hold` are not motion segments. Two cohorts
 split the arm-ticks and the jaw episodes: *closed_command*, where the tick-end
 recorded gripper directive is `close`, and *holding_mode*, v1's form of the v2
@@ -78,16 +77,16 @@ floor. Percentiles are the value at index floor(q·n) of the ascending sort.
 | `native_actions.per_round` | rounds × the task's official native-action limit | native actions used | `NATIVE_ACTION_LIMITS` |
 | `timeout_stillness` | pose commands ending `native_action_budget_exhausted` | every targeted arm moved no joint ≥ 0.005 rad in each of its last three ticks | the `controller_stalled` rule, imported from `backends/robodojo/motion_stall.py` |
 
-Changes from the first cut (`robodojo-motion-metrics.v1`, commit `f4fc0bc2`,
-never used as a baseline): segments split by name only, not by name and
+Changes from the first cut (`robodojo-motion-metrics.v1`, never used as a
+baseline): segments split by name only, not by name and
 target; out-of-step counts constant-target segments only; sag takes its goal
 height from the receipt and covers pose segments only; arrival's denominator is
 every pose command; `closed_jaw` became the `closed_command` cohort beside a
 new `holding_mode` cohort; held-then-lost gained the closed-command cohort and
 selects its object by the jaw contact centre; commanded-speed violation, v1
 tracking error, peak ratio and impulse saturation were added. Commanded speed
-counts only the steps inside each tick (the first v2 report of `e3780512` also
-counted the step from the previous tick), and a stalled close that ended at the
+counts only the steps inside each tick (an early v2 report also counted the
+step from the previous tick), and a stalled close that ended at the
 jaw floor opens no holding-mode episode.
 
 ### Control replay
@@ -158,12 +157,7 @@ planner or executor decision is re-run.
   scan to the table. The status is `identical_kernel`,
   `executor_drift_admitted` (the report then carries a `kernel_notice` that
   the kernel is not the run's and was admitted by AST equivalence) or
-  `control_path_changed`. Against this tree at `c4cd6af9`, the g005
-  source `c0b9e85c` and the g006 sources `b32fab68` and `bdd9f515` are
-  admitted as `executor_drift_admitted` (six differing files: five
-  executor-only, `common.py` add-only); the ten other EXP11A run commits
-  checked (`07451d60`, `5c0f3e57`, `5d771e5c`, `799aace2`, `8f5e3aa4`,
-  `95a6a517`, `98b0be2a`, `9cb2b80d`, `c852458b`, `fdce79f9`) are refused.
+  `control_path_changed`.
 - Each pass stages its `TMPDIR`/`TMP`/`TEMP` through `host_storage.stage_launch`
   and releases it afterwards, claims its slot lease (a conflict refuses; retry
   when the slot frees), and runs the worker in its own process group, killed as
@@ -199,28 +193,26 @@ Operator command, on the qualified host from the clean committed checkout with
 export ORA_EXECUTION_HOST=<host-id>
 export TMPDIR=<writable scratch on a partition with free space>   # the launcher's own TMPDIR
 .venv/bin/python -m ora.orchestrator.robodojo_motion_replay \
-    --run outputs/exp11a-robodojo/runs/<run_id> \
-    --output outputs/exp11a-robodojo/diagnostics/motion-replay/<run_id>-<stamp> \
+    --run outputs/<experiment>/runs/<run_id> \
+    --output outputs/<experiment>/diagnostics/motion-replay/<run_id>-<stamp> \
     --resource-profile robodojo-gpu4-d1 --mode metrics-after-replay [--upto N]
 ```
 
-The worker's own `TMPDIR` is the per-pass run scratch, not the launcher's. The
-L0 acceptance runs are `80aad5244d86` (stack_blocks), `ecdb3691c68e`
-(hang_mugs) and `87ad16b0ca98` (imitate_sorting_sequence), each in
-`determinism` mode. All fifteen g005 runs are 9764 native actions: about 45
-minutes of stepping plus fifteen starts of about 90 s, about 67 minutes
-serially per pass. No replay has run on this implementation yet. The design
+The worker's own `TMPDIR` is the per-pass run scratch, not the launcher's.
+Acceptance replays a few recorded runs in `determinism` mode; a pass costs the
+run's native actions in stepping plus one simulator start of about 90 s. No
+replay has run on this implementation yet. The design
 places the `intent` mode in L0 as well; it is not implemented here (it needs a
 candidate executor and re-issues the probes that minted consumed `plan_ref`s),
 and neither are the ARX control profile and its validator.
 
-Known limits of a `control` replay of g005:
+Known limits of a `control` replay:
 
-- g005 recorded with execution capture on at 10 fps; the replay turns it off.
+- The replay turns execution capture off, also for a run recorded with it on.
   Capture renders after physics steps; that it leaves the plant unchanged is
   expected but not yet shown.
-- Policy observations are not replayed. `87ad16b0ca98` (imitate_sorting_sequence)
-  and `1fc9dd60a623` (make_kong) journal a `support_arm0` key; an observation
+- Policy observations are not replayed. Runs of imitate_sorting_sequence and
+  make_kong journal a `support_arm0` key; an observation
   may consume the support-arm queue, and the probe clock guard does not see
   that. When the first divergence falls on a support key (`cause_hint:
   support_arm_target`), check this first.
@@ -266,7 +258,7 @@ kernel and its edits stale no card or gate. Per cell the worker:
   before and after (the CPU in-place restart hazard; report only).
 
 The two fluid tasks used `--probe-only-native-action-limit` (their upstream
-`step_lim`, 400 and 800) until their 2026-10-04 admission; the probe-only table
+`step_lim`, 400 and 800) until their admission; the probe-only table
 is now empty, and the flag is refused for an admitted task.
 
 A cell passes when the worker held every requested tick (or the official
@@ -301,8 +293,8 @@ scene smoke and revalidation per lane (`gates/<task>-cpu-gpu<N>.json`), and,
 before a `motion_action_v3` CPU cell can resolve, the scripted sparse-motion
 gate run on a CPU runtime with its record cited beside
 `definitions.SPARSE_MOTION_QUALIFIED_PHYSICS_DEVICES`. No CUDA card or gate is
-re-measured. That CPU record landed on 2026-10-05: 24/24 cases on an H200 host
-(gpu4, `swap_blocks`, source `76f058b3`), so CPU cells now resolve. On the same
+re-measured. That CPU record passed 24/24 cases (`swap_blocks`), so CPU cells
+now resolve. On the same
 host and source all nine scenes passed the physics probe (both conveyors carry
 objects at the belt's 4 mm per native action), the CPU card passed on
 `pour_liquid_into_cup`, and seven CPU scene smokes passed; `fill_egg_holder` and

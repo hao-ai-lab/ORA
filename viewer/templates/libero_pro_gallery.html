@@ -2,8 +2,6 @@
   <nav class="nav">
     <a href="/">← Runs</a><a href="/gallery/robotwin">RoboTwin tasks</a>
     <a href="/api/libero/tasks">LIBERO 130 JSON</a>
-    <a href="#published-results">Published results</a>
-    <a href="/api/libero-pro/results">Results JSON</a>
     <a href="/api/libero-pro/previews">Preview manifest</a>
   </nav>
   <header class="libero-mast">
@@ -21,41 +19,6 @@
       <div><span>Runnable robust configs</span><strong>280</strong></div>
     </div>
   </header>
-  <section class="libero-results" id="published-results">
-    <header class="libero-results-head"><div>
-      <span class="libero-kicker">Paper-reported results</span>
-      <h2>已发表结果</h2>
-      <p>百分比只有在 task cells、seed 数、适应阶段、记忆和执行预算一致时才能直接排序。这里保留论文原始 cohort；跨 cohort 只做描述，不宣布全局 SOTA。</p>
-    </div><div class="libero-review-stamp">Reviewed<br><strong>{{ published_results.reviewed_at }}</strong><span>not local run evidence</span></div></header>
-    <div class="libero-result-headlines">
-      <article><span>Highest 8-cell headline</span><strong>{{ result_by_key.harness_vla_cc.reported_overall }}%</strong><b>Harness VLA · Claude Code</b><p>8 cells × 10 seeds · few-shot Harness memory</p></article>
-      <article><span>50-seed held-out cohort</span><strong>{{ result_by_key.aspire.reported_overall }}%</strong><b>ASPIRE</b><p>6 cells × 50 seeds · learned program + skills</p></article>
-      <article><span>Single-turn repository</span><strong>{{ result_by_key.rho.reported_overall }}%</strong><b>RHO</b><p>6 cells × 50 trials · no online LLM edits</p></article>
-      <article><span>Play-learned cohort</span><strong>{{ result_by_key.rats.reported_overall }}%</strong><b>RATs</b><p>6 cells × 10 initializations · frozen play skills</p></article>
-      <article class="no-result"><span>OpenETA on LIBERO-Pro</span><strong>—</strong><b>No formal result</b><p>Paper explicitly keeps Pro outside formal scope</p></article>
-    </div>
-    <div class="libero-cohort-grid">
-    {% for cohort in result_cohorts %}<article class="libero-cohort">
-      <header><div><span>{{ cohort.badge }}</span><h3>{{ cohort.label }}</h3></div><b>{{ cohort.trials }}</b></header>
-      <p class="libero-cohort-scope">{{ cohort.scope }}</p>
-      <div class="libero-result-table-scroll"><table class="libero-result-table">
-        <thead><tr><th>Method / adaptation</th><th>Overall</th>{% for cell in published_results.cells %}<th>{{ cell }}</th>{% endfor %}</tr></thead>
-        <tbody>{% for result in cohort.methods %}<tr>
-          <td><strong>{{ result.method }}</strong><span>{{ result.method_kind }}</span><small>{{ result.adaptation }}</small></td>
-          <td class="libero-score"><strong>{{ result.reported_overall }}%</strong>{% if result.derived_overall != result.reported_overall %}<small>cell mean {{ result.derived_overall }}%</small>{% endif %}</td>
-          {% for score in result.scores %}<td class="libero-cell-score">{% if score.score is none %}<span>—</span>{% else %}{{ score.score|int }}{% endif %}</td>{% endfor %}
-        </tr>{% endfor %}</tbody>
-      </table></div>
-      <div class="libero-cohort-notes"><p><b>Protocol.</b> {{ cohort.protocol }}</p><p><b>Comparison boundary.</b> {{ cohort.comparison }}</p></div>
-      <div class="libero-source-links">{% for result in cohort.methods %}<a href="{{ result.source_url }}" target="_blank" rel="noreferrer">{{ result.source_label }} ↗</a>{% endfor %}</div>
-    </article>{% endfor %}
-    </div>
-    <aside class="libero-cross-paper-warning"><strong>为什么不能把 82.4、72、43.8 排成一条榜？</strong>
-      <p>Harness VLA 覆盖 8 个 cell、每任务 10 seeds，并从一个 reference seed 建立 task/global memory；ASPIRE 覆盖 6 个 cell、50 个 held-out seeds，先在 seeds 51–65 学程序和技能；RHO 是同样 3,000 个 CaP-Bench trial，但离线进化 repository、在线只跑 single-turn；RATs 则每项 10 次初始化，并先做 50 次 play。甚至 CaP-Agent0 在两个论文内分别是 18.0% 和 23.2%。这些差异不是误差条，而是 treatment 本身。</p>
-      <p><b>可以直接说：</b>Harness cohort 内 CC 82.4 &gt; Codex 72.1 &gt; direct pi_RLinf 50.0；ASPIRE cohort 内 ASPIRE 72 &gt; CaP-Agent0 18；RHO 在其 3,000-trial 评测面上 45.0 &gt; CaP-Agent0 18.17；RATs cohort 内 RATs 43.8 &gt; CaP-Agent0 23.2。<b>不能直接说：</b>Harness 82.4 严格击败 ASPIRE 72。</p>
-    </aside>
-    <aside class="libero-openeta-boundary"><div><span>Out of scope</span><strong>{{ openeta_boundary.method }}</strong><small>{{ openeta_boundary.label }}</small></div><p>{{ openeta_boundary.protocol }}</p><a href="{{ openeta_boundary.source_url }}" target="_blank" rel="noreferrer">{{ openeta_boundary.source_label }} ↗</a></aside>
-  </section>
   <section class="libero-taxonomy">
   {% for collection in collections %}<article class="libero-collection">
     <header><span>{{ collection.label_en }}</span><strong>{{ collection.label_zh }}</strong>

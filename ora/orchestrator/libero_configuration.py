@@ -7,16 +7,15 @@ from .spec_values import RunSpecError, _positive_int
 def validate_libero_configuration(runtime: dict[str, Any]) -> None:
     if runtime["transport"] != "local_rpc":
         raise RunSpecError("libero_pro runtime.transport must be local_rpc")
-    driver = runtime.get("environment_driver", "rlinf_v1")
-    if driver not in {"rlinf_v1", "direct_libero_v1"}:
+    # The direct driver is the only LIBERO driver; a RunSpec that names none selects it.
+    if runtime.get("environment_driver", "direct_libero_v1") != "direct_libero_v1":
         raise RunSpecError("runtime.environment_driver is unsupported")
-    legacy_fields = ("rlinf_root_env", "required_rlinf_revision")
-    if driver == "direct_libero_v1" and any(key in runtime for key in legacy_fields):
-        raise RunSpecError("direct LIBERO runtime must not bind RLinf")
+    if any(key in runtime for key in ("rlinf_root_env", "required_rlinf_revision")):
+        raise RunSpecError("the direct LIBERO runtime binds no external driver checkout")
     for field in (
         "python_env", "libero_pro_root_env", "data_root_env",
         "required_libero_pro_revision", "required_data_revision", "suite",
-        "expected_task_language", *(legacy_fields if driver == "rlinf_v1" else ()),
+        "expected_task_language",
     ):
         if not isinstance(runtime.get(field), str) or not runtime[field]:
             raise RunSpecError(f"runtime.{field} must be non-empty")

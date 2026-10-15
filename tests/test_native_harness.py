@@ -57,7 +57,7 @@ from ora.agent.evidence.policy_state import PolicyStateStore
 ROOT = Path(__file__).resolve().parents[1]
 PROMPT = ROOT / "ora/policy/core/thin-react-v1.md"
 MANUAL = ROOT / "ora/policy/embodiments/aloha-agilex/manual-v1.md"
-AGENT_RULES = ROOT / "ora/policy/planners/codex/workspace-v1.md"
+AGENT_RULES = ROOT / "ora/policy/planners/native/project-v1.md"
 BOUNDS = {"x": [-0.6, 0.6], "y": [-0.4, 0.4], "z": [0.7, 1.45]}
 
 
@@ -138,7 +138,7 @@ def native_plan(*, terminal_actions: int = 1) -> dict:
         },
         "policy_context": {
             "codex_project": [{
-                "path": "ora/policy/planners/codex/workspace-v1.md",
+                "path": "ora/policy/planners/native/project-v1.md",
                 "sha256": file_sha256(AGENT_RULES),
             }],
             "episode_prefix": [{

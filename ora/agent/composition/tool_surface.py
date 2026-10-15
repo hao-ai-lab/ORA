@@ -7,7 +7,7 @@ import functools
 import hashlib
 import json
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Collection, Mapping, Sequence
 
@@ -276,9 +276,6 @@ class ResolvedToolSurface:
     components: tuple[dict[str, str], ...]
     manifest_sha256: str
     composition_sha256: str
-    #: Tool name -> {tool, version, arm_profile, compiled_sha256} for tools the
-    #: manifest binds to a composed library entry; empty on every other surface.
-    composed_tools: Mapping[str, Mapping[str, str]] = field(default_factory=dict)
 
     def supports(self, capability: str) -> bool:
         """Return one manifest-bound semantic capability.
@@ -320,16 +317,7 @@ class ResolvedToolSurface:
             snapshot["call_effect_profile"] = self.call_effect_profile
         if self.view_config is not None:
             snapshot["view_config"] = copy.deepcopy(dict(self.view_config))
-        if self.composed_tools:
-            snapshot["composed_tools"] = copy.deepcopy(dict(self.composed_tools))
         return snapshot
-
-
-COMPOSED_TOOLS_CAPABILITY = "composed_tools_v1"
-#: A component override ``composed:<tool>: "<tool>/<version>"`` rebinds a composed tool.
-COMPOSED_OVERRIDE_PREFIX = "composed:"
-
-from .composed_binding import bind_composed_tools  # noqa: E402 - re-exported; it reads this module lazily
 
 
 def _resolve_view_config(manifest: Mapping[str, Any]) -> dict[str, Any] | None:
@@ -595,7 +583,6 @@ def _resolved_surface(
     lifecycle_tools: tuple[str, ...], observation_tools: tuple[str, ...],
     call_effect_profile: str | None, view_config: dict[str, Any] | None,
     capabilities: list[str], descriptors: list[dict[str, str]],
-    composed_tools: Mapping[str, Mapping[str, str]] | None = None,
 ) -> ResolvedToolSurface:
     """Hash the composition and freeze it into a ResolvedToolSurface."""
 
@@ -618,8 +605,6 @@ def _resolved_surface(
         composition["call_effect_profile"] = call_effect_profile
     if view_config is not None:
         composition["view_config"] = copy.deepcopy(view_config)
-    if composed_tools:
-        composition["composed_tools"] = copy.deepcopy(dict(composed_tools))
     return ResolvedToolSurface(
         profile_id=profile_id,
         revision=revision,
@@ -636,7 +621,6 @@ def _resolved_surface(
         components=tuple(descriptors),
         manifest_sha256=manifest_hash,
         composition_sha256=canonical_sha256(composition),
-        composed_tools=copy.deepcopy(dict(composed_tools or {})),
     )
 
 
@@ -654,10 +638,6 @@ def resolve_tool_surface(
 
     manifest_path, allowed_component_root, manifest, revision = _load_manifest(profile_id)
     component_overrides = dict(component_overrides or {})
-    composed_overrides = {
-        key[len(COMPOSED_OVERRIDE_PREFIX):]: component_overrides.pop(key)
-        for key in [key for key in component_overrides if key.startswith(COMPOSED_OVERRIDE_PREFIX)]
-    }
     load = functools.partial(
         _component, profile_root=manifest_path.parent, allowed_root=allowed_component_root,
     )
@@ -684,9 +664,6 @@ def resolve_tool_surface(
         manifest, definitions, mutation_tools, lifecycle_tools,
     )
     runtime_id, capabilities = _resolve_runtime_identity(manifest, profile_id)
-    composed_tools, composed_descriptors = bind_composed_tools(
-        manifest, definitions, results, capabilities, composed_overrides)
-    mutation_tools += tuple(name for name, item in composed_tools.items() if item.get("scope") == "added")
     bound_descriptors = bind_capability_contracts(
         definitions, results, capabilities, view_config, profile_id=profile_id,
     )
@@ -700,7 +677,6 @@ def resolve_tool_surface(
         call_effect_profile=call_effect_profile, view_config=view_config,
         capabilities=capabilities,
         descriptors=[
-            *definition_descriptors, *component_descriptors, *composed_descriptors, *bound_descriptors,
+            *definition_descriptors, *component_descriptors, *bound_descriptors,
         ],
-        composed_tools=composed_tools,
     )

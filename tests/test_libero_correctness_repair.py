@@ -549,6 +549,10 @@ def test_curobo_transport_failure_retires_worker_and_next_plan_starts_clean(
         assert client._process is None and "worker" not in client.binding
         assert processes[0].poll() is not None
         assert processes[0].stdin.closed and processes[0].stdout.closed
+        # The replacement worker is a cold interpreter start; under a loaded
+        # parallel suite it can miss the 0.25 s bound that only the faulted
+        # first worker needed.
+        client.request_timeout_s = 10.0
         result = client.plan(request)
         assert result["schema"] == CUROBO_RESPONSE_SCHEMA
         assert result["planner_status"] == "IK_FAIL"
@@ -711,11 +715,11 @@ def test_v2_precision_force_stop_runs_through_sparse_dispatch_without_terminal_f
         init_params=libero_environment_init_params(max_sim_steps=100),
     )
     session = LiberoProSession(
-        rlinf_root=tmp_path / "RLinf", libero_pro_root=tmp_path / "LIBERO-PRO",
+        libero_pro_root=tmp_path / "LIBERO-PRO",
         data_root=tmp_path / "data", output_root=tmp_path / "native",
         task="libero_goal_task-t00", seed=0, suite="libero_goal_task", task_id=0,
         expected_task_language="put the bowl on the plate",
-        required_rlinf_revision="rlinf-test", required_libero_pro_revision="libero-test",
+        required_libero_pro_revision="libero-test",
         required_data_revision="data-test",
         workspace_bounds_m={"x": [-0.6, 0.6], "y": [-0.5, 0.5], "z": [-0.1, 1.3]},
         max_sim_steps=100,

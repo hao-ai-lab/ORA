@@ -31,10 +31,6 @@ def on_config(config):
 
 
 def on_files(files, config):
-    # A second boundary in addition to exclude_docs: no private page or asset.
-    for file in list(files):
-        if file.src_uri.startswith("design/"):
-            files.remove(file)
     for uri, source in EXTERNAL_PAGES.items():
         files.append(File.generated(config, uri, abs_src_path=str(ROOT / source)))
     _sources.clear()
@@ -57,8 +53,6 @@ def on_page_markdown(markdown, page, config, files):
         if not target.is_relative_to(ROOT):
             raise PluginError(f"Documentation link escapes the repository: {original}: {url.path}")
         relative = target.relative_to(ROOT)
-        if relative.parts[:2] == ("docs", "design"):
-            raise PluginError(f"Public page links to private planning: {page.file.src_uri}")
         if target in _sources:
             path = os.path.relpath(_sources[target], Path(page.file.src_uri).parent)
             rewritten = urlunsplit(("", "", path, url.query, url.fragment))
@@ -86,11 +80,6 @@ def on_page_markdown(markdown, page, config, files):
 
 def on_post_build(config):
     site = Path(config.site_dir)
-    if (site / "design").exists():
-        raise PluginError("Private planning was copied into the documentation site")
     search = json.loads((site / "search/search_index.json").read_text())
     if not search.get("docs"):
         raise PluginError("Documentation search index is empty")
-    for entry in search["docs"]:
-        if entry["location"].startswith("design/"):
-            raise PluginError("Private planning entered the documentation search index")

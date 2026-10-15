@@ -3,7 +3,7 @@
 You need Git, uv, Python 3.11 and a model API key. ORA installs its Python dependencies from `uv.lock`; this example downloads no model or simulator assets and uses no GPU.
 
 ```bash
-git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
+git clone https://github.com/hao-ai-lab/ORA.git && cd ORA
 uv sync --all-extras --locked
 uv run --locked ora doctor
 ```

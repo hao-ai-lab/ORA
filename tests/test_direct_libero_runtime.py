@@ -1,12 +1,9 @@
-"""The direct LIBERO driver and its RunSpec boundary, without the RLinf stack.
-
-Reached only through tests/test_b2_collaboration.py (a study-package import)
-before the RoboDojo builder relocation; they run here against product code.
-"""
+"""The direct LIBERO driver and its RunSpec boundary."""
 from __future__ import annotations
 
 import pytest
 
+from ora.orchestrator.libero_configuration import validate_libero_configuration
 from ora.orchestrator.spec import RunSpecError, resolve_run_spec
 from test_native_baseline import native_spec
 
@@ -56,10 +53,18 @@ def test_direct_libero_reset_official_termination_and_no_auto_reset():
 
 @pytest.mark.parametrize("field,value", [("rlinf_root_env", "RLINF_ROOT"),
                                          ("required_rlinf_revision", "a" * 40)])
-def test_direct_run_spec_rejects_rlinf_dependency_fields(field, value):
+def test_direct_run_spec_rejects_external_driver_fields(field, value):
     spec = native_spec("libero_pro")
     assert resolve_run_spec(spec)["runtime"]["environment_driver"] == "direct_libero_v1"
     spec["runtime"][field] = value
-    with pytest.raises(RunSpecError, match="direct LIBERO runtime must not bind RLinf"):
+    with pytest.raises(RunSpecError, match="binds no external driver checkout"):
         resolve_run_spec(spec)
 
+
+def test_a_libero_runtime_without_a_driver_selects_the_direct_driver():
+    runtime = dict(resolve_run_spec(native_spec("libero_pro"))["runtime"])
+    runtime.pop("environment_driver")
+    validate_libero_configuration(runtime)
+    runtime["environment_driver"] = "rlinf_v1"
+    with pytest.raises(RunSpecError, match="environment_driver is unsupported"):
+        validate_libero_configuration(runtime)

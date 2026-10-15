@@ -196,7 +196,7 @@ up the second.
 
 Undeclaring a tool from a live surface also retires the capabilities that only
 its code paths read, decided from the `supports(...)` call sites rather than the
-name. The 2026-09-29 retirement of `place_plan`, `place_execute` and
+name. The retirement of `place_plan`, `place_execute` and
 `place_resume` (and, on RoboDojo, `grasp_verify_retention`) from the three live
 closed-skills surfaces is the worked case. `public_rgbd_grasp_retention_recovery_v5`
 reads like retention but gates `observe`/`vision_segment` `step`, and
@@ -400,15 +400,14 @@ consumes a model call without consuming a robot decision.
 32) with the backend's internal read-only IK check before the display cap and
 orders reachable, then within 30 degrees of vertical, then backend order. The
 check is deliberately not a policy tool: no surface declares `reach_check`
-(user decision, 2026-09-29) and this tree has no handler for it, so the policy
+and this tree has no handler for it, so the policy
 sees only the annotation. Never drop a proposal below the cap and never block it on the
 annotation: an unavailable IK bridge keeps the backend order and says
 `status: unavailable`. The help must call the annotation an IK reference at
 planning time, not a guarantee, and must not name the undeclared tool. Nor may
 it keep the unannotated surfaces' "Reachability is delegated to move_pose or
 grasp_execute; this call does not run a motion probe" beside that paragraph:
-EXP11B revision 20 of the Dojo surface replaced it with a pointer to the IK
-selection paragraph, and `max_candidates` names the IK-ordered pool. A grasp
+the Dojo surface replaced it with a pointer to the IK selection paragraph, and `max_candidates` names the IK-ordered pool. A grasp
 result field that depends on a backend's refusal vocabulary is derived from the
 closed per-backend set in `contracts/reach_check.py`
 (`grasp_ik_reachability_schema.py`), not restated.
@@ -424,7 +423,7 @@ measured disagreement yet, instead of reusing another backend's figures.
 
 Publish the member that will execute. An annotation that names a better member
 while the pose fields keep another is a pose the policy, the copyable
-`move_pose` target and `grasp_execute` will all run anyway: EXP11A g007 annotated
+`move_pose` target and `grasp_execute` will all run anyway: one run annotated
 `member: exact` on a wall pinch whose compiled orientation solved 0.14 rad from
 the X5 joint6 stop, and the precommit kept it because it was admitted. Under
 `grasp_plan_jaw_symmetry_headroom_v1` the selection rewrites `pregrasp_pose` and
@@ -437,8 +436,8 @@ than estimated.
 
 ## Help that says what the handler does
 
-Read a sentence against the handler before shipping it; the EXP11B g003 audit
-found these defect classes on the current surfaces
+Read a sentence against the handler before shipping it; an audit of the
+current surfaces found these defect classes on the current surfaces
 ([corrections](../reference/public-interfaces.md#tool-description-consistency)):
 
 - **A per-entry outcome is not a refusal.** When a handler reports a problem
@@ -502,7 +501,7 @@ a source literal matched exactly once, or a value derived from those. It also
 lists each sentence that states the number, per surface.
 `tests/test_published_limits.py` composes the current defaults and the
 unregistered successor texts and compares every stated number with its owner
-after unit conversion. A census refuses any digit in a composed tool text that
+after unit conversion. A census refuses any digit in a tool's composed text that
 neither a row nor a reviewed informational entry covers
 ([reference](../reference/public-interfaces.md#published-limits-and-stated-refusals)).
 

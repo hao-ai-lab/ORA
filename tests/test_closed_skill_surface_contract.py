@@ -108,9 +108,7 @@ B2_SURFACES = (
     "libero_placement_direct_overhead_v1",
     "robotwin_toolchain_b2_closed_noservo_v1",
     "robotwin_toolchain_b2_closed_noservo_v2",
-    "robotwin_toolchain_b2_closed_composed_v1",
     "robodojo_placement_closed_skills_v2",
-    "robodojo_placement_closed_composed_v1",
 )
 
 
@@ -189,7 +187,7 @@ TASK_CONTRACT_BINDINGS = (
 
 
 def _bundles_delivering(profile: str) -> list[Path]:
-    """Every prompt bundle a surface is delivered with: named by the bundle or bound by a semantic manifest."""
+    """Every prompt bundle a surface is delivered with: the bundles that name it."""
     import yaml
 
     bundles = set()
@@ -199,11 +197,6 @@ def _bundles_delivering(profile: str) -> list[Path]:
         surface = layers.get("tool_surface") if isinstance(layers, dict) else None
         if isinstance(surface, dict) and surface.get("profile") == profile:
             bundles.add(path)
-    for path in sorted((ROOT / "ora/policy/capabilities").glob("*.json")):
-        value = json.loads(path.read_text(encoding="utf-8"))
-        for cell, instance in (value.get("instances") or {}).items():
-            if isinstance(instance, dict) and instance.get("surface") == profile:
-                bundles.add(ROOT / value["prompt_bundles"][cell])
     return sorted(bundles)
 
 
@@ -265,17 +258,6 @@ def test_the_live_closed_surfaces_retire_placement_and_retention_by_undeclaratio
     assert _bundles_delivering(profile), profile  # not vacuous: a bundle binds it
     found = {str(path.relative_to(ROOT)): _named(path.read_text(encoding="utf-8")) for path in delivered}
     assert not {path: names for path, names in found.items() if names}, profile
-    # No semantic manifest instantiates a retired tool on a cell bound to it.
-    for path in sorted((ROOT / "ora/policy/capabilities").glob("*.json")):
-        value = json.loads(path.read_text(encoding="utf-8"))
-        cells = {cell for cell, instance in (value.get("instances") or {}).items()
-                 if isinstance(instance, dict) and instance.get("surface") == profile}
-        for family in (value.get("families") or {}).values():
-            for cell in cells:
-                entry = family["instances"][cell]
-                if entry.get("instantiated"):
-                    tools = entry.get("tools", family["semantic_tools"])
-                    assert set(RETIRED_FROM_LIVE).isdisjoint(tools), (path.name, cell, tools)
     # Undeclared here, not deleted: robotwin_toolchain_b2_closed_noservo_v1 still advertises them.
     for handler in ("_place_plan", "_grasp_verify_retention", "_closed_skill"):
         assert callable(getattr(ManipulationToolRuntime, handler)), handler

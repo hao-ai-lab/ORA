@@ -1,22 +1,20 @@
-"""Construct source-bound LIBERO drivers inside the isolated worker."""
+"""Construct the source-bound direct LIBERO driver inside the isolated worker."""
 from __future__ import annotations
 import hashlib
 import json
-import os
-import sys
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 from ora.environment.controllers.libero_osc import libero_osc_action_contract
 from ora.environment.graphics_probe import configure_libero_graphics
 
 
 def build_environment(
-    *, rlinf_root: Path | None, libero_pro_root: Path, data_root: Path,
+    *, libero_pro_root: Path, data_root: Path,
     runtime_config_root: Path, suite: str, task_id: int, seed: int,
     max_sim_steps: int, robustness_case: str | None = None,
-    environment_driver: str = "rlinf_v1",
+    environment_driver: str = "direct_libero_v1",
 ) -> tuple[Any, dict[str, Any]]:
-    """Construct the selected source-bound driver, without importing RPent."""
+    """Construct the source-bound direct LIBERO driver."""
     from .session import (
         LiberoProError, _prepare_pinned_libero_imports, _git,
         libero_environment_init_params, _camera_metadata_env_factory,
@@ -31,22 +29,10 @@ def build_environment(
     from robosuite.controllers import load_controller_config
     import robosuite
     import robosuite.models.grippers.panda_gripper as panda_gripper_module
-    if environment_driver == "direct_libero_v1":
-        from libero.libero import benchmark
-        runtime_bindings.pop("rlinf_import_variant", None)
-        runtime_bindings["environment_driver"] = environment_driver
-    elif environment_driver == "rlinf_v1":
-        if rlinf_root is None:
-            raise LiberoProError("legacy RLinf driver requires its source root")
-        rlinf_text = str(rlinf_root)
-        if rlinf_text in sys.path:
-            sys.path.remove(rlinf_text)
-        sys.path.insert(0, rlinf_text)
-        from omegaconf import OmegaConf
-        from rlinf.envs.libero.libero_env import LiberoEnv
-        from rlinf.envs.libero.utils import benchmark
-    else:
+    if environment_driver != "direct_libero_v1":
         raise LiberoProError("unsupported LIBERO environment driver")
+    from libero.libero import benchmark
+    runtime_bindings["environment_driver"] = environment_driver
     from .registration import ensure_perturbation_suites
 
     from ora.environment.benchmarks.libero_pro import CORE_SUITES
@@ -98,72 +84,20 @@ def build_environment(
     for dependency in (controller_config_file, panda_gripper_file):
         if not dependency.is_file():
             raise LiberoProError(f"RoboSuite control dependency is unavailable: {dependency}")
-    if environment_driver == "direct_libero_v1":
-        from libero.libero.envs import OffScreenRenderEnv
-        from .direct import DirectLiberoEnvironment
-        active_bddl = robustness_bddl or Path(benchmark_suite.get_task_bddl_file_path(task_id))
-        factory = lambda: OffScreenRenderEnv(
-            bddl_file_name=str(active_bddl), **{**init_params, "ignore_done": True})
-        if robustness_bddl is not None:
-            from .robustness import robustness_env_factory
-            factory = robustness_env_factory(factory, case=str(robustness_case), suite=suite,
-                task_name=str(task.name), bddl_path=robustness_bddl, seed=seed)
-        environment = DirectLiberoEnvironment(
-            factory=_camera_metadata_env_factory(factory),
-            init_states=benchmark_suite.get_task_init_states(task_id),
-            first_reset_id=first_id, reset_id=reset_id, seed=seed,
-            task_language=str(task.language), max_sim_steps=max_sim_steps)
-    else:
-        config = OmegaConf.create({
-            "env_type": "libero",
-            "task_suite_name": suite,
-            "auto_reset": False,
-            "ignore_terminations": False,
-            "max_steps_per_rollout_epoch": max_sim_steps,
-            "max_episode_steps": max_sim_steps,
-            "use_rel_reward": False,
-            "use_step_penalty": False,
-            "reward_coef": 1.0,
-            "reset_gripper_open": True,
-            "is_eval": True,
-            "seed": seed,
-            "group_size": 1,
-            "use_fixed_reset_state_ids": True,
-            "use_ordered_reset_state_ids": True,
-            "specific_reset_id": reset_id,
-            "video_cfg": {
-                "save_video": False, "info_on_video": False,
-                "video_base_dir": "/tmp/ora-libero-pro",
-            },
-            "init_params": init_params,
-        })
-        class HarnessLiberoEnv(LiberoEnv):
-            def get_env_fn_params(self, env_idx: Any = None) -> list[dict[str, Any]]:
-                params = super().get_env_fn_params(env_idx)
-                if robustness_bddl is not None:
-                    for item in params:
-                        item["bddl_file_name"] = str(robustness_bddl)
-                return params
-
-            def get_env_fns(self) -> list[Callable[[], Any]]:
-                factories = super().get_env_fns()
-                if robustness_bddl is not None:
-                    from .robustness import robustness_env_factory
-
-                    factories = [
-                        robustness_env_factory(
-                            factory, case=str(robustness_case), suite=suite,
-                            task_name=str(task.name), bddl_path=robustness_bddl,
-                            seed=seed,
-                        )
-                        for factory in factories
-                    ]
-                return [_camera_metadata_env_factory(factory) for factory in factories]
-
-        environment = HarnessLiberoEnv(
-            cfg=config, num_envs=1, seed_offset=0, total_num_processes=1,
-            worker_info=None,
-        )
+    from libero.libero.envs import OffScreenRenderEnv
+    from .direct import DirectLiberoEnvironment
+    active_bddl = robustness_bddl or Path(benchmark_suite.get_task_bddl_file_path(task_id))
+    factory = lambda: OffScreenRenderEnv(
+        bddl_file_name=str(active_bddl), **{**init_params, "ignore_done": True})
+    if robustness_bddl is not None:
+        from .robustness import robustness_env_factory
+        factory = robustness_env_factory(factory, case=str(robustness_case), suite=suite,
+            task_name=str(task.name), bddl_path=robustness_bddl, seed=seed)
+    environment = DirectLiberoEnvironment(
+        factory=_camera_metadata_env_factory(factory),
+        init_states=benchmark_suite.get_task_init_states(task_id),
+        first_reset_id=first_id, reset_id=reset_id, seed=seed,
+        task_language=str(task.language), max_sim_steps=max_sim_steps)
     public_environment_context = libero_public_environment_context(
         task, init_params=init_params,
     )
@@ -194,15 +128,12 @@ def build_environment(
         "init_states_file": str(init_states_path),
         "reset_id": reset_id,
         "trial_count": trials,
-        **({"rlinf_root": str(rlinf_root)} if environment_driver == "rlinf_v1" else {}),
         "environment_driver": environment_driver,
         "libero_pro_root": str(libero_pro_root),
         "data_root": str(data_root),
         "runtime_bindings": {
             **runtime_bindings,
-            **({"rlinf_module": str(Path(sys.modules["rlinf.envs.libero.libero_env"].__file__).resolve())}
-               if environment_driver == "rlinf_v1" else
-               {"direct_driver_module": str(Path(__file__).with_name("direct.py").resolve())}),
+            "direct_driver_module": str(Path(__file__).with_name("direct.py").resolve()),
             "robosuite_module": str(Path(robosuite.__file__).resolve()),
             "controller_config_file": str(controller_config_file.resolve()),
             "panda_gripper_module": str(

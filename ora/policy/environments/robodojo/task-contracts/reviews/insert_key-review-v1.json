@@ -276,7 +276,7 @@
     "note": "Every evaluator clause is disclosed in words; there is no failure latch. The closing sentence is the registry's no-return wording (make_kong, registry-v5); it maps to no evaluator clause and tells the policy that boundary-v2's return paragraph does not apply. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
   },
   "public_text_zh_reference": {
-    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "note": "Chinese reference rendering for review only; the English semantic_contract is authoritative and is the only text delivered to the policy.",
     "clauses": [
       "钥匙最终必须完全插入锁孔，在锁孔中竖直立着，钥匙头朝上。",
       "从上方看，钥匙必须相对锁孔的窄槽顺时针转过一部分：钥齿要从窄槽方向顺时针转开，明显离开窄槽，但还未转到与窄槽垂直。钥齿仍沿着窄槽、逆时针转动、或转到与窄槽垂直乃至更远，都不算。",

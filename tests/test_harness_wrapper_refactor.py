@@ -120,12 +120,12 @@ def test_environment_registry_is_explicit_and_descriptor_rejects_drift() -> None
     descriptor = resolve_runtime_descriptor({
         "kind": "libero_pro",
         "transport": "local_rpc",
-        "required_rlinf_revision": "rlinf-rev",
+        "required_libero_pro_revision": "libero-rev",
     }, action_codec="target_state_v4")
     assert descriptor.embodiment_id == "franka_panda"
     assert descriptor.controller == "OSC_POSE"
     assert descriptor.public_cameras == ("agentview", "wrist")
-    assert descriptor.revisions == {"rlinf_revision": "rlinf-rev"}
+    assert descriptor.revisions == {"libero_pro_revision": "libero-rev"}
     with pytest.raises(EnvironmentDefinitionError, match="identity drift"):
         resolve_runtime_descriptor(
             {"kind": "libero_pro", "transport": "local_rpc"},

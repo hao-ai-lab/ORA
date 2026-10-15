@@ -559,7 +559,7 @@
     "note": "Every evaluator clause, environment rule and failure latch is disclosed in words. The pinned check has no arm-return term, so the last clause is the shared no-return sentence and maps to no evaluator clause; boundary-v2 then applies no return requirement. Numeric thresholds, evaluator internals and object identities stay Control-side, so classification and gap describe the bare-instruction gap this treatment closes, not what the policy now sees."
   },
   "public_text_zh_reference": {
-    "note": "中文对照，仅供审阅；英文 semantic_contract 为权威文本，也是唯一投递给 Policy 的文本。",
+    "note": "Chinese reference rendering for review only; the English semantic_contract is authoritative and is the only text delivered to the policy.",
     "clauses": [
       "你的棋子是五个圆环；对手是桌子对面另一条独立的机械臂，使用四个十字棋子。你先走。",
       "只有当棋盘上你的圆环恰好比对手的十字多一个（每个都位于某个格子的中心），并且你的双臂都已回到复位时的位姿时，对手才会走它的一步。对手的动作只在机器人命令消耗原生动作时推进；没有机器人命令执行时，对手不会动。",

@@ -20,8 +20,6 @@ PROCESS_SCHEMA = "ora.viewer-process-timeline.v1"
 CONTEXT_TYPES = frozenset({
     "context_compactor_attempt", "context_compactor_response", "context_condensation",
     "context_artifact_retrieval", "context_artifact_admission", "context_lifecycle_transition",
-    "memory_snapshot_loaded", "memory_loaded", "memory_capture", "memory_candidate_created",
-    "memory_published", "task_memory_published", "memory_review_completed",
 })
 
 
@@ -89,7 +87,7 @@ def _phase(tool: str) -> str:
         return "perception"
     if tool.startswith("grasp.") or tool.startswith("motion."):
         return "planning"
-    if "memory" in tool.lower() or "artifact" in tool.lower():
+    if "artifact" in tool.lower():
         return "context"
     if tool in {"check_task", "finish_episode"}:
         return "check"
