@@ -38,7 +38,7 @@ and what you will see. Section 9 lists the explicit commands that `setup` and
 
 | Input | Requirement | Notes |
 |---|---|---|
-| GPU | One NVIDIA GPU, compute capability 7.5 or newer (Turing to Blackwell), **32 GB or more** | The perception services hold ~8 GB, and the RoboTwin and RoboDojo slots require 20 GB free at launch besides them. A 24 GB card runs LIBERO only |
+| GPU | One NVIDIA GPU, compute capability 7.5 or newer (Turing to Blackwell), **32 GB or more** | The perception services hold 8–10 GB (SAM3 ~6.7 GB; Contact-GraspNet ~1.7 GB, growing to ~3.7 GB with use), and the RoboTwin and RoboDojo slots require 20 GB free at launch besides them. A 24 GB card runs LIBERO only |
 | Driver | R570 or newer; **R580 recommended** | CUDA 12.8 wheels, EGL and Vulkan come from the driver. See [§7](#7-gpu-and-driver-notes) for R595 |
 | CUDA 12.8 toolkit | `nvcc` under `/usr/local/cuda-12.8` (or `--cuda-home`) | Builds CuRobo for your GPU; the driver alone is not enough |
 | Disk | ~70 GB for LIBERO + RoboTwin, ~170 GB with RoboDojo | RoboDojo alone is ~90 GB (66 GB of assets) |
@@ -177,7 +177,7 @@ the reason:
 
    Later runs reuse these records. LIBERO needs none.
 3. **Perception services.** SAM3 and Contact-GraspNet start if they are not
-   already running (~3 min the first time, ~8 GB of GPU memory). They keep
+   already running (~3 min the first time, 8–10 GB of GPU memory). They keep
    running between tasks. Services on the ports that this checkout did not
    start (another user's, on a shared machine) are refused; see
    [§8](#8-troubleshooting).
@@ -247,6 +247,9 @@ After a run:
 ./scripts/open-viewer               # browser evidence viewer with videos and trajectories
 ```
 
+The viewer listens on `127.0.0.1:5012`; on a shared machine where another
+user's viewer holds that port, pass a free one: `./scripts/open-viewer --port 5023`.
+
 Runs are under `outputs/ora-interactive/runs/<run_id>/`:
 
 | File | Contents |
@@ -302,8 +305,12 @@ To remove everything ORA installed and recorded:
 ```bash
 ./scripts/model-services stop
 rm -rf ~/.local/share/ora/gpu      # or your --prefix / ORA_GPU_PREFIX
+rm -rf ~/.cache/ora                # run scratch
 rm -rf outputs/* .harness-runtime .env   # runs, qualifications, local state and settings in the checkout
 ```
+
+Setup's downloads also fill uv's cache (`~/.cache/uv`, ~20 GB after all three
+environments). Other uv projects share it; `uv cache clean` empties it.
 
 ## 8. Troubleshooting
 
@@ -506,7 +513,7 @@ Other tenants used ~24 GB of the card. Times exclude downloads.
 | Step | Result | Time |
 |---|---|---|
 | RoboTwin env + CuRobo (cu128, sm_120) | IK success 32/32 | CuRobo build 6 min |
-| Perception services | ready, readiness report written | ~3 min to ready; ~8 GB GPU memory |
+| Perception services | ready, readiness report written | ~3 min to ready; 8–10 GB GPU memory |
 | RoboDojo runtime | doctor fail=0 | `graphics-compat` 39 s; 86 GB |
 | RoboTwin seed scan `click_bell` | seed 100000 accepted | 2.5 min |
 | RoboDojo card + task `general_pickup` | written | 9 min 20 s + 4 min |
@@ -516,6 +523,21 @@ Other tenants used ~24 GB of the card. Times exclude downloads.
 | `ora local` (CPU) `libero_goal/0` | official success, 40 actions, 70 model calls | ~21 min |
 
 These are single episodes that show the path works, not success rates.
+
+The whole guide was rerun on the same RTX PRO 6000 on 2026-10-15 in a fresh
+user-space sandbox (new home, default prefix, a real key; §2 found no `uv`, no
+`git-lfs` and Node 18):
+
+| Step | Result | Time |
+|---|---|---|
+| §2 tools | uv, Node 22 and git-lfs installed | 3 s |
+| `ora setup --env libero --env robotwin --env robodojo`, first run | all steps done, all downloads included | 24 min (RoboDojo's 66 GB of assets ~8 min) |
+| same, rerun | every step `already done`; `doctor` and `manifest` rerun | 1–3 s |
+| disk | 140 GB in the prefix, ~20 GB in `~/.cache/uv`, 0.5 GB checkout | — |
+| `ora run --env robotwin --task click_bell` | official success, 4 decisions, 12 model calls, sealed | 4.8 min with service start (episode 3.7 min); seed scan beforehand 2 min |
+| `ora run --env robodojo --task general_pickup` | card + task qualified in `ora run`, official success, 2 decisions, 8 model calls, sealed | card 9 min 16 s, task 4 min 5 s, episode 2.1 min |
+| `ora run --env libero --task libero_goal/0`, steered once in the terminal UI | official success, 5 decisions, 11 model calls, sealed as human-assisted | episode 4.1 min |
+| GPU memory peaks | services 8–10 GB; RoboTwin worker 8.0 GB; RoboDojo worker 10.4 GB; LIBERO's CuRobo planner 1.0 GB | — |
 
 On one H200 (compute capability 9.0, driver 595.91.07, 2026-10-15), with a
 placeholder key so no model was called, the same path took:
