@@ -265,7 +265,7 @@ and [run and inspect](../usage/runs.md).
 | GPU family | Compute capability | Status |
 |---|---|---|
 | Blackwell (RTX PRO 6000, RTX 50xx, B200) | 12.0 / 10.0 | Verified end to end on an RTX PRO 6000 (all three environments) |
-| Hopper (H100, H200) | 9.0 | Same commands. All three environments run on H200 with the official-suite Torch builds; this guide's cu128 stack is not yet verified there |
+| Hopper (H100, H200) | 9.0 | Same commands. On one H200 (driver 595): setup, CuRobo for sm_90, the RoboTwin seed scan, the RoboDojo card and task qualification and every launch preflight check except the model request (run with a placeholder key) passed; no episode with a model yet |
 | Ada, Ampere, Turing (RTX 40xx/30xx, L40, A100, T4) | 8.9 / 8.6 / 8.0 / 7.5 | Same commands; not verified here |
 
 - **One stack for every GPU.** Setup installs Torch 2.7 cu128 for the
@@ -516,3 +516,14 @@ Other tenants used ~24 GB of the card. Times exclude downloads.
 | `ora local` (CPU) `libero_goal/0` | official success, 40 actions, 70 model calls | ~21 min |
 
 These are single episodes that show the path works, not success rates.
+
+On one H200 (compute capability 9.0, driver 595.91.07, 2026-10-15), with a
+placeholder key so no model was called, the same path took:
+
+| Step | Result | Time |
+|---|---|---|
+| `ora setup --env libero --env robotwin --env robodojo` | all steps done; libGLU and the Vulkan loader unpacked without sudo | downloads dominate; 141 GB in the prefix |
+| Perception services | ready, readiness report written | ~35 s to ready |
+| RoboTwin seed scan `click_bell` | seed 100000 accepted | 2 min 32 s |
+| RoboDojo card + task `general_pickup` | written | 13 min 24 s + 5 min 34 s |
+| launch preflight, LIBERO / RoboTwin / RoboDojo | 23 / 17 / 25 checks passed; only the model request failed (placeholder key) | 32 s / 25 s / 8 s |
