@@ -591,8 +591,13 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
         temp.replace(out / "installation.json")
         print(json.dumps({role: value["sha256"] for role, value in reference.items()}, indent=2))
         # The worker's own verifier: hashes, profile shape and a child readback
-        # that compares Vulkan properties with and without the layer.
-        self.run(self.python, GRAPHICS_COMPAT_MODULE, self.root)
+        # that compares Vulkan properties with and without the layer. A failed
+        # check withdraws the receipt, so a rerun builds and checks again.
+        try:
+            self.run(self.python, GRAPHICS_COMPAT_MODULE, self.root)
+        except subprocess.CalledProcessError:
+            (out / "installation.json").unlink(missing_ok=True)
+            raise
 
     def manifest(self):
         data = {"schema": "robodojo-install.v1", "root": str(self.root),

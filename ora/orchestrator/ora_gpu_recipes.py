@@ -105,6 +105,16 @@ def cuda_arch(context: Context) -> str:
     return f"{value}+PTX"
 
 
+def _system_vulkan_loader(context: Context) -> bool:
+    import ctypes
+
+    try:
+        ctypes.CDLL("libvulkan.so.1")
+    except OSError:
+        return False
+    return True
+
+
 def check_toolchain(context: Context, components: Sequence[str]) -> None:
     """Refuse before any download when a required tool is missing."""
     missing = [tool for tool in ("git", "uv") if shutil.which(tool) is None]
@@ -122,6 +132,12 @@ def check_toolchain(context: Context, components: Sequence[str]) -> None:
         raise GpuSetupError("missing on PATH: " + ", ".join(missing)
                             + " (docs/getting-started/single-gpu.md §2 installs uv, Node 22 and git-lfs "
                             "into ~/.local without sudo)")
+    if "robodojo" in components and not _system_vulkan_loader(context):
+        # Not fatal: Isaac Sim ships a loader that only exists after the sdk stage.
+        print("[ora setup] warning: no system Vulkan loader (libvulkan.so.1). RoboDojo's graphics-compat "
+              "check and workers need one: install libvulkan1, or after the sdk stage put Isaac Sim's bundled "
+              "loader directory on LD_LIBRARY_PATH and rerun (docs/getting-started/single-gpu.md §8)",
+              flush=True)
     if shutil.which("nvidia-smi") is None:
         raise GpuSetupError("nvidia-smi is unavailable; the single-GPU path needs an NVIDIA driver (R570+)")
     if "terminal-ui" in components:

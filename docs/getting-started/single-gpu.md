@@ -55,6 +55,7 @@ nvidia-smi                                   # driver and GPU
 /usr/local/cuda-12.8/bin/nvcc --version      # CUDA 12.8 toolkit
 git --version; git lfs version; node --version; uv --version; unzip -v | head -1; c++ --version
 ls /usr/share/glvnd/egl_vendor.d/ /usr/share/vulkan/icd.d/   # expect 10_nvidia.json and nvidia_icd.json
+ldconfig -p | grep libvulkan.so.1                            # Vulkan loader (RoboTwin, RoboDojo)
 ```
 
 Install what is missing into `~/.local` (no sudo):
@@ -314,6 +315,7 @@ rm -rf outputs/* .harness-runtime .env   # runs, qualifications, local state and
 | preflight stops at `provider_marker` or the run ends `incomplete` on the Provider recovery deadline | the API returned errors (for example HTTP 503) | check the provider's status and rerun |
 | `ora run`: … answers but was not started from this checkout | on a shared machine another user's SAM3 / Contact-GraspNet listen on 8114/8115; `ora run` will not bind services it did not start | set free ports with `B2_SAM_PORT` / `B2_GRASP_PORT` in `.env` (for example 8124/8125) |
 | `model-services stop`: pid … is alive but this process cannot inspect it | services were started from another container or user namespace | stop them where they were started |
+| `graphics-compat`: `Vulkan driver compatibility rejected: libvulkan.so.1: cannot open shared object file` | the machine has no system Vulkan loader (`ora setup` warns about it at the start) | install `libvulkan1`; without sudo, use the loader Isaac Sim ships: `export LD_LIBRARY_PATH=$(dirname $(ls ~/.local/share/ora/gpu/robodojo-runtime/env/lib/python3.11/site-packages/isaacsim/extscache/omni.gpu_foundation-*/bin/deps/libvulkan.so.1)):$LD_LIBRARY_PATH` in the shell that runs `ora setup` and `ora run`, then rerun |
 | RoboDojo worker: `graphics-compat/installation.json` missing | the layer was not built | `./scripts/setup-robodojo graphics-compat --root <prefix>/robodojo-runtime` |
 | `git lfs` not found during RoboDojo assets | no git-lfs | static binary (§2) |
 | Isaac prints `OptiX … Database file is not writable` | `/var/tmp` is not writable | set `OPTIX_CACHE_PATH` to a writable directory |

@@ -718,6 +718,21 @@ def test_robodojo_installer_graphics_compat_writes_a_receipt_the_worker_accepts(
     assert set(files) == {"layer", "profile", "manifest", "patch"}
     assert not any(call[:2] == ("git", "clone") for call in calls)
 
+    def rejected(*args, **kwargs):
+        if args and str(args[0]) == str(installer.python):
+            raise subprocess.CalledProcessError(1, [str(arg) for arg in args])
+        return execute(*args, **kwargs)
+
+    # A failed worker readback withdraws the receipt so ora setup does not skip the stage next time.
+    import shutil
+    import subprocess
+
+    shutil.rmtree(work / "build")
+    monkeypatch.setattr(installer, "run", rejected)
+    with pytest.raises(subprocess.CalledProcessError):
+        installer.graphics_compat(jobs=2)
+    assert not (installer.root / "graphics-compat/installation.json").exists()
+
 
 def test_setup_root_has_no_host_default(monkeypatch, tmp_path):
     from ora.environment.backends.robodojo.installation import setup_runtime
