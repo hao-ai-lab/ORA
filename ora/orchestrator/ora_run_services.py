@@ -129,6 +129,53 @@ def foreign_listeners(state: Path, health: Mapping[str, Any]) -> list[str]:
     return foreign
 
 
+FOREIGN_SERVICES_HINT = ("answers but was not started from this checkout (another user's services?); set free "
+                         "ports with B2_SAM_PORT / B2_GRASP_PORT in .env, or stop them")
+
+
+def _port_in_use(port: int) -> bool:
+    import socket
+
+    with socket.socket() as sock:
+        try:
+            sock.bind(("127.0.0.1", port))
+        except OSError as exc:
+            if exc.errno == errno.EADDRINUSE:
+                return True
+            raise
+    return False
+
+
+def check_service_ports() -> None:
+    """Refuse, before any qualification, service ports another process holds.
+
+    ``ensure_services`` runs after the one-time qualification, which can take
+    most of an hour; on a shared host the default ports may belong to another
+    user. A ready listener must be this checkout's (``foreign_listeners``); an
+    occupied port that does not answer yet must belong to a live service this
+    checkout started. Read-only: nothing is started or stopped.
+    """
+    from ora.agent.model_services import operator
+    from .model_services_cli import state_directory
+
+    state = state_directory(None)
+    health = operator.health()
+    ready = {name: item for name, item in health.items() if item.get("ready") is True}
+    foreign = foreign_listeners(state, ready)
+    urls = operator.endpoints()
+    for name in health:
+        if name in ready or not _port_in_use(int(urls[name].rsplit(":", 1)[1])):
+            continue
+        try:
+            record = json.loads((state / f"{name}.json").read_text())
+        except (OSError, ValueError):
+            record = None
+        if not (isinstance(record, dict) and _identity_matches(record)):
+            foreign.append(f"{name} at {urls[name]}")
+    if foreign:
+        raise RuntimeError(f"{', '.join(foreign)} {FOREIGN_SERVICES_HINT}")
+
+
 def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, poll_s: float = 5.0) -> Path:
     """Ready SAM3/Contact-GraspNet services and a readiness report for them; return the report."""
     from ora.agent.model_services import operator
@@ -165,8 +212,7 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
     foreign = foreign_listeners(state, health)
     if foreign:
         # A health check alone would bind another tenant's services to this run.
-        raise RuntimeError(f"{', '.join(foreign)} answers but was not started from this checkout (another user's "
-                           "services?); set free ports with B2_SAM_PORT / B2_GRASP_PORT in .env, or stop them")
+        raise RuntimeError(f"{', '.join(foreign)} {FOREIGN_SERVICES_HINT}")
     directory = state / "qualification"
     report = reusable_report(directory, health)
     if report is not None:
@@ -177,5 +223,6 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
     return report
 
 
-__all__ = ["REPORT_REUSE_MAX_AGE_S", "SERVICE_START_TIMEOUT_S", "confirm", "ensure_services", "foreign_listeners",
+__all__ = ["REPORT_REUSE_MAX_AGE_S", "SERVICE_START_TIMEOUT_S", "check_service_ports", "confirm", "ensure_services",
+           "foreign_listeners",
            "reusable_report", "run_with_progress"]
