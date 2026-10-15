@@ -106,31 +106,63 @@ def reusable_report(directory: Path, health: Mapping[str, Any]) -> Path | None:
     return None
 
 
-def _identity_matches(record: Mapping[str, Any]) -> bool:
-    from ora.agent.model_services.process import service_process_identity_matches
+def _identity_state(record: Mapping[str, Any]) -> str:
+    from ora.agent.model_services.process import service_process_identity_state
 
-    return service_process_identity_matches(record)
+    return service_process_identity_state(record)
 
 
-def foreign_listeners(state: Path, health: Mapping[str, Any]) -> list[str]:
-    """Ready listeners this checkout's ``model-services`` did not start (on a shared host, another user's)."""
+def _record(state: Path, name: str) -> dict[str, Any] | None:
+    try:
+        record = json.loads((state / f"{name}.json").read_text())
+    except (OSError, ValueError):
+        return None
+    return record if isinstance(record, dict) else None
+
+
+def _unowned(name: str, url: str, record: dict[str, Any] | None, pid: Any = None) -> tuple[str, str] | None:
+    """``(kind, text)`` when the service holding ``url`` is not usable as this checkout's, else ``None``.
+
+    ``kind`` is ``foreign`` (no matching record: on a shared host, another
+    user's services) or ``uninspectable``: this checkout recorded the live PID,
+    but it was started from another container or user namespace, so its
+    identity cannot be confirmed from here.
+    """
+    from ora.agent.model_services.process import IDENTITY_MATCHES, IDENTITY_UNINSPECTABLE, uninspectable_message
+
+    if record is not None and (pid is None or record.get("pid") == pid):
+        state = _identity_state(record)
+        if state == IDENTITY_MATCHES:
+            return None
+        if state == IDENTITY_UNINSPECTABLE:
+            return "uninspectable", (f"{name} at {url} was started by this checkout's model-services, not by "
+                                     f"another user: {uninspectable_message(record)}")
+    return "foreign", f"{name} at {url}"
+
+
+def foreign_listeners(state: Path, health: Mapping[str, Any]) -> list[tuple[str, str]]:
+    """Ready listeners this checkout's ``model-services`` did not start, or cannot confirm it started."""
     from ora.agent.model_services.operator import endpoints
 
     urls = endpoints()
-    foreign = []
-    for name, item in health.items():
-        try:
-            record = json.loads((state / f"{name}.json").read_text())
-        except (OSError, ValueError):
-            record = None
-        if (not isinstance(record, dict) or record.get("pid") != item.get("health", {}).get("pid")
-                or not _identity_matches(record)):
-            foreign.append(f"{name} at {urls[name]}")
-    return foreign
+    found = (_unowned(name, urls[name], _record(state, name), item.get("health", {}).get("pid"))
+             for name, item in health.items())
+    return [item for item in found if item]
 
 
 FOREIGN_SERVICES_HINT = ("answers but was not started from this checkout (another user's services?); set free "
                          "ports with B2_SAM_PORT / B2_GRASP_PORT in .env, or stop them")
+
+
+def refusal(unowned: Sequence[tuple[str, str]]) -> str:
+    """One refusal for ``foreign_listeners``-style entries; the free-ports remedy is named once."""
+    foreign = [text for kind, text in unowned if kind == "foreign"]
+    parts = [text for kind, text in unowned if kind != "foreign"]
+    if foreign:
+        parts.insert(0, f"{', '.join(foreign)} {FOREIGN_SERVICES_HINT}")
+    elif parts:
+        parts.append("or set free ports with B2_SAM_PORT / B2_GRASP_PORT in .env")
+    return "; ".join(parts)
 
 
 def _port_in_use(port: int) -> bool:
@@ -166,14 +198,11 @@ def check_service_ports() -> None:
     for name in health:
         if name in ready or not _port_in_use(int(urls[name].rsplit(":", 1)[1])):
             continue
-        try:
-            record = json.loads((state / f"{name}.json").read_text())
-        except (OSError, ValueError):
-            record = None
-        if not (isinstance(record, dict) and _identity_matches(record)):
-            foreign.append(f"{name} at {urls[name]}")
+        found = _unowned(name, urls[name], _record(state, name))
+        if found:
+            foreign.append(found)
     if foreign:
-        raise RuntimeError(f"{', '.join(foreign)} {FOREIGN_SERVICES_HINT}")
+        raise RuntimeError(refusal(foreign))
 
 
 def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, poll_s: float = 5.0) -> Path:
@@ -212,7 +241,7 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
     foreign = foreign_listeners(state, health)
     if foreign:
         # A health check alone would bind another tenant's services to this run.
-        raise RuntimeError(f"{', '.join(foreign)} {FOREIGN_SERVICES_HINT}")
+        raise RuntimeError(refusal(foreign))
     directory = state / "qualification"
     report = reusable_report(directory, health)
     if report is not None:
@@ -224,5 +253,5 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
 
 
 __all__ = ["REPORT_REUSE_MAX_AGE_S", "SERVICE_START_TIMEOUT_S", "check_service_ports", "confirm", "ensure_services",
-           "foreign_listeners",
+           "foreign_listeners", "refusal",
            "reusable_report", "run_with_progress"]

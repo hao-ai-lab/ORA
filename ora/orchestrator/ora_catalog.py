@@ -27,6 +27,13 @@ class PreparedTask:
                 "label": f"{self.spec['runtime']['kind']} / {self.spec['task']}",
                 "description": f"{self.path.name} · seed {self.spec.get('seed')} · {self.spec['task_instruction']}"}
 
+    def provider(self) -> dict[str, str]:
+        """The model, reasoning effort and protocol this RunSpec's Provider profile binds."""
+        policy = self.spec["policy"]
+        model = str(policy.get("model") or "").split("/")[-1] or str(policy.get("provider_profile") or "")
+        return {"model": model, "reasoning_effort": str(policy.get("reasoning_effort") or ""),
+                "provider_protocol": str(policy.get("provider") or "")}
+
     def interactive_spec(self, attempt: str, initial_messages: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         if hashlib.sha256(self.path.read_bytes()).hexdigest() != self.digest:
             raise RuntimeError(f"prepared RunSpec changed; reopen the task picker: {self.path}")

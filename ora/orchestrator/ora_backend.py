@@ -46,7 +46,7 @@ def launch_prepared(task: PreparedTask, initial: Sequence[Mapping[str, Any]],
         raise RuntimeError("interactive tasks must resolve to a Native policy")
     if cancelled.is_set():
         raise RuntimeError("launch cancelled")
-    preflight = _preflight(plan, report=report)
+    preflight = _preflight(plan, report=report, compact=True)  # one TUI line per passed check
     if not preflight["passed"]:
         raise RuntimeError("launch blocked by preflight; inspect the reported checks")
     if cancelled.is_set():
@@ -88,10 +88,19 @@ class InteractiveBackend:
             self.observer.poll()
         self.emit({"op": "header", "version": _version(), "mode": "interactive", "run_id": "choose a task",
                    "run_root": "", "benchmark": "", "task": "", "experiment": "ora-interactive",
-                   "rounds": 0, "model": "", "reasoning_effort": "", "provider_protocol": ""})
+                   "rounds": 0, **self.provider()})
         self.change_state("idle")
         self.show_tasks()
         self.show_queue()
+
+    def provider(self) -> dict[str, str]:
+        """The picker header's model line, from the prepared RunSpecs' Provider profiles.
+
+        A field the specs disagree on lists every value, so the header never names one
+        task's model for another.
+        """
+        bound = [task.provider() for task in self.tasks.values()]
+        return {key: " / ".join(dict.fromkeys(item[key] for item in bound if item[key])) for key in bound[0]}
 
     def change_state(self, state: str, message: str = "") -> None:
         self.state = state

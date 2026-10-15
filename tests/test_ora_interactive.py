@@ -480,3 +480,44 @@ def test_public_ora_world_defaults_headless_selection_and_replay_guard(monkeypat
     assert ora_cli.main(["watch", "fixture-run", "--world-port", "65536"]) == 2
     for invalid in ("http://127.0.0.1:65536/live", "http://127.0.0.1:5017/", "http://127.0.0.1:5017/live?run=wrong"):
         assert ora_cli.main(["watch", "fixture-run", "--world-public-url", invalid]) == 2
+
+
+def test_picker_header_names_the_prepared_provider_model(catalog, tmp_path):
+    # 2026-10-15, RTX PRO 6000 acceptance: the picker header said "model unknown".
+    tasks, spec = catalog
+
+    def header(prepared):
+        captured = []
+        InteractiveBackend(prepared, captured.append, confirm_launch=False).start()
+        return next(op for op in captured if op["op"] == "header")
+
+    assert (header(tasks)["model"], header(tasks)["reasoning_effort"]) == ("explicit-comparison", "")
+    bound = copy.deepcopy(spec)
+    bound["policy"].update(model="provider/DeepSeek-V4.1-Flash", reasoning_effort="low",
+                           provider="openai_compatible")
+    (tmp_path / "bound.yaml").write_text(yaml.safe_dump(bound))
+    single = header(load_tasks([tmp_path / "bound.yaml"]))
+    assert {key: single[key] for key in ("model", "reasoning_effort", "provider_protocol")} == {
+        "model": "DeepSeek-V4.1-Flash", "reasoning_effort": "low", "provider_protocol": "openai_compatible"}
+    mixed = header(load_tasks([tmp_path / "bound.yaml", tasks[0].path]))
+    assert mixed["model"] == "DeepSeek-V4.1-Flash / explicit-comparison"
+    assert mixed["reasoning_effort"] == "low"  # only the specs that bind one
+
+
+def test_interactive_launch_condenses_preflight_to_one_line_per_check(catalog, tmp_path, monkeypatch):
+    from ora.orchestrator import cli, spec
+    checks = [{"check": "source_clean", "passed": True, "detail": {"head": "a" * 40, "dirty": []}},
+              {"check": "service_ready", "passed": False, "detail": {"error": "segmentation not ready"}}]
+    monkeypatch.setattr(cli, "gateway_preflight", lambda plan, run: {"passed": False, "checks": checks})
+    full, compact = [], []
+    cli._preflight({}, persist=False, report=full.append)
+    cli._preflight({}, persist=False, report=compact.append, compact=True)
+    assert full[0].startswith("[PASS] source_clean: {")
+    assert compact == ["[PASS] source_clean", "[FAIL] service_ready: {'error': 'segmentation not ready'}",
+                       "preflight: BLOCKED"]
+    seen = {}
+    monkeypatch.setattr(spec, "resolve_run_spec", lambda value: {"policy": {"kind": "native_api"}})
+    monkeypatch.setattr(cli, "_preflight", lambda plan, **kwargs: seen.update(kwargs) or {"passed": False})
+    with pytest.raises(RuntimeError, match="blocked by preflight"):
+        launch_prepared(catalog[0][0], [], threading.Event(), lambda message: None)
+    assert seen["compact"] is True

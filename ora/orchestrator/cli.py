@@ -190,12 +190,15 @@ def _display_plan(plan: Mapping[str, Any]) -> None:
         print(f"{label:<{width}}  {value}")
 
 
-def _preflight(plan: Mapping[str, Any], *, persist: bool = True, report: Any = print) -> dict[str, Any]:
+def _preflight(plan: Mapping[str, Any], *, persist: bool = True, report: Any = print,
+               compact: bool = False) -> dict[str, Any]:
+    """``compact`` reports a failed check's detail only; the persisted record keeps every detail."""
     result = gateway_preflight(plan, run_preflight)  # loopback gateway client first (U13)
     if persist:
         _atomic(paths.workspace_from_plan(plan) / "preflight" / f"{plan['plan_sha256']}.json", result)
     for check in result["checks"]:
-        report(f"[{'PASS' if check['passed'] else 'FAIL'}] {check['check']}: {check['detail']}")
+        line = f"[{'PASS' if check['passed'] else 'FAIL'}] {check['check']}"
+        report(line if compact and check["passed"] else f"{line}: {check['detail']}")
     report(f"preflight: {'PASS' if result['passed'] else 'BLOCKED'}")
     return result
 

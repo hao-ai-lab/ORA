@@ -185,7 +185,8 @@ the reason:
 3. **Perception services.** SAM3 and Contact-GraspNet start if they are not
    already running (~3 min the first time, 8–10 GB of GPU memory). They keep
    running between tasks. Services on the ports that this checkout did not
-   start (another user's, on a shared machine) are refused; see
+   start (another user's, on a shared machine), or that it started from
+   another container or user namespace, are refused; see
    [§8](#8-troubleshooting).
 4. **Launch.** ORA writes a RunSpec under `outputs/ora-interactive/specs/`
    and opens the terminal UI on it. The picker lists that one task: press
@@ -333,6 +334,7 @@ environments). Other uv projects share it; `uv cache clean` empties it.
 | preflight stops at `provider_marker` or the run ends `incomplete` on the Provider recovery deadline | the API returned errors (for example HTTP 503) | check the provider's status and rerun |
 | `ora run`: … answers but was not started from this checkout, or `another process already listens on …` | on a shared machine another user's SAM3 / Contact-GraspNet listen on 8114/8115; `ora run` will not bind services it did not start | set free ports with `B2_SAM_PORT` / `B2_GRASP_PORT` in `.env` (for example 8124/8125) |
 | `model-services stop`: pid … is alive but this process cannot inspect it | services were started from another container or user namespace | stop them where they were started |
+| `ora run`: … was started by this checkout's model-services, not by another user: … cannot inspect it | this checkout started the services, but from another container or user namespace, so their identity cannot be confirmed from here | run `./scripts/model-services stop` where they were started, or set free ports with `B2_SAM_PORT` / `B2_GRASP_PORT` |
 | `graphics-compat`: `Vulkan driver compatibility rejected: libvulkan.so.1: cannot open shared object file`, or a RoboDojo qualification fails with `original camera assets did not become ready` (the worker log shows `libGLU.so.1: cannot open shared object file`) | the system lacks the Vulkan loader or libGLU that Isaac Sim loads | rerun `./scripts/ora setup --env robodojo`: it unpacks `libvulkan1` / `libglu1-mesa` into `<prefix>/syslibs` without sudo. Without `apt-get`, install those libraries; when running `setup-robodojo` or a qualification by hand, put `<prefix>/syslibs/usr/lib/x86_64-linux-gnu` on `LD_LIBRARY_PATH` |
 | RoboDojo worker: `graphics-compat/installation.json` missing | the layer was not built | `./scripts/setup-robodojo graphics-compat --root <prefix>/robodojo-runtime` |
 | `git lfs` not found during RoboDojo assets | no git-lfs | static binary (§2) |

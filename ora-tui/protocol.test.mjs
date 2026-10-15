@@ -344,3 +344,22 @@ test("prefixed Pi editor retains wrapped Unicode drafts, cursor geometry and sub
 	assert.equal(app.sent[0].type, "steer");
 	assert.equal(app.sent[0].message, text.trim());
 });
+
+test("picker header shows the prepared model and a preflight's checks stay one row each", (t) => {
+	const app = frontEnd(t);
+	app.handlers.header({ version: "v0.14.0", mode: "interactive", run_id: "choose a task", benchmark: "", task: "",
+		experiment: "ora-interactive", model: "DeepSeek-V4.1-Flash", reasoning_effort: "low",
+		provider_protocol: "openai_compatible" });
+	app.handlers.session_state({ state: "launching", message: "Preflight: robotwin / click_bell" });
+	for (const text of ["[PASS] source_clean", "[PASS] host_marker", "[FAIL] service_ready: {'error': 'down'}"]) {
+		app.handlers.notice({ level: "info", mark: "·", text });
+	}
+	const plain = app.ui.render(100).map(stripTerminalSequences).map((row) => row.trimEnd());
+	const output = plain.join("\n");
+	assert.match(output, /DeepSeek-V4\.1-Flash · low effort · openai_compatible/);
+	assert.doesNotMatch(output, /model unknown/);
+	const first = plain.findIndex((row) => row.includes("[PASS] source_clean"));
+	assert.ok(first > 0 && plain[first - 1].trim() === ""); // the block is separated once
+	assert.match(plain[first + 1], /\[PASS\] host_marker/);
+	assert.match(plain[first + 2], /\[FAIL\] service_ready: \{'error': 'down'\}/);
+});

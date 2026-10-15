@@ -218,7 +218,7 @@ def test_progress_runner_returns_stdout_and_reports_failures_with_the_log(tmp_pa
                                    log=tmp_path / "fail.log", stream=io.StringIO(), poll_s=0.01)
 
 
-def _fake_operator(monkeypatch, tmp_path, *, ready_after: int, reports=(), owned=True):
+def _fake_operator(monkeypatch, tmp_path, *, ready_after: int, reports=(), identity="matches"):
     from ora.agent.model_services import operator
     from ora.orchestrator import model_services_cli
 
@@ -249,7 +249,7 @@ def _fake_operator(monkeypatch, tmp_path, *, ready_after: int, reports=(), owned
     monkeypatch.setattr(operator, "qualify", qualify)
     monkeypatch.setattr(operator, "binding", binding)
     monkeypatch.setattr(model_services_cli, "state_directory", lambda explicit: tmp_path)
-    monkeypatch.setattr(services, "_identity_matches", lambda record: owned)
+    monkeypatch.setattr(services, "_identity_state", lambda record: identity)
     for name in operator.NAMES:
         (tmp_path / f"{name}.json").write_text(json.dumps({"pid": 1}))
     (tmp_path / "qualification").mkdir()
@@ -274,7 +274,7 @@ def test_running_services_reuse_the_report_naming_their_instances(monkeypatch, t
 
 
 def test_ready_services_this_checkout_did_not_start_are_refused(monkeypatch, tmp_path):
-    calls = _fake_operator(monkeypatch, tmp_path, ready_after=0, reports=("current.json",), owned=False)
+    calls = _fake_operator(monkeypatch, tmp_path, ready_after=0, reports=("current.json",), identity="drifted")
     with pytest.raises(RuntimeError, match="B2_SAM_PORT"):
         services.ensure_services(stream=io.StringIO())
     assert (calls["start"], calls["qualify"]) == (0, 0)
@@ -401,15 +401,43 @@ def test_occupied_service_ports_are_refused_before_any_qualification(monkeypatch
     # ora run spent the 2 min RoboTwin seed scan before ensure_services refused.
     _fake_operator(monkeypatch, tmp_path, ready_after=99)
     monkeypatch.setattr(services, "_port_in_use", lambda port: True)
-    monkeypatch.setattr(services, "_identity_matches", lambda record: False)
+    monkeypatch.setattr(services, "_identity_state", lambda record: "drifted")
     with pytest.raises(RuntimeError, match="B2_SAM_PORT / B2_GRASP_PORT"):
         services.check_service_ports()
     # Our own services, still warming up, hold their ports legitimately.
-    monkeypatch.setattr(services, "_identity_matches", lambda record: True)
+    monkeypatch.setattr(services, "_identity_state", lambda record: "matches")
     services.check_service_ports()
     monkeypatch.setattr(services, "_port_in_use", lambda port: False)
-    monkeypatch.setattr(services, "_identity_matches", lambda record: False)
+    monkeypatch.setattr(services, "_identity_state", lambda record: "drifted")
     services.check_service_ports()
+
+
+def test_own_services_from_another_namespace_are_not_called_another_users(monkeypatch, tmp_path):
+    # 2026-10-15, RTX PRO 6000 acceptance: this checkout started the services from another
+    # container; /proc/<pid>/exe was unreadable and the refusal blamed "another user's services?".
+    _fake_operator(monkeypatch, tmp_path, ready_after=0, reports=("current.json",), identity="uninspectable")
+    with pytest.raises(RuntimeError) as ready:
+        services.ensure_services(stream=io.StringIO())
+    (tmp_path / "warming").mkdir()
+    _fake_operator(monkeypatch, tmp_path / "warming", ready_after=99, identity="uninspectable")
+    monkeypatch.setattr(services, "_port_in_use", lambda port: True)
+    with pytest.raises(RuntimeError) as warming:
+        services.check_service_ports()
+    for error in (str(ready.value), str(warming.value)):
+        assert "segmentation at http://" in error and "grasp_proposals at http://" in error
+        assert error.count("was started by this checkout's model-services, not by another user") == 2
+        assert "another container" in error and "model-services stop" in error
+        assert "another user's services?" not in error
+        assert error.endswith("or set free ports with B2_SAM_PORT / B2_GRASP_PORT in .env")
+
+
+def test_mixed_refusal_names_each_case_and_the_ports_remedy_once():
+    message = services.refusal([
+        ("uninspectable", "segmentation at http://127.0.0.1:8114 was started by this checkout's model-services"),
+        ("foreign", "grasp_proposals at http://127.0.0.1:8115"),
+    ])
+    assert message.startswith("grasp_proposals at http://127.0.0.1:8115 " + services.FOREIGN_SERVICES_HINT)
+    assert message.count("B2_SAM_PORT") == 1 and "segmentation at" in message
 
 
 def test_main_checks_ports_before_composing(monkeypatch, tmp_path):

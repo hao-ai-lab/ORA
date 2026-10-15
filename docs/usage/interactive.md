@@ -15,6 +15,11 @@ instruction, official evaluator, seed or layout, provider, resources and
 policy; a typed message never replaces the task. Selecting a task and passing
 `--confirm-launch` are both required before the normal preflight and launch.
 
+The header names the model, reasoning effort and protocol that the offered
+RunSpecs' Provider profile binds (several values when the specs differ).
+Preflight prints one line per check, `[PASS] name` or `[FAIL] name: detail`;
+the full record of every check is kept under the run workspace's `preflight/`.
+
 ## Keys
 
 | Key | Effect |

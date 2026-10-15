@@ -82,8 +82,10 @@ export function main(argv = process.argv.slice(2), dependencies = {}) {
 	let activeTask = "ORA interactive";
 	let taskList = null;
 	let pickerFocused = false;
+	let noticeBlock = false; // consecutive notices (a preflight's checks) share one block
 	const add = (component) => {
 		chat.addChild(component);
+		noticeBlock = false;
 		ui.requestRender();
 	};
 	const line = (text) => add(new Text(text, 1, 0));
@@ -299,8 +301,9 @@ export function main(argv = process.argv.slice(2), dependencies = {}) {
 			box.finish(false);
 		},
 		notice(op) {
-			chat.addChild(new Spacer(1));
+			if (!noticeBlock) chat.addChild(new Spacer(1));
 			add(new Text(fg(op.level === "warning" ? "warning" : "dim", `${op.mark} ${op.text}`), 1, 0));
+			noticeBlock = true;
 		},
 		verdict(op) {
 			const label = op.rounds > 1 ? `Round ${op.round}/${op.rounds} · ` : "";
