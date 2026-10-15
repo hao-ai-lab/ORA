@@ -4,16 +4,15 @@
 # ORA: Open Robot-Use Agents
 
 <p>
+| <a href="https://haoailab.com/blogs/ora/"><b>Blog</b></a>
 | <a href="docs/README.md"><b>Documentation</b></a>
 | <a href="#getting-started"><b>Getting started</b></a>
-| <a href="docs/getting-started/single-gpu.md"><b>One-GPU guide</b></a>
-| <a href="docs/getting-started/local.md"><b>CPU guide</b></a>
 | <a href="docs/support.md"><b>Supported setups</b></a>
 | <a href="CONTRIBUTING.md"><b>Contributing</b></a> |
 </p>
 </div>
 
-**ORA turns a language model into a robot policy.** The model reads a robot manual, looks at the cameras and the robot's public state, and works the task through a small set of supervised tools: find objects, plan a grasp, move, open or close the gripper. It never sees the simulator's ground truth, and only the benchmark's own evaluator decides whether the task succeeded.
+**ORA is an open robot-use agent harness that lets open-weight language models operate robots fully zero-shot:** no VLA, no robot training and no task-specific memory. On RoboTwin and LIBERO-Pro it solves 69.2% and 81.4% of cases, competitive with agents built on frontier models. It gets there with a harness designed for robot tasks in the physical world: exact task and environment context, tools for perception and motion, and context management. The [blog post](https://haoailab.com/blogs/ora/) covers the method, results and analysis.
 
 <p align="center">
 <a href="docs/assets/videos/ora-teaser.mp4"><img src="docs/assets/images/ora-teaser.webp" width="100%" alt="ORA teaser: an open-weight model works LIBERO, RoboTwin and RoboDojo tasks through ORA's tools"/></a>
@@ -38,7 +37,6 @@
 
 | Your machine | What runs | Start with | Verified on |
 |---|---|---|---|
-| Laptop or desktop without an NVIDIA GPU (macOS on Apple Silicon, or Linux) | LIBERO on a CPU simulator, reduced tool set | `./scripts/ora setup` → `./scripts/ora local --confirm-launch` · [CPU guide](docs/getting-started/local.md) | Linux x86_64 (one LIBERO task solved); macOS supported, not yet verified |
 | Linux with one NVIDIA GPU, 32 GB or more (Turing to Blackwell) | LIBERO / LIBERO-Pro, RoboTwin and RoboDojo, full tool set | `./scripts/ora setup --env <env>` → `./scripts/ora run --env <env> --task <task> --confirm-launch` · [one-GPU guide](docs/getting-started/single-gpu.md) | RTX PRO 6000 Blackwell (all three, end to end); H200 (through launch checks) |
 | Multi-GPU cluster | Official suites at benchmark scale, many runs in parallel | [Benchmark setup and official suites](docs/guides/official-suite-getting-started.md) | 8× H200 nodes |
 
@@ -124,6 +122,27 @@ uv run --locked python -m pytest tests
 ./scripts/docs serve                      # documentation site at http://127.0.0.1:8000/
 ```
 
-The distribution is named `ora-agent`; the Python import and command are `ora`. Use a source checkout for launches so plans can bind a clean Git commit. A PyPI release and the accompanying blog are pending. See [contributing](CONTRIBUTING.md) and the [documentation guide](docs/developer/documentation.md).
+The distribution is named `ora-agent`; the Python import and command are `ora`. Use a source checkout for launches so plans can bind a clean Git commit. A PyPI release is pending; the [blog post](https://haoailab.com/blogs/ora/) describes the method and results. See [contributing](CONTRIBUTING.md) and the [documentation guide](docs/developer/documentation.md).
+
+## Acknowledgements
+
+We thank the RPent team for releasing their evaluation cases, leaderboard and code ([Harness VLA](https://arxiv.org/abs/2607.08448)); the authors of [CaP-X](https://arxiv.org/abs/2603.22435) and [ASPIRE](https://arxiv.org/abs/2607.00272), whose work inspired ORA's tools; and DeepSeek for releasing DeepSeek-V4.1-Flash as an open-weight model. We thank [Zhaoning Wang](https://www.zhaoningwang.com/) for deploying ORA on a real robot, and [Junda Chen](https://github.com/GindaChen/), [Runyu Lu](https://runyulu.com/) and [Nan Xue](https://xuenan.net/) for helpful discussions.
+
+ORA builds on open-source work: [LIBERO](https://github.com/Lifelong-Robot-Learning/LIBERO), [LIBERO-Pro](https://github.com/Zxy-MLlab/LIBERO-PRO), [RoboTwin 2.0](https://github.com/RoboTwin-Platform/RoboTwin) and [RoboDojo](https://github.com/RoboDojo-Benchmark/RoboDojo) as benchmarks; [SAM 3](https://arxiv.org/abs/2511.16719), [Contact-GraspNet](https://arxiv.org/abs/2103.14127) and [cuRobo](https://arxiv.org/abs/2310.17274) as tools; and [pi-tui](https://www.npmjs.com/package/@earendil-works/pi-tui) for the terminal UI. Code adapted from RoboTwin and CaP-X keeps its original license; see [NOTICE](NOTICE).
+
+## Citation
+
+If you use ORA, please cite:
+
+```bibtex
+@software{ora2026code,
+  title  = {{ORA}: Open Robot-Use Agents},
+  author = {Yang, Yuanbo and Chen, Siyi and Gao, Jun and Zhang, Hao},
+  year   = {2026},
+  month  = oct,
+  url    = {https://github.com/hao-ai-lab/ORA},
+  note   = {Blog post: https://haoailab.com/blogs/ora/}
+}
+```
 
 Licensed under [Apache-2.0](LICENSE). Bundled third-party code retains the notices in [NOTICE](NOTICE).

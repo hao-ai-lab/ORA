@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use ORA, please cite it as below."
+type: software
+title: "ORA: Open Robot-Use Agents"
+authors:
+  - family-names: Yang
+    given-names: Yuanbo
+  - family-names: Chen
+    given-names: Siyi
+  - family-names: Gao
+    given-names: Jun
+  - family-names: Zhang
+    given-names: Hao
+date-released: "2026-10-15"
+url: "https://haoailab.com/blogs/ora/"
+repository-code: "https://github.com/hao-ai-lab/ORA"
+license: Apache-2.0
