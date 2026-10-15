@@ -12,6 +12,10 @@ execution_marker:
 credentials:
   mode: trusted_environment_only
   committed_values: forbidden
+runtime_storage:
+  # Keep the worker's Unix socket under the 107-byte limit even when the
+  # checkout is deeply nested (found on an H200 host: 114 bytes).
+  tmp_root: ~/.cache/ora
 # Leases are per resource class, so these three slots do not exclude each
 # other. Run one task at a time: corrupt frames were measured when an EGL
 # LIBERO renderer shared a card with SAPIEN or another EGL renderer.
