@@ -6,15 +6,20 @@ RoboTwin and RoboDojo. You watch and steer each run in the terminal UI. It
 needs no sudo, no Docker, no model download behind a login and no
 hand-written configuration.
 
-Two commands do the work:
+The whole path, once the [tools](#2-user-space-tools) are on `PATH`:
 
 ```bash
+git clone https://github.com/hao-ai-lab/ora-agent.git && cd ora-agent
+uv sync --all-extras --locked
 ./scripts/ora setup --env robotwin                                   # install once
+export DEEPSEEK_LOW_API_KEY=sk-...
 ./scripts/ora run --env robotwin --task click_bell --confirm-launch  # every task
 ```
 
-Sections 1–6 are the path to follow. Section 9 lists the explicit commands
-those two run, for reading or for redoing one step by hand.
+Replace `robotwin` with `libero` (task `libero_goal/0`) or `robodojo` (task
+`general_pickup`), or install several at once. Sections 1–6 explain each step
+and what you will see. Section 9 lists the explicit commands that `setup` and
+`run` execute, for reading or for redoing one step by hand.
 
 ## Contents
 
@@ -24,7 +29,7 @@ those two run, for reading or for redoing one step by hand.
 4. [Install an environment](#4-install-an-environment)
 5. [Run a task](#5-run-a-task)
 6. [Watch, steer and inspect](#6-watch-steer-and-inspect)
-7. [GPU and driver notes](#7-gpu-and-driver-notes)
+7. [GPU and driver notes](#7-gpu-and-driver-notes), and [updating or removing ORA](#updating-and-removing-ora)
 8. [Troubleshooting](#8-troubleshooting)
 9. [Reference: what setup and run execute](#9-reference-what-setup-and-run-execute)
 10. [Measured on the verification machine](#10-measured-on-the-verification-machine)
@@ -171,9 +176,11 @@ the reason:
    start (another user's, on a shared machine) are refused; see
    [§8](#8-troubleshooting).
 4. **Launch.** ORA writes a RunSpec under `outputs/ora-interactive/specs/`
-   and opens the terminal UI on it. The full launch preflight runs again.
-   The task starts only with `--confirm-launch` and your selection in the
-   picker.
+   and opens the terminal UI on it. The picker lists that one task: press
+   Enter to start it. The full launch preflight runs again (about 10–40 s;
+   it checks the GPU, simulator, services and one real model request), then
+   the episode starts. The task starts only with `--confirm-launch` and your
+   selection in the picker.
 
 ### Choosing a task
 
@@ -192,8 +199,17 @@ Other options:
 - `--requalify` ignores reusable qualification records.
 - `./scripts/ora run --env robotwin --help` lists all options.
 
-Run **one task at a time** on the GPU. When you are done, free the GPU
-memory the services hold:
+Run **one task at a time** on the GPU.
+
+### Over SSH
+
+Start `ora run` inside `tmux` or `screen`. ORA finishes each run after the
+episode ends (metrics, the simulator's verdict, sealing the evidence), and a
+dropped SSH connection that kills the terminal can stop that midway. If you
+leave the UI with Ctrl-C, the run keeps going; find it with
+`./scripts/ora status` and follow it with `./scripts/ora watch RUN_ID`.
+
+When you are done, free the GPU memory the services hold:
 
 ```bash
 ./scripts/model-services stop
@@ -225,10 +241,18 @@ After a run:
 ./scripts/open-viewer               # browser evidence viewer with videos and trajectories
 ```
 
-Runs are under `outputs/ora-interactive/runs/<run_id>/`. The simulator's
-official check supplies `official_success`; the model saying it finished is
-not a success. See [interactive sessions](../usage/interactive.md) and
-[run and inspect](../usage/runs.md).
+Runs are under `outputs/ora-interactive/runs/<run_id>/`:
+
+| File | Contents |
+|---|---|
+| `result.json`, `evaluation.json` | how the run ended and the simulator's official verdict (`official_success`) |
+| `agent-events.jsonl` | every model request and response, tool call, action and receipt (what `ora watch` replays) |
+| `runtime-metrics.json` | decisions, model calls, tokens and timings |
+| `seal.json` | the digest that seals the run's evidence; present once landing finished |
+
+The simulator's official check supplies `official_success`; the model saying
+it finished is not a success. See [interactive sessions](../usage/interactive.md)
+and [run and inspect](../usage/runs.md).
 
 ## 7. GPU and driver notes
 
@@ -253,6 +277,27 @@ not a success. See [interactive sessions](../usage/interactive.md) and
 - **Headless.** Every environment renders offscreen: LIBERO through EGL,
   RoboTwin (SAPIEN) and RoboDojo (Isaac Sim) through Vulkan. No display or X
   server is needed, so an SSH session is enough.
+
+### Updating and removing ORA
+
+To update, pull and rerun setup; it reinstalls only what changed:
+
+```bash
+git pull && uv sync --all-extras --locked
+./scripts/ora setup --env libero --env robotwin --env robodojo
+```
+
+Qualification records bind the code they were made with. After an update,
+`ora run` may run a RoboTwin seed scan or a RoboDojo qualification again; it
+asks first, as on the first run.
+
+To remove everything ORA installed and recorded:
+
+```bash
+./scripts/model-services stop
+rm -rf ~/.local/share/ora/gpu      # or your --prefix / ORA_GPU_PREFIX
+rm -rf outputs/* .harness-runtime .env   # runs, qualifications, local state and settings in the checkout
+```
 
 ## 8. Troubleshooting
 
