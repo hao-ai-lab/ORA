@@ -31,6 +31,10 @@ SUBMODULES = {
 UPSTREAM_PURGED_ASSETS = "Assets/Eval_Layout/RoboDojo/arx_x5/*/swap_T_*.json"
 
 
+#: The worker's verifier, run as the ``graphics-compat`` stage's final readback.
+GRAPHICS_COMPAT_MODULE = Path(__file__).resolve().parents[1] / "graphics_compat.py"
+
+
 def upstream_purged(name: str) -> bool:
     return fnmatch.fnmatchcase(name, UPSTREAM_PURGED_ASSETS)
 
@@ -43,6 +47,13 @@ COMPAT_PATCH_SHA256 = "4189d74dda895d78786dac467021f70084714c68cefc9826406225c79
 COMPAT_PROFILE_SHA256 = "a94b47098944b7f0ddc95ec46a811c877af582fddee3c02061d5dd4b23ccb1cd"
 COMPAT_PROFILE_NAME = "VP_ROBODOJO_RTX_ALLOCATION_COMPAT"
 COMPAT_GENERATOR_REQUIREMENTS = ("jsonschema==4.23.0",)
+
+
+def _single(paths) -> Path:
+    found = sorted(paths)
+    if len(found) != 1:
+        raise RuntimeError(f"Expected exactly one build product, found {[str(path) for path in found]}")
+    return found[0]
 
 
 CONSTRAINTS = """numpy==1.26.0
@@ -283,6 +294,8 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
     def sdk(self):
         self.python_runtime()
         self.run(self.python, "-m", "pip", "install", "setuptools<82", "setuptools_scm>=6.2", "wheel==0.45.1")
+        # --find-links below needs the directory even when donor-wheels never ran.
+        (self.root / "wheels").mkdir(exist_ok=True)
         local_wheels = sorted((self.root / "wheels").glob("*.whl"))
         if local_wheels:
             self.run(self.python, "-m", "pip", "install", "--no-deps", *local_wheels)
@@ -481,8 +494,8 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
     def graphics_compat(self, jobs: int = 16):
         """Build the Khronos Profiles layer and write ``graphics-compat/`` with its receipt.
 
-        Opt-in: only hosts whose driver overflows Isaac Sim's allocation limit (595.x)
-        need it. Needs git, CMake, a C++17 compiler and network access for the
+        Every RoboDojo worker activates the layer, so every installation needs it.
+        Needs git, a C++17 compiler and network access for the
         layer's pinned ``known_good.json`` dependencies. Starts no simulator; the
         worker's own readback verifies the repair on the GPU before every start.
         """
@@ -504,20 +517,25 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
                                  env=self.env, capture_output=True).returncode == 0
         if not applied:
             self.run("git", "apply", patch, cwd=source)
+        # CMake and Ninja come from a separate tool environment, so no system build
+        # tools or sudo are needed and the simulator environment stays unchanged.
+        tools = self.root / "tools/build-env"
+        if not (tools / "bin/python").exists():
+            self.run("uv", "venv", "--python", "3.11", tools)
+        self.run("uv", "pip", "install", "--python", tools / "bin/python", "cmake==4.1.2", "ninja==1.13.0")
+        self.env["PATH"] = str(tools / "bin") + os.pathsep + self.env["PATH"]
         if not (venv / "bin/python").exists():
             self.run("uv", "venv", "--python", self.python, venv)
         self.run("uv", "pip", "install", "--python", venv / "bin/python", *COMPAT_GENERATOR_REQUIREMENTS)
         commands = [
-            ["cmake", "-S", source, "-B", build, "-DCMAKE_BUILD_TYPE=Release", "-DUPDATE_DEPS=ON",
+            ["cmake", "-S", source, "-B", build, "-G", "Ninja", "-DCMAKE_BUILD_TYPE=Release", "-DUPDATE_DEPS=ON",
              "-DBUILD_TESTS=OFF", f"-DPython3_EXECUTABLE={venv / 'bin/python'}"],
             ["cmake", "--build", build, "--target", "ProfilesLayer", "-j", str(jobs)],
         ]
         for command in commands:
             self.run(*command)
-        built_layer = build / "layer/libVkLayer_khronos_profiles.so"
-        built_manifest = build / "layer/VkLayer_khronos_profiles.json"
-        if not built_layer.is_file() or not built_manifest.is_file():
-            raise RuntimeError("ProfilesLayer build produced no layer or manifest")
+        built_layer = _single(build.rglob("libVkLayer_khronos_profiles.so"))
+        built_manifest = _single(build.rglob("VkLayer_khronos_profiles.json"))
         out = self.root / "graphics-compat"
         targets = {"layer": out / "lib/libVkLayer_khronos_profiles.so",
                    "profile": out / f"profiles/{COMPAT_PROFILE_NAME}.json",
@@ -548,6 +566,9 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
         temp.write_text(json.dumps(receipt, indent=2) + "\n")
         temp.replace(out / "installation.json")
         print(json.dumps({role: value["sha256"] for role, value in reference.items()}, indent=2))
+        # The worker's own verifier: hashes, profile shape and a child readback
+        # that compares Vulkan properties with and without the layer.
+        self.run(self.python, GRAPHICS_COMPAT_MODULE, self.root)
 
     def manifest(self):
         data = {"schema": "robodojo-install.v1", "root": str(self.root),
@@ -568,21 +589,44 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
         temp.replace(self.root / "install-manifest.json")
 
 
-def main():
+def default_root(environ=None) -> Path | None:
+    """The installation root this shell already names, or None.
+
+    ``ROBODOJO_RUNTIME_ROOT`` wins; otherwise ``ROBODOJO_ROOT`` (the
+    ``<root>/source/RoboDojo`` checkout) names its installation root. There is
+    no host default: a missing root used to fall back to one SSH23 path.
+    """
+    values = os.environ if environ is None else environ
+    if values.get("ROBODOJO_RUNTIME_ROOT"):
+        return Path(values["ROBODOJO_RUNTIME_ROOT"]).expanduser()
+    source = values.get("ROBODOJO_ROOT")
+    if source:
+        source_path = Path(source).expanduser()
+        if source_path.name == "RoboDojo" and source_path.parent.name == "source":
+            return source_path.parent.parent
+    return None
+
+
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=("sources", "assets", "verify-assets", "python-runtime", "sdk", "packages", "resolve", "bind-assets", "doctor", "manifest", "donor-wheels", "graphics-compat"))
+    parser.add_argument("stage", choices=("sources", "assets", "verify-assets", "python-runtime", "sdk", "packages", "resolve", "bind-assets", "graphics-compat", "doctor", "manifest", "donor-wheels"))
     parser.add_argument("--donor-site-packages", type=Path)
-    parser.add_argument("--root", type=Path, default=Path.home() / "robodojo-runtime")
-    args = parser.parse_args()
-    installer = Installer(args.root)
+    parser.add_argument("--root", type=Path,
+                        help="installation root (default: ROBODOJO_RUNTIME_ROOT, else the root that "
+                             "ROBODOJO_ROOT=<root>/source/RoboDojo names)")
+    args = parser.parse_args(argv)
+    root = args.root or default_root()
+    if root is None:
+        parser.error("pass --root <installation directory> or set ROBODOJO_RUNTIME_ROOT")
+    installer = Installer(root)
     if args.stage == "donor-wheels":
         if args.donor_site_packages is None:
             parser.error("donor-wheels requires --donor-site-packages")
         installer.donor_wheels(args.donor_site_packages.resolve())
         return
     stages = {"assets": installer.download_assets, "verify-assets": installer.verify_assets,
-              "graphics-compat": installer.graphics_compat,
-              "bind-assets": installer.bind_assets, "python-runtime": installer.python_runtime}
+              "bind-assets": installer.bind_assets, "python-runtime": installer.python_runtime,
+              "graphics-compat": installer.graphics_compat}
     (stages.get(args.stage) or getattr(installer, args.stage))()
 
 

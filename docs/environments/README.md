@@ -10,6 +10,9 @@ its own explicit interpreter.
 | RoboTwin | Dual-arm manipulation in clean or randomized scenes | [Install and run one task](robotwin.md) |
 | RoboDojo | Isaac Sim manipulation tasks | [Install and run one task](robodojo.md) |
 
+On a single-GPU Linux machine, `ora setup --env` and `ora run --env` do the
+whole sequence below for one task; see [Run ORA on one GPU](../getting-started/single-gpu.md).
+
 ## Setup sequence
 
 1. Install the pinned simulator and assets using its guide.

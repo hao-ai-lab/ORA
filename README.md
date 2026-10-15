@@ -24,6 +24,20 @@ This calls a real model API and saves a sealed episode under `outputs/quickstart
 
 Synthetic checks the agent/runtime connection. It has no manipulation benchmark score: `official_success` is `null`.
 
+## Run robot tasks on one GPU
+
+With one NVIDIA GPU (32 GB or more, x86_64 Linux) and a DeepSeek API key, two commands install an environment and run a task in it, with the terminal UI below:
+
+```bash
+./scripts/ora setup --env robotwin                                   # once: simulator, CuRobo, perception services, UI
+export DEEPSEEK_LOW_API_KEY=sk-...
+./scripts/ora run --env robotwin --task click_bell --confirm-launch  # every task
+```
+
+`--env libero` (`--task libero_goal/0`) and `--env robodojo` (`--task general_pickup`) work the same way. No sudo, Docker or gated download is needed. Follow [Run ORA on one GPU](docs/getting-started/single-gpu.md) for requirements, GPU and driver notes, times and troubleshooting.
+
+## Run on your computer (CPU)
+
 To see ORA work a real LIBERO task on your own computer without a GPU, follow [Run ORA on your computer (CPU)](docs/getting-started/local.md): `./scripts/ora setup`, then `./scripts/ora local --confirm-launch`. You can steer the run from the terminal while it works ([interactive sessions](docs/usage/interactive.md)).
 
 ## Terminal UI
@@ -42,6 +56,8 @@ npm ci --prefix ora-tui                    # once; needs Node.js 20+ (`ora setup
 `ora watch` is read-only. In `ora interactive` and `ora local`, Enter sends the running agent a message, Alt+Enter queues one for the next task, Esc stops the run and Ctrl-C leaves it running; runs you steer are marked human-assisted. Without Node, `ora watch` falls back to a built-in text view. See [run and inspect](docs/usage/runs.md) and [interactive sessions](docs/usage/interactive.md).
 
 ## Choose an environment
+
+On one GPU, `ora setup --env` / `ora run --env` ([guide](docs/getting-started/single-gpu.md)) install and run all three. The per-environment pages below cover the explicit installation and multi-GPU hosts.
 
 | Environment | Install and run | Verdict |
 |---|---|---|

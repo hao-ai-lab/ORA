@@ -13,8 +13,9 @@ import time
 from typing import Any
 
 from .identity import grounding_grasp_adapter_sha256
-from .process import (capture_service_process_identity, isolated_service_environment,
-                      service_process_identity_matches, terminate_service_process)
+from .process import (IDENTITY_UNINSPECTABLE, capture_service_process_identity, isolated_service_environment,
+                      service_process_identity_matches, service_process_identity_state,
+                      terminate_service_process, uninspectable_message)
 
 NAMES = {"segmentation": "SAM", "grasp_proposals": "GRASP"}
 FIELDS = ("instance_id", "pid", "started_unix_s", "adapter_sha256", "model",
@@ -84,7 +85,12 @@ def lifecycle(
             record = json.loads(record_path.read_text()) if record_path.exists() else None
             if command == "stop":
                 if record:
-                    result[name] = {"stopped": terminate_service_process(record)}
+                    try:
+                        result[name] = {"stopped": terminate_service_process(record)}
+                    except RuntimeError as exc:
+                        # Never signal a process whose identity is not proven;
+                        # report it and let the other service still stop.
+                        result[name] = {"stopped": False, "pid": record.get("pid"), "refused": str(exc)}
                 continue
             # Refuse occupied ports, including listeners we did not launch.
             import socket
@@ -106,6 +112,9 @@ def lifecycle(
                     raise ValueError(f"{name} configuration changed; stop owned services before restarting")
                 result[name] = {"status": "already_started", "pid": record["pid"]}
                 continue
+            if record and service_process_identity_state(record) == IDENTITY_UNINSPECTABLE:
+                # Alive but unprovable from here: say so instead of failing on its port.
+                raise ValueError(f"{name}: {uninspectable_message(record)}")
             with socket.socket() as sock:
                 sock.bind(("127.0.0.1", port))
             env = isolated_service_environment(worker_environment={"CUDA_VISIBLE_DEVICES": values["GPU"]},

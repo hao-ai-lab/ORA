@@ -1,0 +1,40 @@
+schema: ora.execution-host.v1
+id: single-gpu
+purpose: >-
+  Generic one-GPU Linux machine (one user, one task at a time). The repository
+  ships this profile so a new single-GPU host needs no hand-written YAML: the
+  GPU is whatever CUDA device 0 the process sees, and each simulator family has
+  one slot on it. Registration is capacity, not a card, lane or task
+  qualification. Walkthrough: docs/getting-started/single-gpu.md.
+execution_marker:
+  environment_variable: ORA_EXECUTION_HOST
+  required_value: single-gpu
+credentials:
+  mode: trusted_environment_only
+  committed_values: forbidden
+# Leases are per resource class, so these three slots do not exclude each
+# other. Run one task at a time: corrupt frames were measured when an EGL
+# LIBERO renderer shared a card with SAPIEN or another EGL renderer.
+execution_resources:
+  libero-gpu0:
+    runtime_kind: libero_pro
+    resource_class: libero_pro_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "0"
+      MUJOCO_EGL_DEVICE_ID: "0"
+    minimum_free_memory_mib: 2048
+  robotwin-gpu0:
+    runtime_kind: robotwin
+    resource_class: robotwin_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "0"
+    minimum_free_memory_mib: 20480
+  robodojo-gpu0:
+    runtime_kind: robodojo
+    resource_class: robodojo_sim
+    slot_id: gpu0
+    worker_environment:
+      CUDA_VISIBLE_DEVICES: "0"
+    minimum_free_memory_mib: 20480

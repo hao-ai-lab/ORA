@@ -29,6 +29,9 @@ SCHEMA = "ora.ora-local-setup.v1"
 CODE_URL = "https://github.com/Zxy-MLlab/LIBERO-PRO.git"
 DATA_URL = "https://huggingface.co/datasets/zhouxueyang/LIBERO-Pro"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+#: Doctor's read-only ``git status`` cannot persist an index refresh. ``setup``
+#: refreshes each index once after checkout; the bound covers slow disks.
+GIT_STATUS_TIMEOUT_S = 180
 
 
 class LocalSetupError(RuntimeError):
@@ -92,9 +95,31 @@ def _platform() -> tuple[str, str]:
     raise LocalSetupError(f"local CPU setup supports Apple Silicon macOS and Linux x86_64/arm64; got {system}/{machine}")
 
 
+#: glvnd vendor directories; an NVIDIA driver install ships ``10_nvidia.json`` there.
+EGL_VENDOR_DIRECTORIES = ("/usr/share/glvnd/egl_vendor.d", "/etc/glvnd/egl_vendor.d",
+                          "/usr/local/share/glvnd/egl_vendor.d")
+
+
+def nvidia_egl_vendor(directories: tuple[str, ...] | None = None) -> str | None:
+    """The NVIDIA glvnd EGL vendor file, when the driver installed one."""
+    configured = os.environ.get("__EGL_VENDOR_LIBRARY_DIRS")
+    search = directories if directories is not None else (
+        tuple(configured.split(":")) if configured else EGL_VENDOR_DIRECTORIES)
+    for directory in search:
+        for path in sorted(Path(directory).glob("*nvidia*.json")):
+            if path.is_file():
+                return str(path)
+    return None
+
+
 def graphics_environment(graphics: str = "auto") -> dict[str, str]:
     system, _ = _platform()
-    selected = ("cgl" if system == "Darwin" else "osmesa") if graphics == "auto" else graphics
+    if graphics == "auto":
+        # A Linux NVIDIA driver provides EGL; OSMesa needs a distribution
+        # package a fresh GPU machine usually lacks.
+        selected = "cgl" if system == "Darwin" else ("egl" if nvidia_egl_vendor() else "osmesa")
+    else:
+        selected = graphics
     allowed = {"cgl", "glfw"} if system == "Darwin" else {"osmesa", "egl", "glfw"}
     if selected not in allowed:
         raise LocalSetupError(f"graphics backend {selected!r} is unsupported on {system}")
@@ -170,7 +195,8 @@ def doctor(root: Path | str | None = None) -> dict[str, Any]:
     for name, revision in (("source_root", CODE_REVISION), ("data_root", DATA_REVISION)):
         try:
             current = _git(paths[name], "rev-parse", "HEAD", timeout=10)
-            clean = not _git(paths[name], "status", "--porcelain", "--untracked-files=no", timeout=15)
+            clean = not _git(paths[name], "status", "--porcelain", "--untracked-files=no",
+                             timeout=GIT_STATUS_TIMEOUT_S)
             add(name, current == revision and clean, {"expected": revision, "actual": current, "clean": clean})
         except LocalSetupError as exc:
             add(name, False, str(exc))
@@ -251,7 +277,9 @@ def _checkout(path: Path, url: str, revision: str) -> None:
                     or _git(path, "status", "--porcelain", "--untracked-files=all")):
                 raise LocalSetupError(f"refusing to reuse an incomplete foreign checkout: {path}")
         else:
-            if actual != revision or _git(path, "status", "--porcelain", "--untracked-files=no"):
+            refresh_index(path)
+            if actual != revision or _git(path, "status", "--porcelain", "--untracked-files=no",
+                                          timeout=GIT_STATUS_TIMEOUT_S):
                 raise LocalSetupError(f"refusing to change an existing modified/wrong-revision checkout: {path}")
             return
     else:
@@ -260,6 +288,21 @@ def _checkout(path: Path, url: str, revision: str) -> None:
         _git(path, "remote", "add", "origin", url)
     _git(path, "fetch", "--depth", "1", "origin", revision, timeout=1800)
     _git(path, "checkout", "--detach", revision, timeout=300)
+    refresh_index(path)
+
+
+def refresh_index(path: Path) -> None:
+    """Record the checkout's stat data once, so later read-only status calls stay fast.
+
+    A fresh checkout leaves racily-clean entries that every ``git status``
+    re-hashes; read-only callers run with ``GIT_OPTIONAL_LOCKS=0`` and can
+    never write the refreshed index back. This is the one writing call.
+    """
+    try:
+        _run(["git", "-c", "core.hooksPath=/dev/null", "-C", str(path), "update-index", "-q", "--refresh"],
+             timeout=1800, env={"GIT_OPTIONAL_LOCKS": "1"})
+    except LocalSetupError:
+        pass  # only a speed-up; the identity checks that follow decide
 
 
 def setup(root: Path | str | None = None, *, python: str | Path | None = None,
@@ -326,7 +369,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="ora setup", description="Install the locked Harness and terminal UI, pinned CPU LIBERO sources/assets and a separate simulator runtime (about 2 GB; no provider or simulator starts)")
     parser.add_argument("--root", type=Path)
     parser.add_argument("--python", type=Path, help="existing Python 3.11 interpreter")
-    parser.add_argument("--graphics", choices=("auto", "cgl", "glfw", "egl", "osmesa"), default="auto")
+    parser.add_argument("--graphics", choices=("auto", "cgl", "glfw", "egl", "osmesa"), default="auto",
+                        help="auto: CGL on macOS; on Linux EGL when an NVIDIA EGL vendor file exists, else OSMesa")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
     if not args.json:

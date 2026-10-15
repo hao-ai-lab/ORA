@@ -98,23 +98,55 @@ def capture_service_process_identity(
     }
 
 
-def service_process_identity_matches(record: Mapping[str, Any]) -> bool:
+#: ``service_process_identity_state`` results.
+IDENTITY_EXITED, IDENTITY_MATCHES = "exited", "matches"
+IDENTITY_UNINSPECTABLE, IDENTITY_DRIFTED = "uninspectable", "drifted"
+
+
+def service_process_identity_state(record: Mapping[str, Any]) -> str:
+    """``exited``, ``matches``, ``uninspectable`` or ``drifted`` for ``record``'s process.
+
+    ``uninspectable``: the PID is alive but this process may not read its
+    ``/proc/<pid>/exe`` (permission denied). That happens when the service was
+    started from another container, sandbox or user namespace; it says nothing
+    about whether the PID is still our service, so it is never treated as a
+    match, and it is reported separately from real drift (PID reuse, another
+    command line or boot).
+    """
     pid = record.get("pid")
     command = record.get("command")
     saved = record.get("process_identity")
+    if not process_alive(pid):
+        return IDENTITY_EXITED
     if (
-        not isinstance(pid, int)
-        or not isinstance(command, list)
+        not isinstance(command, list)
         or not all(isinstance(item, str) for item in command)
         or not isinstance(saved, Mapping)
-        or not process_alive(pid)
     ):
-        return False
+        return IDENTITY_DRIFTED
     try:
         current = capture_service_process_identity(pid, command, wait_s=0.05)
+    except PermissionError:
+        return IDENTITY_UNINSPECTABLE
     except (OSError, RuntimeError, ValueError):
-        return False
-    return dict(saved) == current
+        return IDENTITY_DRIFTED
+    return IDENTITY_MATCHES if dict(saved) == current else IDENTITY_DRIFTED
+
+
+def service_process_identity_matches(record: Mapping[str, Any]) -> bool:
+    return service_process_identity_state(record) == IDENTITY_MATCHES
+
+
+def uninspectable_message(record: Mapping[str, Any]) -> str:
+    """What an operator does about a live service this process cannot inspect."""
+    identity = record.get("process_identity") or {}
+    return (
+        f"resident service pid {record.get('pid')} is alive but this process cannot inspect it "
+        "(permission denied on /proc/<pid>/exe: it was started from another container, sandbox or "
+        "user namespace). Run model-services stop from the environment that started it; or confirm "
+        f"/proc/{record.get('pid')}/cmdline is the recorded command and stop process group "
+        f"{identity.get('process_group_id', record.get('pid'))} yourself (kill -TERM -- -<pgid>)"
+    )
 
 
 def terminate_service_process(
@@ -122,11 +154,15 @@ def terminate_service_process(
 ) -> bool:
     """Stop only the exact isolated process instance bound by ``record``."""
 
-    pid = record.get("pid")
-    if not process_alive(pid):
+    state = service_process_identity_state(record)
+    if state == IDENTITY_EXITED:
         return True
-    if not service_process_identity_matches(record):
-        raise RuntimeError("refusing to stop a resident service with drifted identity")
+    if state == IDENTITY_UNINSPECTABLE:
+        raise RuntimeError(uninspectable_message(record))
+    if state != IDENTITY_MATCHES:
+        raise RuntimeError("refusing to stop a resident service with drifted identity "
+                           "(the PID now belongs to another process or command)")
+    pid = record["pid"]
     identity = record["process_identity"]
     process_group_id = identity["process_group_id"]
     os.killpg(process_group_id, signal.SIGTERM)
@@ -146,10 +182,16 @@ def terminate_service_process(
 
 
 __all__ = [
+    "IDENTITY_DRIFTED",
+    "IDENTITY_EXITED",
+    "IDENTITY_MATCHES",
+    "IDENTITY_UNINSPECTABLE",
     "SERVICE_ENV_ALLOWLIST",
     "capture_service_process_identity",
     "isolated_service_environment",
     "process_alive",
     "service_process_identity_matches",
+    "service_process_identity_state",
+    "uninspectable_message",
     "terminate_service_process",
 ]

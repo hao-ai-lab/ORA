@@ -1,0 +1,21 @@
+# Thin isolated worker direct dependencies; original LIBERO-Pro requirements
+# describe a training stack, not this direct simulator adapter. See the guide.
+numpy==1.26.4
+mujoco==3.8.1
+robosuite==1.4.1
+gym==0.26.2
+gymnasium==0.29.1
+bddl==3.6.0
+einops==0.8.1
+cloudpickle==3.1.1
+pyyaml==6.0.2
+pillow==12.2.0
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
+opencv-python==4.11.0.86
+scipy==1.16.1
+h5py==3.14.0
+termcolor==3.1.0
+matplotlib==3.11.1
+packaging==26.2
+easydict==1.13

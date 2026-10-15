@@ -128,3 +128,61 @@ def test_services_reject_changed_configuration_for_live_owned_process(tmp_path, 
     monkeypatch.setattr(services.subprocess, "Popen", lambda *a, **k: pytest.fail("must not start"))
     with pytest.raises(ValueError, match="configuration changed"):
         services.lifecycle("start", root=tmp_path, state=state)
+
+
+def _record(pid=4242):
+    return {"pid": pid, "command": ["python", "-m", "service"], "log": "service.log",
+            "process_identity": {"process_group_id": pid, "boot_id": "boot"}}
+
+
+def test_identity_state_separates_uninspectable_from_drift(monkeypatch):
+    from ora.agent.model_services import process
+
+    monkeypatch.setattr(process, "process_alive", lambda pid: True)
+
+    def denied(pid, command, **kwargs):
+        raise PermissionError(13, "Permission denied", f"/proc/{pid}/exe")
+
+    monkeypatch.setattr(process, "capture_service_process_identity", denied)
+    assert process.service_process_identity_state(_record()) == process.IDENTITY_UNINSPECTABLE
+    assert process.service_process_identity_matches(_record()) is False
+    with pytest.raises(RuntimeError, match="another container, sandbox or user namespace") as refused:
+        process.terminate_service_process(_record())
+    assert "process group 4242" in str(refused.value)
+    monkeypatch.setattr(process, "capture_service_process_identity",
+                        lambda pid, command, **kwargs: {"process_group_id": pid, "boot_id": "other"})
+    assert process.service_process_identity_state(_record()) == process.IDENTITY_DRIFTED
+    with pytest.raises(RuntimeError, match="drifted identity"):
+        process.terminate_service_process(_record())
+    monkeypatch.setattr(process, "process_alive", lambda pid: False)
+    assert process.service_process_identity_state(_record()) == process.IDENTITY_EXITED
+    assert process.terminate_service_process(_record()) is True
+
+
+def test_stop_reports_a_refused_service_and_still_stops_the_other(tmp_path, monkeypatch):
+    state = tmp_path / "services"
+    state.mkdir()
+    for name, pid in (("segmentation", 11), ("grasp_proposals", 12)):
+        (state / f"{name}.json").write_text(json.dumps(_record(pid)))
+
+    def terminate(record):
+        if record["pid"] == 11:
+            raise RuntimeError("cannot inspect")
+        return True
+
+    monkeypatch.setattr(services, "terminate_service_process", terminate)
+    result = services.lifecycle("stop", root=tmp_path, state=state, runtime_state_root=tmp_path / "runtime")
+    assert result["segmentation"] == {"stopped": False, "pid": 11, "refused": "cannot inspect"}
+    assert result["grasp_proposals"] == {"stopped": True}
+
+
+def test_start_names_an_uninspectable_running_service_instead_of_a_port_error(tmp_path, monkeypatch):
+    state = tmp_path / "services"
+    state.mkdir()
+    (state / "segmentation.json").write_text(json.dumps(_record()))
+    monkeypatch.setattr(services, "service_process_identity_state", lambda record: services.IDENTITY_UNINSPECTABLE)
+    for prefix in ("SAM", "GRASP"):
+        for field in ("PYTHON", "ROOT", "CHECKPOINT", "GPU"):
+            monkeypatch.setenv(f"B2_{prefix}_{field}", "x")
+    with pytest.raises(ValueError, match="segmentation: resident service pid 4242 is alive"):
+        services.lifecycle("start", root=tmp_path, state=state)

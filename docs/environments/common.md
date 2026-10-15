@@ -4,7 +4,7 @@ Complete the [Synthetic quickstart](../quickstart.md) first. ORA's locked enviro
 
 ## Register the host and a slot
 
-Copy `examples/hosts/example-host.yaml` to a host-local directory as `<host-id>.yaml`. Change `id`, `execution_marker.required_value` and GPU selectors to match your machine. Export `ORA_HOSTS_DIR` to that directory, `ORA_EXECUTION_HOST` to the ID, and `ORA_PROJECT_ROOT` to the clean ORA checkout. Keep absolute installation paths in your shell or a private `.env`, using the variable names in the template. Do not put credentials in a host profile.
+On a machine with one GPU, the shipped `single-gpu` profile needs no copy; `ora run --env` binds it (see [Run ORA on one GPU](../getting-started/single-gpu.md)). Otherwise, copy `examples/hosts/example-host.yaml` to a host-local directory as `<host-id>.yaml`. Change `id`, `execution_marker.required_value` and GPU selectors to match your machine. Export `ORA_HOSTS_DIR` to that directory, `ORA_EXECUTION_HOST` to the ID, and `ORA_PROJECT_ROOT` to the clean ORA checkout. Keep absolute installation paths in your shell or a private `.env`, using the variable names in the template. Do not put credentials in a host profile.
 
 ### Workspace and evidence roots
 

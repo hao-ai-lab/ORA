@@ -217,3 +217,33 @@ def test_entry_without_site_packages_has_actionable_bootstrap_or_read_only_help(
         assert "./scripts/ora setup" in result.stderr
     else:
         assert "Read-only" in result.stdout
+
+
+def test_doctor_runs_preflight_provider_configuration_and_defaults_the_endpoint(installation, monkeypatch):
+    monkeypatch.setattr(ora_local.subprocess, "run", lambda *args, **kwargs: types.SimpleNamespace(returncode=0, stdout=""))
+    monkeypatch.setattr(resources, "require_registered_host", lambda name: name)
+    # Only the key: the endpoint defaults to the profile's own, as the launch binds it.
+    assert ora_local.local_environment(environ={"DEEPSEEK_LOW_API_KEY": "k"})["DEEPSEEK_BASE_URL"] == \
+        "https://api.deepseek.com"
+    ready = ora_local.doctor(environ={"DEEPSEEK_LOW_API_KEY": "k"}, require_frontend=False)
+    check = next(item for item in ready["checks"] if item["name"] == "provider_marker_configuration")
+    assert ready["ready"] and check["passed"]
+    wrong = ora_local.doctor(environ={"DEEPSEEK_LOW_API_KEY": "k", "DEEPSEEK_BASE_URL": "http://127.0.0.1:9"},
+                             require_frontend=False)
+    check = next(item for item in wrong["checks"] if item["name"] == "provider_marker_configuration")
+    assert not wrong["ready"] and check["detail"]["expected_endpoint"] == "https://api.deepseek.com"
+    missing = ora_local.doctor(environ={}, require_frontend=False)
+    check = next(item for item in missing["checks"] if item["name"] == "provider_marker_configuration")
+    assert not check["passed"] and "DEEPSEEK_LOW_API_KEY" in check["detail"]["required_environment"]
+
+
+def test_doctor_and_preflight_share_one_provider_configuration_rule():
+    from ora.orchestrator import preflight
+    from ora.orchestrator.run_spec_inputs import provider_policy
+
+    policy = provider_policy(ora_local.DEFAULT_LOCAL_ENTRY["provider_profile"])
+    plan = {"policy": {**policy, "require_live_marker": True}}
+    with patch.dict(os.environ, {"DEEPSEEK_LOW_API_KEY": "k"}, clear=True):
+        result = preflight._provider_marker(plan, runner=None)
+    assert not result["passed"]
+    assert result["detail"] == preflight.provider_marker_configuration(policy, {"DEEPSEEK_LOW_API_KEY": "k"})[1]

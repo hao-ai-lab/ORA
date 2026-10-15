@@ -17,9 +17,24 @@ LOCAL_COMMANDS = {
 }
 
 
+#: ``ora run --env ENV`` on one GPU (``ora_run``); ``--env synthetic`` stays the quickstart.
+GPU_ENVIRONMENTS = ("libero", "robotwin", "robodojo")
+
+
+def _option(values: list[str], name: str) -> str | None:
+    for index, value in enumerate(values):
+        if value.startswith(name + "="):
+            return value.split("=", 1)[1]
+        if value == name and index + 1 < len(values):
+            return values[index + 1]
+    return None
+
+
 def route(values: list[str]) -> list[str] | None:
     """Arguments for ora_cli when the command belongs to the local/interactive front ends."""
     if values and values[0] in LOCAL_COMMANDS:
+        return values
+    if values[:1] == ["run"] and _option(values[1:], "--env") in GPU_ENVIRONMENTS:
         return values
     if values[:1] == ["doctor"]:
         rest = values[1:]
@@ -52,7 +67,8 @@ def build_parser():
     doctor = sub.add_parser("doctor", help="check local inputs without starting a simulator or calling an API")
     doctor.add_argument("--root", type=Path, help="local setup root")
     doctor.add_argument("--json", action="store_true", help="machine-readable readiness report")
-    setup = sub.add_parser("setup", help="install the pinned local CPU simulator and terminal UI", add_help=False)
+    setup = sub.add_parser("setup", help="install the pinned local CPU simulator and terminal UI; with "
+                           "--env libero|robotwin|robodojo|perception, the single-GPU stacks", add_help=False)
     setup.add_argument("args", nargs="...")
     interactive = sub.add_parser("interactive", help="choose a prepared benchmark task and interact with ORA")
     interactive.add_argument("--spec", type=Path, action="append", required=True,
@@ -71,8 +87,14 @@ def main(argv: list[str] | None = None) -> int:
         values.insert(0, "local")
     try:
         if values[0] == "setup":
+            if any(value == "--env" or value.startswith("--env=") for value in values[1:]):
+                from .ora_gpu_setup import main as gpu_setup_main
+                return gpu_setup_main(values[1:])
             from .ora_local_setup import main as setup_main
             return setup_main(values[1:])
+        if values[0] == "run":
+            from .ora_run import main as run_main
+            return run_main(values[1:])
         args = build_parser().parse_args(values)
         if args.command == "doctor":
             import json

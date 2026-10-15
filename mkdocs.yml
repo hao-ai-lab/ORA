@@ -109,6 +109,7 @@ nav:
   - Getting started:
       - Installation: getting-started/installation.md
       - First episode: quickstart.md
+      - Run on one GPU: getting-started/single-gpu.md
       - Run on your computer (CPU): getting-started/local.md
       - Model APIs: getting-started/model-apis.md
       - Supported setups: support.md

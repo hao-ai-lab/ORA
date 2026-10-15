@@ -30,7 +30,7 @@ The [environment pages](../support.md) show one-cell recipes. `ora baselines --e
 
 `policy.lock` pins tracked policy assets and catalogs in canonical sha256sum format. Run `ora lock` after intentional policy edits and commit the lock together. `ora lock --check` detects drift; `ora lock --strip-pins` maintains path-only assets and compiled embodiment manifests. Composed tools have their own compiler identity and must be regenerated with `python -m ora.agent.tools.composed compile` when their source/schema changes.
 
-Host profiles name environment variables, not credential values or machine-local paths. Copy `examples/hosts/example-host.yaml` to an ignored/local host directory and set `ORA_HOSTS_DIR` and `ORA_EXECUTION_HOST`. Exact simulator slots are registered in that profile. Host/resource placement is distinct from policy-visible composition.
+Host profiles name environment variables, not credential values or machine-local paths. ORA ships two generic profiles in `ora/orchestrator/hosts/`: `local-cpu` (`ora local`) and `single-gpu` (`ora setup --env` / `ora run --env`: one `libero-gpu0`, `robotwin-gpu0` and `robodojo-gpu0` slot on CUDA device 0; the slots are different resource classes, so one task at a time is that profile's operating rule, not a lease). A profile in `ORA_HOSTS_DIR` with the same id takes precedence. For any other host, copy `examples/hosts/example-host.yaml` to an ignored/local host directory and set `ORA_HOSTS_DIR` and `ORA_EXECUTION_HOST`. Exact simulator slots are registered in that profile. Host/resource placement is distinct from policy-visible composition.
 
 ## Filesystem roots
 

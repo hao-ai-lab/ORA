@@ -6,6 +6,7 @@
 
 <div class="ora-next" markdown>
 [Run your first episode](quickstart.md){ .md-button .md-button--primary }
+[Run robot tasks on one GPU](getting-started/single-gpu.md){ .md-button }
 [Choose a robot environment](environments/README.md){ .md-button }
 </div>
 
@@ -19,6 +20,14 @@
     episode uses Synthetic: no simulator, model download, or GPU.
 
     [Installation →](getting-started/installation.md)
+
+-   **One GPU, one command**
+
+    On a Linux machine with one NVIDIA GPU and a DeepSeek key, `ora setup --env`
+    installs LIBERO, RoboTwin or RoboDojo and `ora run --env … --task …` runs
+    one task in the terminal UI.
+
+    [Run on one GPU →](getting-started/single-gpu.md)
 
 -   **Robot environments**
 

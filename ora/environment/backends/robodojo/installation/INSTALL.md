@@ -14,6 +14,12 @@ export ROBODOJO_ASSET_ROOT=/path/to/robodojo-runtime/assets/Assets
 export ROBODOJO_PYTHON=/path/to/robodojo-runtime/env/bin/python
 ```
 
+`setup-robodojo` has no host default root. `--root` wins; otherwise it uses
+`ROBODOJO_RUNTIME_ROOT`, or the root that `ROBODOJO_ROOT=<root>/source/RoboDojo`
+names (so the SSH23 bindings above select the SSH23 root); with neither it
+refuses. A single-GPU machine runs every stage through
+`./scripts/ora setup --env robodojo`, which passes `--root <prefix>/robodojo-runtime`.
+
 ## Fixed sources
 
 | Component | Revision |
@@ -38,6 +44,7 @@ From this experiment's checkout:
 ./scripts/setup-robodojo resolve
 ./scripts/setup-robodojo packages
 ./scripts/setup-robodojo bind-assets
+./scripts/setup-robodojo graphics-compat
 ./scripts/setup-robodojo doctor
 ./scripts/setup-robodojo manifest
 ```
@@ -221,17 +228,20 @@ when the device supports core Vulkan 1.1 without the instance extension being
 listed as a device extension. The patch preserves the driver's actual UUID,
 LUID and node-mask values; it does not replace them with profile data.
 
-`scripts/setup-robodojo graphics-compat --root ROOT` performs these steps (opt-in;
-needs Git, CMake, a C++17 compiler and network access for `known_good.json`): it
-clones the pinned revision under `ROOT/graphics-compat-build/`, applies the patch,
-generates with `jsonschema` in a separate build venv, builds only `ProfilesLayer`,
-and writes `ROOT/graphics-compat/` with the tracked profile and the receipt.
-On an eight-GPU H200 host (driver 595.91.07, 2026-10-13) the stage's layer passed the readback
-and driver gate on all eight GPUs.
+`./scripts/setup-robodojo graphics-compat --root ROOT` performs these steps
+(needs Git, a C++17 compiler and network access for `known_good.json`; no sudo):
+it installs CMake and Ninja into `ROOT/tools/build-env`, clones the pinned
+revision under `ROOT/graphics-compat-build/`, applies the patch, generates with
+`jsonschema` in a separate build venv, builds only `ProfilesLayer`, writes
+`ROOT/graphics-compat/` with the tracked profile, scoped manifest and receipt,
+and runs the worker's own readback. Every RoboDojo worker activates this layer
+on any driver, so the stage is required even where the allocation limit is
+finite. On an eight-GPU H200 host (driver 595.91.07) and on one RTX PRO 6000
+Blackwell (driver 580.159.04) the stage's layer passed the readback and driver
+gate.
 
-`installation.json` records the exact patch, generated source, dependencies,
-compiler, local build commands, layer/profile/manifest hashes and verification
-receipt. Reproduce its `build.reproduction_commands` in a fresh installation.
+`installation.json` records the exact patch, source revision, compiler and
+tool versions, local build commands and layer/profile/manifest hashes.
 Generation must precede the layer compilation; install only the layer target.
 The profile contains exactly one override:
 `VkPhysicalDeviceMaintenance3Properties.maxMemoryAllocationSize = 4292870144`.

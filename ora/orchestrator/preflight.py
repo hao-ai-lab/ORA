@@ -201,24 +201,41 @@ def _native_provider_candidate(
 
 
 
+def provider_marker_configuration(
+    policy: Mapping[str, Any], environ: Mapping[str, str] | None = None,
+) -> tuple[bool, dict[str, Any]]:
+    """The offline half of ``provider_marker`` for a Native API policy.
+
+    Both variables are set and the base URL equals the plan endpoint. ``ora
+    doctor`` runs exactly this before any task is prepared; launch preflight
+    runs it, then the live probe. The detail names variables, never values.
+    """
+    values = os.environ if environ is None else environ
+    base_url = values.get(policy["base_url_env"])
+    api_key = values.get(policy["api_key_env"])
+    if not base_url or not api_key:
+        return False, {
+            "configured": False,
+            "required_environment": [policy["base_url_env"], policy["api_key_env"]],
+        }
+    if base_url.rstrip("/") != policy["endpoint"]:
+        return False, {
+            "configured": True,
+            "endpoint_matches_plan": False,
+            "expected_endpoint": policy["endpoint"],
+        }
+    return True, {"configured": True, "endpoint_matches_plan": True}
+
+
 def _provider_marker(plan: Mapping[str, Any], runner: Runner) -> dict[str, Any]:
     policy = plan["policy"]
     if policy["kind"] == "native_api":
         if not policy.get("require_live_marker", True):
             return _check("provider_marker", True, "not required for this policy")
-        base_url = os.environ.get(policy["base_url_env"])
-        api_key = os.environ.get(policy["api_key_env"])
-        if not base_url or not api_key:
-            return _check("provider_marker", False, {
-                "configured": False,
-                "required_environment": [policy["base_url_env"], policy["api_key_env"]],
-            })
-        if base_url.rstrip("/") != policy["endpoint"]:
-            return _check("provider_marker", False, {
-                "configured": True,
-                "endpoint_matches_plan": False,
-                "expected_endpoint": policy["endpoint"],
-            })
+        configured, detail = provider_marker_configuration(policy)
+        if not configured:
+            return _check("provider_marker", False, detail)
+        api_key = os.environ[policy["api_key_env"]]
         from ora.agent.providers.credentials import (
             CREDENTIAL_HTTP_STATUSES, SELECTION_SCHEMA, bind_credential_handoff,
             credential_ring, redact_credentials,

@@ -1164,8 +1164,18 @@
       "contract": "The standard-library local ORA launcher constructs an interactive SSH terminal with loopback forwarding and literal remote arguments, rejects invalid host/path and conflicting world-view options, preserves explicit launch confirmation, verifies the forwarded world service before opening one local browser tab, and leaves a failed or detached transport without task retry or Supervisor abort. SSH/browser boundaries use fixtures; no real remote session, simulator or provider."
     },
     {
+      "path": "tests/test_ora_run.py",
+      "disposition": "core",
+      "contract": "The one-command GPU entry binds .env without blanking credentials, the single-gpu host marker and Provider defaults, refuses other hosts and missing inputs, reuses running services and admitted RoboTwin/RoboDojo qualification records, runs only missing producers after confirmation, composes on the host slot with a fresh single-attempt cohort and forwards explicit launch authorization to ora interactive; no service, simulator or provider."
+    },
+    {
       "path": "tests/test_ora_watch.py",
       "contract": "ORA's read-only terminal watch (`ora watch`): a synthetic agent-events.jsonl renders to an exact transcript (header, instruction, visible words without reasoning_content, condensed tool results, refusals, receipts, compaction, per-round verdicts, footer); the run directory is left byte- and mtime-identical; a finished run replays with recorded elapsed time; a live run is followed through torn appends until session_closed; long recorded gaps are shortened; importing the watcher loads neither NumPy nor the Native session; --emit jsonl writes the operations the pi-tui front end draws."
+    },
+    {
+      "path": "tests/test_ora_gpu_setup.py",
+      "disposition": "core",
+      "contract": "Single-GPU setup recipes keep their pins equal to the canonical modules, install cu128 Torch in every simulator environment, drop only RoboTwin's torch/torchvision pins, rebuild CuRobo when the GPU architecture changes, verify SAM3 before keeping it, pass the prefix root to every RoboDojo stage, skip completed steps, never reset a modified checkout, and write only owned non-credential .env keys; no download, GPU or simulator."
     },
     {
       "path": "tests/test_ora_interactive.py",

@@ -45,8 +45,8 @@ need the front end (`ora setup` installs it for `ora local`).
 
 ## Next step
 
-[Run the first episode](../quickstart.md), then choose a
-[robot environment](../environments/README.md).
+[Run the first episode](../quickstart.md), then run robot tasks
+[on one GPU](single-gpu.md) or choose a [robot environment](../environments/README.md).
 
 ## Developer installation
 

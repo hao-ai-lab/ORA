@@ -2,7 +2,8 @@
 
 `start` reads the `B2_SAM_*` / `B2_GRASP_*` selectors and the `B2_SAM_PORT` /
 `B2_GRASP_PORT` ports from the environment, `status` reports readiness,
-`stop` refuses while Runtime leases exist, and `qualify` writes the
+`stop` refuses while Runtime leases exist (and exits 1 naming any service it
+left running because it could not prove that process's identity), and `qualify` writes the
 hash-named readiness report a launch binds. The host layer supplies the
 workspace and Runtime state roots; the service module resolves no paths.
 """
@@ -39,6 +40,9 @@ def main(argv: list[str] | None = None) -> int:
     print(json.dumps(result, indent=2, sort_keys=True))
     if args.command == "status":
         return 0 if all(item.get("ready") is True for item in result.values()) else 1
+    if args.command == "stop":
+        # A service whose identity this process could not prove was left running.
+        return 1 if any("refused" in item for item in result.values()) else 0
     return 0
 
 

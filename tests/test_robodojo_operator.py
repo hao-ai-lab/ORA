@@ -717,3 +717,16 @@ def test_robodojo_installer_graphics_compat_writes_a_receipt_the_worker_accepts(
     assert receipt["schema"] == "ora.robodojo-graphics-compat-installation.v1"
     assert set(files) == {"layer", "profile", "manifest", "patch"}
     assert not any(call[:2] == ("git", "clone") for call in calls)
+
+
+def test_setup_root_has_no_host_default(monkeypatch, tmp_path):
+    from ora.environment.backends.robodojo.installation import setup_runtime
+
+    assert setup_runtime.default_root({}) is None
+    assert setup_runtime.default_root({"ROBODOJO_RUNTIME_ROOT": str(tmp_path)}) == tmp_path
+    assert setup_runtime.default_root({"ROBODOJO_ROOT": f"{tmp_path}/source/RoboDojo"}) == tmp_path
+    assert setup_runtime.default_root({"ROBODOJO_ROOT": "/elsewhere/RoboDojo"}) is None
+    monkeypatch.delenv("ROBODOJO_RUNTIME_ROOT", raising=False)
+    monkeypatch.delenv("ROBODOJO_ROOT", raising=False)
+    with pytest.raises(SystemExit):
+        setup_runtime.main(["doctor"])

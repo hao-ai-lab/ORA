@@ -30,6 +30,10 @@ DEFAULT_LOCAL_ENTRY = {
     "confirm_launch_required": True, "simulator_cadence": "action_driven",
     "credential_alias": "DEEPSEEK_API_KEY",
 }
+#: A read-only ``git status`` of a fresh clone of a large asset tree cannot
+#: persist its index refresh, so it re-reads files; under concurrent downloads
+#: it took longer than 15 s on the 2026-10-14 single-GPU verification.
+GIT_STATUS_TIMEOUT_S = 180
 SOURCE_ENV = {"source_root": "LIBERO_PRO_ROOT", "data_root": "LIBERO_PRO_DATA_ROOT",
               "python": "LIBERO_PRO_PYTHON"}
 
@@ -82,9 +86,38 @@ def local_environment(root: Path | None = None, *, environ: Mapping[str, str] | 
         raise RuntimeError(f"local execution requires {HOST_MARKER_ENV}={expected}; "
                            "the existing host marker is for another execution treatment")
     result[HOST_MARKER_ENV] = expected
+    result.update(provider_environment(values))
+    return result
+
+
+def provider_environment(values: Mapping[str, str]) -> dict[str, str]:
+    """Default Provider bindings: the profile endpoint and the common key alias.
+
+    Preflight's ``provider_marker`` needs the base URL as well as the key; an
+    unset URL defaults to the default profile's own endpoint, so it can never
+    point anywhere else. A set URL is kept and checked as configured.
+    """
+    from .run_spec_inputs import provider_policy
+
+    policy = provider_policy(DEFAULT_LOCAL_ENTRY["provider_profile"])
+    result: dict[str, str] = {}
+    if not values.get(policy["base_url_env"]):
+        result[policy["base_url_env"]] = policy["endpoint"]
     if not values.get("DEEPSEEK_LOW_API_KEY") and values.get("DEEPSEEK_API_KEY"):
         result["DEEPSEEK_LOW_API_KEY"] = values["DEEPSEEK_API_KEY"]
     return result
+
+
+def provider_check(values: Mapping[str, str]) -> dict[str, Any]:
+    """Launch preflight's offline ``provider_marker`` configuration check on ``values``."""
+    from .preflight import provider_marker_configuration
+    from .run_spec_inputs import provider_policy
+
+    policy = provider_policy(DEFAULT_LOCAL_ENTRY["provider_profile"])
+    passed, detail = provider_marker_configuration(policy, values)
+    return {"name": "provider_marker_configuration", "passed": passed,
+            "detail": {**detail, "profile": DEFAULT_LOCAL_ENTRY["provider_profile"],
+                       "live_probe": "launch preflight"}}
 
 
 def _git_check(root: Path, expected: str, name: str) -> dict[str, Any]:
@@ -93,7 +126,7 @@ def _git_check(root: Path, expected: str, name: str) -> dict[str, Any]:
                                   capture_output=True, text=True, timeout=10, check=False,
                                   env={**os.environ, "GIT_OPTIONAL_LOCKS": "0"})
         clean = subprocess.run(["git", "-C", str(root), "status", "--porcelain", "--untracked-files=no"],
-                               capture_output=True, text=True, timeout=10, check=False,
+                               capture_output=True, text=True, timeout=GIT_STATUS_TIMEOUT_S, check=False,
                                env={**os.environ, "GIT_OPTIONAL_LOCKS": "0"})
         passed = revision.returncode == clean.returncode == 0 and revision.stdout.strip() == expected and not clean.stdout.strip()
         detail = {"path": str(root), "expected_revision": expected,
@@ -121,7 +154,7 @@ def doctor(root: Path | None = None, *, environ: Mapping[str, str] | None = None
     except (OSError, RuntimeError, ValueError) as exc:
         bindings = {}
         checks.append({"name": "local_bindings", "passed": False, "detail": str(exc)})
-    effective = {**values, **bindings}
+    effective = {**values, **provider_environment(values), **bindings}
     explicit = all(values.get(name) for name in SOURCE_ENV.values())
     if not explicit:
         installation = setup.doctor(root)
@@ -145,13 +178,14 @@ def doctor(root: Path | None = None, *, environ: Mapping[str, str] | None = None
     checks.append({"name": "provider_credential", "passed": credential is not None,
                    "detail": {"profile": DEFAULT_LOCAL_ENTRY["provider_profile"], "credential_env": credential,
                               "hint": "export DEEPSEEK_LOW_API_KEY before starting ORA"}})
+    checks.append(provider_check(effective))
     if require_frontend:
         checks.append({"name": "terminal_ui", "passed": watch_cli._pi_front_end() is not None,
                        "detail": "Node and npm ci --prefix ora-tui"})
     source_root = project_root or paths.PROJECT_ROOT
     try:
         source = subprocess.run(["git", "-C", str(source_root), "status", "--porcelain", "--untracked-files=normal"],
-                                capture_output=True, text=True, timeout=10, check=False,
+                                capture_output=True, text=True, timeout=GIT_STATUS_TIMEOUT_S, check=False,
                                 env={**os.environ, "GIT_OPTIONAL_LOCKS": "0"})
         source_ready = source.returncode == 0 and not source.stdout.strip()
     except (OSError, subprocess.TimeoutExpired):
@@ -260,4 +294,4 @@ def interactive_arguments(args, *, environment: MutableMapping[str, str] | None 
 
 
 __all__ = ["DEFAULT_LOCAL_ENTRY", "add_local_options", "doctor", "interactive_arguments", "local_environment",
-           "prepare_task", "print_doctor"]
+           "prepare_task", "print_doctor", "provider_check", "provider_environment"]

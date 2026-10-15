@@ -34,6 +34,41 @@ On landing the supervisor derives metrics and context audits, evaluates evidence
 
 [Configuration and evidence](configuration-and-evidence.md) describes paths and identities. The [CLI reference](../guides/cli-reference.md) lists every command.
 
+## Single-GPU entry
+
+`ora run --env libero|robotwin|robodojo --task TASK` (`ora_run`) runs these
+stages for one task on the shipped `single-gpu` host and stops at the first
+failure:
+
+1. `ora_env_file.load_into` loads `.env` without overriding or blanking the
+   process environment; the host marker is bound for this process only (a
+   different marker is refused), an unset `DEEPSEEK_BASE_URL` defaults to the
+   profile endpoint and `preflight.provider_marker_configuration` runs offline.
+   A dirty checkout is refused.
+2. `ora_run_qualification` decides reuse with preflight's own validators:
+   `benchmark_spec.admitted_seed_manifest` for a RoboTwin seed manifest, and
+   `robodojo_qualification.load_qualification` / `load_card_qualification` for
+   a RoboDojo card/task pair, plus GPU 0's `nvidia-smi` UUID and the worker
+   interpreter readback. Missing records are produced by `robotwin_evaluation
+   prepare/qualify` or `robodojo_lane_qualification card/task` after an
+   explicit confirmation (`--yes` off a terminal).
+3. `ora_run_services.ensure_services` starts the resident services only when
+   no listener is ready and binds the newest readiness report whose recorded
+   service health equals the running instances and is under 20 h old
+   (`REPORT_REUSE_MAX_AGE_S`), else writes a new one. It runs after stage 2, so
+   a long scan cannot age the report out.
+4. The RunSpec has experiment `ora-interactive`, the host's `<env>-gpu0`
+   slot, the readiness report and a new single-attempt cohort
+   `ora-run-<env>-<UTC time>`. `ora interactive` repeats full preflight and
+   launches only with `--confirm-launch` and a picker selection.
+
+`ora setup --env` (`ora_gpu_setup`) prepares the inputs: a step is done when
+its real state holds (a clean checkout at the pinned revision) or its marker
+records the same recipe digest; package markers also bind the target
+virtualenv's `pyvenv.cfg`, so a recreated environment is reinstalled. RoboDojo's
+`graphics-compat` is done when its receipt exists. Each command runs in its own
+process group, killed as a group on timeout.
+
 ## RoboDojo physics device
 
 `ora.environment.benchmarks.robodojo_physics` maps each reviewed task to its physics device. Articulation, conveyor and fluid scenes in its CPU table use CPU physics; other reviewed scenes use `cuda:0`. Rendering still has its own bound GPU. Composers, scene probes and qualification must use the same task/device/layout mapping; a rigid CUDA scene's qualification does not establish CPU-scene correctness.

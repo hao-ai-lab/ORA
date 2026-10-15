@@ -32,6 +32,9 @@ def test_bootstrap_uses_only_stdlib_and_canonical_source_pins():
 def linux(monkeypatch):
     monkeypatch.setattr(setup.platform, "system", lambda: "Linux")
     monkeypatch.setattr(setup.platform, "machine", lambda: "x86_64")
+    # A Linux host without an NVIDIA EGL vendor file, whatever the test machine has.
+    monkeypatch.delenv("__EGL_VENDOR_LIBRARY_DIRS", raising=False)
+    monkeypatch.setattr(setup, "EGL_VENDOR_DIRECTORIES", ())
 
 
 @pytest.fixture
@@ -87,6 +90,22 @@ def test_platform_graphics_defaults_and_rejections(monkeypatch, linux):
     monkeypatch.setattr(setup.platform, "machine", lambda: "x86_64")
     with pytest.raises(setup.LocalSetupError, match="supports Apple Silicon"):
         setup.graphics_environment()
+
+
+def test_linux_auto_graphics_selects_egl_only_with_an_nvidia_vendor_file(tmp_path, monkeypatch, linux):
+    vendors = tmp_path / "egl_vendor.d"
+    vendors.mkdir()
+    (vendors / "50_mesa.json").write_text("{}")
+    monkeypatch.setattr(setup, "EGL_VENDOR_DIRECTORIES", (str(vendors),))
+    assert setup.graphics_environment()["MUJOCO_GL"] == "osmesa"
+    (vendors / "10_nvidia.json").write_text("{}")
+    assert setup.nvidia_egl_vendor() == str(vendors / "10_nvidia.json")
+    assert setup.graphics_environment() == {"MUJOCO_GL": "egl", "PYOPENGL_PLATFORM": "egl"}
+    # The glvnd override variable replaces the default search path.
+    monkeypatch.setenv("__EGL_VENDOR_LIBRARY_DIRS", str(tmp_path / "elsewhere"))
+    assert setup.graphics_environment()["MUJOCO_GL"] == "osmesa"
+    # An explicit backend is never second-guessed.
+    assert setup.graphics_environment("osmesa")["MUJOCO_GL"] == "osmesa"
 
 
 def test_dependency_closure_has_exact_cpu_pins(monkeypatch, linux):

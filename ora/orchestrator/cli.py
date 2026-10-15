@@ -798,8 +798,9 @@ def command_stop(run_id: str, *, report: Any = print) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="ora", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    quickstart = sub.add_parser("run", help="run a bounded Synthetic episode with your model API")
-    quickstart.add_argument("--env", choices=("synthetic",), default="synthetic")
+    quickstart = sub.add_parser("run", help="run a bounded Synthetic episode, or one GPU task with "
+                                "--env libero|robotwin|robodojo --task TASK (ora run --env robotwin --help)")
+    quickstart.add_argument("--env", choices=("synthetic", *ora_cli.GPU_ENVIRONMENTS), default="synthetic")
     doctor = sub.add_parser("doctor", help="check setup without displaying credentials or starting simulators")
     doctor.add_argument("--env", choices=("synthetic", "robotwin", "libero_pro", "robodojo", "local"), default="synthetic")
     doctor.add_argument("--root", type=Path, help="with --env local: the local setup root")

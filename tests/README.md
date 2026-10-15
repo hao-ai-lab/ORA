@@ -1539,6 +1539,15 @@ readiness, composition, macOS/Linux graphics and socket-path limits). They run
 offline: no simulator, provider or browser starts. `ora-tui/protocol.test.mjs`
 (`node --test` in `ora-tui/`) covers the front end's request protocol.
 
+`test_ora_gpu_setup.py` and `test_ora_run.py` cover the single-GPU entry
+(`ora setup --env`, `ora run --env`), with the doctor/provider and
+`setup-robodojo --root` checks in `test_ora_local.py` and
+`test_robodojo_operator.py` and the service identity checks in
+`test_model_services_operator.py`. Commands, downloads, services and producers
+are recorded or faked at their process boundary (clone steps use a local Git
+repository); passing them is not evidence of a real GPU installation, which the
+[single-GPU guide](../docs/getting-started/single-gpu.md) records separately.
+
 `test_ora_watch.py` covers `ora watch` (`ora/agent/native/tui/`) on a
 synthetic run directory; no simulator or provider starts. It pins the exact
 plain transcript of a small two-round `agent-events.jsonl`, checks that the

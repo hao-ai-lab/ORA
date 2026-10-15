@@ -1,0 +1,25 @@
+# Direct dependency constraints observed in the working x86_64 service env.
+# Torch/Torchvision are installed separately from the cu128 wheel index.
+# This is NOT a portable transitive lock; freeze the resolved new-host env.
+numpy==1.26.4
+scipy==1.16.1
+setuptools==78.1.0
+fastapi==0.116.1
+uvicorn==0.35.0
+timm==1.0.28
+einops==0.8.1
+# SAM3 image predictor imports training data types that import decord.
+decord==0.6.0
+pycocotools==2.0.10
+omegaconf==2.3.0
+iopath==0.1.10
+ftfy==6.1.1
+pyrender==0.1.45
+trimesh==4.7.4
+pillow==12.2.0
+pyyaml==6.0.2
+huggingface-hub==1.27.0
+safetensors==0.8.0
+opencv-python-headless==4.11.0.86
+psutil==7.2.2
+regex==2026.9.10
