@@ -206,9 +206,10 @@ def main(argv: list[str] | None = None, *, stream=None) -> int:
     world_explicit = any(value == "--world-port" or value.startswith("--world-port=") for value in values)
     try:
         prepare_environment(args.environment, env_file=args.env_file)
-        from .ora_run_services import confirm as ask, ensure_services
+        from .ora_run_services import check_service_ports, confirm as ask, ensure_services
 
         require_clean_checkout()
+        check_service_ports()  # before a qualification that can take most of an hour
         print(f"ora run: {args.environment} {args.task} on the {HOST} host", file=output, flush=True)
         spec = compose(args, services=lambda: ensure_services(stream=output),
                        confirm=lambda message: ask(message, assume_yes=args.yes, stream=output), stream=output)

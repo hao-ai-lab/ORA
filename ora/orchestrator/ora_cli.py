@@ -120,8 +120,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.emit is None:
             front_end = watch_cli._pi_front_end()
             if front_end is None:
-                raise RuntimeError(f"interactive UI needs Node and npm ci --prefix {watch_cli.FRONT_END}; "
-                                   "--emit jsonl exposes the RPC backend")
+                raise RuntimeError(f"interactive UI needs Node.js {watch_cli.MIN_NODE_MAJOR} or newer "
+                                   f"({watch_cli.node_diagnosis()}) and npm ci --prefix {watch_cli.FRONT_END}; "
+                                   "put ~/.local/bin first on PATH in the shell or tmux pane that starts ORA, "
+                                   "or set ORA_NODE; --emit jsonl exposes the RPC backend")
             node, script = front_end
             passed = ["--interactive", "--python", sys.executable, "--poll", str(args.poll)]
             for path in args.spec:

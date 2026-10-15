@@ -305,6 +305,7 @@ def test_main_prepares_then_forwards_to_interactive_with_explicit_authorization(
     monkeypatch.setattr(ora_run, "prepare_environment", lambda environment, env_file: {})
     monkeypatch.setattr(ora_run, "require_clean_checkout", lambda: None)
     monkeypatch.setattr(services, "ensure_services", lambda stream: tmp_path / "report.json")
+    monkeypatch.setattr(services, "check_service_ports", lambda: None)
     monkeypatch.setattr(ora_run, "compose", lambda args, services, **kwargs: services() and tmp_path / "spec.json")
     forwarded = []
     monkeypatch.setattr(ora_cli, "main", lambda argv: forwarded.append(argv) or 0)
@@ -393,3 +394,34 @@ def test_an_old_report_is_not_reused_for_a_new_session(monkeypatch, tmp_path):
     assert services.reusable_report(tmp_path, health) is None
     created["value"] = clock.time() - 3600
     assert services.reusable_report(tmp_path, health) == tmp_path / "report.json"
+
+
+def test_occupied_service_ports_are_refused_before_any_qualification(monkeypatch, tmp_path):
+    # 2026-10-15, shared RTX PRO 6000 host: another user's services held 8114/8115;
+    # ora run spent the 2 min RoboTwin seed scan before ensure_services refused.
+    _fake_operator(monkeypatch, tmp_path, ready_after=99)
+    monkeypatch.setattr(services, "_port_in_use", lambda port: True)
+    monkeypatch.setattr(services, "_identity_matches", lambda record: False)
+    with pytest.raises(RuntimeError, match="B2_SAM_PORT / B2_GRASP_PORT"):
+        services.check_service_ports()
+    # Our own services, still warming up, hold their ports legitimately.
+    monkeypatch.setattr(services, "_identity_matches", lambda record: True)
+    services.check_service_ports()
+    monkeypatch.setattr(services, "_port_in_use", lambda port: False)
+    monkeypatch.setattr(services, "_identity_matches", lambda record: False)
+    services.check_service_ports()
+
+
+def test_main_checks_ports_before_composing(monkeypatch, tmp_path):
+    order = []
+    monkeypatch.setattr(ora_run, "prepare_environment", lambda environment, env_file: {})
+    monkeypatch.setattr(ora_run, "require_clean_checkout", lambda: None)
+
+    def occupied():
+        order.append("ports")
+        raise RuntimeError("segmentation at http://127.0.0.1:8114 " + services.FOREIGN_SERVICES_HINT)
+
+    monkeypatch.setattr(services, "check_service_ports", occupied)
+    monkeypatch.setattr(ora_run, "compose", lambda *args, **kwargs: order.append("compose"))
+    assert ora_run.main(["--env", "robotwin", "--task", "click_bell", "--yes"], stream=io.StringIO()) == 2
+    assert order == ["ports"]

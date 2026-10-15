@@ -22,16 +22,49 @@ def _run_root(value: str) -> Path:
     return path.resolve()
 
 
-def _node() -> str | None:
-    """``ORA_NODE``, else ``node`` on PATH, else the newest nvm-installed node."""
+#: The Pi front end's dependencies use RegExp ``v``-flag syntax that Node 18 rejects.
+MIN_NODE_MAJOR = 20
+
+
+def _node_major(path: str) -> int | None:
+    import re
+    import subprocess
+
+    try:
+        version = subprocess.run([path, "--version"], capture_output=True, text=True, timeout=10).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    match = re.fullmatch(r"v(\d+)\.\d+\.\d+", version)
+    return int(match.group(1)) if match else None
+
+
+def _node_candidates() -> list[str]:
+    """``ORA_NODE``, else ``node`` on PATH, ``~/.local/bin/node`` and nvm installs, newest nvm first."""
     if os.environ.get("ORA_NODE"):
-        return os.environ["ORA_NODE"]
-    found = shutil.which("node")
-    if found:
-        return found
-    candidates = sorted(glob.glob(os.path.expanduser("~/.nvm/versions/node/v*/bin/node")),
-                        key=lambda path: [int(part) for part in Path(path).parts[-3].lstrip("v").split(".")])
-    return candidates[-1] if candidates else None
+        return [os.environ["ORA_NODE"]]
+    found = [path for path in (shutil.which("node"), os.path.expanduser("~/.local/bin/node")) if path]
+    nvm = sorted(glob.glob(os.path.expanduser("~/.nvm/versions/node/v*/bin/node")),
+                 key=lambda path: [int(part) for part in Path(path).parts[-3].lstrip("v").split(".")])
+    return list(dict.fromkeys([*found, *reversed(nvm)]))
+
+
+def _node() -> str | None:
+    """The first candidate that is Node 20 or newer.
+
+    A login shell often finds ``~/.local/bin/node`` while a tmux pane or a new
+    SSH session finds the distribution's Node 18 first; that one would start
+    the terminal UI and die on a RegExp syntax error.
+    """
+    for candidate in _node_candidates():
+        if os.access(candidate, os.X_OK) and (_node_major(candidate) or 0) >= MIN_NODE_MAJOR:
+            return candidate
+    return None
+
+
+def node_diagnosis() -> str:
+    """What was found instead of a usable Node, for error messages."""
+    seen = [f"v{_node_major(path) or '?'} at {path}" for path in _node_candidates() if os.access(path, os.X_OK)]
+    return "found " + ", ".join(seen) if seen else "no node on PATH, ORA_NODE, ~/.local/bin or ~/.nvm"
 
 
 def _pi_front_end() -> tuple[str, Path] | None:

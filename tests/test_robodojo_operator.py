@@ -767,3 +767,23 @@ def test_setup_runtime_retries_git_only_on_a_lingering_index_lock(tmp_path, monk
     with pytest.raises(subprocess.CalledProcessError):
         installer.run("git", "status", cwd=tmp_path)
     assert len(calls) == 3
+
+
+def test_robodojo_manifest_tolerates_a_checkout_another_stage_is_still_cloning(tmp_path: Path) -> None:
+    # sources, assets and sdk run in parallel and each ends with manifest(); the
+    # 2026-10-15 single-GPU run failed sdk on a submodule whose clone had begun
+    # (git init done, no HEAD yet).
+    import json
+    import subprocess
+
+    from ora.environment.backends.robodojo.installation.setup_runtime import Installer
+
+    installer = Installer(tmp_path / "runtime")
+    cloning = installer.source / "XPolicyLab"
+    cloning.mkdir(parents=True)
+    subprocess.run(["git", "init", "-q", str(cloning)], check=True)
+    (installer.source / ".git").mkdir()
+    installer.root.mkdir(parents=True, exist_ok=True)
+    installer.manifest()
+    checkouts = json.loads((installer.root / "install-manifest.json").read_text())["checkouts"]
+    assert checkouts["XPolicyLab"] == {"head": None, "status": None, "incomplete": True}

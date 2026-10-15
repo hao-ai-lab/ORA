@@ -608,8 +608,16 @@ print(json.dumps({'version': '.'.join(map(str, sys.version_info[:3])),
         for name, path in [("RoboDojo", self.source), ("assets", self.assets)] + [
                 (name, self.source / name) for name in SUBMODULES]:
             if (path / ".git").exists():
+                try:
+                    head = self.run("git", "rev-parse", "HEAD", cwd=path, capture=True)
+                except subprocess.CalledProcessError:
+                    # sources, assets and sdk run in parallel and each ends here:
+                    # a checkout another stage is still cloning has no HEAD yet.
+                    # The final ``manifest`` stage records it complete.
+                    data["checkouts"][name] = {"head": None, "status": None, "incomplete": True}
+                    continue
                 data["checkouts"][name] = {
-                    "head": self.run("git", "rev-parse", "HEAD", cwd=path, capture=True),
+                    "head": head,
                     "status": self.run("git", "status", "--porcelain", cwd=path, capture=True),
                 }
         # Separate temporary file per process permits independent download stages.
