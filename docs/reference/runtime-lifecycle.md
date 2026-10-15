@@ -68,7 +68,12 @@ failure:
 its real state holds (a clean checkout at the pinned revision) or its marker
 records the same recipe digest; package markers also bind the target
 virtualenv's `pyvenv.cfg`, so a recreated environment is reinstalled. RoboDojo's
-`graphics-compat` is done when its receipt exists. Each command runs in its own
+`graphics-compat` is done when its receipt exists, and a failed readback
+withdraws the receipt. When `libGLU.so.1` or `libvulkan.so.1` is not loadable,
+the `system-libraries` step unpacks `libglu1-mesa` / `libvulkan1` (`apt-get
+download`, `dpkg -x`) into `<prefix>/syslibs`; `ora setup` and `ora run` (from
+`ORA_GPU_PREFIX`) prepend its library directory to `LD_LIBRARY_PATH`, which
+the isolated workers inherit. Each command runs in its own
 process group, killed as a group on timeout.
 
 ## RoboDojo physics device

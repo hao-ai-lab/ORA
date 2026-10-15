@@ -116,6 +116,29 @@ def test_curobo_build_finds_a_conda_toolkit_s_headers(tmp_path):
     assert commands[-1]["env"]["TORCH_CUDA_ARCH_LIST"] == "9.0+PTX"
 
 
+def test_missing_isaac_system_libraries_are_unpacked_without_sudo(tmp_path, monkeypatch):
+    context, commands = _recording(tmp_path)
+    monkeypatch.setattr(recipes, "_loadable", lambda name: name == "libvulkan.so.1")
+    monkeypatch.setattr(recipes.shutil, "which", lambda tool: f"/usr/bin/{tool}")
+    step = recipes.system_libraries(context)
+    assert not setup.step_done(context, step)
+    (context.path("downloads/syslibs")).mkdir(parents=True)
+    (context.path("downloads/syslibs") / "libglu1-mesa_9.0.2_amd64.deb").write_text("")
+    setup.execute(context, [step], stream=io.StringIO())
+    assert commands[0]["argv"] == ["apt-get", "download", "libglu1-mesa"]
+    assert commands[1]["argv"][:2] == ["dpkg", "-x"] and commands[1]["argv"][-1] == str(context.path("syslibs"))
+    (context.path(recipes.SYSTEM_LIBRARY_DIR)).mkdir(parents=True)
+    (context.path(recipes.SYSTEM_LIBRARY_DIR) / "libGLU.so.1").write_text("")
+    assert setup.step_done(context, step)
+    environ = {}
+    recipes.add_library_path(environ, context.prefix)
+    assert environ["LD_LIBRARY_PATH"] == str(context.path(recipes.SYSTEM_LIBRARY_DIR))
+    monkeypatch.setattr(recipes.shutil, "which", lambda tool: None)
+    (context.path(recipes.SYSTEM_LIBRARY_DIR) / "libGLU.so.1").unlink()
+    with pytest.raises(setup.GpuSetupError, match="libglu1-mesa"):
+        setup.execute(context, [step], stream=io.StringIO())
+
+
 def test_cuda_arch_comes_from_nvidia_smi_and_is_validated(tmp_path, monkeypatch):
     context = setup.Context(prefix=tmp_path)
     monkeypatch.setattr(setup.Context, "output", lambda self, argv, **kwargs: "12.0\n12.0")
@@ -174,7 +197,8 @@ def test_sam3_download_is_verified_before_it_is_kept(tmp_path, monkeypatch):
     assert context.path("models/sam3.pt").is_file() and setup.step_done(context, step)
 
 
-def test_robodojo_stages_always_name_the_prefix_root(tmp_path):
+def test_robodojo_stages_always_name_the_prefix_root(tmp_path, monkeypatch):
+    monkeypatch.setattr(recipes, "_loadable", lambda name: True)  # the system has libGLU and Vulkan
     context, commands = _recording(tmp_path)
     setup.execute(context, recipes.robodojo(context), stream=io.StringIO())
     stages = [command["argv"][2] for command in commands]

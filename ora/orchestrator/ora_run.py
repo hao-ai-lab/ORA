@@ -92,6 +92,10 @@ def prepare_environment(environment: str, *, env_file: Path,
         raise RuntimeError(f"ora run uses the shipped {HOST} host; {HOST_MARKER_ENV}={marker} names another "
                            "execution host (unset it or use that host's own workflow)")
     values[HOST_MARKER_ENV] = HOST
+    if values.get("ORA_GPU_PREFIX"):
+        # libGLU / the Vulkan loader ``ora setup`` unpacked without sudo; workers inherit it.
+        from .ora_gpu_recipes import add_library_path
+        add_library_path(values, Path(values["ORA_GPU_PREFIX"]))
     values.update(provider_environment(values))
     check = provider_check(values)
     if not check["passed"]:

@@ -33,6 +33,17 @@ def test_environment_binds_env_file_host_marker_and_provider_defaults(tmp_path):
     assert environ["CUROBO_PYTHON"] == GPU_KEYS["CUROBO_PYTHON"]
 
 
+def test_environment_puts_the_prefix_system_libraries_on_the_library_path(tmp_path):
+    from ora.orchestrator.ora_gpu_recipes import SYSTEM_LIBRARY_DIR
+
+    (tmp_path / "gpu" / SYSTEM_LIBRARY_DIR).mkdir(parents=True)
+    env_file = tmp_path / ".env"
+    env_file.write_text("".join(f"{k}={v}\n" for k, v in GPU_KEYS.items()) + f"ORA_GPU_PREFIX={tmp_path / 'gpu'}\n")
+    environ = {**PROVIDER, "LD_LIBRARY_PATH": "/usr/local/cuda/lib64"}
+    ora_run.prepare_environment("robodojo", env_file=env_file, environ=environ)
+    assert environ["LD_LIBRARY_PATH"] == f"{tmp_path / 'gpu' / SYSTEM_LIBRARY_DIR}:/usr/local/cuda/lib64"
+
+
 def test_environment_refuses_other_hosts_missing_provider_and_missing_install(tmp_path):
     env_file = tmp_path / ".env"
     with pytest.raises(RuntimeError, match="names another execution host"):
@@ -270,6 +281,21 @@ def test_ready_services_this_checkout_did_not_start_are_refused(monkeypatch, tmp
     for name in ("segmentation", "grasp_proposals"):
         (tmp_path / f"{name}.json").unlink()
     with pytest.raises(RuntimeError, match="not started from this checkout"):
+        services.ensure_services(stream=io.StringIO())
+
+
+def test_an_occupied_port_says_how_to_choose_free_ones(monkeypatch, tmp_path):
+    import errno as errno_module
+
+    from ora.agent.model_services import operator
+
+    _fake_operator(monkeypatch, tmp_path, ready_after=99)
+
+    def occupied(command, **kwargs):
+        raise OSError(errno_module.EADDRINUSE, "Address already in use")
+
+    monkeypatch.setattr(operator, "lifecycle", occupied)
+    with pytest.raises(RuntimeError, match="B2_SAM_PORT / B2_GRASP_PORT"):
         services.ensure_services(stream=io.StringIO())
 
 

@@ -7,6 +7,7 @@ reuse the readiness report that names the running instances, or ``qualify``.
 
 from __future__ import annotations
 
+import errno
 import json
 import os
 import subprocess
@@ -140,8 +141,15 @@ def ensure_services(*, stream=None, timeout_s: float = SERVICE_START_TIMEOUT_S, 
     if not all(item.get("ready") is True for item in health.values()):
         print("Starting the SAM3 and Contact-GraspNet services (~3 min, SAM3 warmup ~70 s) ...",
               file=output, flush=True)
-        started = operator.lifecycle("start", root=paths.PROJECT_ROOT, state=state,
-                                     runtime_state_root=paths.STATE_ROOT)
+        try:
+            started = operator.lifecycle("start", root=paths.PROJECT_ROOT, state=state,
+                                         runtime_state_root=paths.STATE_ROOT)
+        except OSError as exc:
+            if exc.errno != errno.EADDRINUSE:
+                raise
+            urls = ", ".join(operator.endpoints().values())
+            raise RuntimeError(f"another process already listens on {urls} (another user's services?); set free "
+                               "ports with B2_SAM_PORT / B2_GRASP_PORT in .env and rerun") from exc
         logs = [item["log"] for item in started.values() if item.get("log")]
         begin = time.monotonic()
         while True:

@@ -105,14 +105,36 @@ def cuda_arch(context: Context) -> str:
     return f"{value}+PTX"
 
 
-def _system_vulkan_loader(context: Context) -> bool:
+#: Shared libraries Isaac Sim loads from the system that minimal server images
+#: lack (Ubuntu package names). Without them MDL materials never load and the
+#: RoboDojo cameras time out, and the graphics-compat readback cannot open Vulkan.
+SYSTEM_LIBRARIES = {"libGLU.so.1": "libglu1-mesa", "libvulkan.so.1": "libvulkan1"}
+#: Where ``ora setup`` unpacks those packages without sudo; ``ora setup`` and
+#: ``ora run`` put it on LD_LIBRARY_PATH, which every worker inherits.
+SYSTEM_LIBRARY_DIR = "syslibs/usr/lib/x86_64-linux-gnu"
+
+
+def _loadable(name: str) -> bool:
     import ctypes
 
     try:
-        ctypes.CDLL("libvulkan.so.1")
+        ctypes.CDLL(name)
     except OSError:
         return False
     return True
+
+
+def missing_system_libraries(prefix: Path) -> list[str]:
+    local = prefix / SYSTEM_LIBRARY_DIR
+    return [name for name in SYSTEM_LIBRARIES if not (local / name).exists() and not _loadable(name)]
+
+
+def add_library_path(environ, prefix: Path) -> None:
+    """Prepend the prefix's unpacked system libraries to ``environ``'s LD_LIBRARY_PATH when present."""
+    local = str(prefix / SYSTEM_LIBRARY_DIR)
+    current = environ.get("LD_LIBRARY_PATH", "")
+    if (prefix / SYSTEM_LIBRARY_DIR).is_dir() and local not in current.split(os.pathsep):
+        environ["LD_LIBRARY_PATH"] = os.pathsep.join(filter(None, (local, current)))
 
 
 def check_toolchain(context: Context, components: Sequence[str]) -> None:
@@ -132,12 +154,6 @@ def check_toolchain(context: Context, components: Sequence[str]) -> None:
         raise GpuSetupError("missing on PATH: " + ", ".join(missing)
                             + " (docs/getting-started/single-gpu.md §2 installs uv, Node 22 and git-lfs "
                             "into ~/.local without sudo)")
-    if "robodojo" in components and not _system_vulkan_loader(context):
-        # Not fatal: Isaac Sim ships a loader that only exists after the sdk stage.
-        print("[ora setup] warning: no system Vulkan loader (libvulkan.so.1). RoboDojo's graphics-compat "
-              "check and workers need one: install libvulkan1, or after the sdk stage put Isaac Sim's bundled "
-              "loader directory on LD_LIBRARY_PATH and rerun (docs/getting-started/single-gpu.md §8)",
-              flush=True)
     if shutil.which("nvidia-smi") is None:
         raise GpuSetupError("nvidia-smi is unavailable; the single-GPU path needs an NVIDIA driver (R570+)")
     if "terminal-ui" in components:
@@ -460,6 +476,23 @@ def robodojo_root(context: Context) -> Path:
     return context.path("robodojo-runtime")
 
 
+def system_libraries(context: Context) -> Step:
+    def run(inner: Context) -> None:
+        packages = sorted({SYSTEM_LIBRARIES[name] for name in missing_system_libraries(inner.prefix)})
+        if shutil.which("apt-get") is None or shutil.which("dpkg") is None:
+            raise GpuSetupError(f"Isaac Sim needs {', '.join(packages)}; install them (or their equivalents "
+                                "for your distribution) and rerun")
+        download = inner.path("downloads/syslibs")
+        download.mkdir(parents=True, exist_ok=True)
+        inner.run(["apt-get", "download", *packages], cwd=download)
+        for deb in sorted(download.glob("*.deb")):
+            inner.run(["dpkg", "-x", deb, inner.path("syslibs")])
+        add_library_path(inner.environ, inner.prefix)
+
+    return Step("robodojo", "system-libraries", "libGLU and the Vulkan loader, unpacked without sudo", run,
+                marker=False, done=lambda inner: not missing_system_libraries(inner.prefix))
+
+
 def robodojo(context: Context) -> list[Step]:
     def stage_command(inner: Context, stage: str) -> list[Any]:
         return [inner.python, inner.project_root / ROBODOJO_INSTALLER, stage, "--root", robodojo_root(inner)]
@@ -482,7 +515,8 @@ def robodojo(context: Context) -> list[Step]:
         pins = dict(re.findall(r'^(DOJO_REV|ASSET_REV|PYTHON_VERSION|PROFILES_REV) = "([^"]+)"', text, re.M))
         return {"root": str(robodojo_root(inner)), **pins}
 
-    steps = [Step("robodojo", "downloads", "RoboDojo sources, assets (66 GB, git-lfs) and Isaac Sim SDK",
+    steps = [system_libraries(context),
+             Step("robodojo", "downloads", "RoboDojo sources, assets (66 GB, git-lfs) and Isaac Sim SDK",
                   downloads, recipe=recipe)]
     for name, title in (("resolve", "resolve"), ("packages", "packages"), ("bind-assets", "bind assets")):
         steps.append(Step("robodojo", name, title, stage(name), recipe=recipe))

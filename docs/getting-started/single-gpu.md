@@ -55,7 +55,7 @@ nvidia-smi                                   # driver and GPU
 /usr/local/cuda-12.8/bin/nvcc --version      # CUDA 12.8 toolkit
 git --version; git lfs version; node --version; uv --version; unzip -v | head -1; c++ --version
 ls /usr/share/glvnd/egl_vendor.d/ /usr/share/vulkan/icd.d/   # expect 10_nvidia.json and nvidia_icd.json
-ldconfig -p | grep libvulkan.so.1                            # Vulkan loader (RoboTwin, RoboDojo)
+ldconfig -p | grep -E 'libvulkan.so.1|libGLU.so.1'          # Isaac Sim needs both; setup fetches missing ones
 ```
 
 Install what is missing into `~/.local` (no sudo):
@@ -118,7 +118,12 @@ outside the checkout: `--prefix DIR`, else `ORA_GPU_PREFIX`, else
 - the SAM3 and Contact-GraspNet perception services, with SAM3 weights from
   ModelScope checked against a pinned SHA-256;
 - the terminal UI (`npm ci --prefix ora-tui`);
-- the environment's simulator and assets.
+- the environment's simulator and assets;
+- for RoboDojo, `libGLU.so.1` and the Vulkan loader when the system lacks
+  them (minimal server images often do): setup downloads the Ubuntu packages
+  `libglu1-mesa` and `libvulkan1` with `apt-get download` and unpacks them
+  into `<prefix>/syslibs` without sudo; `ora run` puts that directory on
+  `LD_LIBRARY_PATH`.
 
 `libero` also installs RoboTwin's Python environment and CuRobo, because the
 LIBERO motion planner uses it.
@@ -313,9 +318,9 @@ rm -rf outputs/* .harness-runtime .env   # runs, qualifications, local state and
 | `ora run`: the checkout has local changes | runs bind a clean commit | commit or move the changes |
 | `ora run`: this step runs simulator episodes; rerun with --yes | a qualification is needed and stdin is not a terminal | read the estimate, rerun with `--yes` |
 | preflight stops at `provider_marker` or the run ends `incomplete` on the Provider recovery deadline | the API returned errors (for example HTTP 503) | check the provider's status and rerun |
-| `ora run`: … answers but was not started from this checkout | on a shared machine another user's SAM3 / Contact-GraspNet listen on 8114/8115; `ora run` will not bind services it did not start | set free ports with `B2_SAM_PORT` / `B2_GRASP_PORT` in `.env` (for example 8124/8125) |
+| `ora run`: … answers but was not started from this checkout, or `another process already listens on …` | on a shared machine another user's SAM3 / Contact-GraspNet listen on 8114/8115; `ora run` will not bind services it did not start | set free ports with `B2_SAM_PORT` / `B2_GRASP_PORT` in `.env` (for example 8124/8125) |
 | `model-services stop`: pid … is alive but this process cannot inspect it | services were started from another container or user namespace | stop them where they were started |
-| `graphics-compat`: `Vulkan driver compatibility rejected: libvulkan.so.1: cannot open shared object file` | the machine has no system Vulkan loader (`ora setup` warns about it at the start) | install `libvulkan1`; without sudo, use the loader Isaac Sim ships: `export LD_LIBRARY_PATH=$(dirname $(ls ~/.local/share/ora/gpu/robodojo-runtime/env/lib/python3.11/site-packages/isaacsim/extscache/omni.gpu_foundation-*/bin/deps/libvulkan.so.1)):$LD_LIBRARY_PATH` in the shell that runs `ora setup` and `ora run`, then rerun |
+| `graphics-compat`: `Vulkan driver compatibility rejected: libvulkan.so.1: cannot open shared object file`, or a RoboDojo qualification fails with `original camera assets did not become ready` (the worker log shows `libGLU.so.1: cannot open shared object file`) | the system lacks the Vulkan loader or libGLU that Isaac Sim loads | rerun `./scripts/ora setup --env robodojo`: it unpacks `libvulkan1` / `libglu1-mesa` into `<prefix>/syslibs` without sudo. Without `apt-get`, install those libraries; when running `setup-robodojo` or a qualification by hand, put `<prefix>/syslibs/usr/lib/x86_64-linux-gnu` on `LD_LIBRARY_PATH` |
 | RoboDojo worker: `graphics-compat/installation.json` missing | the layer was not built | `./scripts/setup-robodojo graphics-compat --root <prefix>/robodojo-runtime` |
 | `git lfs` not found during RoboDojo assets | no git-lfs | static binary (§2) |
 | Isaac prints `OptiX … Database file is not writable` | `/var/tmp` is not writable | set `OPTIX_CACHE_PATH` to a writable directory |
@@ -418,6 +423,12 @@ R="--root $PREFIX/robodojo-runtime"
 ./scripts/setup-robodojo graphics-compat $R
 ./scripts/setup-robodojo doctor $R && ./scripts/setup-robodojo manifest $R
 ```
+
+If the system lacks `libGLU.so.1` or `libvulkan.so.1`, unpack them first
+(`apt-get download libglu1-mesa libvulkan1`, then `dpkg -x <deb>
+$PREFIX/syslibs`) and export
+`LD_LIBRARY_PATH=$PREFIX/syslibs/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH`
+before `graphics-compat` and in every shell that runs RoboDojo.
 
 `doctor` checks the source, assets and task inventory (expect `fail=0`); it
 skips Isaac imports, which the card qualification exercises. See the

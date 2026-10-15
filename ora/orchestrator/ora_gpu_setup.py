@@ -243,6 +243,7 @@ def main(argv: list[str] | None = None, *, stream=None) -> int:
     try:
         _check_prefix(prefix, PROJECT_ROOT)
         context = Context(prefix=prefix, cuda_home=args.cuda_home, cuda_arch=args.cuda_arch)
+        recipes.add_library_path(context.environ, prefix)
         components = recipes.components_for(args.environments)
         need = recipes.disk_gib(components)
         free = _free_gib(prefix)
