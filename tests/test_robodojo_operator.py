@@ -730,3 +730,25 @@ def test_setup_root_has_no_host_default(monkeypatch, tmp_path):
     monkeypatch.delenv("ROBODOJO_ROOT", raising=False)
     with pytest.raises(SystemExit):
         setup_runtime.main(["doctor"])
+
+
+def test_setup_runtime_retries_git_only_on_a_lingering_index_lock(tmp_path, monkeypatch):
+    import subprocess
+    from types import SimpleNamespace
+
+    from ora.environment.backends.robodojo.installation import setup_runtime
+
+    installer = setup_runtime.Installer(tmp_path / "runtime")
+    lock = "fatal: Unable to create '/x/.git/index.lock': File exists.\n"
+    results = [SimpleNamespace(returncode=128, stdout=None, stderr=lock),
+               SimpleNamespace(returncode=0, stdout=None, stderr="")]
+    calls = []
+    monkeypatch.setattr(setup_runtime.subprocess, "run", lambda command, **kwargs: (calls.append(command),
+                                                                                    results.pop(0))[1])
+    monkeypatch.setattr(setup_runtime.time, "sleep", lambda seconds: None)
+    installer.run("git", "sparse-checkout", "set", "Assets", cwd=tmp_path)
+    assert len(calls) == 2
+    results[:] = [SimpleNamespace(returncode=128, stdout=None, stderr="fatal: not a git repository\n")]
+    with pytest.raises(subprocess.CalledProcessError):
+        installer.run("git", "status", cwd=tmp_path)
+    assert len(calls) == 3

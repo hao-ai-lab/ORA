@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 import shlex
 import subprocess
+import sys
+import time
 import zipfile
 
 DOJO_REV = "ee67a1468510da7624a089164402359f2afc72c8"
@@ -126,9 +128,23 @@ class Installer:
     def run(self, *args: str | Path, cwd: Path | None = None, capture=False):
         command = [str(arg) for arg in args]
         print("+ " + " ".join(command), flush=True)
-        result = subprocess.run(command, cwd=cwd or self.root, env=self.env,
-                                check=True, text=True, capture_output=capture)
-        return result.stdout.strip() if capture else None
+        if command[0] != "git":
+            result = subprocess.run(command, cwd=cwd or self.root, env=self.env,
+                                    check=True, text=True, capture_output=capture)
+            return result.stdout.strip() if capture else None
+        # On a network filesystem the previous git command's index.lock can stay
+        # visible for a moment after it was released; retry only that refusal.
+        for delay in (1, 2, 4, 8, 16, None):
+            result = subprocess.run(command, cwd=cwd or self.root, env=self.env, text=True,
+                                    stdout=subprocess.PIPE if capture else None, stderr=subprocess.PIPE)
+            if result.stderr:
+                print(result.stderr, end="", file=sys.stderr, flush=True)
+            if result.returncode == 0:
+                return result.stdout.strip() if capture else None
+            if delay is None or "index.lock': File exists" not in result.stderr:
+                raise subprocess.CalledProcessError(result.returncode, command, result.stdout, result.stderr)
+            print(f"  index.lock still visible; retrying in {delay} s", flush=True)
+            time.sleep(delay)
 
     def clone(self, url: str, target: Path, revision: str):
         if not (target / ".git").exists():
