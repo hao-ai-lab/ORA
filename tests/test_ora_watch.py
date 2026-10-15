@@ -260,3 +260,26 @@ def test_an_operator_message_starts_its_own_block(tmp_path, monkeypatch):
     lines = out.getvalue().splitlines()
     index = lines.index("❯ Look at the bowl first.")
     assert lines[index - 1] == "" and lines[index - 2].strip() == "2 images to the model"
+
+
+def _fake_node(directory: Path, version: str) -> Path:
+    directory.mkdir(parents=True, exist_ok=True)
+    node = directory / "node"
+    node.write_text(f"#!/bin/sh\necho {version}\n")
+    node.chmod(0o755)
+    return node
+
+
+def test_node_discovery_skips_a_distribution_node_18(tmp_path, monkeypatch):
+    # 2026-10-15 single-GPU run: inside tmux, PATH found /usr/bin/node v18 first and
+    # the Pi front end died on a RegExp v-flag SyntaxError; ~/.local/bin/node was 22.
+    old = _fake_node(tmp_path / "usr/bin", "v18.19.1")
+    monkeypatch.delenv("ORA_NODE", raising=False)
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    monkeypatch.setenv("PATH", str(old.parent))
+    assert ora_cli._node() is None
+    assert "v18 at" in ora_cli.node_diagnosis()
+    new = _fake_node(tmp_path / "home/.local/bin", "v22.20.0")
+    assert ora_cli._node() == str(new)
+    monkeypatch.setenv("ORA_NODE", str(old))
+    assert ora_cli._node() is None  # an explicit choice is checked, not replaced

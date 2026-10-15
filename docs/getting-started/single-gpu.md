@@ -68,7 +68,13 @@ curl -fsSL https://nodejs.org/dist/v22.20.0/node-v22.20.0-linux-x64.tar.xz \
 curl -fsSL https://github.com/git-lfs/git-lfs/releases/download/v3.7.1/git-lfs-linux-amd64-v3.7.1.tar.gz \
   | tar -xz -C /tmp && cp /tmp/git-lfs-3.7.1/git-lfs ~/.local/bin/      # only RoboDojo needs git-lfs
 export PATH=~/.local/bin:$PATH
+echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc                # new shells and tmux panes too
 ```
+
+Make the `PATH` line persistent: the run step in §5 starts in `tmux`, whose
+new shell would otherwise find the distribution's Node 18 first. ORA looks
+for Node 20+ on `PATH`, then `~/.local/bin/node` and `~/.nvm`, or uses
+`ORA_NODE`.
 
 Ubuntu's packaged Node 18 is too old. With sudo, `apt-get install git-lfs
 unzip build-essential libegl1 libvulkan1` covers the rest. Without a CUDA
