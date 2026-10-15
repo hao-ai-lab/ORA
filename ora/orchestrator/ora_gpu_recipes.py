@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import zipfile
@@ -322,8 +323,13 @@ def robotwin_python(context: Context) -> list[Step]:
 
     def curobo_environment(inner: Context) -> dict[str, str]:
         home = _cuda_home(inner)
-        return {"CUDA_HOME": str(home), "TORCH_CUDA_ARCH_LIST": cuda_arch(inner),
-                "PATH": f"{home / 'bin'}:{inner.environ.get('PATH', '')}"}
+        environment = {"CUDA_HOME": str(home), "TORCH_CUDA_ARCH_LIST": cuda_arch(inner),
+                       "PATH": f"{home / 'bin'}:{inner.environ.get('PATH', '')}"}
+        # A conda/pip toolkit keeps its headers under targets/; nvcc finds them, the host compiler does not.
+        targets = home / "targets/x86_64-linux/include"
+        if not (home / "include/cuda_runtime_api.h").is_file() and (targets / "cuda_runtime_api.h").is_file():
+            environment["CPATH"] = os.pathsep.join(filter(None, (str(targets), inner.environ.get("CPATH", ""))))
+        return environment
 
     def curobo_recipe(inner: Context) -> Mapping[str, Any]:
         return {"curobo": CUROBO[1], "arch": cuda_arch(inner), "cuda_home": str(_cuda_home(inner))}

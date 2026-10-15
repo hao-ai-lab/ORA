@@ -100,6 +100,22 @@ def test_curobo_is_built_for_this_gpu_and_rebuilt_when_the_arch_changes(tmp_path
     assert not setup.step_done(hopper, step)
 
 
+def test_curobo_build_finds_a_conda_toolkit_s_headers(tmp_path):
+    cuda = tmp_path / "cuda-conda"
+    (cuda / "bin").mkdir(parents=True)
+    (cuda / "bin/nvcc").write_text("")
+    (cuda / "targets/x86_64-linux/include").mkdir(parents=True)
+    (cuda / "targets/x86_64-linux/include/cuda_runtime_api.h").write_text("")
+    context, commands = _recording(tmp_path, cuda_home=cuda, cuda_arch="9.0")
+    python = context.path("envs/robotwin/bin/python")
+    python.parent.mkdir(parents=True)
+    python.write_text("")
+    step = next(step for step in recipes.robotwin_python(context) if step.name == "curobo-build")
+    setup.execute(context, [step], stream=io.StringIO())
+    assert commands[-1]["env"]["CPATH"].split(os.pathsep)[0] == str(cuda / "targets/x86_64-linux/include")
+    assert commands[-1]["env"]["TORCH_CUDA_ARCH_LIST"] == "9.0+PTX"
+
+
 def test_cuda_arch_comes_from_nvidia_smi_and_is_validated(tmp_path, monkeypatch):
     context = setup.Context(prefix=tmp_path)
     monkeypatch.setattr(setup.Context, "output", lambda self, argv, **kwargs: "12.0\n12.0")

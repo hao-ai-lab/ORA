@@ -67,7 +67,9 @@ export PATH=~/.local/bin:$PATH
 Ubuntu's packaged Node 18 is too old. With sudo, `apt-get install git-lfs
 unzip build-essential libegl1 libvulkan1` covers the rest. Without a CUDA
 toolkit, install NVIDIA's `cuda_12.8.*_linux.run` with `--toolkit --silent
---toolkitpath=$HOME/cuda-12.8` and pass `--cuda-home ~/cuda-12.8` to setup.
+--toolkitpath=$HOME/cuda-12.8`, or a conda environment
+(`conda create -p ~/cuda-12.8 -c nvidia cuda-toolkit=12.8`), and pass
+`--cuda-home ~/cuda-12.8` to setup.
 
 ## 3. Get ORA
 
