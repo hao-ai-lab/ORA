@@ -2,10 +2,11 @@
 import chalk from "chalk";
 import { Editor, Markdown, visibleWidth, wrapTextWithAnsi } from "@earendil-works/pi-tui";
 
-// Match the teaser's quiet charcoal surface and readable transcript hierarchy.
+// Match the teaser's quiet charcoal surface and readable transcript hierarchy. The surface is always
+// dark, so the ORA accent (mark, spinner, ▸▸) is the Hao AI Lab dark-mode theme colour, teal #4ecdc4.
 export const colours = {
 	background: "#111216", text: "#d6d8dd", white: "#f6f7f9", args: "#b8bdc6",
-	muted: "#adb3bd", dim: "#979da8", borderMuted: "#3a3c43", ora: "#cc6254",
+	muted: "#adb3bd", dim: "#979da8", borderMuted: "#3a3c43", ora: "#4ecdc4",
 	accent: "#d6d8dd", success: "#7fd3a0", error: "#ed9b91", warning: "#e2c78e",
 	userMsgBg: "#222329",
 };
@@ -26,8 +27,12 @@ export const editorTheme = {
 	},
 };
 
-// The teaser's exact 7×10 robot pixels, packed into half-height terminal blocks.
-const robotPixels = ["....##....", "..######..", "..#.##.#..", "..######..", "....##....", ".##.##.##.", ".#......#."];
+// The teaser's exact 13×9 robot-arm pixels (base, column, shoulder joint, arm, two-finger gripper),
+// packed into half-height terminal blocks; the odd last pixel row pairs with an empty one.
+const robotPixels = [
+	"..####.......", ".##..##......", ".##..#######.", "..####....##.", "...##.....##.",
+	"...##....####", "...##....#..#", "..####...#..#", ".######......",
+];
 export const LOGO = robotPixels.filter((_, i) => i % 2 === 0).map((row, i) => [...row].map((upper, x) => {
 	const lower = robotPixels[i * 2 + 1]?.[x];
 	return upper === "#" ? lower === "#" ? "█" : "▀" : lower === "#" ? "▄" : " ";

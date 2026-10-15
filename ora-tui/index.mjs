@@ -203,7 +203,7 @@ export function main(argv = process.argv.slice(2), dependencies = {}) {
 			replay = String(op.mode).startsWith("replay");
 			if (protocol) header.clear();
 			const info = [
-				chalk.bold(fg("ora", "ORA")) + fg("muted", ` ${op.version}`) + fg("dim", "  open robot-use agent"),
+				chalk.bold(fg("white", "ORA")) + fg("muted", ` ${op.version}`) + fg("dim", "  open robot-use agent"),
 				fg("dim", [op.model || "model unknown", op.reasoning_effort && `${op.reasoning_effort} effort`, op.provider_protocol].filter(Boolean).join(" · ")),
 				fg("dim", [op.task ? `${op.benchmark} / ${op.task}` : op.benchmark, op.experiment].filter(Boolean).join(" · ")),
 				fg("dim", `${op.run_id} · ${op.mode}`),

@@ -89,10 +89,11 @@ def _run(tmp_path: Path, *, state: str | None = "completed") -> Path:
 
 
 EXPECTED = """\
-   ▄▄██▄▄     ORA v-test  open robot-use agent
-   █▄██▄█     open-model-1 · low effort · openai_chat_completions
-  ▄▄ ██ ▄▄    RoboDojo / pour_by_language · exp-test
-  ▀      ▀    exp-robodojo-abc--20261012T000000Z · finished run
+  ▄█▀▀█▄         ORA v-test  open robot-use agent
+  ▀█▄▄█▀▀▀▀██    open-model-1 · low effort · openai_chat_completions
+    ██    ▄██▄   RoboDojo / pour_by_language · exp-test
+   ▄██▄   █  █   exp-robodojo-abc--20261012T000000Z · finished run
+  ▀▀▀▀▀▀
 
 ❯ Pour the water into the black bowl.
 
@@ -160,6 +161,8 @@ def test_replay_draws_a_live_status_with_recorded_elapsed_time(tmp_path):
     assert "Thinking… (1s" in text            # two recorded seconds per event, replayed at x4
     assert "Moving on the robot…" in text and "Compacting context…" in text
     assert "\x1b[?25h" in text                # the cursor is restored
+    teal = "\x1b[38;2;78;205;196m"            # ORA's accent: the Hao AI Lab theme colour on dark
+    assert teal + "  ▄█▀▀█▄" in text and teal + "▸▸ " in text and "38;2;204;98;84" not in text
 
 
 def test_live_run_is_followed_until_the_session_closes(tmp_path):

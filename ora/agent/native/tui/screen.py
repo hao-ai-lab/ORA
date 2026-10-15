@@ -16,7 +16,8 @@ from .condense import Segment
 
 Line = list[Segment]
 
-ORA_RED = "\x1b[38;2;204;98;84m"
+# ORA's accent (mark, spinner, ▸▸ markers): the Hao AI Lab theme colour on dark, teal #4ecdc4.
+ORA_ACCENT = "\x1b[38;2;78;205;196m"
 STYLES = {
     "txt": "\x1b[38;5;253m",
     "dim": "\x1b[38;5;245m",
@@ -24,7 +25,7 @@ STYLES = {
     "bold": "\x1b[1;97m",
     "arg": "\x1b[38;5;249m",
     "res": "\x1b[38;5;247m",
-    "ora": ORA_RED,
+    "ora": ORA_ACCENT,
     "ok": "\x1b[38;2;127;211;160m",
     "ok_dot": "\x1b[38;2;127;211;160m",
     "warn": "\x1b[33m",
@@ -36,15 +37,17 @@ STYLES = {
 }
 RESET = "\x1b[0m"
 SPINNER = "·✢✳✶✻✽✻✶✳✢"
-# ORA's mark: a small robot head on a neck with a gripper either side (10 x 7 cells).
+# ORA's mark: a pixel robot arm (base, column, shoulder joint, arm, two-finger gripper; 13 x 9 cells).
 LOGO = (
-    "....##....",
-    "..######..",
-    "..#.##.#..",
-    "..######..",
-    "....##....",
-    ".##.##.##.",
-    ".#......#.",
+    "..####.......",
+    ".##..##......",
+    ".##..#######.",
+    "..####....##.",
+    "...##.....##.",
+    "...##....####",
+    "...##....#..#",
+    "..####...#..#",
+    ".######......",
 )
 
 
@@ -140,12 +143,12 @@ class Screen:
         rule = STYLES["faint"] + "─" * width + RESET
         rows = [""]
         if status:
-            rows.append(ORA_RED + glyph + RESET + " " + STYLES["txt"] + status[: width - 2] + RESET)
+            rows.append(ORA_ACCENT + glyph + RESET + " " + STYLES["txt"] + status[: width - 2] + RESET)
         rows.append(rule)
         rows.append(STYLES["bold"] + "❯ " + RESET + STYLES["faint"] + prompt[: width - 2] + RESET)
         rows.append(rule)
         rest = " · " + left
-        footer = ORA_RED + "▸▸ " + RESET + STYLES["txt"] + "robot mode on" + RESET + STYLES["dim"] + rest[: width - 16] + RESET
+        footer = ORA_ACCENT + "▸▸ " + RESET + STYLES["txt"] + "robot mode on" + RESET + STYLES["dim"] + rest[: width - 16] + RESET
         pad = width - 16 - len(rest) - len(right)
         if right and pad >= 2:
             footer += " " * pad + STYLES["dim"] + right + RESET

@@ -321,9 +321,10 @@ test("Pi rendering anchors the visible prompt and keeps complete identity at 90�
 		assert.match(plain.at(-4), /❯/); // Last four rows: prompt, rule, compact footer.
 		assert.ok(!plain.slice(-2).join("").includes(runId));
 	}
-	assert.equal(LOGO.length, 4);
-	assert.ok(LOGO.every((row) => visibleWidth(row) === 10));
+	assert.deepEqual(LOGO, [" ▄█▀▀█▄      ", " ▀█▄▄█▀▀▀▀██ ", "   ██    ▄██▄", "  ▄██▄   █  █", " ▀▀▀▀▀▀      "]);
 	assert.equal(colours.background, "#111216");
+	assert.equal(colours.ora, "#4ecdc4"); // Hao AI Lab theme colour on dark; distinct from the verdict green.
+	assert.notEqual(colours.ora, colours.success);
 });
 
 test("prefixed Pi editor retains wrapped Unicode drafts, cursor geometry and submission", (t) => {
