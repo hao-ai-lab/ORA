@@ -121,7 +121,7 @@ class LiberoSparseMotionMixin:
     def _execute_sparse_motion_v3(self, action: Mapping[str, Any]) -> dict[str, Any]:
         """Single-arm sparse motion v3 over the two qualified executors.
 
-        EXP08A wiring v1: the v3 semantic route delegates every physical
+        The v3 semantic route delegates every physical
         segment to the exact executors this backend already qualified on real
         hardware — the CuRobo/JOINT_POSITION planned path and the bounded
         OSC servo loop — instead of re-plumbing them through the shared

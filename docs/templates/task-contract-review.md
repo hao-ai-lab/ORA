@@ -1,6 +1,6 @@
 # Task contract review
 
-Keep status `needs_review` until evidence is complete and contradictions resolved. This is trusted review material; never inject it wholesale into policy context. Generate machine fields with `scripts/audit-task-contracts template`; see the [authoring guide](../guides/task-contract-and-feedback-authoring.md).
+Keep status `needs_review` until evidence is complete and contradictions resolved. This is trusted review material; never inject it wholesale into policy context. Generate machine fields with `scripts/dev/audit-task-contracts template`; see the [authoring guide](../guides/task-contract-and-feedback-authoring.md).
 
 ## Identity and scope
 

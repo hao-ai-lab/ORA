@@ -194,7 +194,7 @@ def _grasp_query_identity(
         "input_pointcloud_schema": GRASP_INPUT_POINTCLOUD_SCHEMA,
     }
     if public_contact_pose:
-        # Conditional so frozen pre-EXP08A query identities keep their exact
+        # Conditional so frozen earlier query identities keep their exact
         # hashes; surfaces without the capability never set the flag.
         query_identity["public_contact_pose"] = True
     if review_source_binding is not None:

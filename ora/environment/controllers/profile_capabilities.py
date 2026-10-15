@@ -36,7 +36,7 @@ _IDS_TO_VERSION = {identity: version for version, identity in PROFILE_VERSION_ID
 
 #: Frozen byte identity of every tracked ALOHA control-profile file, keyed by
 #: version. Consumers and tests read this single table instead of hand-copying
-#: sha256 literals; `scripts/refresh-vendored-pins` rewrites only the current
+#: sha256 literals; `scripts/dev/refresh-vendored-pins` rewrites only the current
 #: version's entry when the vendored hash cascade moves it.
 FROZEN_CONTROL_PROFILE_SHA256: dict[int, str] = {
     1: "9f3d11f4d074430d249ca0c7a60cf87ced5570539916523d4ebc6e3220b7feed",

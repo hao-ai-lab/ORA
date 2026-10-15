@@ -20,7 +20,7 @@ from ora.agent.contracts import PolicySessionError
 #: Fresh requests granted to one logical model call after transport breaks
 #: that arrived with response content, under ``same_credential_deadline_v1``.
 #: The fourth such break is terminal even with deadline left: every broken
-#: attempt already streamed billable output that is discarded (one EXP11A
+#: attempt already streamed billable output that is discarded (one recorded
 #: RoboDojo attempt streamed 7,301 events for 35 s before its socket
 #: dropped). Retries still share the 180 s window and its backoff; this only
 #: bounds how many times a partly answered request is asked again. Recorded
@@ -33,7 +33,7 @@ STREAM_BREAK_RETRIES = 3
 #: stream closed before ``response.completed``. It answers HTTP 408 with
 #: ``type: invalid_request_error`` before relaying any event, so neither the
 #: status nor the type says that the upstream had begun answering; only this
-#: text does. EXP11A g016 fold_clothes died on one as a fatal fault.
+#: text does. A recorded fold_clothes run died on one as a fatal fault.
 GATEWAY_UPSTREAM_STREAM_BREAK = "stream disconnected before completion"
 _LOOPBACK_HOSTS = frozenset({"127.0.0.1", "localhost", "::1"})
 

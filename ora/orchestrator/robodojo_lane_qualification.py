@@ -22,7 +22,7 @@ writes for that plan:
   qualified on every layout, and a single episode on layout k by its own
   ``l<k>`` gate.
 
-Maintained producers (integration 0062 U12) for what the earlier B2
+Maintained producers for what the earlier
 RoboDojo scene smoke, layout smoke and revalidation produced; artifact schemas
 are unchanged.
 """

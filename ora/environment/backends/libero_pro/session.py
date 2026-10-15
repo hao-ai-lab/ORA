@@ -253,7 +253,7 @@ class LiberoProSession(
             raise LiberoProError("expected task language must be non-empty")
         self.workspace_bounds_m = normalize_workspace_bounds(self.workspace_bounds_m)
         if self.action_codec == "motion_action_v3":
-            # EXP08A: sparse motion v3 reuses the qualified CuRobo global
+            # Sparse motion v3 reuses the qualified CuRobo global
             # route and OSC local servo hybrid bindings.
             if not isinstance(self.motion_planner_config, Mapping):
                 raise LiberoProError(

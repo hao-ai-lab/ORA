@@ -744,7 +744,7 @@ def validate_single_arm_plan(
     # The successor path normalizes backend output and delegates all generic
     # joint/FK/workspace admission to the shared motion transaction.  The
     # wrapper retains the frozen RoboTwin result type and artifact keys used by
-    # EXP06A v5-v8 evidence.
+    # earlier v5-v8 evidence.
     try:
         normalized = normalize_joint_plan_result(
             result,

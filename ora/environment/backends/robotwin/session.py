@@ -228,7 +228,7 @@ class RoboTwinLiveSession(
     control_profile: Mapping[str, Any] | None = None
     public_robot_geometry: Mapping[str, Any] | None = None
     robot_geometry_verification: dict[str, Any] | None = field(init=False, default=None)
-    #: The read-only reach check's other-arm screen (integration 0059 M6),
+    #: The read-only reach check's other-arm screen,
     #: which the RunSpec derives from the ToolSurface: it screens the
     #: configuration each solved query reached (``reach_inter_arm``). Off is
     #: the unscreened check.

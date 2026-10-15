@@ -10,7 +10,7 @@ from .spec import file_sha256
 Runner = Callable[..., subprocess.CompletedProcess[str]]
 
 UNPROFILED_MINIMUM_FREE_MEMORY_MIB = 20000
-#: RDJ-10: nvidia-smi answered in 6-13 s on a loaded simulator host; 15 s refused healthy starts.
+#: nvidia-smi answered in 6-13 s on a loaded simulator host; 15 s refused healthy starts.
 NVIDIA_SMI_TIMEOUT_S = 60
 
 
@@ -152,7 +152,7 @@ def _robodojo_runtime(plan: Mapping[str, Any], runner: Runner, *, project_root: 
         try:
             gpu = runner(query, text=True, capture_output=True, timeout=NVIDIA_SMI_TIMEOUT_S, check=False)
         except subprocess.TimeoutExpired:
-            # RDJ-10: a loaded node answered in 6-13 s; retry once before refusing.
+            # A loaded node answered in 6-13 s; retry once before refusing.
             gpu = runner(query, text=True, capture_output=True, timeout=NVIDIA_SMI_TIMEOUT_S, check=False)
         rows = [row.strip().split(", ") for row in gpu.stdout.splitlines()]
         selected = [row for row in rows if row[0] == runtime["cuda_visible_devices"]]

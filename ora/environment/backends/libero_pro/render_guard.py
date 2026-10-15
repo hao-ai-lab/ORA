@@ -16,8 +16,8 @@ from pathlib import Path
 from typing import Any, Sequence
 
 
-#: Hand cameras may legitimately face the distant background (EXP12B g002
-#: goal_swap t03: the wrist view of the wall had median depth 372 m), so the
+#: Hand cameras may legitimately face the distant background (a recorded
+#: goal_swap task: the wrist view of the wall had median depth 372 m), so the
 #: far-plane test applies only to the fixed scene cameras that always see the table.
 HAND_CAMERAS = frozenset({"wrist", "robot0_eye_in_hand"})
 

@@ -1,4 +1,4 @@
-"""The move-target reach pre-check that says which IK answered it (integration 0059, M1/M3).
+"""The move-target reach pre-check that says which IK answered it.
 
 ``move_pose_reach_along_request_v1`` and ``reach_nearest_orientation_v1`` were
 written for RoboDojo, whose reach check replays the route ``move_pose`` takes

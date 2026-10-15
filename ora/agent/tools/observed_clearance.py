@@ -22,7 +22,7 @@ held box, controlled point and wrist camera: dilated ``ROBOT_CORE_MARGIN_M``
 from the lowest finger or held corner upward, and ``ROBOT_MARGIN_M`` from the
 lowest of the finger roots, controlled point and wrist camera upward, because
 the descriptor bounds only the fingers and the housing, wrist and links rise
-above them (EXP11A g012 offline: with the jaw prism alone, 138 of 236 negative
+above them (offline over a recorded batch: with the jaw prism alone, 138 of 236 negative
 readings on arrived moves were the moving arm's own housing, wrist camera or
 links, all within 9 cm of link6). Of the remaining points within ``RADIUS_M``
 horizontally of any footprint solid and no higher than the footprint's top, the

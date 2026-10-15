@@ -3,7 +3,7 @@
 ``closure_evidence`` compares a metric jaw separation with the target's visible
 extents. RoboDojo publishes no metric separation: the ARX pad aperture is
 uncalibrated (``localization.measured_jaw_separation_m`` returns ``None`` on
-purpose), so every verify stage of EXP11A g003's ten completed
+purpose), so every verify stage of one recorded batch's ten completed
 ``grasp_execute`` calls reported ``closure_strength: unavailable`` while the
 close stage beside it had measured exactly the fact in question.
 
@@ -19,7 +19,7 @@ attachment or retention.
 A close that stalls without leaving the open position is not the first case:
 jaws that never moved were stopped by something outside them (a fingertip on
 the rim, the table) or never driven, and nothing between them pushes the pads
-past fully open. EXP11A g007 stack_bowls (+31.7 min) stalled at 0.99999999
+past fully open. A recorded stack_bowls run (+31.7 min) stalled at 0.99999999
 after 3 native actions -- the fingers at their 44 mm stop -- and the released
 rule read the unchanged reading after the lift as "still held apart". Such a
 close is ``unlikely`` with reason ``jaws_never_closed``: its reading lies
@@ -27,9 +27,8 @@ within the arrival tolerance of the opening the open stage commanded, the band
 that stage itself counted as open. On the X5 no admitted candidate needs that
 band: the 80 mm admission ceiling is a normalized opening of 0.918.
 
-The readings are the two-finger mean the backend publishes (EXP11A g012
-E11G12-001). The rules above assume the fingers move as a symmetric pair; a pair
-shifted to one side says nothing about holding either way (g012: one finger at
+The readings are the two-finger mean the backend publishes. The rules above assume the fingers move as a symmetric pair; a pair
+shifted to one side says nothing about holding either way (recorded: one finger at
 its 44 mm stop, the other 30 mm in, read as "fully open"). When the close or
 after-lift reading has a lateral finger offset beyond ``SYMMETRIC_OFFSET_BOUND_M``
 the verdict is ``unknown`` with reason ``finger_offset_exceeds_symmetric_bound``.
@@ -57,8 +56,8 @@ OPEN_POSITION_NORMALIZED = 1.0
 #: symmetric pair. Recorded ARX closes: build_tower's 252 control samples keep
 #: the fingers within 2 mm in free air and 6 mm on an object (3 mm offset); a
 #: close the SDK primary-relative limit holds with one finger pinned ends up to
-#: 0.2 x 54 mm = 10.8 mm apart (5.4 mm); the 14 such g012 close stalls stood
-#: 9.3-10.0 mm apart, and 96 of all 124 g012 close stalls within 6 mm. 4 mm
+#: 0.2 x 54 mm = 10.8 mm apart (5.4 mm); in one recorded batch the 14 such close
+#: stalls stood 9.3-10.0 mm apart, and 96 of all 124 close stalls within 6 mm. 4 mm
 #: separates the two.
 SYMMETRIC_OFFSET_BOUND_M = 0.004
 #: Verdicts that compare the close reading alone (not the after-lift one).

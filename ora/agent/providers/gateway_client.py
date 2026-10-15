@@ -23,8 +23,7 @@ would leave the host. The receipt names variables, files and their presence;
 no value ever enters it, an error message or a log. Profiles on any other
 transport are not touched.
 
-Maintained port (integration 0062 U13) of the earlier EXP11A launcher's
-``load_provider_environment``.
+Maintained port of an earlier launcher's ``load_provider_environment``.
 """
 from __future__ import annotations
 

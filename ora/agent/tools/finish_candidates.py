@@ -1,7 +1,6 @@
-"""The plan candidates a round offered and did not try, for the give_up record (F4).
+"""The plan candidates a round offered and did not try, for the give_up record.
 
-09-09 condition (a): EXP11A g008/g009 finish records named options the policy
-had not tried. User decision 2026-10-04: a give_up is never refused for it;
+Recorded finish records named options the policy had not tried. A give_up is never refused for it;
 the persisted finish record says which offered candidates were not tried and
 whether the give_up reason names any of them.
 

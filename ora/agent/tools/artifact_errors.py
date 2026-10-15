@@ -5,7 +5,7 @@ Contact-GraspNet clients used to raise a bare ``ValueError`` for every
 failure, and each tool turned that into one code. A malformed ``target_ref``,
 a store whose index no longer matched its manifest and a model service that
 had restarted under a new instance identity all reached the policy as the same
-argument refusal (EXP11B census D3, D4, B4), so a Harness fault blamed the
+argument refusal, so a Harness fault blamed the
 argument and a refusal the policy could fix looked like infrastructure.
 
 Every class here still subclasses ``ValueError``: a caller that catches

@@ -17,7 +17,7 @@ target's own route from the measured joints; the sweep stops at the first
 rotation with a reachable candidate. The submitted action never changes.
 Runtime half: ``agent/tools/reach_orientation.py``.
 
-EXP11A g012 (E11G12-003): an offline replica of the runtime IK (99.8-100%
+In one recorded RoboDojo batch, an offline replica of the runtime IK (99.8-100%
 agreement over 1,066 recorded solves) found every placement target reachable
 by some arm, many only with a 15-75 degree tilt; the policy tried
 straight-down poses and concluded "unreachable", and every feedback channel

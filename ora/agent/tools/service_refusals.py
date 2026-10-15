@@ -5,7 +5,7 @@
 ``grounding_failed``, ``grasp_proposal_failed``). A restarted service whose
 instance identity can never match the bound one again, a 422 naming the field
 the service refused, and a target with too few depth pixels all looked like a
-transient hiccup (EXP11B census B4, D4): the first loops forever, the second
+transient hiccup: the first loops forever, the second
 loses the service's own ``detail`` text, the third is retried unchanged.
 
 The classes come from ``agent/tools/artifact_errors.py``; the codes are

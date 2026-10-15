@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Offline review inventory, private template and allowlisted public rendering.
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
+cd "$ROOT"
+exec python3 -c 'from ora.agent.composition.task_contract_review import main; raise SystemExit(main())' "$@"

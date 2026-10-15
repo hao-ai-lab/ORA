@@ -716,7 +716,7 @@ def _decision_attribution(
     mutation_tools: set[str],
     lifecycle_tools: set[str],
 ) -> dict[str, Any]:
-    """Attribute one exported decision (EXP08A training-readiness boundary)."""
+    """Attribute one exported decision (training-readiness boundary)."""
 
     calls = assistant.get("tool_calls")
     names: list[str] = []

@@ -8,7 +8,7 @@ carries 48,000, chosen against a 200K context; read against a 1M model it is
 governs above the floor.
 
 L5 summarizes one closed Episode at an absolute Provider-input watermark. From
-Context management v6 (user decision 2026-10-04) it is
+Context management v6 it is
 ``episode_checkpoint_trigger_tokens`` alone, 150,000 in every maintained
 configuration, and no longer scales with the window: v5's
 ``max(tokens, 0.60 x hard)`` put it at 618,086 tokens on a 1M DeepSeek window

@@ -1,8 +1,8 @@
 # API-equivalent token prices for the run report (orchestrator/run_report.py).
 #
 # A price here is what a direct API customer would pay per million tokens. It
-# is not what a run cost: runs reached these models through subscription
-# proxies, so every figure computed from this table is labelled
+# is not necessarily what a run cost (a run may reach a model through another
+# billing arrangement), so every figure computed from this table is labelled
 # "API-equivalent". Keys are the model names the PolicySession reports
 # (`session_started` payload `model`, else the plan's `policy.model`).
 #
@@ -14,7 +14,7 @@
 #
 # A model without an entry is reported unpriced (cost null), never estimated.
 # No provider profile in ora/agent/providers/builtin-profiles.yaml
-# carries a price, so only the prices the user supplied are listed.
+# carries a price; add a model here to price it.
 schema: ora.api-pricing.v1
 label: api_equivalent
 currency: USD
@@ -24,9 +24,9 @@ models:
     input: 10.0
     cached_input: 1.0
     output: 50.0
-    source: user-provided list price, 2026-10-04 (integration 0059 report unit)
+    source: list price, 2026-10-04
   gpt-6.1-sol:
     input: 2.0
     cached_input: 0.1
     output: 10.0
-    source: user-provided list price, 2026-10-04 (integration 0059 report unit)
+    source: list price, 2026-10-04

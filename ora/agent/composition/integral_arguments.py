@@ -4,7 +4,7 @@ JSON has one number type, and JSON Schema (draft 6 onward) counts ``316.0`` as
 an integer. The Harness validator and the handlers did not: an integral float
 at an ``integer`` position was refused, and ``compute`` returns its scalars as
 floats, so a pixel copied from a ``compute`` result into ``mark_point`` or
-``vision_segment`` was refused (EXP11B census A2).
+``vision_segment`` was refused.
 
 ``coerce_integral_arguments`` rewrites, before dispatch, every finite float
 with no fractional part whose position the delivered schema types as

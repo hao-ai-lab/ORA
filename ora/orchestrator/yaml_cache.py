@@ -1,7 +1,7 @@
 """Content-addressed parse cache for tracked YAML declarations read on hot paths.
 
-One EXP11A ``run.py status`` pass parsed one host profile 1244 times with
-the pure-Python loader (198 s of 287 s under cProfile, 2026-09-30), because
+One recorded ``run.py status`` pass parsed one host profile 1244 times with
+the pure-Python loader (198 s of 287 s under cProfile), because
 every ``definition()`` call revalidated each lane and card through the host
 profile. Every call still reads the file, but a parse is reused while the
 bytes are unchanged: the cache key is the SHA-256 of those bytes (1244 reads

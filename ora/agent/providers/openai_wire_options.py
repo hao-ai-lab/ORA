@@ -12,8 +12,8 @@ deterministic) showed:
 * with nullable optional properties and no ``strict``, it sent ``null`` for
   the unused one.
 
-So that backend decodes a strict-compatible schema as strict. EXP11A g016
-(EXP11B g003) is the cost: 535 of 535 Astra ``geometry_query`` calls carried
+So that backend decodes a strict-compatible schema as strict. One recorded batch
+shows the cost: 535 of 535 ``geometry_query`` calls carried
 every optional key and were refused.
 
 The option is gated per provider profile. A DeepSeek probe of the field

@@ -23,7 +23,7 @@ refusals of invalid or stale input are not infrastructure, and a false
 from __future__ import annotations
 
 #: Tool-error codes that say the Harness, not the policy's input, failed: the
-#: one table every envelope's ``infrastructure`` flag also reads (EXP11B E1/A1).
+#: one table every envelope's ``infrastructure`` flag also reads.
 from ..error_classes import INFRASTRUCTURE_CODES as TOOL_ERROR_CODES
 #: Raw planner-stage codes of an implementation failure (``receipt_projection``).
 PLANNER_FAULT_CODES = frozenset({"planner_error", "planner_internal_error", "planner_timeout"})
@@ -46,7 +46,7 @@ def counted_classes() -> dict[str, list[str]]:
 
 
 def infrastructure_classes_text() -> str:
-    """The published class list: one generated section, from the gate's own tables (census A1)."""
+    """The published class list: one generated section, from the gate's own tables."""
     value = counted_classes()
     return (
         "Infrastructure failures the abort gate counts (generated from its own table; every tool error "

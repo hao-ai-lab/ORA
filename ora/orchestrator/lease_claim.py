@@ -71,7 +71,7 @@ def _write_lease(binding: Mapping[str, Any], *, run_id: str, plan_sha256: str,
     # Publish the claim whole. A reader outside the registry lock (preflight,
     # status, a queue waiting on its runs) prunes a lease it cannot parse, and
     # once pruned a claim between its O_EXCL create and its JSON write, so the
-    # launcher found its own lease gone (EXP13A g001, 2026-10-10). The
+    # launcher found its own lease gone. The
     # temporary name is not *.json; the hard link refuses an existing claim
     # exactly as O_EXCL did.
     temporary = lease_root / f".{path.name}.{lease['claim_token']}.tmp"

@@ -1,8 +1,8 @@
 """The public RoboTwin task instruction a RunSpec delivers, one per task.
 
-``robotwin-instructions-v1.json`` holds the instruction the EXP10A RoboTwin
-arms delivered for each of the fifty tasks (moved here from the official suite
-package on 2026-10-05, entries unchanged). Two tasks, ``place_a2b_left`` and
+``robotwin-instructions-v1.json`` holds the instruction earlier RoboTwin
+runs delivered for each of the fifty tasks (moved here from the official suite
+package, entries unchanged). Two tasks, ``place_a2b_left`` and
 ``place_a2b_right``, name the objects their seed spawns, so their instruction
 is per (task, seed) and comes from a public episode-names mapping
 (``{"episodes": {"<task>:s<seed>": {"instruction": ...}}}``).

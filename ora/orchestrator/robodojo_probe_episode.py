@@ -38,7 +38,7 @@ def _require(condition: bool, detail: str) -> None:
 # Host copies of worker facts. The host layer may not import the
 # process-isolated RoboDojo backend, and the worker's own definitions sit in
 # worker-kernel files that qualification records hash, so they are copied
-# here rather than moved. tests/test_robodojo_operator.py checks each copy
+# here rather than moved. tests/environments/robodojo/test_robodojo_operator.py checks each copy
 # against the worker source.
 
 #: ``backends/robodojo/motion_checks.py``: X5A.urdf's base_link->link6 chain
@@ -97,7 +97,7 @@ def unreachable_pose_probe_target(bounds: Mapping[str, Any]) -> list[float]:
     Under ``robodojo_runtime_config``'s +/-1.5 m compatibility
     box this reproduces the package's previous constant ``[1.49, 1.49, 1.99]``
     exactly, so the compat operator surface is unchanged.  Under the
-    source-owned ``robodojo_arx_x5_tabletop_v1`` envelope EXP08A resolves
+    source-owned ``robodojo_arx_x5_tabletop_v1`` envelope the Native default resolves
     (x [-0.75, 0.75], y [-0.65, 0.55], z [0.72, 1.40]) it yields
     ``[0.74, 0.54, 1.39]``, 1.566 m from the left mount and 1.251 m from the
     right one -- the same corner the RoboDojo sparse-motion gate settled on

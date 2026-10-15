@@ -29,7 +29,7 @@ PHYSICS_STEPS_PER_TICK = int(ARX_X5_CONTRACT["physics_steps_per_native_action"])
 #: Segment names the v1 executor writes (``sparse_motion``, ``staged_contact``,
 #: ``recovery``, ``wait``, ``motion_stall``). Every ``recover*`` name is a
 #: recovery joint segment. ``plan_ref`` is a probe-planned global move (none in
-#: g005, so the fixed g005 global population is move/precontact/recover/retract).
+#: the recorded batch, so its global population is move/precontact/recover/retract).
 GLOBAL_SEGMENTS = frozenset({"move", "plan_ref", "precontact", "retract"})
 LOCAL_SEGMENTS = frozenset({"local"})
 

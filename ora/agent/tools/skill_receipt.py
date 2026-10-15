@@ -10,7 +10,7 @@ than assembled optimistically and truncated afterwards.
 Delivery ceilings, as measured rather than as assumed
 -----------------------------------------------------
 
-**Bytes.** ``eager_large_result_bytes`` is 50,000 in the sealed EXP08A
+**Bytes.** ``eager_large_result_bytes`` is 50,000 in the sealed
 configuration. It is compared against
 ``len(json.dumps(visible, ensure_ascii=False, sort_keys=True).encode("utf-8"))``
 where ``visible`` is the result with ``image_base64``/``images_base64`` and

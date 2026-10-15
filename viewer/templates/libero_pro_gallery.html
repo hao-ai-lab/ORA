@@ -80,7 +80,7 @@
     <section class="libero-preview-hero">
       {% if selected_preview_url %}<figure><img width="256" height="256" src="{{ selected_preview_url }}" alt="Seed-0 preview for {{ selected.base_suite }}">
       <figcaption>{% if selected_variant %}{{ selected_variant.suite }}{% else %}{{ selected.base_suite }}{% endif %} · task-{{ "%02d"|format(selected.task_id) }} · seed 0 · agentview</figcaption></figure>
-      {% else %}<div class="libero-preview-placeholder">Run <code>./scripts/compile-libero-previews</code> to build previews</div>{% endif %}
+      {% else %}<div class="libero-preview-placeholder">Run <code>./scripts/dev/compile-libero-previews</code> to build previews</div>{% endif %}
       <div class="libero-preview-hero-copy">
       {% if selected_variant %}<span class="libero-kicker">{{ selected_perturbation.label_zh }} · Pro comparison plate</span>
         <h3>{{ selected_variant.instruction }}</h3><p>这是该 LIBERO-Pro suite/task 的第 0 个初始状态。切换下面四个条件，可以比较位置、语言、物体外观和任务逻辑。</p>

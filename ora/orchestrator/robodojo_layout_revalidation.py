@@ -23,8 +23,8 @@ from .robodojo_layout_evaluation import (
     source_schedule_errors,
 )
 
-#: The smoke checks a scheduled lane adds (``orchestrator/robodojo_layout_smoke.py``; the earlier
-#: B2 RoboDojo layout smoke wrote the same checks).
+#: The smoke checks a scheduled lane adds (``orchestrator/robodojo_layout_smoke.py``; an earlier
+#: RoboDojo layout smoke wrote the same checks).
 SCHEDULE_CHECKS = ('scheduled_relaunch', 'scheduled_rgbd', 'scheduled_current_pose_ik', 'scheduled_object_reach')
 
 

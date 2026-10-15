@@ -1,6 +1,6 @@
 """Optional tool arguments accept an explicit null, and null means omitted.
 
-EXP11A g016 (EXP11B g003), GPT-6 Astra: all 160 ``geometry_query`` calls
+In one recorded RoboDojo batch, all 160 ``geometry_query`` calls
 filled every optional property -- ``points``, ``region``, ``step``,
 ``window_px`` and ``world_points_m`` -- inventing placeholders for the unused
 ones (``region`` [0,0,1,1], ``world_points_m`` [[0,0,0]]); all 153 that

@@ -4,7 +4,7 @@
 Every module the worker statically imports must be a listed kernel path, a
 reviewed exclusion below, or the target of a reviewed dispatcher edge that
 only another backend takes. Anything else is a gap, and a table entry the
-source no longer contains is drift; ``tests/test_robodojo_kernel_paths.py``
+source no longer contains is drift; ``tests/environments/robodojo/test_robodojo_kernel_paths.py``
 requires both to be empty.
 
 A reviewed exclusion is not bound, but its own imports are still followed, so
@@ -77,7 +77,7 @@ _HOST_PASS_THROUGH = (
 #: and a new dispatcher import is a gap until reviewed here.
 DISPATCH_PRUNED_EDGES: Mapping[tuple[str, str], str] = {
     ("ora/environment/worker.py", "ora/environment/backends/libero_pro/session.py"): _OTHER_BACKEND,
-    # integration 0064: the LIBERO render guard, inside worker.py's libero_pro branch.
+    # The LIBERO render guard, inside worker.py's libero_pro branch.
     ("ora/environment/worker.py", "ora/environment/backends/libero_pro/render_guard.py"): _OTHER_BACKEND,
     ("ora/environment/worker.py", "ora/environment/backends/robotwin/session.py"): _OTHER_BACKEND,
     ("ora/environment/worker.py", "ora/environment/synthetic.py"): _OTHER_BACKEND,

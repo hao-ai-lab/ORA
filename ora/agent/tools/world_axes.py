@@ -15,7 +15,7 @@ it (``move_to``, ``rotate_wrist``, ``rotate_pitch``) reports
 of the quaternion actually submitted. An absolute quaternion is never rewritten
 or refused for where it points; an upward approach is legal.
 
-EXP11A g012 (E11G12-007): three cells meant "pointing down" and hand-computed
+In a recorded RoboDojo batch three cells meant "pointing down" and hand-computed
 ``[0, -0.7071, 0, 0.7071]``, whose approach axis points world +Z; the planner
 refused and the policy attributed the refusal to reach or self-collision.
 """

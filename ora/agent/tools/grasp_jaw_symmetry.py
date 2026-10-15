@@ -9,7 +9,7 @@ ARX X5 that axis is joint6 (``X5A.urdf``, hashed as ``urdf_sha256`` in
 joints 1-5 and their joint6 values differ by pi. The pooled IK selection
 (``reach_check``) tried the flip only when the compiled orientation did not
 solve, and the precommit keeps the compiled orientation whenever it is
-admitted. EXP11A g007 stack_bowls (+38.8 min): the right-arm 9 mm wall pinch
+admitted. In a recorded stack_bowls run (+38.8 min), the right-arm 9 mm wall pinch
 solved at joint6 2.977 rad (pregrasp) and 3.004 rad (contact), 0.14 rad from
 the stop, while its flip solved at -0.164 and -0.137 rad with joints 1-5 within
 3e-6 rad; every later carry move and wrist rotation was refused at the joint6

@@ -93,7 +93,7 @@ def _bind_typed_policy_context(
     if policy["kind"] != "native_api":
         raise RunSpecError("typed policy_context is currently supported only by native_api")
     # A v3 policy_context binds either causal slot layout: native_slots_v4 is
-    # native_slots_v3 plus the round static-facts slot (0059 D3b).
+    # native_slots_v3 plus the round static-facts slot.
     if policy.get("context_composition") not in NATIVE_CAUSAL_SLOTS:
         raise RunSpecError(
             "policy_context requires policy.context_composition="
@@ -112,7 +112,7 @@ def _bind_typed_policy_context(
     ]
     # The environment-policy/embodiment pair stays the protected tail;
     # a unified prompt bundle may deliver its shared core layer ahead of
-    # it in the same project channel (EXP08A bundle contract).
+    # it in the same project channel (unified bundle contract).
     project_sources_match = (
         isinstance(project_sources, list)
         and len(project_sources) >= 2

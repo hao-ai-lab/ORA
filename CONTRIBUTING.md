@@ -12,7 +12,7 @@ uv run --locked python -m pytest tests
 uvx pre-commit run --all-files
 ```
 
-Use targeted tests while developing. Simulator qualification is separate from deterministic tests: state the code, controller, assets, environment and coverage actually checked. Independent tests can run concurrently within measured host capacity; do not disturb someone else's simulator or service.
+Use targeted tests while developing: [`tests/README.md`](tests/README.md) maps each test directory to the code it covers, so `uv run --locked python -m pytest tests/<area>` runs one area. Simulator qualification is separate from deterministic tests: state the code, controller, assets, environment and coverage actually checked. Independent tests can run concurrently within measured host capacity; do not disturb someone else's simulator or service.
 
 Changes to APIs, defaults, prompts, tools, context, runtime lifecycle or evidence must update the current reference in the same PR. New shared behavior becomes the default for applicable maintained consumers. Regenerate `policy.lock` with `./scripts/ora lock` after policy changes. Compare model-visible content for intentional policy changes.
 

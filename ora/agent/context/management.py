@@ -29,7 +29,7 @@ EPISODE_TRIGGER_RATIO_FIELD = "episode_checkpoint_trigger_ratio"
 
 # This ledger is the machine-readable owner of the v4 field set and field-level
 # semantics. Callers own explicit treatment values; the lifecycle reference
-# renders the reviewed field meanings and one historical EXP05C value set.
+# renders the reviewed field meanings and one historical value set.
 CONTEXT_MANAGEMENT_V4_FIELD_SPECS: dict[str, dict[str, str]] = {
     "schema": {
         "layer": "Contract",
@@ -185,7 +185,7 @@ CONTEXT_MANAGEMENT_V5_FIELDS = frozenset(
     CONTEXT_MANAGEMENT_V5_FIELD_SPECS
 )
 
-# v6 is v5 with an absolute L5 watermark (user decision 2026-10-04): the ratio
+# v6 is v5 with an absolute L5 watermark: the ratio
 # field is gone, so L5 no longer scales with the bound window. Under v5 a 1M
 # window put L5 at 0.60 x 1,030,144 = 618,086 tokens, where it effectively
 # never fired. Every other v5 field keeps its exact v5 semantics.

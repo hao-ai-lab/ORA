@@ -13,13 +13,13 @@ default task-contract registry, the GPU and execution resource, an optional
 K-round persistent session with its per-round layout schedule, the Provider
 profile, budgets, the infrastructure-qualification binding and the
 resident-service binding. A one-round episode may instead run on another
-official layout of evaluation seed 0 (``layout_id``, EXP14A g002): only where
+official layout of evaluation seed 0 (``layout_id``): only where
 the reviewed layout-portability table extends the task's contract to that
 layout, and only with the scene-smoke lane gate of that layout, which also
 supplies the instruction of a task whose instruction the layout generates.
 
-It replaces the earlier B2 RoboDojo builder (the ``toolchain_b2_robodojo`` launcher),
-whose composition came from the TOOLCHAIN-B2 archive and the EXP08A Context.
+It replaces an earlier RoboDojo builder whose composition came from an
+experiment archive.
 Composing a RunSpec is not host qualification, service
 startup or authority to launch: ``scripts/ora plan|preflight|launch``
 still resolve and check the written spec.
@@ -55,9 +55,9 @@ from ora.orchestrator import run_spec_inputs
 ENVIRONMENT = "robodojo"
 #: The cadence of a K-round persistent session (``rounds`` given).
 SESSION_CADENCE = "persistent_agent_k_rounds_v1"
-#: Budgets of the B2 RoboDojo builder, the ones EXP11A and EXP11B ran; per
+#: Budgets of the earlier RoboDojo builder, the ones recorded runs used; per
 #: round in a persistent session. ``max_sim_steps`` defaults to the task's
-#: official ceiling (``physics_step_ceiling``), as EXP11A g004 onward did.
+#: official ceiling (``physics_step_ceiling``).
 DEFAULT_BUDGETS = {"max_robot_decisions": 80, "max_model_calls": 200, "wall_time_s": 21600}
 
 

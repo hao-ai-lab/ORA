@@ -52,7 +52,7 @@ DEPENDENCIES = tuple(sorted(set(legacy.WORKER_KERNEL_PATHS) | {
 # review. They are leaves: their own imports are not followed either. The
 # safety premise is that a card is only ever reused through a fresh scene
 # smoke whose DEPENDENCIES bind the whole kernel, so every entry here must be
-# a DEPENDENCIES member (tests/test_robodojo_revalidation.py checks it).
+# a DEPENDENCIES member (tests/environments/robodojo/test_robodojo_revalidation.py checks it).
 CARD_EXCLUSIONS = {
     'ora/environment/backends/robodojo/motion_adapter.py':
         'align_plan planning adapter (probe_motion runs through sparse_motion, not this); its plans '
@@ -459,8 +459,7 @@ def scene_language(runtime: dict, smoke_runtime: dict, readback: str) -> None:
 
     A smoke that bound ``expected_task_language`` admits exactly that
     instruction, and its reset must have read it back. A smoke that bound
-    none (a single layout whose instruction the layout generates, EXP14A
-    g002) read the official instruction back; a plan admitted on it must
+    none (a single layout whose instruction the layout generates) read the official instruction back; a plan admitted on it must
     carry exactly that readback, and revalidating the unbound lane itself
     certifies the readback (``task_instruction`` on the certificate).
     """

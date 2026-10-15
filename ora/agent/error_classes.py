@@ -3,7 +3,7 @@
 A dependency-free leaf module: ``agent.tools.tool_errors`` labels every
 envelope ``infrastructure: true|false`` from it, and
 ``agent.composition.abort_evidence_schema`` counts exactly these codes as abort
-evidence (EXP11B census E1/A1). The gate used to keep its own list while
+evidence. The gate used to keep its own list while
 infrastructure faults raised as ``invalid_arguments`` (the current grip-site
 pose missing, observation and camera artifacts drifting or escaping their
 root, invalid calibration matrices) never reached it; those faults now carry

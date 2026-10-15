@@ -15,7 +15,7 @@ therefore what raises the bound; nothing else does. Eight covers 98.4% of the
 The schema shape follows the closed-surface rule, which exists because of
 concrete failures. Nesting stops one level below the root: the model reads flat
 keys off each entry rather than walking into a nested record. There is no
-top-level ``oneOf``, and no ``$defs``/``$ref`` -- run H6-012 lost a tool call to
+top-level ``oneOf``, and no ``$defs``/``$ref`` -- a recorded run lost a tool call to
 a dangling reference, where the delivery layer dropped the definitions and the
 model said outright that it could not see them. Every array declares
 ``maxItems``, every property carries units and frame in a non-empty
@@ -64,7 +64,7 @@ MARK_POINT_AGGREGATION_CAPABILITY = "batched_mark_overlay_v1"
 POINTCLOUD_VIEWS = ("pointcloud_top", "pointcloud_front", "pointcloud_side")
 
 # Every bound below is what keeps eight maximal entries clear of the
-# 50,000-byte delivery threshold; tests/test_mark_point_batch.py measures the
+# 50,000-byte delivery threshold; tests/agent/perception/test_mark_point_batch.py measures the
 # worst case they permit. The closed vocabularies matter as much as the
 # lengths: an enum costs its longest member, a free string costs its cap.
 _MAX_POINT_ID_CHARS = 64
@@ -93,7 +93,7 @@ def batch_input_schema(view_names: Sequence[str]) -> dict[str, Any]:
 
     Schema shape follows the closed-surface rule.  Nesting stops one level
     below the root, there is no top-level ``oneOf`` and no ``$defs``/``$ref``
-    -- a dangling reference is what cost run H6-012, where the delivery layer
+    -- a dangling reference is what cost a recorded run, where the delivery layer
     dropped the definitions and the model said it could not see them -- every
     array declares ``maxItems`` and every property, nested ones included,
     carries units and frame in its description.  The two arrays carry a string

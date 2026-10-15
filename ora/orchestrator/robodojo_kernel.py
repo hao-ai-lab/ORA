@@ -18,7 +18,7 @@ from ora.environment.benchmarks.robodojo import RoboDojoBenchmarkError
 #: sparse-motion gate binds -- is a *subset* of this set, not a prefix of it.
 #: This set is sorted and that one is not, so the two orderings do not line
 #: up: membership must be checked, never read off a position.
-#: ``tests/test_robodojo_kernel_paths.py`` asserts the containment and the
+#: ``tests/environments/robodojo/test_robodojo_kernel_paths.py`` asserts the containment and the
 #: non-prefix relation, because an earlier version of this comment claimed a
 #: prefix and a maintainer placing a new file by that claim is how
 #: ``contracts/pose.py`` -- on the worker's executed servo path -- ended up in
@@ -58,7 +58,7 @@ from ora.environment.benchmarks.robodojo import RoboDojoBenchmarkError
 #: ``ROBODOJO_WORKER_ENTRY_POINTS``) must be listed here or excluded, with its
 #: reason, in ``KERNEL_REVIEWED_EXCLUSIONS``; every import a shared dispatcher
 #: makes for another backend must be named in ``DISPATCH_PRUNED_EDGES``.
-#: ``tests/test_robodojo_kernel_paths.py`` fails with the unreviewed paths or
+#: ``tests/environments/robodojo/test_robodojo_kernel_paths.py`` fails with the unreviewed paths or
 #: edges, and with any table entry that no longer matches the source. The
 #: executor modules ``recovery.py`` and ``wait.py`` were imported but unlisted,
 #: so their edits left every record current; the check added them with
@@ -162,7 +162,7 @@ ROBODOJO_MOTION_KERNEL_PATHS = (
     # contract is part of what it measures.
     "ora/environment/benchmarks/robodojo.py",
     # The per-round layout schedule the session and bridge bind round 0 and
-    # every scheduled restart to (g008), and its worker-side relaunch checks.
+    # every scheduled restart to, and its worker-side relaunch checks.
     "ora/environment/benchmarks/robodojo_layouts.py",
     "ora/environment/backends/robodojo/bridge.py",
     "ora/environment/backends/robodojo/round_lifecycle.py",
@@ -171,7 +171,7 @@ ROBODOJO_MOTION_KERNEL_PATHS = (
     "ora/environment/backends/robodojo/motion_checks.py",
     "ora/environment/backends/robodojo/execution_capture.py",
     "ora/environment/backends/robodojo/bootstrap.py",
-    # The node start gate bootstrap and the readback hold (RDJ-10).
+    # The node start gate bootstrap and the readback hold.
     "ora/environment/backends/robodojo/start_gate.py",
     "ora/environment/backends/robodojo/camera_capture.py",
     "ora/environment/backends/robodojo/common.py",

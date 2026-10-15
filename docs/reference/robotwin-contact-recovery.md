@@ -81,7 +81,7 @@ RoboTwin planning, global convergence and local Cartesian execution consume
 these rules. v10
 values live in its hash-bound control profile.
 
-`tests/test_robotwin_contact_recovery.py` uses deterministic plants to verify
+`tests/environments/robotwin/test_robotwin_contact_recovery.py` uses deterministic plants to verify
 escape admission, cumulative inward rejection, execution-versus-planning
 thresholds, exact 16-step blocking, terminal precedence, source-derived
 retreat direction, fresh planning snapshots and preserved prefix evidence.
@@ -102,4 +102,4 @@ an end-effector gap, measured collision or object geometry. The projection
 neither changes the planning/execution margins nor permits an escape that the
 controller rejected. Unknown or malformed numbers are omitted. The boundary
 and Native OpenAI/Anthropic delivery regression live in
-`tests/test_plan_feedback.py`.
+`tests/agent/context/test_plan_feedback.py`.

@@ -1,4 +1,4 @@
-"""Per-embodiment jaw models of ``observed_clearance_reference_v2`` (integration 0059, M4).
+"""Per-embodiment jaw models of ``observed_clearance_reference_v2``.
 
 ``observed_clearance_runtime.load_jaw_geometry`` reads the ARX X5 descriptor's
 ``reference_parameters`` (pad contact centre, empty-close encoder reference)

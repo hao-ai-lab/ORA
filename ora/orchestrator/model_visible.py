@@ -7,7 +7,7 @@ definition, a prompt layer's text, an embodiment card, the projected public
 facts or a policy/runtime/budget setting changes. Later refactors and
 cross-commit comparisons (for example the development line against a cluster
 tag) compare this one recorded field, ``policy_identity.model_visible_sha256``;
-``scripts/compare-model-visible`` recomputes the same items for commits that
+``scripts/dev/compare-model-visible`` recomputes the same items for commits that
 predate it.
 
 This module imports nothing from the orchestrator, so the comparison script

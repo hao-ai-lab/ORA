@@ -1,6 +1,6 @@
 """Placement refusals that carry the measured quantity beside their bound.
 
-EXP11A g003 called ``place_plan`` five times on RoboDojo and never received a
+A recorded RoboDojo batch called ``place_plan`` five times on RoboDojo and never received a
 candidate. None of the five was a camera-geometry defect -- the table plane in
 the same head view measured 2.5 degrees of tilt and 3.6 mm residual. They were
 selection outcomes the policy could only correct if it saw why:

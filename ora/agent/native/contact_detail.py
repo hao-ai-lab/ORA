@@ -5,8 +5,8 @@ the measured force fields and the TCP translation. It was written for LIBERO's
 single Panda arm, which the receipts name ``right``, and reads that arm whatever
 was targeted. The unified sparse projector also serves RoboDojo, whose receipts
 carry both arms, so ``contact_motion.realized_translation_world_m`` reported the
-right arm for every action: a left-arm move read as zero translation
-(E11BG6-004). Surfaces without the capability below keep those bytes.
+right arm for every action: a left-arm move read as zero translation.
+Surfaces without the capability below keep those bytes.
 
 With ``per_arm_realized_translation_v1``, each targeted arm's realized and requested translation
 sit in ``detail.arms.<arm>`` beside its ``pose_error``, and ``contact_motion``
@@ -25,8 +25,8 @@ The same capability attributes each arm's planning diagnostic to the segment
 that decides its outcome. A RoboDojo receipt copies the arm's last IK attempt
 to ``arms.<arm>.planning_diagnostics`` whatever its segment, so a home
 ``recover_pose`` whose optional retract lift was skipped after a failed solve
-reported ``no_valid_endpoint`` and "try an alternative" beside a reached home
-(E11G7-001). :func:`without_skipped_retract_diagnostics` omits that diagnostic;
+reported ``no_valid_endpoint`` and "try an alternative" beside a reached home.
+:func:`without_skipped_retract_diagnostics` omits that diagnostic;
 ``recovery_progress.retract`` still states the skip and its reason. Planning
 diagnostics are delivered without contact feedback, so this rule does not need
 ``contact_motion_feedback_v1``.

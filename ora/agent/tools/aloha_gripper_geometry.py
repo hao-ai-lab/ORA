@@ -7,7 +7,7 @@ the grasp compiler admits candidates against it, and the published
 two independent literals once, and raising only the first made the
 compiler admit candidates its own result schema then refused, so the whole
 call returned ``internal_tool_error`` instead of one named rejection.
-``tests/test_parameter_delivery_guards.py`` compares the two.
+``tests/agent/composition/test_parameter_delivery_guards.py`` compares the two.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ ALOHA_SOURCE_BINDING = {
 #: 18 mm against the 4.8964 mm the mesh states, so rejections keep disclosing
 #: ``compiler_admission_not_measured_physical_aperture``. What changed is the
 #: number, not its status. Against the 55 mm literal it replaces, 149 recorded
-#: rejections across EXP10A g004/g005 asked for 55.4 to 291.1 mm; 81 of them,
+#: rejections across two recorded RoboTwin batches asked for 55.4 to 291.1 mm; 81 of them,
 #: 54%, sat inside this bound and were refused a candidate the arm could have
 #: attempted.
 ALOHA_GRIPPER_GEOMETRY = {

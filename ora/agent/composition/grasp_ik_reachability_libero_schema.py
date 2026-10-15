@@ -1,4 +1,4 @@
-"""LIBERO's grasp_plan IK reachability fields (integration 0059 M2).
+"""LIBERO's grasp_plan IK reachability fields.
 
 ``grasp_ik_reachability_schema.py`` derives the pooled-selection fields and
 selects the closed stage reason set from the RoboTwin or RoboDojo backend

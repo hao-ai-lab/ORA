@@ -50,10 +50,10 @@ Generate feedback from approved fields/enums, not raw exception text or recursiv
 ## Audit commands
 
 ```bash
-./scripts/audit-task-contracts template --backend robotwin --task rotate_qrcode
-./scripts/audit-task-contracts audit
-./scripts/audit-task-contracts render --record PATH_TO_REVIEW_RECORD
-./scripts/audit-task-contracts --help
+./scripts/dev/audit-task-contracts template --backend robotwin --task rotate_qrcode
+./scripts/dev/audit-task-contracts audit
+./scripts/dev/audit-task-contracts render --record PATH_TO_REVIEW_RECORD
+./scripts/dev/audit-task-contracts --help
 ```
 
 Templates start as `needs_review`; these commands do not launch a provider or simulator. Rendering is refused until its review requirements pass. Validate source bindings, semantic review, actual Native delivery and physical validity separately. A change to the source/assets/contract must state which evidence is invalidated; preserve sealed originals.

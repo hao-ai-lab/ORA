@@ -51,7 +51,7 @@ def materialize_auxiliary_contact_sheet(
     Four cameras form a two-by-two sheet; three form one row. Their
     names come from the ToolSurface view_config
     (``auxiliary_contact_sheet_cameras``); the module default preserves the
-    frozen RoboTwin EXP06A surfaces that predate that field.
+    frozen RoboTwin surfaces that predate that field.
     """
 
     from PIL import Image, ImageDraw, ImageFont

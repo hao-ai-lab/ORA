@@ -24,7 +24,14 @@ and sealed with hash-bound evidence.
 - `experiments/runtime_v1/`: the M0-M5 Runtime qualification ladder.
 - `examples/`: the official-suite launcher and the host profile template.
 - `viewer/`: the read-only local run viewer.
-- `tests/`: the deterministic suite; `tests/README.md` indexes it.
+- `tests/`: the deterministic CPU-only suite, grouped by area (`agent/`,
+  `environments/<backend>/`, `orchestrator/`, `cli/`, `viewer/`,
+  `model_services/`, `repository/`; shared helpers in `support/`).
+  `tests/README.md` describes each area; `tests/test-manifest.json` states
+  each module's contract.
+- `scripts/`: user commands (`ora`, `ora-remote`, `open-viewer`, ...);
+  `scripts/dev/` holds authoring and maintenance tools. `scripts/README.md`
+  lists both.
 
 ## Setup and checks
 
@@ -32,6 +39,7 @@ and sealed with hash-bound evidence.
 uv sync --all-extras --locked
 uv run --locked ora doctor
 uv run --locked python -m pytest -q tests      # add -n auto with pytest-xdist
+uv run --locked python -m pytest -q tests/agent/motion   # one area
 ./scripts/ora lock --check           # policy.lock is current
 ./scripts/ora baselines --explain    # how the default composes
 uv run --locked python experiments/runtime_v1/run.py configs
@@ -59,7 +67,7 @@ outside Git under the ignored `outputs/` workspace.
   Synthetic runs report `official_success: null`.
 - What the model sees is identity-checked. Any change to prompts, tools,
   observation projection or composition must be deliberate: run
-  `scripts/compare-model-visible <base> HEAD` and explain every difference.
+  `scripts/dev/compare-model-visible <base> HEAD` and explain every difference.
 - Policy assets are referenced by path and pinned by `policy.lock`. After
   adding or changing a file under `ora/policy/`, run
   `./scripts/ora lock` and commit the lock in the same change.

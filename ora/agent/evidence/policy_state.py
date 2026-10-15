@@ -120,7 +120,7 @@ def _sanitize_embedded_receipt(value: Any, *, parent_key: str | None = None) -> 
     ledger entries ``global_precontact``/``local_contact``. Those key names
     trip the substring privilege scan even though the phase telemetry itself
     is public Supervisor output, which made every snapshot embedding such a
-    receipt unreadable (EXP06A closing repair A1). Sanitize exactly the
+    receipt unreadable. Sanitize exactly the
     ``controller_tracking.phases`` ledger of the embedded copy: flagged phase
     keys are removed and listed under ``phases_redacted``. Every other key
     remains subject to the read-side privilege scan.

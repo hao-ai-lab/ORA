@@ -4,7 +4,7 @@
 read-only IK before the display cap, then shows reachable candidates first
 without dropping any; ``move_pose`` and the pose primitives reuse the same
 check for their reach reference. No ToolSurface declares a ``reach_check``
-tool (EXP11A g004, 2026-09-29).
+tool.
 
 The computation belongs to the environment (``controllers/reach_check.py`` and
 each backend's ``reach_check_batch``); it travels over the existing read-only
@@ -131,7 +131,7 @@ def check_queries(
 from ora.agent.composition.grasp_ik_reachability_schema import ORDER, POOL_LIMIT  # noqa: E402
 from . import grasp_jaw_symmetry  # noqa: E402
 #: Within reachable candidates, an approach within this angle of straight down
-#: is preferred before the backend's own order. EXP11A g003: refused
+#: is preferred before the backend's own order. In a recorded batch, refused
 #: candidates were tilted a median ~36 degrees from vertical, executed ones ~10.
 VERTICAL_PREFERENCE_DEG = 30.0
 GRASP_ANNOTATION_CLAIM = (

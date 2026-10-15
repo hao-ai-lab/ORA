@@ -4,9 +4,9 @@ Both tools were authored with a nested `oneOf` destination and an array of
 `{before_target_ref, current_target_ref}` objects.  Neither shape survives
 delivery to a weak model.  `agent/native/gateway.py` flattens a union only at
 the schema root, so a union nested one level down reaches the provider with all
-three branches and their `const` discriminators intact -- the run H6-013 shape
+three branches and their `const` discriminators intact -- a recorded failure's shape
 (`$result must match exactly one result branch`, `constraints={}`) one level
-down.  An array of objects is the run H6-012 shape: the model could not see
+down.  An array of objects is another recorded failure's shape: the model could not see
 what to put inside the item and said so in its own reasoning.
 
 The flat form replaces the union with one enum plus two named scalars, and the
@@ -14,7 +14,7 @@ array of objects with two index-aligned string arrays.  What the schema can no
 longer state -- "open_container also needs a boundary reference", "the two
 arrays are the same length" -- becomes a structured error that names the field.
 It is deliberately not an `anyOf`: a union anywhere in this schema reproduces
-H6-013, which is the defect being repaired.
+that failure, which is the defect being repaired.
 
 Both forms are read here.  The frozen surfaces (`placement_support_v1`/`v2`,
 `robotwin_placement_support_v1`/`v2`, `placement_unified_v3`..`v7`) keep the

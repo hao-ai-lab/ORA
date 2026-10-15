@@ -3,8 +3,7 @@
 A mutation handler persists ``submitted-action.json`` before its result is
 validated. A failure after that point -- the result schema, a post-submit
 annotation -- used to leave the action persisted, which closes the current
-observation for the rest of the turn, and was not logged (census item 10 /
-E6). The runtime takes a ``snapshot`` before the handler and, on any failure
+observation for the rest of the turn, and was not logged. The runtime takes a ``snapshot`` before the handler and, on any failure
 of a mutation call, ``restore`` removes only the action this call created and
 its entry in the submitted-mutation ledger. An action already pending before
 the call is kept, so a refused second mutation cannot delete the first.

@@ -1,6 +1,6 @@
 """Source-bound, post-close RGB-D motion evidence; never an attachment oracle.
 
-The post-close interval and SE(3) transform follow the reviewed EXP08C v2
+The post-close interval and SE(3) transform follow the reviewed v2
 implementation. V3 compares visible surfaces against both rigid and stationary
 hypotheses. A visible centroid is reported as a diagnostic, not a material
 point whose displacement alone can authorize a held-object motion.

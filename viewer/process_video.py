@@ -57,7 +57,7 @@ def compile_hint(run_id: str, options: VideoOptions) -> str:
     # Run IDs are passed as argv by the CLI. Quote here only for operator copy.
     import shlex
 
-    args = ["./scripts/compile-viewer-videos", "--run-id", run_id, "--video-mode", options.mode]
+    args = ["./scripts/dev/compile-viewer-videos", "--run-id", run_id, "--video-mode", options.mode]
     if options.round_index is not None:
         args.extend(["--round", str(options.round_index + 1)])
     if options.reasoning:

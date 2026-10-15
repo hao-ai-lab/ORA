@@ -19,7 +19,7 @@ What settles a cell:
 
 The queue waits for a seal while the run's supervisor is alive: a released
 lease with a result is not yet a landing, because the supervisor seals after
-both (BOOT-09). It also never exits while a supervisor it launched is alive,
+both. It also never exits while a supervisor it launched is alive,
 since ending the queue ends its process group or scheduler step. A preflight
 refusal that consumed no attempt goes back to the end of the order, at most
 ``PREFLIGHT_RETRIES`` times. Launches are spaced ``stagger_s`` apart, and

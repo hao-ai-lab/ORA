@@ -190,7 +190,7 @@ class ManipulationToolRuntime(
         self._known_plan_refs: dict[str, dict[str, Any]] = {}
         # Ordered log of submitted mutation names; plan references record their
         # position in it so gripper-only intervals can keep a probed plan alive
-        # (EXP06A closing repair A6). The environment remains the execution
+        # The environment remains the execution
         # authority and re-validates joints before consuming any plan_ref.
         self._submitted_mutations: list[str] = []
         # Last held-object offset a placement assessment produced, re-shown
@@ -219,7 +219,7 @@ class ManipulationToolRuntime(
             if prerequisite_schema == "ora.segmentation-service-binding.v1":
                 expected_segmentation = dict(prerequisite)
             elif prerequisite_schema == MODEL_SERVICE_SET_BINDING_SCHEMA_V2:
-                # EXP08A structure: a capability-scoped set binding is valid
+                # A capability-scoped set binding is valid
                 # for any surface that supports every named capability, so a
                 # successor profile no longer needs the experiment-side
                 # binding rename hack. Service identity (endpoint, process,
@@ -409,7 +409,7 @@ class ManipulationToolRuntime(
                 )
             if name == "finish_episode":
                 # A latched success first: once check_task confirmed it, no
-                # other finish refusal can help (EXP11B census E4).
+                # other finish refusal can help.
                 finish_task_check.refuse_latched(self, arguments)
                 finish_outcomes.admit(self, arguments)
             if self.surface.supports(retention.ADVISORY_CAPABILITY):

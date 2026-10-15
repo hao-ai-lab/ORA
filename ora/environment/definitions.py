@@ -73,7 +73,7 @@ def sparse_motion_physics_refusal(codec: str, runtime: Mapping[str, Any]) -> str
 
 ENVIRONMENT_DESCRIPTOR_V2_SCHEMA = "ora.environment-runtime-descriptor.v2"
 #: Backends whose sparse v3 executor implements the shared ``wait`` hold
-#: (LIBERO since 0059: ``backends/libero_pro/wait.py``, one tick per control step).
+#: (LIBERO: ``backends/libero_pro/wait.py``, one tick per control step).
 WAIT_ENVIRONMENTS = ("libero_pro", "robodojo", "robotwin")
 
 
@@ -416,7 +416,7 @@ _DEFINITIONS = {
     "robodojo": EnvironmentDefinition(
         environment_id="robodojo", version="v1", transports=("local_rpc",),
         embodiments=("arx_x5",), observation_schema="ora-observation.v1",
-        # motion_action_v3 is implemented by the backend (U1 v1: SDK IK plus
+        # motion_action_v3 is implemented by the backend (SDK IK plus
         # joint interpolation, an explicit non-parity global route) and stays
         # gated by SPARSE_MOTION_QUALIFIED_ENVIRONMENTS until its scripted
         # motion qualification record is cited beside that table.
@@ -464,7 +464,7 @@ _DEFINITIONS = {
         transports=("local_rpc",),
         embodiments=("franka_panda",),
         observation_schema="ora-observation.v1",
-        # motion_action_v3 is implemented by the backend (EXP08A wiring v1)
+        # motion_action_v3 is implemented by the backend
         # but remains gated by SPARSE_MOTION_QUALIFIED_ENVIRONMENTS until the
         # LIBERO scripted motion qualification passes on pinned source.
         action_schemas=(

@@ -3,7 +3,7 @@
 ``compute.validate_source`` refuses whatever these tables do not admit, and
 ``grammar()`` renders the same tables as the statement of supported constructs
 that ``compute_grammar_from_evaluator_v1`` appends to the published ``compute``
-description, so the two cannot drift. EXP11A g016: GPT-6 Astra wrote
+description, so the two cannot drift. In one recorded batch a model wrote
 ``p[2] = ...`` (7x), ``p[2] += ...`` (1x) and ``np.diag`` (1x) against a
 description that named none of them; the refusals named an AST class.
 

@@ -168,7 +168,7 @@ moves, old wrist pixels cannot be reused as current hand-eye geometry.
    profile's `tool_order` must resolve to a handler in the runtime that
    `runtime_id` selects, because `allowed_tools` defaults to every declared
    tool and the loader validates a manifest only against itself.
-   `tests/test_declared_tool_handler_join.py` checks this across the whole
+   `tests/agent/composition/test_declared_tool_handler_join.py` checks this across the whole
    catalog. For `ManipulationToolRuntime` the dispatch table is `invoke`
    in `agent/tools/runtime/core.py`; the handler itself goes in the mixin
    module of its tool family (`runtime/observe.py`, `runtime/motion.py` and so
@@ -185,7 +185,7 @@ without a handler resolves and composes normally and then fails on first call:
 `internal_tool_error`. Nothing offline catches that, and the cost lands on a
 live episode.
 
-Run `tests/test_declared_tool_handler_join.py` before the deletion, not after.
+Run `tests/agent/composition/test_declared_tool_handler_join.py` before the deletion, not after.
 It names every profile that would be left advertising the tool. If the set is
 empty the handler is unreachable and may go; if it is not, the choice is to
 stop, or to retire those profiles as a separate and explicitly approved
@@ -208,7 +208,7 @@ tool delivered must reach the policy through a surviving tool first: the
 support height moved to vision localization (`target_support_height_v1`). The
 manifest lists the tool in `exclude_tools`; shared layers need no edit because
 the loader skips an excluded tool's entries.
-`tests/test_closed_skill_surface_contract.py` checks tool help, prompt layers,
+`tests/agent/composition/test_closed_skill_surface_contract.py` checks tool help, prompt layers,
 environment profiles and task contracts for either spelling.
 
 A live manifest changes a tool its frozen base catalog defines by *overriding*
@@ -268,7 +268,7 @@ To edit or add a component:
 2. Name it by path in the manifest.
 3. Run `./scripts/ora lock` and commit `policy.lock` with the change.
    CI fails on a stale lock.
-4. Run `scripts/compare-model-visible <base> HEAD` to see which delivered tool
+4. Run `scripts/dev/compare-model-visible <base> HEAD` to see which delivered tool
    definitions moved.
 
 A shared component is named, not pinned, by every surface that uses it, so
@@ -298,7 +298,7 @@ right shape -- `explicit_motion_v3/robotwin-additional-definitions.json` is
 named by 18 manifests, frozen ones included, and kept its bytes throughout.
 When a sibling surface must reuse the list (the RoboDojo closed-skills surface
 follows the RoboTwin one), compare it entry by entry as
-`tests/test_robodojo_closed_skill_surface_contract.py` does.
+`tests/environments/robodojo/test_robodojo_closed_skill_surface_contract.py` does.
 
 A Dojo layer that *replaces* a whole description erases every shared append
 ordered before it. Re-apply the shared append file under a `robodojo_` slot
@@ -470,7 +470,7 @@ and an edit would change what each of them delivers.
 A Harness behaviour that is not about one backend's identity, embodiment or
 mechanism is declared on all three defaults (RoboTwin, LIBERO-Pro, RoboDojo).
 `ci/backend-parity.json` classifies every capability and tool a default
-declares, and `tests/test_backend_parity.py` (always selected) refuses:
+declares, and `tests/agent/composition/test_backend_parity.py` (always selected) refuses:
 
 - an unclassified name;
 - a `generic` or `generic_needs_backend_code` name missing from a default
@@ -499,7 +499,7 @@ length — is one row of
 names the owner the code enforces: a constant, a profile value by JSON pointer,
 a source literal matched exactly once, or a value derived from those. It also
 lists each sentence that states the number, per surface.
-`tests/test_published_limits.py` composes the current defaults and the
+`tests/agent/composition/test_published_limits.py` composes the current defaults and the
 unregistered successor texts and compares every stated number with its owner
 after unit conversion. A census refuses any digit in a tool's composed text that
 neither a row nor a reviewed informational entry covers
@@ -589,7 +589,7 @@ to catch. The published schema closes all three branches, with each branch's
 `required` set as the intersection of the handler's own variants — a projected
 point behind the camera returns no `pixel_uv` at all. A tightened result schema
 is enforced on live calls, so it has to be exercised against real handler output
-before it ships rather than asserted: `tests/test_geometry_query_publication.py`
+before it ships rather than asserted: `tests/agent/tools/test_geometry_query_publication.py`
 drives all three operations and both per-entry variants through `_geometry`.
 
 ## A tool name is prompt vocabulary

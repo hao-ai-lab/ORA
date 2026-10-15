@@ -5,7 +5,7 @@ only when these signals exist. The reader reads the run's own event log -- the f
 appends its ``tool_error`` events to and the Supervisor its ``motion_receipt``
 and ``reset`` events -- from the current round's ``reset`` on, and keeps the
 entries ``composition/abort_evidence_schema.py`` classifies as infrastructure.
-Nothing the policy says enters the decision. The classes and the EXP11A g012
+Nothing the policy says enters the decision. The classes and the recorded
 evidence are documented there.
 """
 from __future__ import annotations

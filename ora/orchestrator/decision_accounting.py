@@ -3,7 +3,7 @@
 The policy is told that the allowance counts accepted world mutations. Until
 this module, the Coordinator charged every dispatched proposal, so a planner or
 route refusal that executed nothing and left the world unchanged still cost one
-decision: the EXP11A g003 RoboDojo batch recorded 113 ``planner_failed`` and
+decision: one recorded RoboDojo batch had 113 ``planner_failed`` and
 five ``plan_rejected`` receipts, each with ``state_changed: false`` and zero
 native actions, and each one was charged.
 

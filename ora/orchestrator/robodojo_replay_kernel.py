@@ -34,7 +34,7 @@ _SESSION_ONLY = "referenced only by session construction; the executor code itse
 #: Worker-kernel modules a control replay imports but does not run: path ->
 #: (reached top-level names, reason). ``session``, ``bridge``,
 #: ``round_lifecycle``, ``feedback`` and ``observation`` reference nothing else
-#: in them on the replay path (``tests/test_robodojo_motion_replay.py`` scans).
+#: in them on the replay path (``tests/environments/robodojo/test_robodojo_motion_replay.py`` scans).
 CONTROL_REPLAY_EXECUTOR_ONLY: Mapping[str, tuple[tuple[str, ...], str]] = {
     f"{_BACKEND}/sparse_motion.py": (
         ("FREE_SPACE_CLEARANCE_M", "LOCAL_JOINT_JUMP_LIMIT_RAD", "GLOBAL_JOINT_JUMP_LIMIT_RAD",

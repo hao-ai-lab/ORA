@@ -27,7 +27,7 @@ PROBE_RETRY_BACKOFF_S = 10.0
 # A seed whose expert run gives no result for this long is recorded as
 # rejected (classification oracle_timeout) and the worker resumes at the next
 # seed. On one cluster a few seeds hung for hours in every scan that reached them,
-# which froze their task's contiguous prefix (user ruling 2026-10-02: a seed
+# which froze their task's contiguous prefix (a seed
 # with no result within the bound counts as rejected). The bound only has to
 # separate a hang from a slow seed: with 70 workers per node on the slow
 # remaining tasks, sound seeds took 27-46 min (first seed of a process, start-up

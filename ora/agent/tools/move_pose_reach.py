@@ -12,7 +12,7 @@ about its approach axis is the same jaw, and on the ARX X5 that turn is joint6
 (the arm's last gripper command was open) to an absolute orientation along the
 free-space route is checked in both turns; the requested turn is kept unless
 its joint6 margin is below ``JOINT6_MARGIN_FLOOR_RAD`` or it does not solve,
-and then the reachable turn with more joint6 margin is submitted. EXP11A g008
+and then the reachable turn with more joint6 margin is submitted. A recorded
 stack_bowls round 1: from home the requested orientation solved at joint6
 -2.465 (right) and -3.007 (left), 0.68 and 0.13 rad from the +/-3.14 stop, and
 the next translations at the same orientation needed joint6 +3.09 / +2.53, a
@@ -24,7 +24,7 @@ closed or unknown jaw is never turned.
 solve, the straight interpolation from the measured pose to the target
 (position lerp, orientation slerp) is sampled at fixed fractions with the same
 interaction, and the result reports the farthest fraction reachable without a
-gap from the start. EXP11A g007/g008: a refusal said only ``no_valid_endpoint``
+gap from the start. In recorded runs a refusal said only ``no_valid_endpoint``
 and "not proof that the target is unreachable"; the policy shortened steps that
 the arm, at full extension, could not take at all.
 

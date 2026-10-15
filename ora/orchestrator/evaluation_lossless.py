@@ -68,7 +68,7 @@ class _ProviderInputs:
 
 # A host path is "/home/<name>/" standing as a path, not the same characters
 # inside model prose ("grasp-flag/home/center-release" invalidated a complete
-# EXP12B session, G004-03): the segment may not follow a letter, digit,
+# recorded session): the segment may not follow a letter, digit,
 # underscore, dot or hyphen.
 _HOST_HOME_PATH = re.compile(r"(?<![\w.\-])/home/[\w.\-]+/")
 

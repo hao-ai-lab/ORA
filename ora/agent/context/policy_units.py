@@ -10,7 +10,7 @@ One explicit table names each radian key and the key it becomes. It also
 names the two joint vectors that carry no unit label (``joint_target`` and
 ``stored_joints``, RoboDojo segment and recovery targets); those convert only
 when their value is a numeric vector, because ``joint_target`` is also an
-action-abstraction name. ``tests/test_policy_units.py`` holds the table to
+action-abstraction name. ``tests/agent/context/test_policy_units.py`` holds the table to
 every radian key a producer in ``ora`` can write.
 
 Inputs a policy still types in radians (``RADIAN_INPUT_KEYS``) keep their

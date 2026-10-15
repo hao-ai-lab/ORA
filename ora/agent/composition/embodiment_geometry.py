@@ -19,7 +19,7 @@ from .embodiment import EmbodimentDescriptorError, _exact_keys, _object
 # split, which moved the public adapter into its own modules; the LIBERO session
 # split, which moved the Panda camera, pose, calibration and motion code into
 # its own modules) preserve all robot geometry, axes and the compiled card.
-# ARX v5 (EXP11A g013) changes only the card projection (full_finger_reference_v3:
+# ARX v5 changes only the card projection (full_finger_reference_v3:
 # the two-finger encoder sentence). The LIBERO direct descriptor is the one the
 # default LIBERO surface binds.
 PUBLIC_GEOMETRY_DESCRIPTOR_VERSIONS = {
@@ -179,7 +179,7 @@ def _group_identical(items, render, *, grouped: bool):
 
 _AXIS_NAMES = {(1, 0, 0): "X", (0, 1, 0): "Y", (0, 0, 1): "Z"}
 #: ``full_finger_reference_v3`` is v2 plus the two-finger encoder sentence
-#: (ARX descriptor v5, EXP11A g013); both name one controlled point.
+#: (ARX descriptor v5); both name one controlled point.
 _ONE_NAME_PROJECTIONS = frozenset({"full_finger_reference_v2", "full_finger_reference_v3"})
 
 
@@ -243,7 +243,7 @@ def _render_gripper(gripper: Mapping[str, Any], lines: list[str], *,
         else:
             lines.append(f"Nominal inner pad region: local approach {pad_x[0]*1000:g}\u2013{pad_x[1]*1000:g} mm, local lateral {pad_z[0]*1000:g}\u2013{pad_z[1]*1000:g} mm; reference contact center {parameters['contact_center_distance_m']*1000:g} mm along approach. This source geometry is not a calibrated physical contact point.")
         if geometry.get("card_projection") == "full_finger_reference_v3":
-            # E11G12-001: the backend publishes both fingers' mean, and the
+            # The backend publishes both fingers' mean, and the
             # pair can shift to one side under load.
             lines.append(f"Nominal full-open pad separation is {parameters['nominal_maximum_aperture_m']*1000:g} mm. Physical pad aperture remains uncalibrated. The public encoder reading is the mean of both finger joints on the normalized command scale (empty-close reference about {parameters['empty_close_encoder_reference']:.3f}, full-open 1); it is not measured pad separation, and a pair shifted to one side is no evidence of holding or release. A close directive is not a request for a measured zero, and reaching the encoder floor proves neither contact nor retention.")
             return

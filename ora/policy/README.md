@@ -40,7 +40,7 @@ to v1-v9 is refused, and a recorded run bound to one is evaluated at its source
 commit. The current control profile additionally carries a
 `source_binding` that content-addresses the vendored RoboTwin planner chain
 (`environment/backends/robotwin/vendored/`), so a planner or installer change
-requires refreshing that binding through `./scripts/refresh-vendored-pins`.
+requires refreshing that binding through `./scripts/dev/refresh-vendored-pins`.
 
 Embodiment descriptors name the repository-local Runtime sources behind each
 fact by path only (`local_path`, no `revision` or `sha256`); the RunPlan's
@@ -80,7 +80,7 @@ To edit an asset:
    when it does.
 3. Run `./scripts/ora lock` and commit `policy.lock` in the same
    commit. CI runs `lock --check`.
-4. Run `scripts/compare-model-visible <base> HEAD` to see what the model now
+4. Run `scripts/dev/compare-model-visible <base> HEAD` to see what the model now
    receives.
 
 `./scripts/ora lock --strip-pins` rewrites any composable asset that
@@ -174,7 +174,7 @@ enforces this contract before composition. See
 `tool_surfaces/published_limits_v1/` is not a surface of its own.
 `limits.json` is the one table that maps every enforced number in
 policy-visible tool help to the owner the code enforces;
-`tests/test_published_limits.py` reads it. Each `*-review.json` is the
+`tests/agent/composition/test_published_limits.py` reads it. Each `*-review.json` is the
 wording review of one default surface: its base profile, its exact sentence
 edits with their Chinese reference renderings, and the tools whose refusal
 sentence a binder owns (`finish_episode`). The `*-help.json` and

@@ -28,7 +28,7 @@ from ora.agent.tools.tool_errors import blank_text_refusal, schema_refusal
 
 #: The rules the handler has always enforced -- one ``message`` string of at
 #: least one character and nothing else -- written as the schema most surfaces
-#: declare (EXP11B census E7). Checked on every surface, so a refusal
+#: declare. Checked on every surface, so a refusal
 #: names its field and rule whether or not the surface validated its declared
 #: schema before the handler.
 REPORT_ISSUE_INPUT = {

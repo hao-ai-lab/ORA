@@ -1,6 +1,6 @@
 """Per-round wait accounting: how much of a round's native-action use was waiting.
 
-EXP11A g012 (E11G12-005): with the policy failure exit withheld, 300
+In one recorded RoboDojo batch, with the policy failure exit withheld, 300
 ``wait_ticks`` calls consumed 5,663 of the 13,071 native actions its seven
 cells used (43.3%), and 280 of them came after their round's last non-wait
 proposal, several explicitly to spend the remaining budget. Each round result

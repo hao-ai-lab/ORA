@@ -21,4 +21,4 @@ The context budget must leave room for model output. Settings that alter project
 - Artifact catalog and readers: `ora/agent/memory/artifacts.py`, `artifact_reader.py`.
 - Delivery trace: `ora/agent/evidence/trajectory.py`, `ora/orchestrator/context_manifest.py`.
 
-Use `ora context RUN_SPEC` to inspect the resolved context without launching. `scripts/compare-model-visible BASE CANDIDATE` compares advertised tools, prompt text, embodiment facts, observation projection and settings. A package/schema migration can change identities without changing task behavior; report those changes explicitly rather than calling the raw digests equal.
+Use `ora context RUN_SPEC` to inspect the resolved context without launching. `scripts/dev/compare-model-visible BASE CANDIDATE` compares advertised tools, prompt text, embodiment facts, observation projection and settings. A package/schema migration can change identities without changing task behavior; report those changes explicitly rather than calling the raw digests equal.

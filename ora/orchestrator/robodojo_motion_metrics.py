@@ -1,4 +1,4 @@
-"""Pinned RoboDojo motion-quality metrics (U1 v2 layer L0), host-safe and read-only.
+"""Pinned RoboDojo motion-quality metrics (qualification layer L0), host-safe and read-only.
 
 The checker reads a sealed run's native controller journals (or a control
 replay's journals against the original receipts) and reports every metric as

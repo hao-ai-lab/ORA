@@ -8,7 +8,7 @@ annotation ``move_pose_reach_along_request_v1`` gives ``move_pose`` (shape:
 orientation and never change the jaw's turn, so no jaw-symmetry field is
 added. Runtime half: ``agent/tools/move_pose_reach.primitive_reference``.
 
-EXP11A g009 stack_bowls issued 37 ``move_to`` against 6 ``move_pose``; two
+A recorded stack_bowls run issued 37 ``move_to`` against 6 ``move_pose``; two
 refused lifts in its last round reported only ``planner_failed``.
 """
 from __future__ import annotations

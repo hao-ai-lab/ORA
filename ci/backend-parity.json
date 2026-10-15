@@ -1,6 +1,6 @@
 {
   "schema": "ora.backend-parity.v1",
-  "note": "Backend parity audit of the default surfaces. One row per capability and tool any maintained default declares; the maintained defaults are the default baseline's instances. tests/test_backend_parity.py checks that generic names are on every backend or excepted with a reason, that exceptions expire when the name is declared or the missing hook exists, that backend-specific names stay where they apply, and that a default swap keeps a superset of the default it replaced minus recorded retirements.",
+  "note": "Backend parity audit of the default surfaces. One row per capability and tool any maintained default declares; the maintained defaults are the default baseline's instances. tests/agent/composition/test_backend_parity.py checks that generic names are on every backend or excepted with a reason, that exceptions expire when the name is declared or the missing hook exists, that backend-specific names stay where they apply, and that a default swap keeps a superset of the default it replaced minus recorded retirements.",
   "classes": {
     "generic": "a Harness behaviour that applies on every backend; the agent code is backend-neutral",
     "generic_needs_backend_code": "generic, but a backend may lack the implementation hook; an exception names the hook",

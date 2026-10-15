@@ -1,4 +1,4 @@
-"""Host launcher and report for RoboDojo control replay (U1 v2 layer L0, qualification only).
+"""Host launcher and report for RoboDojo control replay (qualification layer L0 only).
 
 The launcher reads a sealed run's RunPlan, stages per-pass scratch
 (``host_storage.stage_launch``), claims one qualified RoboDojo slot lease,
@@ -50,9 +50,9 @@ WORKER_MODULE = "ora.environment.backends.robodojo.control_replay"
 WORKER_SOURCE = "ora/environment/backends/robodojo/control_replay.py"
 MODES = ("replay", "metrics-after-replay", "determinism")
 PASSES = {"replay": ("pass-a",), "metrics-after-replay": ("pass-a",), "determinism": ("pass-a", "pass-b")}
-#: U1 v2 design, L0 acceptance: the two replays' private object poses agree within 1 mm (to confirm).
+#: Acceptance: the two replays' private object poses agree within 1 mm (to confirm).
 OBJECT_DETERMINISM_BOUND_M = 0.001
-#: The largest g005 run replays in about ten minutes (0.28 s per native action after a 90 s start).
+#: The largest recorded run replays in about ten minutes (0.28 s per native action after a 90 s start).
 DEFAULT_TIMEOUT_S = 7200.0
 DIVERGENCE_FIELDS = ("joint_rad", "finger_m", "gripper", "link6_m", "applied_target", "applied_keys_differ")
 
@@ -138,7 +138,7 @@ def line_divergence(first: Mapping[str, Any], second: Mapping[str, Any]) -> dict
     """Arm joints, finger joints, normalized jaw, link6 position and every applied target.
 
     The normalized jaw is compared only between lines that derive it from the
-    same measurement source (two-finger mean since EXP11A g013); finger joints
+    same measurement source (the two-finger mean in current runs); finger joints
     are compared either way.
     """
     ours, theirs = first["measured"], second["measured"]

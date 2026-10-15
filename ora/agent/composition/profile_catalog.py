@@ -13,12 +13,11 @@ from pathlib import Path
 
 PROFILE_ROOT = Path(__file__).resolve().parents[2] / "policy" / "tool_surfaces"
 PROFILE_CATALOG = {
-    # Integration 0059 unit A0: the default generation of each backend
-    # (direct_v4). Each is its v1 base manifest plus the 0059 units, with the
-    # published-limits layers last.
+    # The default generation of each backend (direct_v4). Each is its v1 base
+    # manifest plus the later capability layers, with the published-limits
+    # layers last.
     "robotwin_toolchain_b2_closed_noservo_v2": PROFILE_ROOT / "toolchain_b2_noservo_v1" / "robotwin_toolchain_b2_closed_noservo_v2-manifest.json",
-    # The LIBERO default since integration 0084: direct_v2 plus the overhead footprint localization
-    # (EXP12B/placement-centre/g001).
+    # The LIBERO default: direct_v2 plus the overhead footprint localization.
     "libero_placement_direct_overhead_v1": PROFILE_ROOT / "explicit_motion_v3" / "libero_placement_direct_overhead_v1-manifest.json",
     "robodojo_placement_closed_skills_v2": PROFILE_ROOT / "robodojo_closed_skills_v1" / "robodojo_placement_closed_skills_v2-manifest.json",
     # The earlier RoboTwin closed-skill surface: the default's predecessor,

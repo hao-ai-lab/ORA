@@ -97,7 +97,7 @@ def _resolve_action_codec(
     if (
         policy["action_codec"] == "motion_action_v3"
         and not resolved_surface.supports("dual_arm_sparse_targets_v1")
-        # EXP08A: the single-arm flat form compiles to the same sparse v3
+        # The single-arm flat form compiles to the same sparse v3
         # action internally (targets.right), so it satisfies the sparse
         # contract without a dual-arm wrapper.
         and not resolved_surface.supports("single_arm_flat_targets_v1")

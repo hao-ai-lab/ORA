@@ -533,7 +533,7 @@ class NativePlanner(NativeActualSnapshotMixin, NativeOperatorMessagesMixin):
         if projector is not None:
             # Environment-specific receipt contracts project through the
             # schema-keyed registry; the shared session keeps no per-backend
-            # branch (EXP08A cross-embodiment parity boundary).
+            # branch (cross-embodiment parity boundary).
             surface = getattr(getattr(self, "tools", None), "surface", None)
             return projector(record, ReceiptProjectionContext(
                 last_action_id=getattr(self, "last_action_id", None),
@@ -1206,7 +1206,7 @@ class NativePlanner(NativeActualSnapshotMixin, NativeOperatorMessagesMixin):
                     "role": "user",
                     "content": [
                         {"type": "text", "text": (
-                            # tool_image_call_labels_v1 (census A4): name the call, so
+                            # tool_image_call_labels_v1: name the call, so
                             # the images of parallel calls are not ambiguous.
                             f"{image_label}: {len(raw_images)} image(s) {returned_by}."
                             if TOOL_IMAGE_CALL_LABELS in COMPOSITION_CONTEXT_CAPABILITIES.get(

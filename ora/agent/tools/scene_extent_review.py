@@ -4,8 +4,8 @@ The global review image draws three projections (TOP X-Y, FRONT X-Z, SIDE Y-Z)
 of the fused public RGB-D cloud, and both the fusion and the panels keep only
 points inside the action workspace (on RoboDojo x +/-0.75, y [-0.65, 0.55],
 z [0.72, 1.40]). Anything below the tabletop or beside the table is not drawn,
-so an empty review says nothing about the rest of the room -- and in EXP11A
-g008 put_bottles_into_dustbin the policy cited "point-cloud reviews show no
+so an empty review says nothing about the rest of the room -- and in a recorded
+put_bottles_into_dustbin run the policy cited "point-cloud reviews show no
 bin" while ``vision_ground`` had ranked a floor-standing dustbin first at
 (-0.81, 0.07, 0.59), visible z 0.39-0.73.
 

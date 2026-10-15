@@ -4,7 +4,7 @@ A backend with an official native-action limit ends the episode when that
 limit is spent, and a Harness physics-step cap below it ends the episode
 sooner. Until this module the policy saw neither: every turn reported robot
 decisions, model calls and wall time, while RoboDojo's binding limit (550 to
-1600 native actions per task, 1000 under the g003 physics cap for a 1600-action
+1600 native actions per task, 1000 under an earlier physics cap for a 1600-action
 task) and the actions already used appeared nowhere, only the per-command
 reservation and each receipt's own count.
 

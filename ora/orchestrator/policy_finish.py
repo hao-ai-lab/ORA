@@ -1,6 +1,6 @@
-"""The policy's finish outcome on the round record (integration 0059 unit F3).
+"""The policy's finish outcome on the round record.
 
-Before this unit nothing downstream read the outcome of ``finish_episode``:
+Before this module nothing downstream read the outcome of ``finish_episode``:
 every lifecycle request -- abort included -- became a policy-lifecycle round
 boundary with the official verdict persisted and a valid behavioural sample.
 On a surface declaring the v2 finish contract (``policy_finish_outcomes_v2``)

@@ -1,4 +1,4 @@
-"""``observed_clearance_reference_v2``: the observed clearance on every jaw model (integration 0059, M4).
+"""``observed_clearance_reference_v2``: the observed clearance on every jaw model.
 
 The result field is ``observed_clearance_schema.PROPERTY``:
 ``compiled_pose.targets.<arm>`` of ``move_pose``, ``move_to``, ``rotate_wrist``

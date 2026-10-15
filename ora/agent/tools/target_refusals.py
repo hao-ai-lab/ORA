@@ -10,7 +10,7 @@
 # quality numbers it had already measured. Both refusals live here so the pair
 # is written once and reads the same from every caller.
 #
-# EXP11B census B3/D1-D3: a ref that cannot be loaded was one code for three
+# A ref that cannot be loaded was one code for three
 # different failures -- a malformed value, a well-formed ref no target carries,
 # and a target store whose index or manifest drifted. The first two are the
 # policy's argument; the third is the Harness's own store and must not blame

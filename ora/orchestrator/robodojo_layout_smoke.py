@@ -14,7 +14,7 @@ moves. The worker's GPU memory is logged after every relaunch.
 
 No terminal sweep, per-layout card or motion sweep, and no task-success claim.
 ``robodojo_layout_revalidation.validate_scheduled_scene`` checks what this
-writes. Maintained copy (integration 0062 U12) of the earlier B2 RoboDojo
+writes. Maintained copy of an earlier RoboDojo
 layout smoke; the checks and the report fields are the same.
 """
 from __future__ import annotations

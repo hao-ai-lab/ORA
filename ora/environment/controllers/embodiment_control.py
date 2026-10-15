@@ -1,6 +1,6 @@
 """Hash-bound execution semantics kept separate from embodiment facts.
 
-Validation model (reworked with the EXP06A takeover):
+Validation model:
 
 - Every profile version's identity comes from the single registry in
   :mod:`ora.environment.controllers.profile_capabilities`.

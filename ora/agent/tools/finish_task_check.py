@@ -12,7 +12,7 @@ every published observation, from the trusted environment boundary:
     can help then, and an abort-evidence or reason refusal would
     send the policy after an outcome that is refused anyway. Retryable --
     ``success`` is admitted at once -- with ``field: outcome``, and the
-    unchanged request is refused again (EXP11B census E4).
+    unchanged request is refused again.
 ``refuse_unconfirmed``
     ``success`` needs check_task true. Retryable while the round is not
     terminal; in the terminal turn after an environment boundary without

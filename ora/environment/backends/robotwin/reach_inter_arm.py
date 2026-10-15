@@ -1,4 +1,4 @@
-"""Other-arm screening for RoboTwin's read-only reach check (integration 0059, M6).
+"""Other-arm screening for RoboTwin's read-only reach check.
 
 RoboTwin admission already screens the other arm: ``planning.validate_inter_arm_clearance``
 refuses a plan whose link spheres (the control profile's ``dual_arm_collision_check``:
@@ -43,7 +43,7 @@ REASONS = {ENDPOINT: INTER_ARM_COLLISION_ENDPOINT}
 IK_MODELS = {ENDPOINT: ROBOTWIN_INTER_ARM_IK_MODELS[ENDPOINT]}
 #: The screened reach check's claim boundary (policy-visible through
 #: ``reach_along_request.claim_boundary``; Chinese reference in
-#: docs/reference/public-interfaces.md, 0059 M6).
+#: docs/reference/public-interfaces.md).
 CLAIM_BOUNDARIES = {
     ENDPOINT: (
         "One damped-least-squares IK descent from the measured joints (or a chained query's earlier "

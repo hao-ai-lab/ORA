@@ -25,7 +25,7 @@ from ora.agent.tools.robot import ToolError
 from ora.agent.tools.runtime_artifacts import _atomic_json, _png_base64
 
 
-# EXP06A closing repair A5: every rejected move_pose argument payload gets
+# Every rejected move_pose argument payload gets
 # these worked examples in the structured error so a format mistake costs one
 # call, not a trial-and-error loop. Kept in one place and asserted against
 # compile_enhanced_move_pose by a regression test so they cannot drift from
@@ -364,7 +364,7 @@ class MovePoseRuntimeMixin:
         # the jaw-closing line. ALOHA's local frame puts approach on +X;
         # the Panda grip site puts approach on +Z (x is the jaw-separation
         # axis) — the semantic axis is a declared embodiment fact, never a
-        # copied letter (EXP08A parity boundary).
+        # copied letter (cross-embodiment parity boundary).
         return self._motion_rotate_primitive_v2(
             arguments, primitive="rotate_wrist",
             axis=(

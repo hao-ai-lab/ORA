@@ -499,7 +499,7 @@ class RoboTwinProbeMixin:
             "artifact": artifact,
             # Session-local only (not part of the hashed reference
             # body): both-arm start joints for the gripper-only
-            # carve-out freshness check (EXP06A closing repair A6).
+            # carve-out freshness check.
             "measured_start_joints_by_arm": {
                 str(key): [float(value) for value in joints]
                 for key, joints in measured.items()

@@ -11,7 +11,7 @@ re-hashes them like the record's own dependencies. Reads repository JSON only; A
 path and schemas are repeated here and a test holds them equal.
 
 A one-round, unscheduled episode on an official layout other than the
-record's own (EXP14A g002) is the second case: the reviewed layout-portability
+record's own is the second case: the reviewed layout-portability
 table (``LAYOUT_PORTABILITY_PATH``) must list the task with this exact record
 and contract-layer hash, and the episode's layout file and bytes among its
 audited layouts. It also says where the episode's instruction comes from:

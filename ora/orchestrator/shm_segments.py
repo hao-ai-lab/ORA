@@ -25,14 +25,14 @@ from pathlib import Path
 from typing import Any
 
 SHM_ROOT = Path("/dev/shm")
-#: Exactly the two carb names observed on the EXP11A host (2026-09-30: 4,705
+#: Exactly the two carb names observed on a RoboDojo host (4,705
 #: segments and 2,353 semaphores). Seven digits bound the PID at
 #: PID_MAX_LIMIT; a longer suffix is never parsed, so a crafted name such as
 #: ``carb-RStringInternals-99999999999`` cannot reach ``os.kill``. ASCII digits
 #: only: ``\d`` would also admit other Unicode digits that ``int`` accepts.
 CARB_SEGMENT = re.compile(r"^(?:sem\.)?carb-RStringInternals-([0-9]{1,7})$")
 #: PID_MAX_LIMIT for 64-bit Linux (include/linux/threads.h: 4 * 1024 * 1024);
-#: /proc/sys/kernel/pid_max reads 4194304 on the EXP11A host.
+#: /proc/sys/kernel/pid_max reads 4194304 on a typical simulator host.
 PID_MAX_LIMIT = 4 * 1024 * 1024
 PID_MAX_PATH = Path("/proc/sys/kernel/pid_max")
 #: Bound the names copied into evidence; counts stay exact.

@@ -1,11 +1,11 @@
 """Motion refusals in the public argument names, with the bounds they enforce.
 
-Three defects of the pose tools' refusals (EXP11B census 1-3):
+Three defects of the pose tools' refusals:
 
 * ``move_pose`` attached ``constraints.examples`` in the nested spelling
   ``{"position": {...}, "orientation": {...}}``. Every surface that publishes
   the flat ``position_mode``/``orientation_mode`` targets refuses that shape, so
-  each refusal taught a request its own schema rejects (17 EXP11A refusals).
+  each refusal taught a request its own schema rejects (17 recorded refusals).
   ``move_pose_examples`` writes them in the bound schema's spelling, through
   ``motion_arguments.arm_target_fields``, and keeps only examples that schema
   admits.

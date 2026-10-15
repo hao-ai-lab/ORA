@@ -212,7 +212,7 @@ def _libero_receipt_reasons(
     if receipt_schema == (
         "ora.libero-sparse-motion-receipt.v1"
     ):
-        # EXP08A sparse motion v3: the envelope embeds the exact
+        # Sparse motion v3: the envelope embeds the exact
         # legacy receipt of the executor that ran, bound by the
         # shared action_id; the embedded evidence is judged under
         # the envelope's actual route.

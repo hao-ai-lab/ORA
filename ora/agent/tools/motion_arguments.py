@@ -23,7 +23,7 @@ siblings::
 
 What the schema can no longer state -- "delta also needs translation_m" -- is a
 structured ``ToolError`` naming the field, never an ``anyOf``. A union anywhere
-in this schema reproduces H6-013 while looking like a schema improvement.
+in this schema reproduces a recorded failure while looking like a schema improvement.
 
 Two nested spellings still read, and both must: the ergonomic
 ``{"position": {...}, "orientation": {...}}`` form that frozen surfaces publish,

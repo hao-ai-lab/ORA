@@ -1,7 +1,7 @@
 """``observe`` argument refusals that name the field, what arrived and what is valid.
 
 ``history_point_ids`` naming a mark that is not solved, and overlays requested
-on a saved step, were refused with a bare sentence (EXP11B census C4): no
+on a saved step, were refused with a bare sentence: no
 field, no received value, and not the marks that could be drawn.
 """
 

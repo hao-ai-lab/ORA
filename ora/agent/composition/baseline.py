@@ -21,7 +21,7 @@ BASELINE_CATALOGS = {
     BASELINE_ID: CATALOG_PATH,
 }
 #: Every catalog carries a LIBERO-Pro and a RoboTwin instance; from direct_v4
-#: (integration 0059 unit A0) the default also carries RoboDojo.
+#: the default also carries RoboDojo.
 REQUIRED_INSTANCES = frozenset({"libero_pro", "robotwin"})
 OPTIONAL_INSTANCES = frozenset({"robodojo"})
 #: Instance runtime fields that name a profile asset by path.

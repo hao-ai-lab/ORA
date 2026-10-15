@@ -1,6 +1,6 @@
 """Per-task RoboDojo physics device: one host-safe owner, no simulator imports.
 
-User decision 2026-10-04: nine RoboDojo scenes resolve IsaacLab ``cpu``
+Nine RoboDojo scenes resolve IsaacLab ``cpu``
 physics by default; every other task keeps ``cuda:0``. ``cpu`` names the
 IsaacLab simulation and tensor device, not pure CPU dynamics: upstream
 ``BaseEnv.setup_physics`` calls ``overwrite_gpu_setting(1)`` on every device,

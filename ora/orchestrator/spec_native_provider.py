@@ -144,7 +144,7 @@ def resolve_native_provider_endpoint(policy: dict[str, Any]) -> None:
     # Both wire protocols send the same X-Session-ID (a non-secret run identity)
     # to a loopback gateway or over HTTPS: a self-hosted DeepSeek router keys
     # replica affinity by it, and without it every episode of a task shared one
-    # replica (EXP12A g003).
+    # replica.
     if session_affinity is not None and endpoint_transport not in {"loopback_http_v1", "https_v1"}:
         raise RunSpecError(
             "provider session affinity is admitted only for a loopback gateway or an HTTPS endpoint"

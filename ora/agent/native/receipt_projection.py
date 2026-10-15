@@ -2,7 +2,7 @@
 
 The shared Native session layer must not grow per-environment branches: a
 backend that introduces a new receipt contract registers a projector here
-instead of editing ``session.py`` (EXP08A cross-embodiment parity boundary).
+instead of editing ``session.py`` (cross-embodiment parity boundary).
 Each projector receives the verified receipt record plus a small context and
 returns the policy-visible minimal action effect. Receipt schemas without a
 registered projector fall back to the shared action-name-based projection
@@ -524,8 +524,7 @@ def _project_unified_sparse_motion(
 ) -> dict[str, Any]:
     """Project a born-unified sparse receipt (LIBERO, RoboDojo) into the envelope.
 
-    These schemas already carry the cross-embodiment fields (EXP08A wiring
-    v1), so the projector emits the envelope directly. The embedded
+    These schemas already carry the cross-embodiment fields, so the projector emits the envelope directly. The embedded
     backend evidence — LIBERO's legacy ``segment``, RoboDojo's per-segment
     IK/journal detail — stays Control-only and never enters the
     policy-visible projection.
@@ -548,7 +547,7 @@ def _project_unified_sparse_motion(
     )
     arms = _public_unified_arms(record.get("arms"))
     if context.supports(PER_ARM_TRANSLATION_CAPABILITY):
-        arms = without_skipped_retract_diagnostics(arms, record)  # E11G7-001
+        arms = without_skipped_retract_diagnostics(arms, record)
     physical_evidence = contact_detail
     if per_arm:
         translations = arm_translations(record)

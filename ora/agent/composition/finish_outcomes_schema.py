@@ -1,6 +1,6 @@
 """The v2 finish contract: success or give_up with a reason; abort on recorded infrastructure.
 
-User decision 2026-10-04 (integration 0059 units F1/F2). Two capabilities,
+Two capabilities,
 declared only by the v2 surface generations:
 
 - ``policy_finish_outcomes_v2`` (F1): ``finish_episode`` accepts exactly

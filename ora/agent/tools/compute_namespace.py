@@ -131,7 +131,7 @@ def _namespace() -> dict[str, Any]:
     # are pure numeric conversions of values the block already holds. abs,
     # max, min and round are the same thing one step further: a policy that
     # writes numeric Python writes them by reflex, and five live refusals
-    # across EXP10A were nothing but their absence. They are deliberately not
+    # in recorded runs were nothing but their absence. They are deliberately not
     # added to RESERVED_NAMES, so a block or binding that already uses one of
     # these words as its own name keeps working.
     return {"__builtins__": {}, "np": _NUMPY, "Rotation": _ROTATION,

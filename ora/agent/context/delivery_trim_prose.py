@@ -9,7 +9,7 @@ states it once and the backends whose v2 surface carries it. The delivered copy
 leaves a value out only when it equals an entry's text exactly, in its written
 or degree-converted form; any other text under those keys stays.
 
-``tests/test_delivery_trim_prose.py`` holds every entry to its producer and to
+``tests/agent/context/test_delivery_trim_prose.py`` holds every entry to its producer and to
 the composed description of each backend's v2 surface. The agent side keeps
 its own copy rather than importing the environment backends that write some of
 these texts.

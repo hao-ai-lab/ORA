@@ -6,7 +6,7 @@ RoboTwin's requirements without its torch/torchvision pins, CuRobo built for
 this GPU's compute capability, SAM3 from ModelScope with the pinned SHA-256
 and the ``setup-robodojo`` stages including ``graphics-compat``. Pins are
 duplicated from their canonical modules so this file imports nothing heavy;
-``tests/test_ora_gpu_setup.py`` keeps them equal.
+``tests/cli/test_ora_gpu_setup.py`` keeps them equal.
 """
 
 from __future__ import annotations

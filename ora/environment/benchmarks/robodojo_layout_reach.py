@@ -3,7 +3,7 @@
 Host-side and read-only, like ``robodojo_layout_catalog``: it reads one pinned
 layout file and the pinned asset metadata that sizes each object in scope,
 imports no simulator and never reaches a policy. A grasp lands on an object's
-extent, not on its centre (g008 stack_bowls layout 51: every grasp candidate
+extent, not on its centre (a recorded stack_bowls run on layout 51: every grasp candidate
 pinched the far rim of a bowl whose centre was reachable), so the
 scheduled-layout scene smoke aims its read-only top-down ``align_plan`` at the
 centre and at ``FOOTPRINT_POINTS`` points around the object's horizontal

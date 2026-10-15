@@ -270,7 +270,7 @@ def _resolve_robotwin_runtime(
 
 
 #: RoboTwin runtime field -> the ToolSurface capability it is derived from
-#: (integration 0059 M6, the reach check's other-arm screen).
+#: (the reach check's other-arm screen).
 REACH_SCREEN_FIELDS = {
     "reach_check_inter_arm_screen": INTER_ARM_SCREEN_CAPABILITY,
 }
@@ -493,7 +493,7 @@ def _persistent_session(
             f"session.cadence must be one of {sorted(SESSION_CADENCES)}"
         )
     rounds = _positive_int(raw_session.get("rounds"), "session.rounds")
-    # A one-round session (K=1, EXP11A g016) keeps the session wrapper,
+    # A one-round session (K=1) keeps the session wrapper,
     # result schema and per-round evidence; the Supervisor never restarts
     # after the last round, so it simply ends after round 0.
     if rounds < 1 or rounds > 32:

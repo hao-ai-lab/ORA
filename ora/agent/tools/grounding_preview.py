@@ -2,8 +2,8 @@
 
 The card was two 480 px panels -- the exact source crop and the same crop with
 the candidate mask tinted -- and so it showed only what the camera's 2-D pixels
-show. A candidate's shape in depth was nowhere in an image: EXP11A g008
-put_bottles_into_dustbin ranked a floor-standing dustbin first in
+show. A candidate's shape in depth was nowhere in an image: a recorded
+put_bottles_into_dustbin run ranked a floor-standing dustbin first in
 ``vision_ground`` (centre (-0.81, 0.07, 0.59), visible z 0.39-0.73) and the
 policy still did not recognise it, because a tall open container seen from
 above is a dark ring in a crop.

@@ -38,7 +38,7 @@ def _grasp_candidate(host: Any, candidate_id: str, observation_id: str) -> dict[
 
     An id ``grasp_plan`` published only as rejected, or kept in its pool but
     not displayed, is refused as such, with the ids that can execute now
-    (EXP11B census D5): "no candidate carries that id" was false for those.
+    "no candidate carries that id" was false for those.
     """
 
     root = Path(host.artifact_root) / "grasp-queries"

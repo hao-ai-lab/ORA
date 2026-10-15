@@ -225,7 +225,7 @@ class LiberoMotionEvidenceMixin:
             if drift:
                 receipt["command_drift"] = drift
         if receipt.get("state_changed"):
-            # A6-parity freshness authority: every executed world write is
+            # Parity freshness authority: every executed world write is
             # logged by public action name so probed plans can survive
             # gripper-only intervals and expire on anything else.
             self.world_mutation_sequence += 1

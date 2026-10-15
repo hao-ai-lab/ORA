@@ -166,8 +166,7 @@ def merge_seed_manifests(paths, *, task_config: str, accepted_target: int = 100,
     classification ``conflicting_outcomes``, and keeps the earliest segment's
     record when segments agree on the outcome but differ in detail. The
     oracle's scene stability is not reproducible run to run on every host, so a
-    seed the expert solved only sometimes is not an evaluation seed (user
-    ruling 2026-10-02). The merged manifest lists those seeds.
+    seed the expert solved only sometimes is not an evaluation seed. The merged manifest lists those seeds.
     """
     if conflicting_outcomes not in {"refuse", "reject"}:
         raise ValueError("conflicting_outcomes must be refuse or reject")

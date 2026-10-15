@@ -36,7 +36,7 @@ def normalize_block(source: Any) -> tuple[Any, str | None]:
     backslash followed by ``n`` where a line break was meant. Outside a string
     literal that pair is never valid Python, so the block was refused as
     "unexpected character after line continuation character" although every
-    statement in it was admissible (four such refusals in the EXP11A g003
+    statement in it was admissible (four such refusals in one recorded
     batch). This reads the pair as a line break only when the block as sent does
     not parse and the rewritten block does. A block that already parses is never
     rewritten, so an escape inside a short string label keeps its meaning; a
@@ -130,7 +130,7 @@ def read_bindings(value: Any) -> dict[str, Any]:
     return bindings
 
 
-#: The published ``from`` bound; longer was silently truncated before EXP11B.
+#: The published ``from`` bound; longer was once silently truncated.
 MAX_ORIGIN_CHARACTERS = 120
 
 

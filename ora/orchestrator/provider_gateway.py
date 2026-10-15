@@ -1,4 +1,4 @@
-"""Preflight binding of a loopback gateway's client variables (integration 0062 U13).
+"""Preflight binding of a loopback gateway's client variables.
 
 ``scripts/ora preflight|launch`` runs this before the shared
 preflight: for a native_api plan whose Provider profile reaches a loopback

@@ -9,7 +9,7 @@ source; and an abort the round's Harness record does not support. Reason and
 category refusals are retryable and name their field. The abort refusal is
 retryable too, without the changed-arguments flag: the record is re-read on
 every call, so the same abort is admitted once the Harness records an
-infrastructure failure in the round (EXP11B census E2). It lists the classes
+infrastructure failure in the round. It lists the classes
 the gate counts (``counted``) and the signals it read. ``record_fields`` adds
 the contract, the abort evidence and the give_up candidate ledger to the
 persisted ``policy-finish.json``; the orchestrator reads that record to carry

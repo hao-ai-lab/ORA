@@ -34,7 +34,7 @@ The run retains plan/reset/source bindings, controller journal and NPZ arrays, c
 ```bash
 TRAJECTORY_OUTPUTS=/absolute/path/to/outputs
 TRAJECTORY_RUN_ID=replace-with-exact-run-id
-./scripts/compile-viewer-videos --outputs-root "$TRAJECTORY_OUTPUTS" \
+./scripts/dev/compile-viewer-videos --outputs-root "$TRAJECTORY_OUTPUTS" \
   --run-id "$TRAJECTORY_RUN_ID" --video-mode execution --replay-mode review
 ./scripts/open-viewer --outputs-root "$TRAJECTORY_OUTPUTS"
 ```
@@ -46,10 +46,10 @@ Derived MP4/timelines/manifests live under `outputs/<experiment>/viewer-derived/
 To add recorded model output/context cards or select a recorded round:
 
 ```bash
-./scripts/compile-viewer-videos --outputs-root "$TRAJECTORY_OUTPUTS" \
+./scripts/dev/compile-viewer-videos --outputs-root "$TRAJECTORY_OUTPUTS" \
   --run-id "$TRAJECTORY_RUN_ID" --video-mode process \
   --include-reasoning --include-context --card-seconds 2.5
-./scripts/compile-viewer-videos --outputs-root "$TRAJECTORY_OUTPUTS" \
+./scripts/dev/compile-viewer-videos --outputs-root "$TRAJECTORY_OUTPUTS" \
   --run-id "$TRAJECTORY_RUN_ID" --video-mode execution --round 1
 ```
 

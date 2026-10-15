@@ -1,6 +1,6 @@
 """Per-round layout identity of a persistent RoboDojo session, evaluation side.
 
-An unscheduled RunPlan (no ``runtime.layout_schedule``; every g003-g007 cell)
+An unscheduled RunPlan (no ``runtime.layout_schedule``, as in earlier recorded runs)
 replays layout 0 in every round: one identity for all rounds, ``reset.v1`` /
 ``round-reset.v1`` / ``official-verdict.v2`` records, an in-place reset whose
 isolation proof includes ``layout_identity_unchanged``, and a PhysX clock that
@@ -15,7 +15,7 @@ layout identity check with the scheduled-layout, relaunch, plant and scene
 checks, and the clock is monotone only within one epoch.
 
 This module is host-side and imports no backend; the worker's names are
-repeated here and ``tests/test_robodojo_layout_schedule.py`` holds them equal.
+repeated here and ``tests/environments/robodojo/test_robodojo_layout_schedule.py`` holds them equal.
 """
 
 from __future__ import annotations

@@ -365,7 +365,7 @@ def bind_capability_contracts(
         descriptors.append(bind_reach_nearest_orientation(results, capabilities, view_config))
     if reach_v2.NEAREST_CAPABILITY in capabilities:
         descriptors.append(reach_v2.bind_reach_nearest_orientation_reference(results, capabilities, view_config))
-    # 0059 M6: after the grasp IK binder, whose reason enum the screen widens.
+    # The inter-arm screen comes after the grasp IK binder, whose reason enum the screen widens.
     if reach_v2.INTER_ARM_SCREEN_CAPABILITY in capabilities:
         descriptors.append(reach_v2.bind_inter_arm_screen(definitions, results, capabilities))
     from . import observed_clearance_v2_schema as clearance_v2

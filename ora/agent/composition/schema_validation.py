@@ -8,7 +8,7 @@ the policy-visible ``invalid_arguments`` envelope.
 Inputs are checked against every keyword in ``VALIDATED_KEYWORDS``, and
 ``lint_input_schema`` refuses at composition any other keyword in an input
 schema, so a constraint the model is shown is a constraint the Runtime checks.
-Results keep the keyword set they were checked against before EXP11B.
+Results keep the keyword set they were checked against before input linting.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ VALIDATED_KEYWORDS = frozenset({
 ANNOTATION_KEYWORDS = frozenset({
     "description", "default", "title", "examples", "$comment", "format", "$schema",
 })
-#: Keywords enforced on Runtime-produced results since before EXP11B. Results
+#: Keywords enforced on Runtime-produced results before input linting. Results
 #: keep that set: enforcing a newly checked keyword on Harness output could turn
 #: a correct live result into an internal fault.
 _RESULT_KEYWORDS = frozenset(VALIDATED_KEYWORDS - {

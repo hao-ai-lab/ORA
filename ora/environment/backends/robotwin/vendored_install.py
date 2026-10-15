@@ -1,6 +1,6 @@
 """Install the harness-vendored RoboTwin planner adapter onto a vanilla checkout.
 
-The reviewed EXP06A planner chain no longer lives as unreviewable commits in an
+The reviewed planner chain no longer lives as unreviewable commits in an
 external RoboTwin repository.  Its two source files are tracked inside
 ``ora/environment/backends/robotwin/vendored/`` (with harness-side
 P0 corrections) and this installer materializes them onto a **vanilla**

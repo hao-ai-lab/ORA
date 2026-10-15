@@ -4,7 +4,7 @@ The Session manifest embeds every Provider call record, and each record embeds
 that call's full Context projection manifest. It is rewritten after every
 Provider response, so serializing it from scratch made the post-response work
 quadratic in the run (155 MB of ``indent=2`` pure-Python encoding per call at
-the end of a 188-call EXP11A session).
+the end of a 188-call recorded session).
 
 :class:`IncrementalManifestText` produces exactly
 ``json.dumps(body, ensure_ascii=False, indent=2, sort_keys=True) + "\\n"`` but
@@ -27,7 +27,7 @@ from typing import Any, Callable, Mapping
 
 INDENT = 2
 SPLICED_LIST_KEYS = ("calls", "usage_events")
-# A g001-sized manifest reaches 155 MB; rewriting it after every call put about
+# A long run's manifest reaches 155 MB; rewriting it after every call put about
 # 14 GB on the shared HDD per run. Snapshots are a crash convenience only.
 SNAPSHOT_MIN_INTERVAL_S = 120.0
 

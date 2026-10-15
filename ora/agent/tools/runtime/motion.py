@@ -48,9 +48,9 @@ class MotionRuntimeMixin:
     def _gripper_atomic_v3(
         self, arguments: Mapping[str, Any], *, directive: str,
     ) -> dict[str, Any]:
-        """Atomic open/close over the shared sparse v3 codec (H3 ruling).
+        """Atomic open/close over the shared sparse v3 codec.
 
-        The atomic verbs return to the EXP01B lineage: one small decision the
+        The atomic verbs return to the original atomic surface: one small decision the
         policy (and a later small student) can learn directly, instead of a
         parameterised set_gripper form. Dual-arm surfaces select one arm per
         call; single-arm surfaces take no arguments.

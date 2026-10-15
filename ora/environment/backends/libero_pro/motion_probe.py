@@ -48,10 +48,10 @@ class LiberoMotionProbeMixin:
     def probe_motion(self, request: Mapping[str, Any]) -> dict[str, Any]:
         """Plan reachability queries without writing the simulated world.
 
-        EXP08A wiring v1: every query plans through the same qualified CuRobo
+        Every query plans through the same qualified CuRobo
         path the executor uses, from one current measured snapshot. Admitted
         plans are stored under an immutable plan_ref that move_pose can
-        execute directly; A6-parity freshness lets a plan survive
+        execute directly; parity freshness lets a plan survive
         gripper-only world writes and expire on anything else. The synthetic
         planner summary carries honest nulls for fields the CuRobo client
         does not report.

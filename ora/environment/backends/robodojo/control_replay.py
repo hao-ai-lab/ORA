@@ -1,6 +1,6 @@
 """Control replay of a sealed RoboDojo run, inside the isolated RoboDojo interpreter.
 
-Qualification only (U1 v2 layer L0, replay contract ``control``). No policy,
+Qualification only (layer L0, replay contract ``control``). No policy,
 Provider or ToolSurface reaches this module, and it never writes inside the
 source run. ``ora.orchestrator.robodojo_motion_replay`` builds the
 worker configuration from the run's own RunPlan and starts this module with the
@@ -68,7 +68,7 @@ OBJECT_POSES_SCHEMA = "ora.robodojo-private-object-poses.v1"
 OBJECT_POSITION_FRAME = "env_relative (assumed = episode_local), unverified"
 REPLAY_CONTRACT = "control"
 ARMS = ("left", "right")
-#: Kit sometimes never returns from close; evidence is already on disk (g004 reset reproduction).
+#: Kit sometimes never returns from close; evidence is already on disk (seen while reproducing a reset).
 CLOSE_TIMEOUT_S = 60.0
 #: The session's own applied-target equality bound (``session._run_native_control``).
 APPLIED_TARGET_ATOL = 1e-6
@@ -155,7 +155,7 @@ def state_divergence(recorded: Mapping[str, Any], replayed: Mapping[str, Any]) -
 
     The normalized jaw reading is compared only where both states derive it
     from the same measurement source: a run recorded before the two-finger
-    reading (EXP11A g013) published the primary finger alone, and the finger
+    reading published the primary finger alone, and the finger
     joints themselves are compared in ``finger_m`` either way.
     """
     return {

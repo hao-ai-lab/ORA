@@ -7,7 +7,7 @@ simulation relaunch per later scheduled layout with its own checks
 (``robodojo_layout_smoke``). No Provider, terminal sweep or behavioral claim;
 exact failures survive in the report.
 
-Maintained copy (integration 0062 U12) of the earlier B2 RoboDojo
+Maintained copy of an earlier RoboDojo
 scene smoke; the plan and report
 keep that smoke's schemas and fields, so ``robodojo_revalidation`` admits them
 unchanged. The runtime is ``robodojo_spec.qualification_runtime``, the one a

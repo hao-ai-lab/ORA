@@ -1,4 +1,4 @@
-"""Pinned RoboDojo motion measures (U1 v2 layer L0): definitions and per-run partial counts.
+"""Pinned RoboDojo motion measures (qualification layer L0): definitions and per-run partial counts.
 
 Each measure turns one ``RunJournal`` into a *partial*: integer ``counts``,
 lists of ``values`` and lists of ``records``. Partials of several runs merge by
@@ -36,7 +36,7 @@ NATIVE_ACTION_S = 1.0 / float(ARX_X5_CONTRACT["control_hz"])
 #: Upstream RoboDojo ee67a146 ``env/robot_manager/robot_config/x5.py:37-45``
 #: (implicit PD actuator, ``velocity_limit_sim`` 5 rad/s).
 X5_JOINT_VELOCITY_LIMIT_RAD_S = 5.0
-#: U1 v2 design, L0: "a joint of the commanded arm reaches 0.95 x 5 rad/s".
+#: Layer L0: "a joint of the commanded arm reaches 0.95 x 5 rad/s".
 SATURATION_FRACTION = 0.95
 SATURATED_JOINT_SPEED_RAD_S = SATURATION_FRACTION * X5_JOINT_VELOCITY_LIMIT_RAD_S
 #: The same limit per native action: 5 rad/s x 40 ms = 0.2 rad per tick.
@@ -44,18 +44,18 @@ SATURATED_TICK_DISPLACEMENT_RAD = SATURATION_FRACTION * X5_JOINT_VELOCITY_LIMIT_
 #: The ``controller_stalled`` rule owned by
 #: ``environment/backends/robodojo/motion_stall.py`` (``STALL_JOINT_STEP_RAD``,
 #: ``STALL_WINDOW_NATIVE_ACTIONS``). Host layers may not import the isolated
-#: simulator backends (``tests/test_harness_wrapper_refactor.py``), so the
-#: values are restated here and ``tests/test_robodojo_motion_metrics.py`` pins
+#: simulator backends (``tests/repository/test_canonical_imports.py``), so the
+#: values are restated here and ``tests/environments/robodojo/test_robodojo_motion_metrics.py`` pins
 #: them equal to the owner's.
 STILL_JOINT_STEP_RAD = 0.005
 STILL_WINDOW_NATIVE_ACTIONS = 3
-#: U1 v2 design, ARX profile ``in_tick_command``: candidate v_cmd 4.0 rad/s.
+#: ARX profile ``in_tick_command``: candidate v_cmd 4.0 rad/s.
 V_CMD_CANDIDATE_RAD_S = 4.0
-#: U1 v2 design, L0 "out of step": joints moving more than 0.05 rad, progress
+#: Layer L0 "out of step": joints moving more than 0.05 rad, progress
 #: spread above 0.3; 0.5 is the bottleneck review's own threshold.
 OUT_OF_STEP_MINIMUM_EXCURSION_RAD = 0.05
 OUT_OF_STEP_SPREADS = (0.3, 0.5)
-#: U1 v2 design, L0 "sag": link6 below min(z start, z goal) - 0.02 m.
+#: Layer L0 "sag": link6 below min(z start, z goal) - 0.02 m.
 SAG_MARGIN_M = 0.02
 #: Pose segments with a receipt goal pose; recovery segments are not transport.
 SAG_SEGMENTS = frozenset({"move", "plan_ref", "precontact"})
@@ -63,7 +63,7 @@ SAG_SEGMENTS = frozenset({"move", "plan_ref", "precontact"})
 POSITION_TOLERANCE_M = float(ARX_X5_CONTRACT["position_tolerance_m"])
 ORIENTATION_TOLERANCE_RAD = float(ARX_X5_CONTRACT["orientation_tolerance_rad"])
 GRIPPER_TOLERANCE = float(ARX_X5_CONTRACT["gripper_tolerance_normalized"])
-#: U1 v2 design, L0 "held then lost": private object-link6 displacement (replay only).
+#: Layer L0 "held then lost": private object-link6 displacement (replay only).
 HELD_OBJECT_DISPLACEMENT_M = 0.02
 #: ``agent/tools/arx_x5_gripper.ARX_X5_GRIPPER_GEOMETRY["contact_baseline_link6_x_m"]``:
 #: the pad-face centre along link6 +x, where a held object sits.
@@ -74,7 +74,7 @@ JAW_CONTACT_CENTRE_LINK6_X_M = 0.1501
 OBJECT_FRAME_SANITY_M = 0.05
 #: Proposed ARX profile ``waypoint_execution.joint_convergence_tolerance_rad`` (candidate).
 TRACKING_TOLERANCE_RAD = 0.03
-#: U1 v2 design, L2 proposed bound on measured over planned peak speed.
+#: Layer L2: proposed bound on measured over planned peak speed.
 PEAK_RATIO_BOUND = 1.3
 POSE_ACTIONS = ("move_pose", "move_free_space")
 TIMEOUT_CODE = "native_action_budget_exhausted"

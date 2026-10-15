@@ -193,7 +193,7 @@ class RoboTwinMotionBackendAdapter:
         ``matches_move_pose_admission`` is false and the claim boundary names it.
 
         When the session's surface asked for the other-arm screen
-        (``reach_inter_arm``, integration 0059 M6), every solved row is then
+        (``reach_inter_arm``), every solved row is then
         screened -- the reached configuration alone -- against the other arm
         held at its measured joints; a blocked row becomes unreachable with
         the screen's reason, no chained query starts from it, and the batch

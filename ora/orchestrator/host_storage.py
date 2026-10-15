@@ -28,7 +28,7 @@ from . import paths, resources, run_scratch, shm_segments
 
 GIB = 1024 ** 3
 
-#: Evidence workspace. EXP11A g005 runs wrote 1.3-5.3 GB each and one cohort
+#: Evidence workspace. Recorded RoboDojo runs wrote 1.3-5.3 GB each and one cohort
 #: 47 GB; 20 GiB holds about four of the largest runs in flight at once.
 DEFAULT_MINIMUM_WORKSPACE_FREE_GIB = 20
 #: TMPDIR filesystem. Harness evidence writers stage beside their targets
@@ -38,8 +38,8 @@ DEFAULT_MINIMUM_WORKSPACE_FREE_GIB = 20
 DEFAULT_MINIMUM_TMP_FREE_GIB = 2
 #: "/", "/var/tmp" and "/tmp". The OptiX cache defaults to
 #: /var/tmp/OptixCache_<user>, else /tmp (optix_host.h text embedded in
-#: omni.hydra.rtx libnrend.so); it measured 21 MB for this user on the EXP11A
-#: host on 2026-09-30. 1 GiB is about fifty times that.
+#: omni.hydra.rtx libnrend.so); it measured 21 MB for one user on a RoboDojo
+#: host. 1 GiB is about fifty times that.
 DEFAULT_MINIMUM_SYSTEM_FREE_GIB = 1
 SYSTEM_PATHS = ("/", "/var/tmp", "/tmp")
 

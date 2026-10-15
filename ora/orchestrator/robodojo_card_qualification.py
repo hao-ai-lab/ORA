@@ -137,7 +137,7 @@ def qualify(
     operator surface is unchanged. Any other caller that owns a RoboDojo
     Runtime supplies it here, because ``load_infrastructure_qualification``
     compares the recorded ``configuration`` against ``configuration_binding``
-    of the Runtime its RunPlan actually carries, field for field: EXP08A's
+    of the Runtime its RunPlan actually carries, field for field: a
     ``robodojo_x5`` cell resolves another device and the source-owned
     ``robodojo_arx_x5_tabletop_v1`` envelope rather than this package's
     +/-1.5 m bounds, so no record produced from this package's configuration

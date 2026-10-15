@@ -11,7 +11,7 @@ that it becomes dead code worth roughly 200 lines; it does not. Six registered
 profiles declare ``batched_mark_overlay_v1`` -- the three
 ``native_atomic_causal`` revisions and three ``openeta_light`` ones -- and
 ``native/session.py`` still routes parallel read-only calls through it, which
-``tests/test_mark_point_batch.py`` demonstrates by driving the whole path
+``tests/agent/perception/test_mark_point_batch.py`` demonstrates by driving the whole path
 through a Native session. Deleting it would have silently changed those
 surfaces from one shared overlay to one image per call.
 """

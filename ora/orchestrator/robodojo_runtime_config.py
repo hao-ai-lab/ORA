@@ -56,7 +56,7 @@ def runtime_configuration(gpu: str, task: str = "arrange_largest_number", layout
     (default 0), resolved by upstream's numeric sort and hashed from the pinned
     Assets; an ordinal the Assets do not hold is refused.
 
-    Default activation (user decision 2026-10-04): ``physics_device`` is the
+    Default activation: ``physics_device`` is the
     task's own (``robodojo_physics.physics_device_for``), ``cpu`` for the
     CPU-physics scenes and ``cuda:0`` otherwise. ``gpu`` stays the one CUDA
     device the worker sees and the Vulkan renderer in both cases.
@@ -111,7 +111,7 @@ def qualification_device_label(gpu: str, physics_device: str) -> str:
 def robodojo_layout_schedule(task: str, rounds: int, *, layout_ids: Sequence[int] | None = None) -> dict[str, Any]:
     """The default per-round layout schedule of a persistent RoboDojo session.
 
-    Default activation (user decision 2026-10-01): every round of a K-round
+    Default activation: every round of a K-round
     session starts on a new reviewed layout. The schedule is the first
     ``rounds`` entries of the task's reviewed pool, or an explicit selection
     inside it, each hashed from the pinned Assets. A task without a reviewed

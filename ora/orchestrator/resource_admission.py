@@ -88,7 +88,7 @@ def _resource_refusal(
     ``resource_class``/``slot_id`` each refuse outright, so no slot is ever
     double-claimed and unprofiled or physical plans stay host-exclusive.
 
-    Everything after that is capacity, not class (operator ruling 2026-09-08:
+    Everything after that is capacity, not class (an operating rule:
     a single GPU must not be reserved for one experiment). A claim on a device
     that no active lease shares keeps its previous admission path exactly —
     the per-slot lease plus preflight's own free-memory floor — and never

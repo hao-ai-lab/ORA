@@ -2,40 +2,44 @@
 
 Start with the changed contract, then run the modules that own it.
 `tests/test-manifest.json` records every module's contract; `tests/README.md`
-describes the modules. This guide explains the current organization.
+describes the area directories (`tests/agent/`, `tests/environments/<backend>/`,
+`tests/orchestrator/`, `tests/cli/`, `tests/viewer/`, `tests/model_services/`,
+`tests/repository/`) and the shared helpers in `tests/support/`. This guide
+explains how to choose and split checks.
 
 ## Choose a check
 
 | Check | Command | Evidence boundary |
 |---|---|---|
-| Single module | `uv run --locked pytest -q tests/test_<name>.py` | The changed contract only |
+| Single module | `uv run --locked pytest -q tests/<area>/test_<name>.py` | The changed contract only |
+| One area | `uv run --locked pytest -q tests/<area>/` | Every module of that area, for example `tests/environments/robodojo/` |
 | Bare suite | `uv run --locked pytest -q` | All deterministic tests |
 
 Inspect CPU, memory, existing jobs and simulator slots before scheduling checks.
 Use available parallel CPU capacity for independent offline cases. Fixture-based
 robot checks do not certify simulator physics or live service readiness.
 
-## Five families split by protected contract
+## Families split by protected contract
 
-| Family | Base contract | Children |
-|---|---|---|
-| `test_control_plane` | Planning, leases, milestone/snapshot gates and sealing | `preflight`, `viewer`, `workspace`, `cli` |
-| `test_runtime_v1` | Lifecycle and session/resource contracts | `state`, `metrics`, `tools`, `libero` |
-| `test_native_harness` | Composition and shared recovery | `anthropic`, `openai`, `sft`, `loop` |
-| `test_lossless_context_runtime` | Recoverable projection | `triggers` |
-| `test_robotwin_motion_v2` | Motion execution | `grasp`, `probe`, `profiles`, `sparse`, `surface` |
+| Family | Area | Base contract | Children |
+|---|---|---|---|
+| `test_control_plane` | `tests/orchestrator/` | Planning, leases, milestone/snapshot gates and sealing | `preflight`, `workspace`; `cli` in `tests/cli/`, `viewer` in `tests/viewer/` |
+| `test_runtime_v1` | `tests/orchestrator/` | Lifecycle and session/resource contracts | `state`, `metrics`, `tools`, `libero` |
+| `test_native_harness` | `tests/agent/native/` | Composition and shared recovery | `anthropic`, `openai`, `sft`, `loop` |
+| `test_lossless_context_runtime` | `tests/agent/context/` | Recoverable projection | `cost`, `triggers` |
+| `test_robotwin_motion_v2` | `tests/environments/robotwin/` | Motion execution | `grasp`, `probe`, `profiles`, `sparse`, `surface` |
 
-Each child has its own manifest contract. Shared fixtures and
-constants retain a single owner in the base module; children explicitly import
-what they use. Existing external helper imports continue to work. Test bodies
-and parametrization come from the current development candidate, including its
-new Provider and Context regressions, rather than from older split files.
+Each child has its own manifest contract. Shared fixtures and constants keep a
+single owner: either the base module, which children import by its package
+path (`from tests.agent.native.test_native_harness import ...`), or a module in
+`tests/support/` when several areas use it. Do not duplicate constants into
+children: an asset update must not leave independent copies of its expected
+hash behind.
 
-For another split, compare the complete test-function/decorator AST set and
-pytest case collection before and after. Exercise cross-module helper consumers
-as well as the moved tests. A collection count alone cannot detect replacement
-of one test by another. Do not duplicate constants into children: an asset update
-must not leave independent copies of its expected hash behind.
+For another split or move, compare the complete test-function/decorator AST set
+and the per-module pytest collection before and after. Exercise cross-module
+helper consumers as well as the moved tests. A collection count alone cannot
+detect replacement of one test by another.
 
 ## Timing and parallel execution
 
@@ -58,7 +62,7 @@ value. Frozen profile hashes and tool inventories are deliberate
 boundaries. Fix a stale probe when its implementation no longer checks the
 contract; fix product code when it violates the existing contract.
 
-`test_module_size_ratchet.py` governs product Python modules, not test-file
+`tests/repository/test_module_size_ratchet.py` governs product Python modules, not test-file
 length. Names and docstrings describe the executable test; the manifest states
 the module contract. Prefer behavior checks over source-layout assertions unless
 the source itself is the artifact under test, such as delivered prompt text.

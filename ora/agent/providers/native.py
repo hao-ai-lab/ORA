@@ -734,7 +734,7 @@ def _decode_stringified_object_arguments(
     only objects are decoded, since guessing is far more likely to corrupt a
     real string than to help.
 
-    The array case is not hypothetical. Measured over three EXP09A pilot cells,
+    The array case is not hypothetical. Measured over three recorded pilot cells,
     the surviving invalid_motion_arguments rejections were dominated by
       {"position_m": "[-0.119, -0.003, 0.975]", ...}
     where the vector, not the enclosing object, is the value left as text.

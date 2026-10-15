@@ -16,7 +16,7 @@
 **ORA turns a language model into a robot policy.** The model reads a robot manual, looks at the cameras and the robot's public state, and works the task through a small set of supervised tools: find objects, plan a grasp, move, open or close the gripper. It never sees the simulator's ground truth, and only the benchmark's own evaluator decides whether the task succeeded.
 
 <p align="center">
-<a href="docs/assets/videos/ora-teaser.mp4"><img src="docs/assets/images/ora-teaser.gif" width="100%" alt="ORA teaser: an open-weight model works LIBERO, RoboTwin and RoboDojo tasks through ORA's tools"/></a>
+<a href="docs/assets/videos/ora-teaser.mp4"><img src="docs/assets/images/ora-teaser.webp" width="100%" alt="ORA teaser: an open-weight model works LIBERO, RoboTwin and RoboDojo tasks through ORA's tools"/></a>
 <br/><sub>Teaser (click for the full video). Open-weight DeepSeek through ORA, zero-shot: no VLA, no robot training, no demonstrations.</sub>
 </p>
 
@@ -95,7 +95,7 @@ Install ORA (https://github.com/hao-ai-lab/ORA) and run one robot task.
 ## Watch and steer runs in the terminal
 
 <p align="center">
-<img src="docs/assets/images/ora-tui.gif" width="100%" alt="ORA's terminal UI replaying a RoboDojo run: the model's words and tool calls on the left, the robot's cameras on the right"/>
+<img src="docs/assets/images/ora-tui.webp" width="100%" alt="ORA's terminal UI replaying a RoboDojo run: the model's words and tool calls on the left, the robot's cameras on the right"/>
 <br/><sub>Replay of a sealed RoboDojo run (stack the blocks by language), motion sped up.</sub>
 </p>
 

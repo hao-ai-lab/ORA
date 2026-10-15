@@ -77,8 +77,8 @@ preview manifest and shows explicit placeholders when images are unavailable.
 Check or build the independently generated seed-0 preview cache with:
 
 ```bash
-./scripts/compile-libero-previews --status
-./scripts/compile-libero-previews  # only on the pinned LIBERO-Pro host
+./scripts/dev/compile-libero-previews --status
+./scripts/dev/compile-libero-previews  # only on the pinned LIBERO-Pro host
 ```
 
 Validate every optional, tracked experiment view without starting the server:
@@ -181,10 +181,10 @@ unrecorded model reasoning.
 Compile an optional version explicitly, using an exact discovered run ID:
 
 ```bash
-./scripts/compile-viewer-videos --run-id RUN_ID --video-mode process
-./scripts/compile-viewer-videos --run-id RUN_ID --video-mode process \
+./scripts/dev/compile-viewer-videos --run-id RUN_ID --video-mode process
+./scripts/dev/compile-viewer-videos --run-id RUN_ID --video-mode process \
   --round 2 --include-reasoning --include-context
-./scripts/compile-viewer-videos --run-id RUN_ID --video-mode execution --round 2
+./scripts/dev/compile-viewer-videos --run-id RUN_ID --video-mode execution --round 2
 ```
 
 `--round` is one-based. Omit it for all recorded rounds; `--run-id` may repeat
@@ -429,10 +429,10 @@ targets. Legacy EE-only traces retain normal planner initialization.
 Compile every current formal run before review with:
 
 ```bash
-./scripts/compile-viewer-videos
+./scripts/dev/compile-viewer-videos
 ```
 
-Use `./scripts/compile-viewer-videos --video-scope libero` to compile only
+Use `./scripts/dev/compile-viewer-videos --video-scope libero` to compile only
 formal LIBERO-Pro runs, or `--video-scope robotwin` to compile locally indexed
 formal, behavioral-attempt and diagnostic RoboTwin runs. Combine any command with
 repeatable `--outputs-root`; use `--replay-mode forensic` only for an explicit
@@ -579,8 +579,8 @@ interpreter for all MuJoCo work. Export `LIBERO_PRO_PYTHON`,
 `LIBERO_PRO_ROOT` and `LIBERO_PRO_DATA_ROOT`, then run:
 
 ```bash
-./scripts/compile-libero-previews
-./scripts/compile-libero-previews --status
+./scripts/dev/compile-libero-previews
+./scripts/dev/compile-libero-previews --status
 ```
 
 The compiler verifies clean exact code/data revisions, exact BDDL languages,

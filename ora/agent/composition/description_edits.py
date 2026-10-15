@@ -14,8 +14,8 @@ Which text the edits apply to is the review's ``edits_apply_to``:
 ``base_profile`` (the default) composes the base surface; ``successor_before_layers``
 composes the registered successor with every layer except the review's own two
 slots. A generated layer replaces whole descriptions, so on a successor that
-appends help of its own (integration 0059 unit A0: ports, IK selection, wait,
-the M6 screen) the layer must be generated from that text and ordered last, or
+appends help of its own (ports, IK selection, wait,
+the inter-arm screen) the layer must be generated from that text and ordered last, or
 it would erase the appends.
 
     uv run --locked python -m ora.agent.composition.description_edits REVIEW [--check]

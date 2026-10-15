@@ -170,7 +170,7 @@ definition.
 Create a draft manifest:
 
 ```bash
-./scripts/audit-prompt-bundle template /tmp/my-robot-bundle.yaml \
+./scripts/dev/audit-prompt-bundle template /tmp/my-robot-bundle.yaml \
   --bundle-id my_robot_native_v1
 ```
 
@@ -181,10 +181,10 @@ environment prompt profile plus ToolSurface. Then run the simulator-free
 preflight:
 
 ```bash
-./scripts/audit-prompt-bundle audit /tmp/my-robot-bundle.yaml
-./scripts/audit-prompt-bundle audit \
+./scripts/dev/audit-prompt-bundle audit /tmp/my-robot-bundle.yaml
+./scripts/dev/audit-prompt-bundle audit \
   ora/policy/prompt_bundles/examples/libero-panda-native-v1.yaml
-./scripts/audit-prompt-bundle audit \
+./scripts/dev/audit-prompt-bundle audit \
   ora/policy/prompt_bundles/examples/robotwin-aloha-native-v1.yaml
 ```
 
@@ -275,7 +275,7 @@ Any future prompt/context change updates, in the same review unit:
 Historical prompt assets and experiment traces are never edited to conform to
 the latest template. A new bundle versions the changed source, binds an exact
 environment/embodiment/ToolSurface tuple, records delivery inventory and hashes,
-and passes `scripts/audit-prompt-bundle` before live qualification.
+and passes `scripts/dev/audit-prompt-bundle` before live qualification.
 
 ## Versioning and experiments
 

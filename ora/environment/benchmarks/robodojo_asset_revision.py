@@ -1,6 +1,6 @@
 """Reviewed task-specific asset selection; host-side, no simulator imports.
 
-2026-10-06: the user authorized the upstream replacement swap_T layouts.
+The upstream replacement swap_T layouts are reviewed and selected here.
 All other Assets blobs are identical. Old task records and installations stay
 intact; only fresh swap_T runs select the successor asset checkout.
 """

@@ -1,12 +1,11 @@
 """Which saved observation a ``step`` argument selects, and how it is refused.
 
 ``observe``, ``vision_segment`` and ``geometry_query`` accept a saved
-policy-state ``step``. Three defects sat in how they read it (EXP11B census
-A3, B7, C2):
+policy-state ``step``. Three defects sat in how they read it:
 
 * a ``step`` equal to the current step took the historical path, so it was
   labelled historical and its overlays and ``history_point_ids`` were refused,
-  although it is the current observation (104 EXP11A calls);
+  although it is the current observation (104 recorded calls);
 * a step outside the saved range was refused with ``stale_observation`` or
   ``artifact_not_found``, codes that do not say the argument was wrong, and
   ``geometry_query`` stated no range at all;

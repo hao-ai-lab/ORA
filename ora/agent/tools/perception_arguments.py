@@ -1,11 +1,11 @@
 """Pixel, rectangle and world-point arguments of the perception tools.
 
 One ``vision_segment`` pixel outside the image refused the whole batch with a
-bare ``invalid_arguments`` (EXP11B census B2). ``geometry_query`` said "region
+bare ``invalid_arguments``. ``geometry_query`` said "region
 is outside source image" also when ``x0 >= x1``, refused a whole point list
 for one pixel without its index, and an extreme ``world_points_m`` overflowed
 while rounding its projection into an ``internal_tool_error`` -- an
-infrastructure code a policy argument could raise (census C5, E1). Each
+infrastructure code a policy argument could raise. Each
 refusal here names the field with its index, what arrived and the bounds.
 """
 

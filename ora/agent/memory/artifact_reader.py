@@ -4,10 +4,10 @@ The two Context readers are added to a surface at runtime and reach no input
 schema validation. Their argument errors were raised as ``ValueError``,
 ``PermissionError`` or ``FileNotFoundError`` and arrived as
 ``internal_tool_error`` -- infrastructure, not retryable -- although a changed
-ref, offset, limit or pointer fixes every one of them (EXP11B census 6, 8),
+ref, offset, limit or pointer fixes every one of them,
 and an infrastructure code a policy argument can raise can unlock abort. A
 ``json_pointer`` of ``""`` returned the whole JSON root with no size bound
-(census A5), where a byte range is bounded by ``ARTIFACT_READ_LIMIT_BYTES``.
+, where a byte range is bounded by ``ARTIFACT_READ_LIMIT_BYTES``.
 
 Here each argument is checked by name before the store is read, then against
 the published schema, a ref the store cannot resolve is refused as the

@@ -8,7 +8,7 @@ layer replaces a tool result with a 2,048-byte prefix and an instruction to
 repeat the call. A batch that trips it is worse than no batch: the model pays
 for the call and gets back the first two marks and a suggestion. Every field
 below is bounded so that eight maximal entries cannot approach the threshold,
-and ``tests/test_mark_point_batch.py`` measures the worst case rather than
+and ``tests/agent/perception/test_mark_point_batch.py`` measures the worst case rather than
 trusting this note.
 
 **Images are evicted one block at a time.** The inline-image window drops
@@ -67,7 +67,7 @@ _ENTRY_ERROR_CODES = frozenset({
     "inconsistent_mark",
     "stale_point",
     # invalid_camera_calibration is not one pixel's problem: the published
-    # calibration is infrastructure and fails the whole call (census C3).
+    # calibration is infrastructure and fails the whole call.
 })
 
 

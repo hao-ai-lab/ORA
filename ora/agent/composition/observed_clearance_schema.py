@@ -9,7 +9,7 @@ reason. The binder is ``observed_clearance_v2_schema``. Runtime half:
 ``agent/tools/observed_clearance.py`` (measurement) and
 ``agent/tools/observed_clearance_runtime.py`` (inputs).
 
-EXP11A g012 (E11G12-004): 31 of 80 stalls drove the fingers or the held object
+In one recorded RoboDojo batch, 31 of 80 stalls drove the fingers or the held object
 into a basket rim or wall; in 30 the commanded end pose itself put them below
 the rim top, and admission checks only self-collision.
 """

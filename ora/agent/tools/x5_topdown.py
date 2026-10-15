@@ -2,7 +2,7 @@
 
 RoboTwin's ALOHA surfaces fuse Contact-GraspNet with a deterministic top-down
 family (``PcaTopDownGraspProposer`` under ``AlohaHybridGraspProposer``). The
-RoboDojo X5 had the learned family only, and EXP11A g003 measured the cost:
+RoboDojo X5 had the learned family only, and a recorded batch measured the cost:
 every object at most 25 mm tall (number pieces, cloth, watch, pen) received
 zero Contact-GraspNet candidates in 8 of 8 calls, while manual top-down closes
 on those objects stalled 58-100% of the time and slipped more often when the
@@ -26,8 +26,8 @@ The X5 geometry is read from ``arx_x5_gripper`` (a pinned embodiment source
 this module deliberately does not edit). Aperture admission stays the nominal
 0.08 m with the ``compiler_admission_not_measured_physical_aperture``
 semantics. The support plane is computed here from public depth; when the
-segmented-localization support fields land (``support_z_m``/``mid_height_z_m``,
-EXP11A g004 contracts unit) this estimate should read them instead.
+segmented-localization support fields land (``support_z_m``/``mid_height_z_m``)
+this estimate should read them instead.
 """
 from __future__ import annotations
 

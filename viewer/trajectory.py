@@ -1907,7 +1907,7 @@ def compile_trajectory_video(
         if pending is not None:
             raise TrajectoryVideoPendingError(
                 f"{root.name}: the {pending} video is not compiled yet; run "
-                "./scripts/compile-viewer-videos outside the web process"
+                "./scripts/dev/compile-viewer-videos outside the web process"
             )
     with _exclusive_replay_lock(output):
         if output.is_file() and manifest.is_file():

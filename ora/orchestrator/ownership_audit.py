@@ -1,11 +1,11 @@
 """Behavioral-ownership audit over one completed run's canonical evidence.
 
-EXP08A requires auditing behavioral ownership in addition to nominal tool
+The Harness requires auditing behavioral ownership in addition to nominal tool
 calls: how many decisions the Language Model made, how many explicit
 robot-semantic Actions it selected, how much work was delegated to the
 planners and the controllers, and where every
 re-observation boundary sat. Until now those counts were derived by hand
-from sealed traces (EXP07/EXP07B); this module rebuilds them
+from sealed traces; this module rebuilds them
 deterministically from the run's append-only evidence.
 
 The report describes selection and delegation. It deliberately makes no

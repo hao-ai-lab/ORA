@@ -2,7 +2,7 @@
 
 A candidate whose committed geometry is unusable is refused as that candidate
 (``field=candidate_id``): another candidate can still succeed, so the refusal
-is retryable and only a changed ``candidate_id`` can (EXP11B census D7).
+is retryable and only a changed ``candidate_id`` can.
 """
 from __future__ import annotations
 import math

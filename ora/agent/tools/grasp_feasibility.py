@@ -14,7 +14,7 @@ CAPABILITY = "grasp_precommit_motion_check_v1"
 #: rolled, so one compiled orientation is one representative of an equivalence
 #: class, not the only way to hold the object. Probing ``exact`` asked whether
 #: that single representative solved and refused the grasp when it did not:
-#: across EXP10A g004/g005 and the clean under-30 arm, 32 refusals each probed
+#: across two recorded RoboTwin batches and a clean under-30 arm, 32 refusals each probed
 #: ``variant_count: 1`` and reported ``admitted_count: 0`` with 3,200
 #: ``solver_unsuccessful`` and zero ``joint_limit`` rejections, while the same
 #: arm in the same scenes reached commanded poses through move_pose 496 times
