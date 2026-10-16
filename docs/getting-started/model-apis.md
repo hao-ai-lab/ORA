@@ -36,6 +36,29 @@ image, tool-call, and continuation capabilities declared by its surface.
 Registration and doctor discovery do not establish those capabilities; live
 preflight checks them.
 
+`ora run` takes `--provider-profile ID` to run a task with another registered
+profile; it checks that profile's key and endpoint instead of DeepSeek's. Two
+open-weight models released on 2026-10-15 are registered through OpenRouter
+(set `OPENROUTER_API_KEY`):
+
+| Profile | Model | Settings (from the model card) |
+|---|---|---|
+| `muse_spark_open_openrouter_high_16k_v1` | Meta Muse Spark Open | reasoning effort `high`; temperature 1.0, top_p 1.0 |
+| `nemotron_35_super_vl_openrouter_thinking_16k_v1` | NVIDIA Nemotron 3.5 Super VL | thinking on; temperature 0.6, top_p 0.95; routed to Together, whose endpoint accepts a forced tool choice |
+
+```bash
+export OPENROUTER_API_KEY=sk-or-...
+./scripts/ora run --env libero --task libero_goal/0 \
+    --provider-profile muse_spark_open_openrouter_high_16k_v1 --confirm-launch
+```
+
+A profile may carry `request_options`, a closed set of request fields added to
+every call: `temperature`, `top_p`, `top_k`, `chat_template_kwargs` (vLLM and
+SGLang chat-template switches such as `enable_thinking` or `reasoning_effort`),
+and OpenRouter's `reasoning` and `provider` objects. To serve a model yourself,
+copy a profile into your own catalog, point it at your endpoint and pass
+`--provider-catalog` to the spec builders.
+
 Read [configuration](../reference/configuration-and-evidence.md) and
 [host setup](../environments/common.md) before a robot launch.
 

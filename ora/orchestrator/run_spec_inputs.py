@@ -26,6 +26,7 @@ PROVIDER_FIELDS = (
     "model", "endpoint", "endpoint_transport", "gateway_client_binding", "model_env", "base_url_env", "api_key_env",
     "proxy_env", "auth_scheme", "reasoning_effort", "context_window_tokens", "max_output_tokens",
     "stream", "supports_images", "output_token_parameter", "tool_strictness", "reasoning_field",
+    "request_options",
 )
 #: Resident services and the tool-client variables that must name the bound endpoint.
 SERVICE_VARIABLES = (("segmentation", "ORA_SEGMENTATION_URL"),

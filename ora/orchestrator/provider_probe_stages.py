@@ -63,10 +63,11 @@ class ProbeOutcome:
 
 
 
-# Marker and image answers share one output budget: low-effort reasoning models
-# (self-hosted DeepSeek) spent all of 256 tokens on reasoning before
-# the one-word image answer.
-PROBE_ANSWER_BUDGET = 1024
+# Every probe answer shares one output budget. Low-effort reasoning models
+# spent all of 256 tokens on reasoning before the one-word image answer, and a
+# high-effort model (Muse Spark Open) reasons ~950 tokens before echoing a
+# continuity marker. A cap only bounds a probe reply; it never shapes policy calls.
+PROBE_ANSWER_BUDGET = 2048
 # A sampled answer can miss without the Provider being unhealthy (a paraphrased
 # marker, an answer that ran into the budget). Those response-level misses re-run
 # the whole suite once on the same credential; HTTP, transport,
@@ -106,6 +107,7 @@ def run_probe_stages(
         output_token_parameter=policy.get("output_token_parameter"),
         tool_strictness=policy.get("tool_strictness"),
         reasoning_field=policy.get("reasoning_field"),
+        request_options=policy.get("request_options"),
         session_affinity_id=(
             f"ora:preflight:{secrets.token_hex(8)}"
             if policy.get("provider_session_affinity")
@@ -297,7 +299,7 @@ def _continuity_tool_request(
             },
         }],
         "tool_choice": "auto",
-        "max_tokens": 512,
+        "max_tokens": PROBE_ANSWER_BUDGET,
         **_stream_fields(policy, request_options),
     }
 
@@ -363,7 +365,7 @@ def _continuity_resume_request(
             },
         ],
         "tools": [],
-        "max_tokens": 512,
+        "max_tokens": PROBE_ANSWER_BUDGET,
         **_stream_fields(policy, request_options),
     }
 

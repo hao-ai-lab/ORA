@@ -14,7 +14,9 @@ from urllib.parse import urlsplit
 
 import yaml
 
-from ora.agent.providers.openai_wire_options import REASONING_FIELDS, TOOL_STRICTNESS_MODES
+from ora.agent.providers.openai_wire_options import (
+    REASONING_FIELDS, TOOL_STRICTNESS_MODES, validate_request_options,
+)
 from ora.agent.providers.continuation import (
     PROVIDER_CONTINUATION_MESSAGE_KEY,
 )
@@ -88,7 +90,7 @@ def load_provider_profiles(path: Path) -> dict[str, dict[str, Any]]:
             "admission", "auth_scheme", "endpoint_transport",
             "max_inline_images_per_request", "output_token_parameter",
             "session_affinity", "source_url", "tool_strictness", "usage_scope",
-            "reasoning_field", "recovery_window_s", "gateway_client_binding",
+            "reasoning_field", "recovery_window_s", "gateway_client_binding", "request_options",
         }
         unexpected = sorted(set(profile) - required - optional)
         if missing:
@@ -186,6 +188,17 @@ def load_provider_profiles(path: Path) -> dict[str, dict[str, Any]]:
             raise NativeProviderProfileError(
                 f"provider profile {raw_profile_id} has invalid reasoning_field"
             )
+        if profile.get("request_options") is not None:
+            if profile["protocol"] != "openai_compatible":
+                raise NativeProviderProfileError(
+                    f"provider profile {raw_profile_id} names request_options on a non-OpenAI protocol"
+                )
+            try:
+                profile["request_options"] = validate_request_options(profile["request_options"])
+            except ValueError as exc:
+                raise NativeProviderProfileError(
+                    f"provider profile {raw_profile_id} has invalid request_options: {exc}"
+                ) from exc
         recovery_window_s = profile.get("recovery_window_s")
         if recovery_window_s is not None and (
             isinstance(recovery_window_s, bool) or not isinstance(recovery_window_s, (int, float))

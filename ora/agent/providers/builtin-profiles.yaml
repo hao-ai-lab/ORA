@@ -89,3 +89,87 @@ profiles:
     admission: text_tool_qualified
     usage_scope: agent_plan_api
     source_url: https://www.volcengine.com/docs/82379/2373746?lang=zh
+  # ---------------------------------------------------------------------------
+  # Open-weight models released 2026-10-15, served through OpenRouter. They are
+  # explicit comparison arms, not the default: ORA still starts from
+  # deepseek_flash_openai_low_16k_v1. Settings follow each vendor's model card
+  # (read 2026-10-16). Select one with `ora run --provider-profile ID`.
+  # ---------------------------------------------------------------------------
+  # Meta Muse Spark Open (816B / 42B active) through OpenRouter. The chat
+  # template defaults to reasoning_effort xhigh while OpenRouter reports medium
+  # as its default, so the effort is pinned: the card recommends high or xhigh
+  # for agentic work, and high is the agentic tier. Reasoning cannot be turned
+  # off. Sampling is the card's temperature 1.0, top_p 1.0 (top_k disabled).
+  # OpenRouter streams reasoning as `reasoning` and accepts it back on
+  # assistant messages; the Muse template replays every assistant reasoning
+  # it receives. require_parameters keeps OpenRouter from routing to a
+  # provider that would drop a sent parameter; the serving provider is named in
+  # each recorded response. 16,384 output tokens as in Meta's examples (reasoning
+  # and answer share the budget). Card: https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B
+  muse_spark_open_openrouter_high_16k_v1:
+    protocol: openai_compatible
+    endpoint: https://openrouter.ai/api/v1
+    model: meta/muse-spark-open
+    model_env: OPENROUTER_MODEL_ID
+    base_url_env: OPENROUTER_BASE_URL
+    api_key_env: OPENROUTER_API_KEY
+    proxy_env: []
+    reasoning_field: reasoning
+    recovery_window_s: 900
+    reasoning_effort: high
+    request_options:
+      temperature: 1.0
+      top_p: 1.0
+      provider:
+        require_parameters: true
+    context_window_tokens: 1048576
+    max_output_tokens: 16384
+    stream: true
+    supports_images: true
+    qualification_schema: ora.native-provider-probe.v1
+    qualification_version: 1
+    auth_scheme: bearer
+    endpoint_transport: https_v1
+    admission: vision_qualified
+    usage_scope: general_api
+    source_url: https://openrouter.ai/docs/guides/best-practices/reasoning-tokens
+  # NVIDIA Nemotron 3.5 Super VL (120B / 12B active) through OpenRouter, pinned
+  # to Together (NVFP4, the self-hosted checkpoint's precision): Crusoe,
+  # DeepInfra and Venice refuse a forced function tool_choice, which Memory
+  # finalization and round reflection send. Its endpoints take no
+  # reasoning_effort, so the effort is provider_default and thinking is switched
+  # on with OpenRouter's reasoning object. Sampling is the card's vision setting
+  # (temperature 0.6, top_p 0.95): every policy observation carries camera
+  # images. The 262,144-token window is the OpenRouter providers' limit.
+  # Card: https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-NVFP4
+  nemotron_35_super_vl_openrouter_thinking_16k_v1:
+    protocol: openai_compatible
+    endpoint: https://openrouter.ai/api/v1
+    model: nvidia/nemotron-3.5-super-vl
+    model_env: OPENROUTER_MODEL_ID
+    base_url_env: OPENROUTER_BASE_URL
+    api_key_env: OPENROUTER_API_KEY
+    proxy_env: []
+    reasoning_field: reasoning
+    recovery_window_s: 900
+    reasoning_effort: provider_default
+    request_options:
+      temperature: 0.6
+      top_p: 0.95
+      reasoning:
+        enabled: true
+      provider:
+        order: [together]
+        allow_fallbacks: false
+        require_parameters: true
+    context_window_tokens: 262144
+    max_output_tokens: 16384
+    stream: true
+    supports_images: true
+    qualification_schema: ora.native-provider-probe.v1
+    qualification_version: 1
+    auth_scheme: bearer
+    endpoint_transport: https_v1
+    admission: vision_qualified
+    usage_scope: general_api
+    source_url: https://openrouter.ai/docs/guides/best-practices/reasoning-tokens

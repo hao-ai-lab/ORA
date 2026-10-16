@@ -90,7 +90,7 @@ def local_environment(root: Path | None = None, *, environ: Mapping[str, str] | 
     return result
 
 
-def provider_environment(values: Mapping[str, str]) -> dict[str, str]:
+def provider_environment(values: Mapping[str, str], profile: str | None = None) -> dict[str, str]:
     """Default Provider bindings: the profile endpoint and the common key alias.
 
     Preflight's ``provider_marker`` needs the base URL as well as the key; an
@@ -99,24 +99,27 @@ def provider_environment(values: Mapping[str, str]) -> dict[str, str]:
     """
     from .run_spec_inputs import provider_policy
 
-    policy = provider_policy(DEFAULT_LOCAL_ENTRY["provider_profile"])
+    selected = profile or DEFAULT_LOCAL_ENTRY["provider_profile"]
+    policy = provider_policy(selected)
     result: dict[str, str] = {}
     if not values.get(policy["base_url_env"]):
         result[policy["base_url_env"]] = policy["endpoint"]
-    if not values.get("DEEPSEEK_LOW_API_KEY") and values.get("DEEPSEEK_API_KEY"):
+    if (selected == DEFAULT_LOCAL_ENTRY["provider_profile"]
+            and not values.get("DEEPSEEK_LOW_API_KEY") and values.get("DEEPSEEK_API_KEY")):
         result["DEEPSEEK_LOW_API_KEY"] = values["DEEPSEEK_API_KEY"]
     return result
 
 
-def provider_check(values: Mapping[str, str]) -> dict[str, Any]:
+def provider_check(values: Mapping[str, str], profile: str | None = None) -> dict[str, Any]:
     """Launch preflight's offline ``provider_marker`` configuration check on ``values``."""
     from .preflight import provider_marker_configuration
     from .run_spec_inputs import provider_policy
 
-    policy = provider_policy(DEFAULT_LOCAL_ENTRY["provider_profile"])
+    selected = profile or DEFAULT_LOCAL_ENTRY["provider_profile"]
+    policy = provider_policy(selected)
     passed, detail = provider_marker_configuration(policy, values)
     return {"name": "provider_marker_configuration", "passed": passed,
-            "detail": {**detail, "profile": DEFAULT_LOCAL_ENTRY["provider_profile"],
+            "detail": {**detail, "profile": selected,
                        "live_probe": "launch preflight"}}
 
 

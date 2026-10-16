@@ -137,6 +137,7 @@ def build_policy_session(
             output_token_parameter=policy.get("output_token_parameter"),
             tool_strictness=policy.get("tool_strictness"),
             reasoning_field=policy.get("reasoning_field"),
+            request_options=policy.get("request_options"),
             continuation_replay=policy.get(
                 "provider_continuation_replay", "exact_v1",
             ),

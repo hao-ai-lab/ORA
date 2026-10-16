@@ -10,6 +10,7 @@ import pytest
 from ora.orchestrator.preflight import _libero_controller_contract_check, _offscreen_graphics_runtime, _provider_marker, _resident_service_prerequisite, run_preflight
 from ora.environment import graphics_probe
 from ora.environment.backends.libero_pro.session import libero_osc_action_contract
+from ora.orchestrator.provider_probe_stages import PROBE_ANSWER_BUDGET
 from tests.orchestrator.test_control_plane import (
     _graphics_stub,
     _install_fake_services,
@@ -262,7 +263,7 @@ def test_native_preflight_marker_allows_reasoning_before_output(monkeypatch) -> 
         "supports_images": False,
     }}, subprocess.run)
     assert check["passed"] is True
-    assert observed["max_tokens"] == 1024
+    assert observed["max_tokens"] == PROBE_ANSWER_BUDGET
     assert observed["reasoning_effort"] == "high"
     assert observed["stream_options"] == {"include_usage": True}
 
@@ -405,7 +406,7 @@ def test_native_preflight_requires_image_request_for_image_capability(monkeypatc
     assert check["detail"]["image_reasoning_observed"] is True
     assert check["detail"]["image_usage_observed"] is True
     assert len(calls) == 2
-    assert calls[1]["max_tokens"] == 1024
+    assert calls[1]["max_tokens"] == PROBE_ANSWER_BUDGET
 
 
 def test_native_preflight_probe_schema_requires_real_tool_continuity(monkeypatch) -> None:

@@ -166,6 +166,10 @@ Then run one task per environment:
 ./scripts/ora run --env robodojo --task general_pickup --confirm-launch
 ```
 
+Add `--provider-profile ID` to use another registered model, for example
+`muse_spark_open_openrouter_high_16k_v1` with `OPENROUTER_API_KEY` set; see
+[Model APIs](model-apis.md#robot-episodes).
+
 `ora run` does the following, in order, and stops at the first problem with
 the reason:
 

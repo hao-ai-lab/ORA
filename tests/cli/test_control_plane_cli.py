@@ -3,6 +3,7 @@
 from __future__ import annotations
 import fnmatch
 import json
+import re
 import subprocess
 import tomllib
 from pathlib import Path
@@ -20,7 +21,8 @@ def test_shared_provider_registry_is_inspectable_without_credentials(capsys) -> 
     assert "volcengine_agent_plan_glm_5_2_anthropic_v1" in output
     assert "admission=text_tool_qualified" in output
     assert "usage=agent_plan_api" in output
-    assert "ark-" not in output
+    # A Volcengine key starts with "ark-"; "muse-spark-open" is a model name.
+    assert re.search(r"(?<![A-Za-z])ark-", output) is None
 
 
 def test_generic_cli_public_surface_and_reference_are_exact() -> None:

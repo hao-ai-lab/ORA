@@ -33,6 +33,32 @@ def test_environment_binds_env_file_host_marker_and_provider_defaults(tmp_path):
     assert environ["CUROBO_PYTHON"] == GPU_KEYS["CUROBO_PYTHON"]
 
 
+def test_environment_follows_the_selected_provider_profile(tmp_path):
+    env_file = tmp_path / ".env"
+    env_file.write_text("".join(f"{k}={v}\n" for k, v in GPU_KEYS.items()))
+    environ = {"OPENROUTER_API_KEY": "secret-never-printed", "DEEPSEEK_API_KEY": "other"}
+    ora_run.prepare_environment("libero", env_file=env_file, environ=environ,
+                                provider_profile="muse_spark_open_openrouter_high_16k_v1")
+    assert environ["OPENROUTER_BASE_URL"] == "https://openrouter.ai/api/v1"
+    assert "DEEPSEEK_LOW_API_KEY" not in environ  # the DeepSeek alias belongs to the default profile only
+    with pytest.raises(RuntimeError, match="OPENROUTER_API_KEY"):
+        ora_run.prepare_environment("libero", env_file=env_file, environ=dict(GPU_KEYS),
+                                    provider_profile="nemotron_35_super_vl_openrouter_thinking_16k_v1")
+
+
+def test_compose_passes_the_selected_provider_profile_to_the_builder(monkeypatch, tmp_path):
+    from ora.orchestrator import benchmark_spec
+
+    built = {}
+    monkeypatch.setattr(benchmark_spec, "build_libero_spec", lambda suite, task_id, **kwargs: built.update(kwargs) or {})
+    monkeypatch.setattr(benchmark_spec, "compose", lambda spec, **kwargs: tmp_path / "spec.json")
+    args = _args(env="libero", task="libero_goal/0")
+    args.provider_profile = "muse_spark_open_openrouter_high_16k_v1"
+    ora_run.compose(args, services=lambda: tmp_path / "report.json", confirm=lambda message: True,
+                    stream=io.StringIO())
+    assert built["provider_profile"] == "muse_spark_open_openrouter_high_16k_v1"
+
+
 def test_environment_puts_the_prefix_system_libraries_on_the_library_path(tmp_path):
     from ora.orchestrator.ora_gpu_recipes import SYSTEM_LIBRARY_DIR
 
@@ -302,7 +328,7 @@ def test_an_occupied_port_says_how_to_choose_free_ones(monkeypatch, tmp_path):
 def test_main_prepares_then_forwards_to_interactive_with_explicit_authorization(monkeypatch, tmp_path, capsys):
     from ora.orchestrator import ora_cli
 
-    monkeypatch.setattr(ora_run, "prepare_environment", lambda environment, env_file: {})
+    monkeypatch.setattr(ora_run, "prepare_environment", lambda environment, env_file, provider_profile=None: {})
     monkeypatch.setattr(ora_run, "require_clean_checkout", lambda: None)
     monkeypatch.setattr(services, "ensure_services", lambda stream: tmp_path / "report.json")
     monkeypatch.setattr(services, "check_service_ports", lambda: None)
@@ -322,7 +348,7 @@ def test_main_prepares_then_forwards_to_interactive_with_explicit_authorization(
 
 
 def test_main_reports_a_refusal_without_a_traceback(monkeypatch, capsys):
-    def refuse(environment, env_file):
+    def refuse(environment, env_file, provider_profile=None):
         raise RuntimeError("DEEPSEEK_BASE_URL and DEEPSEEK_LOW_API_KEY unset")
 
     monkeypatch.setattr(ora_run, "prepare_environment", refuse)
@@ -442,7 +468,7 @@ def test_mixed_refusal_names_each_case_and_the_ports_remedy_once():
 
 def test_main_checks_ports_before_composing(monkeypatch, tmp_path):
     order = []
-    monkeypatch.setattr(ora_run, "prepare_environment", lambda environment, env_file: {})
+    monkeypatch.setattr(ora_run, "prepare_environment", lambda environment, env_file, provider_profile=None: {})
     monkeypatch.setattr(ora_run, "require_clean_checkout", lambda: None)
 
     def occupied():

@@ -72,6 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--prepare-only", action="store_true",
                         help="stop after composing the RunSpec and print its path")
     parser.add_argument("--env-file", type=Path, default=PROJECT_ROOT / ".env")
+    parser.add_argument("--provider-profile", help="Provider profile from the shared catalog (default: deepseek_flash_openai_low_16k_v1); e.g. muse_spark_open_openrouter_high_16k_v1")
     parser.add_argument("--emit", choices=("jsonl",), help="JSON-lines interactive backend instead of the Pi UI")
     parser.add_argument("--poll", type=float, default=0.2)
     add_world_options(parser)
@@ -79,7 +80,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def prepare_environment(environment: str, *, env_file: Path,
-                        environ: MutableMapping[str, str] | None = None) -> dict[str, Any]:
+                        environ: MutableMapping[str, str] | None = None,
+                        provider_profile: str | None = None) -> dict[str, Any]:
     """Bind ``.env``, the host marker and Provider defaults into ``environ``; refuse missing inputs."""
     from . import ora_env_file
 
@@ -96,8 +98,8 @@ def prepare_environment(environment: str, *, env_file: Path,
         # libGLU / the Vulkan loader ``ora setup`` unpacked without sudo; workers inherit it.
         from .ora_gpu_recipes import add_library_path
         add_library_path(values, Path(values["ORA_GPU_PREFIX"]))
-    values.update(provider_environment(values))
-    check = provider_check(values)
+    values.update(provider_environment(values, provider_profile))
+    check = provider_check(values, provider_profile)
     if not check["passed"]:
         detail = check["detail"]
         raise RuntimeError("Provider configuration is incomplete: set "
@@ -155,7 +157,8 @@ def compose(args: argparse.Namespace, *, services: Callable[[], Path], confirm, 
     from . import ora_run_qualification as qualification
 
     environment = args.environment
-    common = {"experiment": EXPERIMENT, "cohort_id": cohort(environment)}
+    common = {"experiment": EXPERIMENT, "cohort_id": cohort(environment),
+              "provider_profile": getattr(args, "provider_profile", None)}
     if environment == "libero":
         from .benchmark_spec import build_libero_pro_spec, build_libero_spec, compose as write
 
@@ -205,7 +208,7 @@ def main(argv: list[str] | None = None, *, stream=None) -> int:
     args = build_parser().parse_args(values)
     world_explicit = any(value == "--world-port" or value.startswith("--world-port=") for value in values)
     try:
-        prepare_environment(args.environment, env_file=args.env_file)
+        prepare_environment(args.environment, env_file=args.env_file, provider_profile=args.provider_profile)
         from .ora_run_services import check_service_ports, confirm as ask, ensure_services
 
         require_clean_checkout()

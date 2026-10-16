@@ -358,6 +358,11 @@
       "contract": "Incremental agent-session.json text is byte-identical to the reference indent=2 serialization, mid-run snapshots respect the minimum interval and drain before the closed manifest, and the closed manifest uses the reference serializer."
     },
     {
+      "path": "tests/agent/native/test_openai_request_options.py",
+      "disposition": "core",
+      "contract": "request_options (temperature, top_p, top_k, chat_template_kwargs, OpenRouter reasoning/provider) reach the OpenAI-compatible wire only for profiles that name them, the recorded wire equals the body complete sends, a request field is never overwritten, invalid or non-OpenAI options are refused by the provider and the catalog loader, and the comparison profiles carry them into provider_policy. No live provider."
+    },
+    {
       "path": "tests/agent/native/test_openai_tool_strictness.py",
       "contract": "tool_strictness explicit_false states strict false on every function tool of the OpenAI-compatible wire and nothing else, the class projection and unset profiles keep their bytes, the recorded wire equals the body complete sends (including max_completion_tokens), Anthropic refuses the option, the profile field is closed and OpenAI-only, and the Codex gateway profile declares it while the DeepSeek profiles do not. No live provider."
     },

@@ -26,7 +26,7 @@ from ora.agent.contracts import PolicySessionError
 
 from .openai_wire_options import (
     REASONING_FIELDS, TOOL_STRICTNESS_MODES, checkpoint_request_options, nonnegative_count as _number,
-    normalize_usage, profile_bound, project_tool_strictness, project_wire_body,
+    normalize_usage, profile_bound, project_tool_strictness, project_wire_body, validate_request_options,
 )
 from .anthropic_events import AnthropicResponseEvents, accumulate_anthropic_events
 from .stream_failures import http_status_failure, stream_failure_after_content
@@ -224,6 +224,8 @@ class OpenAICompatibleProvider:
     # Profile-owned "strict" statement on function tools (openai_wire_options).
     tool_strictness: str | None = field(default=None, kw_only=True)
     reasoning_field: str = field(default="reasoning_content", kw_only=True)  # vLLM: "reasoning"
+    # Profile-owned sampling / template / routing fields (openai_wire_options).
+    request_options: Mapping[str, Any] | None = field(default=None, kw_only=True)
 
     checkpoint_request_options = staticmethod(checkpoint_request_options)
 
@@ -235,6 +237,10 @@ class OpenAICompatibleProvider:
             raise PolicySessionError("unsupported OpenAI output token parameter")
         if self.tool_strictness not in {None, *TOOL_STRICTNESS_MODES} or self.reasoning_field not in REASONING_FIELDS:
             raise PolicySessionError("unsupported OpenAI tool_strictness or reasoning_field")
+        try:
+            self.request_options = validate_request_options(self.request_options)
+        except ValueError as exc:
+            raise PolicySessionError(f"unsupported OpenAI request_options: {exc}") from exc
         if self.session_affinity_id is not None:
             if not re.fullmatch(r"[A-Za-z0-9:._-]{1,200}", self.session_affinity_id):
                 raise PolicySessionError("invalid provider session-affinity identity")
@@ -352,6 +358,7 @@ class OpenAICompatibleProvider:
     def prepare_request(
         request: Mapping[str, Any], *, output_token_parameter: str = "max_tokens",
         tool_strictness: str | None = None, reasoning_field: str = "reasoning_content",
+        request_options: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Return the exact Chat Completions wire body (a provider's own options when bound)."""
 
@@ -404,7 +411,11 @@ class OpenAICompatibleProvider:
             replayed.append(message)
         body["messages"] = replayed
         project_openai_tool_names(body, openai_tool_names(request))
-        project_wire_body(body, tool_strictness=tool_strictness, reasoning_field=reasoning_field)
+        try:
+            project_wire_body(body, tool_strictness=tool_strictness, reasoning_field=reasoning_field,
+                              request_options=request_options)
+        except ValueError as exc:
+            raise PolicySessionError(str(exc)) from exc
         if output_token_parameter not in {"max_tokens", "max_completion_tokens"}:
             raise PolicySessionError("unsupported OpenAI output token parameter")
         if output_token_parameter == "max_completion_tokens" and "max_tokens" in body:
@@ -1776,6 +1787,7 @@ def build_native_provider(
     output_token_parameter: str | None = None,
     tool_strictness: str | None = None,
     reasoning_field: str | None = None,
+    request_options: Mapping[str, Any] | None = None,
 ) -> OpenAICompatibleProvider | AnthropicMessagesProvider:
     """Construct the explicit RunSpec-selected native provider."""
 
@@ -1801,13 +1813,17 @@ def build_native_provider(
             arguments["tool_strictness"] = tool_strictness
         if reasoning_field is not None:
             arguments["reasoning_field"] = reasoning_field
+        if request_options is not None:
+            arguments["request_options"] = request_options
         if session_affinity_id is not None:
             arguments["session_affinity_id"] = session_affinity_id
         return OpenAICompatibleProvider(**arguments)
     if provider == "anthropic_messages":
-        if output_token_parameter is not None or tool_strictness is not None or reasoning_field is not None:
+        if (output_token_parameter is not None or tool_strictness is not None or reasoning_field is not None
+                or request_options is not None):
             raise PolicySessionError(
-                "output_token_parameter, tool_strictness and reasoning_field apply only to OpenAI-compatible providers"
+                "output_token_parameter, tool_strictness, reasoning_field and request_options "
+                "apply only to OpenAI-compatible providers"
             )
         arguments: dict[str, Any] = {
             "base_url": base_url,

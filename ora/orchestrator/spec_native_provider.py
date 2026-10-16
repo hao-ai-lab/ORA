@@ -15,6 +15,7 @@ import re
 from typing import Any, Mapping
 from urllib.parse import urlsplit
 
+from ora.agent.providers.openai_wire_options import validate_request_options
 from ora.orchestrator.spec_values import RunSpecError
 
 #: The native_api continuation-replay selectors this tree accepts.
@@ -65,6 +66,13 @@ def resolve_native_provider_protocol(
             "native_api policy.reasoning_field must be reasoning_content or reasoning "
             "on an openai_compatible provider"
         )
+    if policy.get("request_options") is not None:
+        if policy["provider"] != "openai_compatible":
+            raise RunSpecError("native_api policy.request_options apply only to an openai_compatible provider")
+        try:
+            policy["request_options"] = validate_request_options(policy["request_options"])
+        except ValueError as exc:
+            raise RunSpecError(f"native_api policy.{exc}") from exc
     continuation_replay = policy.setdefault(
         "provider_continuation_replay", "exact_v1",
     )
